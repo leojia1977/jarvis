@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-B-2026-04-08-003`
-- Stage: `Sprint 3 degraded UX baseline`
+- Snapshot ID: `S3-B-2026-04-08-004`
+- Stage: `Sprint 3 case contract test baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -22,6 +22,7 @@
 - Case view contract and shaping layer now live under `docs/SP3_B1_Case_View_Contract.md` and `backend/app/agents/case_view.py`.
 - Jarvis case embedding now lives under `backend/app/agents/jarvis_hunt_engine.py` and the `case_view.jarvis_plan` mapping.
 - Degraded UX contract now lives under `docs/SP3_B4_Degraded_UX_Contract.md` and the `case_view.executive_summary` / `case_view.analysis_limits` mappings.
+- Case contract tests now freeze summary, Jarvis, evidence refs, and degraded action semantics under `backend/tests/test_case_view.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.

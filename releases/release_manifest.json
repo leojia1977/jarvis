@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-B-2026-04-08-003",
+    "id": "S3-B-2026-04-08-004",
     "sprint": "Sprint 3",
-    "stage": "degraded-ux-baseline",
+    "stage": "case-contract-test-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T18:45:03.622065+08:00"
+    "updated_at": "2026-04-08T19:02:21.221680+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-003.zip",
-    "current_release_sha256": "a08cafd353b518f512be332041ef271328e18a0ca335b42d5c53304d06853671"
+    "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-004.zip",
+    "current_release_sha256": "3693a5aedc344cdd838cdcc760858524c87bce7eeeb19ec60cede01721c23e2c"
   },
   "key_files": [
     {
@@ -140,12 +140,12 @@
     {
       "path": "backend\\tests\\test_secupilot_drafts.py",
       "role": "canonical-regression-tests",
-      "sha256": "d4d844e8db65b90a7b03a1a82e3b1eb92d3035a8966947dc8ac9a85cc5bc2167"
+      "sha256": "7258e4f4285410b214e136944d840278553dc405daedfe55b4cd3cc282e98668"
     },
     {
       "path": "backend\\tests\\test_case_view.py",
       "role": "canonical-case-view-tests",
-      "sha256": "9624f939ce9900499436be0a67e3fb2fb80e9e31d40a86e6f122708551823a54"
+      "sha256": "3e391870a6e6f701400488b13028be172684a616348ada5882028969ba98b5f5"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -165,7 +165,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "4f908a1260525ef94dd22c2a0dbceef259a7163b50d34302dcb6cb0ef27e263d"
+      "sha256": "44b9d67e9ac5466cc0ad0a1c153d72bc538bcad70a28e0ae9e235c152de432c7"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -352,13 +352,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-B-2026-04-08-003",
+      "Snapshot ID: S3-B-2026-04-08-004",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T18:45:03.794364+08:00",
+    "last_verified_at": "2026-04-08T19:02:21.387967+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

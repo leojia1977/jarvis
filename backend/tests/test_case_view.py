@@ -94,6 +94,46 @@ def _base_case():
 
 
 class CaseViewTests(unittest.TestCase):
+    def test_case_view_contract_shape_is_stable(self):
+        case = _base_case()
+        view = build_case_view(case)
+        self.assertEqual(
+            set(view.keys()),
+            {
+                "executive_summary",
+                "what_happened",
+                "why_it_matters",
+                "jarvis_plan",
+                "recommended_action",
+                "evidence_panels",
+                "analysis_limits",
+            },
+        )
+        self.assertEqual(
+            set(view["executive_summary"].keys()),
+            {
+                "verdict",
+                "investigation_status",
+                "risk_score",
+                "confidence_label",
+                "one_liner",
+                "status_banner",
+            },
+        )
+        self.assertEqual(
+            set(view["recommended_action"].keys()),
+            {
+                "available",
+                "action_type",
+                "targets",
+                "blast_summary",
+                "approval_required",
+                "disabled_reason",
+                "action_state",
+                "source",
+            },
+        )
+
     def test_complete_case_has_all_panels(self):
         case = _base_case()
         view = build_case_view(case)
@@ -110,6 +150,7 @@ class CaseViewTests(unittest.TestCase):
         self.assertEqual(len(view["jarvis_plan"]["next_steps"]), 3)
         self.assertTrue(view["jarvis_plan"]["stop_conditions"])
         self.assertEqual(view["jarvis_plan"]["next_suggested"], "复核影响面后提交人工审批")
+        self.assertEqual(view["why_it_matters"]["business_risk"], "HIGH")
 
     def test_case_without_t3_chain_does_not_fail(self):
         case = _base_case()
@@ -132,12 +173,22 @@ class CaseViewTests(unittest.TestCase):
         self.assertTrue(view["analysis_limits"]["degraded"])
         self.assertTrue(view["executive_summary"]["status_banner"]["visible"])
         self.assertEqual(view["executive_summary"]["status_banner"]["title"], "调查已降级")
+        self.assertIn("timeout", view["analysis_limits"]["unavailable_tools"])
+        self.assertIn("timeout", view["analysis_limits"]["unavailable_tools_summary"])
 
     def test_case_without_hunt_plan_returns_null_jarvis_panel(self):
         case = _base_case()
         case["hunt_plan"] = None
         view = build_case_view(case)
         self.assertIsNone(view["jarvis_plan"])
+
+    def test_no_action_but_not_degraded_is_unavailable_not_disabled(self):
+        case = _base_case()
+        case["suggested_action"] = None
+        view = build_case_view(case)
+        self.assertFalse(view["recommended_action"]["available"])
+        self.assertEqual(view["recommended_action"]["action_state"], "UNAVAILABLE")
+        self.assertIsNone(view["recommended_action"]["disabled_reason"])
 
     def test_jarvis_panel_in_degraded_case_points_to_reinvestigation(self):
         case = _base_case()
@@ -164,6 +215,20 @@ class CaseViewTests(unittest.TestCase):
         view = build_case_view(case)
         self.assertFalse(view["executive_summary"]["status_banner"]["visible"])
         self.assertEqual(view["recommended_action"]["action_state"], "AVAILABLE")
+
+    def test_exact_ioc_hits_and_reference_panels_do_not_duplicate_data(self):
+        case = _base_case()
+        view = build_case_view(case)
+        hits = view["why_it_matters"]["ioc_hits"]
+        self.assertEqual(len(hits), 1)
+        self.assertEqual(hits[0]["value"], "185.220.101.45")
+        evidence = view["evidence_panels"]
+        self.assertEqual(evidence["top_chains"]["ref"], "forensic_result.top_chains")
+        self.assertEqual(evidence["top_chains"]["count"], 1)
+        self.assertEqual(evidence["ioc_table"]["ref"], "intel_summary.matches")
+        self.assertIsNone(evidence["ioc_table"]["count"])
+        self.assertEqual(evidence["persistence"]["ref"], "forensic_result.persistence_mechanisms")
+        self.assertEqual(evidence["evidence_gaps"]["ref"], "forensic_result.evidence_gaps")
 
     def test_one_liner_generation_rules(self):
         case = _base_case()

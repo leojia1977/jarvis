@@ -285,6 +285,10 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(case["case_view"]["jarvis_plan"]["hypothesis"], case["hunt_plan"]["hypothesis"])
         self.assertIn("scope", case["case_view"]["jarvis_plan"])
         self.assertIn("stop_conditions", case["case_view"]["jarvis_plan"])
+        self.assertIn("status_banner", case["case_view"]["executive_summary"])
+        self.assertIn("action_state", case["case_view"]["recommended_action"])
+        self.assertIn("missing_telemetry_summary", case["case_view"]["analysis_limits"])
+        self.assertIn("unavailable_tools_summary", case["case_view"]["analysis_limits"])
 
 
 if __name__ == "__main__":
