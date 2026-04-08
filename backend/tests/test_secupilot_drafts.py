@@ -9,6 +9,7 @@ bootstrap()
 import scripts.generate_mock_data as generate_mock_data  # noqa: E402
 from app.tools import threat_intel as threat_intel  # noqa: E402
 from app.agents import graph as graph_orchestrator  # noqa: E402
+from app.tools.siem_adapter import AdapterResult, TimeRangeSpec  # noqa: E402
 
 
 class DummyBlast:
@@ -33,6 +34,55 @@ class DummyBlast:
             alternatives=[],
             error="",
         )
+
+
+class FakeSIEMAdapter:
+    def __init__(self, scenarios, *, intent_status="ok", scenario_status="ok"):
+        self.scenarios = scenarios
+        self.intent_status = intent_status
+        self.scenario_status = scenario_status
+
+    async def query_recent_summary(self, time_range: TimeRangeSpec):
+        alerts = []
+        for scenario in self.scenarios.values():
+            alerts.extend(scenario.get("alerts", []))
+        return AdapterResult.ok({"alerts_considered": len(alerts)})
+
+    async def query_asset_alerts(self, asset_id: str, time_range: TimeRangeSpec):
+        results = []
+        for scenario in self.scenarios.values():
+            for alert in scenario.get("alerts", []):
+                if (
+                    alert.get("destination_asset_id") == asset_id
+                    or alert.get("source_ip") == asset_id
+                    or alert.get("destination_ip") == asset_id
+                ):
+                    results.append(alert)
+        return AdapterResult.ok(results)
+
+    async def query_intent_alerts(self, intent: str, user_input: str, time_range: TimeRangeSpec):
+        if self.intent_status == "timeout":
+            return AdapterResult.timeout([], gap_reason="adapter_timeout")
+        if self.intent_status == "unavailable":
+            return AdapterResult.unavailable([], gap_reason="adapter_unavailable")
+
+        query = (user_input or "").lower()
+        matched_sid = "S-02"
+        if "勒索" in query or "ransom" in query or "c2" in query:
+            matched_sid = "S-04"
+        scenario = self.scenarios.get(matched_sid, {})
+        return AdapterResult.ok(list(scenario.get("alerts", [])), metadata={"scenario_id": matched_sid})
+
+    async def get_scenario_metadata(self, scenario_id: str):
+        if self.scenario_status == "timeout":
+            return AdapterResult.timeout(None, gap_reason="adapter_timeout")
+        return AdapterResult.ok(self.scenarios.get(scenario_id, {}).get("scenario"))
+
+    async def get_asset_context(self, asset_id: str):
+        return AdapterResult.ok(None)
+
+    def get_runtime_stats(self):
+        return {"scenarios_loaded": len(self.scenarios), "assets_loaded": 0}
 
 
 class GenerateMockDataTests(unittest.TestCase):
@@ -88,20 +138,17 @@ class ThreatIntelTests(unittest.TestCase):
 
 class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
-        self.siem = types.SimpleNamespace(
-            _cache={
-                "scenarios": {
-                    "S-02": {
-                        "alerts": [{"event_id": "S-02-001", "severity": "HIGH", "destination_asset_id": "WKST-047"}],
-                        "scenario": {"name": "Lateral Movement", "action": {"type": "NETWORK_ISOLATE"}},
-                    },
-                    "S-04": {
-                        "alerts": [{"event_id": "S-04-001", "severity": "CRITICAL", "destination_asset_id": "HR-PORTAL-01"}],
-                        "scenario": {"name": "Ransomware Precursor", "action": {"type": "EMERGENCY_ISOLATE"}},
-                    },
-                }
-            }
-        )
+        self.scenarios = {
+            "S-02": {
+                "alerts": [{"event_id": "S-02-001", "severity": "HIGH", "destination_asset_id": "WKST-047"}],
+                "scenario": {"name": "Lateral Movement", "action": {"type": "NETWORK_ISOLATE"}},
+            },
+            "S-04": {
+                "alerts": [{"event_id": "S-04-001", "severity": "CRITICAL", "destination_asset_id": "HR-PORTAL-01"}],
+                "scenario": {"name": "Ransomware Precursor", "action": {"type": "EMERGENCY_ISOLATE"}},
+            },
+        }
+        self.siem = FakeSIEMAdapter(self.scenarios)
         self.orchestrator = graph_orchestrator.SaiLouOrchestrator(
             siem=self.siem,
             triage=types.SimpleNamespace(),
@@ -138,11 +185,13 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         )
 
     async def test_gather_alerts_uses_user_input_keywords(self):
-        alerts = await self.orchestrator._gather_alerts(
+        result = await self.orchestrator._gather_alerts(
             intent="threat_hunt",
             user_input="帮我查一下有没有勒索和C2痕迹",
         )
-        self.assertEqual(alerts[0]["event_id"], "S-04-001")
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(result.metadata["scenario_id"], "S-04")
+        self.assertEqual(result.data[0]["event_id"], "S-04-001")
 
     def test_extract_ips_uses_ipaddress_not_prefix(self):
         indicators = self.orchestrator._extract_ips(
@@ -189,6 +238,7 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
             user_input="查横向移动",
             tool_results={
                 "triage": {"status": "complete", "top_risk_score": 8.0, "matched_scenario_id": "S-02"},
+                "_scenario_context": self.scenarios["S-02"]["scenario"],
                 "process_tree": {
                     "status": "complete",
                     "hosts_analyzed": ["WKST-047"],
@@ -212,15 +262,18 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_investigate_includes_hunt_plan(self):
         async def fake_gather_alerts(**kwargs):
-            return [
-                {
-                    "event_id": "S-02-001",
-                    "severity": "HIGH",
-                    "destination_asset_id": "WKST-047",
-                    "source_ip": "10.1.1.5",
-                    "extra": {"query_domain": "data.evil-c2.example.com"},
-                }
-            ]
+            return AdapterResult.ok(
+                [
+                    {
+                        "event_id": "S-02-001",
+                        "severity": "HIGH",
+                        "destination_asset_id": "WKST-047",
+                        "source_ip": "10.1.1.5",
+                        "extra": {"query_domain": "data.evil-c2.example.com"},
+                    }
+                ],
+                metadata={"scenario_id": "S-02"},
+            )
 
         async def fake_run_triage(alerts):
             return {
@@ -289,6 +342,38 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("action_state", case["case_view"]["recommended_action"])
         self.assertIn("missing_telemetry_summary", case["case_view"]["analysis_limits"])
         self.assertIn("unavailable_tools_summary", case["case_view"]["analysis_limits"])
+
+    async def test_siem_timeout_maps_to_degraded_not_error(self):
+        timed_out = graph_orchestrator.SaiLouOrchestrator(
+            siem=FakeSIEMAdapter(self.scenarios, intent_status="timeout"),
+            triage=types.SimpleNamespace(),
+            intel=types.SimpleNamespace(),
+            blast=DummyBlast(),
+            process_events_cache={},
+        )
+
+        async def fake_run_triage(alerts):
+            return {
+                "status": "complete",
+                "top_risk_score": 4.2,
+                "matched_scenario_id": None,
+                "top_alerts": [],
+                "total_scanned": 0,
+                "noise_archived": 0,
+                "compression_ratio": 0.0,
+            }
+
+        timed_out._run_triage = fake_run_triage
+
+        case = await timed_out.investigate(
+            intent="summarize_recent",
+            user_input="帮我总结最近态势",
+            timeout=2.0,
+        )
+        self.assertEqual(case["verdict_status"], "DEGRADED")
+        self.assertEqual(case["investigation_status"], "DEGRADED")
+        self.assertIn("siem_adapter_timeout", case["audit_trail"]["degraded_reasons"])
+        self.assertNotEqual(case["case_id"], "ERROR")
 
 
 if __name__ == "__main__":

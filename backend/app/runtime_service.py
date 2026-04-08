@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from app.config import Settings, settings
 from app.agents.graph import InvestigationPipeline
-from app.tools.siem_adapter import MockSIEMAdapter
+from app.tools.siem_adapter import MockSIEMAdapter, ProductionSIEMAdapter, SIEMAdapterProtocol
 
 
 SUPPORTED_INTENTS = {
@@ -35,7 +35,7 @@ def infer_intent(user_input: str, requested: Optional[str] = None) -> str:
 @dataclass
 class RuntimeContext:
     pipeline: Optional[InvestigationPipeline]
-    siem: Optional[MockSIEMAdapter]
+    siem: Optional[SIEMAdapterProtocol]
     mode: str
     ready: bool
     reasons: list[str]
@@ -50,12 +50,13 @@ class SecuPilotRuntimeService:
     def _build_context(self) -> RuntimeContext:
         mode = (self.settings.runtime_mode or "mock").lower()
         reasons: list[str] = []
+        siem = self._build_siem_adapter(mode)
 
         if mode != "mock":
             reasons.append("production_adapter_not_implemented")
             return RuntimeContext(
                 pipeline=None,
-                siem=None,
+                siem=siem,
                 mode=mode,
                 ready=False,
                 reasons=reasons,
@@ -73,7 +74,6 @@ class SecuPilotRuntimeService:
             )
 
         try:
-            siem = MockSIEMAdapter(mock_root)
             pipeline = InvestigationPipeline(siem)
         except Exception as exc:
             reasons.append(f"bootstrap_failed:{exc}")
@@ -93,6 +93,11 @@ class SecuPilotRuntimeService:
             reasons=[],
         )
 
+    def _build_siem_adapter(self, mode: str) -> SIEMAdapterProtocol:
+        if mode == "production":
+            return ProductionSIEMAdapter(self.settings)
+        return MockSIEMAdapter(self.settings.get_mock_data_dir())
+
     def health(self) -> dict[str, Any]:
         return {
             "status": "healthy" if self._context.pipeline else "degraded",
@@ -107,7 +112,8 @@ class SecuPilotRuntimeService:
         scenarios = 0
         process_hosts = 0
         if self._context.siem:
-            scenarios = len(self._context.siem._cache.get("scenarios", {}))
+            stats = self._context.siem.get_runtime_stats()
+            scenarios = stats.get("scenarios_loaded", 0)
         if self._context.pipeline:
             process_hosts = len(self._context.pipeline.orchestrator._process_events)
 

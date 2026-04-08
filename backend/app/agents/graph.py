@@ -17,7 +17,6 @@ import asyncio
 import copy
 import ipaddress
 from typing import TypedDict, Optional
-from dataclasses import dataclass, field
 
 try:
     import structlog
@@ -30,9 +29,14 @@ from app.tools.triage_engine import RealTriageEngine
 from app.tools.threat_intel import RealThreatIntelEngine
 from app.tools.blast_radius import RealBlastRadiusEngine
 from app.tools.process_tree_t3 import ProcessTreeCompiler
-from app.tools.siem_adapter import MockSIEMAdapter
+from app.tools.siem_adapter import (
+    AdapterResult,
+    SIEMAdapterProtocol,
+    TimeRangeSpec,
+)
 from app.agents.jarvis_hunt_engine import JarvisHuntEngine
 from app.agents.case_view import build_case_view
+from app.config import settings
 
 
 # ============================================================
@@ -99,6 +103,11 @@ def _is_internal_ip(value: str) -> bool:
     except ValueError:
         return False
 
+
+def _append_unique(values: list[str], value: Optional[str]) -> None:
+    if value and value not in values:
+        values.append(value)
+
 def plan_investigation(intent: str, user_input: str,
                        target_asset_id: str = None,
                        target_ip: str = None,
@@ -159,7 +168,7 @@ class SaiLouOrchestrator:
     3. 汇总结论为 AgenticThreatCase V3
     """
 
-    def __init__(self, siem: MockSIEMAdapter,
+    def __init__(self, siem: SIEMAdapterProtocol,
                  triage: RealTriageEngine,
                  intel: RealThreatIntelEngine,
                  blast: RealBlastRadiusEngine,
@@ -192,16 +201,36 @@ class SaiLouOrchestrator:
         tools_used = []
         tool_results = {}
         hunt_plan = None
+        degraded_reasons: list[str] = []
+        time_spec = TimeRangeSpec.from_value(time_range, settings.business_timezone)
 
         try:
             # ---- Step 1: 收集原始告警 ----
-            raw_alerts = await self._gather_alerts(
+            siem_alerts = await self._gather_alerts(
                 intent=intent,
                 user_input=user_input,
                 asset_id=target_asset_id,
                 ip=target_ip,
-                time_range=time_range,
+                time_range=time_spec,
             )
+            raw_alerts = siem_alerts.data or []
+            tool_results["siem_adapter"] = {
+                "status": siem_alerts.status,
+                "latency_ms": round(siem_alerts.latency_ms, 2),
+                "gap_reason": siem_alerts.gap_reason,
+                "result_count": len(raw_alerts),
+                "time_range": {
+                    "start_utc": time_spec.start_utc.isoformat(),
+                    "end_utc": time_spec.end_utc.isoformat(),
+                    "tz_label": time_spec.tz_label,
+                },
+            }
+            if siem_alerts.status != "ok":
+                _append_unique(degraded_reasons, f"siem_adapter_{siem_alerts.status}")
+            if siem_alerts.gap_reason:
+                _append_unique(degraded_reasons, f"siem_adapter_{siem_alerts.gap_reason}")
+            if siem_alerts.metadata.get("scenario_id"):
+                tool_results["_siem_scenario_id"] = siem_alerts.metadata["scenario_id"]
 
             # ---- Step 2: 制定调查计划 ----
             plan = plan_investigation(
@@ -234,7 +263,6 @@ class SaiLouOrchestrator:
 
             # ---- Step 3: 并行执行工具链（带超时保护）----
             tasks = {}
-            degraded_reasons = []
 
             if "triage" in plan:
                 tasks["triage"] = self._run_triage(raw_alerts)
@@ -271,7 +299,7 @@ class SaiLouOrchestrator:
                         if isinstance(result, Exception):
                             logger.error("Tool failed", tool=name, error=str(result))
                             tool_results[name] = {"status": "error", "detail": str(result)}
-                            degraded_reasons.append(f"{name}_failed")
+                            _append_unique(degraded_reasons, f"{name}_failed")
                         else:
                             tool_results[name] = result
                             tools_used.append(name)
@@ -279,7 +307,21 @@ class SaiLouOrchestrator:
                 except asyncio.TimeoutError:
                     logger.warning("Tool execution timeout")
                     tool_results["_timeout"] = True
-                    degraded_reasons.append("tool_timeout")
+                    _append_unique(degraded_reasons, "tool_timeout")
+
+            # ---- Step 3.25: 拉取场景元数据，避免编排器直接依赖 adapter 内部缓存 ----
+            scenario_id = (
+                tool_results.get("triage", {}).get("matched_scenario_id")
+                or tool_results.get("_siem_scenario_id")
+            )
+            if scenario_id:
+                scenario_meta = await self.siem.get_scenario_metadata(scenario_id)
+                tool_results["_scenario_context"] = scenario_meta.data or {}
+                tool_results["_scenario_context_status"] = scenario_meta.status
+                if scenario_meta.status != "ok":
+                    _append_unique(degraded_reasons, f"siem_adapter_{scenario_meta.status}")
+                if scenario_meta.gap_reason:
+                    _append_unique(degraded_reasons, f"siem_adapter_{scenario_meta.gap_reason}")
 
             tool_results["_errors"] = degraded_reasons
             tool_results["_planned_tools"] = plan
@@ -613,57 +655,30 @@ class SaiLouOrchestrator:
     # 辅助函数
     # ============================================================
 
-    async def _gather_alerts(self, intent: str, user_input: str = "",
-                             asset_id: str = None, ip: str = None,
-                             time_range: str = "24h") -> list:
-        """从 SIEM 收集原始告警"""
-        all_scenarios = self.siem._cache.get("scenarios", {})
+    async def _gather_alerts(
+        self,
+        intent: str,
+        user_input: str = "",
+        asset_id: str = None,
+        ip: str = None,
+        time_range: TimeRangeSpec | str = "24h",
+    ) -> AdapterResult[list]:
+        """从 SIEM 收集原始告警，始终通过 adapter contract 访问。"""
+        spec = TimeRangeSpec.from_value(time_range, settings.business_timezone)
 
-        if intent == "summarize_recent":
-            all_alerts = []
-            for _, sdata in all_scenarios.items():
-                all_alerts.extend(copy.deepcopy(sdata.get("alerts", [])))
-            return all_alerts
-
-        elif intent == "asset_query" and (asset_id or ip):
+        if intent == "asset_query" and (asset_id or ip):
             target = asset_id or ip
-            results = []
-            for _, sdata in all_scenarios.items():
-                for alert in sdata.get("alerts", []):
-                    if (alert.get("destination_asset_id") == target or
-                        alert.get("source_ip") == target or
-                        alert.get("destination_ip") == target):
-                        results.append(copy.deepcopy(alert))
-            return results
+            result = await self.siem.query_asset_alerts(target, spec)
+        else:
+            result = await self.siem.query_intent_alerts(intent, user_input, spec)
 
-        elif intent in ("threat_hunt", "data_exfil_check"):
-            query = (user_input or "").lower()
-            scenario_map = {
-                "横向": "S-02", "lateral": "S-02", "移动": "S-02",
-                "外泄": "S-03", "exfil": "S-03", "流量": "S-03",
-                "勒索": "S-04", "ransom": "S-04", "c2": "S-04",
-                "内部": "S-05", "insider": "S-05", "ceo": "S-05",
-            }
-            matched_sid = None
-            for kw, sid in scenario_map.items():
-                if kw in query:
-                    matched_sid = sid
-                    break
-
-            if not matched_sid:
-                if intent == "data_exfil_check":
-                    matched_sid = "S-03"
-                else:
-                    matched_sid = "S-02"
-
-            scenario = all_scenarios.get(matched_sid, {})
-            return copy.deepcopy(scenario.get("alerts", []))
-
-        # 兜底：返回所有场景告警
-        all_alerts = []
-        for _, sdata in all_scenarios.items():
-            all_alerts.extend(copy.deepcopy(sdata.get("alerts", [])))
-        return all_alerts
+        return AdapterResult(
+            status=result.status,
+            data=copy.deepcopy(result.data or []),
+            latency_ms=result.latency_ms,
+            gap_reason=result.gap_reason,
+            metadata=dict(result.metadata or {}),
+        )
 
     @staticmethod
     def _extract_ips(alerts: list, extra_ip: str = None) -> list[str]:
@@ -756,11 +771,9 @@ class SaiLouOrchestrator:
             tr = tool_results.get(tool_name, {})
             status = tr.get("status", "")
             if status in ("error", "failed", "degraded"):
-                if f"{tool_name}_failed" not in degraded_reasons:
-                    degraded_reasons.append(f"{tool_name}_{status}")
+                _append_unique(degraded_reasons, f"{tool_name}_{status}")
             elif status == "no_target":
-                if f"{tool_name}_no_target" not in degraded_reasons:
-                    degraded_reasons.append(f"{tool_name}_no_target")
+                _append_unique(degraded_reasons, f"{tool_name}_no_target")
 
         # blast 在计划中但没完成 → 处置建议不可靠
         blast_planned = "blast_radius" in planned_tools
@@ -826,23 +839,23 @@ class SaiLouOrchestrator:
             s = tool_results.get(tn, {}).get("status", "failed")
             tool_statuses.append(s)
 
-        if all(s == "complete" for s in tool_statuses):
-            investigation_status = "COMPLETE"
-        elif any(s in ("error", "failed", "degraded") for s in tool_statuses) or has_timeout:
+        if is_degraded:
             investigation_status = "DEGRADED"
+        elif all(s == "complete" for s in tool_statuses):
+            investigation_status = "COMPLETE"
         else:
             investigation_status = "PARTIAL"
 
         # ---- 场景信息 ----
-        scenario_id = triage.get("matched_scenario_id")
+        scenario_id = triage.get("matched_scenario_id") or tool_results.get("_siem_scenario_id")
+        scenario_context = tool_results.get("_scenario_context", {}) or {}
         scenario_data = {}
         if scenario_id:
-            s = self.siem._cache.get("scenarios", {}).get(scenario_id, {}).get("scenario", {})
             scenario_data = {
                 "scenario_id": scenario_id,
-                "scenario_name": s.get("name", ""),
-                "kill_chain": s.get("kill_chain", ""),
-                "narrative_arc": s.get("narrative_arc", {}),
+                "scenario_name": scenario_context.get("name", ""),
+                "kill_chain": scenario_context.get("kill_chain", ""),
+                "narrative_arc": scenario_context.get("narrative_arc", {}),
             }
 
         # ---- 行动建议（冻结协议：DEGRADED 且 blast 未完成 → null）----
@@ -850,8 +863,7 @@ class SaiLouOrchestrator:
         if not is_degraded and blast_complete:
             scene_action = {}
             if scenario_id:
-                scene_action = self.siem._cache.get("scenarios", {}).get(
-                    scenario_id, {}).get("scenario", {}).get("action", {})
+                scene_action = scenario_context.get("action", {})
             suggested_action = {
                 **scene_action,
                 "blast_radius_assessment": {
@@ -874,8 +886,7 @@ class SaiLouOrchestrator:
         elif not is_degraded and not blast_planned:
             # blast 不在计划中（如 summarize_recent），允许场景默认动作
             if scenario_id:
-                scene_action = self.siem._cache.get("scenarios", {}).get(
-                    scenario_id, {}).get("scenario", {}).get("action", {})
+                scene_action = scenario_context.get("action", {})
                 if scene_action:
                     suggested_action = scene_action
         # else: DEGRADED → suggested_action stays None（冻结协议）
@@ -975,9 +986,8 @@ class InvestigationPipeline:
     保持 skill_registry.py 的调用接口不变
     """
 
-    def __init__(self, siem: MockSIEMAdapter):
+    def __init__(self, siem: SIEMAdapterProtocol):
         import json
-        from pathlib import Path
         from app.config import settings
 
         mock_dir = settings.get_mock_data_dir()
@@ -1013,7 +1023,7 @@ class InvestigationPipeline:
         triage = RealTriageEngine(
             asset_db=asset_data,
             baseline_db=baseline_data,
-            business_timezone="Asia/Shanghai",
+            business_timezone=settings.business_timezone,
         )
         intel = RealThreatIntelEngine(ioc_data)
         blast = RealBlastRadiusEngine(topology_data)

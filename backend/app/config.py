@@ -37,6 +37,7 @@ class Settings(BaseSettings):
     # Mock data
     mock_data_path: str = "./mock_data"
     runtime_mode: str = "mock"
+    business_timezone: str = "Asia/Shanghai"
 
     # Server
     service_name: str = "secupilot-runtime"

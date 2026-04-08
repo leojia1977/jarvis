@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-B-2026-04-08-004",
+    "id": "S3-C-2026-04-08-001",
     "sprint": "Sprint 3",
-    "stage": "case-contract-test-baseline",
+    "stage": "adapter-contract-skeleton",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T19:02:21.221680+08:00"
+    "updated_at": "2026-04-08T20:49:19.375242+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-004.zip",
-    "current_release_sha256": "3693a5aedc344cdd838cdcc760858524c87bce7eeeb19ec60cede01721c23e2c"
+    "current_release_zip": "releases\\secupilot-S3-C-2026-04-08-001.zip",
+    "current_release_sha256": "61b2e0a8f7e9f81c19d12c06a61ac2051231273cab966daeda8b8518ff1ab6a7"
   },
   "key_files": [
     {
@@ -80,7 +80,7 @@
     {
       "path": "backend\\app\\config.py",
       "role": "config",
-      "sha256": "20410424267e89aa29e1606c740eb06cade935950419f7332f66fbee94fc9961"
+      "sha256": "54aac36516dbc8d4c85b9ecbf141776d1b0f334413cb32115e92d2e73e4ded80"
     },
     {
       "path": "backend\\app\\agents\\case_view.py",
@@ -90,7 +90,7 @@
     {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "f2b2bf6bd492c3a3b1ba633594d9706ecfa8f732f8b7eb2743485e324f11b68b"
+      "sha256": "4031df6c6cef6ae666b6c7726dc7e91249eff1a145d1207a5abe32bd6fc4bb75"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -120,7 +120,7 @@
     {
       "path": "backend\\app\\tools\\siem_adapter.py",
       "role": "siem-adapter",
-      "sha256": "bc3666f6b7ed30e3f9ef840cb9589fec37e502713837cb490afcbada48839b04"
+      "sha256": "93cd27dc9d3c01d4fc56c19fda20a1b3b91db8cde26028c49f5ec6a7e68a427b"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -140,12 +140,17 @@
     {
       "path": "backend\\tests\\test_secupilot_drafts.py",
       "role": "canonical-regression-tests",
-      "sha256": "7258e4f4285410b214e136944d840278553dc405daedfe55b4cd3cc282e98668"
+      "sha256": "5f915f767fc836a2d3a152cd08baf8a088ec83b344121c13f67769253114a55c"
     },
     {
       "path": "backend\\tests\\test_case_view.py",
       "role": "canonical-case-view-tests",
       "sha256": "3e391870a6e6f701400488b13028be172684a616348ada5882028969ba98b5f5"
+    },
+    {
+      "path": "backend\\tests\\test_siem_adapter_contract.py",
+      "role": "canonical-siem-adapter-contract-tests",
+      "sha256": "6e24ddb678e237fcaf0bcf068895a94aa9ce3e98c8a53eb9c457517737a8e31b"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -163,9 +168,14 @@
       "sha256": "bfe5d984a01cb37edfd3132d195bf05ed05763707bc628fb0dee14f136d640d9"
     },
     {
+      "path": "docs\\S3C0_ADAPTER_CONTRACT.md",
+      "role": "s3c0-adapter-contract",
+      "sha256": "cd4fe565866af140b00e20169ee141bc5c8bf734a1e7889c324f8e65b11bdb4b"
+    },
+    {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "44b9d67e9ac5466cc0ad0a1c153d72bc538bcad70a28e0ae9e235c152de432c7"
+      "sha256": "143eb93f4dd5f3505ffbf3ac0e28eb342ec260dec93eafc2f67d93b16ba7724b"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -285,7 +295,7 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "055967848d10d2f05de98659b6ad58cf858c82545907d826f8da609492f63013"
+      "sha256": "af1374539d4220a2d0c6a014ed780e05b5bb6414ef058525bf361a388e6a194d"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
@@ -333,7 +343,8 @@
         "backend.tests.test_t3_hunt",
         "backend.tests.test_secupilot_drafts",
         "backend.tests.test_runtime_service",
-        "backend.tests.test_case_view"
+        "backend.tests.test_case_view",
+        "backend.tests.test_siem_adapter_contract"
       ],
       "status": "PASS"
     },
@@ -352,13 +363,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-B-2026-04-08-004",
+      "Snapshot ID: S3-C-2026-04-08-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T19:02:21.387967+08:00",
+    "last_verified_at": "2026-04-08T20:49:19.571177+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-B-2026-04-08-004`
-- Stage: `Sprint 3 case contract test baseline`
+- Snapshot ID: `S3-C-2026-04-08-001`
+- Stage: `Sprint 3 adapter contract skeleton`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -23,6 +23,7 @@
 - Jarvis case embedding now lives under `backend/app/agents/jarvis_hunt_engine.py` and the `case_view.jarvis_plan` mapping.
 - Degraded UX contract now lives under `docs/SP3_B4_Degraded_UX_Contract.md` and the `case_view.executive_summary` / `case_view.analysis_limits` mappings.
 - Case contract tests now freeze summary, Jarvis, evidence refs, and degraded action semantics under `backend/tests/test_case_view.py`.
+- S3-C-0 adapter contract skeleton now lives under `backend/app/tools/siem_adapter.py`, `docs/S3C0_ADAPTER_CONTRACT.md`, and the orchestrator's `TimeRangeSpec + AdapterResult` flow.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -47,6 +48,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/SPRINT3_JIRA_BACKLOG.md`
    - `docs/SP3_B1_Case_View_Contract.md`
    - `docs/SP3_B4_Degraded_UX_Contract.md`
+   - `docs/S3C0_ADAPTER_CONTRACT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -55,7 +57,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 ## Baseline Test Commands
 - `py -3 test_t3_hunt.py`
 - `py -3 test_secupilot_drafts.py`
-- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view`
+- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract`
 - `py -3 selfcheck_t1_t5.py`
 
 ## Release Outputs
