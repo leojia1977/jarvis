@@ -24,9 +24,12 @@ def build_prompt_text(manifest: dict) -> str:
     header_lines = manifest.get("collaboration", {}).get("required_prompt_header", [])
     lines = header_lines + [
         "",
-        "Please review only the uploaded files.",
-        "Do not use any other folder, zip, or screenshot as latest code truth.",
-        "Treat Claude as review-and-decision only; Codex remains implementation-and-release owner.",
+        "请全程仅使用简体中文回答。",
+        "代码标识、文件路径、字段名可以保留英文，但分析、结论、建议必须使用中文。",
+        "请只基于已上传的审查包进行 review，并将其视为当前完整且唯一的评审真相。",
+        "不要参考任何其它 zip、旧目录、截图或你之前环境中的缓存文件。",
+        "不要要求我再次同步本地目录；如果你发现缺文件，请直接列出缺失文件并继续完成当前审查。",
+        "Claude 只负责 review-and-decision；Codex 仍然是 implementation-and-release owner。",
     ]
     return "\n".join(lines) + "\n"
 
@@ -59,11 +62,13 @@ def iter_review_files() -> list[str]:
         ".gitattributes",
         ".gitmessage.txt",
         ".github/pull_request_template.md",
+        "backend/app/config.py",
         "backend/app/agents/graph.py",
         "backend/app/agents/jarvis_hunt_engine.py",
         "backend/app/main.py",
         "backend/app/runtime_service.py",
         "backend/app/tools/process_tree_t3.py",
+        "backend/app/tools/siem_adapter.py",
         "run_runtime.py",
         "backend/tests/test_t3_hunt.py",
         "backend/tests/test_secupilot_drafts.py",

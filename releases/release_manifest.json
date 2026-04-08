@@ -10,11 +10,11 @@
     "sprint": "Sprint 3",
     "stage": "runtime-productization-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T17:00:42.986230+08:00"
+    "updated_at": "2026-04-08T17:42:48.232013+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S3-A-2026-04-08-001.zip",
-    "current_release_sha256": "041f2e55a0709a9ca5376bcb9b4dc3b8d5fb6786fdd070b8ac40b2a00688ebda"
+    "current_release_sha256": "81117d7c16cab1a5256e091e308a532405e1721939b1b3d6334ed3f8146e1c9c"
   },
   "key_files": [
     {
@@ -155,7 +155,7 @@
     {
       "path": "docs\\CLAUDE_WEB_UPLOAD_CHECKLIST.md",
       "role": "claude-upload-checklist",
-      "sha256": "1db3757b2fa31c73fe2778194a45fc9185c0ad075ceed839194fcff534c2d54e"
+      "sha256": "d6db069a1a0dd70ae64abbe1de2dc258f940980b204d0555e1661ce7e9f0000e"
     },
     {
       "path": "docs\\CLAUDE_WEB_ALIGNMENT_GUIDE.md",
@@ -180,7 +180,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "7d0360d8b7ad268bbc9b35b6e9dd453263bb5170ae4f3a9eb9e35bce83ca0344"
+      "sha256": "f36753fb0ce52414deaf7159d9b437cf36721f2be62e5daf0368ac3e72cf9e54"
     },
     {
       "path": ".gitignore",
@@ -337,7 +337,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T17:00:43.151679+08:00",
+    "last_verified_at": "2026-04-08T17:42:48.399222+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",
