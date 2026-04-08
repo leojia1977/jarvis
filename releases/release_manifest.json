@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-A-2026-04-08-001",
+    "id": "S3-B-2026-04-08-001",
     "sprint": "Sprint 3",
-    "stage": "runtime-productization-baseline",
+    "stage": "case-view-shaping-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T17:42:48.232013+08:00"
+    "updated_at": "2026-04-08T18:04:03.312509+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-A-2026-04-08-001.zip",
-    "current_release_sha256": "81117d7c16cab1a5256e091e308a532405e1721939b1b3d6334ed3f8146e1c9c"
+    "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-001.zip",
+    "current_release_sha256": "60310165be3f7f71f6b5c81d35ca27025e0d924119e042463933603590f4c117"
   },
   "key_files": [
     {
@@ -83,9 +83,14 @@
       "sha256": "20410424267e89aa29e1606c740eb06cade935950419f7332f66fbee94fc9961"
     },
     {
+      "path": "backend\\app\\agents\\case_view.py",
+      "role": "case-view-shaping-layer",
+      "sha256": "42199352525ea83c361d67d98cc5738e9f2b667c1285cebebeb9a8e647e5ad1c"
+    },
+    {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "87e90810ccfe4e6cb97396cea0553bf3643f3210ba20b0283bff8ae148069389"
+      "sha256": "f2b2bf6bd492c3a3b1ba633594d9706ecfa8f732f8b7eb2743485e324f11b68b"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -138,14 +143,24 @@
       "sha256": "1467c3aee7ed35353bd428524bde8f1fbc758089b7da616d0fe6df9432944754"
     },
     {
+      "path": "backend\\tests\\test_case_view.py",
+      "role": "canonical-case-view-tests",
+      "sha256": "be657508ce858bfe562b504b0ebea7c08a874693709ab76902f49cb75d79a2f9"
+    },
+    {
       "path": "mock_data\\process_events\\index.json",
       "role": "canonical-process-event-index",
       "sha256": "05691ef4b33f227509f26a743fb7da0e979386cfe3ad848cbedcdd1278e0586c"
     },
     {
+      "path": "docs\\SP3_B1_Case_View_Contract.md",
+      "role": "s3b-case-view-contract",
+      "sha256": "aecc333ef236659ffab996b614beb40d52fb48d760f081007b9e6ed1026f6e22"
+    },
+    {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "925ef1fc18659bf7ada1b8bf50474cea442145539394008be0a78dfd8d9e247a"
+      "sha256": "1e91fbce6047bd15753263f07336418a02ccd897a67ae4466ecbcd8fe06eee5f"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -180,7 +195,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "f36753fb0ce52414deaf7159d9b437cf36721f2be62e5daf0368ac3e72cf9e54"
+      "sha256": "b0bdce87590e49c9e82c4889f22cfad1b210bcafab47c2f6de52ed08034e9755"
     },
     {
       "path": ".gitignore",
@@ -215,7 +230,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "c3dfaf07e1bba6229e1f32ad4d04628af8760d3056da68be99bd562bfcb414db"
+      "sha256": "87ace1ebe3112a6bfaec957c5abb0f8df3c368e8e6b38a096bb82c170360d018"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -312,7 +327,8 @@
         "-q",
         "backend.tests.test_t3_hunt",
         "backend.tests.test_secupilot_drafts",
-        "backend.tests.test_runtime_service"
+        "backend.tests.test_runtime_service",
+        "backend.tests.test_case_view"
       ],
       "status": "PASS"
     },
@@ -331,13 +347,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-A-2026-04-08-001",
+      "Snapshot ID: S3-B-2026-04-08-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T17:42:48.399222+08:00",
+    "last_verified_at": "2026-04-08T18:04:03.491217+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

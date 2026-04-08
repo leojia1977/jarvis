@@ -32,6 +32,7 @@ from app.tools.blast_radius import RealBlastRadiusEngine
 from app.tools.process_tree_t3 import ProcessTreeCompiler
 from app.tools.siem_adapter import MockSIEMAdapter
 from app.agents.jarvis_hunt_engine import JarvisHuntEngine
+from app.agents.case_view import build_case_view
 
 
 # ============================================================
@@ -900,7 +901,7 @@ class SaiLouOrchestrator:
         # ---- 组装 V3.1 案卷 ----
         case_id = f"CASE-{int(time.time())}-{abs(hash(user_input)) % 999:03d}"
 
-        return {
+        case_payload = {
             "case_id": case_id,
             "version": "3.1",
             "risk_score": round(risk_score, 2),
@@ -957,6 +958,8 @@ class SaiLouOrchestrator:
                 "jarvis_error": jarvis_error,
             },
         }
+        case_payload["case_view"] = build_case_view(case_payload)
+        return case_payload
 
 
 # ============================================================

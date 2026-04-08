@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-A-2026-04-08-001`
-- Stage: `Sprint 3 runtime productization baseline`
+- Snapshot ID: `S3-B-2026-04-08-001`
+- Stage: `Sprint 3 case view shaping baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -19,6 +19,7 @@
 - Sprint 3 planning documents now live under `docs/` and are part of the governed handoff set.
 - Git workflow scaffolding now lives under `.githooks/`, `.gitignore`, `.gitattributes`, `.gitmessage.txt`, and `scripts/install_git_workflow.py`.
 - Runtime productization now lives under `backend/app/main.py`, `backend/app/runtime_service.py`, and `run_runtime.py`.
+- Case view contract and shaping layer now live under `docs/SP3_B1_Case_View_Contract.md` and `backend/app/agents/case_view.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -41,6 +42,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `releases/release_manifest.json`
    - `docs/SPRINT3_PRD.md`
    - `docs/SPRINT3_JIRA_BACKLOG.md`
+   - `docs/SP3_B1_Case_View_Contract.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -49,7 +51,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 ## Baseline Test Commands
 - `py -3 test_t3_hunt.py`
 - `py -3 test_secupilot_drafts.py`
-- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts`
+- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view`
 - `py -3 selfcheck_t1_t5.py`
 
 ## Release Outputs

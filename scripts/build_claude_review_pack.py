@@ -55,6 +55,7 @@ def iter_review_files() -> list[str]:
         "docs/SPRINT3_JIRA_BACKLOG.md",
         "docs/S3A_RUNTIME_STARTUP.md",
         "docs/S3B_CASE_EXPERIENCE_PRD.md",
+        "docs/SP3_B1_Case_View_Contract.md",
         "docs/S3B_JIRA_BACKLOG.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
@@ -63,6 +64,7 @@ def iter_review_files() -> list[str]:
         ".gitmessage.txt",
         ".github/pull_request_template.md",
         "backend/app/config.py",
+        "backend/app/agents/case_view.py",
         "backend/app/agents/graph.py",
         "backend/app/agents/jarvis_hunt_engine.py",
         "backend/app/main.py",
@@ -71,6 +73,7 @@ def iter_review_files() -> list[str]:
         "backend/app/tools/siem_adapter.py",
         "run_runtime.py",
         "backend/tests/test_t3_hunt.py",
+        "backend/tests/test_case_view.py",
         "backend/tests/test_secupilot_drafts.py",
         "backend/tests/test_runtime_service.py",
     ]

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 FAST_COMMANDS = [
     ["py", "-3", "test_t3_hunt.py"],
     ["py", "-3", "test_secupilot_drafts.py"],
-    ["py", "-3", "-m", "unittest", "-q", "backend.tests.test_t3_hunt", "backend.tests.test_secupilot_drafts", "backend.tests.test_runtime_service"],
+    ["py", "-3", "-m", "unittest", "-q", "backend.tests.test_t3_hunt", "backend.tests.test_secupilot_drafts", "backend.tests.test_runtime_service", "backend.tests.test_case_view"],
     ["py", "-3", "selfcheck_t1_t5.py"],
 ]
 
