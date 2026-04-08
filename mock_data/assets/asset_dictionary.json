@@ -1,0 +1,335 @@
+{
+  "assets": [
+    {
+      "asset_id": "FINANCE-DB-01",
+      "ip_address": "10.1.5.10",
+      "criticality_weight": 10,
+      "business_unit": "Finance",
+      "hostname": "fin-db-prod-01",
+      "known_behaviors": [
+        "nightly_db_backup",
+        "quarterly_audit_scan",
+        "high_volume_transactions"
+      ],
+      "last_compromised_date": null,
+      "owner": "DBA组-王工",
+      "network_segment": "VLAN-Finance-01",
+      "os": "Oracle Linux 8",
+      "role": "Core Financial Database"
+    },
+    {
+      "asset_id": "AD-CTRL-01",
+      "ip_address": "10.1.1.5",
+      "criticality_weight": 9,
+      "business_unit": "IT-Infra",
+      "hostname": "ad-dc-primary",
+      "known_behaviors": [
+        "ldap_auth_bursts",
+        "group_policy_sync",
+        "dns_resolution"
+      ],
+      "last_compromised_date": null,
+      "owner": "基础架构-李工",
+      "network_segment": "VLAN-Core-01",
+      "os": "Windows Server 2022",
+      "role": "Primary Domain Controller"
+    },
+    {
+      "asset_id": "CEO-WS-01",
+      "ip_address": "10.1.10.2",
+      "criticality_weight": 8,
+      "business_unit": "Executive",
+      "hostname": "ceo-laptop-01",
+      "known_behaviors": [
+        "vpn_remote_access",
+        "cloud_storage_sync",
+        "video_conferencing"
+      ],
+      "last_compromised_date": null,
+      "owner": "行政办-CEO",
+      "network_segment": "VLAN-Exec-01",
+      "os": "Windows 11 Pro",
+      "role": "CEO Workstation"
+    },
+    {
+      "asset_id": "MAIL-GW-01",
+      "ip_address": "10.1.2.10",
+      "criticality_weight": 7,
+      "business_unit": "IT-Infra",
+      "hostname": "mail-gateway-01",
+      "known_behaviors": [
+        "spam_filter_scan",
+        "attachment_sandbox",
+        "tls_handshake"
+      ],
+      "last_compromised_date": null,
+      "owner": "运维组-张工",
+      "network_segment": "VLAN-DMZ-01",
+      "os": "Ubuntu 22.04",
+      "role": "Email Security Gateway"
+    },
+    {
+      "asset_id": "VPN-SRV-01",
+      "ip_address": "10.1.2.20",
+      "criticality_weight": 6,
+      "business_unit": "IT-Infra",
+      "hostname": "vpn-concentrator-01",
+      "known_behaviors": [
+        "ssl_vpn_reconnect",
+        "mfa_challenge",
+        "split_tunnel"
+      ],
+      "last_compromised_date": null,
+      "owner": "运维组-张工",
+      "network_segment": "VLAN-DMZ-01",
+      "os": "FortiOS 7.4",
+      "role": "VPN Concentrator"
+    },
+    {
+      "asset_id": "HR-PORTAL-01",
+      "ip_address": "10.1.6.10",
+      "criticality_weight": 5,
+      "business_unit": "HR",
+      "hostname": "hr-webapp-01",
+      "known_behaviors": [
+        "monthly_payroll_batch",
+        "annual_review_peak",
+        "onboarding_bulk"
+      ],
+      "last_compromised_date": null,
+      "owner": "人力资源-赵工",
+      "network_segment": "VLAN-HR-01",
+      "os": "RHEL 9",
+      "role": "HR Management System"
+    },
+    {
+      "asset_id": "WEB-SRV-01",
+      "ip_address": "10.1.3.10",
+      "criticality_weight": 6,
+      "business_unit": "Product",
+      "hostname": "web-frontend-01",
+      "known_behaviors": [
+        "cdn_origin_pull",
+        "health_check_ping",
+        "ssl_cert_renewal"
+      ],
+      "last_compromised_date": null,
+      "owner": "研发-钱工",
+      "network_segment": "VLAN-DMZ-02",
+      "os": "Ubuntu 22.04",
+      "role": "Public Web Server"
+    },
+    {
+      "asset_id": "CI-CD-01",
+      "ip_address": "10.1.8.10",
+      "criticality_weight": 5,
+      "business_unit": "Engineering",
+      "hostname": "jenkins-master-01",
+      "known_behaviors": [
+        "pipeline_scan",
+        "artifact_push",
+        "container_build"
+      ],
+      "last_compromised_date": null,
+      "owner": "DevOps-孙工",
+      "network_segment": "VLAN-Dev-01",
+      "os": "Ubuntu 22.04",
+      "role": "CI/CD Pipeline Server"
+    },
+    {
+      "asset_id": "BACKUP-SRV-01",
+      "ip_address": "10.1.9.10",
+      "criticality_weight": 5,
+      "business_unit": "IT-Infra",
+      "hostname": "backup-server-01",
+      "known_behaviors": [
+        "nightly_full_backup",
+        "weekly_offsite_sync",
+        "retention_cleanup"
+      ],
+      "last_compromised_date": null,
+      "owner": "运维组-张工",
+      "network_segment": "VLAN-Infra-01",
+      "os": "Windows Server 2022",
+      "role": "Backup Server"
+    },
+    {
+      "asset_id": "SIEM-SRV-01",
+      "ip_address": "10.1.9.20",
+      "criticality_weight": 7,
+      "business_unit": "Security",
+      "hostname": "splunk-indexer-01",
+      "known_behaviors": [
+        "log_ingestion_burst",
+        "search_head_query",
+        "forwarder_heartbeat"
+      ],
+      "last_compromised_date": null,
+      "owner": "安全组-周工",
+      "network_segment": "VLAN-Infra-01",
+      "os": "RHEL 9",
+      "role": "SIEM Indexer (Splunk)"
+    },
+    {
+      "asset_id": "TEST-LNX-01",
+      "ip_address": "10.1.2.4",
+      "criticality_weight": 2,
+      "business_unit": "QA",
+      "hostname": "test-ubuntu-01",
+      "known_behaviors": [
+        "automated_scan",
+        "pentest_traffic"
+      ],
+      "last_compromised_date": "2025-11-12T00:00:00Z",
+      "owner": "QA-无人管理",
+      "network_segment": "VLAN-Test-01",
+      "os": "Ubuntu 20.04",
+      "role": "Unmanaged Test Server"
+    },
+    {
+      "asset_id": "TEST-LNX-02",
+      "ip_address": "10.1.2.5",
+      "criticality_weight": 2,
+      "business_unit": "QA",
+      "hostname": "test-centos-01",
+      "known_behaviors": [
+        "automated_scan"
+      ],
+      "last_compromised_date": null,
+      "owner": "QA-无人管理",
+      "network_segment": "VLAN-Test-01",
+      "os": "CentOS 7",
+      "role": "Legacy Test Server"
+    },
+    {
+      "asset_id": "DEV-WS-01",
+      "ip_address": "10.1.8.50",
+      "criticality_weight": 3,
+      "business_unit": "Engineering",
+      "hostname": "dev-workstation-01",
+      "known_behaviors": [
+        "npm_install_burst",
+        "docker_pull",
+        "git_clone"
+      ],
+      "last_compromised_date": null,
+      "owner": "研发-小刘",
+      "network_segment": "VLAN-Dev-01",
+      "os": "macOS 14",
+      "role": "Developer Workstation"
+    },
+    {
+      "asset_id": "DEV-WS-02",
+      "ip_address": "10.1.8.51",
+      "criticality_weight": 3,
+      "business_unit": "Engineering",
+      "hostname": "dev-workstation-02",
+      "known_behaviors": [
+        "npm_install_burst",
+        "docker_pull"
+      ],
+      "last_compromised_date": null,
+      "owner": "研发-小陈",
+      "network_segment": "VLAN-Dev-01",
+      "os": "Ubuntu 22.04",
+      "role": "Developer Workstation"
+    },
+    {
+      "asset_id": "PRINTER-01",
+      "ip_address": "10.1.7.100",
+      "criticality_weight": 1,
+      "business_unit": "Admin",
+      "hostname": "floor3-printer",
+      "known_behaviors": [
+        "snmp_poll",
+        "print_job_queue"
+      ],
+      "last_compromised_date": null,
+      "owner": "行政-无指定",
+      "network_segment": "VLAN-Office-01",
+      "os": "Embedded",
+      "role": "Network Printer"
+    },
+    {
+      "asset_id": "GUEST-AP-01",
+      "ip_address": "10.1.99.1",
+      "criticality_weight": 1,
+      "business_unit": "IT-Infra",
+      "hostname": "guest-wifi-ap-01",
+      "known_behaviors": [
+        "dhcp_lease",
+        "captive_portal_redirect"
+      ],
+      "last_compromised_date": null,
+      "owner": "运维组-张工",
+      "network_segment": "VLAN-Guest-01",
+      "os": "Aruba OS",
+      "role": "Guest WiFi Access Point"
+    },
+    {
+      "asset_id": "CONF-RM-01",
+      "ip_address": "10.1.7.110",
+      "criticality_weight": 1,
+      "business_unit": "Admin",
+      "hostname": "conf-room-display",
+      "known_behaviors": [
+        "calendar_sync",
+        "screen_cast"
+      ],
+      "last_compromised_date": null,
+      "owner": "行政-无指定",
+      "network_segment": "VLAN-Office-01",
+      "os": "Android 13",
+      "role": "Conference Room Display"
+    },
+    {
+      "asset_id": "IOT-SENSOR-01",
+      "ip_address": "10.1.99.50",
+      "criticality_weight": 1,
+      "business_unit": "Facilities",
+      "hostname": "env-sensor-floor3",
+      "known_behaviors": [
+        "mqtt_telemetry",
+        "firmware_check"
+      ],
+      "last_compromised_date": null,
+      "owner": "物业-无指定",
+      "network_segment": "VLAN-IoT-01",
+      "os": "Embedded Linux",
+      "role": "Environmental Sensor"
+    },
+    {
+      "asset_id": "WKST-047",
+      "ip_address": "10.1.5.22",
+      "criticality_weight": 3,
+      "business_unit": "Finance",
+      "hostname": "fin-analyst-ws-01",
+      "known_behaviors": [
+        "high_volume_printing",
+        "nightly_db_backup"
+      ],
+      "last_compromised_date": "2025-11-12T00:00:00Z",
+      "owner": "财务-林分析师",
+      "network_segment": "VLAN-Finance-01",
+      "os": "Windows 11 Pro",
+      "role": "Financial Analyst Workstation"
+    },
+    {
+      "asset_id": "KIOSK-01",
+      "ip_address": "10.1.7.200",
+      "criticality_weight": 1,
+      "business_unit": "Admin",
+      "hostname": "lobby-kiosk",
+      "known_behaviors": [
+        "visitor_checkin",
+        "badge_print"
+      ],
+      "last_compromised_date": null,
+      "owner": "行政-前台",
+      "network_segment": "VLAN-Office-01",
+      "os": "Windows 10 IoT",
+      "role": "Visitor Check-in Kiosk"
+    }
+  ],
+  "total": 20
+}

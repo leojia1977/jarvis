@@ -1,0 +1,207 @@
+{
+  "scenario": {
+    "scenario_id": "S-02",
+    "name": "Lateral Movement + Privilege Escalation",
+    "risk_score": 9.2,
+    "confidence": 0.92,
+    "kill_chain": "Lateral Movement → Privilege Escalation → Collection",
+    "alerts": [
+      {
+        "event_time": "2026-04-01T01:30:00Z",
+        "source_ip": "10.1.8.50",
+        "dest_asset": "WKST-047",
+        "activity_name": "SMB_ADMIN_SHARE",
+        "activity_id": 3,
+        "count": 1,
+        "process_name": "smbclient",
+        "parent_process": "powershell.exe",
+        "severity": "HIGH"
+      },
+      {
+        "event_time": "2026-04-01T01:32:15Z",
+        "source_ip": "10.1.8.50",
+        "dest_asset": "WKST-047",
+        "activity_name": "REMOTE_SERVICE_INSTALL",
+        "activity_id": 4,
+        "count": 1,
+        "process_name": "psexec.exe",
+        "parent_process": "cmd.exe",
+        "severity": "CRITICAL"
+      },
+      {
+        "event_time": "2026-04-01T01:35:00Z",
+        "source_ip": "10.1.5.22",
+        "dest_asset": "AD-CTRL-01",
+        "activity_name": "KERBEROASTING",
+        "activity_id": 6,
+        "count": 15,
+        "process_name": "rubeus.exe",
+        "parent_process": "svchost.exe",
+        "severity": "CRITICAL"
+      },
+      {
+        "event_time": "2026-04-01T01:38:22Z",
+        "source_ip": "10.1.5.22",
+        "dest_asset": "AD-CTRL-01",
+        "activity_name": "DCSYNC_ATTEMPT",
+        "activity_id": 7,
+        "count": 1,
+        "process_name": "mimikatz.exe",
+        "parent_process": "cmd.exe",
+        "severity": "CRITICAL"
+      },
+      {
+        "event_time": "2026-04-01T01:40:00Z",
+        "source_ip": "10.1.5.22",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "DB_PRIVILEGE_ESCALATION",
+        "activity_id": 5,
+        "count": 1,
+        "process_name": "sqlplus",
+        "parent_process": "cmd.exe",
+        "severity": "CRITICAL"
+      }
+    ],
+    "narrative_arc": {
+      "timeline": [
+        {
+          "ts": "01:30",
+          "event": "SMB横向移动至财务工作站",
+          "significance": "起点"
+        },
+        {
+          "ts": "01:32",
+          "event": "PsExec提权",
+          "significance": "权限提升"
+        },
+        {
+          "ts": "01:35",
+          "event": "Kerberoasting攻击AD",
+          "significance": "凭证窃取"
+        },
+        {
+          "ts": "01:38",
+          "event": "DCSync复制域控Hash",
+          "significance": "关键转折"
+        },
+        {
+          "ts": "01:40",
+          "event": "登录财务数据库",
+          "significance": "目标达成"
+        }
+      ],
+      "motive": "APT从开发环境渗透至核心财务系统",
+      "kill_chain_stage": "Lateral Movement → Privilege Escalation → Collection"
+    },
+    "action": {
+      "type": "EMERGENCY_ISOLATE_MULTI",
+      "targets": [
+        "DEV-WS-01",
+        "WKST-047"
+      ],
+      "blast_radius": "隔离1台开发机+1台财务工作站，建议重置AD管理员密码"
+    }
+  },
+  "alerts": [
+    {
+      "event_id": "S-02-000",
+      "event_time": "2026-04-01T01:30:00Z",
+      "source_ip": "10.1.8.50",
+      "destination_asset_id": "WKST-047",
+      "destination_ip": "10.1.5.22",
+      "activity_name": "SMB_ADMIN_SHARE",
+      "severity": "HIGH",
+      "count": 1,
+      "process_name": "smbclient",
+      "parent_process": "powershell.exe",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-02",
+        "scenario_name": "Lateral Movement + Privilege Escalation",
+        "kill_chain": "Lateral Movement → Privilege Escalation → Collection"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-02-001",
+      "event_time": "2026-04-01T01:32:15Z",
+      "source_ip": "10.1.8.50",
+      "destination_asset_id": "WKST-047",
+      "destination_ip": "10.1.5.22",
+      "activity_name": "REMOTE_SERVICE_INSTALL",
+      "severity": "CRITICAL",
+      "count": 1,
+      "process_name": "psexec.exe",
+      "parent_process": "cmd.exe",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-02",
+        "scenario_name": "Lateral Movement + Privilege Escalation",
+        "kill_chain": "Lateral Movement → Privilege Escalation → Collection"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-02-002",
+      "event_time": "2026-04-01T01:35:00Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "AD-CTRL-01",
+      "destination_ip": "10.1.1.5",
+      "activity_name": "KERBEROASTING",
+      "severity": "CRITICAL",
+      "count": 15,
+      "process_name": "rubeus.exe",
+      "parent_process": "svchost.exe",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-02",
+        "scenario_name": "Lateral Movement + Privilege Escalation",
+        "kill_chain": "Lateral Movement → Privilege Escalation → Collection"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-02-003",
+      "event_time": "2026-04-01T01:38:22Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "AD-CTRL-01",
+      "destination_ip": "10.1.1.5",
+      "activity_name": "DCSYNC_ATTEMPT",
+      "severity": "CRITICAL",
+      "count": 1,
+      "process_name": "mimikatz.exe",
+      "parent_process": "cmd.exe",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-02",
+        "scenario_name": "Lateral Movement + Privilege Escalation",
+        "kill_chain": "Lateral Movement → Privilege Escalation → Collection"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-02-004",
+      "event_time": "2026-04-01T01:40:00Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "DB_PRIVILEGE_ESCALATION",
+      "severity": "CRITICAL",
+      "count": 1,
+      "process_name": "sqlplus",
+      "parent_process": "cmd.exe",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-02",
+        "scenario_name": "Lateral Movement + Privilege Escalation",
+        "kill_chain": "Lateral Movement → Privilege Escalation → Collection"
+      },
+      "extra": {}
+    }
+  ]
+}

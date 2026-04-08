@@ -1,0 +1,14 @@
+<type>: <short summary>
+
+Context:
+- snapshot:
+- scope:
+
+Checks:
+- [ ] py -3 test_t3_hunt.py
+- [ ] py -3 test_secupilot_drafts.py
+- [ ] py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts
+- [ ] py -3 selfcheck_t1_t5.py
+
+Notes:
+- 

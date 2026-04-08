@@ -1,0 +1,1305 @@
+{
+  "total": 49982,
+  "sample": [
+    {
+      "event_id": "NOISE-000000",
+      "event_time": "2026-03-31T22:43:20Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "FINANCE-DB-01",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000001",
+      "event_time": "2026-03-31T20:25:17Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "AD-CTRL-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000002",
+      "event_time": "2026-03-31T21:43:19Z",
+      "source_ip": "10.1.10.2",
+      "destination_asset_id": "CEO-WS-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000003",
+      "event_time": "2026-03-31T20:12:13Z",
+      "source_ip": "20.190.190.1",
+      "destination_asset_id": "MAIL-GW-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000004",
+      "event_time": "2026-04-01T06:10:42Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "VPN-SRV-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000005",
+      "event_time": "2026-03-31T23:59:24Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "HR-PORTAL-01",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000006",
+      "event_time": "2026-04-01T03:19:10Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "WEB-SRV-01",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000007",
+      "event_time": "2026-03-31T22:03:55Z",
+      "source_ip": "10.1.8.10",
+      "destination_asset_id": "CI-CD-01",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000008",
+      "event_time": "2026-03-31T23:22:43Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "BACKUP-SRV-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000009",
+      "event_time": "2026-03-31T23:07:13Z",
+      "source_ip": "10.1.9.20",
+      "destination_asset_id": "SIEM-SRV-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000010",
+      "event_time": "2026-03-31T21:47:48Z",
+      "source_ip": "10.1.2.4",
+      "destination_asset_id": "TEST-LNX-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000011",
+      "event_time": "2026-04-01T03:43:34Z",
+      "source_ip": "10.1.2.5",
+      "destination_asset_id": "TEST-LNX-02",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000012",
+      "event_time": "2026-03-31T23:24:13Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "DEV-WS-01",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000013",
+      "event_time": "2026-04-01T04:47:11Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "DEV-WS-02",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000014",
+      "event_time": "2026-04-01T00:55:39Z",
+      "source_ip": "10.1.7.100",
+      "destination_asset_id": "PRINTER-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000015",
+      "event_time": "2026-04-01T05:44:44Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "GUEST-AP-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000016",
+      "event_time": "2026-04-01T06:44:18Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "CONF-RM-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000017",
+      "event_time": "2026-04-01T04:07:03Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "IOT-SENSOR-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000018",
+      "event_time": "2026-03-31T23:41:35Z",
+      "source_ip": "20.190.190.1",
+      "destination_asset_id": "WKST-047",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000019",
+      "event_time": "2026-03-31T22:52:04Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "KIOSK-01",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000020",
+      "event_time": "2026-03-31T21:01:37Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "FINANCE-DB-01",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000021",
+      "event_time": "2026-04-01T03:57:05Z",
+      "source_ip": "10.1.1.5",
+      "destination_asset_id": "AD-CTRL-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000022",
+      "event_time": "2026-03-31T21:52:16Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "CEO-WS-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000023",
+      "event_time": "2026-04-01T02:07:47Z",
+      "source_ip": "10.1.2.10",
+      "destination_asset_id": "MAIL-GW-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000024",
+      "event_time": "2026-04-01T07:47:48Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "VPN-SRV-01",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000025",
+      "event_time": "2026-04-01T04:07:13Z",
+      "source_ip": "10.1.6.10",
+      "destination_asset_id": "HR-PORTAL-01",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000026",
+      "event_time": "2026-04-01T00:27:06Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "WEB-SRV-01",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000027",
+      "event_time": "2026-03-31T22:37:27Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "CI-CD-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000028",
+      "event_time": "2026-04-01T06:51:53Z",
+      "source_ip": "10.1.9.10",
+      "destination_asset_id": "BACKUP-SRV-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000029",
+      "event_time": "2026-04-01T04:59:54Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "SIEM-SRV-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000030",
+      "event_time": "2026-04-01T05:56:45Z",
+      "source_ip": "10.1.2.4",
+      "destination_asset_id": "TEST-LNX-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000031",
+      "event_time": "2026-03-31T23:29:24Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "TEST-LNX-02",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000032",
+      "event_time": "2026-04-01T03:06:46Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "DEV-WS-01",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000033",
+      "event_time": "2026-04-01T07:15:00Z",
+      "source_ip": "20.190.190.1",
+      "destination_asset_id": "DEV-WS-02",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000034",
+      "event_time": "2026-03-31T20:59:14Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "PRINTER-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000035",
+      "event_time": "2026-04-01T05:47:11Z",
+      "source_ip": "10.1.99.1",
+      "destination_asset_id": "GUEST-AP-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000036",
+      "event_time": "2026-04-01T07:48:03Z",
+      "source_ip": "10.1.7.110",
+      "destination_asset_id": "CONF-RM-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000037",
+      "event_time": "2026-04-01T02:33:48Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "IOT-SENSOR-01",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000038",
+      "event_time": "2026-03-31T22:50:12Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "WKST-047",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000039",
+      "event_time": "2026-03-31T20:57:39Z",
+      "source_ip": "10.1.7.200",
+      "destination_asset_id": "KIOSK-01",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000040",
+      "event_time": "2026-03-31T23:11:16Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "FINANCE-DB-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000041",
+      "event_time": "2026-04-01T02:24:15Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "AD-CTRL-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000042",
+      "event_time": "2026-03-31T21:37:36Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "CEO-WS-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000043",
+      "event_time": "2026-03-31T23:03:57Z",
+      "source_ip": "20.190.190.1",
+      "destination_asset_id": "MAIL-GW-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000044",
+      "event_time": "2026-04-01T01:17:42Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "VPN-SRV-01",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000045",
+      "event_time": "2026-04-01T05:25:10Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "HR-PORTAL-01",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000046",
+      "event_time": "2026-04-01T00:37:26Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "WEB-SRV-01",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000047",
+      "event_time": "2026-03-31T22:36:58Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "CI-CD-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000048",
+      "event_time": "2026-03-31T22:40:36Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "BACKUP-SRV-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000049",
+      "event_time": "2026-04-01T03:37:24Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "SIEM-SRV-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000050",
+      "event_time": "2026-04-01T03:53:38Z",
+      "source_ip": "198.51.100.23",
+      "destination_asset_id": "TEST-LNX-01",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000051",
+      "event_time": "2026-04-01T07:08:41Z",
+      "source_ip": "198.51.100.23",
+      "destination_asset_id": "TEST-LNX-02",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000052",
+      "event_time": "2026-04-01T03:41:22Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "DEV-WS-01",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000053",
+      "event_time": "2026-04-01T04:43:17Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "DEV-WS-02",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000054",
+      "event_time": "2026-04-01T00:51:59Z",
+      "source_ip": "10.1.7.100",
+      "destination_asset_id": "PRINTER-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000055",
+      "event_time": "2026-04-01T05:55:35Z",
+      "source_ip": "198.51.100.23",
+      "destination_asset_id": "GUEST-AP-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000056",
+      "event_time": "2026-04-01T06:29:06Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "CONF-RM-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000057",
+      "event_time": "2026-04-01T06:47:35Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "IOT-SENSOR-01",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000058",
+      "event_time": "2026-04-01T05:02:09Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "WKST-047",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000059",
+      "event_time": "2026-04-01T04:25:52Z",
+      "source_ip": "10.1.7.200",
+      "destination_asset_id": "KIOSK-01",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000060",
+      "event_time": "2026-03-31T20:03:24Z",
+      "source_ip": "198.51.100.23",
+      "destination_asset_id": "FINANCE-DB-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000061",
+      "event_time": "2026-04-01T07:38:45Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "AD-CTRL-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000062",
+      "event_time": "2026-04-01T04:43:44Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "CEO-WS-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000063",
+      "event_time": "2026-04-01T07:58:23Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "MAIL-GW-01",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000064",
+      "event_time": "2026-04-01T03:36:13Z",
+      "source_ip": "151.101.1.140",
+      "destination_asset_id": "VPN-SRV-01",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000065",
+      "event_time": "2026-04-01T01:50:18Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "HR-PORTAL-01",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000066",
+      "event_time": "2026-04-01T00:13:37Z",
+      "source_ip": "20.190.190.1",
+      "destination_asset_id": "WEB-SRV-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000067",
+      "event_time": "2026-04-01T00:51:34Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "CI-CD-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000068",
+      "event_time": "2026-04-01T02:51:05Z",
+      "source_ip": "10.1.9.10",
+      "destination_asset_id": "BACKUP-SRV-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000069",
+      "event_time": "2026-04-01T00:28:08Z",
+      "source_ip": "10.1.9.20",
+      "destination_asset_id": "SIEM-SRV-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000070",
+      "event_time": "2026-04-01T02:54:43Z",
+      "source_ip": "203.0.113.45",
+      "destination_asset_id": "TEST-LNX-01",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000071",
+      "event_time": "2026-04-01T06:20:44Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "TEST-LNX-02",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000072",
+      "event_time": "2026-04-01T05:21:55Z",
+      "source_ip": "93.184.216.34",
+      "destination_asset_id": "DEV-WS-01",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000073",
+      "event_time": "2026-04-01T06:13:01Z",
+      "source_ip": "93.184.216.34",
+      "destination_asset_id": "DEV-WS-02",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000074",
+      "event_time": "2026-04-01T00:22:57Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "PRINTER-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000075",
+      "event_time": "2026-04-01T00:36:01Z",
+      "source_ip": "93.184.216.34",
+      "destination_asset_id": "GUEST-AP-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000076",
+      "event_time": "2026-04-01T06:48:07Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "CONF-RM-01",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000077",
+      "event_time": "2026-03-31T20:15:59Z",
+      "source_ip": "10.1.99.50",
+      "destination_asset_id": "IOT-SENSOR-01",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000078",
+      "event_time": "2026-04-01T02:53:29Z",
+      "source_ip": "93.184.216.34",
+      "destination_asset_id": "WKST-047",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000079",
+      "event_time": "2026-03-31T21:29:17Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "KIOSK-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000080",
+      "event_time": "2026-04-01T02:40:49Z",
+      "source_ip": "10.1.5.10",
+      "destination_asset_id": "FINANCE-DB-01",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000081",
+      "event_time": "2026-04-01T07:43:02Z",
+      "source_ip": "198.51.100.23",
+      "destination_asset_id": "AD-CTRL-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000082",
+      "event_time": "2026-03-31T20:57:05Z",
+      "source_ip": "93.184.216.34",
+      "destination_asset_id": "CEO-WS-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000083",
+      "event_time": "2026-03-31T22:31:34Z",
+      "source_ip": "10.1.2.10",
+      "destination_asset_id": "MAIL-GW-01",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000084",
+      "event_time": "2026-04-01T07:36:20Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "VPN-SRV-01",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000085",
+      "event_time": "2026-04-01T02:19:13Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "HR-PORTAL-01",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000086",
+      "event_time": "2026-04-01T04:55:30Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "WEB-SRV-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000087",
+      "event_time": "2026-04-01T01:17:43Z",
+      "source_ip": "93.184.216.34",
+      "destination_asset_id": "CI-CD-01",
+      "activity_name": "NTP_SYNC",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000088",
+      "event_time": "2026-04-01T04:10:15Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "BACKUP-SRV-01",
+      "activity_name": "SNMP_POLL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000089",
+      "event_time": "2026-04-01T00:29:20Z",
+      "source_ip": "10.1.9.20",
+      "destination_asset_id": "SIEM-SRV-01",
+      "activity_name": "VPN_RECONNECT",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000090",
+      "event_time": "2026-03-31T22:05:07Z",
+      "source_ip": "20.190.190.1",
+      "destination_asset_id": "TEST-LNX-01",
+      "activity_name": "CDN_ORIGIN_PULL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000091",
+      "event_time": "2026-04-01T02:39:45Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "TEST-LNX-02",
+      "activity_name": "PORT_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000092",
+      "event_time": "2026-04-01T00:21:32Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "DEV-WS-01",
+      "activity_name": "DNS_QUERY_NORMAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000093",
+      "event_time": "2026-04-01T06:46:14Z",
+      "source_ip": "10.1.8.51",
+      "destination_asset_id": "DEV-WS-02",
+      "activity_name": "FIREWALL_BLOCK",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000094",
+      "event_time": "2026-03-31T22:22:16Z",
+      "source_ip": "172.217.14.206",
+      "destination_asset_id": "PRINTER-01",
+      "activity_name": "VULNERABILITY_SCAN",
+      "severity": "LOW",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000095",
+      "event_time": "2026-04-01T04:39:48Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "GUEST-AP-01",
+      "activity_name": "HEALTH_CHECK",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000096",
+      "event_time": "2026-03-31T20:48:06Z",
+      "source_ip": "104.236.198.48",
+      "destination_asset_id": "CONF-RM-01",
+      "activity_name": "SSL_CERT_RENEWAL",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000097",
+      "event_time": "2026-04-01T05:42:59Z",
+      "source_ip": "10.1.99.50",
+      "destination_asset_id": "IOT-SENSOR-01",
+      "activity_name": "BACKUP_JOB",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000098",
+      "event_time": "2026-04-01T01:15:55Z",
+      "source_ip": "45.33.32.156",
+      "destination_asset_id": "WKST-047",
+      "activity_name": "LDAP_AUTH",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    },
+    {
+      "event_id": "NOISE-000099",
+      "event_time": "2026-04-01T00:34:13Z",
+      "source_ip": "10.1.7.200",
+      "destination_asset_id": "KIOSK-01",
+      "activity_name": "ANTIVIRUS_UPDATE",
+      "severity": "INFO",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": true
+      },
+      "triage_result": "AUTO_ARCHIVED"
+    }
+  ]
+}

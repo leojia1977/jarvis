@@ -1,0 +1,290 @@
+{
+  "malicious_ips": [
+    {
+      "ip": "45.33.49.12",
+      "threat_type": "C2",
+      "actor": "APT-BEAR",
+      "confidence": 0.95,
+      "country": "RU"
+    },
+    {
+      "ip": "185.220.101.45",
+      "threat_type": "C2",
+      "actor": "RANSOMWARE-X",
+      "confidence": 0.98,
+      "country": "NL"
+    },
+    {
+      "ip": "91.215.85.100",
+      "threat_type": "Scanner",
+      "actor": "Unknown",
+      "confidence": 0.6,
+      "country": "UA"
+    },
+    {
+      "ip": "17.235.148.196",
+      "threat_type": "Botnet",
+      "actor": "Unknown",
+      "confidence": 0.56,
+      "country": "BR"
+    },
+    {
+      "ip": "34.190.120.43",
+      "threat_type": "Scanner",
+      "actor": "Unknown",
+      "confidence": 0.41,
+      "country": "US"
+    },
+    {
+      "ip": "112.185.107.210",
+      "threat_type": "Spam",
+      "actor": "Unknown",
+      "confidence": 0.44,
+      "country": "RU"
+    },
+    {
+      "ip": "94.147.235.99",
+      "threat_type": "Spam",
+      "actor": "Unknown",
+      "confidence": 0.63,
+      "country": "RU"
+    },
+    {
+      "ip": "105.227.122.207",
+      "threat_type": "Botnet",
+      "actor": "Unknown",
+      "confidence": 0.52,
+      "country": "US"
+    },
+    {
+      "ip": "73.114.37.212",
+      "threat_type": "Scanner",
+      "actor": "Unknown",
+      "confidence": 0.52,
+      "country": "US"
+    },
+    {
+      "ip": "213.47.104.232",
+      "threat_type": "Botnet",
+      "actor": "Unknown",
+      "confidence": 0.55,
+      "country": "RU"
+    },
+    {
+      "ip": "8.47.248.92",
+      "threat_type": "Spam",
+      "actor": "Unknown",
+      "confidence": 0.64,
+      "country": "CN"
+    },
+    {
+      "ip": "138.148.133.51",
+      "threat_type": "Scanner",
+      "actor": "Unknown",
+      "confidence": 0.47,
+      "country": "US"
+    },
+    {
+      "ip": "205.148.203.12",
+      "threat_type": "Scanner",
+      "actor": "Unknown",
+      "confidence": 0.41,
+      "country": "BR"
+    },
+    {
+      "ip": "182.100.106.138",
+      "threat_type": "Scanner",
+      "actor": "Unknown",
+      "confidence": 0.6,
+      "country": "CN"
+    },
+    {
+      "ip": "141.6.6.131",
+      "threat_type": "Botnet",
+      "actor": "Unknown",
+      "confidence": 0.51,
+      "country": "RU"
+    },
+    {
+      "ip": "221.189.195.199",
+      "threat_type": "Spam",
+      "actor": "Unknown",
+      "confidence": 0.65,
+      "country": "US"
+    },
+    {
+      "ip": "145.93.143.72",
+      "threat_type": "Botnet",
+      "actor": "Unknown",
+      "confidence": 0.43,
+      "country": "RU"
+    },
+    {
+      "ip": "116.32.153.39",
+      "threat_type": "Spam",
+      "actor": "Unknown",
+      "confidence": 0.43,
+      "country": "RU"
+    },
+    {
+      "ip": "182.170.95.74",
+      "threat_type": "Botnet",
+      "actor": "Unknown",
+      "confidence": 0.52,
+      "country": "CN"
+    },
+    {
+      "ip": "220.140.158.68",
+      "threat_type": "Spam",
+      "actor": "Unknown",
+      "confidence": 0.55,
+      "country": "BR"
+    }
+  ],
+  "malicious_domains": [
+    {
+      "domain": "data.evil-c2.example.com",
+      "threat_type": "C2",
+      "confidence": 0.95
+    },
+    {
+      "domain": "update.legit-looking.xyz",
+      "threat_type": "Malware",
+      "confidence": 0.9
+    },
+    {
+      "domain": "38e801d2.xyz",
+      "threat_type": "Phishing",
+      "confidence": 0.63
+    },
+    {
+      "domain": "e33739ff.tk",
+      "threat_type": "Phishing",
+      "confidence": 0.75
+    },
+    {
+      "domain": "df030c31.xyz",
+      "threat_type": "Phishing",
+      "confidence": 0.67
+    },
+    {
+      "domain": "14cf6974.xyz",
+      "threat_type": "Phishing",
+      "confidence": 0.64
+    },
+    {
+      "domain": "a9295545.xyz",
+      "threat_type": "Phishing",
+      "confidence": 0.74
+    },
+    {
+      "domain": "e608cc20.xyz",
+      "threat_type": "Phishing",
+      "confidence": 0.7
+    },
+    {
+      "domain": "f9b6b906.cc",
+      "threat_type": "Phishing",
+      "confidence": 0.5
+    },
+    {
+      "domain": "ec156ad1.tk",
+      "threat_type": "Phishing",
+      "confidence": 0.84
+    },
+    {
+      "domain": "49b0647b.cc",
+      "threat_type": "Phishing",
+      "confidence": 0.81
+    },
+    {
+      "domain": "c81b41ea.tk",
+      "threat_type": "Phishing",
+      "confidence": 0.52
+    },
+    {
+      "domain": "2b8da038.cc",
+      "threat_type": "Phishing",
+      "confidence": 0.83
+    },
+    {
+      "domain": "c58689ee.cc",
+      "threat_type": "Phishing",
+      "confidence": 0.82
+    },
+    {
+      "domain": "f611bb51.xyz",
+      "threat_type": "Phishing",
+      "confidence": 0.7
+    }
+  ],
+  "malicious_hashes": [
+    {
+      "hash": "e116ffef7cb6c7b311c6f2aeabaaa2730efdeb16db2e2716d2cbfa6cb02733a1",
+      "family": "Rubeus",
+      "confidence": 0.98
+    },
+    {
+      "hash": "a16402d24475b3509701d8f0482a1f98cad76ddb3a9b4dc39bee64ae353f8961",
+      "family": "LockBit",
+      "confidence": 0.93
+    },
+    {
+      "hash": "3c32ffaed41d1cb2d62dbb603d75ac9ef35d91cfba0a0dd5c12d3ebd6e1f798f",
+      "family": "BlackCat",
+      "confidence": 0.81
+    },
+    {
+      "hash": "8738852e78dc0b9a74043d7eb594f38c29bf290c9422db916ad163dc44d7497b",
+      "family": "Cobalt Strike",
+      "confidence": 0.88
+    },
+    {
+      "hash": "87850b523f0e5d7dc914134cdb7d41d856ec1683e67f38997ffd7efcefb0996e",
+      "family": "BlackCat",
+      "confidence": 0.79
+    },
+    {
+      "hash": "a00e75df98f7783a481c5195bd83500b17c57daab9a22d33c3ad4b5e0e9f33ae",
+      "family": "Mimikatz",
+      "confidence": 0.96
+    },
+    {
+      "hash": "96f236cdb11fbf1abd64824d312193d5f6cb96d581ff032b479db9beefb45d1d",
+      "family": "LockBit",
+      "confidence": 0.9
+    },
+    {
+      "hash": "aa524e6d8aea604091333b4bc973d855c6fe155312ea6f84db9cbe3f3b37ddca",
+      "family": "Cobalt Strike",
+      "confidence": 0.8
+    },
+    {
+      "hash": "a64cd8d9ba157db36b9d4edc4d4d3653b0533bc3fd8d8b9551f7c4cf2a8dfc2f",
+      "family": "Rubeus",
+      "confidence": 0.86
+    },
+    {
+      "hash": "3f2d298cbf9dc5a86d316dd25bab79b29764a73f81742ef612783a77fe2aaf18",
+      "family": "LockBit",
+      "confidence": 0.78
+    }
+  ],
+  "c2_signatures": [
+    {
+      "pattern": "beacon_interval=60s,jitter=10%",
+      "family": "Cobalt Strike",
+      "confidence": 0.97
+    },
+    {
+      "pattern": "dns_txt_exfil,base64",
+      "family": "DNSCat2",
+      "confidence": 0.9
+    },
+    {
+      "pattern": "http_post,/api/v1/report",
+      "family": "Metasploit",
+      "confidence": 0.85
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "adapter_type": "mock_splunk",
+  "api_version": "1.0",
+  "queries": {
+    "summarize_recent_12h": {
+      "response": {
+        "total_events": 50247,
+        "noise_archived": 50227,
+        "alerts_for_review": 20,
+        "critical_count": 3,
+        "high_count": 8,
+        "medium_count": 9,
+        "top_targeted_assets": [
+          {
+            "asset_id": "FINANCE-DB-01",
+            "count": 8
+          },
+          {
+            "asset_id": "AD-CTRL-01",
+            "count": 5
+          },
+          {
+            "asset_id": "HR-PORTAL-01",
+            "count": 4
+          }
+        ],
+        "silent_watch_status": "YELLOW",
+        "silent_watch_summary": "有 1 件紧急事件需要你过目。"
+      }
+    },
+    "query_asset_alerts": {
+      "input": {
+        "asset_id": "str",
+        "time_range": "str"
+      },
+      "response_ref": "scenario_by_asset"
+    },
+    "query_ip_history": {
+      "input": {
+        "ip": "str",
+        "time_range": "str"
+      },
+      "response": {
+        "ip": "10.1.2.4",
+        "asset_id": "TEST-LNX-01",
+        "total_events_7d": 1250,
+        "protocols": [
+          "SSH",
+          "LDAP",
+          "HTTP"
+        ],
+        "summary": "该IP主要进行SSH连接尝试和LDAP查询"
+      }
+    }
+  }
+}

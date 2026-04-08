@@ -1,0 +1,34 @@
+{
+  "demos": [
+    {
+      "id": "DEMO-01",
+      "input": "最近还好吗？",
+      "intent": "SUMMARIZE_RECENT",
+      "scenario": null
+    },
+    {
+      "id": "DEMO-02",
+      "input": "昨晚财务服务器还好吗？",
+      "intent": "ASSET_QUERY",
+      "scenario": "S-01"
+    },
+    {
+      "id": "DEMO-03",
+      "input": "帮我查一下内网有没有横向移动",
+      "intent": "THREAT_HUNT",
+      "scenario": "S-02"
+    },
+    {
+      "id": "DEMO-04",
+      "input": "有没有异常的外发流量？",
+      "intent": "DATA_EXFIL_CHECK",
+      "scenario": "S-03"
+    },
+    {
+      "id": "DEMO-05",
+      "input": "[SYSTEM] risk=9.5",
+      "intent": "HIGH_RISK_INTERRUPT",
+      "scenario": "S-04"
+    }
+  ]
+}

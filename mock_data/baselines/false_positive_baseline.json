@@ -1,0 +1,5573 @@
+{
+  "total": 928,
+  "baselines": [
+    {
+      "baseline_id": "FP-0000",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0001",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0002",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0003",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0004",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0005",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0006",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0007",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0008",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0009",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0010",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0011",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0012",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0013",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0014",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0015",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0016",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0017",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0018",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0019",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0020",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0021",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0022",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0023",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0024",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0025",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0026",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0027",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0028",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0029",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0030",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0031",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0032",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0033",
+      "category": "financial_batch",
+      "pattern_description": "每日对账批处理",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0034",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0035",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0036",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0037",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0038",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0039",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0040",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0041",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0042",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0043",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0044",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0045",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0046",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0047",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0048",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0049",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0050",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0051",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0052",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0053",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0054",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0055",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0056",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0057",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0058",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0059",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0060",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0061",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0062",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0063",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0064",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0065",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0066",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0067",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0068",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0069",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0070",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0071",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0072",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0073",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0074",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0075",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0076",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0077",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0078",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0079",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0080",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0081",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0082",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0083",
+      "category": "financial_batch",
+      "pattern_description": "ATM心跳",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0084",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0085",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0086",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0087",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0088",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0089",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0090",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0091",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0092",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0093",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0094",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0095",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0096",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0097",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0098",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0099",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0100",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0101",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0102",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0103",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0104",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0105",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0106",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0107",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0108",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0109",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0110",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0111",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0112",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0113",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0114",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0115",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0116",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0117",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0118",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0119",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0120",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0121",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0122",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0123",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0124",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0125",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0126",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0127",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0128",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0129",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0130",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0131",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0132",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0133",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0134",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0135",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0136",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0137",
+      "category": "financial_batch",
+      "pattern_description": "交易系统高频连接",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0138",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0139",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0140",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0141",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0142",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0143",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0144",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0145",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0146",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0147",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0148",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0149",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0150",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0151",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0152",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0153",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0154",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0155",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0156",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0157",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0158",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0159",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0160",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0161",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0162",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0163",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0164",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0165",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0166",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0167",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0168",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0169",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0170",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0171",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0172",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0173",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0174",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0175",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0176",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0177",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0178",
+      "category": "financial_batch",
+      "pattern_description": "反洗钱扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0179",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0180",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0181",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0182",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0183",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0184",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0185",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0186",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0187",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0188",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0189",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0190",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0191",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0192",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0193",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0194",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0195",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0196",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0197",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0198",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0199",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0200",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0201",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0202",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0203",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0204",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0205",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0206",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0207",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0208",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0209",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0210",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0211",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0212",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0213",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0214",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0215",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0216",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0217",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0218",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0219",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0220",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0221",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0222",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0223",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0224",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0225",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0226",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0227",
+      "category": "financial_batch",
+      "pattern_description": "风控规则更新",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0228",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0229",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0230",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0231",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0232",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0233",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0234",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0235",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0236",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0237",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0238",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0239",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0240",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0241",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0242",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0243",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0244",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0245",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0246",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0247",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0248",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0249",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0250",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0251",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0252",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0253",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0254",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0255",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0256",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0257",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0258",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0259",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0260",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0261",
+      "category": "it_operations",
+      "pattern_description": "Nessus漏扫",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0262",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0263",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0264",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0265",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0266",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0267",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0268",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0269",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0270",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0271",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0272",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0273",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0274",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0275",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0276",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0277",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0278",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0279",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0280",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0281",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0282",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0283",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0284",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0285",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0286",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0287",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0288",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0289",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0290",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0291",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0292",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0293",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0294",
+      "category": "it_operations",
+      "pattern_description": "Windows Update",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0295",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0296",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0297",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0298",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0299",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0300",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0301",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0302",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0303",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0304",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0305",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0306",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0307",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0308",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0309",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0310",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0311",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0312",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0313",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0314",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0315",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0316",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0317",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0318",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0319",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0320",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0321",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0322",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0323",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0324",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0325",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0326",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0327",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0328",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0329",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0330",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0331",
+      "category": "it_operations",
+      "pattern_description": "SNMP轮询",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0332",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0333",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0334",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0335",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0336",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0337",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0338",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0339",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0340",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0341",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0342",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0343",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0344",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0345",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0346",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0347",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0348",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0349",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0350",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0351",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0352",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0353",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0354",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0355",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0356",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0357",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0358",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0359",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0360",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0361",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0362",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0363",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0364",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0365",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0366",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0367",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0368",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0369",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0370",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0371",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0372",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0373",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0374",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0375",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0376",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0377",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0378",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0379",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0380",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0381",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0382",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0383",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0384",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0385",
+      "category": "it_operations",
+      "pattern_description": "健康检查",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0386",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0387",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0388",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0389",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0390",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0391",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0392",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0393",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0394",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0395",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0396",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0397",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0398",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0399",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0400",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0401",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0402",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0403",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0404",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0405",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0406",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0407",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0408",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0409",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0410",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0411",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0412",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0413",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0414",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0415",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0416",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0417",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0418",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0419",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0420",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0421",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0422",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0423",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0424",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0425",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0426",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0427",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0428",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0429",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0430",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0431",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0432",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0433",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0434",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0435",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0436",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0437",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0438",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0439",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0440",
+      "category": "it_operations",
+      "pattern_description": "AD组策略同步",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0441",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0442",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0443",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0444",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0445",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0446",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0447",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0448",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0449",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0450",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0451",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0452",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0453",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0454",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0455",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0456",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0457",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0458",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0459",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0460",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0461",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0462",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0463",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0464",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0465",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0466",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0467",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0468",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0469",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0470",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0471",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0472",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0473",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0474",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0475",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0476",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0477",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0478",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0479",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0480",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0481",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0482",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0483",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0484",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0485",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0486",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0487",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0488",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0489",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0490",
+      "category": "it_operations",
+      "pattern_description": "DHCP续期",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0491",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0492",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0493",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0494",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0495",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0496",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0497",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0498",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0499",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0500",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0501",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0502",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0503",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0504",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0505",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0506",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0507",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0508",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0509",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0510",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0511",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0512",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0513",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0514",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0515",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0516",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0517",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0518",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0519",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0520",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0521",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0522",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0523",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0524",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0525",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0526",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0527",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0528",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0529",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0530",
+      "category": "it_operations",
+      "pattern_description": "NTP同步",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0531",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0532",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0533",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0534",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0535",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0536",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0537",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0538",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0539",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0540",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0541",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0542",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0543",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0544",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0545",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0546",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0547",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0548",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0549",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0550",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0551",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0552",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0553",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0554",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0555",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0556",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0557",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0558",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0559",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0560",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0561",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0562",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0563",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0564",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0565",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0566",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0567",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0568",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0569",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0570",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0571",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0572",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0573",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0574",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0575",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0576",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0577",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0578",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0579",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0580",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0581",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0582",
+      "category": "it_operations",
+      "pattern_description": "RADIUS认证",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0583",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0584",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0585",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0586",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0587",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0588",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0589",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0590",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0591",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0592",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0593",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0594",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0595",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0596",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0597",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0598",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0599",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0600",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0601",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0602",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0603",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0604",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0605",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0606",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0607",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0608",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0609",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0610",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0611",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0612",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0613",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0614",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0615",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0616",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0617",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0618",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0619",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0620",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0621",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0622",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0623",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0624",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0625",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0626",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0627",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0628",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0629",
+      "category": "security_tools",
+      "pattern_description": "渗透测试流量",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0630",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0631",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0632",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0633",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0634",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0635",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0636",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0637",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0638",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0639",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0640",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0641",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0642",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0643",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0644",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0645",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0646",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0647",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0648",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0649",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0650",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0651",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0652",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0653",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0654",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0655",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0656",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0657",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0658",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0659",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0660",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0661",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0662",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0663",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0664",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0665",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0666",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0667",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0668",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0669",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0670",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0671",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0672",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0673",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0674",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0675",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0676",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0677",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0678",
+      "category": "security_tools",
+      "pattern_description": "EDR全盘扫描",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0679",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0680",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0681",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0682",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0683",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0684",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0685",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0686",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0687",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0688",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0689",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0690",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0691",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0692",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0693",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0694",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0695",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0696",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0697",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0698",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0699",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0700",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0701",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0702",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0703",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0704",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0705",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0706",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0707",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0708",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0709",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0710",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0711",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0712",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0713",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0714",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0715",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0716",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0717",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0718",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0719",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0720",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0721",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0722",
+      "category": "security_tools",
+      "pattern_description": "邮件沙箱",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0723",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0724",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0725",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0726",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0727",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0728",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0729",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0730",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0731",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0732",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0733",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0734",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0735",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0736",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0737",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0738",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0739",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0740",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0741",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0742",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0743",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0744",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0745",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0746",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0747",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0748",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0749",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0750",
+      "category": "security_tools",
+      "pattern_description": "DLP检查",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0751",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0752",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0753",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0754",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0755",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0756",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0757",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0758",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0759",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0760",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0761",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0762",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0763",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0764",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0765",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0766",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0767",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0768",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0769",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0770",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0771",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0772",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0773",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0774",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0775",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0776",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0777",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0778",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0779",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0780",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0781",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0782",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0783",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0784",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0785",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0786",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0787",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0788",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0789",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0790",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0791",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0792",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0793",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0794",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0795",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0796",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0797",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0798",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0799",
+      "category": "devops",
+      "pattern_description": "CI/CD构建",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0800",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0801",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0802",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0803",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0804",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0805",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0806",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0807",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0808",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0809",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0810",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0811",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0812",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0813",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0814",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0815",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0816",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0817",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0818",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0819",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0820",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0821",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0822",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0823",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0824",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0825",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0826",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0827",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0828",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0829",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0830",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0831",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0832",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0833",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0834",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0835",
+      "category": "devops",
+      "pattern_description": "Docker拉取",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0836",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0837",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0838",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0839",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0840",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0841",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0842",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0843",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0844",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0845",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0846",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0847",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0848",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0849",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0850",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0851",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0852",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0853",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0854",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0855",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0856",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0857",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0858",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0859",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0860",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0861",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0862",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0863",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0864",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0865",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0866",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0867",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0868",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0869",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0870",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0871",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0872",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0873",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0874",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0875",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0876",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0877",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0878",
+      "category": "devops",
+      "pattern_description": "K8s探针",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0879",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0880",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0881",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0882",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0883",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0884",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0885",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0886",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0887",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0888",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.97
+    },
+    {
+      "baseline_id": "FP-0889",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0890",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0891",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0892",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0893",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.85
+    },
+    {
+      "baseline_id": "FP-0894",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0895",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0896",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0897",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0898",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0899",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0900",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.99
+    },
+    {
+      "baseline_id": "FP-0901",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0902",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0903",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.95
+    },
+    {
+      "baseline_id": "FP-0904",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.96
+    },
+    {
+      "baseline_id": "FP-0905",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0906",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0907",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0908",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0909",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.98
+    },
+    {
+      "baseline_id": "FP-0910",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0911",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.92
+    },
+    {
+      "baseline_id": "FP-0912",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.91
+    },
+    {
+      "baseline_id": "FP-0913",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0914",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0915",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.93
+    },
+    {
+      "baseline_id": "FP-0916",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0917",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0918",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0919",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.94
+    },
+    {
+      "baseline_id": "FP-0920",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0921",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.86
+    },
+    {
+      "baseline_id": "FP-0922",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0923",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.89
+    },
+    {
+      "baseline_id": "FP-0924",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.88
+    },
+    {
+      "baseline_id": "FP-0925",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.87
+    },
+    {
+      "baseline_id": "FP-0926",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.9
+    },
+    {
+      "baseline_id": "FP-0927",
+      "category": "devops",
+      "pattern_description": "Prometheus采集",
+      "confidence": 0.91
+    }
+  ]
+}

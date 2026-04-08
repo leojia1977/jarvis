@@ -1,0 +1,168 @@
+{
+  "scenario": {
+    "scenario_id": "S-01",
+    "name": "SSH Brute Force",
+    "risk_score": 7.5,
+    "confidence": 0.95,
+    "kill_chain": "Initial Access → Credential Access",
+    "alerts": [
+      {
+        "event_time": "2026-04-01T02:15:33Z",
+        "source_ip": "10.1.2.4",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "SSH_LOGIN_FAILURE",
+        "activity_id": 1,
+        "count": 200,
+        "process_name": "hydra",
+        "parent_process": "/bin/bash",
+        "severity": "HIGH"
+      },
+      {
+        "event_time": "2026-04-01T02:18:45Z",
+        "source_ip": "10.1.2.4",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "SSH_LOGIN_FAILURE",
+        "activity_id": 1,
+        "count": 150,
+        "process_name": "hydra",
+        "parent_process": "/bin/bash",
+        "severity": "HIGH"
+      },
+      {
+        "event_time": "2026-04-01T02:22:10Z",
+        "source_ip": "10.1.2.4",
+        "dest_asset": "AD-CTRL-01",
+        "activity_name": "LDAP_QUERY_BURST",
+        "activity_id": 6,
+        "count": 50,
+        "process_name": "ldapsearch",
+        "parent_process": "/bin/bash",
+        "severity": "MEDIUM"
+      },
+      {
+        "event_time": "2026-04-01T02:25:00Z",
+        "source_ip": "10.1.2.4",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "SSH_LOGIN_FAILURE",
+        "activity_id": 1,
+        "count": 150,
+        "process_name": "hydra",
+        "parent_process": "/bin/bash",
+        "severity": "HIGH"
+      }
+    ],
+    "narrative_arc": {
+      "timeline": [
+        {
+          "ts": "02:15",
+          "event": "首次SSH爆破（200次）",
+          "significance": "起点"
+        },
+        {
+          "ts": "02:18",
+          "event": "持续爆破",
+          "significance": "升级"
+        },
+        {
+          "ts": "02:22",
+          "event": "LDAP枚举",
+          "significance": "侦察"
+        },
+        {
+          "ts": "02:25",
+          "event": "新字典攻击",
+          "significance": "持续"
+        }
+      ],
+      "motive": "利用无人管理测试机跳板攻击财务DB",
+      "kill_chain_stage": "Credential Access → Discovery"
+    },
+    "action": {
+      "type": "NETWORK_ISOLATE",
+      "target": "TEST-LNX-01",
+      "blast_radius": "测试网段2台机器断网，不影响生产"
+    }
+  },
+  "alerts": [
+    {
+      "event_id": "S-01-000",
+      "event_time": "2026-04-01T02:15:33Z",
+      "source_ip": "10.1.2.4",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "SSH_LOGIN_FAILURE",
+      "severity": "HIGH",
+      "count": 200,
+      "process_name": "hydra",
+      "parent_process": "/bin/bash",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-01",
+        "scenario_name": "SSH Brute Force",
+        "kill_chain": "Initial Access → Credential Access"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-01-001",
+      "event_time": "2026-04-01T02:18:45Z",
+      "source_ip": "10.1.2.4",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "SSH_LOGIN_FAILURE",
+      "severity": "HIGH",
+      "count": 150,
+      "process_name": "hydra",
+      "parent_process": "/bin/bash",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-01",
+        "scenario_name": "SSH Brute Force",
+        "kill_chain": "Initial Access → Credential Access"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-01-002",
+      "event_time": "2026-04-01T02:22:10Z",
+      "source_ip": "10.1.2.4",
+      "destination_asset_id": "AD-CTRL-01",
+      "destination_ip": "10.1.1.5",
+      "activity_name": "LDAP_QUERY_BURST",
+      "severity": "MEDIUM",
+      "count": 50,
+      "process_name": "ldapsearch",
+      "parent_process": "/bin/bash",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false,
+        "scenario_id": "S-01",
+        "scenario_name": "SSH Brute Force",
+        "kill_chain": "Initial Access → Credential Access"
+      },
+      "extra": {}
+    },
+    {
+      "event_id": "S-01-003",
+      "event_time": "2026-04-01T02:25:00Z",
+      "source_ip": "10.1.2.4",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "SSH_LOGIN_FAILURE",
+      "severity": "HIGH",
+      "count": 150,
+      "process_name": "hydra",
+      "parent_process": "/bin/bash",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-01",
+        "scenario_name": "SSH Brute Force",
+        "kill_chain": "Initial Access → Credential Access"
+      },
+      "extra": {}
+    }
+  ]
+}

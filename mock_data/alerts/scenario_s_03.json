@@ -1,0 +1,151 @@
+{
+  "scenario": {
+    "scenario_id": "S-03",
+    "name": "Data Exfiltration",
+    "risk_score": 8.8,
+    "confidence": 0.88,
+    "kill_chain": "Collection → Exfiltration",
+    "alerts": [
+      {
+        "event_time": "2026-03-31T23:45:00Z",
+        "source_ip": "10.1.5.22",
+        "dest_asset": "EXTERNAL",
+        "activity_name": "LARGE_OUTBOUND_TRANSFER",
+        "activity_id": 9,
+        "count": 1,
+        "process_name": "curl",
+        "parent_process": "bash",
+        "severity": "HIGH",
+        "extra": {
+          "dest_ip": "45.33.49.12",
+          "bytes_out": 524288000
+        }
+      },
+      {
+        "event_time": "2026-03-31T23:52:00Z",
+        "source_ip": "10.1.5.22",
+        "dest_asset": "EXTERNAL",
+        "activity_name": "DNS_TXT_ANOMALY",
+        "activity_id": 10,
+        "count": 150,
+        "process_name": "nslookup",
+        "parent_process": "bash",
+        "severity": "MEDIUM",
+        "extra": {
+          "query_domain": "data.evil-c2.example.com"
+        }
+      },
+      {
+        "event_time": "2026-04-01T00:05:00Z",
+        "source_ip": "10.1.5.22",
+        "dest_asset": "EXTERNAL",
+        "activity_name": "LARGE_OUTBOUND_TRANSFER",
+        "activity_id": 9,
+        "count": 1,
+        "process_name": "curl",
+        "parent_process": "bash",
+        "severity": "HIGH",
+        "extra": {
+          "dest_ip": "45.33.49.12",
+          "bytes_out": 314572800
+        }
+      }
+    ],
+    "narrative_arc": {
+      "timeline": [
+        {
+          "ts": "23:45",
+          "event": "深夜传输500MB加密数据",
+          "significance": "起点"
+        },
+        {
+          "ts": "23:52",
+          "event": "DNS隧道通信",
+          "significance": "隐蔽通道"
+        },
+        {
+          "ts": "00:05",
+          "event": "第二批300MB数据传输",
+          "significance": "持续外泄"
+        }
+      ],
+      "motive": "利用深夜窗口批量外泄财务数据",
+      "kill_chain_stage": "Collection → Exfiltration"
+    },
+    "action": {
+      "type": "ISOLATE_AND_BLOCK",
+      "target": "WKST-047",
+      "blast_radius": "隔离财务工作站+封锁外泄目标IP"
+    }
+  },
+  "alerts": [
+    {
+      "event_id": "S-03-000",
+      "event_time": "2026-03-31T23:45:00Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "EXTERNAL",
+      "destination_ip": "45.33.49.12",
+      "activity_name": "LARGE_OUTBOUND_TRANSFER",
+      "severity": "HIGH",
+      "count": 1,
+      "process_name": "curl",
+      "parent_process": "bash",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-03",
+        "scenario_name": "Data Exfiltration",
+        "kill_chain": "Collection → Exfiltration"
+      },
+      "extra": {
+        "dest_ip": "45.33.49.12",
+        "bytes_out": 524288000
+      }
+    },
+    {
+      "event_id": "S-03-001",
+      "event_time": "2026-03-31T23:52:00Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "EXTERNAL",
+      "destination_ip": "0.0.0.0",
+      "activity_name": "DNS_TXT_ANOMALY",
+      "severity": "MEDIUM",
+      "count": 150,
+      "process_name": "nslookup",
+      "parent_process": "bash",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false,
+        "scenario_id": "S-03",
+        "scenario_name": "Data Exfiltration",
+        "kill_chain": "Collection → Exfiltration"
+      },
+      "extra": {
+        "query_domain": "data.evil-c2.example.com"
+      }
+    },
+    {
+      "event_id": "S-03-002",
+      "event_time": "2026-04-01T00:05:00Z",
+      "source_ip": "10.1.5.22",
+      "destination_asset_id": "EXTERNAL",
+      "destination_ip": "45.33.49.12",
+      "activity_name": "LARGE_OUTBOUND_TRANSFER",
+      "severity": "HIGH",
+      "count": 1,
+      "process_name": "curl",
+      "parent_process": "bash",
+      "enrichment": {
+        "threat_intel_flag": true,
+        "is_historical_fp": false,
+        "scenario_id": "S-03",
+        "scenario_name": "Data Exfiltration",
+        "kill_chain": "Collection → Exfiltration"
+      },
+      "extra": {
+        "dest_ip": "45.33.49.12",
+        "bytes_out": 314572800
+      }
+    }
+  ]
+}

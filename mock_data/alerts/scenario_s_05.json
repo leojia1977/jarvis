@@ -1,0 +1,155 @@
+{
+  "scenario": {
+    "scenario_id": "S-05",
+    "name": "Insider Threat",
+    "risk_score": 6.5,
+    "confidence": 0.72,
+    "kill_chain": "Collection (Insider)",
+    "alerts": [
+      {
+        "event_time": "2026-03-31T22:30:00Z",
+        "source_ip": "10.1.10.2",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "DB_LOGIN_OFF_HOURS",
+        "activity_id": 14,
+        "count": 1,
+        "process_name": "ssms.exe",
+        "parent_process": "explorer.exe",
+        "severity": "MEDIUM",
+        "extra": {
+          "username": "ceo_account"
+        }
+      },
+      {
+        "event_time": "2026-03-31T22:35:00Z",
+        "source_ip": "10.1.10.2",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "SENSITIVE_TABLE_ACCESS",
+        "activity_id": 15,
+        "count": 5,
+        "process_name": "ssms.exe",
+        "parent_process": "explorer.exe",
+        "severity": "MEDIUM",
+        "extra": {
+          "tables": [
+            "salary_records",
+            "bonus_allocation",
+            "stock_options"
+          ]
+        }
+      },
+      {
+        "event_time": "2026-03-31T22:45:00Z",
+        "source_ip": "10.1.10.2",
+        "dest_asset": "FINANCE-DB-01",
+        "activity_name": "DATA_EXPORT_CSV",
+        "activity_id": 16,
+        "count": 3,
+        "process_name": "ssms.exe",
+        "parent_process": "explorer.exe",
+        "severity": "MEDIUM",
+        "extra": {
+          "rows": 2500
+        }
+      }
+    ],
+    "narrative_arc": {
+      "timeline": [
+        {
+          "ts": "22:30",
+          "event": "CEO工作站非工作时间登录财务DB",
+          "significance": "起点"
+        },
+        {
+          "ts": "22:35",
+          "event": "访问薪资/奖金/期权表",
+          "significance": "敏感数据"
+        },
+        {
+          "ts": "22:45",
+          "event": "导出2500行CSV",
+          "significance": "数据导出"
+        }
+      ],
+      "motive": "可能CEO本人查询或账号被盗用，需人工确认",
+      "kill_chain_stage": "Collection (Insider - Unconfirmed)"
+    },
+    "action": {
+      "type": "ALERT_AND_CONFIRM",
+      "target": "CEO-WS-01",
+      "blast_radius": "不建议直接隔离CEO工作站，建议联系本人确认"
+    }
+  },
+  "alerts": [
+    {
+      "event_id": "S-05-000",
+      "event_time": "2026-03-31T22:30:00Z",
+      "source_ip": "10.1.10.2",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "DB_LOGIN_OFF_HOURS",
+      "severity": "MEDIUM",
+      "count": 1,
+      "process_name": "ssms.exe",
+      "parent_process": "explorer.exe",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false,
+        "scenario_id": "S-05",
+        "scenario_name": "Insider Threat",
+        "kill_chain": "Collection (Insider)"
+      },
+      "extra": {
+        "username": "ceo_account"
+      }
+    },
+    {
+      "event_id": "S-05-001",
+      "event_time": "2026-03-31T22:35:00Z",
+      "source_ip": "10.1.10.2",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "SENSITIVE_TABLE_ACCESS",
+      "severity": "MEDIUM",
+      "count": 5,
+      "process_name": "ssms.exe",
+      "parent_process": "explorer.exe",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false,
+        "scenario_id": "S-05",
+        "scenario_name": "Insider Threat",
+        "kill_chain": "Collection (Insider)"
+      },
+      "extra": {
+        "tables": [
+          "salary_records",
+          "bonus_allocation",
+          "stock_options"
+        ]
+      }
+    },
+    {
+      "event_id": "S-05-002",
+      "event_time": "2026-03-31T22:45:00Z",
+      "source_ip": "10.1.10.2",
+      "destination_asset_id": "FINANCE-DB-01",
+      "destination_ip": "10.1.5.10",
+      "activity_name": "DATA_EXPORT_CSV",
+      "severity": "MEDIUM",
+      "count": 3,
+      "process_name": "ssms.exe",
+      "parent_process": "explorer.exe",
+      "enrichment": {
+        "threat_intel_flag": false,
+        "is_historical_fp": false,
+        "scenario_id": "S-05",
+        "scenario_name": "Insider Threat",
+        "kill_chain": "Collection (Insider)"
+      },
+      "extra": {
+        "rows": 2500
+      }
+    }
+  ]
+}

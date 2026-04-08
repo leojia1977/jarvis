@@ -1,0 +1,286 @@
+{
+  "project_name": "SecuPilot",
+  "source_of_truth": {
+    "path": "D:\\产品设计\\New folder",
+    "rule": "Only this directory may be treated as runnable truth.",
+    "layout": "structured-compat-root"
+  },
+  "snapshot": {
+    "id": "S3-GIT-2026-04-08-001",
+    "sprint": "Sprint 3",
+    "stage": "git-workflow-baseline",
+    "created_at": "2026-04-08T00:00:00+08:00",
+    "updated_at": "2026-04-08T16:01:24.936872+08:00"
+  },
+  "artifacts": {
+    "current_release_zip": "releases\\secupilot-S3-GIT-2026-04-08-001.zip",
+    "current_release_sha256": "e4f56a3747f6c961b7e08f28f33bcc5d11901600c864a440da852eddd4b7e4d7"
+  },
+  "key_files": [
+    {
+      "path": "_project_bootstrap.py",
+      "role": "bootstrap",
+      "sha256": "b885251bca4e6f3e9a9450c820f2caba7c3b1735d878de98087a0ced68dc222c"
+    },
+    {
+      "path": "graph_v3_orchestrator.py",
+      "role": "compat-orchestrator",
+      "sha256": "b88951577082f96d37217010cf6ecb4f78e823c42870189b9e3da77d51da2ec6"
+    },
+    {
+      "path": "process_tree_t3.py",
+      "role": "compat-t3",
+      "sha256": "02f6487753bad1528bd90d92c3f822db75c2aea621758a68fde39313761c39b4"
+    },
+    {
+      "path": "jarvis_hunt_engine.py",
+      "role": "compat-jarvis",
+      "sha256": "e3c6f5f4c6624c21173549aab1eec4513f27f2d285b392e4e3b3838cdfc08e96"
+    },
+    {
+      "path": "triage_engine.py",
+      "role": "compat-t1",
+      "sha256": "b4232684f5cb6e3f85f838de04991f1d9daccb10c88da2f814391c692d0dcad6"
+    },
+    {
+      "path": "threat_intel_T4.py",
+      "role": "compat-t4",
+      "sha256": "1a36834c4075137a8d25f67bbb3f78e14698d3b30939ca5b942ca69cd4070940"
+    },
+    {
+      "path": "blast_radius.py",
+      "role": "compat-t5",
+      "sha256": "d4ae7f7fbb170d35bab47ade3069df2b0f02fd23cf28138f708f939061f50b7e"
+    },
+    {
+      "path": "generate_mock_data.py",
+      "role": "compat-mock-data",
+      "sha256": "2ddc7872971173dc342423ea1897d2ecd5855303302bfaf91a312fcba92afaa7"
+    },
+    {
+      "path": "generate_process_events.py",
+      "role": "compat-process-generator",
+      "sha256": "387cde21873304d81ec5456a9285ba15049abd4a4ed21cc424abb73ab82e79a3"
+    },
+    {
+      "path": "test_t3_hunt.py",
+      "role": "compat-t3-tests",
+      "sha256": "78ab941277a82093b84853adb8835f1693d62785d293d41e6909baad942b1bb6"
+    },
+    {
+      "path": "test_secupilot_drafts.py",
+      "role": "compat-regression-tests",
+      "sha256": "65e061c2141e3d751bbb7217a69b0ef805935ca7cca75b784fe69a76f122fedd"
+    },
+    {
+      "path": "selfcheck_t1_t5.py",
+      "role": "t1-t5-selfcheck",
+      "sha256": "1f4b6da2657189bc94aa9fa4aac9233364032e556b83eab086011477ecd30b61"
+    },
+    {
+      "path": "backend\\app\\config.py",
+      "role": "config",
+      "sha256": "48972ffe0b8176c659c10bbb9fc28bb84a68f2a79054d340d7d2684024754196"
+    },
+    {
+      "path": "backend\\app\\agents\\graph.py",
+      "role": "canonical-orchestrator",
+      "sha256": "5ef8183bccd6ae863e4d60e6a6c939ce829cd8692ac19a20531557bf390389fc"
+    },
+    {
+      "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
+      "role": "canonical-jarvis",
+      "sha256": "c32d24b8ef8c59457a2bfc97c8132e7889b55f06e39f98195f8496ff424c45de"
+    },
+    {
+      "path": "backend\\app\\tools\\process_tree_t3.py",
+      "role": "canonical-t3",
+      "sha256": "fd5080e19cbaecb0bcb9fb643cc8da56d37e1b350c5b294d0f997584466d3c28"
+    },
+    {
+      "path": "backend\\app\\tools\\triage_engine.py",
+      "role": "canonical-t1",
+      "sha256": "2c6162ac755a9a8cb2a47193c0d99de883914ee34a2dbf1b8bb91236049c886e"
+    },
+    {
+      "path": "backend\\app\\tools\\threat_intel.py",
+      "role": "canonical-t4",
+      "sha256": "f4f5a8ea564b18460f3558fc7d206d3c7c07618fa15333777937d40316a227ad"
+    },
+    {
+      "path": "backend\\app\\tools\\blast_radius.py",
+      "role": "canonical-t5",
+      "sha256": "726f89d4068b66ee51e256d56cc9fd72206489e6cd1392a75a8a861fc070f6ab"
+    },
+    {
+      "path": "backend\\app\\tools\\siem_adapter.py",
+      "role": "siem-adapter",
+      "sha256": "42b373cad21533793138fa7c38d0232de2e0a55d3978894999d95d21d7913ab9"
+    },
+    {
+      "path": "scripts\\generate_mock_data.py",
+      "role": "canonical-mock-data",
+      "sha256": "d548970f346dcf407b1ae528c1dfee663893b08aedb4d52eaf4fc3d3f9c295f3"
+    },
+    {
+      "path": "scripts\\generate_process_events.py",
+      "role": "canonical-process-generator",
+      "sha256": "e67e59dfff7b4ba3351dbf0a484e88d0af0676131c55b7d1c107c2eadc838089"
+    },
+    {
+      "path": "backend\\tests\\test_t3_hunt.py",
+      "role": "canonical-t3-tests",
+      "sha256": "6841ea2cc3db8ec4fd5ab02499d3b17bf5d8c84f56c9e457e16e9735019cfd22"
+    },
+    {
+      "path": "backend\\tests\\test_secupilot_drafts.py",
+      "role": "canonical-regression-tests",
+      "sha256": "1467c3aee7ed35353bd428524bde8f1fbc758089b7da616d0fe6df9432944754"
+    },
+    {
+      "path": "mock_data\\process_events\\index.json",
+      "role": "canonical-process-event-index",
+      "sha256": "05691ef4b33f227509f26a743fb7da0e979386cfe3ad848cbedcdd1278e0586c"
+    },
+    {
+      "path": "docs\\HANDOFF.md",
+      "role": "handoff-doc",
+      "sha256": "6a553fb79fd5f85beb7069dc882b970241af9469b501579f4c14643d22cf6755"
+    },
+    {
+      "path": "docs\\PROJECT_STRUCTURE.md",
+      "role": "project-structure-doc",
+      "sha256": "fcfc3f50c2f733c8accf208713d6724cd5617009a1668d372e2d50971425b68f"
+    },
+    {
+      "path": "docs\\CLAUDE_WEB_UPLOAD_CHECKLIST.md",
+      "role": "claude-upload-checklist",
+      "sha256": "d2f80089ae6e5b7c49a9b364e1b8d01b20ddf6fc579982f956ec23a1de2c5355"
+    },
+    {
+      "path": "docs\\CLAUDE_WEB_ALIGNMENT_GUIDE.md",
+      "role": "claude-alignment-guide",
+      "sha256": "2ada2ac5718bfac25047cd3a724336fde09276821046694c4561f4c48b2847ad"
+    },
+    {
+      "path": "docs\\SPRINT3_PRD.md",
+      "role": "sprint3-prd",
+      "sha256": "7d2eaf39089542cb96eb34e3888b613f0234dbaa10e2a2b79e45860ec26aeff0"
+    },
+    {
+      "path": "docs\\SPRINT3_JIRA_BACKLOG.md",
+      "role": "sprint3-jira-backlog",
+      "sha256": "7efb167daf5ee44fbde8b3ef36b4eeee9c083734836d78e6f2017dfb771b6c69"
+    },
+    {
+      "path": "contracts\\AI_COLLAB_CONTRACT.md",
+      "role": "collaboration-contract",
+      "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
+    },
+    {
+      "path": "scripts\\build_claude_review_pack.py",
+      "role": "claude-review-pack-builder",
+      "sha256": "255ac2ff9fe464e5c075dc2160b5d7f13be06d91a3fc3c43caa30d88486ce49a"
+    },
+    {
+      "path": ".gitignore",
+      "role": "git-ignore",
+      "sha256": "903eb70f0a94a6c3f75a8c23e43604863970a5017dd0f0d080622bd0538d2301"
+    },
+    {
+      "path": ".gitattributes",
+      "role": "git-attributes",
+      "sha256": "81f34b30606b7d7e8055d3f78d739941a09d34d8a300d1c82e9503ef4872d0bc"
+    },
+    {
+      "path": ".gitmessage.txt",
+      "role": "git-commit-template",
+      "sha256": "9b81f7c1e6801ba88ba08d452ea2ade72bc6d40d488ee41fdae8bff36275908b"
+    },
+    {
+      "path": ".githooks\\pre-commit",
+      "role": "git-pre-commit-hook",
+      "sha256": "46157c95ebaa39ca86c6a52a133d0eda2c21ccd411c14e86bf3ae16357e2526f"
+    },
+    {
+      "path": ".githooks\\pre-push",
+      "role": "git-pre-push-hook",
+      "sha256": "1b989beb7feadf6540aa6955b650558e784e4c7ad95627c9abf7e7364bd19f91"
+    },
+    {
+      "path": "docs\\GIT_WORKFLOW.md",
+      "role": "git-workflow-doc",
+      "sha256": "9f46b70f3674cd1d22660bd7b3d2ad3a1fe541d7327e27079ecf07fd57a0a788"
+    },
+    {
+      "path": "scripts\\git_preflight.py",
+      "role": "git-preflight",
+      "sha256": "a7bef4bbb88eb2536eb7b95b18c2da5c7df22b8a80fdae2f65b509d069e385c5"
+    },
+    {
+      "path": "scripts\\install_git_workflow.py",
+      "role": "git-workflow-installer",
+      "sha256": "2be77e10327e5f5cbaef987eb10f91a607c7ded80c13a18c9eb31a746631a8aa"
+    }
+  ],
+  "tests": [
+    {
+      "name": "Compat T3 Hunt",
+      "argv": [
+        "py",
+        "-3",
+        "test_t3_hunt.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "Compat Draft Regression",
+      "argv": [
+        "py",
+        "-3",
+        "test_secupilot_drafts.py"
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "Structured Backend Tests",
+      "argv": [
+        "py",
+        "-3",
+        "-m",
+        "unittest",
+        "-q",
+        "backend.tests.test_t3_hunt",
+        "backend.tests.test_secupilot_drafts"
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "T1 T5 Selfcheck",
+      "argv": [
+        "py",
+        "-3",
+        "selfcheck_t1_t5.py"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "collaboration": {
+    "claude_role": "review-and-decision",
+    "codex_role": "implementation-and-release",
+    "required_prompt_header": [
+      "Single source of truth: D:\\产品设计\\New folder",
+      "Snapshot ID: S3-GIT-2026-04-08-001",
+      "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
+      "Do not use any file outside this root as latest code truth."
+    ]
+  },
+  "verification": {
+    "last_verified_at": "2026-04-08T16:01:25.126980+08:00",
+    "key_files": "PASS",
+    "release_zip": "PASS",
+    "tests": "PASS",
+    "overall_status": "PASS",
+    "report_path": "releases\\verify_report.json"
+  }
+}
