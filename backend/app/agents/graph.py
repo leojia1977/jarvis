@@ -203,16 +203,24 @@ class SaiLouOrchestrator:
         hunt_plan = None
         degraded_reasons: list[str] = []
         time_spec = TimeRangeSpec.from_value(time_range, settings.business_timezone)
+        siem_timeout_budget = max(timeout * 0.25, 0.1)
+        scenario_meta_timeout_budget = max(timeout * 0.05, 0.05)
 
         try:
             # ---- Step 1: 收集原始告警 ----
-            siem_alerts = await self._gather_alerts(
-                intent=intent,
-                user_input=user_input,
-                asset_id=target_asset_id,
-                ip=target_ip,
-                time_range=time_spec,
-            )
+            try:
+                siem_alerts = await asyncio.wait_for(
+                    self._gather_alerts(
+                        intent=intent,
+                        user_input=user_input,
+                        asset_id=target_asset_id,
+                        ip=target_ip,
+                        time_range=time_spec,
+                    ),
+                    timeout=siem_timeout_budget,
+                )
+            except asyncio.TimeoutError:
+                siem_alerts = AdapterResult.timeout([], gap_reason="siem_gather_timeout")
             raw_alerts = siem_alerts.data or []
             tool_results["siem_adapter"] = {
                 "status": siem_alerts.status,
@@ -315,7 +323,13 @@ class SaiLouOrchestrator:
                 or tool_results.get("_siem_scenario_id")
             )
             if scenario_id:
-                scenario_meta = await self.siem.get_scenario_metadata(scenario_id)
+                try:
+                    scenario_meta = await asyncio.wait_for(
+                        self.siem.get_scenario_metadata(scenario_id),
+                        timeout=scenario_meta_timeout_budget,
+                    )
+                except asyncio.TimeoutError:
+                    scenario_meta = AdapterResult.timeout(None, gap_reason="siem_scenario_metadata_timeout")
                 tool_results["_scenario_context"] = scenario_meta.data or {}
                 tool_results["_scenario_context_status"] = scenario_meta.status
                 if scenario_meta.status != "ok":
@@ -661,11 +675,10 @@ class SaiLouOrchestrator:
         user_input: str = "",
         asset_id: str = None,
         ip: str = None,
-        time_range: TimeRangeSpec | str = "24h",
+        time_range: Optional[TimeRangeSpec] = None,
     ) -> AdapterResult[list]:
         """从 SIEM 收集原始告警，始终通过 adapter contract 访问。"""
-        spec = TimeRangeSpec.from_value(time_range, settings.business_timezone)
-
+        spec = time_range or TimeRangeSpec.from_value("24h", settings.business_timezone)
         if intent == "asset_query" and (asset_id or ip):
             target = asset_id or ip
             result = await self.siem.query_asset_alerts(target, spec)

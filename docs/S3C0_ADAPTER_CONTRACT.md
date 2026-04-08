@@ -44,6 +44,7 @@ Rules:
 - `_gather_alerts()` must return `AdapterResult[list]`
 - `_assemble_case()` must consume scenario metadata from adapter results, not from `._cache`
 - `siem_adapter_timeout / siem_adapter_partial / siem_adapter_unavailable` must flow into `investigation_status = "DEGRADED"` when applicable
+- SIEM gather and scenario metadata calls must have their own timeout budgets and degrade the case instead of returning `ERROR`
 
 ## Runtime Rules
 - `runtime_mode` must be consumed by a factory branch
@@ -67,4 +68,5 @@ S3-C-0 is not accepted unless all of the following are covered:
 - `TimeRangeSpec` normalization
 - `MockSIEMAdapter` returns `AdapterResult`
 - Orchestrator no longer depends on `._cache`
-- SIEM adapter timeout degrades the case instead of returning `ERROR`
+- `timeout / partial / unavailable` all degrade the case instead of returning `ERROR`
+- Scenario metadata timeout degrades the case without breaking the main investigation flow

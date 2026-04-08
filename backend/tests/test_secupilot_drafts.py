@@ -37,10 +37,12 @@ class DummyBlast:
 
 
 class FakeSIEMAdapter:
-    def __init__(self, scenarios, *, intent_status="ok", scenario_status="ok"):
+    def __init__(self, scenarios, *, intent_status="ok", scenario_status="ok", intent_delay=0.0, scenario_delay=0.0):
         self.scenarios = scenarios
         self.intent_status = intent_status
         self.scenario_status = scenario_status
+        self.intent_delay = intent_delay
+        self.scenario_delay = scenario_delay
 
     async def query_recent_summary(self, time_range: TimeRangeSpec):
         alerts = []
@@ -61,8 +63,22 @@ class FakeSIEMAdapter:
         return AdapterResult.ok(results)
 
     async def query_intent_alerts(self, intent: str, user_input: str, time_range: TimeRangeSpec):
+        if self.intent_delay:
+            import asyncio
+            await asyncio.sleep(self.intent_delay)
         if self.intent_status == "timeout":
             return AdapterResult.timeout([], gap_reason="adapter_timeout")
+        if self.intent_status == "partial":
+            query = (user_input or "").lower()
+            matched_sid = "S-02"
+            if "勒索" in query or "ransom" in query or "c2" in query:
+                matched_sid = "S-04"
+            scenario = self.scenarios.get(matched_sid, {})
+            return AdapterResult.partial(
+                list(scenario.get("alerts", [])),
+                gap_reason="partial_time_window_data",
+                metadata={"scenario_id": matched_sid},
+            )
         if self.intent_status == "unavailable":
             return AdapterResult.unavailable([], gap_reason="adapter_unavailable")
 
@@ -74,6 +90,9 @@ class FakeSIEMAdapter:
         return AdapterResult.ok(list(scenario.get("alerts", [])), metadata={"scenario_id": matched_sid})
 
     async def get_scenario_metadata(self, scenario_id: str):
+        if self.scenario_delay:
+            import asyncio
+            await asyncio.sleep(self.scenario_delay)
         if self.scenario_status == "timeout":
             return AdapterResult.timeout(None, gap_reason="adapter_timeout")
         return AdapterResult.ok(self.scenarios.get(scenario_id, {}).get("scenario"))
@@ -374,6 +393,136 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(case["investigation_status"], "DEGRADED")
         self.assertIn("siem_adapter_timeout", case["audit_trail"]["degraded_reasons"])
         self.assertNotEqual(case["case_id"], "ERROR")
+
+    async def test_siem_unavailable_maps_to_degraded(self):
+        unavailable = graph_orchestrator.SaiLouOrchestrator(
+            siem=FakeSIEMAdapter(self.scenarios, intent_status="unavailable"),
+            triage=types.SimpleNamespace(),
+            intel=types.SimpleNamespace(),
+            blast=DummyBlast(),
+            process_events_cache={},
+        )
+
+        async def fake_run_triage(alerts):
+            return {
+                "status": "complete",
+                "top_risk_score": 4.2,
+                "matched_scenario_id": None,
+                "top_alerts": [],
+                "total_scanned": 0,
+                "noise_archived": 0,
+                "compression_ratio": 0.0,
+            }
+
+        unavailable._run_triage = fake_run_triage
+
+        case = await unavailable.investigate(
+            intent="summarize_recent",
+            user_input="帮我总结最近态势",
+            timeout=2.0,
+        )
+        self.assertEqual(case["verdict_status"], "DEGRADED")
+        self.assertEqual(case["investigation_status"], "DEGRADED")
+        self.assertIn("siem_adapter_unavailable", case["audit_trail"]["degraded_reasons"])
+        self.assertIn("siem_adapter_adapter_unavailable", case["audit_trail"]["degraded_reasons"])
+
+    async def test_siem_partial_maps_to_degraded_with_partial_data(self):
+        partial = graph_orchestrator.SaiLouOrchestrator(
+            siem=FakeSIEMAdapter(self.scenarios, intent_status="partial"),
+            triage=types.SimpleNamespace(),
+            intel=types.SimpleNamespace(),
+            blast=DummyBlast(),
+            process_events_cache={},
+        )
+
+        async def fake_run_triage(alerts):
+            return {
+                "status": "complete",
+                "top_risk_score": 7.8,
+                "matched_scenario_id": "S-02",
+                "top_alerts": [],
+                "total_scanned": len(alerts),
+                "noise_archived": 0,
+                "compression_ratio": 0.0,
+            }
+
+        partial._run_triage = fake_run_triage
+
+        case = await partial.investigate(
+            intent="threat_hunt",
+            user_input="帮我查一下横向移动",
+            timeout=2.0,
+        )
+        self.assertEqual(case["verdict_status"], "DEGRADED")
+        self.assertEqual(case["investigation_status"], "DEGRADED")
+        self.assertEqual(case["triage_summary"]["total_events_scanned"], 1)
+        self.assertIn("siem_adapter_partial", case["audit_trail"]["degraded_reasons"])
+        self.assertIn("siem_adapter_partial_time_window_data", case["audit_trail"]["degraded_reasons"])
+
+    async def test_siem_gather_timeout_maps_to_degraded(self):
+        slow = graph_orchestrator.SaiLouOrchestrator(
+            siem=FakeSIEMAdapter(self.scenarios, intent_delay=0.2),
+            triage=types.SimpleNamespace(),
+            intel=types.SimpleNamespace(),
+            blast=DummyBlast(),
+            process_events_cache={},
+        )
+
+        async def fake_run_triage(alerts):
+            return {
+                "status": "complete",
+                "top_risk_score": 4.2,
+                "matched_scenario_id": None,
+                "top_alerts": [],
+                "total_scanned": 0,
+                "noise_archived": 0,
+                "compression_ratio": 0.0,
+            }
+
+        slow._run_triage = fake_run_triage
+
+        case = await slow.investigate(
+            intent="summarize_recent",
+            user_input="帮我总结最近态势",
+            timeout=0.2,
+        )
+        self.assertEqual(case["verdict_status"], "DEGRADED")
+        self.assertIn("siem_adapter_timeout", case["audit_trail"]["degraded_reasons"])
+        self.assertIn("siem_adapter_siem_gather_timeout", case["audit_trail"]["degraded_reasons"])
+        self.assertNotEqual(case["case_id"], "ERROR")
+
+    async def test_siem_scenario_metadata_timeout_keeps_case_degraded_not_error(self):
+        slow_meta = graph_orchestrator.SaiLouOrchestrator(
+            siem=FakeSIEMAdapter(self.scenarios, scenario_delay=0.2),
+            triage=types.SimpleNamespace(),
+            intel=types.SimpleNamespace(),
+            blast=DummyBlast(),
+            process_events_cache={},
+        )
+
+        async def fake_run_triage(alerts):
+            return {
+                "status": "complete",
+                "top_risk_score": 7.8,
+                "matched_scenario_id": "S-02",
+                "top_alerts": [],
+                "total_scanned": len(alerts),
+                "noise_archived": 0,
+                "compression_ratio": 0.0,
+            }
+
+        slow_meta._run_triage = fake_run_triage
+
+        case = await slow_meta.investigate(
+            intent="threat_hunt",
+            user_input="帮我查一下横向移动",
+            timeout=0.4,
+        )
+        self.assertEqual(case["verdict_status"], "DEGRADED")
+        self.assertEqual(case["investigation_status"], "DEGRADED")
+        self.assertEqual(case["scenario_name"], "")
+        self.assertIn("siem_adapter_timeout", case["audit_trail"]["degraded_reasons"])
+        self.assertIn("siem_adapter_siem_scenario_metadata_timeout", case["audit_trail"]["degraded_reasons"])
 
 
 if __name__ == "__main__":

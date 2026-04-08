@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-C-2026-04-08-001",
+    "id": "S3-C-2026-04-08-002",
     "sprint": "Sprint 3",
-    "stage": "adapter-contract-skeleton",
+    "stage": "adapter-degraded-semantics-closure",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T20:49:19.375242+08:00"
+    "updated_at": "2026-04-08T21:08:53.706396+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-C-2026-04-08-001.zip",
-    "current_release_sha256": "61b2e0a8f7e9f81c19d12c06a61ac2051231273cab966daeda8b8518ff1ab6a7"
+    "current_release_zip": "releases\\secupilot-S3-C-2026-04-08-002.zip",
+    "current_release_sha256": "61fc3550adcbbb25091ed81d9c83f30e0f3fa1c86f6d43e364139f8cc20d4b92"
   },
   "key_files": [
     {
@@ -90,7 +90,7 @@
     {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "4031df6c6cef6ae666b6c7726dc7e91249eff1a145d1207a5abe32bd6fc4bb75"
+      "sha256": "f2f64a4e0cb9724e788a4ccef3503cb8acba84a6ea4198b87ec9a7ab6164650f"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -140,7 +140,7 @@
     {
       "path": "backend\\tests\\test_secupilot_drafts.py",
       "role": "canonical-regression-tests",
-      "sha256": "5f915f767fc836a2d3a152cd08baf8a088ec83b344121c13f67769253114a55c"
+      "sha256": "25c003db5b465ec2f8b965e79835f1cab0bded3596466661f9eb5548040e91c4"
     },
     {
       "path": "backend\\tests\\test_case_view.py",
@@ -170,12 +170,12 @@
     {
       "path": "docs\\S3C0_ADAPTER_CONTRACT.md",
       "role": "s3c0-adapter-contract",
-      "sha256": "cd4fe565866af140b00e20169ee141bc5c8bf734a1e7889c324f8e65b11bdb4b"
+      "sha256": "81d3e2e795cd388af3fdde354248bf21ee09347cb53897c853d0985a3c4fec2a"
     },
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "143eb93f4dd5f3505ffbf3ac0e28eb342ec260dec93eafc2f67d93b16ba7724b"
+      "sha256": "ba8b820bc4cf5fbe2b7dea28fd38ebd5cabdbe7f8f99212e4bf6a92d4ef12f62"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -363,13 +363,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-C-2026-04-08-001",
+      "Snapshot ID: S3-C-2026-04-08-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T20:49:19.571177+08:00",
+    "last_verified_at": "2026-04-08T21:08:53.894063+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",
