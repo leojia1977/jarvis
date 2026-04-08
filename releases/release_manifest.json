@@ -10,11 +10,11 @@
     "sprint": "Sprint 3",
     "stage": "runtime-productization-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T16:16:52.808533+08:00"
+    "updated_at": "2026-04-08T17:00:42.986230+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S3-A-2026-04-08-001.zip",
-    "current_release_sha256": "540e9a454e7393baec6db8d3154b89766393ec54fd7274961418239761058c85"
+    "current_release_sha256": "041f2e55a0709a9ca5376bcb9b4dc3b8d5fb6786fdd070b8ac40b2a00688ebda"
   },
   "key_files": [
     {
@@ -180,7 +180,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "8db672e292461b34205cb29b4e259b43d9473f6fc08fa2d96693adfcccf10bc7"
+      "sha256": "7d0360d8b7ad268bbc9b35b6e9dd453263bb5170ae4f3a9eb9e35bce83ca0344"
     },
     {
       "path": ".gitignore",
@@ -228,9 +228,29 @@
       "sha256": "c7d99619cf5fcde7bda0406939ecb7a1d6770d48701d8ded8978261c5eac7135"
     },
     {
+      "path": "docs\\PR_S3A_RUNTIME.md",
+      "role": "s3a-pr-doc",
+      "sha256": "b06c83ee8cd456c3b3ed9823f551330551a55e20731642cc64c9f29f22a0599d"
+    },
+    {
+      "path": "docs\\MERGE_STRATEGY.md",
+      "role": "merge-strategy-doc",
+      "sha256": "e13d46c2c81a8fa75d8bfb8cd9d8da3a5509082e4ee4830f016f7f00c3015d1e"
+    },
+    {
       "path": "docs\\S3A_RUNTIME_STARTUP.md",
       "role": "s3a-runtime-startup-doc",
       "sha256": "910e3ddefd349c5c48944501bd5b15a3d548aa41aae9d2a6a527a0bf183bb2b7"
+    },
+    {
+      "path": "docs\\S3B_CASE_EXPERIENCE_PRD.md",
+      "role": "s3b-case-experience-prd",
+      "sha256": "2da74b59222a77ba7e91511cd9eea54a812ac3f7dfeb7036ca832029633d3fc6"
+    },
+    {
+      "path": "docs\\S3B_JIRA_BACKLOG.md",
+      "role": "s3b-jira-backlog",
+      "sha256": "b0fed3d6f10e64576bc9d9dfdfd0721b567cafdb0e6f68edcb5684171ffa0596"
     },
     {
       "path": "scripts\\setup_github_remote.py",
@@ -256,6 +276,11 @@
       "path": "run_runtime.py",
       "role": "runtime-wrapper",
       "sha256": "f2584ac2f26a1bd037c3dad87df21fef65e691541fb9d9bbcd3b814a06625843"
+    },
+    {
+      "path": ".github\\pull_request_template.md",
+      "role": "github-pr-template",
+      "sha256": "87d8cca34ee0b94ed87466998f1325828f1633d76bc2680f2c87dedd6ca3c0fd"
     }
   ],
   "tests": [
@@ -312,7 +337,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T16:16:53.021690+08:00",
+    "last_verified_at": "2026-04-08T17:00:43.151679+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",
