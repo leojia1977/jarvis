@@ -280,6 +280,9 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertIsNotNone(case.get("hunt_plan"))
         self.assertEqual(case["audit_trail"]["planner"], "jarvis")
         self.assertGreaterEqual(len(case["hunt_plan"]["planned_steps"]), 3)
+        self.assertEqual(case["case_view"]["jarvis_plan"]["hypothesis"], case["hunt_plan"]["hypothesis"])
+        self.assertIn("scope", case["case_view"]["jarvis_plan"])
+        self.assertIn("stop_conditions", case["case_view"]["jarvis_plan"])
 
 
 if __name__ == "__main__":

@@ -132,17 +132,84 @@ def _business_risk(case: dict) -> str:
     return "LOW"
 
 
-def _jarvis_plan(hunt_plan: Optional[dict]) -> Optional[dict]:
+def _jarvis_next_suggested(case: dict) -> Optional[str]:
+    if case.get("investigation_status") == "DEGRADED":
+        return "补齐缺失遥测后重新运行调查"
+    if case.get("suggested_action"):
+        return "复核影响面后提交人工审批"
+    forensic = case.get("forensic_result") or {}
+    if _safe_list(forensic.get("top_chains")):
+        return "围绕首条可疑链继续人工复核关键证据"
+    return "继续监控并等待新的可疑线索"
+
+
+def _jarvis_scope(hunt_plan: dict, steps: list[dict]) -> dict:
+    scope = hunt_plan.get("scope")
+    if isinstance(scope, dict) and scope:
+        return scope
+
+    targets = []
+    tools = []
+    focus = []
+    for step in steps:
+        tool = step.get("tool")
+        target = step.get("target")
+        step_focus = step.get("focus")
+        if tool and tool not in tools:
+            tools.append(tool)
+        if target and target not in targets and not str(target).startswith("from_"):
+            targets.append(target)
+        if step_focus and step_focus not in focus:
+            focus.append(step_focus)
+
+    return {
+        "trigger_type": hunt_plan.get("trigger_type"),
+        "targets": targets,
+        "tools": tools,
+        "focus": focus,
+    }
+
+
+def _jarvis_stop_conditions(hunt_plan: dict, steps: list[dict]) -> list[str]:
+    stop_conditions = _safe_list(hunt_plan.get("stop_conditions"))
+    if stop_conditions:
+        return stop_conditions
+
+    tools = {step.get("tool") for step in steps if step.get("tool")}
+    generated = [
+        "完成计划步骤并形成结构化调查结论",
+        "若关键遥测缺失，则以降级结果结束并停止不安全处置建议",
+    ]
+    if "T5" in tools:
+        generated.append("若影响评估不可接受，则停止直接处置并转人工审批")
+    return generated
+
+
+def _jarvis_plan(hunt_plan: Optional[dict], case: dict) -> Optional[dict]:
     if not hunt_plan:
         return None
     steps = _safe_list(hunt_plan.get("planned_steps"))
+    next_steps = [
+        {
+            "seq": step.get("seq"),
+            "tool": step.get("tool"),
+            "action": step.get("action"),
+            "purpose": step.get("purpose"),
+            "target": step.get("target"),
+            "focus": step.get("focus"),
+        }
+        for step in steps[:3]
+    ]
     return {
         "hypothesis": hunt_plan.get("hypothesis"),
         "status": "executed",
         "steps_total": len(steps),
         "steps_completed": len(steps),
         "steps_degraded": 0,
-        "next_suggested": None,
+        "next_steps": next_steps,
+        "scope": _jarvis_scope(hunt_plan, steps),
+        "stop_conditions": _jarvis_stop_conditions(hunt_plan, steps),
+        "next_suggested": _jarvis_next_suggested(case),
         "source": "hunt_plan",
     }
 
@@ -236,7 +303,7 @@ def build_case_view(case: dict) -> dict:
             "business_risk": _business_risk(case),
             "source": "intel_summary + forensic_result + tool_results.blast_radius",
         },
-        "jarvis_plan": _jarvis_plan(case.get("hunt_plan")),
+        "jarvis_plan": _jarvis_plan(case.get("hunt_plan"), case),
         "recommended_action": recommended_action,
         "evidence_panels": {
             "top_chains": {"ref": "forensic_result.top_chains", "count": len(_safe_list(forensic.get("top_chains")))},

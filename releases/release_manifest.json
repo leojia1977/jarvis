@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-B-2026-04-08-001",
+    "id": "S3-B-2026-04-08-002",
     "sprint": "Sprint 3",
-    "stage": "case-view-shaping-baseline",
+    "stage": "jarvis-embedding-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T18:06:16.132963+08:00"
+    "updated_at": "2026-04-08T18:22:14.823268+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-001.zip",
-    "current_release_sha256": "60310165be3f7f71f6b5c81d35ca27025e0d924119e042463933603590f4c117"
+    "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-002.zip",
+    "current_release_sha256": "764e34bae6dfec77250e9bd80301be51d5003988a44ee8fab64b00444e2bb772"
   },
   "key_files": [
     {
@@ -85,7 +85,7 @@
     {
       "path": "backend\\app\\agents\\case_view.py",
       "role": "case-view-shaping-layer",
-      "sha256": "42199352525ea83c361d67d98cc5738e9f2b667c1285cebebeb9a8e647e5ad1c"
+      "sha256": "7269f726f36b127e440be2ec974a80fc75ad7434d52f6fa111616a4e20bd274b"
     },
     {
       "path": "backend\\app\\agents\\graph.py",
@@ -95,7 +95,7 @@
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
       "role": "canonical-jarvis",
-      "sha256": "c32d24b8ef8c59457a2bfc97c8132e7889b55f06e39f98195f8496ff424c45de"
+      "sha256": "980ed1eff7d2943cdd66ab073b42182052ac739da3aeba7852503c52f99f70fb"
     },
     {
       "path": "backend\\app\\tools\\process_tree_t3.py",
@@ -135,17 +135,17 @@
     {
       "path": "backend\\tests\\test_t3_hunt.py",
       "role": "canonical-t3-tests",
-      "sha256": "6841ea2cc3db8ec4fd5ab02499d3b17bf5d8c84f56c9e457e16e9735019cfd22"
+      "sha256": "4dc884aec6c35326b88cbc2795252bc8af9569945dd28a22a75debc4f5539a35"
     },
     {
       "path": "backend\\tests\\test_secupilot_drafts.py",
       "role": "canonical-regression-tests",
-      "sha256": "1467c3aee7ed35353bd428524bde8f1fbc758089b7da616d0fe6df9432944754"
+      "sha256": "b216662f08039d6f5f78c7945719866be2fa74ac26c28dc77f2aff5a5d3ff650"
     },
     {
       "path": "backend\\tests\\test_case_view.py",
       "role": "canonical-case-view-tests",
-      "sha256": "be657508ce858bfe562b504b0ebea7c08a874693709ab76902f49cb75d79a2f9"
+      "sha256": "d3be9f754deabf235538c433a4ece3e7c0d4408bc286f0516eed17573a06a9be"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -160,7 +160,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "1e91fbce6047bd15753263f07336418a02ccd897a67ae4466ecbcd8fe06eee5f"
+      "sha256": "99cf160d095fdbcc712b27e8f3d41442843aeff4b0fb99e0a0997f0061a113df"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -220,12 +220,12 @@
     {
       "path": ".githooks\\pre-push",
       "role": "git-pre-push-hook",
-      "sha256": "1b989beb7feadf6540aa6955b650558e784e4c7ad95627c9abf7e7364bd19f91"
+      "sha256": "46157c95ebaa39ca86c6a52a133d0eda2c21ccd411c14e86bf3ae16357e2526f"
     },
     {
       "path": "docs\\GIT_WORKFLOW.md",
       "role": "git-workflow-doc",
-      "sha256": "c73aeb5f3c08aa31fca5cca2fed94edb77093a1880bb2514b754b1b272aedd68"
+      "sha256": "03f626cd15b9c3566dee814cceebfbb20444732035f5b05da57405cea5f3827f"
     },
     {
       "path": "scripts\\git_preflight.py",
@@ -347,13 +347,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-B-2026-04-08-001",
+      "Snapshot ID: S3-B-2026-04-08-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T18:06:16.315173+08:00",
+    "last_verified_at": "2026-04-08T18:22:14.998613+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

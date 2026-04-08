@@ -11,8 +11,7 @@ Sprint 2 范围（冻结协议）：
 """
 
 import time
-import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 
@@ -37,6 +36,8 @@ class HuntPlan:
     hypothesis: str         # 待验证假说（不是结论）
     priority: str           # CRITICAL / HIGH / MEDIUM / LOW
     planned_steps: list     # [HuntStep]
+    scope: dict
+    stop_conditions: list[str]
     timeout_ms: int = 8000
     fallback: str = "partial_results_with_degraded_flag"
 
@@ -160,6 +161,14 @@ class JarvisHuntEngine:
             hypothesis=template["hypothesis"],
             priority=template["priority"],
             planned_steps=steps,
+            scope=self._build_scope(
+                trigger_type=trigger_type,
+                target_asset_id=target_asset_id,
+                target_ip=target_ip,
+                steps=steps,
+                context=context,
+            ),
+            stop_conditions=self._build_stop_conditions(steps, context=context),
         )
 
     def plan_to_dict(self, plan: HuntPlan) -> dict:
@@ -170,6 +179,8 @@ class JarvisHuntEngine:
             "trigger_detail": plan.trigger_detail,
             "hypothesis": plan.hypothesis,
             "priority": plan.priority,
+            "scope": plan.scope,
+            "stop_conditions": plan.stop_conditions,
             "planned_steps": [
                 {
                     "seq": s.seq,
@@ -208,6 +219,56 @@ class JarvisHuntEngine:
         }
         template_key = intent_map.get(intent, "generic")
         return HUNT_HYPOTHESES[template_key]
+
+    @staticmethod
+    def _build_scope(
+        trigger_type: str,
+        target_asset_id: str = None,
+        target_ip: str = None,
+        steps: list[HuntStep] | None = None,
+        context: dict = None,
+    ) -> dict:
+        targets = []
+        if target_asset_id:
+            targets.append(target_asset_id)
+        elif target_ip:
+            targets.append(target_ip)
+
+        tools = []
+        focus = []
+        for step in steps or []:
+            if step.tool and step.tool not in tools:
+                tools.append(step.tool)
+            if step.focus and step.focus not in focus:
+                focus.append(step.focus)
+            if step.target and step.target not in targets and not str(step.target).startswith("from_"):
+                targets.append(step.target)
+
+        planned_tools = list((context or {}).get("planned_tools", []))
+        if not tools and planned_tools:
+            tools = planned_tools
+
+        return {
+            "trigger_type": trigger_type,
+            "targets": targets,
+            "tools": tools,
+            "focus": focus,
+        }
+
+    @staticmethod
+    def _build_stop_conditions(steps: list[HuntStep] | None = None, context: dict = None) -> list[str]:
+        stop_conditions = [
+            "完成计划步骤并形成结构化调查结论",
+            "若关键遥测缺失，则以降级结果结束并停止不安全处置建议",
+        ]
+
+        tools = {step.tool for step in (steps or []) if step.tool}
+        if "T5" in tools:
+            stop_conditions.append("若影响评估不可接受，则停止直接处置并转人工审批")
+        if (context or {}).get("initial_alert_count", 0) == 0:
+            stop_conditions.append("若没有可用原始告警，则停止扩展调查并返回空结果")
+
+        return stop_conditions
 
     @staticmethod
     def _customize_steps(

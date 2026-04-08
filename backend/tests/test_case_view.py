@@ -105,6 +105,11 @@ class CaseViewTests(unittest.TestCase):
         self.assertIn("evidence_panels", view)
         self.assertIn("analysis_limits", view)
         self.assertEqual(view["what_happened"]["primary_chain"]["highlight_node_id"], "WKST-047:chain-000:node-003")
+        self.assertEqual(view["jarvis_plan"]["scope"]["targets"], [])
+        self.assertEqual(view["jarvis_plan"]["steps_total"], 4)
+        self.assertEqual(len(view["jarvis_plan"]["next_steps"]), 3)
+        self.assertTrue(view["jarvis_plan"]["stop_conditions"])
+        self.assertEqual(view["jarvis_plan"]["next_suggested"], "复核影响面后提交人工审批")
 
     def test_case_without_t3_chain_does_not_fail(self):
         case = _base_case()
@@ -130,6 +135,14 @@ class CaseViewTests(unittest.TestCase):
         case["hunt_plan"] = None
         view = build_case_view(case)
         self.assertIsNone(view["jarvis_plan"])
+
+    def test_jarvis_panel_in_degraded_case_points_to_reinvestigation(self):
+        case = _base_case()
+        case["investigation_status"] = "DEGRADED"
+        case["suggested_action"] = None
+        case["audit_trail"] = {"degraded": True, "degraded_reasons": ["tool_timeout"]}
+        view = build_case_view(case)
+        self.assertEqual(view["jarvis_plan"]["next_suggested"], "补齐缺失遥测后重新运行调查")
 
     def test_one_liner_generation_rules(self):
         case = _base_case()

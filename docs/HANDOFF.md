@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-B-2026-04-08-001`
-- Stage: `Sprint 3 case view shaping baseline`
+- Snapshot ID: `S3-B-2026-04-08-002`
+- Stage: `Sprint 3 Jarvis embedding baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -20,6 +20,7 @@
 - Git workflow scaffolding now lives under `.githooks/`, `.gitignore`, `.gitattributes`, `.gitmessage.txt`, and `scripts/install_git_workflow.py`.
 - Runtime productization now lives under `backend/app/main.py`, `backend/app/runtime_service.py`, and `run_runtime.py`.
 - Case view contract and shaping layer now live under `docs/SP3_B1_Case_View_Contract.md` and `backend/app/agents/case_view.py`.
+- Jarvis case embedding now lives under `backend/app/agents/jarvis_hunt_engine.py` and the `case_view.jarvis_plan` mapping.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.

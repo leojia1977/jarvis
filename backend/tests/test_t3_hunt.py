@@ -193,6 +193,10 @@ class TestJarvisHuntPlan(unittest.TestCase):
         self.assertIn("hunt_id", d)
         self.assertIn("hypothesis", d)
         self.assertIn("planned_steps", d)
+        self.assertIn("scope", d)
+        self.assertIn("stop_conditions", d)
+        self.assertIn("tools", d["scope"])
+        self.assertIsInstance(d["stop_conditions"], list)
         for step in d["planned_steps"]:
             self.assertIn("seq", step)
             self.assertIn("tool", step)
