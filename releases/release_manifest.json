@@ -10,7 +10,7 @@
     "sprint": "Sprint 3",
     "stage": "case-view-shaping-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T18:04:03.312509+08:00"
+    "updated_at": "2026-04-08T18:05:00.844748+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S3-B-2026-04-08-001.zip",
@@ -353,7 +353,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T18:04:03.491217+08:00",
+    "last_verified_at": "2026-04-08T18:05:01.033120+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",
