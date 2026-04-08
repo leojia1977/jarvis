@@ -39,7 +39,10 @@ Claude review packs and release zips are generated from the Git working tree, no
 
 ## Hooks
 - `pre-commit` runs fast local checks
-- `pre-push` runs release-grade packaging and verification
+- `pre-push` runs fast governed checks only
+
+Release packaging and verification remain explicit commands so a normal `git push`
+does not mutate `releases/release_manifest.json` or leave the repo dirty.
 
 Install them once with:
 

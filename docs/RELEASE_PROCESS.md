@@ -29,6 +29,11 @@ py -3 scripts\package_release.py
 py -3 scripts\git_preflight.py --mode all
 ```
 
+## Push Hook Behavior
+Normal `git push` only runs `py -3 scripts\git_preflight.py --mode fast`.
+Release packaging and verification are explicit steps and should be run before a
+formal review or release cut, not hidden inside the push hook.
+
 ## Verification Command
 ```powershell
 py -3 scripts\verify_release.py
