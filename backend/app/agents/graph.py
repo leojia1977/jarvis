@@ -977,7 +977,7 @@ class InvestigationPipeline:
         from pathlib import Path
         from app.config import settings
 
-        mock_dir = Path(settings.mock_data_path)
+        mock_dir = settings.get_mock_data_dir()
 
         # 加载数据
         with open(mock_dir / "assets" / "asset_dictionary.json") as f:

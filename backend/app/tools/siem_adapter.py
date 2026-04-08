@@ -18,40 +18,40 @@ except ImportError:
 
 from app.config import settings
 
-MOCK_DIR = Path(settings.mock_data_path)
-
 
 class MockSIEMAdapter:
     """Mock SIEM Integration Adapter"""
 
-    def __init__(self):
+    def __init__(self, data_root: Optional[Path] = None):
         self._cache = {}
+        self.data_root = Path(data_root).resolve() if data_root else settings.get_mock_data_dir()
         self._load_data()
 
     def _load_data(self):
         """预加载所有 Mock 数据到内存"""
         try:
-            with open(MOCK_DIR / "siem_adapter" / "mock_splunk_responses.json", "r") as f:
+            with open(self.data_root / "siem_adapter" / "mock_splunk_responses.json", "r") as f:
                 self._cache["siem_responses"] = json.load(f)
-            with open(MOCK_DIR / "assets" / "asset_dictionary.json", "r") as f:
+            with open(self.data_root / "assets" / "asset_dictionary.json", "r") as f:
                 self._cache["assets"] = json.load(f)
-            with open(MOCK_DIR / "threat_intel" / "mock_ioc_database.json", "r") as f:
+            with open(self.data_root / "threat_intel" / "mock_ioc_database.json", "r") as f:
                 self._cache["ioc"] = json.load(f)
-            with open(MOCK_DIR / "knowledge_graph" / "entity_relationships.json", "r") as f:
+            with open(self.data_root / "knowledge_graph" / "entity_relationships.json", "r") as f:
                 self._cache["knowledge_graph"] = json.load(f)
-            with open(MOCK_DIR / "baselines" / "false_positive_baseline.json", "r") as f:
+            with open(self.data_root / "baselines" / "false_positive_baseline.json", "r") as f:
                 self._cache["baselines"] = json.load(f)
 
             # 加载所有场景告警
             self._cache["scenarios"] = {}
-            alerts_dir = MOCK_DIR / "alerts"
+            alerts_dir = self.data_root / "alerts"
             for f in alerts_dir.glob("scenario_*.json"):
                 with open(f, "r") as fh:
                     data = json.load(fh)
                     sid = data.get("scenario", {}).get("scenario_id", f.stem)
                     self._cache["scenarios"][sid] = data
 
-            logger.info("Mock SIEM data loaded", scenarios=len(self._cache["scenarios"]))
+            logger.info("Mock SIEM data loaded", root=str(self.data_root),
+                        scenarios=len(self._cache["scenarios"]))
         except Exception as e:
             logger.error("Failed to load mock data", error=str(e))
 

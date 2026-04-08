@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-GIT-2026-04-08-001`
-- Stage: `Sprint 3 git workflow baseline`
+- Snapshot ID: `S3-A-2026-04-08-001`
+- Stage: `Sprint 3 runtime productization baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -18,6 +18,7 @@
 - Root-level `.py` files are compatibility wrappers so the current runnable snapshot is not broken.
 - Sprint 3 planning documents now live under `docs/` and are part of the governed handoff set.
 - Git workflow scaffolding now lives under `.githooks/`, `.gitignore`, `.gitattributes`, `.gitmessage.txt`, and `scripts/install_git_workflow.py`.
+- Runtime productization now lives under `backend/app/main.py`, `backend/app/runtime_service.py`, and `run_runtime.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.

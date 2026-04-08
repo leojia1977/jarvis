@@ -1,5 +1,7 @@
 """SecuPilot 配置管理"""
 
+from pathlib import Path
+
 try:
     from pydantic_settings import BaseSettings
 except ImportError:
@@ -10,6 +12,8 @@ except ImportError:
 
 
 class Settings(BaseSettings):
+    project_root: str = str(Path(__file__).resolve().parents[2])
+
     # LLM
     llm_api_base: str = "https://api.anthropic.com/v1"
     llm_api_key: str = ""
@@ -32,13 +36,27 @@ class Settings(BaseSettings):
 
     # Mock data
     mock_data_path: str = "./mock_data"
+    runtime_mode: str = "mock"
 
     # Server
+    service_name: str = "secupilot-runtime"
+    service_version: str = "3.2.0-s3a"
+    server_host: str = "127.0.0.1"
+    server_port: int = 8080
     cors_origins: str = "http://localhost:3000"
     log_level: str = "INFO"
 
     class Config:
         env_file = ".env"
+
+    def get_project_root(self) -> Path:
+        return Path(self.project_root).resolve()
+
+    def get_mock_data_dir(self) -> Path:
+        path = Path(self.mock_data_path)
+        if not path.is_absolute():
+            path = self.get_project_root() / path
+        return path.resolve()
 
 
 settings = Settings()

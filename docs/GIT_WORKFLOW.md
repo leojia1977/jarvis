@@ -31,6 +31,12 @@ Claude review packs and release zips are generated from the Git working tree, no
 3. run `py -3 scripts/verify_release.py`
 4. tag the accepted snapshot with the manifest snapshot ID
 
+## Private Remote Setup
+1. create your private GitHub repository
+2. run `py -3 scripts/setup_github_remote.py --url <YOUR_REPO_URL>`
+3. verify with `git remote -v`
+4. push with `git push -u origin main`
+
 ## Hooks
 - `pre-commit` runs fast local checks
 - `pre-push` runs release-grade packaging and verification

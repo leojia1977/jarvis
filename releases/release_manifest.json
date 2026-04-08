@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-GIT-2026-04-08-001",
+    "id": "S3-A-2026-04-08-001",
     "sprint": "Sprint 3",
-    "stage": "git-workflow-baseline",
+    "stage": "runtime-productization-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T16:01:24.936872+08:00"
+    "updated_at": "2026-04-08T16:16:52.808533+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-GIT-2026-04-08-001.zip",
-    "current_release_sha256": "e4f56a3747f6c961b7e08f28f33bcc5d11901600c864a440da852eddd4b7e4d7"
+    "current_release_zip": "releases\\secupilot-S3-A-2026-04-08-001.zip",
+    "current_release_sha256": "540e9a454e7393baec6db8d3154b89766393ec54fd7274961418239761058c85"
   },
   "key_files": [
     {
@@ -80,12 +80,12 @@
     {
       "path": "backend\\app\\config.py",
       "role": "config",
-      "sha256": "48972ffe0b8176c659c10bbb9fc28bb84a68f2a79054d340d7d2684024754196"
+      "sha256": "20410424267e89aa29e1606c740eb06cade935950419f7332f66fbee94fc9961"
     },
     {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "5ef8183bccd6ae863e4d60e6a6c939ce829cd8692ac19a20531557bf390389fc"
+      "sha256": "87e90810ccfe4e6cb97396cea0553bf3643f3210ba20b0283bff8ae148069389"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -115,7 +115,7 @@
     {
       "path": "backend\\app\\tools\\siem_adapter.py",
       "role": "siem-adapter",
-      "sha256": "42b373cad21533793138fa7c38d0232de2e0a55d3978894999d95d21d7913ab9"
+      "sha256": "bc3666f6b7ed30e3f9ef840cb9589fec37e502713837cb490afcbada48839b04"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -145,7 +145,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "6a553fb79fd5f85beb7069dc882b970241af9469b501579f4c14643d22cf6755"
+      "sha256": "925ef1fc18659bf7ada1b8bf50474cea442145539394008be0a78dfd8d9e247a"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -155,7 +155,7 @@
     {
       "path": "docs\\CLAUDE_WEB_UPLOAD_CHECKLIST.md",
       "role": "claude-upload-checklist",
-      "sha256": "d2f80089ae6e5b7c49a9b364e1b8d01b20ddf6fc579982f956ec23a1de2c5355"
+      "sha256": "1db3757b2fa31c73fe2778194a45fc9185c0ad075ceed839194fcff534c2d54e"
     },
     {
       "path": "docs\\CLAUDE_WEB_ALIGNMENT_GUIDE.md",
@@ -180,7 +180,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "255ac2ff9fe464e5c075dc2160b5d7f13be06d91a3fc3c43caa30d88486ce49a"
+      "sha256": "8db672e292461b34205cb29b4e259b43d9473f6fc08fa2d96693adfcccf10bc7"
     },
     {
       "path": ".gitignore",
@@ -210,17 +210,52 @@
     {
       "path": "docs\\GIT_WORKFLOW.md",
       "role": "git-workflow-doc",
-      "sha256": "9f46b70f3674cd1d22660bd7b3d2ad3a1fe541d7327e27079ecf07fd57a0a788"
+      "sha256": "c73aeb5f3c08aa31fca5cca2fed94edb77093a1880bb2514b754b1b272aedd68"
     },
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "a7bef4bbb88eb2536eb7b95b18c2da5c7df22b8a80fdae2f65b509d069e385c5"
+      "sha256": "c3dfaf07e1bba6229e1f32ad4d04628af8760d3056da68be99bd562bfcb414db"
     },
     {
       "path": "scripts\\install_git_workflow.py",
       "role": "git-workflow-installer",
       "sha256": "2be77e10327e5f5cbaef987eb10f91a607c7ded80c13a18c9eb31a746631a8aa"
+    },
+    {
+      "path": "docs\\GITHUB_PRIVATE_REMOTE_SETUP.md",
+      "role": "github-remote-setup-doc",
+      "sha256": "c7d99619cf5fcde7bda0406939ecb7a1d6770d48701d8ded8978261c5eac7135"
+    },
+    {
+      "path": "docs\\S3A_RUNTIME_STARTUP.md",
+      "role": "s3a-runtime-startup-doc",
+      "sha256": "910e3ddefd349c5c48944501bd5b15a3d548aa41aae9d2a6a527a0bf183bb2b7"
+    },
+    {
+      "path": "scripts\\setup_github_remote.py",
+      "role": "github-remote-setup-script",
+      "sha256": "3fb074c4f6dee4d1cf264fd14880c4aba23a4b830f10798df9ed01bbd2fee9bf"
+    },
+    {
+      "path": "backend\\app\\main.py",
+      "role": "runtime-main",
+      "sha256": "d2dd94cf55333d90745eada5a306a22283e7e8c4e050ba444c419ca19389f841"
+    },
+    {
+      "path": "backend\\app\\runtime_service.py",
+      "role": "runtime-service",
+      "sha256": "055967848d10d2f05de98659b6ad58cf858c82545907d826f8da609492f63013"
+    },
+    {
+      "path": "backend\\tests\\test_runtime_service.py",
+      "role": "runtime-service-tests",
+      "sha256": "299f04a4fa449a31eb252be2ad5e5221c65e2e2e8f7a306adebe192329c36280"
+    },
+    {
+      "path": "run_runtime.py",
+      "role": "runtime-wrapper",
+      "sha256": "f2584ac2f26a1bd037c3dad87df21fef65e691541fb9d9bbcd3b814a06625843"
     }
   ],
   "tests": [
@@ -251,7 +286,8 @@
         "unittest",
         "-q",
         "backend.tests.test_t3_hunt",
-        "backend.tests.test_secupilot_drafts"
+        "backend.tests.test_secupilot_drafts",
+        "backend.tests.test_runtime_service"
       ],
       "status": "PASS"
     },
@@ -270,13 +306,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-GIT-2026-04-08-001",
+      "Snapshot ID: S3-A-2026-04-08-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T16:01:25.126980+08:00",
+    "last_verified_at": "2026-04-08T16:16:53.021690+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

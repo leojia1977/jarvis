@@ -18,7 +18,7 @@ Use this header in the prompt:
 
 ```text
 Single source of truth: D:\产品设计\New folder
-Snapshot ID: S3-GIT-2026-04-08-001
+Snapshot ID: S3-A-2026-04-08-001
 Manifest: D:\产品设计\New folder\releases\release_manifest.json
 Do not use any file outside this root as latest code truth.
 Any zip outside this root is input-only material unless the manifest says otherwise.

@@ -43,10 +43,12 @@ def iter_review_files() -> list[str]:
         "docs/HANDOFF.md",
         "docs/PROJECT_STRUCTURE.md",
         "docs/GIT_WORKFLOW.md",
+        "docs/GITHUB_PRIVATE_REMOTE_SETUP.md",
         "docs/CLAUDE_WEB_UPLOAD_CHECKLIST.md",
         "docs/CLAUDE_WEB_ALIGNMENT_GUIDE.md",
         "docs/SPRINT3_PRD.md",
         "docs/SPRINT3_JIRA_BACKLOG.md",
+        "docs/S3A_RUNTIME_STARTUP.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
         ".gitignore",
@@ -54,9 +56,13 @@ def iter_review_files() -> list[str]:
         ".gitmessage.txt",
         "backend/app/agents/graph.py",
         "backend/app/agents/jarvis_hunt_engine.py",
+        "backend/app/main.py",
+        "backend/app/runtime_service.py",
         "backend/app/tools/process_tree_t3.py",
+        "run_runtime.py",
         "backend/tests/test_t3_hunt.py",
         "backend/tests/test_secupilot_drafts.py",
+        "backend/tests/test_runtime_service.py",
     ]
 
 
