@@ -128,7 +128,10 @@ class CaseViewTests(unittest.TestCase):
         self.assertFalse(view["recommended_action"]["available"])
         self.assertEqual(view["recommended_action"]["targets"], [])
         self.assertEqual(view["recommended_action"]["disabled_reason"], "调查降级，处置建议不可用")
+        self.assertEqual(view["recommended_action"]["action_state"], "DISABLED_DEGRADED")
         self.assertTrue(view["analysis_limits"]["degraded"])
+        self.assertTrue(view["executive_summary"]["status_banner"]["visible"])
+        self.assertEqual(view["executive_summary"]["status_banner"]["title"], "调查已降级")
 
     def test_case_without_hunt_plan_returns_null_jarvis_panel(self):
         case = _base_case()
@@ -143,6 +146,24 @@ class CaseViewTests(unittest.TestCase):
         case["audit_trail"] = {"degraded": True, "degraded_reasons": ["tool_timeout"]}
         view = build_case_view(case)
         self.assertEqual(view["jarvis_plan"]["next_suggested"], "补齐缺失遥测后重新运行调查")
+
+    def test_partial_case_surfaces_limits_banner_and_summary(self):
+        case = _base_case()
+        case["investigation_status"] = "PARTIAL"
+        case["forensic_result"]["evidence_gaps"] = [
+            {"gap_id": "H1:gap-001", "type": "no_process_events", "impact": "host telemetry missing"},
+            {"gap_id": "H2:gap-002", "type": "tool_timeout", "impact": "intel timeout"},
+        ]
+        view = build_case_view(case)
+        self.assertTrue(view["executive_summary"]["status_banner"]["visible"])
+        self.assertEqual(view["executive_summary"]["status_banner"]["title"], "调查存在缺口")
+        self.assertIn("2 项遥测缺口", view["analysis_limits"]["missing_telemetry_summary"])
+
+    def test_complete_case_hides_status_banner(self):
+        case = _base_case()
+        view = build_case_view(case)
+        self.assertFalse(view["executive_summary"]["status_banner"]["visible"])
+        self.assertEqual(view["recommended_action"]["action_state"], "AVAILABLE")
 
     def test_one_liner_generation_rules(self):
         case = _base_case()

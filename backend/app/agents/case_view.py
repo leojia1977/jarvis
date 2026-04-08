@@ -237,6 +237,10 @@ def _recommended_action(case: dict) -> dict:
         disabled_reason = "调查降级，处置建议不可用"
 
     action = suggested_action or {}
+    action_state = "AVAILABLE" if available else "UNAVAILABLE"
+    if investigation_status == "DEGRADED":
+        action_state = "DISABLED_DEGRADED"
+
     return {
         "available": available,
         "action_type": action.get("type"),
@@ -244,7 +248,49 @@ def _recommended_action(case: dict) -> dict:
         "blast_summary": action.get("blast_radius_desc"),
         "approval_required": bool(suggested_action),
         "disabled_reason": disabled_reason,
+        "action_state": action_state,
         "source": "suggested_action",
+    }
+
+
+def _missing_telemetry_summary(missing_telemetry: list) -> Optional[str]:
+    if not missing_telemetry:
+        return None
+    return f"共 {len(missing_telemetry)} 项遥测缺口，建议优先补齐关键主机或工具日志。"
+
+
+def _unavailable_tools_summary(unavailable_tools: list[str]) -> Optional[str]:
+    if not unavailable_tools:
+        return None
+    return f"以下能力未完成：{', '.join(unavailable_tools)}"
+
+
+def _status_banner(case: dict, analysis_limits: dict) -> dict:
+    investigation_status = case.get("investigation_status")
+    missing = _safe_list(analysis_limits.get("missing_telemetry"))
+    unavailable = _safe_list(analysis_limits.get("unavailable_tools"))
+
+    if investigation_status == "DEGRADED":
+        return {
+            "visible": True,
+            "severity": "warning",
+            "title": "调查已降级",
+            "message": "部分关键工具或遥测不可用，当前结论可能不完整。",
+        }
+
+    if investigation_status == "PARTIAL" and (missing or unavailable):
+        return {
+            "visible": True,
+            "severity": "info",
+            "title": "调查存在缺口",
+            "message": "存在未覆盖的遥测缺口，建议人工补充复核。",
+        }
+
+    return {
+        "visible": False,
+        "severity": None,
+        "title": None,
+        "message": None,
     }
 
 
@@ -266,7 +312,9 @@ def _analysis_limits(case: dict, recommended_action: dict) -> dict:
         "degraded": bool(audit.get("degraded")),
         "degraded_reasons": degraded_reasons,
         "missing_telemetry": _safe_list(forensic.get("evidence_gaps")),
+        "missing_telemetry_summary": _missing_telemetry_summary(_safe_list(forensic.get("evidence_gaps"))),
         "unavailable_tools": unavailable_tools,
+        "unavailable_tools_summary": _unavailable_tools_summary(unavailable_tools),
         "unresolved_pivots": [],
         "action_disabled_reason": recommended_action.get("disabled_reason"),
     }
@@ -287,6 +335,7 @@ def build_case_view(case: dict) -> dict:
             "risk_score": case.get("risk_score"),
             "confidence_label": case.get("confidence_label"),
             "one_liner": generate_one_liner(case),
+            "status_banner": _status_banner(case, analysis_limits),
         },
         "what_happened": {
             "scenario_name": case.get("scenario_name"),

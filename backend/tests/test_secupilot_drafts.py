@@ -172,6 +172,8 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(case["verdict_status"], "DEGRADED")
         self.assertIsNone(case["suggested_action"])
         self.assertTrue(case["audit_trail"]["degraded"])
+        self.assertTrue(case["case_view"]["executive_summary"]["status_banner"]["visible"])
+        self.assertEqual(case["case_view"]["recommended_action"]["action_state"], "DISABLED_DEGRADED")
 
     def test_determine_t3_hosts_does_not_fallback_to_all_hosts(self):
         hosts = self.orchestrator._determine_t3_hosts(

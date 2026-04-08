@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-B-2026-04-08-002`
-- Stage: `Sprint 3 Jarvis embedding baseline`
+- Snapshot ID: `S3-B-2026-04-08-003`
+- Stage: `Sprint 3 degraded UX baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -21,6 +21,7 @@
 - Runtime productization now lives under `backend/app/main.py`, `backend/app/runtime_service.py`, and `run_runtime.py`.
 - Case view contract and shaping layer now live under `docs/SP3_B1_Case_View_Contract.md` and `backend/app/agents/case_view.py`.
 - Jarvis case embedding now lives under `backend/app/agents/jarvis_hunt_engine.py` and the `case_view.jarvis_plan` mapping.
+- Degraded UX contract now lives under `docs/SP3_B4_Degraded_UX_Contract.md` and the `case_view.executive_summary` / `case_view.analysis_limits` mappings.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -44,6 +45,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/SPRINT3_PRD.md`
    - `docs/SPRINT3_JIRA_BACKLOG.md`
    - `docs/SP3_B1_Case_View_Contract.md`
+   - `docs/SP3_B4_Degraded_UX_Contract.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.

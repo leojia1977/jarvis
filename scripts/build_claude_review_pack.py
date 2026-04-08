@@ -56,6 +56,7 @@ def iter_review_files() -> list[str]:
         "docs/S3A_RUNTIME_STARTUP.md",
         "docs/S3B_CASE_EXPERIENCE_PRD.md",
         "docs/SP3_B1_Case_View_Contract.md",
+        "docs/SP3_B4_Degraded_UX_Contract.md",
         "docs/S3B_JIRA_BACKLOG.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
