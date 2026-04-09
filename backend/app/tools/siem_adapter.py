@@ -46,6 +46,27 @@ def _parse_iso_utc(value: str) -> Optional[datetime]:
         return None
 
 
+def _path_get(payload: Any, path: str) -> Any:
+    current = payload
+    for part in path.split("."):
+        if not isinstance(current, dict) or part not in current:
+            return None
+        current = current.get(part)
+    return current
+
+
+def _first_present(payload: Any, *paths: str) -> Any:
+    for path in paths:
+        value = _path_get(payload, path)
+        if value is not None:
+            return value
+    return None
+
+
+def _iso_z(value: datetime) -> str:
+    return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
 @dataclass(frozen=True)
 class TimeRangeSpec:
     start_utc: datetime
@@ -440,6 +461,246 @@ class ProductionSIEMAdapter:
             return normalized  # type: ignore[return-value]
         return "unavailable"
 
+    @staticmethod
+    def _canonical_time_range(time_range: dict[str, Any]) -> dict[str, str]:
+        return {
+            "start_utc": time_range.get("start_utc", ""),
+            "end_utc": time_range.get("end_utc", ""),
+            "tz_label": time_range.get("tz_label", "UTC"),
+        }
+
+    def _build_request_payload(self, endpoint_key: str, payload: dict[str, Any]) -> dict[str, Any]:
+        if self.vendor == "splunk_like":
+            return self._build_splunk_payload(endpoint_key, payload)
+        if self.vendor == "elastic_like":
+            return self._build_elastic_payload(endpoint_key, payload)
+        return payload
+
+    def _build_splunk_payload(self, endpoint_key: str, payload: dict[str, Any]) -> dict[str, Any]:
+        time_range = self._canonical_time_range(payload.get("time_range", {}))
+        search = "search index=secupilot"
+
+        if endpoint_key == "intent_alerts":
+            search = (
+                f'{search} intent="{payload.get("intent", "")}" '
+                f'user_query="{payload.get("user_input", "")}" '
+                f'earliest="{time_range["start_utc"]}" latest="{time_range["end_utc"]}"'
+            )
+        elif endpoint_key == "asset_alerts":
+            search = (
+                f'{search} asset_id="{payload.get("asset_id", "")}" '
+                f'earliest="{time_range["start_utc"]}" latest="{time_range["end_utc"]}"'
+            )
+        elif endpoint_key == "recent_summary":
+            search = (
+                f'{search} earliest="{time_range["start_utc"]}" '
+                f'latest="{time_range["end_utc"]}" | stats count as total_alerts by severity'
+            )
+        elif endpoint_key == "scenario_metadata":
+            search = f'| inputlookup secupilot_scenarios | search scenario_id="{payload.get("scenario_id", "")}"'
+        elif endpoint_key == "asset_context":
+            search = f'| inputlookup secupilot_assets | search asset_id="{payload.get("asset_id", "")}"'
+
+        return {
+            "query_language": "spl",
+            "search": search.strip(),
+            "params": payload,
+        }
+
+    def _build_elastic_payload(self, endpoint_key: str, payload: dict[str, Any]) -> dict[str, Any]:
+        time_range = self._canonical_time_range(payload.get("time_range", {}))
+        time_filter = {"range": {"@timestamp": {"gte": time_range["start_utc"], "lte": time_range["end_utc"]}}}
+
+        if endpoint_key == "intent_alerts":
+            must = []
+            if payload.get("intent"):
+                must.append({"term": {"secupilot.intent": payload["intent"]}})
+            if payload.get("user_input"):
+                must.append({"query_string": {"query": payload["user_input"], "default_field": "message"}})
+            return {
+                "query": {"bool": {"filter": [time_filter], "must": must}},
+                "size": 100,
+                "sort": [{"@timestamp": "desc"}],
+            }
+
+        if endpoint_key == "asset_alerts":
+            return {
+                "query": {
+                    "bool": {
+                        "filter": [
+                            time_filter,
+                            {
+                                "bool": {
+                                    "should": [
+                                        {"term": {"asset.id": payload.get("asset_id", "")}},
+                                        {"term": {"destination.asset_id": payload.get("asset_id", "")}},
+                                    ],
+                                    "minimum_should_match": 1,
+                                }
+                            },
+                        ]
+                    }
+                },
+                "size": 100,
+                "sort": [{"@timestamp": "desc"}],
+            }
+
+        if endpoint_key == "recent_summary":
+            return {
+                "query": {"bool": {"filter": [time_filter]}},
+                "size": 0,
+                "aggs": {"total_alerts": {"value_count": {"field": "event.id"}}},
+            }
+
+        if endpoint_key == "scenario_metadata":
+            return {
+                "query": {"term": {"scenario.id": payload.get("scenario_id", "")}},
+                "size": 1,
+            }
+
+        if endpoint_key == "asset_context":
+            return {
+                "query": {"term": {"asset.id": payload.get("asset_id", "")}},
+                "size": 1,
+            }
+
+        return payload
+
+    def _normalize_alerts(self, rows: list[Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+        normalized: list[dict[str, Any]] = []
+        metadata: dict[str, Any] = {}
+
+        for row in rows:
+            source = row.get("_source", row) if isinstance(row, dict) else {}
+            record: dict[str, Any] = {}
+
+            event_id = _first_present(source, "event_id", "event.id", "eventId", "id")
+            if event_id is not None:
+                record["event_id"] = event_id
+
+            severity = _first_present(source, "severity", "event.severity_label", "event.severity", "risk.level")
+            if severity is not None:
+                record["severity"] = str(severity).upper()
+
+            event_time = _first_present(source, "event_time", "@timestamp", "timestamp", "event.time")
+            if event_time is not None:
+                record["event_time"] = event_time
+
+            source_ip = _first_present(source, "source_ip", "src_ip", "source.ip", "src.ip")
+            if source_ip is not None:
+                record["source_ip"] = source_ip
+
+            destination_ip = _first_present(source, "destination_ip", "dest_ip", "destination.ip", "dest.ip")
+            if destination_ip is not None:
+                record["destination_ip"] = destination_ip
+
+            destination_asset = _first_present(
+                source,
+                "destination_asset_id",
+                "dest_asset",
+                "destination.asset_id",
+                "asset.id",
+                "host.id",
+            )
+            if destination_asset is not None:
+                record["destination_asset_id"] = destination_asset
+
+            scenario_id = _first_present(
+                source,
+                "scenario_id",
+                "scenario",
+                "scenario.id",
+                "secupilot.scenario_id",
+            )
+            if isinstance(scenario_id, dict):
+                scenario_id = scenario_id.get("scenario_id") or scenario_id.get("id")
+            if scenario_id and "scenario_id" not in metadata:
+                metadata["scenario_id"] = scenario_id
+
+            extra: dict[str, Any] = {}
+            query_domain = _first_present(source, "query_domain", "dns.question.name", "domain", "destination.domain")
+            if query_domain is not None:
+                extra["query_domain"] = query_domain
+            dest_ip_extra = _first_present(source, "extra.dest_ip", "destination.ip", "dest.ip")
+            if dest_ip_extra is not None:
+                extra["dest_ip"] = dest_ip_extra
+            if extra:
+                record["extra"] = extra
+
+            normalized.append({**source, **record})
+
+        return normalized, metadata
+
+    def _normalize_vendor_response(
+        self,
+        endpoint_key: str,
+        raw: dict[str, Any],
+        *,
+        data_keys: tuple[str, ...],
+        default_data: T,
+    ) -> tuple[Literal["ok", "timeout", "partial", "unavailable"], T, Optional[str], dict[str, Any]]:
+        status = self._normalize_status(raw.get("status"))
+        gap_reason = raw.get("gap_reason")
+        metadata = dict(raw.get("metadata") or {})
+
+        if self.vendor == "splunk_like":
+            if endpoint_key in {"intent_alerts", "asset_alerts"}:
+                rows = raw.get("results") or raw.get("result") or raw.get("alerts") or []
+                alerts, inferred = self._normalize_alerts(list(rows))
+                metadata.update({k: v for k, v in inferred.items() if k not in metadata})
+                return status, alerts, gap_reason, metadata
+            if endpoint_key == "scenario_metadata":
+                rows = raw.get("results") or raw.get("result") or []
+                data = rows[0] if rows else raw.get("data")
+                return status, data or default_data, gap_reason, metadata
+            if endpoint_key == "asset_context":
+                rows = raw.get("results") or raw.get("result") or []
+                data = rows[0] if rows else raw.get("asset") or raw.get("data")
+                return status, data or default_data, gap_reason, metadata
+            if endpoint_key == "recent_summary":
+                data = raw.get("summary") or raw.get("stats") or raw.get("data") or default_data
+                return status, data, gap_reason, metadata
+
+        if self.vendor == "elastic_like":
+            if raw.get("timed_out") and status == "ok":
+                status = "partial"
+                gap_reason = gap_reason or "elastic_query_timed_out"
+            if endpoint_key in {"intent_alerts", "asset_alerts"}:
+                hits = (((raw.get("hits") or {}).get("hits")) or [])
+                alerts, inferred = self._normalize_alerts(list(hits))
+                metadata.update({k: v for k, v in inferred.items() if k not in metadata})
+                scenario_meta = raw.get("_meta") or {}
+                if scenario_meta.get("scenario_id") and "scenario_id" not in metadata:
+                    metadata["scenario_id"] = scenario_meta["scenario_id"]
+                return status, alerts, gap_reason, metadata
+            if endpoint_key == "scenario_metadata":
+                hits = (((raw.get("hits") or {}).get("hits")) or [])
+                first = hits[0].get("_source", {}) if hits else {}
+                data = first.get("scenario") or first or default_data
+                return status, data, gap_reason, metadata
+            if endpoint_key == "asset_context":
+                hits = (((raw.get("hits") or {}).get("hits")) or [])
+                first = hits[0].get("_source", {}) if hits else {}
+                data = first.get("asset") or first or default_data
+                return status, data, gap_reason, metadata
+            if endpoint_key == "recent_summary":
+                aggs = raw.get("aggregations") or {}
+                data = {
+                    "total_alerts": _first_present(aggs, "total_alerts.value") or 0,
+                    "total_hits": _first_present(raw, "hits.total.value") or 0,
+                }
+                return status, data, gap_reason, metadata
+
+        data = raw.get("data")
+        if data is None:
+            for key in data_keys:
+                if key in raw:
+                    data = raw.get(key)
+                    break
+        if data is None:
+            data = default_data
+        return status, data, gap_reason, metadata
+
     async def _post_envelope(
         self,
         endpoint_key: str,
@@ -452,10 +713,11 @@ class ProductionSIEMAdapter:
             return AdapterResult.unavailable(default_data, gap_reason="production_adapter_not_configured")
 
         started = time.monotonic()
+        vendor_payload = self._build_request_payload(endpoint_key, payload)
         try:
             raw = await self.transport.post_json(
                 self._endpoint(endpoint_key),
-                payload,
+                vendor_payload,
                 headers=self._headers(),
                 timeout_seconds=self.timeout_seconds,
             )
@@ -465,18 +727,12 @@ class ProductionSIEMAdapter:
             return AdapterResult.unavailable(default_data, gap_reason=f"production_transport_unavailable:{exc.reason}")
 
         latency_ms = (time.monotonic() - started) * 1000
-        status = self._normalize_status(raw.get("status"))
-        data = raw.get("data")
-        if data is None:
-            for key in data_keys:
-                if key in raw:
-                    data = raw.get(key)
-                    break
-        if data is None:
-            data = default_data
-
-        gap_reason = raw.get("gap_reason")
-        metadata = raw.get("metadata") or {}
+        status, data, gap_reason, metadata = self._normalize_vendor_response(
+            endpoint_key,
+            raw,
+            data_keys=data_keys,
+            default_data=default_data,
+        )
         return AdapterResult(
             status=status,
             data=data,

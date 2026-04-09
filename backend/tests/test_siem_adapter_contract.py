@@ -124,8 +124,90 @@ class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result.status, "partial")
         self.assertEqual(result.gap_reason, "partial_time_window_data")
         self.assertEqual(result.data[0]["event_id"], "ALERT-1")
-        self.assertEqual(transport.calls[0]["payload"]["intent"], "threat_hunt")
+        self.assertEqual(transport.calls[0]["payload"]["params"]["intent"], "threat_hunt")
         self.assertEqual(transport.calls[0]["headers"]["Authorization"], "Bearer secret-token")
+
+    async def test_splunk_like_request_builder_and_alert_mapping(self):
+        transport = FakeProductionTransport(
+            {
+                "status": "ok",
+                "results": [
+                    {
+                        "event_id": "SPL-1",
+                        "severity": "high",
+                        "timestamp": "2026-04-08T10:30:00Z",
+                        "src_ip": "185.220.101.45",
+                        "dest_asset": "WKST-047",
+                        "dest_ip": "10.1.2.4",
+                        "scenario": "S-02",
+                    }
+                ],
+            }
+        )
+        adapter = ProductionSIEMAdapter(self.settings, transport=transport)
+        spec = TimeRangeSpec(
+            start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
+            end_utc=datetime(2026, 4, 8, 12, 0, 0, tzinfo=timezone.utc),
+            tz_label="Asia/Shanghai",
+        )
+
+        result = await adapter.query_intent_alerts("threat_hunt", "查横向移动", spec)
+
+        payload = transport.calls[0]["payload"]
+        self.assertEqual(payload["query_language"], "spl")
+        self.assertIn('intent="threat_hunt"', payload["search"])
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(result.metadata["scenario_id"], "S-02")
+        self.assertEqual(result.data[0]["destination_asset_id"], "WKST-047")
+        self.assertEqual(result.data[0]["source_ip"], "185.220.101.45")
+        self.assertEqual(result.data[0]["severity"], "HIGH")
+
+    async def test_elastic_like_request_builder_and_hit_mapping(self):
+        settings = Settings(
+            runtime_mode="production",
+            mock_data_path="./mock_data",
+            siem_base_url="https://siem.example.local",
+            siem_auth_token="secret-token",
+            siem_vendor="elastic_like",
+            siem_request_timeout_seconds=7.5,
+        )
+        transport = FakeProductionTransport(
+            {
+                "timed_out": False,
+                "hits": {
+                    "total": {"value": 1},
+                    "hits": [
+                        {
+                            "_source": {
+                                "event": {"id": "ES-1"},
+                                "@timestamp": "2026-04-08T11:00:00Z",
+                                "risk": {"level": "medium"},
+                                "source": {"ip": "198.51.100.23"},
+                                "destination": {"asset_id": "HR-PORTAL-01", "ip": "10.1.6.10"},
+                                "scenario": {"id": "S-04"},
+                            }
+                        }
+                    ],
+                },
+            }
+        )
+        adapter = ProductionSIEMAdapter(settings, transport=transport)
+        spec = TimeRangeSpec(
+            start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
+            end_utc=datetime(2026, 4, 8, 12, 0, 0, tzinfo=timezone.utc),
+            tz_label="Asia/Shanghai",
+        )
+
+        result = await adapter.query_asset_alerts("HR-PORTAL-01", spec)
+
+        payload = transport.calls[0]["payload"]
+        self.assertIn("query", payload)
+        self.assertEqual(payload["size"], 100)
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(result.metadata["scenario_id"], "S-04")
+        self.assertEqual(result.data[0]["event_id"], "ES-1")
+        self.assertEqual(result.data[0]["destination_asset_id"], "HR-PORTAL-01")
+        self.assertEqual(result.data[0]["severity"], "MEDIUM")
 
     async def test_get_scenario_metadata_uses_generic_data_fallback(self):
         transport = FakeProductionTransport(

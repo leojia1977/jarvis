@@ -11,6 +11,8 @@
 - production adapter returns `AdapterResult` with the same shape as mock
 - runtime `production` mode is bootstrappable when SIEM adapter configuration is present
 - contract tests cover request normalization and response normalization
+- thin vendor profiles (`generic_http`, `splunk_like`, `elastic_like`) may transform request and response shapes, but must still emit the same canonical alert/schema contract
+- a governed production smoke path may exercise `runtime_mode=production -> investigate_sync -> threat_case` using a fake transport or injected adapter factory
 
 ## Out Of Scope
 - replacing `asset_dictionary.json`, `false_positive_baseline.json`, `mock_ioc_database.json`, or `entity_relationships.json`
@@ -20,6 +22,17 @@
 
 ## Boundary Decision
 `S3-C-1` replaces only the alert-querying edge.
+
+Vendor field mapping belongs inside `ProductionSIEMAdapter`, not inside `graph.py` or any algorithm engine.
+
+`graph.py` must continue to consume only canonical alert fields such as:
+- `event_id`
+- `severity`
+- `event_time`
+- `source_ip`
+- `destination_ip`
+- `destination_asset_id`
+- `extra.query_domain`
 
 The following remain local bootstrap dependencies for now:
 - T1 asset and baseline inputs
