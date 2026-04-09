@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-D-2026-04-09-007",
-    "sprint": "Sprint 3",
-    "stage": "collaboration-and-review-governance",
+    "id": "S4-PLAN-2026-04-09-001",
+    "sprint": "Sprint 4",
+    "stage": "planning-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T15:00:37.348673+08:00"
+    "updated_at": "2026-04-09T15:22:40.116062+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-007.zip",
-    "current_release_sha256": "3843cbf9e82714faec98ee3a3492fed382744387789ceeb2da26eb76cb0a2362"
+    "current_release_zip": "releases\\secupilot-S4-PLAN-2026-04-09-001.zip",
+    "current_release_sha256": "3bb1ac32d69cd182b8ecfd1cfa2f355e846d072d70cd7d95a6d2e7ddd87ef8cd"
   },
   "key_files": [
     {
@@ -225,7 +225,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "823df8c534a8a4ef0f3519031a40480b621e4329d9a20b5dd4556ac6e18f3f69"
+      "sha256": "01b8c89a8eb1398d0f01ec0bde6d26724178a2b815c7dc1c0ec292603a6947a7"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -258,6 +258,16 @@
       "sha256": "7efb167daf5ee44fbde8b3ef36b4eeee9c083734836d78e6f2017dfb771b6c69"
     },
     {
+      "path": "docs\\SPRINT4_PRD.md",
+      "role": "sprint4-prd",
+      "sha256": "55d0711a64d6832563b41b67fadbad17d677e4f5739b52d9b7cf100580243a81"
+    },
+    {
+      "path": "docs\\SPRINT4_JIRA_BACKLOG.md",
+      "role": "sprint4-jira-backlog",
+      "sha256": "76e10115329962e0dac6c41d9adce3e74aca03de53437934fde30e5b529a0242"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -265,7 +275,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "6ad3ce2a4c857b5837c84ef63375adac065b5c77aa159355fb17916848822dc6"
+      "sha256": "b7d8fc3bc9ae7a070346e0de49d01cbd07942d66d21fc29bcd5aec15214bed82"
     },
     {
       "path": "scripts\\package_release.py",
@@ -429,13 +439,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-D-2026-04-09-007",
+      "Snapshot ID: S4-PLAN-2026-04-09-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T15:00:37.565518+08:00",
+    "last_verified_at": "2026-04-09T15:22:40.937341+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

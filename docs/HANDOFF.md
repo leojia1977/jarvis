@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-D-2026-04-09-007`
-- Stage: `Sprint 3 collaboration and review governance`
+- Snapshot ID: `S4-PLAN-2026-04-09-001`
+- Stage: `Sprint 4 planning baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -39,6 +39,7 @@
 - S3-D-4 now freezes snapshot transition discipline, Claude Web upload rules, and alignment rules so future stage changes are driven by generated review artifacts instead of chat-only instructions.
 - S3-D-4 follow-up now adds the missing package step to the snapshot checklist, makes the generated review pack authoritative over handwritten upload lists, and forbids stale zip reuse during review-pack generation.
 - SP3-D-13 now records the governance closeout decision under `docs/S3D13_GOVERNANCE_REVIEW_PASS.md`.
+- Sprint 4 planning is now frozen under `docs/SPRINT4_PRD.md` and `docs/SPRINT4_JIRA_BACKLOG.md`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -73,6 +74,8 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md`
    - `docs/S3D13_GOVERNANCE_REVIEW_PASS.md`
    - `docs/S3D_JIRA_BACKLOG.md`
+   - `docs/SPRINT4_PRD.md`
+   - `docs/SPRINT4_JIRA_BACKLOG.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
