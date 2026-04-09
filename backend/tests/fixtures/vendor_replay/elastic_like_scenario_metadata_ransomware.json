@@ -1,0 +1,30 @@
+{
+  "vendor": "elastic_like",
+  "endpoint_key": "scenario_metadata",
+  "scenario": "ransomware",
+  "request": {
+    "scenario_id": "S-04"
+  },
+  "response": {
+    "timed_out": false,
+    "hits": {
+      "total": {
+        "value": 1
+      },
+      "hits": [
+        {
+          "_source": {
+            "scenario": {
+              "scenario_id": "S-04",
+              "name": "Ransomware Precursor",
+              "kill_chain": "impact",
+              "action": {
+                "type": "EMERGENCY_ISOLATE"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

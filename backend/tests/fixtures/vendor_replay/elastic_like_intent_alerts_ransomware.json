@@ -1,0 +1,47 @@
+{
+  "vendor": "elastic_like",
+  "endpoint_key": "intent_alerts",
+  "scenario": "ransomware",
+  "request": {
+    "intent": "threat_hunt",
+    "user_input": "请检查勒索和C2",
+    "time_range": {
+      "tz_label": "Asia/Shanghai"
+    }
+  },
+  "response": {
+    "timed_out": false,
+    "hits": {
+      "total": {
+        "value": 1
+      },
+      "hits": [
+        {
+          "_source": {
+            "event": {
+              "id": "ELS-REPLAY-1",
+              "action": "Credential Dumping"
+            },
+            "@timestamp": "2026-04-09T02:15:00Z",
+            "risk": {
+              "level": "high"
+            },
+            "source": {
+              "ip": "198.51.100.23"
+            },
+            "destination": {
+              "asset_id": "HR-PORTAL-01",
+              "ip": "10.1.6.10"
+            },
+            "scenario": {
+              "id": "S-04"
+            },
+            "rule": {
+              "name": "Ransomware precursor"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

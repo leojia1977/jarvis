@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-C-2026-04-09-005`
-- Stage: `Sprint 3 vendor profile hardening follow-up`
+- Snapshot ID: `S3-C-2026-04-09-006`
+- Stage: `Sprint 3 vendor replay fixtures`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -30,6 +30,7 @@
 - S3-C-1 hardening now maps non-JSON transport responses to `production_transport_bad_response:*` and exposes `adapter_type / adapter_configured` in runtime readiness.
 - S3-C-2 now hardens vendor profiles by filling canonical `activity_name`, escaping `splunk_like` free text, replacing risky `elastic_like query_string` usage, and freezing fixture playback tests under `docs/S3C2_VENDOR_PROFILE_HARDENING.md`.
 - S3-C-2 follow-up now proves `activity_name` flows end-to-end through the production smoke path and lowers generic `action` behind `rule.name` in canonical field selection.
+- S3-C-3 now adds offline vendor replay fixtures, `ReplayTransport`, and two end-to-end replay tests under `docs/S3C3_VENDOR_REPLAY_SPEC.md` and `backend/tests/test_vendor_replay.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -57,6 +58,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S3C0_ADAPTER_CONTRACT.md`
    - `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`
    - `docs/S3C2_VENDOR_PROFILE_HARDENING.md`
+   - `docs/S3C3_VENDOR_REPLAY_SPEC.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -66,6 +68,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 - `py -3 test_t3_hunt.py`
 - `py -3 test_secupilot_drafts.py`
 - `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract`
+- `py -3 -m unittest -q backend.tests.test_vendor_replay`
 - `py -3 selfcheck_t1_t5.py`
 
 ## Release Outputs

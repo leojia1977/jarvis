@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-C-2026-04-09-005",
+    "id": "S3-C-2026-04-09-006",
     "sprint": "Sprint 3",
-    "stage": "vendor-profile-hardening-follow-up",
+    "stage": "vendor-replay-fixtures",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T10:52:35.089072+08:00"
+    "updated_at": "2026-04-09T11:13:01.254905+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-005.zip",
-    "current_release_sha256": "002b22f64a35fd42d29c879f26fd291aa7fb29d433e4a31436b4418e2b33e24c"
+    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-006.zip",
+    "current_release_sha256": "3aed4c50c6d087a74f3c12129c5cbce4a54e84da46f8a1ec733d336e1a7bd5e9"
   },
   "key_files": [
     {
@@ -153,6 +153,11 @@
       "sha256": "7384d09883dde7128a54b0e098c3c8973f41cdeb7edb66ee598d73cb3ae41b4c"
     },
     {
+      "path": "backend\\tests\\test_vendor_replay.py",
+      "role": "canonical-vendor-replay-tests",
+      "sha256": "5d3725c709ab3e55babcb72e11508a49b9168c7abddd10b2953457e6a17883b0"
+    },
+    {
       "path": "mock_data\\process_events\\index.json",
       "role": "canonical-process-event-index",
       "sha256": "05691ef4b33f227509f26a743fb7da0e979386cfe3ad848cbedcdd1278e0586c"
@@ -183,9 +188,14 @@
       "sha256": "b3f9fb7ad98e2e313562e67a662e7d08db4d12b7c7ab4c32e484ac881aae912c"
     },
     {
+      "path": "docs\\S3C3_VENDOR_REPLAY_SPEC.md",
+      "role": "s3c3-vendor-replay-spec",
+      "sha256": "9908b805794442fb3dbe814b482b68ecfc09bc85cbb0dc532be0927cc4caa890"
+    },
+    {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "4ed483040bbcaf99934882209dc94ae4b4e37492cbb2bee73eac7f8d2f636b86"
+      "sha256": "5463e30fa1ac626a4501ae618c9cb5614aeae1dc36ad31e07a4f43e2104b969c"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -255,7 +265,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "87ace1ebe3112a6bfaec957c5abb0f8df3c368e8e6b38a096bb82c170360d018"
+      "sha256": "7de96dcb2e0d4fbdfb3dd10491f8c921f82391ce452c355d2b492afc08a017e7"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -373,13 +383,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-C-2026-04-09-005",
+      "Snapshot ID: S3-C-2026-04-09-006",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T10:52:35.920709+08:00",
+    "last_verified_at": "2026-04-09T11:13:01.461926+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

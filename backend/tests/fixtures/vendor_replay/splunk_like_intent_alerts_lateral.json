@@ -1,0 +1,30 @@
+{
+  "vendor": "splunk_like",
+  "endpoint_key": "intent_alerts",
+  "scenario": "lateral",
+  "request": {
+    "intent": "threat_hunt",
+    "user_input": "请检查横向移动",
+    "time_range": {
+      "tz_label": "Asia/Shanghai"
+    }
+  },
+  "response": {
+    "status": "ok",
+    "results": [
+      {
+        "event_id": "SPL-REPLAY-1",
+        "severity": "high",
+        "timestamp": "2026-04-09T01:22:00Z",
+        "action": "Remote Service Execution",
+        "src_ip": "185.220.101.45",
+        "dest_asset": "WKST-047",
+        "dest_ip": "10.1.2.4",
+        "scenario": "S-02"
+      }
+    ],
+    "metadata": {
+      "source": "splunk_replay"
+    }
+  }
+}

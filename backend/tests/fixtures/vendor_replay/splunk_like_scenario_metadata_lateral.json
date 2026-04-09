@@ -1,0 +1,21 @@
+{
+  "vendor": "splunk_like",
+  "endpoint_key": "scenario_metadata",
+  "scenario": "lateral",
+  "request": {
+    "scenario_id": "S-02"
+  },
+  "response": {
+    "status": "ok",
+    "results": [
+      {
+        "scenario_id": "S-02",
+        "name": "Lateral Movement",
+        "kill_chain": "lateral_movement",
+        "action": {
+          "type": "NETWORK_ISOLATE"
+        }
+      }
+    ]
+  }
+}
