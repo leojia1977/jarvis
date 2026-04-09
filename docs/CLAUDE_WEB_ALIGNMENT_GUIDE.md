@@ -19,14 +19,11 @@ Anything else is input-only material, not latest code truth.
 6. Ask Claude to review, design, or challenge assumptions.
 7. Apply any approved changes back through Codex in `D:\产品设计\New folder`.
 
-## Minimum Upload Set
-- `docs/HANDOFF.md`
-- `contracts/AI_COLLAB_CONTRACT.md`
-- `releases/release_manifest.json`
-- `docs/SPRINT3_PRD.md`
-- `docs/SPRINT3_JIRA_BACKLOG.md`
-- `docs/PROJECT_STRUCTURE.md`
-- the exact `.py` files under review
+## Authoritative Upload Set
+- treat the generated review pack zip as the minimum and authoritative upload set
+- do not maintain a separate manual file list here
+- if you need a human-readable cross-check, use the `Claude Web Workflow` section in `docs/HANDOFF.md`
+- if the generated review pack and any handwritten list disagree, the generated review pack wins
 
 ## Never Do These
 - do not upload stale zip files from other folders as current truth

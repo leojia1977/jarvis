@@ -69,6 +69,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S3D2_WRAPPER_RETIREMENT_PLAN.md",
         "docs/S3D3_RUNTIME_OPERABILITY_CONTRACT.md",
         "docs/S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md",
+        "docs/S3D13_GOVERNANCE_REVIEW_PASS.md",
         "docs/S3D_JIRA_BACKLOG.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
@@ -197,15 +198,14 @@ def main() -> int:
     prompt_path.write_text(build_prompt_text(manifest), encoding="utf-8")
 
     zip_path = ROOT / "releases" / f"claude-review-pack-{snapshot_id}.zip"
-    reuse_existing_zip = False
     if zip_path.exists():
         try:
             retry_permission_error(lambda: zip_path.unlink())
         except PermissionError as exc:
-            print(f"[WARN] Could not replace existing review pack zip, keeping current zip: {exc}")
-            reuse_existing_zip = True
-    if not reuse_existing_zip:
-        build_zip(output_dir, zip_path)
+            print(f"[FAIL] Could not replace existing review pack zip: {exc}")
+            print("[FAIL] Review pack folder and zip would diverge. Resolve the file lock and rerun.")
+            return 1
+    build_zip(output_dir, zip_path)
 
     print(f"[OK] Review pack folder: {output_dir}")
     print(f"[OK] Review pack zip: {zip_path}")

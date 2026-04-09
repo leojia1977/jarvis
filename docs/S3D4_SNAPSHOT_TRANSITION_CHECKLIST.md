@@ -31,10 +31,12 @@ If this checklist conflicts with scattered prompt text, old notes, or a previous
 - ensure new governed files appear in `key_files`
 - treat prompt header values in the manifest as authoritative
 
-### 4. Build review artifacts from the current root
+### 4. Build governed artifacts from the current root
 - run `py -3 scripts/build_claude_review_pack.py`
+- run `py -3 scripts/package_release.py`
 - confirm the folder and zip are created for the new snapshot
-- confirm any new docs, tests, and fixtures are present in the review pack
+- confirm the review pack contains any new docs, tests, and fixtures
+- confirm the release zip exists for the same snapshot before any formal review
 
 ### 5. Run the governed gate
 - normal iteration: `py -3 scripts/git_preflight.py --mode fast`

@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-D-2026-04-09-006",
+    "id": "S3-D-2026-04-09-007",
     "sprint": "Sprint 3",
     "stage": "collaboration-and-review-governance",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T14:35:53.919858+08:00"
+    "updated_at": "2026-04-09T15:00:37.348673+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-006.zip",
-    "current_release_sha256": "c8df75b59adddea57008f2277788bd5398431fb375732782054c399baea25c27"
+    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-007.zip",
+    "current_release_sha256": "3843cbf9e82714faec98ee3a3492fed382744387789ceeb2da26eb76cb0a2362"
   },
   "key_files": [
     {
@@ -210,7 +210,12 @@
     {
       "path": "docs\\S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md",
       "role": "s3d4-snapshot-transition-checklist",
-      "sha256": "992d772e59654b13feda23f81e61fe908e29ec6149c2c61e1efa31bad28fb610"
+      "sha256": "39b201efe95b5fa9947c4517d8b3fbbac940c52ade83a6af2c4c80d3e986c378"
+    },
+    {
+      "path": "docs\\S3D13_GOVERNANCE_REVIEW_PASS.md",
+      "role": "s3d13-governance-review-pass",
+      "sha256": "f2176e290ad25a0a33783620f0dba27fb533264db1fa49febb42cb59dc8bd82e"
     },
     {
       "path": "docs\\S3D_JIRA_BACKLOG.md",
@@ -220,7 +225,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "483ce21a4d96a8c797e7384aef21084a6a04392403633457b561d8843b6be7ae"
+      "sha256": "823df8c534a8a4ef0f3519031a40480b621e4329d9a20b5dd4556ac6e18f3f69"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -240,7 +245,7 @@
     {
       "path": "docs\\CLAUDE_WEB_ALIGNMENT_GUIDE.md",
       "role": "claude-alignment-guide",
-      "sha256": "f44263cf25f346c58bb58446d3631399cb44584729c2c6d55f6380710711dc43"
+      "sha256": "1222f9efd500be02075d0b978d16d6aece28900e3f9d20df2a25d9b695c3840d"
     },
     {
       "path": "docs\\SPRINT3_PRD.md",
@@ -260,7 +265,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "80cfdbd879a626b72ece79cf81976968661f056ba16180474a69a03b6199a1b6"
+      "sha256": "6ad3ce2a4c857b5837c84ef63375adac065b5c77aa159355fb17916848822dc6"
     },
     {
       "path": "scripts\\package_release.py",
@@ -424,13 +429,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-D-2026-04-09-006",
+      "Snapshot ID: S3-D-2026-04-09-007",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T14:35:54.577588+08:00",
+    "last_verified_at": "2026-04-09T15:00:37.565518+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
