@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-PLAN-2026-04-09-002`
-- Stage: `Sprint 4 planning baseline`
+- Snapshot ID: `S4-A-2026-04-09-001`
+- Stage: `Sprint 4 static data source contract freeze`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -41,6 +41,7 @@
 - SP3-D-13 now records the governance closeout decision under `docs/S3D13_GOVERNANCE_REVIEW_PASS.md`.
 - Sprint 4 planning is now frozen under `docs/SPRINT4_PRD.md` and `docs/SPRINT4_JIRA_BACKLOG.md`.
 - Sprint 4 planning follow-up now makes `SP4-A-3` the explicit unlock for `SP4-B-1`, requires `SP4-C-1` to freeze persistence backend selection, and clarifies that `SP4-D-1` plus `SP4-D-3` may start in parallel while downstream pilot smoke work waits for `S4-A + S4-B + S4-C`.
+- S4-A-1 now freezes the static-data source contract under `docs/S4A1_STATIC_DATA_SOURCE_CONTRACT.md`, `backend/app/tools/static_data_sources.py`, and the new static-data config fields in `backend/app/config.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -77,6 +78,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S3D_JIRA_BACKLOG.md`
    - `docs/SPRINT4_PRD.md`
    - `docs/SPRINT4_JIRA_BACKLOG.md`
+   - `docs/S4A1_STATIC_DATA_SOURCE_CONTRACT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -85,7 +87,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 ## Baseline Test Commands
 
 ### Canonical Authoritative Gate
-- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay`
+- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts`
 - `py -3 -m unittest -q backend.tests.test_vendor_replay`
 
 ### Legacy / Compat Shortcuts

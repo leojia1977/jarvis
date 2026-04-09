@@ -36,6 +36,13 @@ class Settings(BaseSettings):
 
     # Mock data
     mock_data_path: str = "./mock_data"
+    static_data_mode: str = "local_files"
+    static_data_path: str = ""
+    static_data_refresh_seconds: int = 300
+    asset_source_mode: str = "local_files"
+    baseline_source_mode: str = "local_files"
+    intel_seed_source_mode: str = "local_files"
+    topology_source_mode: str = "local_files"
     runtime_mode: str = "mock"
     business_timezone: str = "Asia/Shanghai"
     siem_vendor: str = "generic_http"
@@ -57,11 +64,17 @@ class Settings(BaseSettings):
     def get_project_root(self) -> Path:
         return Path(self.project_root).resolve()
 
-    def get_mock_data_dir(self) -> Path:
-        path = Path(self.mock_data_path)
+    def get_static_data_dir(self) -> Path:
+        configured = self.static_data_path or self.mock_data_path
+        path = Path(configured)
         if not path.is_absolute():
             path = self.get_project_root() / path
         return path.resolve()
+
+    def get_mock_data_dir(self) -> Path:
+        # Legacy alias kept for Sprint 4 transition. New work should prefer
+        # get_static_data_dir() and the static-data source contract.
+        return self.get_static_data_dir()
 
 
 settings = Settings()

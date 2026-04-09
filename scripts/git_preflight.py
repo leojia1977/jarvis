@@ -22,6 +22,7 @@ FAST_COMMANDS = [
         "backend.tests.test_case_view",
         "backend.tests.test_siem_adapter_contract",
         "backend.tests.test_vendor_replay",
+        "backend.tests.test_static_data_contracts",
     ],
     ["py", "-3", "selfcheck_t1_t5.py"],
 ]
