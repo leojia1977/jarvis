@@ -181,6 +181,9 @@ class StaticDataAdapterTests(unittest.TestCase):
             pipeline.orchestrator.triage.asset_db["WKST-047"]["known_behaviors"][0],
             "nightly_db_backup",
         )
+        identity = asyncio.run(pipeline.orchestrator.host_identity_resolver.resolve_ip("10.1.5.22"))
+        self.assertEqual(identity.status, "ok")
+        self.assertEqual(identity.data.canonical_asset_id, "WKST-047")
 
 
 if __name__ == "__main__":

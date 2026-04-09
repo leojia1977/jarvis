@@ -39,6 +39,8 @@ from app.tools.static_data_adapters import (
     build_static_data_source_adapters,
     load_static_data_runtime_payloads_sync,
 )
+from app.tools.static_data_sources import HostIdentityResolverProtocol
+from app.tools.host_identity import build_asset_inventory_host_identity_resolver
 from app.agents.jarvis_hunt_engine import JarvisHuntEngine
 from app.agents.case_view import build_case_view
 from app.config import settings
@@ -179,7 +181,8 @@ class SaiLouOrchestrator:
                  blast: RealBlastRadiusEngine,
                  t3: ProcessTreeCompiler = None,
                  jarvis: JarvisHuntEngine = None,
-                 process_events_cache: dict = None):
+                 process_events_cache: dict = None,
+                 host_identity_resolver: HostIdentityResolverProtocol = None):
         self.siem = siem
         self.triage = triage
         self.intel = intel
@@ -187,6 +190,7 @@ class SaiLouOrchestrator:
         self.t3 = t3 or ProcessTreeCompiler(top_k=3)
         self.jarvis = jarvis or JarvisHuntEngine()
         self._process_events = process_events_cache or {}  # host_id → [events]
+        self.host_identity_resolver = host_identity_resolver
 
     async def investigate(
         self,
@@ -292,10 +296,19 @@ class SaiLouOrchestrator:
 
             if "process_tree" in plan:
                 # 确定 T3 分析目标主机
-                t3_hosts = self._determine_t3_hosts(
+                t3_selection = await self._determine_t3_hosts(
                     raw_alerts, target_asset_id, target_ip, user_input
                 )
-                tasks["process_tree"] = self._run_t3(t3_hosts)
+                if t3_selection["identity_gaps"]:
+                    tool_results["_identity_resolution"] = {
+                        "t3_host_selection": copy.deepcopy(t3_selection["identity_gaps"]),
+                    }
+                    for gap in t3_selection["identity_gaps"]:
+                        _append_unique(degraded_reasons, gap.get("reason", "identity_unresolved"))
+                tasks["process_tree"] = self._run_t3(
+                    t3_selection["host_ids"],
+                    identity_gaps=t3_selection["identity_gaps"],
+                )
 
             # asyncio.gather 并行执行
             if tasks:
@@ -509,10 +522,16 @@ class SaiLouOrchestrator:
         t = time.monotonic()
 
         # 确定隔离目标
-        target = asset_id or self._pick_blast_target(alerts, ip)
+        selection = await self._pick_blast_target(alerts, asset_id, ip)
+        target = selection.data
 
         if not target:
-            return {"status": "no_target", "execution_ms": 0}
+            return {
+                "status": "no_target",
+                "detail": selection.gap_reason or "",
+                "identity_gaps": list(selection.metadata.get("identity_gaps", [])),
+                "execution_ms": 0,
+            }
 
         action_type = self._infer_action_type(alerts, user_input)
         report = await asyncio.to_thread(self.blast.calculate, action_type, target)
@@ -541,9 +560,10 @@ class SaiLouOrchestrator:
             "execution_ms": round(elapsed, 2),
         }
 
-    async def _run_t3(self, host_ids: list[str]) -> dict:
+    async def _run_t3(self, host_ids: list[str], identity_gaps: Optional[list[dict]] = None) -> dict:
         """执行 T3 进程树证据编译器（可分析多台主机）"""
         t = time.monotonic()
+        identity_gaps = copy.deepcopy(identity_gaps or [])
 
         if not host_ids:
             return {
@@ -555,7 +575,7 @@ class SaiLouOrchestrator:
                 "suspicious_chains": [],
                 "persistence_mechanisms": [],
                 "ioc_extracted": [],
-                "gaps": [],
+                "gaps": identity_gaps,
                 "analysis_scope": [],
                 "execution_ms": 0.0,
             }
@@ -563,7 +583,7 @@ class SaiLouOrchestrator:
         all_chains = []
         all_persistence = []
         all_iocs = []
-        all_gaps = []
+        all_gaps = list(identity_gaps)
         all_scopes = set()
         hosts_analyzed = []
         missing_hosts = []
@@ -624,34 +644,119 @@ class SaiLouOrchestrator:
             "execution_ms": round(elapsed, 2),
         }
 
-    def _determine_t3_hosts(self, alerts: list, asset_id: str = None,
-                             ip: str = None, user_input: str = None) -> list[str]:
-        """确定 T3 应分析哪些主机"""
-        hosts = set()
+    async def _resolve_host_identity(
+        self,
+        *,
+        asset_id: str = None,
+        ip: str = None,
+        hostname: str = None,
+        identifier: str = None,
+    ) -> AdapterResult:
+        if not self.host_identity_resolver:
+            chosen = str(asset_id or ip or hostname or identifier or "").strip()
+            return AdapterResult.ok(
+                None,
+                metadata={"matched_by": "none", "identifier": chosen, "candidate_asset_ids": []},
+            )
+
+        if asset_id:
+            return await self.host_identity_resolver.resolve_asset_id(asset_id)
+        if ip:
+            return await self.host_identity_resolver.resolve_ip(ip)
+        if hostname:
+            return await self.host_identity_resolver.resolve_hostname(hostname)
+        if identifier:
+            return await self.host_identity_resolver.resolve_any(identifier)
+        return AdapterResult.ok(None, metadata={"matched_by": "none", "identifier": "", "candidate_asset_ids": []})
+
+    @staticmethod
+    def _identity_gap(
+        *,
+        query_kind: str,
+        query_value: str,
+        result: AdapterResult,
+        explicit: bool = False,
+    ) -> Optional[dict]:
+        reason = result.gap_reason
+        if not reason and explicit and result.status == "ok" and result.data is None:
+            reason = f"identity_not_found:{query_kind}:{query_value}"
+        if not reason:
+            return None
+
+        gap_type = "identity_ambiguous" if reason.startswith("identity_ambiguous:") else "identity_unresolved"
+        candidate_ids = list(result.metadata.get("candidate_asset_ids", []))
+        matched_by = result.metadata.get("matched_by", query_kind)
+        impact = (
+            f"Unable to resolve {query_kind} '{query_value}' to one canonical asset id."
+            if gap_type == "identity_ambiguous"
+            else f"No canonical asset identity found for {query_kind} '{query_value}'."
+        )
+        return {
+            "gap_id": f"identity:{query_kind}:{query_value}".replace(" ", "_"),
+            "type": gap_type,
+            "impact": impact,
+            "reason": reason,
+            "matched_by": matched_by,
+            "candidate_asset_ids": candidate_ids,
+        }
+
+    @staticmethod
+    def _append_identity_gap(gaps: list[dict], gap: Optional[dict]) -> None:
+        if not gap:
+            return
+        gap_id = gap.get("gap_id")
+        if any(existing.get("gap_id") == gap_id for existing in gaps):
+            return
+        gaps.append(gap)
+
+    async def _determine_t3_hosts(
+        self,
+        alerts: list,
+        asset_id: str = None,
+        ip: str = None,
+        user_input: str = None,
+    ) -> dict:
+        """确定 T3 应分析哪些主机，并显式记录身份解析歧义。"""
+        hosts: set[str] = set()
+        identity_gaps: list[dict] = []
+
+        async def _maybe_add_identity(*, query_kind: str, query_value: str, explicit: bool = False) -> None:
+            result = await self._resolve_host_identity(
+                asset_id=query_value if query_kind == "asset_id" else None,
+                ip=query_value if query_kind == "ip_address" else None,
+                identifier=query_value if query_kind == "identifier" else None,
+            )
+            if result.data is not None:
+                hosts.add(result.data.canonical_asset_id)
+                return
+            self._append_identity_gap(
+                identity_gaps,
+                self._identity_gap(
+                    query_kind=query_kind,
+                    query_value=query_value,
+                    result=result,
+                    explicit=explicit,
+                ),
+            )
 
         # 1. 显式目标
         if asset_id:
-            hosts.add(asset_id)
+            await _maybe_add_identity(query_kind="asset_id", query_value=asset_id, explicit=True)
         if ip:
-            # 尝试从资产库反查 host_id
-            asset = getattr(self.blast, 'asset_index', {}).get(ip, {})
-            if asset:
-                hosts.add(asset.get("asset_id", ip))
+            await _maybe_add_identity(query_kind="ip_address", query_value=ip, explicit=True)
 
         # 2. 从高危告警中提取涉及的主机
         ranked = sorted(alerts, key=lambda a: a.get("_triage_score", 0), reverse=True)
         for alert in ranked[:10]:
-            dest = alert.get("destination_asset_id", "")
+            dest = str(alert.get("destination_asset_id", "") or "").strip()
             if dest and dest != "EXTERNAL":
-                hosts.add(dest)
-            src_ip = alert.get("source_ip", "")
-            if _is_internal_ip(src_ip):
-                # 尝试反查资产
-                asset = getattr(self.blast, 'asset_index', {}).get(src_ip, {})
-                if asset:
-                    hosts.add(asset.get("asset_id", src_ip))
+                await _maybe_add_identity(query_kind="asset_id", query_value=dest)
 
-        # 3. 从 user_input 关键词推断（场景→主机映射）
+            src_ip = str(alert.get("source_ip", "") or "").strip()
+            if _is_internal_ip(src_ip):
+                await _maybe_add_identity(query_kind="ip_address", query_value=src_ip)
+
+        # 3. 从 user_input 关键词推断（场景→主机映射），但仍走 canonical resolver
         query = (user_input or "").lower()
         scenario_host_map = {
             "横向": ["DEV-WS-01", "WKST-047"],
@@ -662,13 +767,17 @@ class SaiLouOrchestrator:
         }
         for kw, host_list in scenario_host_map.items():
             if kw in query:
-                hosts.update(host_list)
+                for host_like in host_list:
+                    await _maybe_add_identity(query_kind="identifier", query_value=host_like)
 
         # 过滤：只保留有进程事件数据的主机
-        available = set(self._process_events.keys())
-        valid = [h for h in hosts if h in available or h.upper() in available]
+        available = {str(host).upper() for host in self._process_events.keys()}
+        valid = [host for host in hosts if host.upper() in available]
 
-        return valid[:5]  # 最多分析 5 台
+        return {
+            "host_ids": valid[:5],
+            "identity_gaps": identity_gaps,
+        }
 
     # ============================================================
     # 辅助函数
@@ -684,18 +793,43 @@ class SaiLouOrchestrator:
     ) -> AdapterResult[list]:
         """从 SIEM 收集原始告警，始终通过 adapter contract 访问。"""
         spec = time_range or TimeRangeSpec.from_value("24h", settings.business_timezone)
+        identity_metadata = {}
         if intent == "asset_query" and (asset_id or ip):
+            identity_result = await self._resolve_host_identity(asset_id=asset_id, ip=ip)
+            if identity_result.status != "ok" and identity_result.gap_reason:
+                return AdapterResult(
+                    status=identity_result.status,
+                    data=[],
+                    latency_ms=identity_result.latency_ms,
+                    gap_reason=identity_result.gap_reason,
+                    metadata=dict(identity_result.metadata or {}),
+                )
+
             target = asset_id or ip
+            if identity_result.data is not None:
+                target = identity_result.data.canonical_asset_id
+                identity_metadata = {
+                    "identity_resolution": "resolved",
+                    "identity_canonical_asset_id": target,
+                    "identity_matched_by": identity_result.metadata.get("matched_by"),
+                }
+            else:
+                identity_metadata = {
+                    "identity_resolution": "no_match",
+                    "identity_query": asset_id or ip,
+                }
             result = await self.siem.query_asset_alerts(target, spec)
         else:
             result = await self.siem.query_intent_alerts(intent, user_input, spec)
 
+        merged_metadata = dict(result.metadata or {})
+        merged_metadata.update(identity_metadata)
         return AdapterResult(
             status=result.status,
             data=copy.deepcopy(result.data or []),
             latency_ms=result.latency_ms,
             gap_reason=result.gap_reason,
-            metadata=dict(result.metadata or {}),
+            metadata=merged_metadata,
         )
 
     @staticmethod
@@ -731,10 +865,44 @@ class SaiLouOrchestrator:
 
         return indicators[:10]
 
-    def _pick_blast_target(self, alerts: list, explicit_ip: str = None) -> Optional[str]:
-        """优先选择可映射到拓扑中的内部资产，避免把公网 IOC 当成隔离目标。"""
-        if explicit_ip and explicit_ip in getattr(self.blast, "asset_index", {}):
-            return explicit_ip
+    async def _pick_blast_target(
+        self,
+        alerts: list,
+        explicit_asset_id: str = None,
+        explicit_ip: str = None,
+    ) -> AdapterResult[Optional[str]]:
+        """优先选择可解析到 canonical asset id 的内部资产，避免静默猜测。"""
+        identity_gaps: list[dict] = []
+
+        async def _resolve_target(*, query_kind: str, query_value: str, explicit: bool = False) -> Optional[str]:
+            result = await self._resolve_host_identity(
+                asset_id=query_value if query_kind == "asset_id" else None,
+                ip=query_value if query_kind == "ip_address" else None,
+            )
+            if result.data is not None:
+                candidate = result.data.canonical_asset_id
+                if candidate in getattr(self.blast, "asset_index", {}):
+                    return candidate
+            self._append_identity_gap(
+                identity_gaps,
+                self._identity_gap(
+                    query_kind=query_kind,
+                    query_value=query_value,
+                    result=result,
+                    explicit=explicit,
+                ),
+            )
+            return None
+
+        if explicit_asset_id:
+            target = await _resolve_target(query_kind="asset_id", query_value=explicit_asset_id, explicit=True)
+            if target:
+                return AdapterResult.ok(target, metadata={"identity_gaps": identity_gaps})
+
+        if explicit_ip:
+            target = await _resolve_target(query_kind="ip_address", query_value=explicit_ip, explicit=True)
+            if target:
+                return AdapterResult.ok(target, metadata={"identity_gaps": identity_gaps})
 
         ranked_alerts = sorted(
             alerts,
@@ -746,15 +914,26 @@ class SaiLouOrchestrator:
         )
 
         for alert in ranked_alerts:
-            dest_asset = alert.get("destination_asset_id")
-            if dest_asset and dest_asset != "EXTERNAL" and dest_asset in getattr(self.blast, "asset_index", {}):
-                return dest_asset
+            dest_asset = str(alert.get("destination_asset_id", "") or "").strip()
+            if dest_asset and dest_asset != "EXTERNAL":
+                target = await _resolve_target(query_kind="asset_id", query_value=dest_asset)
+                if target:
+                    return AdapterResult.ok(target, metadata={"identity_gaps": identity_gaps})
 
             for candidate in (alert.get("source_ip", ""), alert.get("destination_ip", "")):
-                if _is_internal_ip(candidate) and candidate in getattr(self.blast, "asset_index", {}):
-                    return candidate
+                candidate = str(candidate or "").strip()
+                if _is_internal_ip(candidate):
+                    target = await _resolve_target(query_kind="ip_address", query_value=candidate)
+                    if target:
+                        return AdapterResult.ok(target, metadata={"identity_gaps": identity_gaps})
 
-        return None
+        if identity_gaps:
+            return AdapterResult.partial(
+                None,
+                gap_reason=identity_gaps[0].get("reason", "identity_unresolved"),
+                metadata={"identity_gaps": identity_gaps},
+            )
+        return AdapterResult.ok(None, metadata={"identity_gaps": []})
 
     @staticmethod
     def _infer_action_type(alerts: list, user_input: str = "") -> str:
@@ -792,6 +971,9 @@ class SaiLouOrchestrator:
                 _append_unique(degraded_reasons, f"{tool_name}_{status}")
             elif status == "no_target":
                 _append_unique(degraded_reasons, f"{tool_name}_no_target")
+                detail = tr.get("detail", "")
+                if detail.startswith("identity_"):
+                    _append_unique(degraded_reasons, detail)
 
         # blast 在计划中但没完成 → 处置建议不可靠
         blast_planned = "blast_radius" in planned_tools
@@ -1021,6 +1203,9 @@ class InvestigationPipeline:
         baseline_data = static_payloads.baseline_payload
         ioc_data = static_payloads.threat_intel_seed_payload
         topology_data = static_payloads.topology_payload
+        host_identity_resolver = build_asset_inventory_host_identity_resolver(
+            static_payloads.asset_inventory_snapshot
+        )
 
         # 确保拓扑包含完整资产数据
         if isinstance(topology_data.get("nodes", {}).get("assets"), int):
@@ -1058,6 +1243,7 @@ class InvestigationPipeline:
             t3=t3,
             jarvis=jarvis,
             process_events_cache=process_events_cache,
+            host_identity_resolver=host_identity_resolver,
         )
 
         logger.info(
@@ -1065,6 +1251,7 @@ class InvestigationPipeline:
             ioc_stats=intel.get_stats(),
             topology_nodes=blast.G.number_of_nodes(),
             process_event_hosts=len(process_events_cache),
+            host_identity_records=static_payloads.asset_inventory_snapshot.metadata.record_count,
             static_data_modes={
                 "asset_inventory": static_payloads.asset_inventory_snapshot.metadata.source_mode,
                 "baseline": static_payloads.baseline_snapshot.metadata.source_mode,

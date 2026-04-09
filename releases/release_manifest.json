@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-A-2026-04-09-002",
+    "id": "S4-A-2026-04-09-003",
     "sprint": "Sprint 4",
-    "stage": "static-data-adapter-baseline",
+    "stage": "host-identity-resolver",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T16:28:51.461769+08:00"
+    "updated_at": "2026-04-09T17:08:53.475914+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-002.zip",
-    "current_release_sha256": "ea023fdd551e446b425d584388637c656cb7f114149669ee2517771ac17e8e54"
+    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-003.zip",
+    "current_release_sha256": "3b7d263f23ff1e3d6027abfb8410857e84f2badd23cb85ee2d9c6ec6a25eff63"
   },
   "key_files": [
     {
@@ -90,7 +90,7 @@
     {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "817a06e4f2350db9eb5ddbfbc5420f95ae170f096ea5afc49b0787e97bbad97d"
+      "sha256": "3b54489af0275d508a273bf2216c9016ed17c64e919919061516e567cf74b60f"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -133,6 +133,11 @@
       "sha256": "438653a7d9274a9f8b87640ea5ba5e79906fe81cfe9ef140eddf1b569e9c84b1"
     },
     {
+      "path": "backend\\app\\tools\\host_identity.py",
+      "role": "host-identity-resolver",
+      "sha256": "5e2b83e51b81c759bc66c3aa68cc2d2f26ecc8e906a717a0fb13498d86acdee0"
+    },
+    {
       "path": "scripts\\generate_mock_data.py",
       "role": "canonical-mock-data",
       "sha256": "d548970f346dcf407b1ae528c1dfee663893b08aedb4d52eaf4fc3d3f9c295f3"
@@ -150,7 +155,7 @@
     {
       "path": "backend\\tests\\test_secupilot_drafts.py",
       "role": "canonical-regression-tests",
-      "sha256": "25c003db5b465ec2f8b965e79835f1cab0bded3596466661f9eb5548040e91c4"
+      "sha256": "d158a1c349798d61ef094696d42f6a0b81d12fad0af46c9e7b66c927842969f0"
     },
     {
       "path": "backend\\tests\\test_case_view.py",
@@ -175,7 +180,12 @@
     {
       "path": "backend\\tests\\test_static_data_adapters.py",
       "role": "canonical-static-data-adapter-tests",
-      "sha256": "cb7d4a4cf3e2c4428e74145a8a744842e214d1a2abaf214fa18655cd2e8bbec1"
+      "sha256": "d4c330948829ce57c7dc2c9e4fbe47893c38f073810e10da76cccb9f2fc22c7e"
+    },
+    {
+      "path": "backend\\tests\\test_host_identity_resolver.py",
+      "role": "canonical-host-identity-tests",
+      "sha256": "2b63ec7864d9681f754963e208ecd2eb8a42642fa9126955b643cc4258d7069b"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -245,7 +255,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "ff3fc50ec8e8f8e02eabdadd89a3446866e2c610d8ac6fb0138e8e5bb7f271eb"
+      "sha256": "7d92e5fbe14d62b42cdce19f4b6f8e44f00a7640c5b36666fce8c83e2c2ecfb5"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -298,6 +308,11 @@
       "sha256": "7cbb8adfad57a348fc7ccd354dec2d430e94fafb430f1235aa0bac3d3a004890"
     },
     {
+      "path": "docs\\S4A3_HOST_IDENTITY_RESOLVER.md",
+      "role": "s4a3-host-identity-resolver",
+      "sha256": "960849fd63a941b99ef219c10cce4d2397aafbd02a78681f8df09bcd7dd02115"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -305,7 +320,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "46e4a873e81ef160aadc789313caeb3cdad0e915592602730001295a085dd2a5"
+      "sha256": "77a8835c10c8a3015f7af1e852b8cf79d6a526d4b29116dfa627732926af7c77"
     },
     {
       "path": "scripts\\package_release.py",
@@ -350,7 +365,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "21e630c9ca78533afdc34a0d800f9ee1556801befa7798f9d22579fceb88c176"
+      "sha256": "2831df9493d40ad8989fd27ec5eda87c2c7f0c68c7f414e573f2a6f357ac12e7"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -452,7 +467,8 @@
         "backend.tests.test_siem_adapter_contract",
         "backend.tests.test_vendor_replay",
         "backend.tests.test_static_data_contracts",
-        "backend.tests.test_static_data_adapters"
+        "backend.tests.test_static_data_adapters",
+        "backend.tests.test_host_identity_resolver"
       ],
       "status": "PASS"
     },
@@ -471,13 +487,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-A-2026-04-09-002",
+      "Snapshot ID: S4-A-2026-04-09-003",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T16:28:51.693878+08:00",
+    "last_verified_at": "2026-04-09T17:08:53.720144+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

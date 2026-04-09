@@ -9,7 +9,14 @@ bootstrap()
 import scripts.generate_mock_data as generate_mock_data  # noqa: E402
 from app.tools import threat_intel as threat_intel  # noqa: E402
 from app.agents import graph as graph_orchestrator  # noqa: E402
+from app.tools.host_identity import build_asset_inventory_host_identity_resolver  # noqa: E402
 from app.tools.siem_adapter import AdapterResult, TimeRangeSpec  # noqa: E402
+from app.tools.static_data_sources import (  # noqa: E402
+    AssetInventorySnapshot,
+    AssetRecord,
+    StaticRefreshPolicy,
+    StaticSourceMetadata,
+)
 
 
 class DummyBlast:
@@ -43,6 +50,7 @@ class FakeSIEMAdapter:
         self.scenario_status = scenario_status
         self.intent_delay = intent_delay
         self.scenario_delay = scenario_delay
+        self.asset_queries = []
 
     async def query_recent_summary(self, time_range: TimeRangeSpec):
         alerts = []
@@ -51,6 +59,7 @@ class FakeSIEMAdapter:
         return AdapterResult.ok({"alerts_considered": len(alerts)})
 
     async def query_asset_alerts(self, asset_id: str, time_range: TimeRangeSpec):
+        self.asset_queries.append(asset_id)
         results = []
         for scenario in self.scenarios.values():
             for alert in scenario.get("alerts", []):
@@ -102,6 +111,17 @@ class FakeSIEMAdapter:
 
     def get_runtime_stats(self):
         return {"scenarios_loaded": len(self.scenarios), "assets_loaded": 0}
+
+
+def _identity_metadata(kind: str, count: int) -> StaticSourceMetadata:
+    return StaticSourceMetadata(
+        source_kind=kind,
+        source_name=f"test:{kind}",
+        source_mode="local_files",
+        ownership="test",
+        record_count=count,
+        refresh_policy=StaticRefreshPolicy(strategy="ttl", ttl_seconds=300),
+    )
 
 
 class GenerateMockDataTests(unittest.TestCase):
@@ -168,6 +188,27 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
             },
         }
         self.siem = FakeSIEMAdapter(self.scenarios)
+        self.identity_resolver = build_asset_inventory_host_identity_resolver(
+            AssetInventorySnapshot(
+                metadata=_identity_metadata("asset_inventory", 2),
+                assets=[
+                    AssetRecord(
+                        asset_id="WKST-047",
+                        hostname="wkst-047",
+                        ip_addresses=["10.1.5.22"],
+                        aliases=["wkst-047.local"],
+                        extra={"fqdn": "wkst-047.corp.local"},
+                    ),
+                    AssetRecord(
+                        asset_id="HR-PORTAL-01",
+                        hostname="hr-portal-01",
+                        ip_addresses=["10.1.6.10"],
+                        aliases=["portal"],
+                        extra={"fqdn": "hr-portal-01.corp.local"},
+                    ),
+                ],
+            )
+        )
         self.orchestrator = graph_orchestrator.SaiLouOrchestrator(
             siem=self.siem,
             triage=types.SimpleNamespace(),
@@ -201,6 +242,7 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
                     }
                 ],
             },
+            host_identity_resolver=self.identity_resolver,
         )
 
     async def test_gather_alerts_uses_user_input_keywords(self):
@@ -243,13 +285,45 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(case["case_view"]["executive_summary"]["status_banner"]["visible"])
         self.assertEqual(case["case_view"]["recommended_action"]["action_state"], "DISABLED_DEGRADED")
 
-    def test_determine_t3_hosts_does_not_fallback_to_all_hosts(self):
-        hosts = self.orchestrator._determine_t3_hosts(
+    async def test_determine_t3_hosts_does_not_fallback_to_all_hosts(self):
+        selection = await self.orchestrator._determine_t3_hosts(
             alerts=[],
             asset_id="NO-SUCH-HOST",
             user_input="帮我查指定主机",
         )
-        self.assertEqual(hosts, [])
+        self.assertEqual(selection["host_ids"], [])
+        self.assertTrue(selection["identity_gaps"])
+
+    async def test_gather_alerts_resolves_explicit_ip_to_canonical_asset_id(self):
+        result = await self.orchestrator._gather_alerts(
+            intent="asset_query",
+            ip="10.1.6.10",
+        )
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(self.siem.asset_queries[-1], "HR-PORTAL-01")
+        self.assertEqual(result.metadata["identity_canonical_asset_id"], "HR-PORTAL-01")
+        self.assertEqual(result.metadata["identity_matched_by"], "ip_address")
+
+    async def test_determine_t3_hosts_uses_identity_resolver_for_alert_ip(self):
+        selection = await self.orchestrator._determine_t3_hosts(
+            alerts=[
+                {
+                    "event_id": "S-04-001",
+                    "severity": "CRITICAL",
+                    "source_ip": "10.1.6.10",
+                }
+            ],
+        )
+        self.assertEqual(selection["host_ids"], ["HR-PORTAL-01"])
+
+    async def test_run_blast_uses_canonical_asset_id_for_explicit_ip(self):
+        result = await self.orchestrator._run_blast(
+            alerts=[],
+            ip="10.1.6.10",
+            user_input="隔离可疑主机",
+        )
+        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["target"], "HR-PORTAL-01")
 
     def test_assemble_case_uses_t3_analysis_scope(self):
         case = self.orchestrator._assemble_case(
@@ -327,7 +401,7 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
                 "alternatives": [],
             }
 
-        async def fake_run_t3(host_ids):
+        async def fake_run_t3(host_ids, identity_gaps=None):
             return {
                 "status": "complete",
                 "hosts_analyzed": ["WKST-047"],
