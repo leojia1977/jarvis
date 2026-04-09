@@ -13,8 +13,8 @@ Anything else is input-only material, not latest code truth.
 ## Standard Workflow
 1. Open the Git working tree at `D:\产品设计\New folder`.
 2. Run `py -3 scripts/build_claude_review_pack.py`.
-3. Go to `releases/claude_review_pack/<snapshot>/`.
-4. Upload the generated files from that folder to Claude Web.
+3. Prefer uploading `releases/claude-review-pack-<snapshot>.zip`.
+4. If needed, use `releases/claude_review_pack/<snapshot>/` only as the unpacked source.
 5. Paste the generated prompt header from `CLAUDE_PROMPT.txt`.
 6. Ask Claude to review, design, or challenge assumptions.
 7. Apply any approved changes back through Codex in `D:\产品设计\New folder`.
@@ -51,6 +51,11 @@ When Claude proposes changes:
 - treat them as review or decision output
 - do not treat them as accepted implementation
 - port the accepted change into canonical files with Codex
+
+## Snapshot Transition Discipline
+- use [S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md](/D:/产品设计/New%20folder/docs/S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md) as the single transition checklist
+- do not advance a snapshot only in chat text
+- do not review a snapshot whose `HANDOFF`, `manifest`, and generated prompt header disagree
 
 ## Consistency Check
 If Claude's prompt header, the handoff file, and the release manifest do not show the same snapshot ID, stop and fix the docs before continuing.

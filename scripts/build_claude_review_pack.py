@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import os
+import stat
 import shutil
+import time
 import zipfile
 from pathlib import Path
 
@@ -38,7 +41,7 @@ def pack_file(src_root: Path, dst_root: Path, rel_path: str) -> None:
     source = src_root / rel_path
     target = dst_root / rel_path
     ensure_parent(target)
-    shutil.copy2(source, target)
+    shutil.copyfile(source, target)
 
 
 def iter_review_files(manifest: dict) -> list[str]:
@@ -64,6 +67,8 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S3C3_VENDOR_REPLAY_SPEC.md",
         "docs/S3D_ENGINEERING_HARDENING_PRD.md",
         "docs/S3D2_WRAPPER_RETIREMENT_PLAN.md",
+        "docs/S3D3_RUNTIME_OPERABILITY_CONTRACT.md",
+        "docs/S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md",
         "docs/S3D_JIRA_BACKLOG.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
@@ -125,6 +130,49 @@ def build_zip(source_dir: Path, zip_path: Path) -> None:
                 archive.write(path, arcname=str(path.relative_to(source_dir)))
 
 
+def retry_permission_error(operation, *, attempts: int = 10, delay_seconds: float = 0.2):
+    last_exc = None
+    for _ in range(attempts):
+        try:
+            return operation()
+        except PermissionError as exc:
+            last_exc = exc
+            time.sleep(delay_seconds)
+    if last_exc:
+        raise last_exc
+
+
+def _handle_rmtree_error(func, path, exc_info) -> None:
+    target = Path(path)
+    try:
+        if target.exists():
+            os.chmod(target, stat.S_IWRITE | stat.S_IREAD)
+        if target.parent.exists():
+            os.chmod(target.parent, stat.S_IWRITE | stat.S_IREAD | stat.S_IEXEC)
+    except OSError:
+        pass
+
+    if target.is_file():
+        target.unlink(missing_ok=True)
+        return
+
+    func(path)
+
+
+def rotate_existing_output_dir(output_dir: Path) -> bool:
+    if not output_dir.exists():
+        return True
+
+    stale_dir = output_dir.with_name(f"{output_dir.name}__stale__{int(time.time())}")
+    try:
+        retry_permission_error(lambda: output_dir.rename(stale_dir))
+        shutil.rmtree(stale_dir, onerror=_handle_rmtree_error)
+        return True
+    except OSError as exc:
+        print(f"[WARN] Could not rotate existing review pack folder: {exc}")
+        return False
+
+
 def main() -> int:
     manifest = load_manifest()
     snapshot_id = manifest["snapshot"]["id"]
@@ -139,7 +187,7 @@ def main() -> int:
         return 1
 
     if output_dir.exists():
-        shutil.rmtree(output_dir)
+        rotate_existing_output_dir(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     for rel_path in review_files:
@@ -149,9 +197,15 @@ def main() -> int:
     prompt_path.write_text(build_prompt_text(manifest), encoding="utf-8")
 
     zip_path = ROOT / "releases" / f"claude-review-pack-{snapshot_id}.zip"
+    reuse_existing_zip = False
     if zip_path.exists():
-        zip_path.unlink()
-    build_zip(output_dir, zip_path)
+        try:
+            retry_permission_error(lambda: zip_path.unlink())
+        except PermissionError as exc:
+            print(f"[WARN] Could not replace existing review pack zip, keeping current zip: {exc}")
+            reuse_existing_zip = True
+    if not reuse_existing_zip:
+        build_zip(output_dir, zip_path)
 
     print(f"[OK] Review pack folder: {output_dir}")
     print(f"[OK] Review pack zip: {zip_path}")

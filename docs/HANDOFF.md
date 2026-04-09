@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-D-2026-04-09-005`
-- Stage: `Sprint 3 runtime operability follow-up`
+- Snapshot ID: `S3-D-2026-04-09-006`
+- Stage: `Sprint 3 collaboration and review governance`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -36,6 +36,7 @@
 - S3-D-2 follow-up now distinguishes standalone smoke scripts from compatibility test wrappers, moves canonical test commands ahead of wrapper shortcuts, and defines wrapper retirement counter start plus rollback behavior.
 - S3-D-3 now freezes runtime operability semantics under `docs/S3D3_RUNTIME_OPERABILITY_CONTRACT.md` and exposes operator-facing `state_class / failure_category / operator_message` fields in runtime health and readiness.
 - S3-D-3 follow-up now clarifies `DEGRADED` as a reserved future runtime state, makes `static_data_path` authoritative over the legacy `mock_data_path` alias, and adds log-backed coverage for both mock and production static-data startup failures.
+- S3-D-4 now freezes snapshot transition discipline, Claude Web upload rules, and alignment rules so future stage changes are driven by generated review artifacts instead of chat-only instructions.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -67,6 +68,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S3D_ENGINEERING_HARDENING_PRD.md`
    - `docs/S3D2_WRAPPER_RETIREMENT_PLAN.md`
    - `docs/S3D3_RUNTIME_OPERABILITY_CONTRACT.md`
+   - `docs/S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md`
    - `docs/S3D_JIRA_BACKLOG.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.

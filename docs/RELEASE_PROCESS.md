@@ -3,6 +3,11 @@
 ## Goal
 Ensure every accepted release comes from one root, one snapshot, one manifest.
 
+## Single Governance References
+- snapshot transitions: `docs/S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md`
+- Claude upload discipline: `docs/CLAUDE_WEB_UPLOAD_CHECKLIST.md`
+- Claude alignment rules: `docs/CLAUDE_WEB_ALIGNMENT_GUIDE.md`
+
 ## Rules
 1. Do not package files manually in Explorer.
 2. Do not zip from any folder outside `D:\产品设计\New folder`.
@@ -14,7 +19,7 @@ Ensure every accepted release comes from one root, one snapshot, one manifest.
 1. Put the external material under `incoming/`.
 2. Compare it against the current source-of-truth root.
 3. Import only the required files into the root.
-4. Update the manifest.
+4. Update the handoff doc and the manifest.
 5. Run `py -3 scripts/git_preflight.py --mode fast`.
 6. Build a Claude review pack if review is needed.
 7. Create a release zip.
@@ -85,3 +90,6 @@ A release is acceptable only if all of the following are true:
 - Codex modifying a different directory than the release directory
 - manual packaging drift
 - untracked duplicated files
+
+## Snapshot Transition Rule
+If a stage baseline changes, do not rely on memory or prompt text alone. Update `HANDOFF`, update the manifest, rebuild the review pack, and verify the release under the new snapshot before calling the transition complete.

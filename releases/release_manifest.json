@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-D-2026-04-09-005",
+    "id": "S3-D-2026-04-09-006",
     "sprint": "Sprint 3",
-    "stage": "runtime-operability-follow-up",
+    "stage": "collaboration-and-review-governance",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T13:05:29.438746+08:00"
+    "updated_at": "2026-04-09T14:35:53.919858+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-005.zip",
-    "current_release_sha256": "4497ef449f6af764b2b38d54901d70911862967feeb329d570fa938c8519e24e"
+    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-006.zip",
+    "current_release_sha256": "c8df75b59adddea57008f2277788bd5398431fb375732782054c399baea25c27"
   },
   "key_files": [
     {
@@ -208,6 +208,11 @@
       "sha256": "de83890721fc7a7b22e6ba22babb982f859ab814ace5706955c7edeca8ce1b64"
     },
     {
+      "path": "docs\\S3D4_SNAPSHOT_TRANSITION_CHECKLIST.md",
+      "role": "s3d4-snapshot-transition-checklist",
+      "sha256": "992d772e59654b13feda23f81e61fe908e29ec6149c2c61e1efa31bad28fb610"
+    },
+    {
       "path": "docs\\S3D_JIRA_BACKLOG.md",
       "role": "s3d-jira-backlog",
       "sha256": "b9b6ad841c26baf82c1a93d994183717d39263009b72c481cf5168cec3a17343"
@@ -215,12 +220,12 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "814493efb75d65681f18eade2cb5b90714a71627bd5e2c699f3d4e6a9340a4db"
+      "sha256": "483ce21a4d96a8c797e7384aef21084a6a04392403633457b561d8843b6be7ae"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
       "role": "release-process-doc",
-      "sha256": "3d135b07f68116263878ffccccb13ad13e4542d80ff71c3f1e9d58fa82b63300"
+      "sha256": "eb882d3c26a604b241d1e7b3b143226fb7aaf7bb4762370d529f52134823e439"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -230,12 +235,12 @@
     {
       "path": "docs\\CLAUDE_WEB_UPLOAD_CHECKLIST.md",
       "role": "claude-upload-checklist",
-      "sha256": "d6db069a1a0dd70ae64abbe1de2dc258f940980b204d0555e1661ce7e9f0000e"
+      "sha256": "43461523098d873b865c776def496f2ffbc949e18318d19d95b30b74e9e0f13e"
     },
     {
       "path": "docs\\CLAUDE_WEB_ALIGNMENT_GUIDE.md",
       "role": "claude-alignment-guide",
-      "sha256": "2ada2ac5718bfac25047cd3a724336fde09276821046694c4561f4c48b2847ad"
+      "sha256": "f44263cf25f346c58bb58446d3631399cb44584729c2c6d55f6380710711dc43"
     },
     {
       "path": "docs\\SPRINT3_PRD.md",
@@ -255,7 +260,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "14e06978724b1916c226be6f94637604bf7591a289cbc7b7272a83f48095b369"
+      "sha256": "80cfdbd879a626b72ece79cf81976968661f056ba16180474a69a03b6199a1b6"
     },
     {
       "path": "scripts\\package_release.py",
@@ -419,13 +424,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-D-2026-04-09-005",
+      "Snapshot ID: S3-D-2026-04-09-006",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T13:05:29.675120+08:00",
+    "last_verified_at": "2026-04-09T14:35:54.577588+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
