@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-D-2026-04-09-004`
-- Stage: `Sprint 3 runtime operability`
+- Snapshot ID: `S3-D-2026-04-09-005`
+- Stage: `Sprint 3 runtime operability follow-up`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -35,6 +35,7 @@
 - S3-D-2 now freezes wrapper inventory, canonical import guidance, and wrapper retirement criteria under `docs/PROJECT_STRUCTURE.md` and `docs/S3D2_WRAPPER_RETIREMENT_PLAN.md`.
 - S3-D-2 follow-up now distinguishes standalone smoke scripts from compatibility test wrappers, moves canonical test commands ahead of wrapper shortcuts, and defines wrapper retirement counter start plus rollback behavior.
 - S3-D-3 now freezes runtime operability semantics under `docs/S3D3_RUNTIME_OPERABILITY_CONTRACT.md` and exposes operator-facing `state_class / failure_category / operator_message` fields in runtime health and readiness.
+- S3-D-3 follow-up now clarifies `DEGRADED` as a reserved future runtime state, makes `static_data_path` authoritative over the legacy `mock_data_path` alias, and adds log-backed coverage for both mock and production static-data startup failures.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.

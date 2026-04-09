@@ -170,14 +170,34 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertTrue(any(call["endpoint"].endswith("/metadata/scenario") for call in transport.calls))
 
     def test_missing_static_data_is_classified_as_misconfigured(self):
-        service = SecuPilotRuntimeService(
-            Settings(runtime_mode="mock", mock_data_path="./does-not-exist")
-        )
+        with self.assertLogs("secupilot.runtime", level="ERROR") as captured:
+            service = SecuPilotRuntimeService(
+                Settings(runtime_mode="mock", mock_data_path="./does-not-exist")
+            )
         readiness = service.readiness()
         self.assertFalse(readiness["ready"])
         self.assertEqual(readiness["state_class"], "MISCONFIGURED")
         self.assertEqual(readiness["failure_category"], "static_data")
         self.assertFalse(readiness["static_data_present"])
+        self.assertIn("does-not-exist", readiness["operator_message"])
+        self.assertTrue(any("runtime.context.not_ready" in line for line in captured.output))
+
+    def test_production_static_data_missing_is_logged_and_misconfigured(self):
+        with self.assertLogs("secupilot.runtime", level="ERROR") as captured:
+            service = SecuPilotRuntimeService(
+                Settings(
+                    runtime_mode="production",
+                    mock_data_path="./does-not-exist",
+                    siem_base_url="https://siem.example.local",
+                    siem_auth_token="secret-token",
+                )
+            )
+        readiness = service.readiness()
+        self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["state_class"], "MISCONFIGURED")
+        self.assertEqual(readiness["failure_category"], "static_data")
+        self.assertIn("does-not-exist", readiness["operator_message"])
+        self.assertTrue(any("runtime.context.not_ready" in line for line in captured.output))
 
     def test_bootstrap_failure_is_classified_and_logged(self):
         with patch("backend.app.runtime_service.InvestigationPipeline", side_effect=RuntimeError("boom")):
@@ -187,6 +207,7 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertFalse(readiness["ready"])
         self.assertEqual(readiness["state_class"], "BOOTSTRAP_FAILED")
         self.assertEqual(readiness["failure_category"], "bootstrap")
+        self.assertIn("runtime.context.bootstrap_failed", readiness["operator_message"])
         self.assertIn("bootstrap_failed", ",".join(readiness["reasons"]))
         self.assertTrue(any("runtime.context.bootstrap_failed" in line for line in captured.output))
 

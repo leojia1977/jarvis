@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-D-2026-04-09-004",
+    "id": "S3-D-2026-04-09-005",
     "sprint": "Sprint 3",
-    "stage": "runtime-operability",
+    "stage": "runtime-operability-follow-up",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T12:50:41.717633+08:00"
+    "updated_at": "2026-04-09T13:05:29.438746+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-004.zip",
-    "current_release_sha256": "a8c8d4bdbf128731f3b4808d1dae17f7aa0e8110b0b2948ad0d180a4486882a2"
+    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-005.zip",
+    "current_release_sha256": "4497ef449f6af764b2b38d54901d70911862967feeb329d570fa938c8519e24e"
   },
   "key_files": [
     {
@@ -205,7 +205,7 @@
     {
       "path": "docs\\S3D3_RUNTIME_OPERABILITY_CONTRACT.md",
       "role": "s3d3-runtime-operability-contract",
-      "sha256": "f74d059daae6980fd43ff133e4fbb27ca2314f22bf89f4ca6c6dcd0432eaac79"
+      "sha256": "de83890721fc7a7b22e6ba22babb982f859ab814ace5706955c7edeca8ce1b64"
     },
     {
       "path": "docs\\S3D_JIRA_BACKLOG.md",
@@ -215,7 +215,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "40ffab576219f9707ae85a4cf678e9ad0fd567015d5711ebed1df255c422e7d5"
+      "sha256": "814493efb75d65681f18eade2cb5b90714a71627bd5e2c699f3d4e6a9340a4db"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -350,12 +350,12 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "5c214e464bfa8d42a7033c4ed19781a7d6cbe196edd544f012c4d04f9db2933a"
+      "sha256": "2cfd05accc22a19d2b8af83c21d3d5016c352691de3dbc101bd954a9170f5679"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "19b13d4717f051221fe1aa88e3eac2d82d80cb6b97a4134799e2cde895be675f"
+      "sha256": "62cce078dcafa6f3faabb18aad7a9cde86c6e93dd7f69dd955b434638d5dcf70"
     },
     {
       "path": "run_runtime.py",
@@ -419,13 +419,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-D-2026-04-09-004",
+      "Snapshot ID: S3-D-2026-04-09-005",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T12:50:41.930231+08:00",
+    "last_verified_at": "2026-04-09T13:05:29.675120+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

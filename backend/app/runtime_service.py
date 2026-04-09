@@ -94,13 +94,16 @@ class SecuPilotRuntimeService:
             state_class = "MISCONFIGURED"
             failure_category = "static_data"
             operator_message = (
-                "Static data directory is missing. Runtime cannot bootstrap until local datasets are present."
+                f"Static data directory is missing at {self.settings.get_mock_data_dir()}. "
+                "Runtime cannot bootstrap until local datasets are present."
             )
         elif any(reason.startswith("bootstrap_failed:") for reason in reasons):
             state_class = "BOOTSTRAP_FAILED"
             failure_category = "bootstrap"
             operator_message = (
-                "Runtime bootstrap failed while building the investigation pipeline. Review runtime logs."
+                "Runtime bootstrap failed while building the investigation pipeline. "
+                "Check secupilot.runtime logger at ERROR level for event "
+                "runtime.context.bootstrap_failed."
             )
         else:
             state_class = "DEGRADED"
@@ -250,7 +253,7 @@ class SecuPilotRuntimeService:
             "operator_message": runtime_state["operator_message"],
             "adapter_type": adapter_type,
             "adapter_configured": adapter_configured,
-            "mock_data_path": static_data_path,
+            "mock_data_path": static_data_path,  # legacy alias; static_data_path is authoritative
             "static_data_path": static_data_path,
             "static_data_present": static_data_present,
             "scenarios_loaded": scenarios,

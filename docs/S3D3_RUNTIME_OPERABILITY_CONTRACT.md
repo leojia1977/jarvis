@@ -34,6 +34,10 @@ Returned fields:
 - `uptime_seconds`
 - `timestamp`
 
+Note:
+- in `S3-D-3`, `status` remains a coarse liveness field with only `healthy` and `degraded`
+- operator integrations should prefer `state_class` over `status` when they need exact failure semantics
+
 ### Readiness
 `GET /ready` answers whether the runtime can currently serve `investigate` requests.
 
@@ -44,6 +48,7 @@ Returned fields:
 - `operator_message`
 - `adapter_type`
 - `adapter_configured`
+- `mock_data_path` (legacy alias)
 - `static_data_path`
 - `static_data_present`
 - `scenarios_loaded`
@@ -72,6 +77,7 @@ Returned fields:
 - meaning: runtime started in a reduced state that is neither a pure configuration miss nor a clean bootstrap failure
 - failure category:
   - `runtime`
+- `S3-D-3` note: this state is reserved for future non-startup runtime issues and is not produced by the current bootstrap-only code paths
 
 ## Failure Category Mapping
 - `production_adapter_not_configured` -> `MISCONFIGURED` / `adapter_config`
@@ -98,7 +104,9 @@ Required log fields:
 ## Operator Guidance
 - `adapter_type` and `adapter_configured` tell operators whether the runtime is using `MockSIEMAdapter` or `ProductionSIEMAdapter`
 - `static_data_path` and `static_data_present` clarify why production mode may still fail startup if local governed datasets are absent
+- `mock_data_path` remains a legacy alias during the cleanup window; `static_data_path` is the authoritative field for future tooling
 - `state_class` should be treated as the top-level operational status; `reasons` remain the detailed trace
+- runtime logs currently mix `logging + json.dumps` in `runtime_service` with `structlog` in other modules; operators should filter by `secupilot.*` logger names rather than assume one JSON schema
 
 ## Exit Criteria
 - runtime health and readiness outputs expose the fields above
