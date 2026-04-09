@@ -178,7 +178,7 @@ class SecuPilotRuntimeService:
             )
 
         try:
-            pipeline = InvestigationPipeline(siem)
+            pipeline = InvestigationPipeline(siem, runtime_settings=self.settings)
         except Exception as exc:
             reasons.append(f"bootstrap_failed:{exc}")
             self._emit_runtime_log(

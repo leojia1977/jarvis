@@ -136,6 +136,10 @@ Current owner:
 Current local source:
 - `mock_data/knowledge_graph/entity_relationships.json`
 
+Deferred note:
+- `TopologySnapshot.nodes` and `TopologySnapshot.edges` intentionally stay as `dict / list[dict]` in Sprint 4 baseline.
+- Stronger topology typing is deferred to the later T5 blast-radius refactor so A-1 does not expand into a graph-schema redesign.
+
 ## Host Identity Contract
 Authoritative object:
 - `HostIdentityRecord`
@@ -155,6 +159,16 @@ Resolution contract:
 - `resolve_asset_id(asset_id)`
 - `resolve_ip(ip_address)`
 - `resolve_hostname(hostname)`
+
+Resolution order:
+- `resolve_any` must try matches in this order:
+  - `asset_id`
+  - `hostname`
+  - `fqdn`
+  - `ip_address`
+  - `aliases`
+- all successful matches must resolve to one `canonical_asset_id`
+- ambiguity must be explicit; the resolver must not silently pick a host when multiple candidates remain
 
 Sprint 4 rule:
 - `SP4-A-3` must freeze and review this contract before `SP4-B-1` freezes any production EDR host-identity expectations.

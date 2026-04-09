@@ -34,6 +34,11 @@ from app.tools.siem_adapter import (
     SIEMAdapterProtocol,
     TimeRangeSpec,
 )
+from app.tools.static_data_adapters import (
+    StaticDataSourceAdapters,
+    build_static_data_source_adapters,
+    load_static_data_runtime_payloads_sync,
+)
 from app.agents.jarvis_hunt_engine import JarvisHuntEngine
 from app.agents.case_view import build_case_view
 from app.config import settings
@@ -999,21 +1004,23 @@ class InvestigationPipeline:
     保持 skill_registry.py 的调用接口不变
     """
 
-    def __init__(self, siem: SIEMAdapterProtocol):
+    def __init__(
+        self,
+        siem: SIEMAdapterProtocol,
+        runtime_settings=None,
+        static_data_adapters: Optional[StaticDataSourceAdapters] = None,
+    ):
         import json
-        from app.config import settings
 
-        mock_dir = settings.get_mock_data_dir()
+        runtime_settings = runtime_settings or settings
+        static_root = runtime_settings.get_static_data_dir()
+        adapters = static_data_adapters or build_static_data_source_adapters(runtime_settings)
+        static_payloads = load_static_data_runtime_payloads_sync(adapters)
 
-        # 加载数据
-        with open(mock_dir / "assets" / "asset_dictionary.json") as f:
-            asset_data = json.load(f)
-        with open(mock_dir / "baselines" / "false_positive_baseline.json") as f:
-            baseline_data = json.load(f)
-        with open(mock_dir / "threat_intel" / "mock_ioc_database.json") as f:
-            ioc_data = json.load(f)
-        with open(mock_dir / "knowledge_graph" / "entity_relationships.json") as f:
-            topology_data = json.load(f)
+        asset_data = static_payloads.asset_inventory_payload
+        baseline_data = static_payloads.baseline_payload
+        ioc_data = static_payloads.threat_intel_seed_payload
+        topology_data = static_payloads.topology_payload
 
         # 确保拓扑包含完整资产数据
         if isinstance(topology_data.get("nodes", {}).get("assets"), int):
@@ -1021,7 +1028,7 @@ class InvestigationPipeline:
 
         # 加载进程事件数据（F-02 路径对齐）
         process_events_cache = {}
-        pe_dir = mock_dir / "process_events"
+        pe_dir = static_root / "process_events"
         if pe_dir.exists():
             for pe_file in pe_dir.glob("process_events_*.json"):
                 with open(pe_file) as f:
@@ -1036,7 +1043,7 @@ class InvestigationPipeline:
         triage = RealTriageEngine(
             asset_db=asset_data,
             baseline_db=baseline_data,
-            business_timezone=settings.business_timezone,
+            business_timezone=runtime_settings.business_timezone,
         )
         intel = RealThreatIntelEngine(ioc_data)
         blast = RealBlastRadiusEngine(topology_data)
@@ -1053,10 +1060,18 @@ class InvestigationPipeline:
             process_events_cache=process_events_cache,
         )
 
-        logger.info("InvestigationPipeline V3.1 initialized",
-                     ioc_stats=intel.get_stats(),
-                     topology_nodes=blast.G.number_of_nodes(),
-                     process_event_hosts=len(process_events_cache))
+        logger.info(
+            "InvestigationPipeline V3.2 initialized",
+            ioc_stats=intel.get_stats(),
+            topology_nodes=blast.G.number_of_nodes(),
+            process_event_hosts=len(process_events_cache),
+            static_data_modes={
+                "asset_inventory": static_payloads.asset_inventory_snapshot.metadata.source_mode,
+                "baseline": static_payloads.baseline_snapshot.metadata.source_mode,
+                "intel_seed": static_payloads.threat_intel_seed_snapshot.metadata.source_mode,
+                "topology": static_payloads.topology_snapshot.metadata.source_mode,
+            },
+        )
 
     async def investigate(self, intent: str, user_input: str,
                           target_asset_id: str = None,

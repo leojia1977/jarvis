@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-A-2026-04-09-001",
+    "id": "S4-A-2026-04-09-002",
     "sprint": "Sprint 4",
-    "stage": "static-data-source-contract-freeze",
+    "stage": "static-data-adapter-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T16:01:25.934817+08:00"
+    "updated_at": "2026-04-09T16:28:51.461769+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-001.zip",
-    "current_release_sha256": "54023da82b859777f6bedfbdc8f7a43fa793d9f7fb224d458a008ae8ef611489"
+    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-002.zip",
+    "current_release_sha256": "ea023fdd551e446b425d584388637c656cb7f114149669ee2517771ac17e8e54"
   },
   "key_files": [
     {
@@ -90,7 +90,7 @@
     {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "f2f64a4e0cb9724e788a4ccef3503cb8acba84a6ea4198b87ec9a7ab6164650f"
+      "sha256": "817a06e4f2350db9eb5ddbfbc5420f95ae170f096ea5afc49b0787e97bbad97d"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -126,6 +126,11 @@
       "path": "backend\\app\\tools\\static_data_sources.py",
       "role": "static-data-source-contracts",
       "sha256": "f4901e89cf668b9fcf268d5d3fe5e29c98fe34c95bc33716d40b302b7635822b"
+    },
+    {
+      "path": "backend\\app\\tools\\static_data_adapters.py",
+      "role": "static-data-adapter-layer",
+      "sha256": "438653a7d9274a9f8b87640ea5ba5e79906fe81cfe9ef140eddf1b569e9c84b1"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -166,6 +171,11 @@
       "path": "backend\\tests\\test_static_data_contracts.py",
       "role": "canonical-static-data-contract-tests",
       "sha256": "51b68d8e009835b4c36d6297fa820f37152fc56e6041b688f26ec3811a48e86e"
+    },
+    {
+      "path": "backend\\tests\\test_static_data_adapters.py",
+      "role": "canonical-static-data-adapter-tests",
+      "sha256": "cb7d4a4cf3e2c4428e74145a8a744842e214d1a2abaf214fa18655cd2e8bbec1"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -235,7 +245,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "0104a0860d73357f568d3ebb5f93f5c4f5511ae11add196706149c82611681bb"
+      "sha256": "ff3fc50ec8e8f8e02eabdadd89a3446866e2c610d8ac6fb0138e8e5bb7f271eb"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -280,7 +290,12 @@
     {
       "path": "docs\\S4A1_STATIC_DATA_SOURCE_CONTRACT.md",
       "role": "s4a1-static-data-source-contract",
-      "sha256": "6606a8b84f6c75f4618756b9997d26577e01805fdee0528fec38cdca88982aae"
+      "sha256": "ff973f19a14ccec30577b3e70843559b7a6ff9f46da9fba74d099032e99c11eb"
+    },
+    {
+      "path": "docs\\S4A2_STATIC_DATA_ADAPTER_BASELINE.md",
+      "role": "s4a2-static-data-adapter-baseline",
+      "sha256": "7cbb8adfad57a348fc7ccd354dec2d430e94fafb430f1235aa0bac3d3a004890"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -290,7 +305,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "08cca18fd640b27f71bb1d4a93a9caff117a686d62f6b041725dfccaac79f574"
+      "sha256": "46e4a873e81ef160aadc789313caeb3cdad0e915592602730001295a085dd2a5"
     },
     {
       "path": "scripts\\package_release.py",
@@ -335,7 +350,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "ccc30a170e0c80cc3c7d2af0d6b7083a0f289fcde6f8cc7e71d68fff46a128ee"
+      "sha256": "21e630c9ca78533afdc34a0d800f9ee1556801befa7798f9d22579fceb88c176"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -385,7 +400,7 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "2cfd05accc22a19d2b8af83c21d3d5016c352691de3dbc101bd954a9170f5679"
+      "sha256": "80241852b0ba1348ca0dab0d77c50bb3417f929914b10942875e00f8bf8c698b"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
@@ -436,7 +451,8 @@
         "backend.tests.test_case_view",
         "backend.tests.test_siem_adapter_contract",
         "backend.tests.test_vendor_replay",
-        "backend.tests.test_static_data_contracts"
+        "backend.tests.test_static_data_contracts",
+        "backend.tests.test_static_data_adapters"
       ],
       "status": "PASS"
     },
@@ -455,13 +471,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-A-2026-04-09-001",
+      "Snapshot ID: S4-A-2026-04-09-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T16:01:26.169467+08:00",
+    "last_verified_at": "2026-04-09T16:28:51.693878+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
