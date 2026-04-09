@@ -63,6 +63,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S3C2_VENDOR_PROFILE_HARDENING.md",
         "docs/S3C3_VENDOR_REPLAY_SPEC.md",
         "docs/S3D_ENGINEERING_HARDENING_PRD.md",
+        "docs/S3D2_WRAPPER_RETIREMENT_PLAN.md",
         "docs/S3D_JIRA_BACKLOG.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",

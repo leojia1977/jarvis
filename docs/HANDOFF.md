@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-D-2026-04-09-001`
-- Stage: `Sprint 3 release gate hardening`
+- Snapshot ID: `S3-D-2026-04-09-002`
+- Stage: `Sprint 3 wrapper and path cleanup`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -32,6 +32,7 @@
 - S3-C-2 follow-up now proves `activity_name` flows end-to-end through the production smoke path and lowers generic `action` behind `rule.name` in canonical field selection.
 - S3-C-3 now adds offline vendor replay fixtures, `ReplayTransport`, and two end-to-end replay tests under `docs/S3C3_VENDOR_REPLAY_SPEC.md` and `backend/tests/test_vendor_replay.py`.
 - S3-D-1 now hardens the governed release gate by aligning fast/full gate documentation, requiring review-pack completeness, and expanding verification to review artifacts as first-class acceptance inputs.
+- S3-D-2 now freezes wrapper inventory, canonical import guidance, and wrapper retirement criteria under `docs/PROJECT_STRUCTURE.md` and `docs/S3D2_WRAPPER_RETIREMENT_PLAN.md`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -61,6 +62,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S3C2_VENDOR_PROFILE_HARDENING.md`
    - `docs/S3C3_VENDOR_REPLAY_SPEC.md`
    - `docs/S3D_ENGINEERING_HARDENING_PRD.md`
+   - `docs/S3D2_WRAPPER_RETIREMENT_PLAN.md`
    - `docs/S3D_JIRA_BACKLOG.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
