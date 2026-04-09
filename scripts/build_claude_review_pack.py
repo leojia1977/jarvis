@@ -41,8 +41,8 @@ def pack_file(src_root: Path, dst_root: Path, rel_path: str) -> None:
     shutil.copy2(source, target)
 
 
-def iter_review_files() -> list[str]:
-    return [
+def iter_review_files(manifest: dict) -> list[str]:
+    files: list[str] = [
         "docs/HANDOFF.md",
         "docs/PROJECT_STRUCTURE.md",
         "docs/GIT_WORKFLOW.md",
@@ -79,6 +79,25 @@ def iter_review_files() -> list[str]:
         "backend/tests/test_runtime_service.py",
     ]
 
+    # Always include manifest-declared key files so new stage artifacts are not
+    # accidentally omitted from the review pack when the static list lags behind.
+    for item in manifest.get("key_files", []):
+        rel_path = item.get("path")
+        if not rel_path:
+            continue
+        normalized = rel_path.replace("\\", "/")
+        if (ROOT / normalized).is_file() and normalized not in files:
+            files.append(normalized)
+
+    fixture_root = ROOT / "backend" / "tests" / "fixtures" / "vendor_replay"
+    if fixture_root.exists():
+        for fixture in sorted(fixture_root.rglob("*.json")):
+            rel_path = fixture.relative_to(ROOT).as_posix()
+            if rel_path not in files:
+                files.append(rel_path)
+
+    return files
+
 
 def build_zip(source_dir: Path, zip_path: Path) -> None:
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
@@ -96,7 +115,7 @@ def main() -> int:
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    for rel_path in iter_review_files():
+    for rel_path in iter_review_files(manifest):
         pack_file(ROOT, output_dir, rel_path)
 
     prompt_path = output_dir / "CLAUDE_PROMPT.txt"
