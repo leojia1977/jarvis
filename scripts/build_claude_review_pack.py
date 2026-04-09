@@ -89,9 +89,9 @@ def iter_review_files(manifest: dict) -> list[str]:
         if (ROOT / normalized).is_file() and normalized not in files:
             files.append(normalized)
 
-    fixture_root = ROOT / "backend" / "tests" / "fixtures" / "vendor_replay"
-    if fixture_root.exists():
-        for fixture in sorted(fixture_root.rglob("*.json")):
+    fixtures_root = ROOT / "backend" / "tests" / "fixtures"
+    if fixtures_root.exists():
+        for fixture in sorted(fixtures_root.rglob("*.json")):
             rel_path = fixture.relative_to(ROOT).as_posix()
             if rel_path not in files:
                 files.append(rel_path)
