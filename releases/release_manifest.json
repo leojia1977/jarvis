@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-B-2026-04-09-002",
+    "id": "S4-B-2026-04-09-003",
     "sprint": "Sprint 4",
-    "stage": "production-edr-ingestion-baseline",
+    "stage": "edr-replay-fixtures-and-validation",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T18:28:00.602959+08:00"
+    "updated_at": "2026-04-09T18:47:47.611909+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-B-2026-04-09-002.zip",
-    "current_release_sha256": "004a741bab9251f50c2bd59a0b928d849e1b44b15e22f6bc9fb5d1d2299ff104"
+    "current_release_zip": "releases\\secupilot-S4-B-2026-04-09-003.zip",
+    "current_release_sha256": "b0f517a2fabda15927154a39f46cc83c73e653554be6d2d5f5e10b547e6a1688"
   },
   "key_files": [
     {
@@ -198,9 +198,24 @@
       "sha256": "4a3769f9143d8828c342d3ab562d27d74966f36f613cec2f1b42efceb41f018f"
     },
     {
+      "path": "backend\\tests\\test_edr_replay.py",
+      "role": "canonical-edr-replay-tests",
+      "sha256": "53ba24cafecff5250354322e94d1f7e5f501f21b9cd0461ace9814befa14e1ee"
+    },
+    {
       "path": "mock_data\\process_events\\index.json",
       "role": "canonical-process-event-index",
       "sha256": "05691ef4b33f227509f26a743fb7da0e979386cfe3ad848cbedcdd1278e0586c"
+    },
+    {
+      "path": "backend\\tests\\fixtures\\vendor_replay\\crowdstrike_like_process_events_lateral.json",
+      "role": "edr-replay-fixture-crowdstrike-lateral",
+      "sha256": "72f15c053918c3991e077fef66af7f824030b2373fcaae8f0d60609d8fdc53ba"
+    },
+    {
+      "path": "backend\\tests\\fixtures\\vendor_replay\\elastic_defend_like_process_events_ransomware.json",
+      "role": "edr-replay-fixture-elastic-defend-ransomware",
+      "sha256": "569833bb739292cdab9cf9158672e99b090e38a98e94eb05aad6305d5683bf57"
     },
     {
       "path": "docs\\SP3_B1_Case_View_Contract.md",
@@ -265,7 +280,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "6d8ed5f7e85486beee4e2838a9cdf39f6a240cd8c8332a7cca7c575a43afe21b"
+      "sha256": "d11223aa6c5c6f62ddbef9847711b977b16b016f95538a22ae1a3bfb02db7b81"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -338,6 +353,11 @@
       "sha256": "cb160770450f903406fc21fdaafb0c41572828b0f82548ec6c482f619b27eb15"
     },
     {
+      "path": "docs\\S4B3_EDR_REPLAY_FIXTURES.md",
+      "role": "s4b3-edr-replay-fixtures",
+      "sha256": "7bf45a0b0a6c2da6d0d80b63b3eacba166a630a82b0b8fd4cbad84be9c96db87"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -345,7 +365,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "b95d8d9d860a11f83e02f486d08efd07e3ee7d58f0b7302114a5af7aadae683d"
+      "sha256": "aea01bd86675794a5ed41a3d655a7e8d4270e2a1de2927e8269e72bc695b4c52"
     },
     {
       "path": "scripts\\package_release.py",
@@ -390,7 +410,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "358f4a35d0f25db0f12b79e45cf28b74572b006da5e2c01898f33122ce399495"
+      "sha256": "7644b7eae2a969e5beb9a3bfc70782c1a380ca81002edaafe9316e3b7fae59fb"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -494,7 +514,8 @@
         "backend.tests.test_static_data_contracts",
         "backend.tests.test_static_data_adapters",
         "backend.tests.test_host_identity_resolver",
-        "backend.tests.test_edr_adapter_contract"
+        "backend.tests.test_edr_adapter_contract",
+        "backend.tests.test_edr_replay"
       ],
       "status": "PASS"
     },
@@ -513,13 +534,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-B-2026-04-09-002",
+      "Snapshot ID: S4-B-2026-04-09-003",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T18:28:00.948167+08:00",
+    "last_verified_at": "2026-04-09T18:47:48.042609+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

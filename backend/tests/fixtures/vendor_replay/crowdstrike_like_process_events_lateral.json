@@ -1,0 +1,119 @@
+{
+  "vendor": "crowdstrike_like",
+  "endpoint_key": "process_events",
+  "scenario": "lateral",
+  "request": {
+    "canonical_asset_id": "WKST-047",
+    "time_range": {
+      "tz_label": "Asia/Shanghai"
+    }
+  },
+  "response": {
+    "status": "ok",
+    "events": [
+      {
+        "event": {
+          "type": "process_create",
+          "created": "2026-04-09T10:32:15Z"
+        },
+        "host": {
+          "id": "WKST-047"
+        },
+        "process": {
+          "pid": 3800,
+          "parent": {
+            "pid": 3100
+          },
+          "name": "PSEXESVC.exe",
+          "executable": "C:\\Windows\\PSEXESVC.exe",
+          "command_line": "C:\\Windows\\PSEXESVC.exe"
+        },
+        "user": {
+          "name": "SYSTEM"
+        }
+      },
+      {
+        "event": {
+          "type": "process_create",
+          "created": "2026-04-09T10:35:00Z"
+        },
+        "host": {
+          "id": "WKST-047"
+        },
+        "process": {
+          "pid": 4010,
+          "parent": {
+            "pid": 3900
+          },
+          "name": "rubeus.exe",
+          "executable": "C:\\Users\\Public\\rubeus.exe",
+          "command_line": "rubeus.exe kerberoast /outfile:hashes.txt"
+        },
+        "user": {
+          "name": "SYSTEM"
+        }
+      },
+      {
+        "event": {
+          "type": "network_connect",
+          "created": "2026-04-09T10:35:05Z"
+        },
+        "host": {
+          "id": "WKST-047"
+        },
+        "process": {
+          "pid": 4010,
+          "parent": {
+            "pid": 3900
+          },
+          "name": "rubeus.exe",
+          "executable": "C:\\Users\\Public\\rubeus.exe",
+          "command_line": ""
+        },
+        "user": {
+          "name": "SYSTEM"
+        },
+        "source": {
+          "ip": "10.1.5.22"
+        },
+        "destination": {
+          "ip": "10.1.1.5",
+          "port": 88
+        },
+        "network": {
+          "transport": "TCP"
+        }
+      },
+      {
+        "event": {
+          "type": "file_write",
+          "created": "2026-04-09T10:35:30Z"
+        },
+        "host": {
+          "id": "WKST-047"
+        },
+        "process": {
+          "pid": 4010,
+          "parent": {
+            "pid": 3900
+          },
+          "name": "rubeus.exe",
+          "executable": "C:\\Users\\Public\\rubeus.exe",
+          "command_line": ""
+        },
+        "user": {
+          "name": "SYSTEM"
+        },
+        "file": {
+          "path": "C:\\Users\\Public\\hashes.txt",
+          "hash": {
+            "sha256": "d2febb078451da2a59dfd0a550916387351c6a08e1a49a124fabaae2d3d1b75f"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "source": "crowdstrike_replay"
+    }
+  }
+}

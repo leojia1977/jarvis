@@ -1,0 +1,128 @@
+{
+  "vendor": "elastic_defend_like",
+  "endpoint_key": "process_events",
+  "scenario": "ransomware",
+  "request": {
+    "canonical_asset_id": "HR-PORTAL-01",
+    "time_range": {
+      "tz_label": "Asia/Shanghai"
+    }
+  },
+  "response": {
+    "status": "partial",
+    "gap_reason": "production_edr_partial",
+    "data": {
+      "events": [
+        {
+          "@timestamp": "2026-04-09T08:12:00Z",
+          "event": {
+            "type": "process_create"
+          },
+          "host": {
+            "id": "HR-PORTAL-01"
+          },
+          "process": {
+            "pid": 2104,
+            "parent": {
+              "pid": 544
+            },
+            "name": "vssadmin.exe",
+            "executable": "C:\\Windows\\System32\\vssadmin.exe",
+            "command_line": "vssadmin.exe delete shadows /all /quiet"
+          },
+          "user": {
+            "name": "SYSTEM"
+          }
+        },
+        {
+          "@timestamp": "2026-04-09T08:12:10Z",
+          "event": {
+            "type": "dns_query"
+          },
+          "host": {
+            "id": "HR-PORTAL-01"
+          },
+          "process": {
+            "pid": 2104,
+            "parent": {
+              "pid": 544
+            },
+            "name": "vssadmin.exe",
+            "executable": "C:\\Windows\\System32\\vssadmin.exe",
+            "command_line": "vssadmin.exe delete shadows /all /quiet"
+          },
+          "user": {
+            "name": "SYSTEM"
+          },
+          "dns": {
+            "question": {
+              "name": "update.legit-looking.xyz",
+              "type": "A"
+            }
+          }
+        },
+        {
+          "@timestamp": "2026-04-09T08:12:20Z",
+          "event": {
+            "type": "network_connect"
+          },
+          "host": {
+            "id": "HR-PORTAL-01"
+          },
+          "process": {
+            "pid": 2104,
+            "parent": {
+              "pid": 544
+            },
+            "name": "vssadmin.exe",
+            "executable": "C:\\Windows\\System32\\vssadmin.exe",
+            "command_line": "vssadmin.exe delete shadows /all /quiet"
+          },
+          "user": {
+            "name": "SYSTEM"
+          },
+          "source": {
+            "ip": "10.1.6.10"
+          },
+          "destination": {
+            "ip": "185.220.101.45",
+            "port": 443
+          },
+          "network": {
+            "transport": "TCP"
+          }
+        },
+        {
+          "@timestamp": "2026-04-09T08:12:35Z",
+          "event": {
+            "type": "file_write"
+          },
+          "host": {
+            "id": "HR-PORTAL-01"
+          },
+          "process": {
+            "pid": 2104,
+            "parent": {
+              "pid": 544
+            },
+            "name": "vssadmin.exe",
+            "executable": "C:\\Windows\\System32\\vssadmin.exe",
+            "command_line": "vssadmin.exe delete shadows /all /quiet"
+          },
+          "user": {
+            "name": "SYSTEM"
+          },
+          "file": {
+            "path": "C:\\Windows\\Temp\\shadow-delete.log",
+            "hash": {
+              "sha256": "3af0cb7a073e955517c5fc5b64a8bdc91e781fac0e4da0dbc2f5388a8dc38f5c"
+            }
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "source": "elastic_defend_replay"
+    }
+  }
+}
