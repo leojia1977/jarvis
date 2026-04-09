@@ -74,6 +74,10 @@ Out of scope:
 - autonomous baseline writing or learning
 - replacing current algorithms for T1, T4, or T5
 
+Execution note:
+- `S4-A-3 Host Identity Resolver` is a hard prerequisite for `S4-B-1 EDR Adapter Contract`.
+- Sprint 4 must not freeze production EDR host-identity semantics against legacy string matching before the authoritative resolver is accepted.
+
 ### S4-B EDR Telemetry Productionization
 Bring T3 onto the same production contract footing that SIEM already has.
 
@@ -104,6 +108,10 @@ Out of scope:
 - ticketing-system bi-directional sync
 - enterprise workflow engine
 
+Execution note:
+- persistent case work must freeze the storage backend choice before implementation begins
+- the chosen backend must be justified against SecuPilot's existing data-sovereignty and audit requirements
+
 ### S4-D Pilot Deployment and Operability
 Freeze what is needed to run a controlled pilot without inventing full enterprise ops.
 
@@ -118,6 +126,10 @@ Out of scope:
 - Kubernetes templates
 - autoscaling
 - on-call platform integrations
+
+Execution note:
+- `S4-D-1` and `S4-D-3` may start in parallel with late `S4-A` work because they are documentation and operator-contract heavy
+- `S4-D-2`, `S4-D-4`, and `S4-D-5` remain downstream of `S4-A + S4-B + S4-C`
 
 ## Functional Requirements
 

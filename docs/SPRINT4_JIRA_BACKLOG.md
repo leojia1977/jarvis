@@ -42,6 +42,7 @@
   - one normalized host identity structure exists
   - SIEM and T3 host selection use the same resolver
   - identity ambiguity is explicit, not silently guessed
+  - `SP4-B-1` may not freeze host-identity expectations until this resolver contract is accepted
 
 ### SP4-A-4 Static Data Cache and Contract Tests
 - Type: `QA`
@@ -127,6 +128,7 @@
   - stored case schema aligns with Sprint 3 case-view contract
   - status transitions are explicit
   - audit and action-request fields are first-class
+  - the persistence backend choice is frozen and justified against SecuPilot data-sovereignty and audit requirements before `SP4-C-2`
 
 ### SP4-C-2 Case Store and Retrieval API
 - Type: `DEV`
@@ -230,6 +232,11 @@
 2. `S4-B`
 3. `S4-C`
 4. `S4-D`
+
+Execution note:
+- `SP4-A-3` is the hard prerequisite that unlocks `SP4-B-1`
+- `SP4-D-1` and `SP4-D-3` can begin in parallel once Sprint 4 scope is accepted
+- `SP4-D-2`, `SP4-D-4`, and `SP4-D-5` stay after `S4-A + S4-B + S4-C`
 
 ## Claude Review Focus
 - challenge source-contract scope and identity authority

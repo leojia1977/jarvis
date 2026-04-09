@@ -6,7 +6,7 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-PLAN-2026-04-09-001`
+- Snapshot ID: `S4-PLAN-2026-04-09-002`
 - Stage: `Sprint 4 planning baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
@@ -40,6 +40,7 @@
 - S3-D-4 follow-up now adds the missing package step to the snapshot checklist, makes the generated review pack authoritative over handwritten upload lists, and forbids stale zip reuse during review-pack generation.
 - SP3-D-13 now records the governance closeout decision under `docs/S3D13_GOVERNANCE_REVIEW_PASS.md`.
 - Sprint 4 planning is now frozen under `docs/SPRINT4_PRD.md` and `docs/SPRINT4_JIRA_BACKLOG.md`.
+- Sprint 4 planning follow-up now makes `SP4-A-3` the explicit unlock for `SP4-B-1`, requires `SP4-C-1` to freeze persistence backend selection, and clarifies that `SP4-D-1` plus `SP4-D-3` may start in parallel while downstream pilot smoke work waits for `S4-A + S4-B + S4-C`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
