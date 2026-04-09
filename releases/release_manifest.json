@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-C-2026-04-09-004",
+    "id": "S3-C-2026-04-09-005",
     "sprint": "Sprint 3",
-    "stage": "vendor-profile-hardening",
+    "stage": "vendor-profile-hardening-follow-up",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T10:41:28.517066+08:00"
+    "updated_at": "2026-04-09T10:52:35.089072+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-004.zip",
-    "current_release_sha256": "c499ab49e8beee09eb2939e0e56905662af7921679fac27a97929cdeaa85f603"
+    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-005.zip",
+    "current_release_sha256": "002b22f64a35fd42d29c879f26fd291aa7fb29d433e4a31436b4418e2b33e24c"
   },
   "key_files": [
     {
@@ -120,7 +120,7 @@
     {
       "path": "backend\\app\\tools\\siem_adapter.py",
       "role": "siem-adapter",
-      "sha256": "f852451c2b8e67563af62f06c00be4489e36cc8d2a34e8e982c5192fcba279cd"
+      "sha256": "05a9924593736bc18c9167d85f26fd10d7d794144f314eb972789119e82da2b1"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -185,7 +185,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "e814cd71b02514fa105cfef0be75016027435190233345f420ed4ca3df22e5e3"
+      "sha256": "4ed483040bbcaf99934882209dc94ae4b4e37492cbb2bee73eac7f8d2f636b86"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -310,7 +310,7 @@
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "0af077221a70218b2da65b672638920adf93edbb4e46eec3120c852b21f48279"
+      "sha256": "27f795b4a897be70b6bdcddc509c976b0b6365e6ca598a5cc6e87b47a211a99b"
     },
     {
       "path": "run_runtime.py",
@@ -373,13 +373,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-C-2026-04-09-004",
+      "Snapshot ID: S3-C-2026-04-09-005",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T10:41:28.787286+08:00",
+    "last_verified_at": "2026-04-09T10:52:35.920709+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

@@ -618,8 +618,8 @@ class ProductionSIEMAdapter:
                 source,
                 "activity_name",
                 "event.action",
-                "action",
                 "rule.name",
+                "action",
                 "alert_type",
             )
             if activity_name is not None:

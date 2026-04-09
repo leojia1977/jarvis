@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-C-2026-04-09-004`
-- Stage: `Sprint 3 vendor profile hardening`
+- Snapshot ID: `S3-C-2026-04-09-005`
+- Stage: `Sprint 3 vendor profile hardening follow-up`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -29,6 +29,7 @@
 - S3-C-1 follow-up now adds thin vendor field mapping profiles (`splunk_like` / `elastic_like`) and a governed `runtime_mode=production -> investigate_sync -> threat_case` smoke path.
 - S3-C-1 hardening now maps non-JSON transport responses to `production_transport_bad_response:*` and exposes `adapter_type / adapter_configured` in runtime readiness.
 - S3-C-2 now hardens vendor profiles by filling canonical `activity_name`, escaping `splunk_like` free text, replacing risky `elastic_like query_string` usage, and freezing fixture playback tests under `docs/S3C2_VENDOR_PROFILE_HARDENING.md`.
+- S3-C-2 follow-up now proves `activity_name` flows end-to-end through the production smoke path and lowers generic `action` behind `rule.name` in canonical field selection.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.

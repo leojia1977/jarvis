@@ -23,6 +23,7 @@ class FakeProductionTransport:
                         "event_id": "SPL-ALERT-1",
                         "severity": "high",
                         "timestamp": "2026-04-08T11:00:00Z",
+                        "action": "SSH_BRUTE_FORCE",
                         "src_ip": "185.220.101.45",
                         "dest_asset": "WKST-047",
                         "dest_ip": "10.1.2.4",
@@ -149,6 +150,10 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertEqual(payload["status"], "ok")
         self.assertEqual(payload["request"]["runtime_mode"], "production")
         self.assertEqual(payload["threat_case"]["version"], "3.1")
+        self.assertEqual(
+            payload["threat_case"]["triage_summary"]["top_alerts"][0]["activity"],
+            "SSH_BRUTE_FORCE",
+        )
         self.assertTrue(any(call["endpoint"].endswith("/alerts/intent") for call in transport.calls))
         self.assertTrue(any(call["endpoint"].endswith("/metadata/scenario") for call in transport.calls))
 
