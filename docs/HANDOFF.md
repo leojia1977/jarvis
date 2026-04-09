@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-C-2026-04-09-003`
-- Stage: `Sprint 3 production SIEM vendor mapping + smoke hardening`
+- Snapshot ID: `S3-C-2026-04-09-004`
+- Stage: `Sprint 3 vendor profile hardening`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -28,6 +28,7 @@
 - S3-C-1 now adds the first production-facing SIEM adapter path, runtime configuration consumption, and transport-normalization tests under `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`.
 - S3-C-1 follow-up now adds thin vendor field mapping profiles (`splunk_like` / `elastic_like`) and a governed `runtime_mode=production -> investigate_sync -> threat_case` smoke path.
 - S3-C-1 hardening now maps non-JSON transport responses to `production_transport_bad_response:*` and exposes `adapter_type / adapter_configured` in runtime readiness.
+- S3-C-2 now hardens vendor profiles by filling canonical `activity_name`, escaping `splunk_like` free text, replacing risky `elastic_like query_string` usage, and freezing fixture playback tests under `docs/S3C2_VENDOR_PROFILE_HARDENING.md`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -54,6 +55,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/SP3_B4_Degraded_UX_Contract.md`
    - `docs/S3C0_ADAPTER_CONTRACT.md`
    - `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`
+   - `docs/S3C2_VENDOR_PROFILE_HARDENING.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.

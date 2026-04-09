@@ -67,6 +67,23 @@ def _iso_z(value: datetime) -> str:
     return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
+def _sanitize_free_text(value: Any) -> str:
+    text = str(value or "")
+    return " ".join(text.split())
+
+
+def _escape_splunk_literal(value: Any) -> str:
+    text = _sanitize_free_text(value)
+    return (
+        text
+        .replace("\\", "\\\\")
+        .replace('"', '\\"')
+        .replace("|", "\\|")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+    )
+
+
 @dataclass(frozen=True)
 class TimeRangeSpec:
     start_utc: datetime
@@ -422,6 +439,8 @@ class MockSIEMAdapter:
 class ProductionSIEMAdapter:
     """S3-C-1 第一版：消费运行时配置并规范化真实 SIEM 返回。"""
 
+    SUPPORTED_VENDORS = {"generic_http", "splunk_like", "elastic_like"}
+
     def __init__(
         self,
         runtime_settings=settings,
@@ -432,7 +451,11 @@ class ProductionSIEMAdapter:
         self.transport = transport or UrllibSIEMTransport()
         self.base_url = (getattr(runtime_settings, "siem_base_url", "") or "").rstrip("/")
         self.auth_token = getattr(runtime_settings, "siem_auth_token", "") or ""
-        self.vendor = getattr(runtime_settings, "siem_vendor", "generic_http")
+        configured_vendor = getattr(runtime_settings, "siem_vendor", "generic_http") or "generic_http"
+        if configured_vendor not in self.SUPPORTED_VENDORS:
+            logger.warning("Unsupported siem_vendor, falling back to generic_http", vendor=configured_vendor)
+            configured_vendor = "generic_http"
+        self.vendor = configured_vendor
         self.timeout_seconds = float(getattr(runtime_settings, "siem_request_timeout_seconds", 5.0))
         self._endpoint_map = {
             "recent_summary": "/api/v1/summary/recent",
@@ -479,16 +502,20 @@ class ProductionSIEMAdapter:
     def _build_splunk_payload(self, endpoint_key: str, payload: dict[str, Any]) -> dict[str, Any]:
         time_range = self._canonical_time_range(payload.get("time_range", {}))
         search = "search index=secupilot"
+        safe_user_input = _escape_splunk_literal(payload.get("user_input", ""))
+        safe_intent = _escape_splunk_literal(payload.get("intent", ""))
+        safe_asset_id = _escape_splunk_literal(payload.get("asset_id", ""))
+        safe_scenario_id = _escape_splunk_literal(payload.get("scenario_id", ""))
 
         if endpoint_key == "intent_alerts":
             search = (
-                f'{search} intent="{payload.get("intent", "")}" '
-                f'user_query="{payload.get("user_input", "")}" '
+                f'{search} intent="{safe_intent}" '
+                f'user_query="{safe_user_input}" '
                 f'earliest="{time_range["start_utc"]}" latest="{time_range["end_utc"]}"'
             )
         elif endpoint_key == "asset_alerts":
             search = (
-                f'{search} asset_id="{payload.get("asset_id", "")}" '
+                f'{search} asset_id="{safe_asset_id}" '
                 f'earliest="{time_range["start_utc"]}" latest="{time_range["end_utc"]}"'
             )
         elif endpoint_key == "recent_summary":
@@ -497,9 +524,9 @@ class ProductionSIEMAdapter:
                 f'latest="{time_range["end_utc"]}" | stats count as total_alerts by severity'
             )
         elif endpoint_key == "scenario_metadata":
-            search = f'| inputlookup secupilot_scenarios | search scenario_id="{payload.get("scenario_id", "")}"'
+            search = f'| inputlookup secupilot_scenarios | search scenario_id="{safe_scenario_id}"'
         elif endpoint_key == "asset_context":
-            search = f'| inputlookup secupilot_assets | search asset_id="{payload.get("asset_id", "")}"'
+            search = f'| inputlookup secupilot_assets | search asset_id="{safe_asset_id}"'
 
         return {
             "query_language": "spl",
@@ -510,13 +537,14 @@ class ProductionSIEMAdapter:
     def _build_elastic_payload(self, endpoint_key: str, payload: dict[str, Any]) -> dict[str, Any]:
         time_range = self._canonical_time_range(payload.get("time_range", {}))
         time_filter = {"range": {"@timestamp": {"gte": time_range["start_utc"], "lte": time_range["end_utc"]}}}
+        safe_user_input = _sanitize_free_text(payload.get("user_input", ""))
 
         if endpoint_key == "intent_alerts":
             must = []
             if payload.get("intent"):
                 must.append({"term": {"secupilot.intent": payload["intent"]}})
-            if payload.get("user_input"):
-                must.append({"query_string": {"query": payload["user_input"], "default_field": "message"}})
+            if safe_user_input:
+                must.append({"match_phrase": {"message": safe_user_input}})
             return {
                 "query": {"bool": {"filter": [time_filter], "must": must}},
                 "size": 100,
@@ -585,6 +613,17 @@ class ProductionSIEMAdapter:
             event_time = _first_present(source, "event_time", "@timestamp", "timestamp", "event.time")
             if event_time is not None:
                 record["event_time"] = event_time
+
+            activity_name = _first_present(
+                source,
+                "activity_name",
+                "event.action",
+                "action",
+                "rule.name",
+                "alert_type",
+            )
+            if activity_name is not None:
+                record["activity_name"] = activity_name
 
             source_ip = _first_present(source, "source_ip", "src_ip", "source.ip", "src.ip")
             if source_ip is not None:

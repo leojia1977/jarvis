@@ -1,0 +1,20 @@
+{
+  "status": "ok",
+  "results": [
+    {
+      "event_id": "SPL-FX-1",
+      "severity": "high",
+      "timestamp": "2026-04-09T01:22:00Z",
+      "action": "Remote Service Execution",
+      "src_ip": "185.220.101.45",
+      "dest_asset": "WKST-047",
+      "dest_ip": "10.1.2.4",
+      "scenario": "S-02",
+      "dns": {
+        "question": {
+          "name": "update.legit-looking.xyz"
+        }
+      }
+    }
+  ]
+}

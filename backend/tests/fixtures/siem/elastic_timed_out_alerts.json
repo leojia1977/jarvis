@@ -1,0 +1,32 @@
+{
+  "timed_out": true,
+  "hits": {
+    "total": {
+      "value": 1
+    },
+    "hits": [
+      {
+        "_source": {
+          "event": {
+            "id": "ES-FX-2",
+            "action": "Command and Scripting Interpreter"
+          },
+          "@timestamp": "2026-04-09T03:00:00Z",
+          "risk": {
+            "level": "medium"
+          },
+          "source": {
+            "ip": "203.0.113.77"
+          },
+          "destination": {
+            "asset_id": "DEV-WS-01",
+            "ip": "10.1.3.5"
+          },
+          "scenario": {
+            "id": "S-03"
+          }
+        }
+      }
+    ]
+  }
+}

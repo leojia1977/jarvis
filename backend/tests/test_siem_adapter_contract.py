@@ -1,6 +1,7 @@
 import unittest
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 
 from _project_bootstrap import bootstrap
 
@@ -8,6 +9,13 @@ bootstrap()
 
 from backend.app.config import Settings  # noqa: E402
 from app.tools.siem_adapter import MockSIEMAdapter, ProductionSIEMAdapter, TimeRangeSpec  # noqa: E402
+
+
+FIXTURE_DIR = Path(__file__).parent / "fixtures" / "siem"
+
+
+def load_fixture(name: str) -> dict:
+    return json.loads((FIXTURE_DIR / name).read_text(encoding="utf-8"))
 
 
 class TimeRangeSpecTests(unittest.TestCase):
@@ -129,22 +137,7 @@ class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(transport.calls[0]["headers"]["Authorization"], "Bearer secret-token")
 
     async def test_splunk_like_request_builder_and_alert_mapping(self):
-        transport = FakeProductionTransport(
-            {
-                "status": "ok",
-                "results": [
-                    {
-                        "event_id": "SPL-1",
-                        "severity": "high",
-                        "timestamp": "2026-04-08T10:30:00Z",
-                        "src_ip": "185.220.101.45",
-                        "dest_asset": "WKST-047",
-                        "dest_ip": "10.1.2.4",
-                        "scenario": "S-02",
-                    }
-                ],
-            }
-        )
+        transport = FakeProductionTransport(load_fixture("splunk_intent_alerts.json"))
         adapter = ProductionSIEMAdapter(self.settings, transport=transport)
         spec = TimeRangeSpec(
             start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
@@ -152,16 +145,20 @@ class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
             tz_label="Asia/Shanghai",
         )
 
-        result = await adapter.query_intent_alerts("threat_hunt", "查横向移动", spec)
+        result = await adapter.query_intent_alerts("threat_hunt", '查横向移动 " | delete', spec)
 
         payload = transport.calls[0]["payload"]
         self.assertEqual(payload["query_language"], "spl")
         self.assertIn('intent="threat_hunt"', payload["search"])
+        self.assertNotIn('" | delete', payload["search"])
+        self.assertIn('\\"', payload["search"])
+        self.assertIn("\\|", payload["search"])
         self.assertEqual(result.status, "ok")
         self.assertEqual(result.metadata["scenario_id"], "S-02")
         self.assertEqual(result.data[0]["destination_asset_id"], "WKST-047")
         self.assertEqual(result.data[0]["source_ip"], "185.220.101.45")
         self.assertEqual(result.data[0]["severity"], "HIGH")
+        self.assertEqual(result.data[0]["activity_name"], "Remote Service Execution")
 
     async def test_elastic_like_request_builder_and_hit_mapping(self):
         settings = Settings(
@@ -172,26 +169,7 @@ class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
             siem_vendor="elastic_like",
             siem_request_timeout_seconds=7.5,
         )
-        transport = FakeProductionTransport(
-            {
-                "timed_out": False,
-                "hits": {
-                    "total": {"value": 1},
-                    "hits": [
-                        {
-                            "_source": {
-                                "event": {"id": "ES-1"},
-                                "@timestamp": "2026-04-08T11:00:00Z",
-                                "risk": {"level": "medium"},
-                                "source": {"ip": "198.51.100.23"},
-                                "destination": {"asset_id": "HR-PORTAL-01", "ip": "10.1.6.10"},
-                                "scenario": {"id": "S-04"},
-                            }
-                        }
-                    ],
-                },
-            }
-        )
+        transport = FakeProductionTransport(load_fixture("elastic_asset_alerts.json"))
         adapter = ProductionSIEMAdapter(settings, transport=transport)
         spec = TimeRangeSpec(
             start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
@@ -199,16 +177,43 @@ class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
             tz_label="Asia/Shanghai",
         )
 
-        result = await adapter.query_asset_alerts("HR-PORTAL-01", spec)
+        result = await adapter.query_intent_alerts("threat_hunt", 'mimikatz" OR *', spec)
 
         payload = transport.calls[0]["payload"]
         self.assertIn("query", payload)
         self.assertEqual(payload["size"], 100)
+        self.assertNotIn("query_string", json.dumps(payload, ensure_ascii=False))
+        self.assertIn("match_phrase", json.dumps(payload, ensure_ascii=False))
         self.assertEqual(result.status, "ok")
         self.assertEqual(result.metadata["scenario_id"], "S-04")
-        self.assertEqual(result.data[0]["event_id"], "ES-1")
+        self.assertEqual(result.data[0]["event_id"], "ES-FX-1")
         self.assertEqual(result.data[0]["destination_asset_id"], "HR-PORTAL-01")
-        self.assertEqual(result.data[0]["severity"], "MEDIUM")
+        self.assertEqual(result.data[0]["severity"], "HIGH")
+        self.assertEqual(result.data[0]["activity_name"], "Credential Dumping")
+
+    async def test_elastic_fixture_timeout_maps_to_partial(self):
+        settings = Settings(
+            runtime_mode="production",
+            mock_data_path="./mock_data",
+            siem_base_url="https://siem.example.local",
+            siem_auth_token="secret-token",
+            siem_vendor="elastic_like",
+            siem_request_timeout_seconds=7.5,
+        )
+        transport = FakeProductionTransport(load_fixture("elastic_timed_out_alerts.json"))
+        adapter = ProductionSIEMAdapter(settings, transport=transport)
+        spec = TimeRangeSpec(
+            start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
+            end_utc=datetime(2026, 4, 8, 12, 0, 0, tzinfo=timezone.utc),
+            tz_label="Asia/Shanghai",
+        )
+
+        result = await adapter.query_asset_alerts("DEV-WS-01", spec)
+
+        self.assertEqual(result.status, "partial")
+        self.assertEqual(result.gap_reason, "elastic_query_timed_out")
+        self.assertEqual(result.metadata["scenario_id"], "S-03")
+        self.assertEqual(result.data[0]["activity_name"], "Command and Scripting Interpreter")
 
     async def test_get_scenario_metadata_uses_generic_data_fallback(self):
         transport = FakeProductionTransport(
