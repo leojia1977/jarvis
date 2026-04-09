@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-D-2026-04-09-002`
-- Stage: `Sprint 3 wrapper and path cleanup`
+- Snapshot ID: `S3-D-2026-04-09-003`
+- Stage: `Sprint 3 wrapper and path cleanup follow-up`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -33,6 +33,7 @@
 - S3-C-3 now adds offline vendor replay fixtures, `ReplayTransport`, and two end-to-end replay tests under `docs/S3C3_VENDOR_REPLAY_SPEC.md` and `backend/tests/test_vendor_replay.py`.
 - S3-D-1 now hardens the governed release gate by aligning fast/full gate documentation, requiring review-pack completeness, and expanding verification to review artifacts as first-class acceptance inputs.
 - S3-D-2 now freezes wrapper inventory, canonical import guidance, and wrapper retirement criteria under `docs/PROJECT_STRUCTURE.md` and `docs/S3D2_WRAPPER_RETIREMENT_PLAN.md`.
+- S3-D-2 follow-up now distinguishes standalone smoke scripts from compatibility test wrappers, moves canonical test commands ahead of wrapper shortcuts, and defines wrapper retirement counter start plus rollback behavior.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -70,11 +71,17 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 6. If Claude proposes code changes, apply them back into `D:\产品设计\New folder` and update the manifest.
 
 ## Baseline Test Commands
-- `py -3 test_t3_hunt.py`
-- `py -3 test_secupilot_drafts.py`
+
+### Canonical Authoritative Gate
 - `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay`
 - `py -3 -m unittest -q backend.tests.test_vendor_replay`
+
+### Legacy / Compat Shortcuts
+- `py -3 test_t3_hunt.py`
+- `py -3 test_secupilot_drafts.py`
 - `py -3 selfcheck_t1_t5.py`
+
+The canonical suite above is the authoritative gate. Wrapper commands remain only for compatibility until retirement criteria are met.
 
 ## Release Outputs
 - Manifest: `releases/release_manifest.json`

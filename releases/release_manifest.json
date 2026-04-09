@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-D-2026-04-09-002",
+    "id": "S3-D-2026-04-09-003",
     "sprint": "Sprint 3",
-    "stage": "wrapper-and-path-cleanup",
+    "stage": "wrapper-and-path-cleanup-follow-up",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T12:21:00.988023+08:00"
+    "updated_at": "2026-04-09T12:38:02.551234+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-002.zip",
-    "current_release_sha256": "c9ab28e5dbb3eae6fb598b0bd456b2f52a6c1e1d78e502d45f5cbb5b1eec8596"
+    "current_release_zip": "releases\\secupilot-S3-D-2026-04-09-003.zip",
+    "current_release_sha256": "a1a9096e5e86adce47444028ceabb12075c4a6cdb6eaa31b829c3caada981965"
   },
   "key_files": [
     {
@@ -74,7 +74,7 @@
     },
     {
       "path": "selfcheck_t1_t5.py",
-      "role": "t1-t5-selfcheck",
+      "role": "compat-selfcheck",
       "sha256": "1f4b6da2657189bc94aa9fa4aac9233364032e556b83eab086011477ecd30b61"
     },
     {
@@ -200,7 +200,7 @@
     {
       "path": "docs\\S3D2_WRAPPER_RETIREMENT_PLAN.md",
       "role": "s3d2-wrapper-retirement-plan",
-      "sha256": "02871d4b3f710e2fbba33c89fc999e4cdb6b7cad4a035f6a9fd9115c3957764e"
+      "sha256": "3afa28277d63ff034d864067fd0ec1dee78ead52165792141dd2523880534b71"
     },
     {
       "path": "docs\\S3D_JIRA_BACKLOG.md",
@@ -210,7 +210,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "2c1c308778a1f37b50c3f16a30b2b784b25b65f65af9e622d575ab8cb7937f6b"
+      "sha256": "1188ac77637ae829679762256c17ed41fc2fefa976c9cc0a90bdbe17cedcc21f"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -220,7 +220,7 @@
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
       "role": "project-structure-doc",
-      "sha256": "0d95542e245e388e920bf7d6d42ee2167599ad5b769f5e9441156b48b3f23137"
+      "sha256": "1cf0a0620b2a881aefaade5d8bd670a1fdc98acff3f547aa77de8486c2e7bdfb"
     },
     {
       "path": "docs\\CLAUDE_WEB_UPLOAD_CHECKLIST.md",
@@ -354,7 +354,7 @@
     },
     {
       "path": "run_runtime.py",
-      "role": "runtime-wrapper",
+      "role": "compat-runtime-wrapper",
       "sha256": "f2584ac2f26a1bd037c3dad87df21fef65e691541fb9d9bbcd3b814a06625843"
     },
     {
@@ -414,13 +414,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-D-2026-04-09-002",
+      "Snapshot ID: S3-D-2026-04-09-003",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T12:21:01.724866+08:00",
+    "last_verified_at": "2026-04-09T12:38:02.752095+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

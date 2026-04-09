@@ -48,9 +48,14 @@
 ### Compatibility Test Entrypoints
 - `test_t3_hunt.py` -> `backend/tests/test_t3_hunt.py`
 - `test_secupilot_drafts.py` -> `backend/tests/test_secupilot_drafts.py`
-- `selfcheck_t1_t5.py` -> compatibility smoke entrypoint
   - Purpose: preserve older test commands and smoke shortcuts
   - Wrapper status: temporary
+
+### Standalone Smoke Script
+- `selfcheck_t1_t5.py`
+  - Current role: root-level T1/T5 smoke script with no canonical structured-test equivalent yet
+  - Canonical replacement status: not created yet
+  - Wrapper status: temporary until a backend/tests canonical replacement exists
 
 ## Canonical Import and Execution Rules
 - New implementation work must target `backend/app/`, `backend/tests/`, and `scripts/`.
@@ -59,6 +64,8 @@
   - `from app.agents.graph import ...`
   - `from app.tools.siem_adapter import ...`
   - `from backend.tests.test_vendor_replay import ...`
+- The `app.*` examples are valid while `_project_bootstrap.py` or an equivalent `sys.path` setup is present.
+- After Category A wrappers are retired, canonical imports should move to explicit package paths such as `backend.app.agents.graph`.
 - Root-level wrappers may be used only for compatibility. They must not gain new business logic.
 
 ## Path Cleanup Rule
