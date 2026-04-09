@@ -17,7 +17,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from app.config import Settings, settings
 from app.tools.siem_adapter import AdapterResult
@@ -499,6 +499,93 @@ class LoadedStaticDataRuntimePayloads:
     topology_payload: dict[str, Any]
 
 
+@dataclass
+class _CachedAdapterState:
+    result: AdapterResult | None = None
+    loaded_at_monotonic: float = 0.0
+
+
+class _CachedSourceMixin:
+    def __init__(self, *, ttl_seconds: int, clock: Callable[[], float]) -> None:
+        self._ttl_seconds = max(int(ttl_seconds or 0), 0)
+        self._clock = clock
+        self._cache = _CachedAdapterState()
+
+    async def _load_with_cache(self, loader) -> AdapterResult:
+        if self._ttl_seconds > 0 and self._cache.result is not None:
+            age_seconds = self._clock() - self._cache.loaded_at_monotonic
+            if age_seconds < self._ttl_seconds:
+                return deepcopy(self._cache.result)
+
+        result = await loader()
+        if result.status == "ok":
+            self._cache = _CachedAdapterState(
+                result=deepcopy(result),
+                loaded_at_monotonic=self._clock(),
+            )
+        return deepcopy(result)
+
+
+class CachedAssetInventorySource(_CachedSourceMixin):
+    def __init__(
+        self,
+        inner: AssetInventorySourceProtocol,
+        *,
+        ttl_seconds: int,
+        clock: Callable[[], float] = time.monotonic,
+    ) -> None:
+        super().__init__(ttl_seconds=ttl_seconds, clock=clock)
+        self._inner = inner
+
+    async def load_asset_inventory(self) -> AdapterResult[AssetInventorySnapshot]:
+        return await self._load_with_cache(self._inner.load_asset_inventory)
+
+
+class CachedBaselineSource(_CachedSourceMixin):
+    def __init__(
+        self,
+        inner: BaselineSourceProtocol,
+        *,
+        ttl_seconds: int,
+        clock: Callable[[], float] = time.monotonic,
+    ) -> None:
+        super().__init__(ttl_seconds=ttl_seconds, clock=clock)
+        self._inner = inner
+
+    async def load_baselines(self) -> AdapterResult[BaselineSnapshot]:
+        return await self._load_with_cache(self._inner.load_baselines)
+
+
+class CachedThreatIntelSeedSource(_CachedSourceMixin):
+    def __init__(
+        self,
+        inner: ThreatIntelSeedSourceProtocol,
+        *,
+        ttl_seconds: int,
+        clock: Callable[[], float] = time.monotonic,
+    ) -> None:
+        super().__init__(ttl_seconds=ttl_seconds, clock=clock)
+        self._inner = inner
+
+    async def load_threat_intel_seed(self) -> AdapterResult[ThreatIntelSeedSnapshot]:
+        return await self._load_with_cache(self._inner.load_threat_intel_seed)
+
+
+class CachedTopologySource(_CachedSourceMixin):
+    def __init__(
+        self,
+        inner: TopologySourceProtocol,
+        *,
+        ttl_seconds: int,
+        clock: Callable[[], float] = time.monotonic,
+    ) -> None:
+        super().__init__(ttl_seconds=ttl_seconds, clock=clock)
+        self._inner = inner
+
+    async def load_topology(self) -> AdapterResult[TopologySnapshot]:
+        return await self._load_with_cache(self._inner.load_topology)
+
+
 def asset_inventory_snapshot_to_runtime_payload(snapshot: AssetInventorySnapshot) -> dict[str, Any]:
     assets: list[dict[str, Any]] = []
     for record in snapshot.assets:
@@ -612,6 +699,39 @@ def load_static_data_runtime_payloads_sync(
     return _run_sync(load_static_data_runtime_payloads(adapters))
 
 
+def with_static_data_cache(
+    adapters: StaticDataSourceAdapters,
+    *,
+    ttl_seconds: int,
+    clock: Callable[[], float] = time.monotonic,
+) -> StaticDataSourceAdapters:
+    """Wrap static-data sources with a lightweight TTL cache."""
+    if int(ttl_seconds or 0) <= 0:
+        return adapters
+    return StaticDataSourceAdapters(
+        asset_inventory=CachedAssetInventorySource(
+            adapters.asset_inventory,
+            ttl_seconds=ttl_seconds,
+            clock=clock,
+        ),
+        baselines=CachedBaselineSource(
+            adapters.baselines,
+            ttl_seconds=ttl_seconds,
+            clock=clock,
+        ),
+        threat_intel_seed=CachedThreatIntelSeedSource(
+            adapters.threat_intel_seed,
+            ttl_seconds=ttl_seconds,
+            clock=clock,
+        ),
+        topology=CachedTopologySource(
+            adapters.topology,
+            ttl_seconds=ttl_seconds,
+            clock=clock,
+        ),
+    )
+
+
 def build_static_data_source_adapters(
     runtime_settings: Settings = settings,
 ) -> StaticDataSourceAdapters:
@@ -660,9 +780,10 @@ def build_static_data_source_adapters(
             refresh_seconds=refresh_seconds,
         )
 
-    return StaticDataSourceAdapters(
+    adapters = StaticDataSourceAdapters(
         asset_inventory=_asset_source(),
         baselines=_baseline_source(),
         threat_intel_seed=_intel_source(),
         topology=_topology_source(),
     )
+    return with_static_data_cache(adapters, ttl_seconds=refresh_seconds)

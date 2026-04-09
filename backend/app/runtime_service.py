@@ -90,13 +90,23 @@ class SecuPilotRuntimeService:
             operator_message = (
                 "Production SIEM adapter is not configured. Set siem_base_url and siem_auth_token."
             )
-        elif any(reason.startswith("mock_data_missing:") for reason in reasons):
+        elif any(
+            reason.startswith("mock_data_missing:")
+            or reason.startswith("static_data_unavailable:")
+            for reason in reasons
+        ):
             state_class = "MISCONFIGURED"
             failure_category = "static_data"
-            operator_message = (
-                f"Static data directory is missing at {self.settings.get_mock_data_dir()}. "
-                "Runtime cannot bootstrap until local datasets are present."
-            )
+            if any(reason.startswith("mock_data_missing:") for reason in reasons):
+                operator_message = (
+                    f"Static data directory is missing at {self.settings.get_mock_data_dir()}. "
+                    "Runtime cannot bootstrap until local datasets are present."
+                )
+            else:
+                operator_message = (
+                    "Static data sources failed to load. Check source mode, refresh semantics, "
+                    "and readiness reasons before retrying bootstrap."
+                )
         elif any(reason.startswith("bootstrap_failed:") for reason in reasons):
             state_class = "BOOTSTRAP_FAILED"
             failure_category = "bootstrap"
@@ -180,7 +190,25 @@ class SecuPilotRuntimeService:
         try:
             pipeline = InvestigationPipeline(siem, runtime_settings=self.settings)
         except Exception as exc:
-            reasons.append(f"bootstrap_failed:{exc}")
+            detail = str(exc)
+            if detail.startswith("static_source_"):
+                reasons.append(f"static_data_unavailable:{detail}")
+                self._emit_runtime_log(
+                    logging.ERROR,
+                    "runtime.context.not_ready",
+                    mode=mode,
+                    failure_category="static_data",
+                    reasons=reasons,
+                )
+                return RuntimeContext(
+                    pipeline=None,
+                    siem=siem,
+                    mode=mode,
+                    ready=False,
+                    reasons=reasons,
+                )
+
+            reasons.append(f"bootstrap_failed:{detail}")
             self._emit_runtime_log(
                 logging.ERROR,
                 "runtime.context.bootstrap_failed",

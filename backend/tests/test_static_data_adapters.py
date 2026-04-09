@@ -12,6 +12,7 @@ from app.tools.static_data_adapters import (
     StaticDataSourceAdapters,
     build_static_data_source_adapters,
     load_static_data_runtime_payloads_sync,
+    with_static_data_cache,
 )
 from app.tools.static_data_sources import (
     AssetInventorySnapshot,
@@ -104,6 +105,44 @@ class _FakeTopologySource:
         )
 
 
+class _MutableClock:
+    def __init__(self, start: float = 0.0):
+        self.now = start
+
+    def __call__(self) -> float:
+        return self.now
+
+    def advance(self, seconds: float) -> None:
+        self.now += seconds
+
+
+class _CountingAssetSource:
+    def __init__(self):
+        self.calls = 0
+        self.asset_id = "WKST-047"
+        self.status = "ok"
+
+    async def load_asset_inventory(self) -> AdapterResult[AssetInventorySnapshot]:
+        self.calls += 1
+        if self.status != "ok":
+            return AdapterResult.unavailable(
+                AssetInventorySnapshot(metadata=_metadata("asset_inventory", 0), assets=[]),
+                gap_reason=f"static_source_missing:asset_inventory:{self.status}",
+            )
+        return AdapterResult.ok(
+            AssetInventorySnapshot(
+                metadata=_metadata("asset_inventory", 1),
+                assets=[
+                    AssetRecord(
+                        asset_id=self.asset_id,
+                        hostname=self.asset_id.lower(),
+                        ip_addresses=["10.1.5.22"],
+                    )
+                ],
+            )
+        )
+
+
 class StaticDataAdapterTests(unittest.TestCase):
     def setUp(self):
         self.settings = Settings(
@@ -184,6 +223,77 @@ class StaticDataAdapterTests(unittest.TestCase):
         identity = asyncio.run(pipeline.orchestrator.host_identity_resolver.resolve_ip("10.1.5.22"))
         self.assertEqual(identity.status, "ok")
         self.assertEqual(identity.data.canonical_asset_id, "WKST-047")
+
+    def test_ttl_cache_reuses_snapshot_before_expiry(self):
+        clock = _MutableClock()
+        inner = _CountingAssetSource()
+        cached = with_static_data_cache(
+            StaticDataSourceAdapters(
+                asset_inventory=inner,
+                baselines=_FakeBaselineSource(),
+                threat_intel_seed=_FakeIntelSeedSource(),
+                topology=_FakeTopologySource(),
+            ),
+            ttl_seconds=300,
+            clock=clock,
+        )
+
+        first = asyncio.run(cached.asset_inventory.load_asset_inventory())
+        inner.asset_id = "WKST-999"
+        second = asyncio.run(cached.asset_inventory.load_asset_inventory())
+
+        self.assertEqual(inner.calls, 1)
+        self.assertEqual(first.data.assets[0].asset_id, "WKST-047")
+        self.assertEqual(second.data.assets[0].asset_id, "WKST-047")
+
+    def test_ttl_cache_refreshes_after_expiry(self):
+        clock = _MutableClock()
+        inner = _CountingAssetSource()
+        cached = with_static_data_cache(
+            StaticDataSourceAdapters(
+                asset_inventory=inner,
+                baselines=_FakeBaselineSource(),
+                threat_intel_seed=_FakeIntelSeedSource(),
+                topology=_FakeTopologySource(),
+            ),
+            ttl_seconds=300,
+            clock=clock,
+        )
+
+        first = asyncio.run(cached.asset_inventory.load_asset_inventory())
+        inner.asset_id = "WKST-999"
+        clock.advance(301)
+        refreshed = asyncio.run(cached.asset_inventory.load_asset_inventory())
+
+        self.assertEqual(inner.calls, 2)
+        self.assertEqual(first.data.assets[0].asset_id, "WKST-047")
+        self.assertEqual(refreshed.data.assets[0].asset_id, "WKST-999")
+
+    def test_ttl_cache_does_not_hide_missing_source_after_expiry(self):
+        clock = _MutableClock()
+        inner = _CountingAssetSource()
+        cached = with_static_data_cache(
+            StaticDataSourceAdapters(
+                asset_inventory=inner,
+                baselines=_FakeBaselineSource(),
+                threat_intel_seed=_FakeIntelSeedSource(),
+                topology=_FakeTopologySource(),
+            ),
+            ttl_seconds=300,
+            clock=clock,
+        )
+
+        first = asyncio.run(cached.asset_inventory.load_asset_inventory())
+        self.assertEqual(first.status, "ok")
+
+        inner.status = "removed"
+        before_expiry = asyncio.run(cached.asset_inventory.load_asset_inventory())
+        clock.advance(301)
+        after_expiry = asyncio.run(cached.asset_inventory.load_asset_inventory())
+
+        self.assertEqual(before_expiry.status, "ok")
+        self.assertEqual(after_expiry.status, "unavailable")
+        self.assertIn("static_source_missing:asset_inventory:removed", after_expiry.gap_reason)
 
 
 if __name__ == "__main__":

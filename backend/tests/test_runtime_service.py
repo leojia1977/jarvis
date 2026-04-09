@@ -211,6 +211,26 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertIn("bootstrap_failed", ",".join(readiness["reasons"]))
         self.assertTrue(any("runtime.context.bootstrap_failed" in line for line in captured.output))
 
+    def test_unimplemented_static_source_mode_is_classified_as_static_data(self):
+        with self.assertLogs("secupilot.runtime", level="ERROR") as captured:
+            service = SecuPilotRuntimeService(
+                Settings(
+                    runtime_mode="mock",
+                    mock_data_path="./mock_data",
+                    static_data_mode="api",
+                    asset_source_mode="api",
+                )
+            )
+        readiness = service.readiness()
+        self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["state_class"], "MISCONFIGURED")
+        self.assertEqual(readiness["failure_category"], "static_data")
+        self.assertIn("Static data sources failed to load", readiness["operator_message"])
+        self.assertTrue(
+            any("static_data_unavailable:static_source_asset_inventory_unavailable" in reason for reason in readiness["reasons"])
+        )
+        self.assertTrue(any("runtime.context.not_ready" in line for line in captured.output))
+
     def test_not_ready_investigate_returns_runtime_status_contract(self):
         service = SecuPilotRuntimeService(
             Settings(runtime_mode="production", mock_data_path="./mock_data")

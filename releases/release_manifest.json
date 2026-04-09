@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-A-2026-04-09-003",
+    "id": "S4-A-2026-04-09-004",
     "sprint": "Sprint 4",
-    "stage": "host-identity-resolver",
+    "stage": "static-data-cache-and-contract-tests",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T17:08:53.475914+08:00"
+    "updated_at": "2026-04-09T17:36:22.361431+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-003.zip",
-    "current_release_sha256": "3b7d263f23ff1e3d6027abfb8410857e84f2badd23cb85ee2d9c6ec6a25eff63"
+    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-004.zip",
+    "current_release_sha256": "98c820b67dc4b2189843f6e29789d4a2c25efbd86d828107ee95fa96f0ec07b7"
   },
   "key_files": [
     {
@@ -130,7 +130,7 @@
     {
       "path": "backend\\app\\tools\\static_data_adapters.py",
       "role": "static-data-adapter-layer",
-      "sha256": "438653a7d9274a9f8b87640ea5ba5e79906fe81cfe9ef140eddf1b569e9c84b1"
+      "sha256": "4fbf1ebfea0031be260113c9e5ce78bc7b577e9d76dfccd4f63db3aae755becf"
     },
     {
       "path": "backend\\app\\tools\\host_identity.py",
@@ -180,7 +180,7 @@
     {
       "path": "backend\\tests\\test_static_data_adapters.py",
       "role": "canonical-static-data-adapter-tests",
-      "sha256": "d4c330948829ce57c7dc2c9e4fbe47893c38f073810e10da76cccb9f2fc22c7e"
+      "sha256": "304c39a63a0732948fe38193b47bee1671ed29747e25cd198cd7292a7d175846"
     },
     {
       "path": "backend\\tests\\test_host_identity_resolver.py",
@@ -255,7 +255,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "7d92e5fbe14d62b42cdce19f4b6f8e44f00a7640c5b36666fce8c83e2c2ecfb5"
+      "sha256": "ee17358139f09a4726fa47dda55801ade96fe9b68020a01a4d7e629ca15e46fe"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -313,6 +313,11 @@
       "sha256": "960849fd63a941b99ef219c10cce4d2397aafbd02a78681f8df09bcd7dd02115"
     },
     {
+      "path": "docs\\S4A4_STATIC_DATA_CACHE_AND_TESTS.md",
+      "role": "s4a4-static-data-cache-and-tests",
+      "sha256": "931256f00e789d1a37af506d8af3c9358e886d2ef6d3c0b9581bdceed650afd6"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -320,7 +325,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "77a8835c10c8a3015f7af1e852b8cf79d6a526d4b29116dfa627732926af7c77"
+      "sha256": "cb40f4740fe842f14969460b678f17ce2ac76fa8a6a100c7d35e3499692e0589"
     },
     {
       "path": "scripts\\package_release.py",
@@ -415,12 +420,12 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "80241852b0ba1348ca0dab0d77c50bb3417f929914b10942875e00f8bf8c698b"
+      "sha256": "1e19875033bfbc84c9340464ddb1606955495843a4a715b2e63031610fcc1c71"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "62cce078dcafa6f3faabb18aad7a9cde86c6e93dd7f69dd955b434638d5dcf70"
+      "sha256": "7a0001c43ae8f9d9a5e786affc42297bc7aee9441220428e837245e5fded37ed"
     },
     {
       "path": "run_runtime.py",
@@ -487,13 +492,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-A-2026-04-09-003",
+      "Snapshot ID: S4-A-2026-04-09-004",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T17:08:53.720144+08:00",
+    "last_verified_at": "2026-04-09T17:36:23.031253+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
