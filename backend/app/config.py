@@ -49,6 +49,11 @@ class Settings(BaseSettings):
     siem_base_url: str = ""
     siem_auth_token: str = ""
     siem_request_timeout_seconds: float = 5.0
+    edr_source_mode: str = "local_files"
+    edr_vendor: str = "generic_http"
+    edr_base_url: str = ""
+    edr_auth_token: str = ""
+    edr_request_timeout_seconds: float = 5.0
 
     # Server
     service_name: str = "secupilot-runtime"

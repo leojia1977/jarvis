@@ -77,6 +77,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S4A2_STATIC_DATA_ADAPTER_BASELINE.md",
         "docs/S4A3_HOST_IDENTITY_RESOLVER.md",
         "docs/S4A4_STATIC_DATA_CACHE_AND_TESTS.md",
+        "docs/S4B1_EDR_ADAPTER_CONTRACT.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
         ".gitignore",
@@ -91,6 +92,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "backend/app/runtime_service.py",
         "backend/app/tools/process_tree_t3.py",
         "backend/app/tools/siem_adapter.py",
+        "backend/app/tools/edr_adapter.py",
         "backend/app/tools/static_data_adapters.py",
         "backend/app/tools/host_identity.py",
         "run_runtime.py",
@@ -101,6 +103,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "backend/tests/test_static_data_contracts.py",
         "backend/tests/test_static_data_adapters.py",
         "backend/tests/test_host_identity_resolver.py",
+        "backend/tests/test_edr_adapter_contract.py",
     ]
 
     # Always include manifest-declared key files so new stage artifacts are not

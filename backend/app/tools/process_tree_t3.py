@@ -4,6 +4,7 @@ SecuPilot T3: 进程树证据编译器 (Process Tree Evidence Compiler)
 不是树组件，是证据编译器。
 
 输入：符合冻结协议的 ProcessEvent 列表
+     （由 `app.tools.edr_adapter.process_event_batch_to_runtime_payload()` 生成）
 输出：
   1. Top-K 可疑链条（每条含异常评分 + 证据状态 + ATT&CK 映射）
   2. 持久化机制检测

@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-A-2026-04-09-004",
+    "id": "S4-B-2026-04-09-001",
     "sprint": "Sprint 4",
-    "stage": "static-data-cache-and-contract-tests",
+    "stage": "edr-adapter-contract-freeze",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T17:36:22.361431+08:00"
+    "updated_at": "2026-04-09T17:58:47.124869+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-A-2026-04-09-004.zip",
-    "current_release_sha256": "98c820b67dc4b2189843f6e29789d4a2c25efbd86d828107ee95fa96f0ec07b7"
+    "current_release_zip": "releases\\secupilot-S4-B-2026-04-09-001.zip",
+    "current_release_sha256": "7e3dbb7475be5808146b3333aba5eb7221ab32d9a460f83cba3d4b63f345264a"
   },
   "key_files": [
     {
@@ -80,7 +80,7 @@
     {
       "path": "backend\\app\\config.py",
       "role": "config",
-      "sha256": "3963503c42261950153d8cd7cbc9906fdc044eca2114e4d81eb13ea441053f11"
+      "sha256": "f3fc2f6316d4145493018a6e4ebf642e0c85c68319d8cd76c9dcfe6854af72ee"
     },
     {
       "path": "backend\\app\\agents\\case_view.py",
@@ -100,7 +100,7 @@
     {
       "path": "backend\\app\\tools\\process_tree_t3.py",
       "role": "canonical-t3",
-      "sha256": "fd5080e19cbaecb0bcb9fb643cc8da56d37e1b350c5b294d0f997584466d3c28"
+      "sha256": "94ec2a25452ba1b9edad50acd335e40c05b4d091968419ef016c9fd10434b429"
     },
     {
       "path": "backend\\app\\tools\\triage_engine.py",
@@ -136,6 +136,11 @@
       "path": "backend\\app\\tools\\host_identity.py",
       "role": "host-identity-resolver",
       "sha256": "5e2b83e51b81c759bc66c3aa68cc2d2f26ecc8e906a717a0fb13498d86acdee0"
+    },
+    {
+      "path": "backend\\app\\tools\\edr_adapter.py",
+      "role": "edr-adapter-contract",
+      "sha256": "06e9802ab9eb3189a7cfaebadeddbb997e463c81c44b124beb364618213ff912"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -186,6 +191,11 @@
       "path": "backend\\tests\\test_host_identity_resolver.py",
       "role": "canonical-host-identity-tests",
       "sha256": "2b63ec7864d9681f754963e208ecd2eb8a42642fa9126955b643cc4258d7069b"
+    },
+    {
+      "path": "backend\\tests\\test_edr_adapter_contract.py",
+      "role": "canonical-edr-adapter-contract-tests",
+      "sha256": "94a0c2f3c2448743ba2d79679415a35f510eb548ee2a11062cf0c35da6a7fdc8"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -255,7 +265,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "ee17358139f09a4726fa47dda55801ade96fe9b68020a01a4d7e629ca15e46fe"
+      "sha256": "0803447bf07d3793a5c073c55f8840d6f726f8e174ae6a615514a1f9c89d291f"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -318,6 +328,11 @@
       "sha256": "931256f00e789d1a37af506d8af3c9358e886d2ef6d3c0b9581bdceed650afd6"
     },
     {
+      "path": "docs\\S4B1_EDR_ADAPTER_CONTRACT.md",
+      "role": "s4b1-edr-adapter-contract",
+      "sha256": "c47a947c4dfa0b73c1c0e41edbe71c6fbb5b688bfd15459a1df79f3ad9df6708"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -325,7 +340,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "cb40f4740fe842f14969460b678f17ce2ac76fa8a6a100c7d35e3499692e0589"
+      "sha256": "4fa2cdf6b02b4605d35cf3c653720ecb224552a854bf18e92fd3c0520825dc22"
     },
     {
       "path": "scripts\\package_release.py",
@@ -370,7 +385,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "2831df9493d40ad8989fd27ec5eda87c2c7f0c68c7f414e573f2a6f357ac12e7"
+      "sha256": "358f4a35d0f25db0f12b79e45cf28b74572b006da5e2c01898f33122ce399495"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -473,7 +488,8 @@
         "backend.tests.test_vendor_replay",
         "backend.tests.test_static_data_contracts",
         "backend.tests.test_static_data_adapters",
-        "backend.tests.test_host_identity_resolver"
+        "backend.tests.test_host_identity_resolver",
+        "backend.tests.test_edr_adapter_contract"
       ],
       "status": "PASS"
     },
@@ -492,13 +508,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-A-2026-04-09-004",
+      "Snapshot ID: S4-B-2026-04-09-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T17:36:23.031253+08:00",
+    "last_verified_at": "2026-04-09T17:58:47.960568+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-A-2026-04-09-004`
-- Stage: `Sprint 4 static data cache and contract tests`
+- Snapshot ID: `S4-B-2026-04-09-001`
+- Stage: `Sprint 4 EDR adapter contract freeze`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -45,6 +45,7 @@
 - S4-A-2 now routes T1 / T4 / T5 bootstrap static data through `backend/app/tools/static_data_adapters.py`, replaces the four direct JSON bootstrap reads in `backend/app/agents/graph.py`, and freezes the adapter baseline under `docs/S4A2_STATIC_DATA_ADAPTER_BASELINE.md`.
 - S4-A-3 now adds a canonical host identity resolver under `backend/app/tools/host_identity.py`, routes SIEM asset queries plus T3 / blast target selection through the same resolver, and freezes the behavior under `docs/S4A3_HOST_IDENTITY_RESOLVER.md`.
 - S4-A-4 now adds TTL cache semantics for static-data adapters, freezes governed refresh behavior under `docs/S4A4_STATIC_DATA_CACHE_AND_TESTS.md`, and extends regression coverage for cache expiry, missing sources, and static-data readiness classification.
+- S4-B-1 now freezes the production-facing EDR process-event contract under `docs/S4B1_EDR_ADAPTER_CONTRACT.md`, `backend/app/tools/edr_adapter.py`, and `backend/tests/test_edr_adapter_contract.py` without changing frozen T3 input or output semantics.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -85,6 +86,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4A2_STATIC_DATA_ADAPTER_BASELINE.md`
    - `docs/S4A3_HOST_IDENTITY_RESOLVER.md`
    - `docs/S4A4_STATIC_DATA_CACHE_AND_TESTS.md`
+   - `docs/S4B1_EDR_ADAPTER_CONTRACT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -93,7 +95,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 ## Baseline Test Commands
 
 ### Canonical Authoritative Gate
-- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver`
+- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver backend.tests.test_edr_adapter_contract`
 - `py -3 -m unittest -q backend.tests.test_vendor_replay`
 
 ### Legacy / Compat Shortcuts
