@@ -266,7 +266,10 @@ class SecuPilotRuntimeService:
             if isinstance(self._context.siem, ProductionSIEMAdapter):
                 adapter_configured = self._context.siem.is_configured()
         if self._context.pipeline:
-            process_hosts = len(self._context.pipeline.orchestrator._process_events)
+            process_hosts = self._context.pipeline.orchestrator.edr.get_runtime_stats().get(
+                "process_event_hosts",
+                0,
+            )
 
         runtime_state = self._runtime_state()
         static_data_path = str(self.settings.get_mock_data_dir())

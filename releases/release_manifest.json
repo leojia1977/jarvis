@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-B-2026-04-09-001",
+    "id": "S4-B-2026-04-09-002",
     "sprint": "Sprint 4",
-    "stage": "edr-adapter-contract-freeze",
+    "stage": "production-edr-ingestion-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T17:58:47.124869+08:00"
+    "updated_at": "2026-04-09T18:28:00.602959+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-B-2026-04-09-001.zip",
-    "current_release_sha256": "7e3dbb7475be5808146b3333aba5eb7221ab32d9a460f83cba3d4b63f345264a"
+    "current_release_zip": "releases\\secupilot-S4-B-2026-04-09-002.zip",
+    "current_release_sha256": "004a741bab9251f50c2bd59a0b928d849e1b44b15e22f6bc9fb5d1d2299ff104"
   },
   "key_files": [
     {
@@ -90,7 +90,7 @@
     {
       "path": "backend\\app\\agents\\graph.py",
       "role": "canonical-orchestrator",
-      "sha256": "3b54489af0275d508a273bf2216c9016ed17c64e919919061516e567cf74b60f"
+      "sha256": "b7829d8250656a5cdee91b89319d1d553c77c94c7892378badf5cb0ed2361906"
     },
     {
       "path": "backend\\app\\agents\\jarvis_hunt_engine.py",
@@ -140,7 +140,7 @@
     {
       "path": "backend\\app\\tools\\edr_adapter.py",
       "role": "edr-adapter-contract",
-      "sha256": "06e9802ab9eb3189a7cfaebadeddbb997e463c81c44b124beb364618213ff912"
+      "sha256": "267b05fd13427fd57419418e37f07060239268dbee99191471e59b5eedc216bc"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -160,7 +160,7 @@
     {
       "path": "backend\\tests\\test_secupilot_drafts.py",
       "role": "canonical-regression-tests",
-      "sha256": "d158a1c349798d61ef094696d42f6a0b81d12fad0af46c9e7b66c927842969f0"
+      "sha256": "781df6eb89b00453aa4bb550ebb7d055062917a21ba92d9670f9a8dd1aee7dbf"
     },
     {
       "path": "backend\\tests\\test_case_view.py",
@@ -195,7 +195,7 @@
     {
       "path": "backend\\tests\\test_edr_adapter_contract.py",
       "role": "canonical-edr-adapter-contract-tests",
-      "sha256": "94a0c2f3c2448743ba2d79679415a35f510eb548ee2a11062cf0c35da6a7fdc8"
+      "sha256": "4a3769f9143d8828c342d3ab562d27d74966f36f613cec2f1b42efceb41f018f"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -265,7 +265,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "0803447bf07d3793a5c073c55f8840d6f726f8e174ae6a615514a1f9c89d291f"
+      "sha256": "6d8ed5f7e85486beee4e2838a9cdf39f6a240cd8c8332a7cca7c575a43afe21b"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -333,6 +333,11 @@
       "sha256": "c47a947c4dfa0b73c1c0e41edbe71c6fbb5b688bfd15459a1df79f3ad9df6708"
     },
     {
+      "path": "docs\\S4B2_PRODUCTION_EDR_INGESTION_BASELINE.md",
+      "role": "s4b2-production-edr-ingestion-baseline",
+      "sha256": "cb160770450f903406fc21fdaafb0c41572828b0f82548ec6c482f619b27eb15"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -340,7 +345,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "4fa2cdf6b02b4605d35cf3c653720ecb224552a854bf18e92fd3c0520825dc22"
+      "sha256": "b95d8d9d860a11f83e02f486d08efd07e3ee7d58f0b7302114a5af7aadae683d"
     },
     {
       "path": "scripts\\package_release.py",
@@ -435,7 +440,7 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "1e19875033bfbc84c9340464ddb1606955495843a4a715b2e63031610fcc1c71"
+      "sha256": "a2133b6148424a48e786e8d3046866db68f49b408075f01fbd2906a38d46217d"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
@@ -508,13 +513,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-B-2026-04-09-001",
+      "Snapshot ID: S4-B-2026-04-09-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T17:58:47.960568+08:00",
+    "last_verified_at": "2026-04-09T18:28:00.948167+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

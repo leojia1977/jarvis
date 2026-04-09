@@ -1,5 +1,7 @@
+import asyncio
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
 from _project_bootstrap import bootstrap
 
@@ -9,11 +11,30 @@ from backend.app.config import Settings
 from app.tools.edr_adapter import (
     CanonicalProcessEvent,
     EDRSourceMetadata,
+    LocalFileEDRAdapter,
     ProcessEventBatch,
+    ProductionEDRAdapter,
     process_event_batch_to_runtime_payload,
 )
 from app.tools.siem_adapter import TimeRangeSpec
 from app.tools.static_data_sources import HostIdentityRecord
+
+
+class _FakeEDRTransport:
+    def __init__(self, response):
+        self.response = response
+        self.calls = []
+
+    async def post_json(self, endpoint, payload, *, headers, timeout_seconds):
+        self.calls.append(
+            {
+                "endpoint": endpoint,
+                "payload": payload,
+                "headers": headers,
+                "timeout_seconds": timeout_seconds,
+            }
+        )
+        return self.response
 
 
 class EDRAdapterContractTests(unittest.TestCase):
@@ -109,3 +130,103 @@ class EDRAdapterContractTests(unittest.TestCase):
         self.assertEqual(runtime_payload[1]["protocol"], "TCP")
         self.assertEqual(runtime_payload[2]["query_domain"], "update.legit-looking.xyz")
         self.assertEqual(runtime_payload[2]["host_id"], "WKST-047")
+
+    def test_local_file_adapter_loads_mock_process_events(self):
+        spec = TimeRangeSpec.from_value(
+            "24h",
+            "Asia/Shanghai",
+            now=datetime(2026, 4, 9, 12, 0, tzinfo=timezone.utc),
+        )
+        host_identity = HostIdentityRecord(
+            canonical_asset_id="WKST-047",
+            hostname="wkst-047",
+            fqdn="wkst-047.corp.local",
+            ip_addresses=["10.1.5.22"],
+            aliases=["finance-terminal"],
+            source_refs=["asset_inventory:WKST-047"],
+        )
+        adapter = LocalFileEDRAdapter(
+            Path("C:/Users/Administrator/Documents/New project/mock_data/process_events")
+        )
+
+        result = asyncio.run(adapter.query_process_events(host_identity, spec))
+
+        self.assertEqual(result.status, "ok")
+        self.assertGreater(len(result.data.events), 0)
+        self.assertEqual(result.data.events[0].host_id, "WKST-047")
+        self.assertEqual(adapter.get_runtime_stats()["process_event_hosts"], 4)
+
+    def test_production_adapter_returns_unavailable_when_not_configured(self):
+        spec = TimeRangeSpec.from_value(
+            "24h",
+            "Asia/Shanghai",
+            now=datetime(2026, 4, 9, 12, 0, tzinfo=timezone.utc),
+        )
+        host_identity = HostIdentityRecord(
+            canonical_asset_id="WKST-047",
+            hostname="wkst-047",
+            fqdn="wkst-047.corp.local",
+            ip_addresses=["10.1.5.22"],
+            aliases=[],
+            source_refs=["asset_inventory:WKST-047"],
+        )
+        adapter = ProductionEDRAdapter(Settings())
+
+        result = asyncio.run(adapter.query_process_events(host_identity, spec))
+
+        self.assertEqual(result.status, "unavailable")
+        self.assertEqual(result.gap_reason, "production_edr_not_configured")
+
+    def test_production_adapter_normalizes_process_events(self):
+        spec = TimeRangeSpec.from_value(
+            "24h",
+            "Asia/Shanghai",
+            now=datetime(2026, 4, 9, 12, 0, tzinfo=timezone.utc),
+        )
+        host_identity = HostIdentityRecord(
+            canonical_asset_id="WKST-047",
+            hostname="wkst-047",
+            fqdn="wkst-047.corp.local",
+            ip_addresses=["10.1.5.22"],
+            aliases=["finance-terminal"],
+            source_refs=["asset_inventory:WKST-047"],
+        )
+        transport = _FakeEDRTransport(
+            {
+                "status": "partial",
+                "events": [
+                    {
+                        "host": {"id": "WKST-047"},
+                        "event": {
+                            "type": "process_create",
+                            "created": "2026-04-09T11:00:00Z",
+                        },
+                        "process": {
+                            "pid": 3100,
+                            "parent": {"pid": 4},
+                            "name": "rundll32.exe",
+                            "executable": "C:\\Windows\\System32\\rundll32.exe",
+                            "command_line": "rundll32.exe advapi32.dll,ProcessIdleTasks",
+                        },
+                        "user": {"name": "SYSTEM"},
+                    }
+                ],
+                "metadata": {"source": "fake-edr"},
+            }
+        )
+        adapter = ProductionEDRAdapter(
+            Settings(
+                edr_base_url="https://edr.example.local",
+                edr_auth_token="token",
+                edr_vendor="generic_http",
+            ),
+            transport=transport,
+        )
+
+        result = asyncio.run(adapter.query_process_events(host_identity, spec))
+
+        self.assertEqual(result.status, "partial")
+        self.assertEqual(result.data.events[0].event_type, "process_create")
+        self.assertEqual(result.data.events[0].process_name, "rundll32.exe")
+        self.assertEqual(result.data.events[0].user, "SYSTEM")
+        self.assertTrue(transport.calls[0]["endpoint"].endswith("/api/v1/process-events/query"))

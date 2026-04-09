@@ -78,6 +78,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S4A3_HOST_IDENTITY_RESOLVER.md",
         "docs/S4A4_STATIC_DATA_CACHE_AND_TESTS.md",
         "docs/S4B1_EDR_ADAPTER_CONTRACT.md",
+        "docs/S4B2_PRODUCTION_EDR_INGESTION_BASELINE.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
         ".gitignore",

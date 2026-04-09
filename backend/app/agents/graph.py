@@ -12,10 +12,11 @@ SecuPilot 细佬（Sai Lou）调查编排器 V3
   老贾下达调查指令 → 细佬制定计划 → 并行调用 T1/T4/T5 → 汇总 → 返回案卷
 """
 
-import time
 import asyncio
 import copy
 import ipaddress
+import json
+import time
 from typing import TypedDict, Optional
 
 try:
@@ -23,12 +24,43 @@ try:
     logger = structlog.get_logger()
 except ImportError:
     import logging
-    logger = logging.getLogger("secupilot.graph")
+
+    class _CompatLogger:
+        def __init__(self, name: str):
+            self._logger = logging.getLogger(name)
+
+        def _log(self, level: int, message: str, **fields) -> None:
+            if fields:
+                self._logger.log(
+                    level,
+                    "%s | %s",
+                    message,
+                    json.dumps(fields, ensure_ascii=False, sort_keys=True),
+                )
+                return
+            self._logger.log(level, message)
+
+        def info(self, message: str, **fields) -> None:
+            self._log(logging.INFO, message, **fields)
+
+        def warning(self, message: str, **fields) -> None:
+            self._log(logging.WARNING, message, **fields)
+
+        def error(self, message: str, **fields) -> None:
+            self._log(logging.ERROR, message, **fields)
+
+    logger = _CompatLogger("secupilot.graph")
 
 from app.tools.triage_engine import RealTriageEngine
 from app.tools.threat_intel import RealThreatIntelEngine
 from app.tools.blast_radius import RealBlastRadiusEngine
 from app.tools.process_tree_t3 import ProcessTreeCompiler
+from app.tools.edr_adapter import (
+    EDRAdapterProtocol,
+    InMemoryEDRAdapter,
+    build_edr_adapter,
+    process_event_batch_to_runtime_payload,
+)
 from app.tools.siem_adapter import (
     AdapterResult,
     SIEMAdapterProtocol,
@@ -39,7 +71,7 @@ from app.tools.static_data_adapters import (
     build_static_data_source_adapters,
     load_static_data_runtime_payloads_sync,
 )
-from app.tools.static_data_sources import HostIdentityResolverProtocol
+from app.tools.static_data_sources import HostIdentityRecord, HostIdentityResolverProtocol
 from app.tools.host_identity import build_asset_inventory_host_identity_resolver
 from app.agents.jarvis_hunt_engine import JarvisHuntEngine
 from app.agents.case_view import build_case_view
@@ -181,6 +213,7 @@ class SaiLouOrchestrator:
                  blast: RealBlastRadiusEngine,
                  t3: ProcessTreeCompiler = None,
                  jarvis: JarvisHuntEngine = None,
+                 edr: Optional[EDRAdapterProtocol] = None,
                  process_events_cache: dict = None,
                  host_identity_resolver: HostIdentityResolverProtocol = None):
         self.siem = siem
@@ -189,7 +222,8 @@ class SaiLouOrchestrator:
         self.blast = blast
         self.t3 = t3 or ProcessTreeCompiler(top_k=3)
         self.jarvis = jarvis or JarvisHuntEngine()
-        self._process_events = process_events_cache or {}  # host_id → [events]
+        self._process_events = copy.deepcopy(process_events_cache or {})  # host_id → [events]
+        self.edr = edr or InMemoryEDRAdapter(self._process_events)
         self.host_identity_resolver = host_identity_resolver
 
     async def investigate(
@@ -308,6 +342,7 @@ class SaiLouOrchestrator:
                 tasks["process_tree"] = self._run_t3(
                     t3_selection["host_ids"],
                     identity_gaps=t3_selection["identity_gaps"],
+                    time_range=time_spec,
                 )
 
             # asyncio.gather 并行执行
@@ -560,10 +595,16 @@ class SaiLouOrchestrator:
             "execution_ms": round(elapsed, 2),
         }
 
-    async def _run_t3(self, host_ids: list[str], identity_gaps: Optional[list[dict]] = None) -> dict:
+    async def _run_t3(
+        self,
+        host_ids: list[str],
+        identity_gaps: Optional[list[dict]] = None,
+        time_range: Optional[TimeRangeSpec] = None,
+    ) -> dict:
         """执行 T3 进程树证据编译器（可分析多台主机）"""
         t = time.monotonic()
         identity_gaps = copy.deepcopy(identity_gaps or [])
+        time_spec = time_range or TimeRangeSpec.from_value("24h", settings.business_timezone)
 
         if not host_ids:
             return {
@@ -589,18 +630,65 @@ class SaiLouOrchestrator:
         missing_hosts = []
         worst_status = "COMPLETE"
         status_priority = {"FAILED": 4, "DEGRADED": 3, "PARTIAL": 2, "COMPLETE": 1}
+        adapter_status_map = {"partial": "PARTIAL", "timeout": "DEGRADED", "unavailable": "DEGRADED"}
 
         for host_id in host_ids:
-            events = self._process_events.get(host_id, [])
-            if not events:
-                # 尝试大小写变体
-                events = self._process_events.get(host_id.upper(), [])
-            if not events:
+            identity_result = await self._resolve_host_identity(asset_id=host_id)
+            if identity_result.data is None and self.host_identity_resolver:
+                identity_result = await self._resolve_host_identity(identifier=host_id)
+
+            host_identity = identity_result.data
+            if host_identity is None and not self.host_identity_resolver:
+                host_identity = HostIdentityRecord(
+                    canonical_asset_id=host_id,
+                    hostname=host_id.lower(),
+                    source_refs=["implicit_host_id"],
+                )
+
+            if host_identity is None:
+                self._append_identity_gap(
+                    all_gaps,
+                    self._identity_gap(
+                        query_kind="asset_id",
+                        query_value=host_id,
+                        result=identity_result,
+                        explicit=True,
+                    ),
+                )
                 all_gaps.append({
                     "gap_id": f"{host_id}:gap-no-data",
                     "type": "no_process_events",
                     "impact": f"No process event data available for {host_id}",
                 })
+                missing_hosts.append(host_id)
+                continue
+
+            edr_result = await self.edr.query_process_events(host_identity, time_spec)
+            batch = edr_result.data
+            events = process_event_batch_to_runtime_payload(batch) if batch is not None else []
+            if edr_result.status != "ok":
+                adapter_reason = edr_result.gap_reason or f"edr_adapter_{edr_result.status}"
+                all_gaps.append(
+                    {
+                        "gap_id": f"{host_id}:gap-edr-{edr_result.status}",
+                        "type": "edr_adapter",
+                        "impact": f"EDR adapter returned {edr_result.status} for {host_id}",
+                        "reason": adapter_reason,
+                    }
+                )
+                mapped_status = adapter_status_map.get(edr_result.status)
+                if mapped_status and status_priority.get(mapped_status, 0) > status_priority.get(worst_status, 0):
+                    worst_status = mapped_status
+
+            if not events:
+                no_data_gap = {
+                    "gap_id": f"{host_id}:gap-no-data",
+                    "type": "no_process_events",
+                    "impact": f"No process event data available for {host_id}",
+                }
+                if edr_result.gap_reason:
+                    no_data_gap["reason"] = edr_result.gap_reason
+                all_gaps.append(no_data_gap)
                 missing_hosts.append(host_id)
                 continue
 
@@ -770,9 +858,11 @@ class SaiLouOrchestrator:
                 for host_like in host_list:
                     await _maybe_add_identity(query_kind="identifier", query_value=host_like)
 
-        # 过滤：只保留有进程事件数据的主机
-        available = {str(host).upper() for host in self._process_events.keys()}
-        valid = [host for host in hosts if host.upper() in available]
+        if self._process_events:
+            available = {str(host).upper() for host in self._process_events.keys()}
+            valid = [host for host in hosts if host.upper() in available]
+        else:
+            valid = sorted(hosts)
 
         return {
             "host_ids": valid[:5],
@@ -1191,13 +1281,12 @@ class InvestigationPipeline:
         siem: SIEMAdapterProtocol,
         runtime_settings=None,
         static_data_adapters: Optional[StaticDataSourceAdapters] = None,
+        edr_adapter: Optional[EDRAdapterProtocol] = None,
     ):
-        import json
-
         runtime_settings = runtime_settings or settings
-        static_root = runtime_settings.get_static_data_dir()
         adapters = static_data_adapters or build_static_data_source_adapters(runtime_settings)
         static_payloads = load_static_data_runtime_payloads_sync(adapters)
+        edr = edr_adapter or build_edr_adapter(runtime_settings)
 
         asset_data = static_payloads.asset_inventory_payload
         baseline_data = static_payloads.baseline_payload
@@ -1210,19 +1299,6 @@ class InvestigationPipeline:
         # 确保拓扑包含完整资产数据
         if isinstance(topology_data.get("nodes", {}).get("assets"), int):
             topology_data["nodes"]["assets"] = asset_data.get("assets", [])
-
-        # 加载进程事件数据（F-02 路径对齐）
-        process_events_cache = {}
-        pe_dir = static_root / "process_events"
-        if pe_dir.exists():
-            for pe_file in pe_dir.glob("process_events_*.json"):
-                with open(pe_file) as f:
-                    pe_data = json.load(f)
-                host_id = pe_data.get("host_id", "")
-                if host_id:
-                    process_events_cache[host_id] = pe_data.get("events", [])
-            logger.info("Process events loaded", hosts=list(process_events_cache.keys()),
-                        total_events=sum(len(v) for v in process_events_cache.values()))
 
         # 初始化真实引擎
         triage = RealTriageEngine(
@@ -1242,15 +1318,17 @@ class InvestigationPipeline:
             blast=blast,
             t3=t3,
             jarvis=jarvis,
-            process_events_cache=process_events_cache,
+            edr=edr,
             host_identity_resolver=host_identity_resolver,
         )
+
+        edr_stats = edr.get_runtime_stats()
 
         logger.info(
             "InvestigationPipeline V3.2 initialized",
             ioc_stats=intel.get_stats(),
             topology_nodes=blast.G.number_of_nodes(),
-            process_event_hosts=len(process_events_cache),
+            process_event_hosts=edr_stats.get("process_event_hosts", 0),
             host_identity_records=static_payloads.asset_inventory_snapshot.metadata.record_count,
             static_data_modes={
                 "asset_inventory": static_payloads.asset_inventory_snapshot.metadata.source_mode,
@@ -1258,6 +1336,7 @@ class InvestigationPipeline:
                 "intel_seed": static_payloads.threat_intel_seed_snapshot.metadata.source_mode,
                 "topology": static_payloads.topology_snapshot.metadata.source_mode,
             },
+            edr_runtime_stats=edr_stats,
         )
 
     async def investigate(self, intent: str, user_input: str,

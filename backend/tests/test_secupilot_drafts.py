@@ -10,10 +10,16 @@ import scripts.generate_mock_data as generate_mock_data  # noqa: E402
 from app.tools import threat_intel as threat_intel  # noqa: E402
 from app.agents import graph as graph_orchestrator  # noqa: E402
 from app.tools.host_identity import build_asset_inventory_host_identity_resolver  # noqa: E402
+from app.tools.edr_adapter import (  # noqa: E402
+    CanonicalProcessEvent,
+    EDRSourceMetadata,
+    ProcessEventBatch,
+)
 from app.tools.siem_adapter import AdapterResult, TimeRangeSpec  # noqa: E402
 from app.tools.static_data_sources import (  # noqa: E402
     AssetInventorySnapshot,
     AssetRecord,
+    HostIdentityRecord,
     StaticRefreshPolicy,
     StaticSourceMetadata,
 )
@@ -401,7 +407,7 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
                 "alternatives": [],
             }
 
-        async def fake_run_t3(host_ids, identity_gaps=None):
+        async def fake_run_t3(host_ids, identity_gaps=None, time_range=None):
             return {
                 "status": "complete",
                 "hosts_analyzed": ["WKST-047"],
@@ -435,6 +441,68 @@ class OrchestratorTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("action_state", case["case_view"]["recommended_action"])
         self.assertIn("missing_telemetry_summary", case["case_view"]["analysis_limits"])
         self.assertIn("unavailable_tools_summary", case["case_view"]["analysis_limits"])
+
+    async def test_run_t3_uses_injected_edr_adapter(self):
+        class FakeEDRAdapter:
+            async def query_process_events(self, host_identity, time_range):
+                return AdapterResult.partial(
+                    ProcessEventBatch(
+                        metadata=EDRSourceMetadata(
+                            source_name="fake-edr",
+                            source_mode="replay",
+                            vendor="fake",
+                            ownership="test",
+                            record_count=1,
+                        ),
+                        host_identity=HostIdentityRecord(
+                            canonical_asset_id=host_identity.canonical_asset_id,
+                            hostname=host_identity.hostname,
+                            fqdn=host_identity.fqdn,
+                            ip_addresses=list(host_identity.ip_addresses),
+                            aliases=list(host_identity.aliases),
+                            source_refs=list(host_identity.source_refs),
+                        ),
+                        time_range=time_range,
+                        events=[
+                            CanonicalProcessEvent(
+                                event_type="process_create",
+                                host_id=host_identity.canonical_asset_id,
+                                timestamp="2026-04-03T01:00:00Z",
+                                pid=4010,
+                                ppid=3900,
+                                process_name="rubeus.exe",
+                                exe_path="C:\\Users\\Public\\rubeus.exe",
+                                command_line="rubeus.exe kerberoast /outfile:hashes.txt",
+                                user="SYSTEM",
+                            )
+                        ],
+                    ),
+                    gap_reason="edr_partial_fixture",
+                )
+
+            def get_runtime_stats(self):
+                return {"process_event_hosts": 1, "process_event_total": 1}
+
+        orchestrator = graph_orchestrator.SaiLouOrchestrator(
+            siem=self.siem,
+            triage=types.SimpleNamespace(),
+            intel=types.SimpleNamespace(),
+            blast=DummyBlast(),
+            edr=FakeEDRAdapter(),
+            process_events_cache={},
+            host_identity_resolver=self.identity_resolver,
+        )
+
+        result = await orchestrator._run_t3(
+            ["WKST-047"],
+            time_range=TimeRangeSpec.from_value("24h", "Asia/Shanghai"),
+        )
+
+        self.assertEqual(result["status"], "partial")
+        self.assertEqual(result["hosts_analyzed"], ["WKST-047"])
+        self.assertEqual(result["missing_hosts"], [])
+        self.assertIn("process_tree", result["analysis_scope"])
+        self.assertTrue(any(gap.get("reason") == "edr_partial_fixture" for gap in result["gaps"]))
 
     async def test_siem_timeout_maps_to_degraded_not_error(self):
         timed_out = graph_orchestrator.SaiLouOrchestrator(
