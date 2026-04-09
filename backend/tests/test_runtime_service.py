@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from _project_bootstrap import bootstrap
 
@@ -71,12 +72,16 @@ class RuntimeServiceTests(unittest.TestCase):
         service = SecuPilotRuntimeService(self.mock_settings)
         payload = service.health()
         self.assertEqual(payload["status"], "healthy")
+        self.assertEqual(payload["state_class"], "READY")
+        self.assertEqual(payload["failure_category"], "none")
         self.assertEqual(payload["service"], "secupilot-runtime")
 
     def test_readiness_in_mock_mode(self):
         service = SecuPilotRuntimeService(self.mock_settings)
         payload = service.readiness()
         self.assertTrue(payload["ready"])
+        self.assertEqual(payload["state_class"], "READY")
+        self.assertEqual(payload["failure_category"], "none")
         self.assertGreaterEqual(payload["scenarios_loaded"], 1)
         self.assertGreaterEqual(payload["process_event_hosts"], 1)
         self.assertEqual(payload["adapter_type"], "MockSIEMAdapter")
@@ -100,12 +105,17 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertEqual(payload["error"], "user_input_required")
 
     def test_production_mode_not_ready_yet(self):
-        service = SecuPilotRuntimeService(
-            Settings(runtime_mode="production", mock_data_path="./mock_data")
-        )
+        with self.assertLogs("secupilot.runtime", level="WARNING") as captured:
+            service = SecuPilotRuntimeService(
+                Settings(runtime_mode="production", mock_data_path="./mock_data")
+            )
         readiness = service.readiness()
         self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["state_class"], "MISCONFIGURED")
+        self.assertEqual(readiness["failure_category"], "adapter_config")
+        self.assertIn("siem_base_url", readiness["operator_message"])
         self.assertIn("production_adapter_not_configured", readiness["reasons"])
+        self.assertTrue(any("runtime.context.not_ready" in line for line in captured.output))
 
     def test_production_mode_with_adapter_config_bootstraps(self):
         service = SecuPilotRuntimeService(
@@ -119,8 +129,10 @@ class RuntimeServiceTests(unittest.TestCase):
         readiness = service.readiness()
         self.assertTrue(readiness["ready"])
         self.assertEqual(readiness["mode"], "production")
+        self.assertEqual(readiness["state_class"], "READY")
         self.assertEqual(readiness["adapter_type"], "ProductionSIEMAdapter")
         self.assertTrue(readiness["adapter_configured"])
+        self.assertTrue(readiness["static_data_present"])
 
     def test_production_investigate_smoke_path_returns_case(self):
         transport = FakeProductionTransport()
@@ -156,6 +168,41 @@ class RuntimeServiceTests(unittest.TestCase):
         )
         self.assertTrue(any(call["endpoint"].endswith("/alerts/intent") for call in transport.calls))
         self.assertTrue(any(call["endpoint"].endswith("/metadata/scenario") for call in transport.calls))
+
+    def test_missing_static_data_is_classified_as_misconfigured(self):
+        service = SecuPilotRuntimeService(
+            Settings(runtime_mode="mock", mock_data_path="./does-not-exist")
+        )
+        readiness = service.readiness()
+        self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["state_class"], "MISCONFIGURED")
+        self.assertEqual(readiness["failure_category"], "static_data")
+        self.assertFalse(readiness["static_data_present"])
+
+    def test_bootstrap_failure_is_classified_and_logged(self):
+        with patch("backend.app.runtime_service.InvestigationPipeline", side_effect=RuntimeError("boom")):
+            with self.assertLogs("secupilot.runtime", level="ERROR") as captured:
+                service = SecuPilotRuntimeService(self.mock_settings)
+        readiness = service.readiness()
+        self.assertFalse(readiness["ready"])
+        self.assertEqual(readiness["state_class"], "BOOTSTRAP_FAILED")
+        self.assertEqual(readiness["failure_category"], "bootstrap")
+        self.assertIn("bootstrap_failed", ",".join(readiness["reasons"]))
+        self.assertTrue(any("runtime.context.bootstrap_failed" in line for line in captured.output))
+
+    def test_not_ready_investigate_returns_runtime_status_contract(self):
+        service = SecuPilotRuntimeService(
+            Settings(runtime_mode="production", mock_data_path="./mock_data")
+        )
+        status_code, payload = service.investigate_sync({
+            "user_input": "请检查最近是否有横向移动",
+            "intent": "threat_hunt",
+        })
+        self.assertEqual(status_code, 503)
+        self.assertEqual(payload["error"], "runtime_not_ready")
+        self.assertEqual(payload["runtime_status"]["state_class"], "MISCONFIGURED")
+        self.assertEqual(payload["runtime_status"]["failure_category"], "adapter_config")
+        self.assertEqual(payload["readiness"]["state_class"], "MISCONFIGURED")
 
 
 if __name__ == "__main__":
