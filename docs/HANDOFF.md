@@ -59,6 +59,8 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`
    - `docs/S3C2_VENDOR_PROFILE_HARDENING.md`
    - `docs/S3C3_VENDOR_REPLAY_SPEC.md`
+   - `docs/S3D_ENGINEERING_HARDENING_PRD.md`
+   - `docs/S3D_JIRA_BACKLOG.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
