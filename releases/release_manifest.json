@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-C-2026-04-09-002",
+    "id": "S3-C-2026-04-09-003",
     "sprint": "Sprint 3",
-    "stage": "production-siem-vendor-mapping-smoke",
+    "stage": "production-siem-vendor-mapping-smoke-hardening",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T10:07:28.837921+08:00"
+    "updated_at": "2026-04-09T10:20:35.713757+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-002.zip",
-    "current_release_sha256": "eb2b2ba8c9486b6d5b5cb20489348cbc9b5274545a1932e30662621e46fb7cb5"
+    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-003.zip",
+    "current_release_sha256": "9d5794bf10cfcbf3a11d0bad4e897d2a8ca4b28e171b13b361f3130122446dd6"
   },
   "key_files": [
     {
@@ -120,7 +120,7 @@
     {
       "path": "backend\\app\\tools\\siem_adapter.py",
       "role": "siem-adapter",
-      "sha256": "1d8c411b3c3d2b9dca43152fff9ae8d2c978aca1aefb0e2d88307ea13a95865c"
+      "sha256": "c9b2380890c26a3787708d8f64cf09fe88025a8a05180fdd5ef4ad18afd36a20"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -150,7 +150,7 @@
     {
       "path": "backend\\tests\\test_siem_adapter_contract.py",
       "role": "canonical-siem-adapter-contract-tests",
-      "sha256": "1de634ff457d96de1cd1519c1c5bb857ffe94b7e26e21dc4f3acc5322d251fe3"
+      "sha256": "99b4fe19a4208346ea22c88183b8c2de0759a6a3fbc4b6b585affd17117961d9"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -180,7 +180,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "4d61ca406d85045b612edb771622fbe8fe635941fc03d163136b880fbda3ea4f"
+      "sha256": "351010ed5548903bc9a4e0a9d0643e11ae80aed5b99fcfe4ee6ef6b46a74f8c3"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -300,12 +300,12 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "0091dab35c1c33a250d8901b4e2ea7a9ab9ed158f12afc880e1192b83d603e84"
+      "sha256": "3050a8db4ce912cb99d54a4dd3675b797e726d036155e02e79947adef5ee42c7"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "0b23e7066b2b35b39d644661c93734afa4647bbc9e816b3cbdb0a9fa10e93686"
+      "sha256": "0af077221a70218b2da65b672638920adf93edbb4e46eec3120c852b21f48279"
     },
     {
       "path": "run_runtime.py",
@@ -368,13 +368,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-C-2026-04-09-002",
+      "Snapshot ID: S3-C-2026-04-09-003",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T10:07:29.541109+08:00",
+    "last_verified_at": "2026-04-09T10:20:36.028357+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

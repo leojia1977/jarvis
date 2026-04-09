@@ -118,9 +118,14 @@ class SecuPilotRuntimeService:
     def readiness(self) -> dict[str, Any]:
         scenarios = 0
         process_hosts = 0
+        adapter_type = None
+        adapter_configured = None
         if self._context.siem:
             stats = self._context.siem.get_runtime_stats()
             scenarios = stats.get("scenarios_loaded", 0)
+            adapter_type = self._context.siem.__class__.__name__
+            if isinstance(self._context.siem, ProductionSIEMAdapter):
+                adapter_configured = self._context.siem.is_configured()
         if self._context.pipeline:
             process_hosts = len(self._context.pipeline.orchestrator._process_events)
 
@@ -128,6 +133,8 @@ class SecuPilotRuntimeService:
             "ready": self._context.ready,
             "service": self.settings.service_name,
             "mode": self._context.mode,
+            "adapter_type": adapter_type,
+            "adapter_configured": adapter_configured,
             "mock_data_path": str(self.settings.get_mock_data_dir()),
             "scenarios_loaded": scenarios,
             "process_event_hosts": process_hosts,

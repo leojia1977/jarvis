@@ -723,6 +723,11 @@ class ProductionSIEMAdapter:
             )
         except TimeoutError:
             return AdapterResult.timeout(default_data, gap_reason="production_transport_timeout")
+        except (json.JSONDecodeError, ValueError) as exc:
+            return AdapterResult.unavailable(
+                default_data,
+                gap_reason=f"production_transport_bad_response:{exc}",
+            )
         except urllib.error.URLError as exc:
             return AdapterResult.unavailable(default_data, gap_reason=f"production_transport_unavailable:{exc.reason}")
 

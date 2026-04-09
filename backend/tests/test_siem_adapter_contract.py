@@ -1,4 +1,5 @@
 import unittest
+import json
 from datetime import datetime, timezone
 
 from _project_bootstrap import bootstrap
@@ -236,6 +237,19 @@ class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result.status, "unavailable")
         self.assertEqual(result.gap_reason, "production_adapter_not_configured")
         self.assertEqual(transport.calls, [])
+
+    async def test_bad_json_response_maps_to_unavailable(self):
+        transport = FakeProductionTransport(error=json.JSONDecodeError("Expecting value", "<html>", 0))
+        adapter = ProductionSIEMAdapter(self.settings, transport=transport)
+        spec = TimeRangeSpec(
+            start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
+            end_utc=datetime(2026, 4, 8, 12, 0, 0, tzinfo=timezone.utc),
+            tz_label="Asia/Shanghai",
+        )
+
+        result = await adapter.query_recent_summary(spec)
+        self.assertEqual(result.status, "unavailable")
+        self.assertIn("production_transport_bad_response", result.gap_reason)
 
 
 if __name__ == "__main__":

@@ -78,6 +78,7 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertTrue(payload["ready"])
         self.assertGreaterEqual(payload["scenarios_loaded"], 1)
         self.assertGreaterEqual(payload["process_event_hosts"], 1)
+        self.assertEqual(payload["adapter_type"], "MockSIEMAdapter")
 
     def test_investigate_returns_case(self):
         service = SecuPilotRuntimeService(self.mock_settings)
@@ -117,6 +118,8 @@ class RuntimeServiceTests(unittest.TestCase):
         readiness = service.readiness()
         self.assertTrue(readiness["ready"])
         self.assertEqual(readiness["mode"], "production")
+        self.assertEqual(readiness["adapter_type"], "ProductionSIEMAdapter")
+        self.assertTrue(readiness["adapter_configured"])
 
     def test_production_investigate_smoke_path_returns_case(self):
         transport = FakeProductionTransport()

@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-C-2026-04-09-002`
-- Stage: `Sprint 3 production SIEM vendor mapping + smoke path`
+- Snapshot ID: `S3-C-2026-04-09-003`
+- Stage: `Sprint 3 production SIEM vendor mapping + smoke hardening`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -27,6 +27,7 @@
 - S3-C follow-up now adds dedicated SIEM timeout handling before tool execution, plus explicit `partial / unavailable / gather timeout / scenario metadata timeout` regression coverage.
 - S3-C-1 now adds the first production-facing SIEM adapter path, runtime configuration consumption, and transport-normalization tests under `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`.
 - S3-C-1 follow-up now adds thin vendor field mapping profiles (`splunk_like` / `elastic_like`) and a governed `runtime_mode=production -> investigate_sync -> threat_case` smoke path.
+- S3-C-1 hardening now maps non-JSON transport responses to `production_transport_bad_response:*` and exposes `adapter_type / adapter_configured` in runtime readiness.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
