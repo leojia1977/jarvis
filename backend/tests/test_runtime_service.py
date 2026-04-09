@@ -54,7 +54,20 @@ class RuntimeServiceTests(unittest.TestCase):
         )
         readiness = service.readiness()
         self.assertFalse(readiness["ready"])
-        self.assertIn("production_adapter_not_implemented", readiness["reasons"])
+        self.assertIn("production_adapter_not_configured", readiness["reasons"])
+
+    def test_production_mode_with_adapter_config_bootstraps(self):
+        service = SecuPilotRuntimeService(
+            Settings(
+                runtime_mode="production",
+                mock_data_path="./mock_data",
+                siem_base_url="https://siem.example.local",
+                siem_auth_token="secret-token",
+            )
+        )
+        readiness = service.readiness()
+        self.assertTrue(readiness["ready"])
+        self.assertEqual(readiness["mode"], "production")
 
 
 if __name__ == "__main__":

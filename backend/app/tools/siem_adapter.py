@@ -9,13 +9,16 @@ S3-C-0 目标：
 
 from __future__ import annotations
 
+import asyncio
 import json
 import re
 import time
+import urllib.error
+import urllib.request
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Generic, Optional, Protocol, TypeVar
+from typing import Any, Generic, Literal, Optional, Protocol, TypeVar
 
 try:
     import structlog
@@ -76,6 +79,8 @@ class TimeRangeSpec:
                     delta = timedelta(hours=amount)
                 elif unit == "d":
                     delta = timedelta(days=amount)
+            else:
+                logger.warning("Unrecognized time_range, falling back to 24h", value=value)
 
         return cls(
             start_utc=now_utc - delta,
@@ -91,7 +96,7 @@ class TimeRangeSpec:
 
 @dataclass
 class AdapterResult(Generic[T]):
-    status: str
+    status: Literal["ok", "timeout", "partial", "unavailable"]
     data: T
     latency_ms: float = 0.0
     gap_reason: Optional[str] = None
@@ -164,6 +169,53 @@ class SIEMAdapterProtocol(Protocol):
 
     def get_runtime_stats(self) -> dict[str, int]:
         ...
+
+
+class ProductionSIEMTransportProtocol(Protocol):
+    async def post_json(
+        self,
+        endpoint: str,
+        payload: dict[str, Any],
+        *,
+        headers: dict[str, str],
+        timeout_seconds: float,
+    ) -> dict[str, Any]:
+        ...
+
+
+class UrllibSIEMTransport:
+    async def post_json(
+        self,
+        endpoint: str,
+        payload: dict[str, Any],
+        *,
+        headers: dict[str, str],
+        timeout_seconds: float,
+    ) -> dict[str, Any]:
+        return await asyncio.to_thread(
+            self._post_json_sync,
+            endpoint,
+            payload,
+            headers,
+            timeout_seconds,
+        )
+
+    @staticmethod
+    def _post_json_sync(
+        endpoint: str,
+        payload: dict[str, Any],
+        headers: dict[str, str],
+        timeout_seconds: float,
+    ) -> dict[str, Any]:
+        request = urllib.request.Request(
+            endpoint,
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={"Content-Type": "application/json", **headers},
+            method="POST",
+        )
+        with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+            body = response.read().decode("utf-8")
+        return json.loads(body or "{}")
 
 
 class MockSIEMAdapter:
@@ -309,6 +361,7 @@ class MockSIEMAdapter:
         return AdapterResult.ok(None, latency_ms=(time.monotonic() - started) * 1000)
 
     async def search_ioc(self, indicator: str) -> Optional[dict]:
+        # LEGACY: not part of SIEMAdapterProtocol, kept for backward compatibility only.
         ioc_db = self._cache.get("ioc", {})
         for ip_record in ioc_db.get("malicious_ips", []):
             if ip_record["ip"] == indicator:
@@ -322,6 +375,7 @@ class MockSIEMAdapter:
         return None
 
     async def check_baseline(self, activity_name: str) -> bool:
+        # LEGACY: not part of SIEMAdapterProtocol, kept for backward compatibility only.
         baselines = self._cache.get("baselines", {}).get("baselines", [])
         for baseline in baselines:
             if activity_name.lower() in baseline.get("pattern_description", "").lower():
@@ -329,9 +383,11 @@ class MockSIEMAdapter:
         return False
 
     async def get_knowledge_graph(self) -> dict:
+        # LEGACY: not part of SIEMAdapterProtocol, kept for backward compatibility only.
         return self._cache.get("knowledge_graph", {})
 
     async def query_scenario(self, scenario_id: str) -> Optional[dict]:
+        # LEGACY: not part of SIEMAdapterProtocol, kept for backward compatibility only.
         result = await self.get_scenario_metadata(scenario_id)
         return result.data
 
@@ -343,16 +399,120 @@ class MockSIEMAdapter:
 
 
 class ProductionSIEMAdapter:
-    """S3-C-0 骨架：仅冻结契约，不实现真实网络调用。"""
+    """S3-C-1 第一版：消费运行时配置并规范化真实 SIEM 返回。"""
 
-    def __init__(self, runtime_settings=settings):
+    def __init__(
+        self,
+        runtime_settings=settings,
+        *,
+        transport: Optional[ProductionSIEMTransportProtocol] = None,
+    ):
         self.settings = runtime_settings
+        self.transport = transport or UrllibSIEMTransport()
+        self.base_url = (getattr(runtime_settings, "siem_base_url", "") or "").rstrip("/")
+        self.auth_token = getattr(runtime_settings, "siem_auth_token", "") or ""
+        self.vendor = getattr(runtime_settings, "siem_vendor", "generic_http")
+        self.timeout_seconds = float(getattr(runtime_settings, "siem_request_timeout_seconds", 5.0))
+        self._endpoint_map = {
+            "recent_summary": "/api/v1/summary/recent",
+            "asset_alerts": "/api/v1/alerts/asset",
+            "intent_alerts": "/api/v1/alerts/intent",
+            "scenario_metadata": "/api/v1/metadata/scenario",
+            "asset_context": "/api/v1/metadata/asset",
+        }
+
+    def is_configured(self) -> bool:
+        return bool(self.base_url and self.auth_token)
+
+    def _headers(self) -> dict[str, str]:
+        return {
+            "Authorization": f"Bearer {self.auth_token}",
+            "X-SecuPilot-SIEM-Vendor": self.vendor,
+        }
+
+    def _endpoint(self, key: str) -> str:
+        return f"{self.base_url}{self._endpoint_map[key]}"
+
+    @staticmethod
+    def _normalize_status(value: Any) -> Literal["ok", "timeout", "partial", "unavailable"]:
+        normalized = str(value or "ok").lower()
+        if normalized in {"ok", "timeout", "partial", "unavailable"}:
+            return normalized  # type: ignore[return-value]
+        return "unavailable"
+
+    async def _post_envelope(
+        self,
+        endpoint_key: str,
+        payload: dict[str, Any],
+        *,
+        data_keys: tuple[str, ...],
+        default_data: T,
+    ) -> AdapterResult[T]:
+        if not self.is_configured():
+            return AdapterResult.unavailable(default_data, gap_reason="production_adapter_not_configured")
+
+        started = time.monotonic()
+        try:
+            raw = await self.transport.post_json(
+                self._endpoint(endpoint_key),
+                payload,
+                headers=self._headers(),
+                timeout_seconds=self.timeout_seconds,
+            )
+        except TimeoutError:
+            return AdapterResult.timeout(default_data, gap_reason="production_transport_timeout")
+        except urllib.error.URLError as exc:
+            return AdapterResult.unavailable(default_data, gap_reason=f"production_transport_unavailable:{exc.reason}")
+
+        latency_ms = (time.monotonic() - started) * 1000
+        status = self._normalize_status(raw.get("status"))
+        data = raw.get("data")
+        if data is None:
+            for key in data_keys:
+                if key in raw:
+                    data = raw.get(key)
+                    break
+        if data is None:
+            data = default_data
+
+        gap_reason = raw.get("gap_reason")
+        metadata = raw.get("metadata") or {}
+        return AdapterResult(
+            status=status,
+            data=data,
+            latency_ms=latency_ms,
+            gap_reason=gap_reason,
+            metadata=metadata,
+        )
 
     async def query_recent_summary(self, time_range: TimeRangeSpec) -> AdapterResult[dict]:
-        return AdapterResult.unavailable({}, gap_reason="production_adapter_not_implemented")
+        return await self._post_envelope(
+            "recent_summary",
+            {
+                "time_range": {
+                    "start_utc": time_range.start_utc.isoformat(),
+                    "end_utc": time_range.end_utc.isoformat(),
+                    "tz_label": time_range.tz_label,
+                }
+            },
+            data_keys=("summary",),
+            default_data={},
+        )
 
     async def query_asset_alerts(self, asset_id: str, time_range: TimeRangeSpec) -> AdapterResult[list]:
-        return AdapterResult.unavailable([], gap_reason="production_adapter_not_implemented")
+        return await self._post_envelope(
+            "asset_alerts",
+            {
+                "asset_id": asset_id,
+                "time_range": {
+                    "start_utc": time_range.start_utc.isoformat(),
+                    "end_utc": time_range.end_utc.isoformat(),
+                    "tz_label": time_range.tz_label,
+                },
+            },
+            data_keys=("alerts",),
+            default_data=[],
+        )
 
     async def query_intent_alerts(
         self,
@@ -360,13 +520,36 @@ class ProductionSIEMAdapter:
         user_input: str,
         time_range: TimeRangeSpec,
     ) -> AdapterResult[list]:
-        return AdapterResult.unavailable([], gap_reason="production_adapter_not_implemented")
+        return await self._post_envelope(
+            "intent_alerts",
+            {
+                "intent": intent,
+                "user_input": user_input,
+                "time_range": {
+                    "start_utc": time_range.start_utc.isoformat(),
+                    "end_utc": time_range.end_utc.isoformat(),
+                    "tz_label": time_range.tz_label,
+                },
+            },
+            data_keys=("alerts",),
+            default_data=[],
+        )
 
     async def get_scenario_metadata(self, scenario_id: str) -> AdapterResult[Optional[dict]]:
-        return AdapterResult.unavailable(None, gap_reason="production_adapter_not_implemented")
+        return await self._post_envelope(
+            "scenario_metadata",
+            {"scenario_id": scenario_id},
+            data_keys=("scenario",),
+            default_data=None,
+        )
 
     async def get_asset_context(self, asset_id: str) -> AdapterResult[Optional[dict]]:
-        return AdapterResult.unavailable(None, gap_reason="production_adapter_not_implemented")
+        return await self._post_envelope(
+            "asset_context",
+            {"asset_id": asset_id},
+            data_keys=("asset",),
+            default_data=None,
+        )
 
     def get_runtime_stats(self) -> dict[str, int]:
         return {

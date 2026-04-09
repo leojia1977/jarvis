@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S3-C-2026-04-08-002",
+    "id": "S3-C-2026-04-09-001",
     "sprint": "Sprint 3",
-    "stage": "adapter-degraded-semantics-closure",
+    "stage": "production-siem-adapter-baseline",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-08T21:08:53.706396+08:00"
+    "updated_at": "2026-04-09T09:50:17.815775+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S3-C-2026-04-08-002.zip",
-    "current_release_sha256": "61fc3550adcbbb25091ed81d9c83f30e0f3fa1c86f6d43e364139f8cc20d4b92"
+    "current_release_zip": "releases\\secupilot-S3-C-2026-04-09-001.zip",
+    "current_release_sha256": "8ef63dffb8602932e72be5c21dadb018a19a88ca24fd05e2305c4816c59e2eab"
   },
   "key_files": [
     {
@@ -80,7 +80,7 @@
     {
       "path": "backend\\app\\config.py",
       "role": "config",
-      "sha256": "54aac36516dbc8d4c85b9ecbf141776d1b0f334413cb32115e92d2e73e4ded80"
+      "sha256": "185e9c90929710dc341db34e8c3d39eaaf3a69219bb3da90e72199ea355da579"
     },
     {
       "path": "backend\\app\\agents\\case_view.py",
@@ -120,7 +120,7 @@
     {
       "path": "backend\\app\\tools\\siem_adapter.py",
       "role": "siem-adapter",
-      "sha256": "93cd27dc9d3c01d4fc56c19fda20a1b3b91db8cde26028c49f5ec6a7e68a427b"
+      "sha256": "1a843e8e7c7bad6cbab39c6c6411a5f10596e67c8c080f85351275ad77b7c698"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -150,7 +150,7 @@
     {
       "path": "backend\\tests\\test_siem_adapter_contract.py",
       "role": "canonical-siem-adapter-contract-tests",
-      "sha256": "6e24ddb678e237fcaf0bcf068895a94aa9ce3e98c8a53eb9c457517737a8e31b"
+      "sha256": "35f59d3fb6e7f616928dd4eaceda030607288656eb6244e72f57c2d2794a11af"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -173,9 +173,14 @@
       "sha256": "81d3e2e795cd388af3fdde354248bf21ee09347cb53897c853d0985a3c4fec2a"
     },
     {
+      "path": "docs\\S3C1_SIEM_ADAPTER_BOUNDARY.md",
+      "role": "s3c1-siem-adapter-boundary",
+      "sha256": "e5882b7c64d042481f647c17d6a5634411685ee607d20016bc7d76ae2ef45d5d"
+    },
+    {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "ba8b820bc4cf5fbe2b7dea28fd38ebd5cabdbe7f8f99212e4bf6a92d4ef12f62"
+      "sha256": "a46712b6e39ee53d44b2de317bbc30e3bc891726e33a877cc059a3831a5d3ff0"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -295,12 +300,12 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "af1374539d4220a2d0c6a014ed780e05b5bb6414ef058525bf361a388e6a194d"
+      "sha256": "0091dab35c1c33a250d8901b4e2ea7a9ab9ed158f12afc880e1192b83d603e84"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "299f04a4fa449a31eb252be2ad5e5221c65e2e2e8f7a306adebe192329c36280"
+      "sha256": "6480baa8212eef8f46792bda60ecc801b3ca6a1e2949b7c2b3969898ea8bb7bd"
     },
     {
       "path": "run_runtime.py",
@@ -363,13 +368,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S3-C-2026-04-08-002",
+      "Snapshot ID: S3-C-2026-04-09-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-08T21:08:53.894063+08:00",
+    "last_verified_at": "2026-04-09T09:50:18.821987+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "tests": "PASS",

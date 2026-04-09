@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import time
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 from app.config import Settings, settings
 from app.agents.graph import InvestigationPipeline
@@ -42,8 +42,13 @@ class RuntimeContext:
 
 
 class SecuPilotRuntimeService:
-    def __init__(self, runtime_settings: Optional[Settings] = None):
+    def __init__(
+        self,
+        runtime_settings: Optional[Settings] = None,
+        adapter_factory: Optional[Callable[[str, Settings], SIEMAdapterProtocol]] = None,
+    ):
         self.settings = runtime_settings or settings
+        self._adapter_factory = adapter_factory
         self.started_at = time.time()
         self._context = self._build_context()
 
@@ -52,8 +57,8 @@ class SecuPilotRuntimeService:
         reasons: list[str] = []
         siem = self._build_siem_adapter(mode)
 
-        if mode != "mock":
-            reasons.append("production_adapter_not_implemented")
+        if mode == "production" and isinstance(siem, ProductionSIEMAdapter) and not siem.is_configured():
+            reasons.append("production_adapter_not_configured")
             return RuntimeContext(
                 pipeline=None,
                 siem=siem,
@@ -94,6 +99,8 @@ class SecuPilotRuntimeService:
         )
 
     def _build_siem_adapter(self, mode: str) -> SIEMAdapterProtocol:
+        if self._adapter_factory:
+            return self._adapter_factory(mode, self.settings)
         if mode == "production":
             return ProductionSIEMAdapter(self.settings)
         return MockSIEMAdapter(self.settings.get_mock_data_dir())

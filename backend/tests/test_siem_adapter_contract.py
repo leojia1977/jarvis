@@ -5,7 +5,8 @@ from _project_bootstrap import bootstrap
 
 bootstrap()
 
-from app.tools.siem_adapter import MockSIEMAdapter, TimeRangeSpec  # noqa: E402
+from backend.app.config import Settings  # noqa: E402
+from app.tools.siem_adapter import MockSIEMAdapter, ProductionSIEMAdapter, TimeRangeSpec  # noqa: E402
 
 
 class TimeRangeSpecTests(unittest.TestCase):
@@ -70,6 +71,89 @@ class MockSIEMAdapterContractTests(unittest.IsolatedAsyncioTestCase):
         result = await self.adapter.get_scenario_metadata("S-02")
         self.assertEqual(result.status, "ok")
         self.assertEqual(result.data["name"], "Lateral Movement")
+
+
+class FakeProductionTransport:
+    def __init__(self, response=None, error=None):
+        self.response = response or {}
+        self.error = error
+        self.calls = []
+
+    async def post_json(self, endpoint, payload, *, headers, timeout_seconds):
+        self.calls.append(
+            {
+                "endpoint": endpoint,
+                "payload": payload,
+                "headers": headers,
+                "timeout_seconds": timeout_seconds,
+            }
+        )
+        if self.error:
+            raise self.error
+        return self.response
+
+
+class ProductionSIEMAdapterTests(unittest.IsolatedAsyncioTestCase):
+    def setUp(self):
+        self.settings = Settings(
+            runtime_mode="production",
+            mock_data_path="./mock_data",
+            siem_base_url="https://siem.example.local",
+            siem_auth_token="secret-token",
+            siem_vendor="splunk_like",
+            siem_request_timeout_seconds=7.5,
+        )
+
+    async def test_query_intent_alerts_normalizes_generic_envelope(self):
+        transport = FakeProductionTransport(
+            {
+                "status": "partial",
+                "alerts": [{"event_id": "ALERT-1"}],
+                "gap_reason": "partial_time_window_data",
+                "metadata": {"source": "splunk"},
+            }
+        )
+        adapter = ProductionSIEMAdapter(self.settings, transport=transport)
+        spec = TimeRangeSpec(
+            start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
+            end_utc=datetime(2026, 4, 8, 12, 0, 0, tzinfo=timezone.utc),
+            tz_label="Asia/Shanghai",
+        )
+
+        result = await adapter.query_intent_alerts("threat_hunt", "查横向移动", spec)
+        self.assertEqual(result.status, "partial")
+        self.assertEqual(result.gap_reason, "partial_time_window_data")
+        self.assertEqual(result.data[0]["event_id"], "ALERT-1")
+        self.assertEqual(transport.calls[0]["payload"]["intent"], "threat_hunt")
+        self.assertEqual(transport.calls[0]["headers"]["Authorization"], "Bearer secret-token")
+
+    async def test_get_scenario_metadata_uses_generic_data_fallback(self):
+        transport = FakeProductionTransport(
+            {
+                "status": "ok",
+                "data": {"name": "Ransomware"},
+            }
+        )
+        adapter = ProductionSIEMAdapter(self.settings, transport=transport)
+        result = await adapter.get_scenario_metadata("S-04")
+        self.assertEqual(result.status, "ok")
+        self.assertEqual(result.data["name"], "Ransomware")
+
+    async def test_unconfigured_production_adapter_returns_unavailable(self):
+        transport = FakeProductionTransport({"status": "ok", "alerts": [{"event_id": "ALERT-1"}]})
+        adapter = ProductionSIEMAdapter(
+            Settings(runtime_mode="production", mock_data_path="./mock_data"),
+            transport=transport,
+        )
+        spec = TimeRangeSpec(
+            start_utc=datetime(2026, 4, 8, 0, 0, 0, tzinfo=timezone.utc),
+            end_utc=datetime(2026, 4, 8, 12, 0, 0, tzinfo=timezone.utc),
+            tz_label="Asia/Shanghai",
+        )
+        result = await adapter.query_recent_summary(spec)
+        self.assertEqual(result.status, "unavailable")
+        self.assertEqual(result.gap_reason, "production_adapter_not_configured")
+        self.assertEqual(transport.calls, [])
 
 
 if __name__ == "__main__":

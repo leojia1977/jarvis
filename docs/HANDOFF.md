@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S3-C-2026-04-08-002`
-- Stage: `Sprint 3 adapter degraded semantics closure`
+- Snapshot ID: `S3-C-2026-04-09-001`
+- Stage: `Sprint 3 production SIEM adapter baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -25,6 +25,7 @@
 - Case contract tests now freeze summary, Jarvis, evidence refs, and degraded action semantics under `backend/tests/test_case_view.py`.
 - S3-C-0 adapter contract skeleton now lives under `backend/app/tools/siem_adapter.py`, `docs/S3C0_ADAPTER_CONTRACT.md`, and the orchestrator's `TimeRangeSpec + AdapterResult` flow.
 - S3-C follow-up now adds dedicated SIEM timeout handling before tool execution, plus explicit `partial / unavailable / gather timeout / scenario metadata timeout` regression coverage.
+- S3-C-1 now adds the first production-facing SIEM adapter path, runtime configuration consumption, and transport-normalization tests under `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -50,6 +51,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/SP3_B1_Case_View_Contract.md`
    - `docs/SP3_B4_Degraded_UX_Contract.md`
    - `docs/S3C0_ADAPTER_CONTRACT.md`
+   - `docs/S3C1_SIEM_ADAPTER_BOUNDARY.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.

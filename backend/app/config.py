@@ -38,6 +38,10 @@ class Settings(BaseSettings):
     mock_data_path: str = "./mock_data"
     runtime_mode: str = "mock"
     business_timezone: str = "Asia/Shanghai"
+    siem_vendor: str = "generic_http"
+    siem_base_url: str = ""
+    siem_auth_token: str = ""
+    siem_request_timeout_seconds: float = 5.0
 
     # Server
     service_name: str = "secupilot-runtime"
