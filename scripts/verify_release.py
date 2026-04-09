@@ -3,10 +3,11 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
-import sys
 import zipfile
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+
+from build_claude_review_pack import PACK_ROOT, expected_review_pack_entries
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -81,6 +82,43 @@ def verify_release_zip(manifest: dict) -> dict:
     }
 
 
+def verify_review_pack(manifest: dict) -> dict:
+    snapshot_id = manifest.get("snapshot", {}).get("id")
+    expected_entries = expected_review_pack_entries(manifest)
+    pack_dir = PACK_ROOT / snapshot_id
+    zip_path = ROOT / "releases" / f"claude-review-pack-{snapshot_id}.zip"
+
+    folder_exists = pack_dir.exists()
+    zip_exists = zip_path.exists()
+    folder_files = {
+        path.relative_to(pack_dir).as_posix()
+        for path in pack_dir.rglob("*")
+        if path.is_file()
+    } if folder_exists else set()
+    zip_files: set[str] = set()
+    if zip_exists:
+        with zipfile.ZipFile(zip_path, "r") as archive:
+            zip_files = set(archive.namelist())
+
+    missing_from_folder = sorted(entry for entry in expected_entries if entry not in folder_files)
+    missing_from_zip = sorted(entry for entry in expected_entries if entry not in zip_files)
+    ok = folder_exists and zip_exists and not missing_from_folder and not missing_from_zip
+
+    return {
+        "snapshot_id": snapshot_id,
+        "folder_exists": folder_exists,
+        "zip_exists": zip_exists,
+        "folder_path": str(pack_dir.relative_to(ROOT)) if folder_exists else str(pack_dir),
+        "zip_path": str(zip_path.relative_to(ROOT)) if zip_exists else str(zip_path),
+        "expected_count": len(expected_entries),
+        "folder_file_count": len(folder_files),
+        "zip_file_count": len(zip_files),
+        "missing_from_folder": missing_from_folder,
+        "missing_from_zip": missing_from_zip,
+        "ok": ok,
+    }
+
+
 def run_tests(manifest: dict) -> list[dict]:
     results = []
     for test in manifest.get("tests", []):
@@ -116,6 +154,7 @@ def main() -> int:
 
     key_results = verify_key_files(manifest)
     zip_result = verify_release_zip(manifest)
+    review_pack_result = verify_review_pack(manifest)
     test_results = run_tests(manifest)
 
     report = {
@@ -124,6 +163,7 @@ def main() -> int:
         "snapshot_id": manifest.get("snapshot", {}).get("id"),
         "key_files": key_results,
         "release_zip": zip_result,
+        "review_pack": review_pack_result,
         "tests": test_results,
     }
 
@@ -131,8 +171,9 @@ def main() -> int:
 
     key_ok = all(item["ok"] for item in key_results)
     zip_ok = zip_result.get("ok", False)
+    review_pack_ok = review_pack_result.get("ok", False)
     tests_ok = all(item["ok"] for item in test_results)
-    all_ok = key_ok and zip_ok and tests_ok
+    all_ok = key_ok and zip_ok and review_pack_ok and tests_ok
 
     test_status_map = {item["name"]: ("PASS" if item["ok"] else "FAIL") for item in test_results}
     for test in manifest.get("tests", []):
@@ -142,6 +183,7 @@ def main() -> int:
         "last_verified_at": now,
         "key_files": "PASS" if key_ok else "FAIL",
         "release_zip": "PASS" if zip_ok else "FAIL",
+        "review_pack": "PASS" if review_pack_ok else "FAIL",
         "tests": "PASS" if tests_ok else "FAIL",
         "overall_status": "PASS" if all_ok else "FAIL",
         "report_path": str(REPORT_PATH.relative_to(ROOT)),
@@ -152,6 +194,7 @@ def main() -> int:
     print(f"[VERIFY] Snapshot: {manifest.get('snapshot', {}).get('id')}")
     print(f"[VERIFY] Key files: {'PASS' if key_ok else 'FAIL'}")
     print(f"[VERIFY] Release zip: {'PASS' if zip_ok else 'FAIL'}")
+    print(f"[VERIFY] Review pack: {'PASS' if review_pack_ok else 'FAIL'}")
     print(f"[VERIFY] Tests: {'PASS' if tests_ok else 'FAIL'}")
     print(f"[VERIFY] Report: {REPORT_PATH}")
 

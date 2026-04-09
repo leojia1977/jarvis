@@ -102,7 +102,19 @@ def iter_review_files(manifest: dict) -> list[str]:
             if rel_path not in files:
                 files.append(rel_path)
 
-    return files
+    return sorted(set(files))
+
+
+def validate_review_files(files: list[str]) -> list[str]:
+    missing: list[str] = []
+    for rel_path in files:
+        if not (ROOT / rel_path).is_file():
+            missing.append(rel_path)
+    return missing
+
+
+def expected_review_pack_entries(manifest: dict) -> list[str]:
+    return iter_review_files(manifest) + ["CLAUDE_PROMPT.txt"]
 
 
 def build_zip(source_dir: Path, zip_path: Path) -> None:
@@ -116,12 +128,20 @@ def main() -> int:
     manifest = load_manifest()
     snapshot_id = manifest["snapshot"]["id"]
     output_dir = PACK_ROOT / snapshot_id
+    review_files = iter_review_files(manifest)
+    missing = validate_review_files(review_files)
+
+    if missing:
+        print("[FAIL] Review pack source files missing:")
+        for rel_path in missing:
+            print(f" - {rel_path}")
+        return 1
 
     if output_dir.exists():
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    for rel_path in iter_review_files(manifest):
+    for rel_path in review_files:
         pack_file(ROOT, output_dir, rel_path)
 
     prompt_path = output_dir / "CLAUDE_PROMPT.txt"
