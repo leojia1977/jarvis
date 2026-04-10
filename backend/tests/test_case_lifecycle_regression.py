@@ -1,6 +1,7 @@
 import shutil
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from _project_bootstrap import bootstrap
 
@@ -8,7 +9,7 @@ bootstrap()
 
 from backend.app.config import Settings  # noqa: E402
 from backend.app.runtime_service import SecuPilotRuntimeService  # noqa: E402
-from app.tools.persistent_case import build_initial_persistent_case_record, transition_persistent_case_status  # noqa: E402
+from app.tools.persistent_case import transition_persistent_case_status  # noqa: E402
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -59,14 +60,28 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
             },
             "audit_trail": {"degraded": False, "degraded_reasons": []},
         }
-        record = build_initial_persistent_case_record(
-            threat_case,
-            snapshot_id="S4-C-2026-04-10-004",
-            actor="analyst.leo",
-            created_at_utc="2026-04-10T11:30:00Z",
-        )
-        service._require_case_store().save_case(record)
-        case_id = record.case_id
+        with patch.object(
+            service,
+            "_execute_investigation",
+            return_value=(
+                200,
+                {"status": "ok"},
+                {
+                    "intent": "threat_hunt",
+                    "time_range": "24h",
+                    "user_input": "请检查最近是否有横向移动",
+                },
+                threat_case,
+            ),
+        ):
+            create_status, create_payload = service.create_case_sync({
+                "user_input": "请检查最近是否有横向移动",
+                "intent": "threat_hunt",
+                "time_range": "24h",
+                "actor": "analyst.leo",
+            })
+        self.assertEqual(create_status, 201)
+        case_id = create_payload["case_id"]
 
         retrieve_status, retrieve_payload = service.get_case_sync(case_id)
         self.assertEqual(retrieve_status, 200)

@@ -26,6 +26,7 @@
 ### Lifecycle Flow Coverage
 - `test_case_lifecycle_regression.py`
   - create persisted case through runtime service
+  - keep the create path deterministic by controlling the investigation output inside the runtime-service entry, not by bypassing the runtime-service layer
   - retrieve persisted case by `case_id`
   - create one draft action request
   - submit it for review
