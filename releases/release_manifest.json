@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-D-2026-04-10-004",
+    "id": "S4-D-2026-04-10-005",
     "sprint": "Sprint 4",
-    "stage": "pilot-smoke-path-review-followup",
-    "created_at": "2026-04-10T17:26:16.9921698+08:00",
-    "updated_at": "2026-04-10T17:28:04.229335+08:00"
+    "stage": "operator-runbooks-and-failure-triage-baseline",
+    "created_at": "2026-04-10T19:01:52.8727220+08:00",
+    "updated_at": "2026-04-10T19:04:44.642173+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-004.zip",
-    "current_release_sha256": "7ed8a2f60d379623e16d2ad8cc902a8a31b9b5024041571c37ac0540f4bc83e3"
+    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-005.zip",
+    "current_release_sha256": "abf0c4b539fc5b1e9c6661eb85340ee6d6ef1a1c56c45fab150f35b95560e0c2"
   },
   "key_files": [
     {
@@ -210,7 +210,7 @@
     {
       "path": "backend\\tests\\test_edr_replay.py",
       "role": "canonical-edr-replay-tests",
-      "sha256": "2c6e722de10d5e10464cf8000a4388de68001015f648323d6b6b2d5cadaac78f"
+      "sha256": "34c3a986fcbcdd39199c10c8054da2f6a2b3906581bbcb2c0323398ce76f8c5c"
     },
     {
       "path": "backend\\tests\\test_t3_production_parity.py",
@@ -320,12 +320,12 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "1952d29ef2a93e480a975c6e85b0f5331870fdfdaac7bb4761382358791b0cf0"
+      "sha256": "e943262f5af2d103b27eff1311ee701f83c0fd335d143e8004112a6b3f4a823a"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
       "role": "release-process-doc",
-      "sha256": "eb882d3c26a604b241d1e7b3b143226fb7aaf7bb4762370d529f52134823e439"
+      "sha256": "f76387e3527d8f4af06f83cf8b1f5e81db0732b93637624e04a2f802ddc343d0"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -445,7 +445,12 @@
     {
       "path": "docs\\S4D2_PILOT_SMOKE_PATH.md",
       "role": "s4d2-pilot-smoke-path",
-      "sha256": "e2c4cf21f62b79ff3006c9b786318b7b23c9b7ec68cb3b68b8c40ab416c6ab4e"
+      "sha256": "f36aae915e295c496429e417bfe7d58179a41cf9b896c062e8a59d61f57f752f"
+    },
+    {
+      "path": "docs\\S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md",
+      "role": "s4d3-operator-runbooks-and-failure-triage",
+      "sha256": "db016f4c5ab9e4eb2a2f01d2a26246225364691f15644cbe87cde1b630cd4f3b"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -555,7 +560,7 @@
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "c3ce1502fd96c1500caade5d188c1e29b0c7f3b7d3bd5ff7184b2a46bb9edc27"
+      "sha256": "98e70a6fab9eb39ac7ce4cbe316f8ad2d0a2b01c4ec0454c1cbf2bf0cc417a9a"
     },
     {
       "path": "run_runtime.py",
@@ -630,13 +635,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-D-2026-04-10-004",
+      "Snapshot ID: S4-D-2026-04-10-005",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T17:28:04.543098+08:00",
+    "last_verified_at": "2026-04-10T19:04:45.015784+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

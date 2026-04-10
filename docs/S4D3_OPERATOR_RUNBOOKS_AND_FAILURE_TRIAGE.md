@@ -20,7 +20,7 @@
 - 运行态 triage 的主键是 `state_class`。
 - 故障分类的主键是 `failure_category`。
 - 详细定位优先看 `reasons`，再看 `operator_message`。
-- `pilot_smoke` 的阶段定位优先看 `smoke_path.failed_step` 与 `smoke_path.steps`。
+- `POST /api/v1/pilot-smoke` 的阶段定位优先看 `smoke_path.failed_step` 与 `smoke_path.steps`。
 - `/health.status` 只是粗粒度活性信号；需要精确判断时以 `state_class` 为准。
 
 ## Secret Safety
@@ -36,13 +36,16 @@
 - 确认 `edr_source_mode` 已显式设置；只有当 `edr_source_mode=api` 时才要求 `edr_auth_token`。
 - 确认 `case_store_backend=sqlite_local`，且 `case_store_path` 可写。
 - 如需远程 analyst 或 manager 访问，确认 `server_host` 不是默认 `127.0.0.1`。
+- 确认 `GET /ready` 返回中明确暴露 `environment_profile`、`profile_contract_ready`、`profile_contract_missing`。
 - 先执行 `GET /ready`，再决定是否进入 `POST /api/v1/pilot-smoke`。
 
 ## Health And Readiness
 - 先看 `GET /health`，确认进程仍可响应。
 - 再看 `GET /ready`，这是是否允许进入 smoke path 的准入判断。
-- 当 `ready=true`、`state_class=READY`、`failure_category=none` 时，才进入 `POST /api/v1/pilot-smoke`。
-- 当 `/health.status=degraded` 但 `state_class=READY` 以外时，不要继续依赖粗粒度 `status`，应直接转到对应 runbook。
+- operator 应先检查 `environment_profile` 是否为 `pilot_local`。
+- operator 应再检查 `profile_contract_ready` 是否为 `true`，以及 `profile_contract_missing` 是否为空。
+- 当 `ready=true`、`environment_profile=pilot_local`、`profile_contract_ready=true`、`state_class=READY`、`failure_category=none` 时，才进入 `POST /api/v1/pilot-smoke`。
+- 当 `/health.status=degraded` 时，不要继续依赖粗粒度 `status`，应直接转到 `state_class` 对应的 runbook。
 - 当 `ready=false` 时，用 `state_class + failure_category + reasons + operator_message` 进行分类，不要靠本地经验猜测。
 
 ## Misconfigured Adapter Config
@@ -53,10 +56,10 @@
   - `siem_vendor` 非 `splunk_like` 或 `elastic_like`
   - `edr_source_mode=api` 但未注入 `edr_auth_token`
 - 操作步骤：
-  1. 对照 `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md` 逐项核对 `pilot_local` 契约。
+  1. 对照 [docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md](./S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md) 逐项核对 `pilot_local` 契约。
   2. 只核对字段名称、是否存在、值是否合法，不输出任何 secret 值。
   3. 修正配置后重新执行 `GET /ready`。
-  4. 只有在 `/ready` 回到 `READY / none` 后，才重新执行 `pilot_smoke`。
+  4. 只有在 `/ready` 回到 `READY / none` 后，才重新执行 `POST /api/v1/pilot-smoke`。
 
 ## Misconfigured Static Data
 - 触发条件：`state_class=MISCONFIGURED` 且 `failure_category=static_data`。
@@ -82,7 +85,7 @@
   4. 将其视为代码、依赖或运行时构建异常升级，不要在未定位根因前反复重试。
 
 ## Pilot Smoke Success
-- 执行前提：`GET /ready` 已返回 `ready=true`、`state_class=READY`、`failure_category=none`。
+- 执行前提：`GET /ready` 已返回 `ready=true`、`environment_profile=pilot_local`、`profile_contract_ready=true`、`case_store_ready=true`、`state_class=READY`、`failure_category=none`。
 - 发送 governed `POST /api/v1/pilot-smoke` 请求体。
 - 成功校验至少包括：
   - 外层响应 `200 OK`
@@ -110,7 +113,7 @@
 - 不要只看外层 HTTP code；只要 `failed_step` 非空，就不能把本次 smoke 判为成功。
 
 ## Case Store Failures
-- 主要覆盖 `pilot_smoke` 中的 `create_case` 与 `get_case` 阶段失败。
+- 主要覆盖 `POST /api/v1/pilot-smoke` 中的 `create_case` 与 `get_case` 阶段失败。
 - 先确认 `case_store_backend=sqlite_local` 与 `case_store_path` 契约未漂移。
 - 当 `create_case` 失败时：
   - 记录 `smoke_path.steps[2]` 的 `http_status`
@@ -134,14 +137,20 @@
   - `failure_category`
   - `reasons`
   - `operator_message`
+  - 缺失的环境字段名称
+  - 缺失的 secret 名称
   - `secupilot.runtime` 相关日志片段
-- 只记录缺失的 secret 名称，不记录 secret 值。
-- 如需说明环境问题，只记录字段名、是否缺失、是否合法，不记录敏感内容。
+
+### Do not include:
+- raw `*_auth_token` values
+- `llm_api_key`
+- Authorization headers, cookies, or full connection strings
+- any other secret value copied from the runtime environment or request tooling
 
 ## Degraded Runtime Placeholder
 - 触发条件：`state_class=DEGRADED` 且 `failure_category=runtime`。
-- 当前 Sprint 4 bootstrap-only readiness 路径通常不应把启动问题落到这个组合。
-- 若在 pilot readiness 或 smoke path 中出现该组合，应将其视为保留态被意外触发。
+- 当前 bootstrap-only code paths 不会产出该状态。
+- 若在 pilot readiness 或 `POST /api/v1/pilot-smoke` 中出现该组合，应将其视为保留态被意外触发。
 - 处理方式：
   1. 收集 `state_class / failure_category / reasons / operator_message`。
   2. 收集脱敏日志与 smoke 证据。
