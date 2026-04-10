@@ -82,6 +82,21 @@ The pilot smoke path is successful only when:
 - the endpoint itself returns `200 OK` while the internal `create_case` step reports `http_status=201`
 - `smoke_path.failed_step` is `null`
 
+## Success Evidence Checklist
+- a redacted `GET /ready` response excerpt showing `ready=true`, `state_class=READY`, and `failure_category=none`
+- a redacted `POST /api/v1/pilot-smoke` request body
+- a response excerpt showing `smoke_path.path_id=pilot_local_production_case_round_trip`
+- a response excerpt showing `smoke_path.failed_step=null`
+- a response excerpt showing `smoke_path.steps` in the governed order:
+  - `readiness`
+  - `investigate`
+  - `create_case`
+  - `get_case`
+- evidence that `smoke_path.steps[2].http_status=201`
+- evidence that `case_id == persistent_case.case_id`
+- evidence that `persistent_case.lifecycle_status=open`
+- operator identity or execution timestamp recorded alongside the redacted artifacts
+
 ## Failure Mapping
 
 ### `readiness`
@@ -91,19 +106,33 @@ The pilot smoke path is successful only when:
   - example: missing `static_data_path` root or unsupported static source mode
 - `BOOTSTRAP_FAILED / bootstrap`
   - example: runtime bootstrap exception while building the pipeline
+- runbook sections:
+  - [Health And Readiness](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#health-and-readiness)
+  - [Misconfigured Adapter Config](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#misconfigured-adapter-config)
+  - [Misconfigured Static Data](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#misconfigured-static-data)
+  - [Bootstrap Failed](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#bootstrap-failed)
 
 ### `investigate`
 - returns the existing governed investigation error payload if runtime is not ready or request validation fails
 - `smoke_path.failed_step=investigate` must identify this stage explicitly
+- runbook sections:
+  - [Health And Readiness](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#health-and-readiness)
+  - [Pilot Smoke Failure Triage](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#pilot-smoke-failure-triage)
 
 ### `create_case`
 - persistence build or write failures remain governed runtime failures
 - example: `case_store_unavailable`
 - `smoke_path.failed_step=create_case` must identify that persistence failed after ingestion and investigation succeeded
+- runbook sections:
+  - [Pilot Smoke Failure Triage](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#pilot-smoke-failure-triage)
+  - [Case Store Failures](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#case-store-failures)
 
 ### `get_case`
 - retrieval failures remain governed runtime failures
 - `smoke_path.failed_step=get_case` must identify that retrieval failed after persistence was attempted
+- runbook sections:
+  - [Pilot Smoke Failure Triage](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#pilot-smoke-failure-triage)
+  - [Case Store Failures](./S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md#case-store-failures)
 
 ## Scope Notes
 - this path proves one governed pilot round trip, not full pilot operations coverage

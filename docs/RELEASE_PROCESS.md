@@ -69,6 +69,24 @@ Normal `git push` only runs `py -3 scripts\git_preflight.py --mode fast`.
 Release packaging and verification are explicit steps and should be run before a
 formal review or release cut, not hidden inside the push hook.
 
+## Operator Triage Artifact Checklist
+Before asking for help on pilot readiness or `pilot_smoke` failure, collect a
+small redacted artifact set:
+- current snapshot ID, branch, and commit hash
+- redacted `GET /health` response
+- redacted `GET /ready` response
+- redacted `POST /api/v1/pilot-smoke` request and response when the smoke path was attempted
+- `smoke_path.failed_step` plus the relevant `smoke_path.steps` excerpt when applicable
+- `state_class`, `failure_category`, `reasons`, and `operator_message`
+- relevant `secupilot.runtime` log excerpts
+- environment field names or secret names that are missing, without including any secret values
+
+Do not include:
+- raw `*_auth_token` values
+- `llm_api_key`
+- Authorization headers, cookies, or full connection strings
+- any other secret value copied from the runtime environment or request tooling
+
 ## Verification Command
 ```powershell
 py -3 scripts\verify_release.py
