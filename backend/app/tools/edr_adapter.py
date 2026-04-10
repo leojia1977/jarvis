@@ -34,6 +34,46 @@ CanonicalProcessEventType = Literal[
     "file_write",
 ]
 
+_EXTRA_EXCLUDED_KEYS = {
+    "event_type",
+    "event",
+    "type",
+    "host_id",
+    "host",
+    "asset_id",
+    "device",
+    "endpoint",
+    "timestamp",
+    "@timestamp",
+    "event_time",
+    "pid",
+    "ppid",
+    "process_name",
+    "exe_path",
+    "command_line",
+    "user",
+    "src_ip",
+    "dst_ip",
+    "dst_port",
+    "protocol",
+    "query_domain",
+    "query_type",
+    "key_path",
+    "value_name",
+    "value_data",
+    "file_path",
+    "file_hash_sha256",
+    # Exclude common ECS-style vendor containers so raw nested trees do not
+    # quietly ride into the T3 runtime payload through extra{}.
+    "process",
+    "source",
+    "destination",
+    "dns",
+    "registry",
+    "file",
+    "network",
+}
+
 
 @dataclass(frozen=True)
 class EDRSourceMetadata:
@@ -216,37 +256,7 @@ def _normalize_process_event(raw: dict[str, Any], *, default_host_id: str) -> Ca
         extra={
             key: value
             for key, value in raw.items()
-            if key
-            not in {
-                "event_type",
-                "event",
-                "type",
-                "host_id",
-                "host",
-                "asset_id",
-                "device",
-                "endpoint",
-                "timestamp",
-                "@timestamp",
-                "event_time",
-                "pid",
-                "ppid",
-                "process_name",
-                "exe_path",
-                "command_line",
-                "user",
-                "src_ip",
-                "dst_ip",
-                "dst_port",
-                "protocol",
-                "query_domain",
-                "query_type",
-                "key_path",
-                "value_name",
-                "value_data",
-                "file_path",
-                "file_hash_sha256",
-            }
+            if key not in _EXTRA_EXCLUDED_KEYS
         },
     )
 
@@ -687,7 +697,9 @@ def process_event_record_to_runtime_payload(
     Convert one canonical process-event record into the frozen T3 runtime payload.
 
     This keeps T3 unchanged in S4-B-1/S4-B-2 while the adapter layer absorbs
-    vendor- and transport-specific differences.
+    vendor- and transport-specific differences. If present, extra{} may be
+    forwarded for audit/debug continuity, but T3 must never rely on it for
+    analysis and it must not leak into T3 output or case contracts.
     """
 
     payload: dict[str, Any] = {

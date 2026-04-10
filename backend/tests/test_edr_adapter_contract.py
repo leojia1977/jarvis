@@ -19,6 +19,8 @@ from app.tools.edr_adapter import (
 from app.tools.siem_adapter import TimeRangeSpec
 from app.tools.static_data_sources import HostIdentityRecord
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
 
 class _FakeEDRTransport:
     def __init__(self, response):
@@ -146,7 +148,7 @@ class EDRAdapterContractTests(unittest.TestCase):
             source_refs=["asset_inventory:WKST-047"],
         )
         adapter = LocalFileEDRAdapter(
-            Path("C:/Users/Administrator/Documents/New project/mock_data/process_events")
+            REPO_ROOT / "mock_data" / "process_events"
         )
 
         result = asyncio.run(adapter.query_process_events(host_identity, spec))
@@ -229,4 +231,5 @@ class EDRAdapterContractTests(unittest.TestCase):
         self.assertEqual(result.data.events[0].event_type, "process_create")
         self.assertEqual(result.data.events[0].process_name, "rundll32.exe")
         self.assertEqual(result.data.events[0].user, "SYSTEM")
+        self.assertNotIn("process", result.data.events[0].extra)
         self.assertTrue(transport.calls[0]["endpoint"].endswith("/api/v1/process-events/query"))

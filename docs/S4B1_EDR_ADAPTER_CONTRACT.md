@@ -83,6 +83,8 @@ Event-type specific optional fields:
 
 Additional vendor-specific or source-specific fields:
 - must stay under `extra{}`
+- may travel through the runtime payload only under `extra{}` for audit/debug continuity
+- T3 analysis must not depend on `extra{}`
 - must not leak into T3 output or case contracts
 
 ## Canonical Batch Contract

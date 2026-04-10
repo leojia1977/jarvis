@@ -17,6 +17,7 @@ from app.tools.static_data_sources import HostIdentityRecord  # noqa: E402
 
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures" / "vendor_replay"
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 class EDRReplayTransport:
@@ -145,9 +146,9 @@ class EDRReplayTests(unittest.TestCase):
 
     def test_replay_investigate_path_returns_case(self):
         settings = Settings(
-            project_root="C:/Users/Administrator/Documents/New project",
+            project_root=str(REPO_ROOT),
             runtime_mode="mock",
-            mock_data_path="./mock_data",
+            mock_data_path=str(REPO_ROOT / "mock_data"),
             edr_source_mode="replay",
             edr_vendor="crowdstrike_like",
             edr_base_url="https://edr.example.local",
@@ -180,9 +181,9 @@ class EDRReplayTests(unittest.TestCase):
 
     def test_elastic_replay_investigate_path_returns_case(self):
         settings = Settings(
-            project_root="C:/Users/Administrator/Documents/New project",
+            project_root=str(REPO_ROOT),
             runtime_mode="mock",
-            mock_data_path="./mock_data",
+            mock_data_path=str(REPO_ROOT / "mock_data"),
             edr_source_mode="replay",
             edr_vendor="elastic_defend_like",
             edr_base_url="https://edr.example.local",

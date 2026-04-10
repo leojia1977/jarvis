@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-B-2026-04-10-005`
-- Stage: `Sprint 4 T3 production parity follow-up`
+- Snapshot ID: `S4-B-2026-04-10-006`
+- Stage: `Sprint 4 telemetry review pass`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -50,6 +50,7 @@
 - S4-B-3 now adds offline EDR replay fixtures plus `EDRReplayTransport`, proves canonical normalization for `crowdstrike_like` and `elastic_defend_like`, and freezes replay validation under `docs/S4B3_EDR_REPLAY_FIXTURES.md`.
 - S4-B-4 now proves T3 anomaly detection, persistence detection, IOC extraction, and `partial / degraded` semantics remain stable under production-shaped EDR ingestion, frozen under `docs/S4B4_T3_PRODUCTION_PARITY_TESTS.md`.
 - S4-B-4 follow-up now removes machine-local mock-data assumptions from the parity tests and makes `backend/app/tools/siem_adapter.py` safe under standard-logging fallback when `structlog` is unavailable.
+- S4-B-5 now closes the telemetry stream review under `docs/S4B5_TELEMETRY_REVIEW_PASS.md`, removes the remaining machine-local EDR test paths, and clarifies that `extra{}` may exist only as audit/debug baggage and must never influence T3 output or case contracts.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -94,6 +95,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4B2_PRODUCTION_EDR_INGESTION_BASELINE.md`
    - `docs/S4B3_EDR_REPLAY_FIXTURES.md`
    - `docs/S4B4_T3_PRODUCTION_PARITY_TESTS.md`
+   - `docs/S4B5_TELEMETRY_REVIEW_PASS.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
