@@ -41,6 +41,35 @@ It covers:
 - vendor replay tests
 - T1/T5 self-check
 
+### Pilot Validation Gate
+Use this when you need the canonical deterministic entry for pilot validation:
+
+```powershell
+py -3 scripts\git_preflight.py --mode pilot
+```
+
+It is the pilot-validation canonical deterministic entry.
+
+It currently covers:
+- fast gate
+- Claude review-pack generation
+- release packaging
+- release verification
+
+### Release-Only Steps
+Use this only when you need packaging and verification steps without the pilot or full gate entry:
+
+```powershell
+py -3 scripts\git_preflight.py --mode release
+```
+
+It covers:
+- Claude review-pack generation
+- release packaging
+- release verification
+
+It does not replace the pilot validation gate or the full gate.
+
 ### Full Gate
 Use this before formal review, release cut, or sign-off:
 

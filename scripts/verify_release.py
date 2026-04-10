@@ -15,6 +15,22 @@ MANIFEST_PATH = ROOT / "releases" / "release_manifest.json"
 REPORT_PATH = ROOT / "releases" / "verify_report.json"
 UTC8 = timezone(timedelta(hours=8))
 
+PILOT_GATE_ENTRY = ["py", "-3", "scripts/git_preflight.py", "--mode", "pilot"]
+PILOT_REQUIRED_ARTIFACTS = [
+    {
+        "path": "docs\\S4D2_PILOT_SMOKE_PATH.md",
+        "role": "s4d2-pilot-smoke-path",
+    },
+    {
+        "path": "docs\\S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md",
+        "role": "s4d3-operator-runbooks-and-failure-triage",
+    },
+    {
+        "path": "docs\\S4D4_PILOT_VALIDATION_GATE.md",
+        "role": "s4d4-pilot-validation-gate",
+    },
+]
+
 
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -119,6 +135,69 @@ def verify_review_pack(manifest: dict) -> dict:
     }
 
 
+def verify_pilot_validation(manifest: dict, key_results: list[dict]) -> dict:
+    manifest_key_files = {item.get("path"): item for item in manifest.get("key_files", [])}
+    key_results_by_path = {item["path"]: item for item in key_results}
+    snapshot_id = manifest.get("snapshot", {}).get("id")
+
+    pack_dir = PACK_ROOT / snapshot_id
+    review_pack_entries = {
+        path.relative_to(pack_dir).as_posix()
+        for path in pack_dir.rglob("*")
+        if path.is_file()
+    } if pack_dir.exists() else set()
+
+    review_pack_zip_entries: set[str] = set()
+    review_pack_zip_path = ROOT / "releases" / f"claude-review-pack-{snapshot_id}.zip"
+    if review_pack_zip_path.exists():
+        with zipfile.ZipFile(review_pack_zip_path, "r") as archive:
+            review_pack_zip_entries = set(archive.namelist())
+
+    release_zip_entries: set[str] = set()
+    rel_release_zip = manifest.get("artifacts", {}).get("current_release_zip")
+    if rel_release_zip:
+        release_zip_path = ROOT / rel_release_zip
+        if release_zip_path.exists():
+            with zipfile.ZipFile(release_zip_path, "r") as archive:
+                release_zip_entries = set(archive.namelist())
+
+    artifact_results = []
+    for artifact in PILOT_REQUIRED_ARTIFACTS:
+        rel_path = artifact["path"]
+        normalized = rel_path.replace("\\", "/")
+        manifest_item = manifest_key_files.get(rel_path, {})
+        key_item = key_results_by_path.get(rel_path, {})
+        role_matches = manifest_item.get("role") == artifact["role"]
+        item_ok = (
+            bool(manifest_item)
+            and role_matches
+            and key_item.get("ok", False)
+            and normalized in review_pack_entries
+            and normalized in review_pack_zip_entries
+            and normalized in release_zip_entries
+        )
+        artifact_results.append(
+            {
+                "path": rel_path,
+                "expected_role": artifact["role"],
+                "manifest_listed": bool(manifest_item),
+                "role_matches": role_matches,
+                "key_file_ok": key_item.get("ok", False),
+                "in_review_pack_folder": normalized in review_pack_entries,
+                "in_review_pack_zip": normalized in review_pack_zip_entries,
+                "in_release_zip": normalized in release_zip_entries,
+                "ok": item_ok,
+            }
+        )
+
+    overall_ok = all(item["ok"] for item in artifact_results)
+    return {
+        "deterministic_gate_entry": PILOT_GATE_ENTRY,
+        "required_artifacts": artifact_results,
+        "ok": overall_ok,
+    }
+
+
 def run_tests(manifest: dict) -> list[dict]:
     results = []
     for test in manifest.get("tests", []):
@@ -155,6 +234,7 @@ def main() -> int:
     key_results = verify_key_files(manifest)
     zip_result = verify_release_zip(manifest)
     review_pack_result = verify_review_pack(manifest)
+    pilot_validation_result = verify_pilot_validation(manifest, key_results)
     test_results = run_tests(manifest)
 
     report = {
@@ -164,6 +244,7 @@ def main() -> int:
         "key_files": key_results,
         "release_zip": zip_result,
         "review_pack": review_pack_result,
+        "pilot_validation": pilot_validation_result,
         "tests": test_results,
     }
 
@@ -172,8 +253,9 @@ def main() -> int:
     key_ok = all(item["ok"] for item in key_results)
     zip_ok = zip_result.get("ok", False)
     review_pack_ok = review_pack_result.get("ok", False)
+    pilot_ok = pilot_validation_result.get("ok", False)
     tests_ok = all(item["ok"] for item in test_results)
-    all_ok = key_ok and zip_ok and review_pack_ok and tests_ok
+    all_ok = key_ok and zip_ok and review_pack_ok and pilot_ok and tests_ok
 
     test_status_map = {item["name"]: ("PASS" if item["ok"] else "FAIL") for item in test_results}
     for test in manifest.get("tests", []):
@@ -184,6 +266,7 @@ def main() -> int:
         "key_files": "PASS" if key_ok else "FAIL",
         "release_zip": "PASS" if zip_ok else "FAIL",
         "review_pack": "PASS" if review_pack_ok else "FAIL",
+        "pilot_validation": "PASS" if pilot_ok else "FAIL",
         "tests": "PASS" if tests_ok else "FAIL",
         "overall_status": "PASS" if all_ok else "FAIL",
         "report_path": str(REPORT_PATH.relative_to(ROOT)),
@@ -195,6 +278,7 @@ def main() -> int:
     print(f"[VERIFY] Key files: {'PASS' if key_ok else 'FAIL'}")
     print(f"[VERIFY] Release zip: {'PASS' if zip_ok else 'FAIL'}")
     print(f"[VERIFY] Review pack: {'PASS' if review_pack_ok else 'FAIL'}")
+    print(f"[VERIFY] Pilot validation: {'PASS' if pilot_ok else 'FAIL'}")
     print(f"[VERIFY] Tests: {'PASS' if tests_ok else 'FAIL'}")
     print(f"[VERIFY] Report: {REPORT_PATH}")
 

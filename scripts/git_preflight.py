@@ -43,6 +43,29 @@ RELEASE_COMMANDS = [
     ["py", "-3", "scripts/verify_release.py"],
 ]
 
+# Keep `pilot` and `all` equivalent today, but give them separate command lists
+# so they can diverge later without hidden aliasing.
+def combined_gate_commands() -> list[list[str]]:
+    return [argv[:] for argv in FAST_COMMANDS + RELEASE_COMMANDS]
+
+
+PILOT_COMMANDS = combined_gate_commands()
+FULL_COMMANDS = combined_gate_commands()
+
+MODE_COMMANDS = {
+    "fast": FAST_COMMANDS,
+    "pilot": PILOT_COMMANDS,
+    "release": RELEASE_COMMANDS,
+    "all": FULL_COMMANDS,
+}
+
+MODE_LABELS = {
+    "fast": "fast gate",
+    "pilot": "pilot validation gate",
+    "release": "release-only steps",
+    "all": "full gate",
+}
+
 
 def run_commands(commands: list[list[str]]) -> int:
     for argv in commands:
@@ -56,14 +79,11 @@ def run_commands(commands: list[list[str]]) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["fast", "release", "all"], default="fast")
+    parser.add_argument("--mode", choices=["fast", "pilot", "release", "all"], default="fast")
     args = parser.parse_args()
 
-    if args.mode == "fast":
-        return run_commands(FAST_COMMANDS)
-    if args.mode == "release":
-        return run_commands(RELEASE_COMMANDS)
-    return run_commands(FAST_COMMANDS + RELEASE_COMMANDS)
+    print(f"[MODE] {MODE_LABELS[args.mode]}")
+    return run_commands(MODE_COMMANDS[args.mode])
 
 
 if __name__ == "__main__":

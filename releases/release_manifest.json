@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-D-2026-04-10-005",
+    "id": "S4-D-2026-04-10-006",
     "sprint": "Sprint 4",
-    "stage": "operator-runbooks-and-failure-triage-baseline",
-    "created_at": "2026-04-10T19:01:52.8727220+08:00",
-    "updated_at": "2026-04-10T19:04:44.642173+08:00"
+    "stage": "pilot-validation-gate-baseline",
+    "created_at": "2026-04-10T19:36:34.6045254+08:00",
+    "updated_at": "2026-04-10T19:53:48.141278+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-005.zip",
-    "current_release_sha256": "abf0c4b539fc5b1e9c6661eb85340ee6d6ef1a1c56c45fab150f35b95560e0c2"
+    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-006.zip",
+    "current_release_sha256": "0a918991482ed4394f379918fd4371268647a6117248210028c3a463aa7357fc"
   },
   "key_files": [
     {
@@ -320,12 +320,12 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "e943262f5af2d103b27eff1311ee701f83c0fd335d143e8004112a6b3f4a823a"
+      "sha256": "5a4bfbef8c8479027a5bf8fe8c0560ffbdd6d64e0f2e991c18bdb3b5476f6639"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
       "role": "release-process-doc",
-      "sha256": "f76387e3527d8f4af06f83cf8b1f5e81db0732b93637624e04a2f802ddc343d0"
+      "sha256": "70e7472c093fe2480833842e5f89f6402a025973e73b08c68cc163223e32aed5"
     },
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
@@ -453,6 +453,11 @@
       "sha256": "db016f4c5ab9e4eb2a2f01d2a26246225364691f15644cbe87cde1b630cd4f3b"
     },
     {
+      "path": "docs\\S4D4_PILOT_VALIDATION_GATE.md",
+      "role": "s4d4-pilot-validation-gate",
+      "sha256": "792308a54f6d57eedeff517334660158fe29e10ae597fbf5c0a33a27307f6b1b"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -470,7 +475,7 @@
     {
       "path": "scripts\\verify_release.py",
       "role": "release-verifier",
-      "sha256": "14898efea5c5088b3f84b1279cbd85984f4a5d35ff69bd2bd53e3c306988dbd1"
+      "sha256": "40669e7eaeebfea016c486ce57d84afca620b9c0887950e05bd7ae1f06b7a699"
     },
     {
       "path": ".gitignore",
@@ -505,7 +510,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "57bb4fc5b731fc0aacaa68959fd532756464bfec54f59ad6518034521c5bc68c"
+      "sha256": "3821c2c17713fc36140970e51b8d50771f2a2c4d897bd9d62458afcd7303ec9b"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -635,16 +640,17 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-D-2026-04-10-005",
+      "Snapshot ID: S4-D-2026-04-10-006",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T19:04:45.015784+08:00",
+    "last_verified_at": "2026-04-10T19:53:48.480034+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
+    "pilot_validation": "PASS",
     "tests": "PASS",
     "overall_status": "PASS",
     "report_path": "releases\\verify_report.json"

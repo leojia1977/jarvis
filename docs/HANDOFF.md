@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-D-2026-04-10-005`
-- Stage: `Sprint 4 operator runbooks and failure triage baseline`
+- Snapshot ID: `S4-D-2026-04-10-006`
+- Stage: `Sprint 4 pilot validation gate baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -63,6 +63,7 @@
 - S4-D-2 now freezes one governed pilot smoke path under `docs/S4D2_PILOT_SMOKE_PATH.md`, exposes `POST /api/v1/pilot-smoke`, and proves `pilot_local readiness -> production-shaped investigate -> persistent create_case -> get_case` through `backend/app/runtime_service.py`, `backend/app/main.py`, and dedicated runtime regression coverage.
 - S4-D-2 review follow-up now keeps `pilot_smoke_sync()` on a single readiness snapshot for downstream error payloads, documents the outer `200 OK` vs inner `create_case=201` contract, and adds regression coverage for `time_range` propagation plus investigate/get-case failure stages.
 - S4-D-3 now freezes the operator runbook and failure-triage baseline under `docs/S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md`, links governed failure-step triage back from `docs/S4D2_PILOT_SMOKE_PATH.md`, and adds a redacted operator triage artifact checklist under `docs/RELEASE_PROCESS.md`.
+- S4-D-4 now freezes the pilot validation gate baseline under `docs/S4D4_PILOT_VALIDATION_GATE.md`, exposes `py -3 scripts/git_preflight.py --mode pilot` as the deterministic gate entry, and extends `scripts/verify_release.py` to prove `S4D2 / S4D3 / S4D4` pilot-governed artifacts are present in the manifest, review pack, and release zip.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -117,6 +118,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md`
    - `docs/S4D2_PILOT_SMOKE_PATH.md`
    - `docs/S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md`
+   - `docs/S4D4_PILOT_VALIDATION_GATE.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -150,7 +152,8 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Review current snapshot with Claude using the manifest and the generated review pack.
 - Treat `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md` plus `docs/S4D2_PILOT_SMOKE_PATH.md` as the governed baseline for any `SP4-D-2` review.
 - Treat `docs/S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md` plus `docs/RELEASE_PROCESS.md` as the governed operator baseline before extending validation-gate work.
-- Use `POST /api/v1/pilot-smoke` as the canonical pilot round-trip proof when connecting `S4-D-3` operator runbooks to `SP4-D-4` validation-gate coverage.
+- Treat `docs/S4D2_PILOT_SMOKE_PATH.md` plus `docs/S4D3_OPERATOR_RUNBOOKS_AND_FAILURE_TRIAGE.md` plus `docs/S4D4_PILOT_VALIDATION_GATE.md` as the governed pilot validation baseline before `SP4-D-5`.
+- Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry before operator-focused readiness review.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
 - Keep Git as the only code-truth layer and use release artifacts only for delivery.
