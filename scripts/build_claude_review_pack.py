@@ -84,6 +84,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S4B5_TELEMETRY_REVIEW_PASS.md",
         "docs/S4C1_PERSISTENT_CASE_SCHEMA_FREEZE.md",
         "docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md",
+        "docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
         ".gitignore",
@@ -115,6 +116,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "backend/tests/test_edr_replay.py",
         "backend/tests/test_t3_production_parity.py",
         "backend/tests/test_persistent_case_contract.py",
+        "backend/tests/test_case_action_request_contract.py",
         "backend/tests/test_case_store.py",
     ]
 

@@ -28,8 +28,10 @@ AuditEventType = Literal[
     "case_created",
     "status_changed",
     "action_request_created",
+    "action_request_submitted",
     "action_request_approved",
     "action_request_rejected",
+    "action_request_cancelled",
     "case_closed",
     "case_reopened",
 ]
@@ -39,6 +41,14 @@ FROZEN_CASE_STATUS_TRANSITIONS: dict[CaseLifecycleStatus, set[CaseLifecycleStatu
     "in_review": {"approved", "closed", "open"},
     "approved": {"closed", "in_review"},
     "closed": {"open"},
+}
+
+FROZEN_ACTION_REQUEST_TRANSITIONS: dict[ActionRequestStatus, set[ActionRequestStatus]] = {
+    "draft": {"pending_approval", "cancelled"},
+    "pending_approval": {"approved", "rejected", "cancelled"},
+    "approved": set(),
+    "rejected": set(),
+    "cancelled": set(),
 }
 
 
@@ -175,6 +185,17 @@ def is_valid_case_status_transition(
     return to_status in FROZEN_CASE_STATUS_TRANSITIONS.get(from_status, set())
 
 
+def allowed_action_request_transitions(status: ActionRequestStatus) -> tuple[ActionRequestStatus, ...]:
+    return tuple(sorted(FROZEN_ACTION_REQUEST_TRANSITIONS.get(status, set())))
+
+
+def is_valid_action_request_transition(
+    from_status: ActionRequestStatus,
+    to_status: ActionRequestStatus,
+) -> bool:
+    return to_status in FROZEN_ACTION_REQUEST_TRANSITIONS.get(from_status, set())
+
+
 def build_action_request_seed(
     threat_case: dict[str, Any],
     *,
@@ -182,6 +203,7 @@ def build_action_request_seed(
     rationale: str,
     requested_at_utc: Optional[str] = None,
     existing_requests: Optional[list[CaseActionRequestRecord] | list[dict[str, Any]]] = None,
+    source_case_status: Optional[CaseLifecycleStatus] = None,
 ) -> Optional[CaseActionRequestRecord]:
     suggested_action = threat_case.get("suggested_action") or {}
     action_type = suggested_action.get("type")
@@ -204,7 +226,7 @@ def build_action_request_seed(
         rationale=rationale,
         approval_required=True,
         blast_summary=suggested_action.get("blast_radius_desc"),
-        source_case_status="open",
+        source_case_status=source_case_status or "open",
     )
 
 
@@ -261,6 +283,269 @@ def append_action_request_record(
         record,
         action_requests=[*record.action_requests, action_request],
         updated_at_utc=updated_at_utc or _utc_now_iso(),
+    )
+
+
+def _find_action_request(
+    record: PersistentCaseRecord,
+    action_request_id: str,
+) -> tuple[int, CaseActionRequestRecord]:
+    for index, item in enumerate(record.action_requests):
+        if item.action_request_id == action_request_id:
+            return index, item
+    raise ValueError(f"action_request_not_found:{action_request_id}")
+
+
+def _replace_action_request(
+    record: PersistentCaseRecord,
+    index: int,
+    updated_request: CaseActionRequestRecord,
+    *,
+    updated_at_utc: str,
+    audit_entry: CaseAuditEntry,
+    lifecycle_status: Optional[CaseLifecycleStatus] = None,
+    review_owner: Optional[str] = None,
+) -> PersistentCaseRecord:
+    updated_requests = list(record.action_requests)
+    updated_requests[index] = updated_request
+    return replace(
+        record,
+        action_requests=updated_requests,
+        updated_at_utc=updated_at_utc,
+        lifecycle_status=lifecycle_status or record.lifecycle_status,
+        review_owner=review_owner if review_owner is not None else record.review_owner,
+        lifecycle_audit=[*record.lifecycle_audit, audit_entry],
+    )
+
+
+def _recommended_action_enabled(record: PersistentCaseRecord) -> bool:
+    recommended_action = record.case_view.get("recommended_action") or {}
+    return bool(recommended_action.get("available")) and recommended_action.get("action_state") == "AVAILABLE"
+
+
+def create_action_request_from_case(
+    record: PersistentCaseRecord,
+    *,
+    actor: str,
+    rationale: str,
+    at_utc: Optional[str] = None,
+) -> PersistentCaseRecord:
+    if record.lifecycle_status == "closed":
+        raise ValueError("action_request_not_allowed_for_closed_case")
+    if not _recommended_action_enabled(record):
+        raise ValueError("action_request_unavailable")
+
+    timestamp = at_utc or _utc_now_iso()
+    action_request = build_action_request_seed(
+        record.threat_case,
+        actor=actor,
+        rationale=rationale,
+        requested_at_utc=timestamp,
+        existing_requests=record.action_requests,
+        source_case_status=record.lifecycle_status,
+    )
+    if action_request is None:
+        raise ValueError("suggested_action_missing")
+
+    audit_entry = CaseAuditEntry(
+        event_id=next_audit_event_id(record.case_id, record.lifecycle_audit),
+        event_type="action_request_created",
+        actor=actor,
+        at_utc=timestamp,
+        case_status=record.lifecycle_status,
+        reason="action_request_created",
+        details={
+            "action_request_id": action_request.action_request_id,
+            "action_type": action_request.action_type,
+            "targets": deepcopy(action_request.targets),
+            "approval_required": action_request.approval_required,
+        },
+    )
+    return replace(
+        record,
+        action_requests=[*record.action_requests, action_request],
+        updated_at_utc=timestamp,
+        lifecycle_audit=[*record.lifecycle_audit, audit_entry],
+    )
+
+
+def submit_action_request_for_approval(
+    record: PersistentCaseRecord,
+    *,
+    action_request_id: str,
+    actor: str,
+    review_owner: str,
+    reason: str,
+    at_utc: Optional[str] = None,
+) -> PersistentCaseRecord:
+    if record.lifecycle_status == "closed":
+        raise ValueError("action_request_not_allowed_for_closed_case")
+
+    timestamp = at_utc or _utc_now_iso()
+    base_record = record
+    if record.lifecycle_status == "open":
+        base_record = transition_persistent_case_status(
+            record,
+            to_status="in_review",
+            actor=actor,
+            review_owner=review_owner,
+            reason="action_request_submitted",
+            details={"action_request_id": action_request_id},
+            at_utc=timestamp,
+        )
+
+    index, existing = _find_action_request(base_record, action_request_id)
+    if not is_valid_action_request_transition(existing.status, "pending_approval"):
+        raise ValueError(f"invalid_action_request_transition:{existing.status}->pending_approval")
+
+    updated_request = replace(
+        existing,
+        status="pending_approval",
+        source_case_status=base_record.lifecycle_status,
+    )
+    audit_entry = CaseAuditEntry(
+        event_id=next_audit_event_id(base_record.case_id, base_record.lifecycle_audit),
+        event_type="action_request_submitted",
+        actor=actor,
+        at_utc=timestamp,
+        case_status=base_record.lifecycle_status,
+        reason=reason,
+        details={
+            "action_request_id": action_request_id,
+            "review_owner": review_owner,
+        },
+    )
+    return _replace_action_request(
+        base_record,
+        index,
+        updated_request,
+        updated_at_utc=timestamp,
+        audit_entry=audit_entry,
+        review_owner=review_owner,
+    )
+
+
+def approve_action_request(
+    record: PersistentCaseRecord,
+    *,
+    action_request_id: str,
+    actor: str,
+    reason: str,
+    at_utc: Optional[str] = None,
+) -> PersistentCaseRecord:
+    timestamp = at_utc or _utc_now_iso()
+    base_record = record
+    if record.lifecycle_status != "approved":
+        base_record = transition_persistent_case_status(
+            record,
+            to_status="approved",
+            actor=actor,
+            reason="action_request_approved",
+            at_utc=timestamp,
+        )
+
+    index, existing = _find_action_request(base_record, action_request_id)
+    if not is_valid_action_request_transition(existing.status, "approved"):
+        raise ValueError(f"invalid_action_request_transition:{existing.status}->approved")
+
+    updated_request = replace(
+        existing,
+        status="approved",
+        decision_by=actor,
+        decision_at_utc=timestamp,
+        decision_reason=reason,
+    )
+    audit_entry = CaseAuditEntry(
+        event_id=next_audit_event_id(base_record.case_id, base_record.lifecycle_audit),
+        event_type="action_request_approved",
+        actor=actor,
+        at_utc=timestamp,
+        case_status=base_record.lifecycle_status,
+        reason=reason,
+        details={"action_request_id": action_request_id},
+    )
+    return _replace_action_request(
+        base_record,
+        index,
+        updated_request,
+        updated_at_utc=timestamp,
+        audit_entry=audit_entry,
+    )
+
+
+def reject_action_request(
+    record: PersistentCaseRecord,
+    *,
+    action_request_id: str,
+    actor: str,
+    reason: str,
+    at_utc: Optional[str] = None,
+) -> PersistentCaseRecord:
+    timestamp = at_utc or _utc_now_iso()
+    index, existing = _find_action_request(record, action_request_id)
+    if not is_valid_action_request_transition(existing.status, "rejected"):
+        raise ValueError(f"invalid_action_request_transition:{existing.status}->rejected")
+
+    updated_request = replace(
+        existing,
+        status="rejected",
+        decision_by=actor,
+        decision_at_utc=timestamp,
+        decision_reason=reason,
+    )
+    audit_entry = CaseAuditEntry(
+        event_id=next_audit_event_id(record.case_id, record.lifecycle_audit),
+        event_type="action_request_rejected",
+        actor=actor,
+        at_utc=timestamp,
+        case_status=record.lifecycle_status,
+        reason=reason,
+        details={"action_request_id": action_request_id},
+    )
+    return _replace_action_request(
+        record,
+        index,
+        updated_request,
+        updated_at_utc=timestamp,
+        audit_entry=audit_entry,
+    )
+
+
+def cancel_action_request(
+    record: PersistentCaseRecord,
+    *,
+    action_request_id: str,
+    actor: str,
+    reason: str,
+    at_utc: Optional[str] = None,
+) -> PersistentCaseRecord:
+    timestamp = at_utc or _utc_now_iso()
+    index, existing = _find_action_request(record, action_request_id)
+    if not is_valid_action_request_transition(existing.status, "cancelled"):
+        raise ValueError(f"invalid_action_request_transition:{existing.status}->cancelled")
+
+    updated_request = replace(
+        existing,
+        status="cancelled",
+        decision_by=actor,
+        decision_at_utc=timestamp,
+        decision_reason=reason,
+    )
+    audit_entry = CaseAuditEntry(
+        event_id=next_audit_event_id(record.case_id, record.lifecycle_audit),
+        event_type="action_request_cancelled",
+        actor=actor,
+        at_utc=timestamp,
+        case_status=record.lifecycle_status,
+        reason=reason,
+        details={"action_request_id": action_request_id},
+    )
+    return _replace_action_request(
+        record,
+        index,
+        updated_request,
+        updated_at_utc=timestamp,
+        audit_entry=audit_entry,
     )
 
 

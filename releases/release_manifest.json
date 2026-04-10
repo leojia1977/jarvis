@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-C-2026-04-10-002",
+    "id": "S4-C-2026-04-10-003",
     "sprint": "Sprint 4",
-    "stage": "case-store-and-retrieval-api",
+    "stage": "action-request-and-approval-contract",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T10:50:11.118647+08:00"
+    "updated_at": "2026-04-10T12:18:09.161417+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-002.zip",
-    "current_release_sha256": "0905e809432f1d3633018684d8d16849fc7185d203b3ac4ced3a3bc8212efc0e"
+    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-003.zip",
+    "current_release_sha256": "951197de015a4732cb178d79a5acea64330ae1143d4d1d5e6d19bc61c9c1627b"
   },
   "key_files": [
     {
@@ -145,7 +145,7 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "169433f65b027a91530e8792051d5b7d7c70670ea9c571217e26d307b32fe6b4"
+      "sha256": "a39815d89f1bc79849ff7a58952d15a171ddc2912cf42cb1acd15fa75822fd71"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -220,7 +220,12 @@
     {
       "path": "backend\\tests\\test_persistent_case_contract.py",
       "role": "canonical-persistent-case-contract-tests",
-      "sha256": "8a2c70c5dce24135eb5487dbb26b92c06603c27730c5399b9a3d8d2c2d1d9869"
+      "sha256": "0bd661bf155d8ea4ef17329d403613b8286fa613c94ec6a90c82aa6689ba7bcd"
+    },
+    {
+      "path": "backend\\tests\\test_case_action_request_contract.py",
+      "role": "canonical-case-action-request-contract-tests",
+      "sha256": "d1ffb892091054edceec990303493f3125efc2ba7932d09ddcd4e0fbb6cb9b37"
     },
     {
       "path": "backend\\tests\\test_case_store.py",
@@ -305,7 +310,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "0af404a0fe3779dfccdc8751b2775a7209eabb915140c761dc75a03a4b892dca"
+      "sha256": "e5f8726173251e4f6607d36fa8c10b1b4283f453bb94528810da7a25dc3720b5"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -403,6 +408,11 @@
       "sha256": "6805f2c643624943b83a70bf1c7279de9bce29cb9fe1f6dee067268d44798069"
     },
     {
+      "path": "docs\\S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md",
+      "role": "s4c3-action-request-and-approval-contract",
+      "sha256": "795c70e52f1dbafdc882088f56d86fe4fabde388336d129b620da71fcb4d3de9"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -410,7 +420,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "2715f826c706f28797742d38ddd4c99ba7e83113938aa01451ed3c71c101cf37"
+      "sha256": "29d609b6af10e99de04e79f86db9a865d4828435fcf9a8b353b0d14670fe3221"
     },
     {
       "path": "scripts\\package_release.py",
@@ -455,7 +465,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "8c616ded84dea551a92f6d50aa920da595418d2cef2876cf3fffec83f49772ab"
+      "sha256": "ac05f03cb92c3cacf2e9ca933b602e310055de9711191a799b40268b34437374"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -500,17 +510,17 @@
     {
       "path": "backend\\app\\main.py",
       "role": "runtime-main",
-      "sha256": "e3275f61b5c763be6d23be42843e3a6c10225f2cd12c6200e744aaa762b5444b"
+      "sha256": "e78131a448b2c0a8986be0fcd84424c3d4c0b56c2aeb07de57d8bae948fedc02"
     },
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "e9f4faca3d47b0adbff950dd1d4ace548bbdde9d5bf358fdf713a225099c6385"
+      "sha256": "da307806355ddf3c5bea587167fe71192f6fb09d9fa5f480551e83c78451e7fd"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "dc78ce86aa1754ffbccfba5ab8f16394ffb44510c0661ad4c34f876569290f6e"
+      "sha256": "55fe8946ece6b58a70aa9c4db318f5461a35a3cc3c92df5901b08d9f5ac4110c"
     },
     {
       "path": "run_runtime.py",
@@ -563,6 +573,7 @@
         "backend.tests.test_edr_replay",
         "backend.tests.test_t3_production_parity",
         "backend.tests.test_persistent_case_contract",
+        "backend.tests.test_case_action_request_contract",
         "backend.tests.test_case_store"
       ],
       "status": "PASS"
@@ -582,13 +593,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-C-2026-04-10-002",
+      "Snapshot ID: S4-C-2026-04-10-003",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T10:50:11.397013+08:00",
+    "last_verified_at": "2026-04-10T12:18:09.477917+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

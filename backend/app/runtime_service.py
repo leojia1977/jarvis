@@ -16,8 +16,14 @@ from app.tools.case_store import (
     load_current_snapshot_id,
 )
 from app.tools.persistent_case import (
+    approve_action_request,
     build_initial_persistent_case_record,
+    cancel_action_request,
+    create_action_request_from_case,
+    PersistentCaseRecord,
     persistent_case_record_to_dict,
+    reject_action_request,
+    submit_action_request_for_approval,
 )
 from app.tools.siem_adapter import MockSIEMAdapter, ProductionSIEMAdapter, SIEMAdapterProtocol
 
@@ -132,6 +138,31 @@ class SecuPilotRuntimeService:
                 "detail": exc.detail,
             },
         }
+
+    def _internal_error_payload(self, *, detail: str) -> dict[str, Any]:
+        return {
+            "status": "error",
+            "error": "internal_error",
+            "detail": detail,
+        }
+
+    def _action_request_error_payload(
+        self,
+        *,
+        error: str,
+        case_id: str,
+        detail: str,
+        action_request_id: Optional[str] = None,
+    ) -> dict[str, Any]:
+        payload = {
+            "status": "error",
+            "error": error,
+            "case_id": case_id,
+            "detail": detail,
+        }
+        if action_request_id:
+            payload["action_request_id"] = action_request_id
+        return payload
 
     def _require_case_store(self) -> CaseStoreProtocol:
         if self._case_store_error:
@@ -358,6 +389,8 @@ class SecuPilotRuntimeService:
             "case_store_path": str(self.settings.get_case_store_path()),
             "case_store_ready": self._case_store_error is None,
             "case_store_reason": self._case_store_error.reason if self._case_store_error else None,
+            "case_store_operator_message": self._case_store_error.operator_message if self._case_store_error else None,
+            "case_store_detail": self._case_store_error.detail if self._case_store_error else None,
             "mock_data_path": static_data_path,  # legacy alias; static_data_path is authoritative
             "static_data_path": static_data_path,
             "static_data_present": static_data_present,
@@ -439,19 +472,42 @@ class SecuPilotRuntimeService:
         status_code, response, _, _ = self._execute_investigation(payload)
         return status_code, response
 
-    def create_case_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
-        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
-        if status_code != 200 or threat_case is None or request_meta is None:
-            return status_code, response
+    def _load_case_record(
+        self,
+        case_id: str,
+    ) -> tuple[Optional[PersistentCaseRecord], Optional[tuple[int, dict[str, Any]]]]:
+        normalized_case_id = str(case_id or "").strip()
+        if not normalized_case_id:
+            return None, (400, {"status": "error", "error": "case_id_required"})
 
-        actor = str(payload.get("actor") or "secupilot.runtime")
-        snapshot_id = load_current_snapshot_id(self.settings)
-        record = build_initial_persistent_case_record(
-            threat_case,
-            snapshot_id=snapshot_id,
-            actor=actor,
-        )
+        try:
+            record = self._require_case_store().get_case(normalized_case_id)
+        except CaseStoreRuntimeError as exc:
+            self._emit_runtime_log(
+                logging.ERROR,
+                "runtime.case_store.read_failed",
+                failure_category="runtime",
+                reason=exc.reason,
+                detail=exc.detail,
+            )
+            return None, (503, self._persistence_error_payload(exc))
 
+        if record is None:
+            return None, (
+                404,
+                {
+                    "status": "error",
+                    "error": "case_not_found",
+                    "case_id": normalized_case_id,
+                },
+            )
+
+        return record, None
+
+    def _save_case_record(
+        self,
+        record: PersistentCaseRecord,
+    ) -> tuple[Optional[PersistentCaseRecord], Optional[tuple[int, dict[str, Any]]]]:
         try:
             stored_record = self._require_case_store().save_case(record)
         except CaseStoreRuntimeError as exc:
@@ -462,7 +518,35 @@ class SecuPilotRuntimeService:
                 reason=exc.reason,
                 detail=exc.detail,
             )
-            return 503, self._persistence_error_payload(exc)
+            return None, (503, self._persistence_error_payload(exc))
+        return stored_record, None
+
+    def create_case_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
+        if status_code != 200 or threat_case is None or request_meta is None:
+            return status_code, response
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        snapshot_id = load_current_snapshot_id(self.settings)
+        try:
+            record = build_initial_persistent_case_record(
+                threat_case,
+                snapshot_id=snapshot_id,
+                actor=actor,
+            )
+        except Exception as exc:
+            self._emit_runtime_log(
+                logging.ERROR,
+                "runtime.case_store.record_build_failed",
+                failure_category="runtime",
+                detail=str(exc),
+            )
+            return 500, self._internal_error_payload(detail=str(exc))
+
+        stored_record, store_error = self._save_case_record(record)
+        if store_error:
+            return store_error
+        assert stored_record is not None
 
         return 201, {
             "status": "ok",
@@ -504,4 +588,251 @@ class SecuPilotRuntimeService:
             "case_id": normalized_case_id,
             "storage": self._case_store_details(),
             "persistent_case": persistent_case_record_to_dict(record),
+        }
+
+    def create_action_request_sync(
+        self,
+        case_id: str,
+        payload: dict[str, Any],
+    ) -> tuple[int, dict[str, Any]]:
+        record, error_response = self._load_case_record(case_id)
+        if error_response:
+            return error_response
+        assert record is not None
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        rationale = str(payload.get("rationale") or "").strip()
+        if not rationale:
+            return 400, {
+                "status": "error",
+                "error": "rationale_required",
+                "case_id": record.case_id,
+            }
+
+        try:
+            updated = create_action_request_from_case(
+                record,
+                actor=actor,
+                rationale=rationale,
+            )
+        except ValueError as exc:
+            detail = str(exc)
+            return 409, self._action_request_error_payload(
+                error="action_request_unavailable",
+                case_id=record.case_id,
+                detail=detail,
+            )
+
+        stored_record, store_error = self._save_case_record(updated)
+        if store_error:
+            return store_error
+        assert stored_record is not None
+
+        action_request = persistent_case_record_to_dict(stored_record)["action_requests"][-1]
+        return 201, {
+            "status": "ok",
+            "case_id": stored_record.case_id,
+            "action_request_id": action_request["action_request_id"],
+            "storage": self._case_store_details(),
+            "action_request": action_request,
+            "persistent_case": persistent_case_record_to_dict(stored_record),
+        }
+
+    def submit_action_request_sync(
+        self,
+        case_id: str,
+        action_request_id: str,
+        payload: dict[str, Any],
+    ) -> tuple[int, dict[str, Any]]:
+        record, error_response = self._load_case_record(case_id)
+        if error_response:
+            return error_response
+        assert record is not None
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        review_owner = str(payload.get("review_owner") or "").strip()
+        reason = str(payload.get("reason") or "").strip()
+        if not reason:
+            return 400, {"status": "error", "error": "reason_required", "case_id": record.case_id}
+        if not review_owner:
+            return 400, {"status": "error", "error": "review_owner_required", "case_id": record.case_id}
+
+        try:
+            updated = submit_action_request_for_approval(
+                record,
+                action_request_id=action_request_id,
+                actor=actor,
+                review_owner=review_owner,
+                reason=reason,
+            )
+        except ValueError as exc:
+            detail = str(exc)
+            error = "action_request_not_found" if detail.startswith("action_request_not_found:") else "invalid_action_request_transition"
+            status_code = 404 if error == "action_request_not_found" else 409
+            return status_code, self._action_request_error_payload(
+                error=error,
+                case_id=record.case_id,
+                action_request_id=action_request_id,
+                detail=detail,
+            )
+
+        stored_record, store_error = self._save_case_record(updated)
+        if store_error:
+            return store_error
+        assert stored_record is not None
+
+        action_request = next(
+            item
+            for item in persistent_case_record_to_dict(stored_record)["action_requests"]
+            if item["action_request_id"] == action_request_id
+        )
+        return 200, {
+            "status": "ok",
+            "case_id": stored_record.case_id,
+            "action_request_id": action_request_id,
+            "storage": self._case_store_details(),
+            "action_request": action_request,
+            "persistent_case": persistent_case_record_to_dict(stored_record),
+        }
+
+    def approve_action_request_sync(
+        self,
+        case_id: str,
+        action_request_id: str,
+        payload: dict[str, Any],
+    ) -> tuple[int, dict[str, Any]]:
+        return self._decide_action_request_sync(
+            case_id,
+            action_request_id,
+            payload,
+            decision="approved",
+        )
+
+    def reject_action_request_sync(
+        self,
+        case_id: str,
+        action_request_id: str,
+        payload: dict[str, Any],
+    ) -> tuple[int, dict[str, Any]]:
+        return self._decide_action_request_sync(
+            case_id,
+            action_request_id,
+            payload,
+            decision="rejected",
+        )
+
+    def cancel_action_request_sync(
+        self,
+        case_id: str,
+        action_request_id: str,
+        payload: dict[str, Any],
+    ) -> tuple[int, dict[str, Any]]:
+        record, error_response = self._load_case_record(case_id)
+        if error_response:
+            return error_response
+        assert record is not None
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        reason = str(payload.get("reason") or "").strip()
+        if not reason:
+            return 400, {"status": "error", "error": "reason_required", "case_id": record.case_id}
+
+        try:
+            updated = cancel_action_request(
+                record,
+                action_request_id=action_request_id,
+                actor=actor,
+                reason=reason,
+            )
+        except ValueError as exc:
+            detail = str(exc)
+            error = "action_request_not_found" if detail.startswith("action_request_not_found:") else "invalid_action_request_transition"
+            status_code = 404 if error == "action_request_not_found" else 409
+            return status_code, self._action_request_error_payload(
+                error=error,
+                case_id=record.case_id,
+                action_request_id=action_request_id,
+                detail=detail,
+            )
+
+        stored_record, store_error = self._save_case_record(updated)
+        if store_error:
+            return store_error
+        assert stored_record is not None
+
+        action_request = next(
+            item
+            for item in persistent_case_record_to_dict(stored_record)["action_requests"]
+            if item["action_request_id"] == action_request_id
+        )
+        return 200, {
+            "status": "ok",
+            "case_id": stored_record.case_id,
+            "action_request_id": action_request_id,
+            "storage": self._case_store_details(),
+            "action_request": action_request,
+            "persistent_case": persistent_case_record_to_dict(stored_record),
+        }
+
+    def _decide_action_request_sync(
+        self,
+        case_id: str,
+        action_request_id: str,
+        payload: dict[str, Any],
+        *,
+        decision: Literal["approved", "rejected"],
+    ) -> tuple[int, dict[str, Any]]:
+        record, error_response = self._load_case_record(case_id)
+        if error_response:
+            return error_response
+        assert record is not None
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        reason = str(payload.get("reason") or "").strip()
+        if not reason:
+            return 400, {"status": "error", "error": "reason_required", "case_id": record.case_id}
+
+        try:
+            if decision == "approved":
+                updated = approve_action_request(
+                    record,
+                    action_request_id=action_request_id,
+                    actor=actor,
+                    reason=reason,
+                )
+            else:
+                updated = reject_action_request(
+                    record,
+                    action_request_id=action_request_id,
+                    actor=actor,
+                    reason=reason,
+                )
+        except ValueError as exc:
+            detail = str(exc)
+            error = "action_request_not_found" if detail.startswith("action_request_not_found:") else "invalid_action_request_transition"
+            status_code = 404 if error == "action_request_not_found" else 409
+            return status_code, self._action_request_error_payload(
+                error=error,
+                case_id=record.case_id,
+                action_request_id=action_request_id,
+                detail=detail,
+            )
+
+        stored_record, store_error = self._save_case_record(updated)
+        if store_error:
+            return store_error
+        assert stored_record is not None
+
+        action_request = next(
+            item
+            for item in persistent_case_record_to_dict(stored_record)["action_requests"]
+            if item["action_request_id"] == action_request_id
+        )
+        return 200, {
+            "status": "ok",
+            "case_id": stored_record.case_id,
+            "action_request_id": action_request_id,
+            "storage": self._case_store_details(),
+            "action_request": action_request,
+            "persistent_case": persistent_case_record_to_dict(stored_record),
         }

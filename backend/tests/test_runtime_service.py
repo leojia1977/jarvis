@@ -10,6 +10,7 @@ bootstrap()
 from backend.app.config import Settings
 from backend.app.runtime_service import SecuPilotRuntimeService
 from app.tools.case_store import load_current_snapshot_id
+from app.tools.persistent_case import build_initial_persistent_case_record
 from app.tools.siem_adapter import ProductionSIEMAdapter
 
 
@@ -336,6 +337,147 @@ class RuntimeServiceTests(unittest.TestCase):
 
         self.assertEqual(status_code, 404)
         self.assertEqual(payload["error"], "case_not_found")
+
+    def test_create_case_returns_structured_internal_error_when_record_build_fails(self):
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="mock",
+                mock_data_path="./mock_data",
+            )
+        )
+
+        with patch("backend.app.runtime_service.build_initial_persistent_case_record", side_effect=RuntimeError("record_boom")):
+            status_code, payload = service.create_case_sync({
+                "user_input": "请检查最近是否有横向移动",
+                "intent": "threat_hunt",
+            })
+
+        self.assertEqual(status_code, 500)
+        self.assertEqual(payload["error"], "internal_error")
+        self.assertEqual(payload["detail"], "record_boom")
+
+    def test_create_submit_and_approve_action_request_round_trip(self):
+        temp_dir = _fresh_temp_root("runtime_case_actions")
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="mock",
+                mock_data_path="./mock_data",
+                case_store_path=str(temp_dir / "cases.sqlite3"),
+            )
+        )
+
+        threat_case = {
+            "case_id": "CASE-ACTION-ROUNDTRIP-001",
+            "version": "3.1",
+            "risk_score": 9.2,
+            "confidence_score": 0.92,
+            "confidence_label": "HIGH",
+            "verdict_status": "CRITICAL_ACTION_REQUIRED",
+            "investigation_status": "COMPLETE",
+            "scenario_name": "Action Approval Flow",
+            "forensic_result": {
+                "hosts_analyzed": ["WKST-047"],
+                "total_suspicious_chains": 1,
+                "top_chains": [],
+                "attack_stages_observed": ["Execution"],
+                "persistence_mechanisms": [],
+                "evidence_gaps": [],
+            },
+            "suggested_action": {
+                "type": "NETWORK_ISOLATE",
+                "targets": ["WKST-047"],
+                "blast_radius_desc": "隔离影响 3 个级联资产",
+            },
+            "audit_trail": {"degraded": False, "degraded_reasons": []},
+        }
+        record = build_initial_persistent_case_record(
+            threat_case,
+            snapshot_id="S4-C-2026-04-10-003",
+            actor="analyst.leo",
+        )
+        service._require_case_store().save_case(record)
+        case_id = record.case_id
+
+        draft_status, draft_payload = service.create_action_request_sync(case_id, {
+            "actor": "analyst.leo",
+            "rationale": "需要先走人工审批",
+        })
+        self.assertEqual(draft_status, 201)
+        self.assertEqual(draft_payload["action_request"]["status"], "draft")
+        action_request_id = draft_payload["action_request_id"]
+
+        submit_status, submit_payload = service.submit_action_request_sync(case_id, action_request_id, {
+            "actor": "analyst.leo",
+            "review_owner": "manager.chen",
+            "reason": "提交审批",
+        })
+        self.assertEqual(submit_status, 200)
+        self.assertEqual(submit_payload["action_request"]["status"], "pending_approval")
+        self.assertEqual(submit_payload["persistent_case"]["lifecycle_status"], "in_review")
+
+        approve_status, approve_payload = service.approve_action_request_sync(case_id, action_request_id, {
+            "actor": "manager.chen",
+            "reason": "批准执行",
+        })
+        self.assertEqual(approve_status, 200)
+        self.assertEqual(approve_payload["action_request"]["status"], "approved")
+        self.assertEqual(approve_payload["persistent_case"]["lifecycle_status"], "approved")
+        self.assertIn(
+            "action_request_approved",
+            [item["event_type"] for item in approve_payload["persistent_case"]["lifecycle_audit"]],
+        )
+
+    def test_degraded_case_blocks_action_request_creation(self):
+        temp_dir = _fresh_temp_root("runtime_case_actions_degraded")
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="mock",
+                mock_data_path="./mock_data",
+                case_store_path=str(temp_dir / "cases.sqlite3"),
+            )
+        )
+
+        threat_case = {
+            "case_id": "CASE-DEGRADED-001",
+            "version": "3.1",
+            "risk_score": 6.2,
+            "confidence_score": 0.42,
+            "confidence_label": "LOW",
+            "verdict_status": "DEGRADED",
+            "investigation_status": "DEGRADED",
+            "scenario_name": "Degraded replay",
+            "forensic_result": {
+                "hosts_analyzed": [],
+                "total_suspicious_chains": 0,
+                "top_chains": [],
+                "attack_stages_observed": [],
+                "persistence_mechanisms": [],
+                "evidence_gaps": ["missing_edr"],
+            },
+            "suggested_action": {
+                "type": "NETWORK_ISOLATE",
+                "targets": ["WKST-047"],
+                "blast_radius_desc": "隔离影响未知",
+            },
+            "audit_trail": {"degraded": True, "degraded_reasons": ["production_edr_unavailable"]},
+        }
+        record = build_initial_persistent_case_record(
+            threat_case,
+            snapshot_id="S4-C-2026-04-10-003",
+            actor="analyst.leo",
+        )
+        service._require_case_store().save_case(record)
+
+        status_code, payload = service.create_action_request_sync("CASE-DEGRADED-001", {
+            "actor": "analyst.leo",
+            "rationale": "降级案卷不应允许动作请求",
+        })
+
+        self.assertEqual(status_code, 409)
+        self.assertEqual(payload["error"], "action_request_unavailable")
 
 
 if __name__ == "__main__":

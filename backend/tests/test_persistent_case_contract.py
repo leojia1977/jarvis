@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 
 from _project_bootstrap import bootstrap
 
@@ -15,6 +16,9 @@ from app.tools.persistent_case import (  # noqa: E402
     persistent_case_record_to_dict,
 )
 from backend.app.config import Settings  # noqa: E402
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _sample_chain(chain_id="WKST-047:chain-000", host="WKST-047"):
@@ -116,7 +120,7 @@ class PersistentCaseContractTests(unittest.TestCase):
         self.assertTrue(request.approval_required)
 
     def test_backend_choice_is_frozen_to_sqlite_local(self):
-        configured = Settings(project_root="C:/repo/secupilot", case_store_path="./data/cases.sqlite3")
+        configured = Settings(project_root=str(REPO_ROOT), case_store_path="./data/cases.sqlite3")
         backend = frozen_persistence_backend(configured)
 
         self.assertEqual(backend.backend, "sqlite_local")
