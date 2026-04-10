@@ -24,6 +24,7 @@ from app.tools.static_data_sources import HostIdentityRecord  # noqa: E402
 
 
 FIXTURE_DIR = Path(__file__).parent / "fixtures" / "vendor_replay"
+REPO_ROOT = Path(__file__).resolve().parents[2]
 FORBIDDEN_VENDOR_KEYS = {"event", "host", "process", "source", "destination", "network", "dns", "file", "registry"}
 
 
@@ -170,9 +171,9 @@ class T3ProductionParityTests(unittest.TestCase):
 
     def test_orchestrator_keeps_partial_semantics_for_partial_edr_replay(self):
         settings = Settings(
-            project_root="C:/Users/Administrator/Documents/New project",
+            project_root=str(REPO_ROOT),
             runtime_mode="mock",
-            mock_data_path="./mock_data",
+            mock_data_path=str(REPO_ROOT / "mock_data"),
             edr_source_mode="replay",
             edr_vendor="elastic_defend_like",
             edr_base_url="https://edr.example.local",
@@ -200,9 +201,9 @@ class T3ProductionParityTests(unittest.TestCase):
 
     def test_orchestrator_keeps_degraded_semantics_for_unavailable_edr(self):
         settings = Settings(
-            project_root="C:/Users/Administrator/Documents/New project",
+            project_root=str(REPO_ROOT),
             runtime_mode="mock",
-            mock_data_path="./mock_data",
+            mock_data_path=str(REPO_ROOT / "mock_data"),
             edr_source_mode="replay",
             edr_vendor="generic_http",
             edr_base_url="https://edr.example.local",

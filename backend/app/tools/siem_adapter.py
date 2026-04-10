@@ -23,14 +23,29 @@ from typing import Any, Generic, Literal, Optional, Protocol, TypeVar
 try:
     import structlog
     logger = structlog.get_logger()
+    _HAS_STRUCTLOG = True
 except ImportError:
     import logging
     logger = logging.getLogger("secupilot.siem_adapter")
+    _HAS_STRUCTLOG = False
 
 from app.config import settings
 
 
 T = TypeVar("T")
+
+
+def _log_event(level: str, event: str, **fields: Any) -> None:
+    if _HAS_STRUCTLOG:
+        getattr(logger, level)(event, **fields)
+        return
+
+    if fields:
+        detail = ", ".join(f"{key}={fields[key]!r}" for key in sorted(fields))
+        getattr(logger, level)(f"{event} | {detail}")
+        return
+
+    getattr(logger, level)(event)
 
 
 def _utc_now() -> datetime:
@@ -118,7 +133,7 @@ class TimeRangeSpec:
                 elif unit == "d":
                     delta = timedelta(days=amount)
             else:
-                logger.warning("Unrecognized time_range, falling back to 24h", value=value)
+                _log_event("warning", "Unrecognized time_range, falling back to 24h", value=value)
 
         return cls(
             start_utc=now_utc - delta,
@@ -286,13 +301,14 @@ class MockSIEMAdapter:
                     sid = data.get("scenario", {}).get("scenario_id", file_path.stem)
                     self._cache["scenarios"][sid] = data
 
-            logger.info(
+            _log_event(
+                "info",
                 "Mock SIEM data loaded",
                 root=str(self.data_root),
                 scenarios=len(self._cache["scenarios"]),
             )
         except Exception as exc:
-            logger.error("Failed to load mock data", error=str(exc))
+            _log_event("error", "Failed to load mock data", error=str(exc))
 
     def _all_alerts(self) -> list[dict]:
         alerts: list[dict] = []
@@ -453,7 +469,11 @@ class ProductionSIEMAdapter:
         self.auth_token = getattr(runtime_settings, "siem_auth_token", "") or ""
         configured_vendor = getattr(runtime_settings, "siem_vendor", "generic_http") or "generic_http"
         if configured_vendor not in self.SUPPORTED_VENDORS:
-            logger.warning("Unsupported siem_vendor, falling back to generic_http", vendor=configured_vendor)
+            _log_event(
+                "warning",
+                "Unsupported siem_vendor, falling back to generic_http",
+                vendor=configured_vendor,
+            )
             configured_vendor = "generic_http"
         self.vendor = configured_vendor
         self.timeout_seconds = float(getattr(runtime_settings, "siem_request_timeout_seconds", 5.0))

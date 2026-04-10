@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-B-2026-04-10-004",
+    "id": "S4-B-2026-04-10-005",
     "sprint": "Sprint 4",
-    "stage": "t3-production-parity-tests",
+    "stage": "t3-production-parity-followup",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T09:03:17.642044+08:00"
+    "updated_at": "2026-04-10T09:27:45.364696+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-B-2026-04-10-004.zip",
-    "current_release_sha256": "899022bf89174a88c3d7f74ddc6f6292dd48a17324615447f140f1d4c499eadf"
+    "current_release_zip": "releases\\secupilot-S4-B-2026-04-10-005.zip",
+    "current_release_sha256": "21e823f3d07c2300486a522c3e02c5a13f1935914e645c56820ce0e772791c8b"
   },
   "key_files": [
     {
@@ -120,7 +120,7 @@
     {
       "path": "backend\\app\\tools\\siem_adapter.py",
       "role": "siem-adapter",
-      "sha256": "05a9924593736bc18c9167d85f26fd10d7d794144f314eb972789119e82da2b1"
+      "sha256": "e203914936a9a1c474a46adbb074dc499ffdac137688951a3f20a9a9695cce8a"
     },
     {
       "path": "backend\\app\\tools\\static_data_sources.py",
@@ -205,7 +205,7 @@
     {
       "path": "backend\\tests\\test_t3_production_parity.py",
       "role": "canonical-t3-production-parity-tests",
-      "sha256": "936a8a2b6fa3db16ad49720f9ca578f02356f1e761141b60b14a1287c8eb2420"
+      "sha256": "731bdc3a6f6b5a006547542f01926d07ae8d09936cae70ec53a2b4bd5ff16b28"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -285,7 +285,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "b08a49540f1ca266c2ece0d4b047085d7bfa1cb1d5345b89dd493fccc59a8593"
+      "sha256": "7a9ae2b5269ee64ee763c5d292f9243bbd94be33e30fedebb686d686bf9fffbe"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -545,13 +545,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-B-2026-04-10-004",
+      "Snapshot ID: S4-B-2026-04-10-005",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T09:03:17.965958+08:00",
+    "last_verified_at": "2026-04-10T09:27:47.453161+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

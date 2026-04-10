@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-B-2026-04-10-004`
-- Stage: `Sprint 4 T3 production parity tests`
+- Snapshot ID: `S4-B-2026-04-10-005`
+- Stage: `Sprint 4 T3 production parity follow-up`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -49,6 +49,7 @@
 - S4-B-2 now routes T3 process-event ingestion through explicit EDR adapters, replaces the last direct `process_events` bootstrap read in `backend/app/agents/graph.py`, and freezes the baseline under `docs/S4B2_PRODUCTION_EDR_INGESTION_BASELINE.md`.
 - S4-B-3 now adds offline EDR replay fixtures plus `EDRReplayTransport`, proves canonical normalization for `crowdstrike_like` and `elastic_defend_like`, and freezes replay validation under `docs/S4B3_EDR_REPLAY_FIXTURES.md`.
 - S4-B-4 now proves T3 anomaly detection, persistence detection, IOC extraction, and `partial / degraded` semantics remain stable under production-shaped EDR ingestion, frozen under `docs/S4B4_T3_PRODUCTION_PARITY_TESTS.md`.
+- S4-B-4 follow-up now removes machine-local mock-data assumptions from the parity tests and makes `backend/app/tools/siem_adapter.py` safe under standard-logging fallback when `structlog` is unavailable.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
