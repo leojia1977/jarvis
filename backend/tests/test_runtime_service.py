@@ -1,4 +1,6 @@
 import unittest
+import shutil
+from pathlib import Path
 from unittest.mock import patch
 
 from _project_bootstrap import bootstrap
@@ -7,7 +9,20 @@ bootstrap()
 
 from backend.app.config import Settings
 from backend.app.runtime_service import SecuPilotRuntimeService
+from app.tools.case_store import load_current_snapshot_id
 from app.tools.siem_adapter import ProductionSIEMAdapter
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+TMP_ROOT = REPO_ROOT / ".tmp_testdata"
+TMP_ROOT.mkdir(exist_ok=True)
+
+
+def _fresh_temp_root(name: str) -> Path:
+    target = TMP_ROOT / name
+    shutil.rmtree(target, ignore_errors=True)
+    target.mkdir(parents=True, exist_ok=True)
+    return target
 
 
 class FakeProductionTransport:
@@ -244,6 +259,83 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertEqual(payload["runtime_status"]["state_class"], "MISCONFIGURED")
         self.assertEqual(payload["runtime_status"]["failure_category"], "adapter_config")
         self.assertEqual(payload["readiness"]["state_class"], "MISCONFIGURED")
+
+    def test_create_case_persists_and_retrieves_by_case_id(self):
+        temp_dir = _fresh_temp_root("runtime_case_create")
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="mock",
+                mock_data_path="./mock_data",
+                case_store_path=str(temp_dir / "cases.sqlite3"),
+            )
+        )
+
+        create_status, create_payload = service.create_case_sync({
+            "user_input": "请检查最近是否有横向移动",
+            "intent": "threat_hunt",
+            "time_range": "24h",
+            "actor": "analyst.leo",
+        })
+
+        self.assertEqual(create_status, 201)
+        case_id = create_payload["case_id"]
+        stored_verdict = create_payload["persistent_case"]["case_view"]["executive_summary"]["verdict"]
+        self.assertEqual(create_payload["persistent_case"]["case_id"], case_id)
+        self.assertEqual(
+            create_payload["persistent_case"]["source_snapshot_id"],
+            load_current_snapshot_id(service.settings),
+        )
+
+        get_status, get_payload = service.get_case_sync(case_id)
+        self.assertEqual(get_status, 200)
+        self.assertEqual(get_payload["persistent_case"]["case_id"], case_id)
+        self.assertEqual(get_payload["persistent_case"]["lifecycle_status"], "open")
+
+        get_payload["persistent_case"]["case_view"]["executive_summary"]["verdict"] = "BROKEN"
+        get_again_status, get_again_payload = service.get_case_sync(case_id)
+        self.assertEqual(get_again_status, 200)
+        self.assertEqual(
+            get_again_payload["persistent_case"]["case_view"]["executive_summary"]["verdict"],
+            stored_verdict,
+        )
+
+    def test_create_case_returns_diagnosable_store_failure(self):
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="mock",
+                mock_data_path="./mock_data",
+                case_store_backend="unsupported_store",
+            )
+        )
+
+        status_code, payload = service.create_case_sync({
+            "user_input": "请检查最近是否有横向移动",
+            "intent": "threat_hunt",
+            "time_range": "24h",
+            "actor": "analyst.leo",
+        })
+
+        self.assertEqual(status_code, 503)
+        self.assertEqual(payload["error"], "case_store_unavailable")
+        self.assertEqual(payload["storage"]["reason"], "case_store_backend_not_supported")
+
+    def test_get_case_returns_not_found(self):
+        temp_dir = _fresh_temp_root("runtime_case_missing")
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="mock",
+                mock_data_path="./mock_data",
+                case_store_path=str(temp_dir / "cases.sqlite3"),
+            )
+        )
+
+        status_code, payload = service.get_case_sync("CASE-MISSING-001")
+
+        self.assertEqual(status_code, 404)
+        self.assertEqual(payload["error"], "case_not_found")
 
 
 if __name__ == "__main__":

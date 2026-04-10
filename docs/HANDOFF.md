@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-C-2026-04-10-001`
-- Stage: `Sprint 4 persistent case schema freeze`
+- Snapshot ID: `S4-C-2026-04-10-002`
+- Stage: `Sprint 4 case store and retrieval api`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -52,6 +52,7 @@
 - S4-B-4 follow-up now removes machine-local mock-data assumptions from the parity tests and makes `backend/app/tools/siem_adapter.py` safe under standard-logging fallback when `structlog` is unavailable.
 - S4-B-5 now closes the telemetry stream review under `docs/S4B5_TELEMETRY_REVIEW_PASS.md`, removes the remaining machine-local EDR test paths, and clarifies that `extra{}` may exist only as audit/debug baggage and must never influence T3 output or case contracts.
 - S4-C-1 now freezes the durable case schema, lifecycle status model, action-request record, audit record, and pilot persistence backend choice under `docs/S4C1_PERSISTENT_CASE_SCHEMA_FREEZE.md` and `backend/app/tools/persistent_case.py`.
+- S4-C-2 now adds a governed SQLite case store, `POST /api/v1/cases`, `GET /api/v1/cases/{case_id}`, immutable record helpers, and retrieval/persistence regression coverage under `docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md`, `backend/app/tools/case_store.py`, and `backend/tests/test_case_store.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -98,6 +99,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4B4_T3_PRODUCTION_PARITY_TESTS.md`
    - `docs/S4B5_TELEMETRY_REVIEW_PASS.md`
    - `docs/S4C1_PERSISTENT_CASE_SCHEMA_FREEZE.md`
+   - `docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -106,8 +108,9 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 ## Baseline Test Commands
 
 ### Canonical Authoritative Gate
-- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver backend.tests.test_edr_adapter_contract backend.tests.test_edr_replay backend.tests.test_t3_production_parity backend.tests.test_persistent_case_contract`
+- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver backend.tests.test_edr_adapter_contract backend.tests.test_edr_replay backend.tests.test_t3_production_parity backend.tests.test_persistent_case_contract backend.tests.test_case_store`
 - `py -3 -m unittest -q backend.tests.test_persistent_case_contract`
+- `py -3 -m unittest -q backend.tests.test_case_store`
 - `py -3 -m unittest -q backend.tests.test_vendor_replay`
 
 ### Legacy / Compat Shortcuts

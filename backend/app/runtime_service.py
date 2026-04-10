@@ -9,6 +9,16 @@ from typing import Any, Callable, Literal, Optional
 
 from app.config import Settings, settings
 from app.agents.graph import InvestigationPipeline
+from app.tools.case_store import (
+    CaseStoreProtocol,
+    CaseStoreRuntimeError,
+    build_case_store,
+    load_current_snapshot_id,
+)
+from app.tools.persistent_case import (
+    build_initial_persistent_case_record,
+    persistent_case_record_to_dict,
+)
 from app.tools.siem_adapter import MockSIEMAdapter, ProductionSIEMAdapter, SIEMAdapterProtocol
 
 
@@ -57,7 +67,10 @@ class SecuPilotRuntimeService:
         self.settings = runtime_settings or settings
         self._adapter_factory = adapter_factory
         self.started_at = time.time()
+        self._case_store: Optional[CaseStoreProtocol] = None
+        self._case_store_error: Optional[CaseStoreRuntimeError] = None
         self._configure_logging()
+        self._configure_case_store()
         self._context = self._build_context()
 
     def _configure_logging(self) -> None:
@@ -73,6 +86,63 @@ class SecuPilotRuntimeService:
             **fields,
         }
         logger.log(level, json.dumps(payload, ensure_ascii=False, sort_keys=True))
+
+    def _configure_case_store(self) -> None:
+        try:
+            self._case_store = build_case_store(self.settings)
+            self._case_store_error = None
+        except CaseStoreRuntimeError as exc:
+            self._case_store = None
+            self._case_store_error = exc
+
+    def _case_store_details(self) -> dict[str, Any]:
+        details = {
+            "backend": str(self.settings.case_store_backend or "sqlite_local"),
+            "store_path": str(self.settings.get_case_store_path()),
+        }
+        if self._case_store:
+            try:
+                details.update(self._case_store.get_runtime_stats())
+            except CaseStoreRuntimeError as exc:
+                details.update(
+                    {
+                        "reason": exc.reason,
+                        "operator_message": exc.operator_message,
+                        "detail": exc.detail,
+                    }
+                )
+        if self._case_store_error:
+            details.update(
+                {
+                    "reason": self._case_store_error.reason,
+                    "operator_message": self._case_store_error.operator_message,
+                    "detail": self._case_store_error.detail,
+                }
+            )
+        return details
+
+    def _persistence_error_payload(self, exc: CaseStoreRuntimeError) -> dict[str, Any]:
+        return {
+            "status": "error",
+            "error": "case_store_unavailable",
+            "storage": {
+                **self._case_store_details(),
+                "reason": exc.reason,
+                "operator_message": exc.operator_message,
+                "detail": exc.detail,
+            },
+        }
+
+    def _require_case_store(self) -> CaseStoreProtocol:
+        if self._case_store_error:
+            raise self._case_store_error
+        if self._case_store:
+            return self._case_store
+        raise CaseStoreRuntimeError(
+            reason="case_store_not_initialized",
+            operator_message="Case store is not initialized for the current runtime service.",
+            detail="case_store_not_initialized",
+        )
 
     def _runtime_state(self) -> dict[str, Any]:
         reasons = list(self._context.reasons)
@@ -284,6 +354,10 @@ class SecuPilotRuntimeService:
             "operator_message": runtime_state["operator_message"],
             "adapter_type": adapter_type,
             "adapter_configured": adapter_configured,
+            "case_store_backend": str(self.settings.case_store_backend or "sqlite_local"),
+            "case_store_path": str(self.settings.get_case_store_path()),
+            "case_store_ready": self._case_store_error is None,
+            "case_store_reason": self._case_store_error.reason if self._case_store_error else None,
             "mock_data_path": static_data_path,  # legacy alias; static_data_path is authoritative
             "static_data_path": static_data_path,
             "static_data_present": static_data_present,
@@ -292,7 +366,10 @@ class SecuPilotRuntimeService:
             "reasons": runtime_state["reasons"],
         }
 
-    def investigate_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+    def _execute_investigation(
+        self,
+        payload: dict[str, Any],
+    ) -> tuple[int, dict[str, Any], Optional[dict[str, Any]], Optional[dict[str, Any]]]:
         if not self._context.ready or not self._context.pipeline:
             readiness = self.readiness()
             self._emit_runtime_log(
@@ -311,7 +388,7 @@ class SecuPilotRuntimeService:
                     "operator_message": readiness["operator_message"],
                 },
                 "readiness": readiness,
-            }
+            }, None, None
 
         user_input = (payload.get("user_input") or "").strip()
         if not user_input:
@@ -324,7 +401,7 @@ class SecuPilotRuntimeService:
             return 400, {
                 "status": "error",
                 "error": "user_input_required",
-            }
+            }, None, None
 
         target_asset_id = payload.get("target_asset_id")
         target_ip = payload.get("target_ip")
@@ -351,8 +428,80 @@ class SecuPilotRuntimeService:
             )
         )
 
-        return 200, {
+        response = {
             "status": "ok",
             "request": request_meta,
             "threat_case": result,
+        }
+        return 200, response, request_meta, result
+
+    def investigate_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+        status_code, response, _, _ = self._execute_investigation(payload)
+        return status_code, response
+
+    def create_case_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
+        if status_code != 200 or threat_case is None or request_meta is None:
+            return status_code, response
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        snapshot_id = load_current_snapshot_id(self.settings)
+        record = build_initial_persistent_case_record(
+            threat_case,
+            snapshot_id=snapshot_id,
+            actor=actor,
+        )
+
+        try:
+            stored_record = self._require_case_store().save_case(record)
+        except CaseStoreRuntimeError as exc:
+            self._emit_runtime_log(
+                logging.ERROR,
+                "runtime.case_store.write_failed",
+                failure_category="runtime",
+                reason=exc.reason,
+                detail=exc.detail,
+            )
+            return 503, self._persistence_error_payload(exc)
+
+        return 201, {
+            "status": "ok",
+            "case_id": stored_record.case_id,
+            "request": request_meta,
+            "storage": self._case_store_details(),
+            "persistent_case": persistent_case_record_to_dict(stored_record),
+        }
+
+    def get_case_sync(self, case_id: str) -> tuple[int, dict[str, Any]]:
+        normalized_case_id = str(case_id or "").strip()
+        if not normalized_case_id:
+            return 400, {
+                "status": "error",
+                "error": "case_id_required",
+            }
+
+        try:
+            record = self._require_case_store().get_case(normalized_case_id)
+        except CaseStoreRuntimeError as exc:
+            self._emit_runtime_log(
+                logging.ERROR,
+                "runtime.case_store.read_failed",
+                failure_category="runtime",
+                reason=exc.reason,
+                detail=exc.detail,
+            )
+            return 503, self._persistence_error_payload(exc)
+
+        if record is None:
+            return 404, {
+                "status": "error",
+                "error": "case_not_found",
+                "case_id": normalized_case_id,
+            }
+
+        return 200, {
+            "status": "ok",
+            "case_id": normalized_case_id,
+            "storage": self._case_store_details(),
+            "persistent_case": persistent_case_record_to_dict(record),
         }

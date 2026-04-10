@@ -15,6 +15,7 @@ incoming/*
 releases/*.zip
 releases/verify_report.json
 releases/claude_review_pack/
+.tmp_testdata/
 
 process_events/
 data/*.sqlite3

@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-C-2026-04-10-001",
+    "id": "S4-C-2026-04-10-002",
     "sprint": "Sprint 4",
-    "stage": "persistent-case-schema-freeze",
+    "stage": "case-store-and-retrieval-api",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T10:14:21.321796+08:00"
+    "updated_at": "2026-04-10T10:50:11.118647+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-001.zip",
-    "current_release_sha256": "9ca22bb9d39c42f8a9e399eb9db317a0c0d5fb27a884b6a5475cd3d84a96671e"
+    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-002.zip",
+    "current_release_sha256": "0905e809432f1d3633018684d8d16849fc7185d203b3ac4ced3a3bc8212efc0e"
   },
   "key_files": [
     {
@@ -145,7 +145,12 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "685395976eecd6790d660e8ff550b41c0fad25e2b5b0e426c20bdbc2961c4d47"
+      "sha256": "169433f65b027a91530e8792051d5b7d7c70670ea9c571217e26d307b32fe6b4"
+    },
+    {
+      "path": "backend\\app\\tools\\case_store.py",
+      "role": "case-store-and-retrieval-api",
+      "sha256": "7c056c39c0251f24f6949b9276bd3b48049fd1b25eb6b7e8fe5321171f4b8a82"
     },
     {
       "path": "scripts\\generate_mock_data.py",
@@ -216,6 +221,11 @@
       "path": "backend\\tests\\test_persistent_case_contract.py",
       "role": "canonical-persistent-case-contract-tests",
       "sha256": "8a2c70c5dce24135eb5487dbb26b92c06603c27730c5399b9a3d8d2c2d1d9869"
+    },
+    {
+      "path": "backend\\tests\\test_case_store.py",
+      "role": "canonical-case-store-tests",
+      "sha256": "e66266f69d3f7edd795123972e8f304c2f2afce11587efab5fceea5f5ad27a05"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -295,7 +305,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "1265710aa02b020a61e3f2b83d02d485495217a88c35f9131189cd705482732b"
+      "sha256": "0af404a0fe3779dfccdc8751b2775a7209eabb915140c761dc75a03a4b892dca"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -388,6 +398,11 @@
       "sha256": "3dbf231f3622bf83ccb0b381e50410097783d233431798eddd63f289864e4179"
     },
     {
+      "path": "docs\\S4C2_CASE_STORE_AND_RETRIEVAL_API.md",
+      "role": "s4c2-case-store-and-retrieval-api",
+      "sha256": "6805f2c643624943b83a70bf1c7279de9bce29cb9fe1f6dee067268d44798069"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -395,7 +410,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "5cceca3baf7b12921c77eb8528a5b73c3a0aeb474d4aea3f8faf2b12af9f3446"
+      "sha256": "2715f826c706f28797742d38ddd4c99ba7e83113938aa01451ed3c71c101cf37"
     },
     {
       "path": "scripts\\package_release.py",
@@ -410,7 +425,7 @@
     {
       "path": ".gitignore",
       "role": "git-ignore",
-      "sha256": "a55ff781c3e5add33c13be6d7954d89a3d6eb794820f4d1bbc64f6a6fc213572"
+      "sha256": "9b7dd268153339502a7f3a7a2386cbfc790b8296aab9f9eda4028dea1ea54b09"
     },
     {
       "path": ".gitattributes",
@@ -440,7 +455,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "c80622c31ed2756806b231a8a3bcc4c3ffd1032511e76291e046a000f19d9c17"
+      "sha256": "8c616ded84dea551a92f6d50aa920da595418d2cef2876cf3fffec83f49772ab"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -485,17 +500,17 @@
     {
       "path": "backend\\app\\main.py",
       "role": "runtime-main",
-      "sha256": "d2dd94cf55333d90745eada5a306a22283e7e8c4e050ba444c419ca19389f841"
+      "sha256": "e3275f61b5c763be6d23be42843e3a6c10225f2cd12c6200e744aaa762b5444b"
     },
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "a2133b6148424a48e786e8d3046866db68f49b408075f01fbd2906a38d46217d"
+      "sha256": "e9f4faca3d47b0adbff950dd1d4ace548bbdde9d5bf358fdf713a225099c6385"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "7a0001c43ae8f9d9a5e786affc42297bc7aee9441220428e837245e5fded37ed"
+      "sha256": "dc78ce86aa1754ffbccfba5ab8f16394ffb44510c0661ad4c34f876569290f6e"
     },
     {
       "path": "run_runtime.py",
@@ -547,7 +562,8 @@
         "backend.tests.test_edr_adapter_contract",
         "backend.tests.test_edr_replay",
         "backend.tests.test_t3_production_parity",
-        "backend.tests.test_persistent_case_contract"
+        "backend.tests.test_persistent_case_contract",
+        "backend.tests.test_case_store"
       ],
       "status": "PASS"
     },
@@ -566,13 +582,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-C-2026-04-10-001",
+      "Snapshot ID: S4-C-2026-04-10-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T10:14:21.752727+08:00",
+    "last_verified_at": "2026-04-10T10:50:11.397013+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import Any
+from urllib.parse import unquote
 
 from app.config import settings
 from app.runtime_service import SecuPilotRuntimeService
@@ -37,10 +38,15 @@ class SecuPilotHandler(BaseHTTPRequestHandler):
             readiness = SERVICE.readiness()
             self._write_json(200 if readiness["ready"] else 503, readiness)
             return
+        if self.path.startswith("/api/v1/cases/"):
+            case_id = unquote(self.path.split("/api/v1/cases/", 1)[1]).strip()
+            status_code, payload = SERVICE.get_case_sync(case_id)
+            self._write_json(status_code, payload)
+            return
         self._write_json(404, {"status": "error", "error": "not_found", "path": self.path})
 
     def do_POST(self) -> None:  # noqa: N802
-        if self.path != "/api/v1/investigate":
+        if self.path not in {"/api/v1/investigate", "/api/v1/cases"}:
             self._write_json(404, {"status": "error", "error": "not_found", "path": self.path})
             return
         try:
@@ -49,7 +55,10 @@ class SecuPilotHandler(BaseHTTPRequestHandler):
             self._write_json(400, {"status": "error", "error": "invalid_json", "detail": str(exc)})
             return
 
-        status_code, response = SERVICE.investigate_sync(payload)
+        if self.path == "/api/v1/cases":
+            status_code, response = SERVICE.create_case_sync(payload)
+        else:
+            status_code, response = SERVICE.investigate_sync(payload)
         self._write_json(status_code, response)
 
     def log_message(self, format: str, *args: Any) -> None:
@@ -61,7 +70,10 @@ def run_server(host: str | None = None, port: int | None = None) -> int:
     listen_port = port or settings.server_port
     server = ThreadingHTTPServer((listen_host, listen_port), SecuPilotHandler)
     print(f"[SecuPilot] Runtime listening on http://{listen_host}:{listen_port}")
-    print("[SecuPilot] Endpoints: GET /health, GET /ready, POST /api/v1/investigate")
+    print(
+        "[SecuPilot] Endpoints: GET /health, GET /ready, "
+        "POST /api/v1/investigate, POST /api/v1/cases, GET /api/v1/cases/{case_id}"
+    )
     try:
         server.serve_forever()
     except KeyboardInterrupt:
