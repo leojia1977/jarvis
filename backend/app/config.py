@@ -54,6 +54,9 @@ class Settings(BaseSettings):
     edr_base_url: str = ""
     edr_auth_token: str = ""
     edr_request_timeout_seconds: float = 5.0
+    case_store_backend: str = "sqlite_local"
+    case_store_path: str = "./data/secupilot_case_store.sqlite3"
+    case_store_retention_days: int = 90
 
     # Server
     service_name: str = "secupilot-runtime"
@@ -80,6 +83,12 @@ class Settings(BaseSettings):
         # Legacy alias kept for Sprint 4 transition. New work should prefer
         # get_static_data_dir() and the static-data source contract.
         return self.get_static_data_dir()
+
+    def get_case_store_path(self) -> Path:
+        path = Path(self.case_store_path)
+        if not path.is_absolute():
+            path = self.get_project_root() / path
+        return path.resolve()
 
 
 settings = Settings()
