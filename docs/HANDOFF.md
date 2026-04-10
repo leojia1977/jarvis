@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-C-2026-04-10-003`
-- Stage: `Sprint 4 action request and approval contract`
+- Snapshot ID: `S4-C-2026-04-10-004`
+- Stage: `Sprint 4 case lifecycle regression tests`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -54,6 +54,7 @@
 - S4-C-1 now freezes the durable case schema, lifecycle status model, action-request record, audit record, and pilot persistence backend choice under `docs/S4C1_PERSISTENT_CASE_SCHEMA_FREEZE.md` and `backend/app/tools/persistent_case.py`.
 - S4-C-2 now adds a governed SQLite case store, `POST /api/v1/cases`, `GET /api/v1/cases/{case_id}`, immutable record helpers, and retrieval/persistence regression coverage under `docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md`, `backend/app/tools/case_store.py`, and `backend/tests/test_case_store.py`.
 - S4-C-3 now freezes the action-request and approval contract under `docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md`, adds durable create/submit/approve/reject/cancel helpers plus runtime APIs, and folds the prior unstructured create-case exception path into governed `internal_error` handling.
+- S4-C-4 now locks lifecycle regression coverage under `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`, blocks closed-case reject/cancel updates, and proves deterministic create/retrieve/review/approve/close audit history through persisted round-trips.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -102,6 +103,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4C1_PERSISTENT_CASE_SCHEMA_FREEZE.md`
    - `docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md`
    - `docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md`
+   - `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -110,10 +112,11 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 ## Baseline Test Commands
 
 ### Canonical Authoritative Gate
-- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver backend.tests.test_edr_adapter_contract backend.tests.test_edr_replay backend.tests.test_t3_production_parity backend.tests.test_persistent_case_contract backend.tests.test_case_action_request_contract backend.tests.test_case_store`
+- `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver backend.tests.test_edr_adapter_contract backend.tests.test_edr_replay backend.tests.test_t3_production_parity backend.tests.test_persistent_case_contract backend.tests.test_case_action_request_contract backend.tests.test_case_store backend.tests.test_case_lifecycle_regression`
 - `py -3 -m unittest -q backend.tests.test_persistent_case_contract`
 - `py -3 -m unittest -q backend.tests.test_case_action_request_contract`
 - `py -3 -m unittest -q backend.tests.test_case_store`
+- `py -3 -m unittest -q backend.tests.test_case_lifecycle_regression`
 - `py -3 -m unittest -q backend.tests.test_vendor_replay`
 
 ### Legacy / Compat Shortcuts

@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-C-2026-04-10-003",
+    "id": "S4-C-2026-04-10-004",
     "sprint": "Sprint 4",
-    "stage": "action-request-and-approval-contract",
+    "stage": "case-lifecycle-regression-tests",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T12:18:09.161417+08:00"
+    "updated_at": "2026-04-10T12:45:29.469148+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-003.zip",
-    "current_release_sha256": "951197de015a4732cb178d79a5acea64330ae1143d4d1d5e6d19bc61c9c1627b"
+    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-004.zip",
+    "current_release_sha256": "61ee708c8beb3ae81289609bfadf08b869a1db229d4c12618cac75be0322318f"
   },
   "key_files": [
     {
@@ -145,7 +145,7 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "a39815d89f1bc79849ff7a58952d15a171ddc2912cf42cb1acd15fa75822fd71"
+      "sha256": "b184797eb16c87bf73af6afa92aaac57b426a9c47e5cf8133bd523bf4fd70a48"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -225,7 +225,12 @@
     {
       "path": "backend\\tests\\test_case_action_request_contract.py",
       "role": "canonical-case-action-request-contract-tests",
-      "sha256": "d1ffb892091054edceec990303493f3125efc2ba7932d09ddcd4e0fbb6cb9b37"
+      "sha256": "587c2bf3853847cd2dcf70fd0f0a35d6737444ecc4491157211623cd820b84f9"
+    },
+    {
+      "path": "backend\\tests\\test_case_lifecycle_regression.py",
+      "role": "canonical-case-lifecycle-regression-tests",
+      "sha256": "ed8ba214931df8006f5240c12a083a2639e0cf760cb2fc2b81ee7262def87b60"
     },
     {
       "path": "backend\\tests\\test_case_store.py",
@@ -310,7 +315,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "e5f8726173251e4f6607d36fa8c10b1b4283f453bb94528810da7a25dc3720b5"
+      "sha256": "293edbeb468bcf52d3af8d57c8137c40aa4191175693a6ee5a6a9fafc6d05cea"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -413,6 +418,11 @@
       "sha256": "795c70e52f1dbafdc882088f56d86fe4fabde388336d129b620da71fcb4d3de9"
     },
     {
+      "path": "docs\\S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md",
+      "role": "s4c4-case-lifecycle-regression-tests",
+      "sha256": "2b3e2f7716e5d77c044dab4c8888ab099ca2b8bc35380e63be0e615508419e66"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -420,7 +430,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "29d609b6af10e99de04e79f86db9a865d4828435fcf9a8b353b0d14670fe3221"
+      "sha256": "2647fe996628cf94fc7af223883f51a6a4a8cc970dd43958dbe9bf9eb07281d1"
     },
     {
       "path": "scripts\\package_release.py",
@@ -465,7 +475,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "ac05f03cb92c3cacf2e9ca933b602e310055de9711191a799b40268b34437374"
+      "sha256": "98edfc730adc11f6d4a2f762df14c6ba6ad5c465424e8f665dc83957b92bede5"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -574,7 +584,8 @@
         "backend.tests.test_t3_production_parity",
         "backend.tests.test_persistent_case_contract",
         "backend.tests.test_case_action_request_contract",
-        "backend.tests.test_case_store"
+        "backend.tests.test_case_store",
+        "backend.tests.test_case_lifecycle_regression"
       ],
       "status": "PASS"
     },
@@ -593,13 +604,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-C-2026-04-10-003",
+      "Snapshot ID: S4-C-2026-04-10-004",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T12:18:09.477917+08:00",
+    "last_verified_at": "2026-04-10T12:45:29.773246+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -481,6 +481,8 @@ def reject_action_request(
     reason: str,
     at_utc: Optional[str] = None,
 ) -> PersistentCaseRecord:
+    if record.lifecycle_status == "closed":
+        raise ValueError("action_request_not_allowed_for_closed_case")
     timestamp = at_utc or _utc_now_iso()
     index, existing = _find_action_request(record, action_request_id)
     if not is_valid_action_request_transition(existing.status, "rejected"):
@@ -519,6 +521,8 @@ def cancel_action_request(
     reason: str,
     at_utc: Optional[str] = None,
 ) -> PersistentCaseRecord:
+    if record.lifecycle_status == "closed":
+        raise ValueError("action_request_not_allowed_for_closed_case")
     timestamp = at_utc or _utc_now_iso()
     index, existing = _find_action_request(record, action_request_id)
     if not is_valid_action_request_transition(existing.status, "cancelled"):

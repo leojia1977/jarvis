@@ -11,6 +11,7 @@ from app.tools.persistent_case import (  # noqa: E402
     reject_action_request,
     submit_action_request_for_approval,
     build_initial_persistent_case_record,
+    transition_persistent_case_status,
 )
 
 
@@ -179,6 +180,52 @@ class CaseActionRequestContractTests(unittest.TestCase):
                 record,
                 actor="analyst.leo",
                 rationale="降级案卷不应允许创建动作请求",
+            )
+
+    def test_closed_case_blocks_reject_and_cancel_updates(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S4-C-2026-04-10-004",
+            created_at_utc="2026-04-10T11:00:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="进入审批流",
+            at_utc="2026-04-10T11:01:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="提交审批",
+            at_utc="2026-04-10T11:02:00Z",
+        )
+        closed = transition_persistent_case_status(
+            submitted,
+            to_status="closed",
+            actor="manager.chen",
+            reason="人工关闭案例",
+            at_utc="2026-04-10T11:03:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            reject_action_request(
+                closed,
+                action_request_id=submitted.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="关闭后不允许拒绝",
+                at_utc="2026-04-10T11:04:00Z",
+            )
+
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            cancel_action_request(
+                closed,
+                action_request_id=submitted.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="关闭后不允许取消",
+                at_utc="2026-04-10T11:05:00Z",
             )
 
 

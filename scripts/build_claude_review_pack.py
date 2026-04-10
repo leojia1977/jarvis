@@ -85,6 +85,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S4C1_PERSISTENT_CASE_SCHEMA_FREEZE.md",
         "docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md",
         "docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md",
+        "docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
         ".gitignore",
@@ -118,6 +119,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "backend/tests/test_persistent_case_contract.py",
         "backend/tests/test_case_action_request_contract.py",
         "backend/tests/test_case_store.py",
+        "backend/tests/test_case_lifecycle_regression.py",
     ]
 
     # Always include manifest-declared key files so new stage artifacts are not
