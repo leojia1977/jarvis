@@ -27,6 +27,7 @@ FAST_COMMANDS = [
         "backend.tests.test_host_identity_resolver",
         "backend.tests.test_edr_adapter_contract",
         "backend.tests.test_edr_replay",
+        "backend.tests.test_t3_production_parity",
     ],
     ["py", "-3", "selfcheck_t1_t5.py"],
 ]

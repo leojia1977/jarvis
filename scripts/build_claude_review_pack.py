@@ -80,6 +80,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "docs/S4B1_EDR_ADAPTER_CONTRACT.md",
         "docs/S4B2_PRODUCTION_EDR_INGESTION_BASELINE.md",
         "docs/S4B3_EDR_REPLAY_FIXTURES.md",
+        "docs/S4B4_T3_PRODUCTION_PARITY_TESTS.md",
         "contracts/AI_COLLAB_CONTRACT.md",
         "releases/release_manifest.json",
         ".gitignore",
@@ -107,6 +108,7 @@ def iter_review_files(manifest: dict) -> list[str]:
         "backend/tests/test_host_identity_resolver.py",
         "backend/tests/test_edr_adapter_contract.py",
         "backend/tests/test_edr_replay.py",
+        "backend/tests/test_t3_production_parity.py",
     ]
 
     # Always include manifest-declared key files so new stage artifacts are not

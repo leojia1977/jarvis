@@ -95,6 +95,32 @@
         {
           "@timestamp": "2026-04-09T08:12:35Z",
           "event": {
+            "type": "registry_set"
+          },
+          "host": {
+            "id": "HR-PORTAL-01"
+          },
+          "process": {
+            "pid": 2104,
+            "parent": {
+              "pid": 544
+            },
+            "name": "vssadmin.exe",
+            "executable": "C:\\Windows\\System32\\vssadmin.exe",
+            "command_line": "vssadmin.exe delete shadows /all /quiet"
+          },
+          "user": {
+            "name": "SYSTEM"
+          },
+          "registry": {
+            "path": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+            "value_name": "ShadowCleanup",
+            "value_data": "vssadmin.exe delete shadows /all /quiet"
+          }
+        },
+        {
+          "@timestamp": "2026-04-09T08:12:40Z",
+          "event": {
             "type": "file_write"
           },
           "host": {

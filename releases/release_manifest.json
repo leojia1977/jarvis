@@ -6,21 +6,21 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-B-2026-04-09-003",
+    "id": "S4-B-2026-04-10-004",
     "sprint": "Sprint 4",
-    "stage": "edr-replay-fixtures-and-validation",
+    "stage": "t3-production-parity-tests",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-09T18:47:47.611909+08:00"
+    "updated_at": "2026-04-10T09:03:17.642044+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-B-2026-04-09-003.zip",
-    "current_release_sha256": "b0f517a2fabda15927154a39f46cc83c73e653554be6d2d5f5e10b547e6a1688"
+    "current_release_zip": "releases\\secupilot-S4-B-2026-04-10-004.zip",
+    "current_release_sha256": "899022bf89174a88c3d7f74ddc6f6292dd48a17324615447f140f1d4c499eadf"
   },
   "key_files": [
     {
       "path": "_project_bootstrap.py",
       "role": "bootstrap",
-      "sha256": "b885251bca4e6f3e9a9450c820f2caba7c3b1735d878de98087a0ced68dc222c"
+      "sha256": "4e9fe34ee792b1e94e23b4bc3d6768cfeaa3baa069405dcb5641ff189fd801a6"
     },
     {
       "path": "graph_v3_orchestrator.py",
@@ -203,6 +203,11 @@
       "sha256": "53ba24cafecff5250354322e94d1f7e5f501f21b9cd0461ace9814befa14e1ee"
     },
     {
+      "path": "backend\\tests\\test_t3_production_parity.py",
+      "role": "canonical-t3-production-parity-tests",
+      "sha256": "936a8a2b6fa3db16ad49720f9ca578f02356f1e761141b60b14a1287c8eb2420"
+    },
+    {
       "path": "mock_data\\process_events\\index.json",
       "role": "canonical-process-event-index",
       "sha256": "05691ef4b33f227509f26a743fb7da0e979386cfe3ad848cbedcdd1278e0586c"
@@ -215,7 +220,7 @@
     {
       "path": "backend\\tests\\fixtures\\vendor_replay\\elastic_defend_like_process_events_ransomware.json",
       "role": "edr-replay-fixture-elastic-defend-ransomware",
-      "sha256": "569833bb739292cdab9cf9158672e99b090e38a98e94eb05aad6305d5683bf57"
+      "sha256": "10eb629bfc24bd9dad7a55394f6395b3ae1d4e0f9cfd20d2f48f04fa8e5c0ef3"
     },
     {
       "path": "docs\\SP3_B1_Case_View_Contract.md",
@@ -280,7 +285,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "d11223aa6c5c6f62ddbef9847711b977b16b016f95538a22ae1a3bfb02db7b81"
+      "sha256": "b08a49540f1ca266c2ece0d4b047085d7bfa1cb1d5345b89dd493fccc59a8593"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -358,6 +363,11 @@
       "sha256": "7bf45a0b0a6c2da6d0d80b63b3eacba166a630a82b0b8fd4cbad84be9c96db87"
     },
     {
+      "path": "docs\\S4B4_T3_PRODUCTION_PARITY_TESTS.md",
+      "role": "s4b4-t3-production-parity-tests",
+      "sha256": "1ce76a27fa5740b87c02ea99f2e59b25887d4c24a8a8475bb5675f02b88ed503"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -365,7 +375,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "aea01bd86675794a5ed41a3d655a7e8d4270e2a1de2927e8269e72bc695b4c52"
+      "sha256": "611a05080aa6a7bba06b82a63dbe2370fcaf4fa77e42357b0c8653c7e8f2082d"
     },
     {
       "path": "scripts\\package_release.py",
@@ -410,7 +420,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "7644b7eae2a969e5beb9a3bfc70782c1a380ca81002edaafe9316e3b7fae59fb"
+      "sha256": "8f7d2492e6cf7ca85edee0a47e94914b25d19036680fa2bd1e56a51fed07cc9b"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -515,7 +525,8 @@
         "backend.tests.test_static_data_adapters",
         "backend.tests.test_host_identity_resolver",
         "backend.tests.test_edr_adapter_contract",
-        "backend.tests.test_edr_replay"
+        "backend.tests.test_edr_replay",
+        "backend.tests.test_t3_production_parity"
       ],
       "status": "PASS"
     },
@@ -534,13 +545,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-B-2026-04-09-003",
+      "Snapshot ID: S4-B-2026-04-10-004",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-09T18:47:48.042609+08:00",
+    "last_verified_at": "2026-04-10T09:03:17.965958+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
