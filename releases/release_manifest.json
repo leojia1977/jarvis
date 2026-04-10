@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-D-2026-04-10-006",
+    "id": "S4-D-2026-04-10-007",
     "sprint": "Sprint 4",
-    "stage": "pilot-validation-gate-baseline",
+    "stage": "pilot-readiness-review-closeout",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-10T19:53:48.141278+08:00"
+    "updated_at": "2026-04-10T21:48:26.444656+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-006.zip",
-    "current_release_sha256": "0a918991482ed4394f379918fd4371268647a6117248210028c3a463aa7357fc"
+    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-007.zip",
+    "current_release_sha256": "d4ba7a4af7168086e93242cf26d0a4d4903460b0de3101416669a9d09fc25ec7"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "5a4bfbef8c8479027a5bf8fe8c0560ffbdd6d64e0f2e991c18bdb3b5476f6639"
+      "sha256": "cbed4e54b0637a5fa5a77de4cc22ff9235175d7aefcfc4a4ad377eb11846b244"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -456,6 +456,16 @@
       "path": "docs\\S4D4_PILOT_VALIDATION_GATE.md",
       "role": "s4d4-pilot-validation-gate",
       "sha256": "792308a54f6d57eedeff517334660158fe29e10ae597fbf5c0a33a27307f6b1b"
+    },
+    {
+      "path": "docs\\S4D5_PILOT_READINESS_REVIEW.md",
+      "role": "s4d5-pilot-readiness-review-record",
+      "sha256": "59e589f91e14c55e4f7c408246d3cc1388e7340515830aa51fc0b890bd8354bd"
+    },
+    {
+      "path": "docs\\S4D5_PILOT_READINESS_REVIEW_PASS.md",
+      "role": "s4d5-pilot-readiness-review-pass",
+      "sha256": "152b523cb058c241b3e71d65a27d6c21da2475eee9c9c075fe590e37a6adbc0b"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -640,13 +650,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-D-2026-04-10-006",
+      "Snapshot ID: S4-D-2026-04-10-007",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T19:53:48.480034+08:00",
+    "last_verified_at": "2026-04-10T21:48:26.854942+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
