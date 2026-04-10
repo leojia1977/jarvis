@@ -529,12 +529,12 @@ class SecuPilotRuntimeService:
             return None, (503, self._persistence_error_payload(exc))
         return stored_record, None
 
-    def create_case_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
-        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
-        if status_code != 200 or threat_case is None or request_meta is None:
-            return status_code, response
-
-        actor = str(payload.get("actor") or "secupilot.runtime")
+    def _build_case_record(
+        self,
+        threat_case: dict[str, Any],
+        *,
+        actor: str,
+    ) -> tuple[Optional[PersistentCaseRecord], Optional[tuple[int, dict[str, Any]]]]:
         snapshot_id = load_current_snapshot_id(self.settings)
         try:
             record = build_initial_persistent_case_record(
@@ -549,9 +549,31 @@ class SecuPilotRuntimeService:
                 failure_category="runtime",
                 detail=str(exc),
             )
-            return 500, self._internal_error_payload(detail=str(exc))
+            return None, (500, self._internal_error_payload(detail=str(exc)))
+        return record, None
 
-        stored_record, store_error = self._save_case_record(record)
+    def _create_and_store_case_record(
+        self,
+        threat_case: dict[str, Any],
+        *,
+        actor: str,
+    ) -> tuple[Optional[PersistentCaseRecord], Optional[tuple[int, dict[str, Any]]]]:
+        record, build_error = self._build_case_record(threat_case, actor=actor)
+        if build_error:
+            return None, build_error
+        assert record is not None
+        return self._save_case_record(record)
+
+    def create_case_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
+        if status_code != 200 or threat_case is None or request_meta is None:
+            return status_code, response
+
+        actor = str(payload.get("actor") or "secupilot.runtime")
+        stored_record, store_error = self._create_and_store_case_record(
+            threat_case,
+            actor=actor,
+        )
         if store_error:
             return store_error
         assert stored_record is not None
@@ -562,6 +584,149 @@ class SecuPilotRuntimeService:
             "request": request_meta,
             "storage": self._case_store_details(),
             "persistent_case": persistent_case_record_to_dict(stored_record),
+        }
+
+    def pilot_smoke_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+        readiness = self.readiness()
+        steps: list[dict[str, Any]] = [
+            {
+                "step": "readiness",
+                "status": "ok" if readiness["ready"] else "error",
+                "state_class": readiness["state_class"],
+                "failure_category": readiness["failure_category"],
+                "environment_profile": readiness["environment_profile"],
+            }
+        ]
+        smoke_path = {
+            "path_id": "pilot_local_production_case_round_trip",
+            "environment_profile": readiness["environment_profile"],
+            "steps": steps,
+        }
+
+        if not readiness["ready"]:
+            return 503, {
+                "status": "error",
+                "error": "pilot_smoke_not_ready",
+                "runtime_status": {
+                    "state_class": readiness["state_class"],
+                    "failure_category": readiness["failure_category"],
+                    "operator_message": readiness["operator_message"],
+                },
+                "readiness": readiness,
+                "smoke_path": {
+                    **smoke_path,
+                    "failed_step": "readiness",
+                },
+            }
+
+        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
+        if status_code != 200 or threat_case is None or request_meta is None:
+            steps.append(
+                {
+                    "step": "investigate",
+                    "status": "error",
+                    "http_status": status_code,
+                    "error": response.get("error"),
+                    "failure_category": response.get("runtime_status", {}).get("failure_category", "runtime"),
+                }
+            )
+            error_payload = dict(response)
+            error_payload.setdefault("readiness", readiness)
+            error_payload["smoke_path"] = {
+                **smoke_path,
+                "failed_step": "investigate",
+            }
+            return status_code, error_payload
+
+        steps.append(
+            {
+                "step": "investigate",
+                "status": "ok",
+                "http_status": status_code,
+                "intent": request_meta["intent_resolved"],
+                "runtime_mode": request_meta["runtime_mode"],
+                "scenario_name": threat_case.get("scenario_name"),
+            }
+        )
+
+        actor = str(payload.get("actor") or "secupilot.pilot_smoke")
+        stored_record, store_error = self._create_and_store_case_record(
+            threat_case,
+            actor=actor,
+        )
+        if store_error:
+            store_status, store_payload = store_error
+            steps.append(
+                {
+                    "step": "create_case",
+                    "status": "error",
+                    "http_status": store_status,
+                    "error": store_payload.get("error"),
+                    "failure_category": "runtime",
+                }
+            )
+            error_payload = dict(store_payload)
+            error_payload.setdefault("readiness", readiness)
+            error_payload["smoke_path"] = {
+                **smoke_path,
+                "failed_step": "create_case",
+            }
+            return store_status, error_payload
+        assert stored_record is not None
+
+        steps.append(
+            {
+                "step": "create_case",
+                "status": "ok",
+                "http_status": 201,
+                "case_id": stored_record.case_id,
+                "lifecycle_status": stored_record.lifecycle_status,
+            }
+        )
+
+        retrieve_status, retrieve_payload = self.get_case_sync(stored_record.case_id)
+        if retrieve_status != 200:
+            steps.append(
+                {
+                    "step": "get_case",
+                    "status": "error",
+                    "http_status": retrieve_status,
+                    "error": retrieve_payload.get("error"),
+                    "failure_category": "runtime",
+                }
+            )
+            error_payload = dict(retrieve_payload)
+            error_payload.setdefault("readiness", readiness)
+            error_payload["smoke_path"] = {
+                **smoke_path,
+                "case_id": stored_record.case_id,
+                "failed_step": "get_case",
+            }
+            return retrieve_status, error_payload
+
+        persistent_case = retrieve_payload["persistent_case"]
+        steps.append(
+            {
+                "step": "get_case",
+                "status": "ok",
+                "http_status": retrieve_status,
+                "case_id": stored_record.case_id,
+                "lifecycle_status": persistent_case["lifecycle_status"],
+            }
+        )
+
+        return 200, {
+            "status": "ok",
+            "request": request_meta,
+            "readiness": readiness,
+            "case_id": stored_record.case_id,
+            "storage": self._case_store_details(),
+            "persistent_case": persistent_case,
+            "smoke_path": {
+                **smoke_path,
+                "case_id": stored_record.case_id,
+                "failed_step": None,
+            },
         }
 
     def get_case_sync(self, case_id: str) -> tuple[int, dict[str, Any]]:

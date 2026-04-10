@@ -75,6 +75,26 @@ class FakeProductionTransport:
         return {"status": "ok", "data": {}}
 
 
+class _InMemoryCaseStore:
+    def __init__(self):
+        self.records = {}
+
+    def save_case(self, record):
+        self.records[record.case_id] = record
+        return record
+
+    def get_case(self, case_id):
+        return self.records.get(case_id)
+
+    def get_runtime_stats(self):
+        return {
+            "backend": "memory_test",
+            "store_path": ":memory:",
+            "retention_days": 0,
+            "stored_cases": len(self.records),
+        }
+
+
 class RuntimeServiceTests(unittest.TestCase):
     def setUp(self):
         self.mock_settings = Settings(
@@ -184,6 +204,105 @@ class RuntimeServiceTests(unittest.TestCase):
         )
         self.assertTrue(any(call["endpoint"].endswith("/alerts/intent") for call in transport.calls))
         self.assertTrue(any(call["endpoint"].endswith("/metadata/scenario") for call in transport.calls))
+
+    def test_pilot_smoke_path_round_trips_case_in_production_mode(self):
+        transport = FakeProductionTransport()
+
+        def factory(mode, runtime_settings):
+            self.assertEqual(mode, "production")
+            return ProductionSIEMAdapter(runtime_settings, transport=transport)
+
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="production",
+                static_data_path="./mock_data",
+                siem_base_url="https://siem.example.local",
+                siem_auth_token="secret-token",
+                siem_vendor="splunk_like",
+                edr_source_mode="local_files",
+            ),
+            adapter_factory=factory,
+        )
+        service._case_store = _InMemoryCaseStore()
+        service._case_store_error = None
+
+        status_code, payload = service.pilot_smoke_sync({
+            "user_input": "请检查是否存在横向移动",
+            "intent": "threat_hunt",
+            "time_range": "24h",
+            "actor": "pilot.operator",
+        })
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(payload["status"], "ok")
+        self.assertEqual(payload["readiness"]["environment_profile"], "pilot_local")
+        self.assertEqual(payload["request"]["runtime_mode"], "production")
+        self.assertEqual(payload["persistent_case"]["case_id"], payload["case_id"])
+        self.assertEqual(payload["persistent_case"]["lifecycle_status"], "open")
+        self.assertEqual(
+            [step["step"] for step in payload["smoke_path"]["steps"]],
+            ["readiness", "investigate", "create_case", "get_case"],
+        )
+        self.assertIsNone(payload["smoke_path"]["failed_step"])
+        self.assertTrue(any(call["endpoint"].endswith("/alerts/intent") for call in transport.calls))
+        self.assertTrue(any(call["endpoint"].endswith("/metadata/scenario") for call in transport.calls))
+
+    def test_pilot_smoke_path_reports_readiness_failure(self):
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="production",
+                static_data_path="./mock_data",
+                siem_vendor="splunk_like",
+                siem_base_url="https://siem.example.local",
+            )
+        )
+
+        status_code, payload = service.pilot_smoke_sync({
+            "user_input": "请检查是否存在横向移动",
+            "intent": "threat_hunt",
+        })
+
+        self.assertEqual(status_code, 503)
+        self.assertEqual(payload["error"], "pilot_smoke_not_ready")
+        self.assertEqual(payload["runtime_status"]["state_class"], "MISCONFIGURED")
+        self.assertEqual(payload["runtime_status"]["failure_category"], "adapter_config")
+        self.assertEqual(payload["smoke_path"]["failed_step"], "readiness")
+
+    def test_pilot_smoke_path_reports_case_store_failure_stage(self):
+        transport = FakeProductionTransport()
+
+        def factory(mode, runtime_settings):
+            self.assertEqual(mode, "production")
+            return ProductionSIEMAdapter(runtime_settings, transport=transport)
+
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="production",
+                static_data_path="./mock_data",
+                siem_base_url="https://siem.example.local",
+                siem_auth_token="secret-token",
+                siem_vendor="splunk_like",
+                case_store_backend="unsupported_store",
+            ),
+            adapter_factory=factory,
+        )
+
+        status_code, payload = service.pilot_smoke_sync({
+            "user_input": "请检查是否存在横向移动",
+            "intent": "threat_hunt",
+        })
+
+        self.assertEqual(status_code, 503)
+        self.assertEqual(payload["error"], "case_store_unavailable")
+        self.assertEqual(payload["storage"]["reason"], "case_store_backend_not_supported")
+        self.assertEqual(payload["smoke_path"]["failed_step"], "create_case")
+        self.assertEqual(
+            [step["step"] for step in payload["smoke_path"]["steps"]],
+            ["readiness", "investigate", "create_case"],
+        )
 
     def test_missing_static_data_is_classified_as_misconfigured(self):
         with self.assertLogs("secupilot.runtime", level="ERROR") as captured:

@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-D-2026-04-10-002",
+    "id": "S4-D-2026-04-10-003",
     "sprint": "Sprint 4",
-    "stage": "environment-and-secret-profile-freeze-followup",
-    "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T14:08:06.283981+08:00"
+    "stage": "pilot-smoke-path-baseline",
+    "created_at": "2026-04-10T16:17:34+08:00",
+    "updated_at": "2026-04-10T16:29:42.967155+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-002.zip",
-    "current_release_sha256": "9c597dc333135f817e4d96026b052544eb8e8caefd9e89cb9b4c19b6148de0ae"
+    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-003.zip",
+    "current_release_sha256": "c1aabf3a4d803f4607b46f547096f28440f61cd69a128c295f1cdfe0d2f67db6"
   },
   "key_files": [
     {
@@ -210,7 +210,7 @@
     {
       "path": "backend\\tests\\test_edr_replay.py",
       "role": "canonical-edr-replay-tests",
-      "sha256": "481e3059f2a5c52e15bbb4287f8ed7c8fb80a462f9e33fbf91e3b6ef10261ebf"
+      "sha256": "23f3b86b5a86c8f28b037e7be8c0448ff4d456668949ab15d0accdb0761c1be2"
     },
     {
       "path": "backend\\tests\\test_t3_production_parity.py",
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "0bbc077059aef9cb30dd72dbfe980169e92a968f63e03bbcbbb67d2eba95b771"
+      "sha256": "53f1481e853190ba4d2b5cb3150688c33dac23dcf5a65bf4a08f8f18a652f42b"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -383,6 +383,11 @@
       "sha256": "931256f00e789d1a37af506d8af3c9358e886d2ef6d3c0b9581bdceed650afd6"
     },
     {
+      "path": "docs\\S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md",
+      "role": "s4a5-source-integration-review-pass",
+      "sha256": "c1a3d424ce1f7e7ac385def4dc14a87cdc939a020d572f9f81aca146383b43bd"
+    },
+    {
       "path": "docs\\S4B1_EDR_ADAPTER_CONTRACT.md",
       "role": "s4b1-edr-adapter-contract",
       "sha256": "7d78bb05b1c547bb6db65641e447cec61b2ddc971ae278f29175d8739d80d399"
@@ -436,6 +441,11 @@
       "path": "docs\\S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md",
       "role": "s4d1-environment-and-secret-profile-freeze",
       "sha256": "3278a3702f12bc31949b9dd5bfafd3aa13427b9d28d3b3c4a0eda2c2d666d34d"
+    },
+    {
+      "path": "docs\\S4D2_PILOT_SMOKE_PATH.md",
+      "role": "s4d2-pilot-smoke-path",
+      "sha256": "5894ebce968e63a71d365db89066a60c6172e82b81f3f45a796accc5843e6778"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -535,17 +545,17 @@
     {
       "path": "backend\\app\\main.py",
       "role": "runtime-main",
-      "sha256": "e78131a448b2c0a8986be0fcd84424c3d4c0b56c2aeb07de57d8bae948fedc02"
+      "sha256": "8357bb0e7b4f5a29d0ed1a970556a06a107659ec2a81a6132fc81fefb5b3e91f"
     },
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "a5d4ff67bc7b3216528ed59a4702f18c7e5f57c956ef8263408e64e7806d0480"
+      "sha256": "170f1f5144e84d3fdd38c6a99ffacbcca1f9edba9ef40ac5f507977a7212f9ed"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "55fe8946ece6b58a70aa9c4db318f5461a35a3cc3c92df5901b08d9f5ac4110c"
+      "sha256": "14645c4857b3b083f2f3e09fcf81d5266e0b2629f0383a642d865d0b29590c64"
     },
     {
       "path": "run_runtime.py",
@@ -620,13 +630,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-D-2026-04-10-002",
+      "Snapshot ID: S4-D-2026-04-10-003",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T14:08:06.592231+08:00",
+    "last_verified_at": "2026-04-10T16:29:44.175944+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

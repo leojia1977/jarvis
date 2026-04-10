@@ -169,7 +169,7 @@ class EDRReplayTests(unittest.TestCase):
                 intent="threat_hunt",
                 user_input="请检查横向移动",
                 target_asset_id="WKST-047",
-                time_range="24h",
+                time_range="7d",
                 timeout=2.0,
             )
         )
@@ -202,7 +202,7 @@ class EDRReplayTests(unittest.TestCase):
                 intent="threat_hunt",
                 user_input="请检查勒索和C2",
                 target_asset_id="HR-PORTAL-01",
-                time_range="24h",
+                time_range="7d",
                 timeout=2.0,
             )
         )

@@ -75,6 +75,10 @@ class SecuPilotHandler(BaseHTTPRequestHandler):
                 status_code, response = SERVICE.create_case_sync(payload)
                 self._write_json(status_code, response)
                 return
+            if self.path == "/api/v1/pilot-smoke":
+                status_code, response = SERVICE.pilot_smoke_sync(payload)
+                self._write_json(status_code, response)
+                return
             if self.path == "/api/v1/investigate":
                 status_code, response = SERVICE.investigate_sync(payload)
                 self._write_json(status_code, response)
@@ -119,7 +123,8 @@ def run_server(host: str | None = None, port: int | None = None) -> int:
     print(f"[SecuPilot] Runtime listening on http://{listen_host}:{listen_port}")
     print(
         "[SecuPilot] Endpoints: GET /health, GET /ready, "
-        "POST /api/v1/investigate, POST /api/v1/cases, GET /api/v1/cases/{case_id}, "
+        "POST /api/v1/investigate, POST /api/v1/pilot-smoke, "
+        "POST /api/v1/cases, GET /api/v1/cases/{case_id}, "
         "POST /api/v1/cases/{case_id}/action-requests, "
         "POST /api/v1/cases/{case_id}/action-requests/{action_request_id}/{submit|approve|reject|cancel}"
     )

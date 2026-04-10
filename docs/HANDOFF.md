@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-D-2026-04-10-002`
-- Stage: `Sprint 4 environment and secret profile follow-up`
+- Snapshot ID: `S4-D-2026-04-10-003`
+- Stage: `Sprint 4 pilot smoke path baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -45,6 +45,7 @@
 - S4-A-2 now routes T1 / T4 / T5 bootstrap static data through `backend/app/tools/static_data_adapters.py`, replaces the four direct JSON bootstrap reads in `backend/app/agents/graph.py`, and freezes the adapter baseline under `docs/S4A2_STATIC_DATA_ADAPTER_BASELINE.md`.
 - S4-A-3 now adds a canonical host identity resolver under `backend/app/tools/host_identity.py`, routes SIEM asset queries plus T3 / blast target selection through the same resolver, and freezes the behavior under `docs/S4A3_HOST_IDENTITY_RESOLVER.md`.
 - S4-A-4 now adds TTL cache semantics for static-data adapters, freezes governed refresh behavior under `docs/S4A4_STATIC_DATA_CACHE_AND_TESTS.md`, and extends regression coverage for cache expiry, missing sources, and static-data readiness classification.
+- S4-A-5 now records the governed source integration review closeout under `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md`, accepts asset inventory as the authoritative host-identity seed for Sprint 4, and explicitly lists unsupported source fields plus deferred source-mode work before downstream pilot execution.
 - S4-B-1 now freezes the production-facing EDR process-event contract under `docs/S4B1_EDR_ADAPTER_CONTRACT.md`, `backend/app/tools/edr_adapter.py`, and `backend/tests/test_edr_adapter_contract.py` without changing frozen T3 input or output semantics.
 - S4-B-2 now routes T3 process-event ingestion through explicit EDR adapters, replaces the last direct `process_events` bootstrap read in `backend/app/agents/graph.py`, and freezes the baseline under `docs/S4B2_PRODUCTION_EDR_INGESTION_BASELINE.md`.
 - S4-B-3 now adds offline EDR replay fixtures plus `EDRReplayTransport`, proves canonical normalization for `crowdstrike_like` and `elastic_defend_like`, and freezes replay validation under `docs/S4B3_EDR_REPLAY_FIXTURES.md`.
@@ -59,6 +60,7 @@
 - S4-C-5 now records the persisted case lifecycle product closeout under `docs/S4C5_PRODUCT_REVIEW_PASS.md`, accepting `S4-C` as the Sprint 4 baseline for pilot-facing analyst and manager usage.
 - S4-D-1 now freezes the pilot environment and secret profile contract under `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md`, exposes profile-level missing requirements through runtime readiness, and records that `SP4-D-2` must not start until `SP4-A-5` has an explicit governed closeout record.
 - S4-D-1 follow-up now treats `siem_vendor=generic_http` as invalid for `pilot_local`, exposes a loopback-host warning for remote pilot access in readiness, removes `mock_data_path` from `pilot_local` optional fields, and clarifies the deterministic lifecycle regression create path in `backend/tests/test_case_lifecycle_regression.py`.
+- S4-D-2 now freezes one governed pilot smoke path under `docs/S4D2_PILOT_SMOKE_PATH.md`, exposes `POST /api/v1/pilot-smoke`, and proves `pilot_local readiness -> production-shaped investigate -> persistent create_case -> get_case` through `backend/app/runtime_service.py`, `backend/app/main.py`, and dedicated runtime regression coverage.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -110,6 +112,8 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`
    - `docs/S4C5_PRODUCT_REVIEW_PASS.md`
    - `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md`
+   - `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md`
+   - `docs/S4D2_PILOT_SMOKE_PATH.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -141,7 +145,8 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 ## Next Expected Use
 - Build a Claude review pack from the current snapshot.
 - Review current snapshot with Claude using the manifest and the generated review pack.
-- Before `SP4-D-2`, add `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md` or an equivalent governed `HANDOFF.md` closeout note for `SP4-A-5`.
+- Treat `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md` plus `docs/S4D2_PILOT_SMOKE_PATH.md` as the governed baseline for any `SP4-D-2` review.
+- Use `POST /api/v1/pilot-smoke` as the canonical pilot round-trip proof before extending operator runbooks or validation gates.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
 - Keep Git as the only code-truth layer and use release artifacts only for delivery.
