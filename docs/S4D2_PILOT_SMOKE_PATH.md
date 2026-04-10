@@ -19,6 +19,9 @@ Define one governed pilot smoke path that proves production-shaped ingestion, in
 
 ## Endpoint
 - `POST /api/v1/pilot-smoke`
+- success response: `200 OK`
+- request validation failures inherited from investigation remain `400`
+- readiness, persistence, or retrieval failures remain `503`
 
 This endpoint runs one governed round trip:
 1. readiness gate
@@ -76,6 +79,7 @@ The pilot smoke path is successful only when:
 - the investigation returns a governed `threat_case`
 - the case is persisted through the governed case store
 - retrieval returns the same `case_id`
+- the endpoint itself returns `200 OK` while the internal `create_case` step reports `http_status=201`
 - `smoke_path.failed_step` is `null`
 
 ## Failure Mapping

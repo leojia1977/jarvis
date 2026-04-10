@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-D-2026-04-10-003`
-- Stage: `Sprint 4 pilot smoke path baseline`
+- Snapshot ID: `S4-D-2026-04-10-004`
+- Stage: `Sprint 4 pilot smoke path review follow-up`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -61,6 +61,7 @@
 - S4-D-1 now freezes the pilot environment and secret profile contract under `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md`, exposes profile-level missing requirements through runtime readiness, and records that `SP4-D-2` must not start until `SP4-A-5` has an explicit governed closeout record.
 - S4-D-1 follow-up now treats `siem_vendor=generic_http` as invalid for `pilot_local`, exposes a loopback-host warning for remote pilot access in readiness, removes `mock_data_path` from `pilot_local` optional fields, and clarifies the deterministic lifecycle regression create path in `backend/tests/test_case_lifecycle_regression.py`.
 - S4-D-2 now freezes one governed pilot smoke path under `docs/S4D2_PILOT_SMOKE_PATH.md`, exposes `POST /api/v1/pilot-smoke`, and proves `pilot_local readiness -> production-shaped investigate -> persistent create_case -> get_case` through `backend/app/runtime_service.py`, `backend/app/main.py`, and dedicated runtime regression coverage.
+- S4-D-2 review follow-up now keeps `pilot_smoke_sync()` on a single readiness snapshot for downstream error payloads, documents the outer `200 OK` vs inner `create_case=201` contract, and adds regression coverage for `time_range` propagation plus investigate/get-case failure stages.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.

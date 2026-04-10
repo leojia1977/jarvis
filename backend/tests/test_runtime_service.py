@@ -132,6 +132,7 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertEqual(status_code, 200)
         self.assertEqual(payload["status"], "ok")
         self.assertEqual(payload["request"]["intent_resolved"], "threat_hunt")
+        self.assertEqual(payload["request"]["time_range"], "24h")
         self.assertEqual(payload["threat_case"]["version"], "3.1")
 
     def test_empty_user_input_rejected(self):
@@ -238,15 +239,58 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertEqual(payload["status"], "ok")
         self.assertEqual(payload["readiness"]["environment_profile"], "pilot_local")
         self.assertEqual(payload["request"]["runtime_mode"], "production")
+        self.assertEqual(payload["request"]["time_range"], "24h")
         self.assertEqual(payload["persistent_case"]["case_id"], payload["case_id"])
         self.assertEqual(payload["persistent_case"]["lifecycle_status"], "open")
         self.assertEqual(
             [step["step"] for step in payload["smoke_path"]["steps"]],
             ["readiness", "investigate", "create_case", "get_case"],
         )
+        self.assertEqual(payload["smoke_path"]["steps"][0]["http_status"], 200)
+        self.assertEqual(payload["smoke_path"]["steps"][2]["http_status"], 201)
         self.assertIsNone(payload["smoke_path"]["failed_step"])
         self.assertTrue(any(call["endpoint"].endswith("/alerts/intent") for call in transport.calls))
         self.assertTrue(any(call["endpoint"].endswith("/metadata/scenario") for call in transport.calls))
+
+    def test_pilot_smoke_path_reports_investigation_validation_failure(self):
+        transport = FakeProductionTransport()
+
+        def factory(mode, runtime_settings):
+            self.assertEqual(mode, "production")
+            return ProductionSIEMAdapter(runtime_settings, transport=transport)
+
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="production",
+                static_data_path="./mock_data",
+                siem_base_url="https://siem.example.local",
+                siem_auth_token="secret-token",
+                siem_vendor="splunk_like",
+                edr_source_mode="local_files",
+            ),
+            adapter_factory=factory,
+        )
+        service._case_store = _InMemoryCaseStore()
+        service._case_store_error = None
+
+        status_code, payload = service.pilot_smoke_sync({
+            "user_input": "   ",
+            "intent": "threat_hunt",
+            "time_range": "24h",
+        })
+
+        self.assertEqual(status_code, 400)
+        self.assertEqual(payload["error"], "user_input_required")
+        self.assertEqual(payload["readiness"]["state_class"], "READY")
+        self.assertEqual(payload["smoke_path"]["failed_step"], "investigate")
+        self.assertEqual(
+            [step["step"] for step in payload["smoke_path"]["steps"]],
+            ["readiness", "investigate"],
+        )
+        self.assertEqual(payload["smoke_path"]["steps"][0]["http_status"], 200)
+        self.assertEqual(payload["smoke_path"]["steps"][1]["http_status"], 400)
+        self.assertEqual(payload["smoke_path"]["steps"][1]["failure_category"], "runtime")
 
     def test_pilot_smoke_path_reports_readiness_failure(self):
         service = SecuPilotRuntimeService(
@@ -269,6 +313,7 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertEqual(payload["runtime_status"]["state_class"], "MISCONFIGURED")
         self.assertEqual(payload["runtime_status"]["failure_category"], "adapter_config")
         self.assertEqual(payload["smoke_path"]["failed_step"], "readiness")
+        self.assertEqual(payload["smoke_path"]["steps"][0]["http_status"], 503)
 
     def test_pilot_smoke_path_reports_case_store_failure_stage(self):
         transport = FakeProductionTransport()
@@ -303,6 +348,48 @@ class RuntimeServiceTests(unittest.TestCase):
             [step["step"] for step in payload["smoke_path"]["steps"]],
             ["readiness", "investigate", "create_case"],
         )
+
+    def test_pilot_smoke_path_reports_get_case_failure_stage(self):
+        transport = FakeProductionTransport()
+
+        def factory(mode, runtime_settings):
+            self.assertEqual(mode, "production")
+            return ProductionSIEMAdapter(runtime_settings, transport=transport)
+
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="production",
+                static_data_path="./mock_data",
+                siem_base_url="https://siem.example.local",
+                siem_auth_token="secret-token",
+                siem_vendor="splunk_like",
+                edr_source_mode="local_files",
+            ),
+            adapter_factory=factory,
+        )
+        service._case_store = _InMemoryCaseStore()
+        service._case_store_error = None
+
+        with patch.object(
+            service,
+            "get_case_sync",
+            return_value=(503, {"status": "error", "error": "case_store_unavailable"}),
+        ):
+            status_code, payload = service.pilot_smoke_sync({
+                "user_input": "请检查是否存在横向移动",
+                "intent": "threat_hunt",
+            })
+
+        self.assertEqual(status_code, 503)
+        self.assertEqual(payload["error"], "case_store_unavailable")
+        self.assertEqual(payload["smoke_path"]["failed_step"], "get_case")
+        self.assertEqual(
+            [step["step"] for step in payload["smoke_path"]["steps"]],
+            ["readiness", "investigate", "create_case", "get_case"],
+        )
+        self.assertEqual(payload["smoke_path"]["steps"][3]["http_status"], 503)
+        self.assertEqual(payload["smoke_path"]["steps"][3]["failure_category"], "runtime")
 
     def test_missing_static_data_is_classified_as_misconfigured(self):
         with self.assertLogs("secupilot.runtime", level="ERROR") as captured:

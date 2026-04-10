@@ -407,29 +407,37 @@ class SecuPilotRuntimeService:
             "reasons": runtime_state["reasons"],
         }
 
+    def _runtime_not_ready_response(
+        self,
+        readiness: Optional[dict[str, Any]] = None,
+    ) -> tuple[int, dict[str, Any], None, None]:
+        readiness_payload = readiness or self.readiness()
+        self._emit_runtime_log(
+            logging.WARNING,
+            "runtime.investigate.not_ready",
+            failure_category=readiness_payload["failure_category"],
+            state_class=readiness_payload["state_class"],
+            reasons=readiness_payload["reasons"],
+        )
+        return 503, {
+            "status": "error",
+            "error": "runtime_not_ready",
+            "runtime_status": {
+                "state_class": readiness_payload["state_class"],
+                "failure_category": readiness_payload["failure_category"],
+                "operator_message": readiness_payload["operator_message"],
+            },
+            "readiness": readiness_payload,
+        }, None, None
+
     def _execute_investigation(
         self,
         payload: dict[str, Any],
+        *,
+        readiness: Optional[dict[str, Any]] = None,
     ) -> tuple[int, dict[str, Any], Optional[dict[str, Any]], Optional[dict[str, Any]]]:
         if not self._context.ready or not self._context.pipeline:
-            readiness = self.readiness()
-            self._emit_runtime_log(
-                logging.WARNING,
-                "runtime.investigate.not_ready",
-                failure_category=readiness["failure_category"],
-                state_class=readiness["state_class"],
-                reasons=readiness["reasons"],
-            )
-            return 503, {
-                "status": "error",
-                "error": "runtime_not_ready",
-                "runtime_status": {
-                    "state_class": readiness["state_class"],
-                    "failure_category": readiness["failure_category"],
-                    "operator_message": readiness["operator_message"],
-                },
-                "readiness": readiness,
-            }, None, None
+            return self._runtime_not_ready_response(readiness)
 
         user_input = (payload.get("user_input") or "").strip()
         if not user_input:
@@ -588,10 +596,12 @@ class SecuPilotRuntimeService:
 
     def pilot_smoke_sync(self, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
         readiness = self.readiness()
+        readiness_http_status = 200 if readiness["ready"] else 503
         steps: list[dict[str, Any]] = [
             {
                 "step": "readiness",
                 "status": "ok" if readiness["ready"] else "error",
+                "http_status": readiness_http_status,
                 "state_class": readiness["state_class"],
                 "failure_category": readiness["failure_category"],
                 "environment_profile": readiness["environment_profile"],
@@ -619,7 +629,10 @@ class SecuPilotRuntimeService:
                 },
             }
 
-        status_code, response, request_meta, threat_case = self._execute_investigation(payload)
+        status_code, response, request_meta, threat_case = self._execute_investigation(
+            payload,
+            readiness=readiness,
+        )
         if status_code != 200 or threat_case is None or request_meta is None:
             steps.append(
                 {
@@ -631,7 +644,7 @@ class SecuPilotRuntimeService:
                 }
             )
             error_payload = dict(response)
-            error_payload.setdefault("readiness", readiness)
+            error_payload["readiness"] = readiness
             error_payload["smoke_path"] = {
                 **smoke_path,
                 "failed_step": "investigate",
@@ -666,7 +679,7 @@ class SecuPilotRuntimeService:
                 }
             )
             error_payload = dict(store_payload)
-            error_payload.setdefault("readiness", readiness)
+            error_payload["readiness"] = readiness
             error_payload["smoke_path"] = {
                 **smoke_path,
                 "failed_step": "create_case",
@@ -696,7 +709,7 @@ class SecuPilotRuntimeService:
                 }
             )
             error_payload = dict(retrieve_payload)
-            error_payload.setdefault("readiness", readiness)
+            error_payload["readiness"] = readiness
             error_payload["smoke_path"] = {
                 **smoke_path,
                 "case_id": stored_record.case_id,

@@ -75,6 +75,14 @@ class EDRReplayTests(unittest.TestCase):
             source_refs=[f"asset_inventory:{asset_id}"],
         )
 
+    def _assert_time_range_payload(self, payload: dict[str, object], *, days: int) -> None:
+        time_range = payload["time_range"]
+        assert isinstance(time_range, dict)
+        start_utc = datetime.fromisoformat(str(time_range["start_utc"]))
+        end_utc = datetime.fromisoformat(str(time_range["end_utc"]))
+        self.assertEqual(time_range["tz_label"], "Asia/Shanghai")
+        self.assertAlmostEqual((end_utc - start_utc).total_seconds(), days * 24 * 60 * 60, delta=1.0)
+
     def _build_adapter(self, vendor: str, scenario: str):
         transport = EDRReplayTransport(vendor, scenario)
         adapter = ProductionEDRAdapter(
@@ -154,9 +162,10 @@ class EDRReplayTests(unittest.TestCase):
             edr_base_url="https://edr.example.local",
             edr_auth_token="secret-token",
         )
+        transport = EDRReplayTransport("crowdstrike_like", "lateral")
         adapter = ProductionEDRAdapter(
             settings,
-            transport=EDRReplayTransport("crowdstrike_like", "lateral"),
+            transport=transport,
         )
         pipeline = InvestigationPipeline(
             MockSIEMAdapter(settings.get_static_data_dir()),
@@ -178,6 +187,9 @@ class EDRReplayTests(unittest.TestCase):
         self.assertTrue(case["forensic_result"]["top_chains"])
         self.assertIn("WKST-047", case["forensic_result"]["hosts_analyzed"])
         self.assertIn("process_tree", case["forensic_result"]["analysis_scope"])
+        self.assertTrue(transport.calls)
+        self.assertTrue(transport.calls[0]["payload"]["canonical_asset_id"])
+        self._assert_time_range_payload(transport.calls[0]["payload"], days=7)
 
     def test_elastic_replay_investigate_path_returns_case(self):
         settings = Settings(
@@ -212,6 +224,8 @@ class EDRReplayTests(unittest.TestCase):
         self.assertEqual(case["forensic_result"]["hosts_analyzed"], ["HR-PORTAL-01"])
         self.assertTrue(case["forensic_result"]["top_chains"])
         self.assertTrue(any(call["endpoint_key"] == "process_events" for call in transport.calls))
+        self.assertTrue(transport.calls[0]["payload"]["canonical_asset_id"])
+        self._assert_time_range_payload(transport.calls[0]["payload"], days=7)
 
 
 if __name__ == "__main__":
