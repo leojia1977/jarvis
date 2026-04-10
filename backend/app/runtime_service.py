@@ -384,6 +384,7 @@ class SecuPilotRuntimeService:
             "environment_profile": environment_contract["environment_profile"],
             "profile_contract_ready": environment_contract["profile_contract_ready"],
             "profile_contract_missing": environment_contract["profile_contract_missing"],
+            "profile_contract_warnings": environment_contract["profile_contract_warnings"],
             "required_environment_fields": environment_contract["required_environment_fields"],
             "required_secret_names": environment_contract["required_secret_names"],
             "optional_secret_names": environment_contract["optional_secret_names"],

@@ -140,7 +140,6 @@ class Settings(BaseSettings):
                 "edr_base_url",
             ])
         else:
-            optional.append("mock_data_path")
             if self.get_edr_source_mode() != "api":
                 optional.extend(["edr_vendor", "edr_base_url"])
         return tuple(optional)
@@ -169,6 +168,8 @@ class Settings(BaseSettings):
         else:
             if not str(self.static_data_path or "").strip():
                 missing.append("static_data_path")
+            if str(self.siem_vendor or "").strip().lower() == "generic_http":
+                missing.append("siem_vendor(splunk_like_or_elastic_like)")
             if not str(self.siem_base_url or "").strip():
                 missing.append("siem_base_url")
             if not str(self.siem_auth_token or "").strip():
@@ -184,6 +185,13 @@ class Settings(BaseSettings):
             missing.append("case_store_path")
         return tuple(missing)
 
+    def get_profile_contract_warnings(self) -> tuple[str, ...]:
+        warnings: list[str] = []
+        if self.get_environment_profile() == "pilot_local":
+            if str(self.server_host or "").strip() in {"127.0.0.1", "localhost"}:
+                warnings.append("server_host_loopback_limits_remote_pilot_access")
+        return tuple(warnings)
+
     def get_environment_contract(self) -> dict[str, Any]:
         return {
             "environment_profile": self.get_environment_profile(),
@@ -192,6 +200,7 @@ class Settings(BaseSettings):
             "required_secret_names": list(self.get_required_secret_names()),
             "optional_secret_names": list(self.get_optional_secret_names()),
             "profile_contract_missing": list(self.get_profile_contract_missing()),
+            "profile_contract_warnings": list(self.get_profile_contract_warnings()),
             "profile_contract_ready": not self.get_profile_contract_missing(),
         }
 

@@ -60,6 +60,8 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
             },
             "audit_trail": {"degraded": False, "degraded_reasons": []},
         }
+        # Keep the lifecycle create step on the runtime-service path while
+        # fixing the investigation output for deterministic audit assertions.
         with patch.object(
             service,
             "_execute_investigation",

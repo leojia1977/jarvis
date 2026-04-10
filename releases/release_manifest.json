@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-D-2026-04-10-001",
+    "id": "S4-D-2026-04-10-002",
     "sprint": "Sprint 4",
-    "stage": "environment-and-secret-profile-freeze",
+    "stage": "environment-and-secret-profile-freeze-followup",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T13:44:59.592118+08:00"
+    "updated_at": "2026-04-10T14:08:06.283981+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-001.zip",
-    "current_release_sha256": "67d78a6fd0c82c02bcec97ac32da15b80b9cbb38895ce04739ae0220eba128f6"
+    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-002.zip",
+    "current_release_sha256": "9c597dc333135f817e4d96026b052544eb8e8caefd9e89cb9b4c19b6148de0ae"
   },
   "key_files": [
     {
@@ -80,7 +80,7 @@
     {
       "path": "backend\\app\\config.py",
       "role": "config",
-      "sha256": "1fc8064301d4671aa4b271edc92f6a023503582cf219e8550865951821d1256f"
+      "sha256": "8ec7994ca48e1b6ea514f4a656c11689d4586094736bd4a48d45661bc00d7c12"
     },
     {
       "path": "backend\\app\\agents\\case_view.py",
@@ -230,7 +230,7 @@
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
       "role": "canonical-case-lifecycle-regression-tests",
-      "sha256": "1575a6007014dcdbf32732ef75f5ac27d0d9439d952b1a0d14d18e25faf6ad91"
+      "sha256": "9dbd0627a437a70a0dabdadfd60255e60705a0967c8ac7bdf6f70d7b84bc0b4a"
     },
     {
       "path": "backend\\tests\\test_case_store.py",
@@ -240,7 +240,7 @@
     {
       "path": "backend\\tests\\test_environment_profile.py",
       "role": "canonical-environment-profile-tests",
-      "sha256": "4f196d1bb4ccee0678fcbcb954fcc0e87f8087205c8d4ba297c4096bb3655125"
+      "sha256": "53fda54ebe4e8e554664c33a839259e9ec99a558fc2f374175abcd96c182e2a4"
     },
     {
       "path": "mock_data\\process_events\\index.json",
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "8b7daa44787e349a946f18b51aca88137cfed05a8f7afb6f8126305fe77c9638"
+      "sha256": "0bbc077059aef9cb30dd72dbfe980169e92a968f63e03bbcbbb67d2eba95b771"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -435,7 +435,7 @@
     {
       "path": "docs\\S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md",
       "role": "s4d1-environment-and-secret-profile-freeze",
-      "sha256": "ac6c49f977d780f8d9fa7ecf6245ac5868bb2fe0b551e95631416a64cff60094"
+      "sha256": "3278a3702f12bc31949b9dd5bfafd3aa13427b9d28d3b3c4a0eda2c2d666d34d"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -540,7 +540,7 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "5fdc5a5c38d273e3e588df75d9480cb4e9ff3757b23c93ab6a5e5a3480c877c1"
+      "sha256": "a5d4ff67bc7b3216528ed59a4702f18c7e5f57c956ef8263408e64e7806d0480"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
@@ -620,13 +620,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-D-2026-04-10-001",
+      "Snapshot ID: S4-D-2026-04-10-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T13:45:00.436962+08:00",
+    "last_verified_at": "2026-04-10T14:08:06.592231+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

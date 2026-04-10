@@ -32,7 +32,7 @@ Freeze the minimum environment and secret contract required for a Sprint 4 pilot
   - `runtime_mode=production`
   - `static_data_mode`
   - `static_data_path`
-  - `siem_vendor`
+  - `siem_vendor` and it must be `splunk_like` or `elastic_like`
   - `siem_base_url`
   - `edr_source_mode`
   - `case_store_backend=sqlite_local`
@@ -42,6 +42,11 @@ Freeze the minimum environment and secret contract required for a Sprint 4 pilot
   - `edr_auth_token` only when `edr_source_mode=api`
 - Optional secrets:
   - `llm_api_key`
+
+Pilot notes:
+- if the pilot is hosted on a separate server for remote analyst or manager access, `server_host` must not remain the default `127.0.0.1`
+- when `server_host` remains loopback, readiness should warn that remote pilot access is blocked by configuration
+- `mock_data_path` is a legacy alias and is not part of `pilot_local` acceptance
 
 ## Frozen Grouping
 
@@ -110,7 +115,7 @@ Freeze the minimum environment and secret contract required for a Sprint 4 pilot
 ## Frozen Distinctions
 - `mock_local` may continue to use `mock_data_path` as the active data root.
 - `pilot_local` must set `static_data_path` explicitly and must not rely on the legacy `mock_data_path` fallback for acceptance.
-- `pilot_local` always requires a configured SIEM profile.
+- `pilot_local` always requires a configured SIEM profile and must not use `siem_vendor=generic_http`.
 - `pilot_local` only requires EDR secrets when `edr_source_mode=api`; replay and local-file modes remain valid for pilot staging.
 - `llm_api_key` is not required for the Sprint 4 pilot runtime path.
 

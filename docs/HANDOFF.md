@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-D-2026-04-10-001`
-- Stage: `Sprint 4 environment and secret profile freeze`
+- Snapshot ID: `S4-D-2026-04-10-002`
+- Stage: `Sprint 4 environment and secret profile follow-up`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -58,6 +58,7 @@
 - S4-C-4 follow-up now routes the lifecycle regression create step through `runtime_service.create_case_sync()` while keeping deterministic case semantics via a controlled investigation output, closing the last review gap before `SP4-C-5`.
 - S4-C-5 now records the persisted case lifecycle product closeout under `docs/S4C5_PRODUCT_REVIEW_PASS.md`, accepting `S4-C` as the Sprint 4 baseline for pilot-facing analyst and manager usage.
 - S4-D-1 now freezes the pilot environment and secret profile contract under `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md`, exposes profile-level missing requirements through runtime readiness, and records that `SP4-D-2` must not start until `SP4-A-5` has an explicit governed closeout record.
+- S4-D-1 follow-up now treats `siem_vendor=generic_http` as invalid for `pilot_local`, exposes a loopback-host warning for remote pilot access in readiness, removes `mock_data_path` from `pilot_local` optional fields, and clarifies the deterministic lifecycle regression create path in `backend/tests/test_case_lifecycle_regression.py`.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
