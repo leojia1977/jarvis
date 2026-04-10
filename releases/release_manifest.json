@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-C-2026-04-10-005",
+    "id": "S4-C-2026-04-10-006",
     "sprint": "Sprint 4",
-    "stage": "case-lifecycle-regression-followup",
+    "stage": "case-lifecycle-product-review-pass",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T13:03:30.143885+08:00"
+    "updated_at": "2026-04-10T13:19:05.232569+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-005.zip",
-    "current_release_sha256": "8107a56b0cb6408b9a01cb37415decfdf145293e2a1f111198fdc698fc010683"
+    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-006.zip",
+    "current_release_sha256": "2dad92d32e0ea7369df4faa8377aad334e7ac14b565105c928df0c7f3c571d27"
   },
   "key_files": [
     {
@@ -315,7 +315,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "25d28b0721a548c96754c0a7fe729b701a29b7e2498c4a1fb84d6b1908313876"
+      "sha256": "1e6077ea47cb6e3c943dc5a454bf40b999e02a72fec6a6b0189a161d1800e348"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -423,6 +423,11 @@
       "sha256": "c366241da8eb8223ab4631c306f327e63581affdd187f7c4d2aec9d3fd6e4964"
     },
     {
+      "path": "docs\\S4C5_PRODUCT_REVIEW_PASS.md",
+      "role": "s4c5-product-review-pass",
+      "sha256": "1118bdf1f88c9d5f598d454affb943a4f6af83ea3abf3faca764d66746d29a41"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -430,7 +435,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "2647fe996628cf94fc7af223883f51a6a4a8cc970dd43958dbe9bf9eb07281d1"
+      "sha256": "4283f3794c249ab7dd0327cb27926a21b6038e96cd922065f50cb69e6faf73f2"
     },
     {
       "path": "scripts\\package_release.py",
@@ -604,13 +609,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-C-2026-04-10-005",
+      "Snapshot ID: S4-C-2026-04-10-006",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T13:03:30.450936+08:00",
+    "last_verified_at": "2026-04-10T13:19:05.936042+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

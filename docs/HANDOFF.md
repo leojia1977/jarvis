@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-C-2026-04-10-005`
-- Stage: `Sprint 4 case lifecycle regression follow-up`
+- Snapshot ID: `S4-C-2026-04-10-006`
+- Stage: `Sprint 4 case lifecycle product review pass`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -56,6 +56,7 @@
 - S4-C-3 now freezes the action-request and approval contract under `docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md`, adds durable create/submit/approve/reject/cancel helpers plus runtime APIs, and folds the prior unstructured create-case exception path into governed `internal_error` handling.
 - S4-C-4 now locks lifecycle regression coverage under `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`, blocks closed-case reject/cancel updates, and proves deterministic create/retrieve/review/approve/close audit history through persisted round-trips.
 - S4-C-4 follow-up now routes the lifecycle regression create step through `runtime_service.create_case_sync()` while keeping deterministic case semantics via a controlled investigation output, closing the last review gap before `SP4-C-5`.
+- S4-C-5 now records the persisted case lifecycle product closeout under `docs/S4C5_PRODUCT_REVIEW_PASS.md`, accepting `S4-C` as the Sprint 4 baseline for pilot-facing analyst and manager usage.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -105,6 +106,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4C2_CASE_STORE_AND_RETRIEVAL_API.md`
    - `docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md`
    - `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`
+   - `docs/S4C5_PRODUCT_REVIEW_PASS.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
