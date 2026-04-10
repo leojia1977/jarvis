@@ -130,6 +130,7 @@ class EDRReplayTests(unittest.TestCase):
             any(event.event_type == "file_write" and event.file_hash_sha256 for event in result.data.events)
         )
         self.assertEqual(transport.calls[0]["payload"]["canonical_asset_id"], "WKST-047")
+        self._assert_time_range_payload(transport.calls[0]["payload"], days=1)
 
     def test_elastic_defend_like_replay_normalizes_process_events(self):
         adapter, transport = self._build_adapter("elastic_defend_like", "ransomware")
@@ -151,6 +152,7 @@ class EDRReplayTests(unittest.TestCase):
             any(event.event_type == "network_connect" and event.dst_ip == "185.220.101.45" for event in result.data.events)
         )
         self.assertEqual(transport.calls[0]["payload"]["canonical_asset_id"], "HR-PORTAL-01")
+        self._assert_time_range_payload(transport.calls[0]["payload"], days=1)
 
     def test_replay_investigate_path_returns_case(self):
         settings = Settings(

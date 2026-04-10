@@ -388,6 +388,7 @@ class RuntimeServiceTests(unittest.TestCase):
             [step["step"] for step in payload["smoke_path"]["steps"]],
             ["readiness", "investigate", "create_case", "get_case"],
         )
+        self.assertEqual(payload["smoke_path"]["steps"][2]["http_status"], 201)
         self.assertEqual(payload["smoke_path"]["steps"][3]["http_status"], 503)
         self.assertEqual(payload["smoke_path"]["steps"][3]["failure_category"], "runtime")
 
