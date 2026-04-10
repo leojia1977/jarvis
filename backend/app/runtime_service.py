@@ -360,6 +360,7 @@ class SecuPilotRuntimeService:
         process_hosts = 0
         adapter_type = None
         adapter_configured = None
+        environment_contract = self.settings.get_environment_contract()
         if self._context.siem:
             stats = self._context.siem.get_runtime_stats()
             scenarios = stats.get("scenarios_loaded", 0)
@@ -380,6 +381,12 @@ class SecuPilotRuntimeService:
             "ready": self._context.ready,
             "service": self.settings.service_name,
             "mode": self._context.mode,
+            "environment_profile": environment_contract["environment_profile"],
+            "profile_contract_ready": environment_contract["profile_contract_ready"],
+            "profile_contract_missing": environment_contract["profile_contract_missing"],
+            "required_environment_fields": environment_contract["required_environment_fields"],
+            "required_secret_names": environment_contract["required_secret_names"],
+            "optional_secret_names": environment_contract["optional_secret_names"],
             "state_class": runtime_state["state_class"],
             "failure_category": runtime_state["failure_category"],
             "operator_message": runtime_state["operator_message"],

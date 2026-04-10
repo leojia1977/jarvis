@@ -197,6 +197,7 @@
   - one pilot path is documented step-by-step
   - the path covers ingestion, investigation, persistence, and retrieval
   - failure points map to runtime status categories
+  - `SP4-A-5` must have an explicit governed closeout record before this ticket starts
 
 ### SP4-D-3 Operator Runbooks and Failure Triage
 - Type: `DEV`

@@ -1,6 +1,7 @@
 """SecuPilot 配置管理"""
 
 from pathlib import Path
+from typing import Any, Literal
 
 try:
     from pydantic_settings import BaseSettings
@@ -72,6 +73,15 @@ class Settings(BaseSettings):
     def get_project_root(self) -> Path:
         return Path(self.project_root).resolve()
 
+    def get_runtime_mode(self) -> str:
+        return str(self.runtime_mode or "mock").strip().lower()
+
+    def get_edr_source_mode(self) -> str:
+        return str(self.edr_source_mode or "local_files").strip().lower()
+
+    def get_environment_profile(self) -> Literal["mock_local", "pilot_local"]:
+        return "pilot_local" if self.get_runtime_mode() == "production" else "mock_local"
+
     def get_static_data_dir(self) -> Path:
         configured = self.static_data_path or self.mock_data_path
         path = Path(configured)
@@ -89,6 +99,101 @@ class Settings(BaseSettings):
         if not path.is_absolute():
             path = self.get_project_root() / path
         return path.resolve()
+
+    def get_required_environment_fields(self) -> tuple[str, ...]:
+        profile = self.get_environment_profile()
+        required = ["project_root", "runtime_mode", "case_store_backend", "case_store_path"]
+        if profile == "mock_local":
+            required.append("mock_data_path")
+        else:
+            required.extend([
+                "static_data_mode",
+                "static_data_path",
+                "siem_vendor",
+                "siem_base_url",
+                "edr_source_mode",
+            ])
+            if self.get_edr_source_mode() == "api":
+                required.extend(["edr_vendor", "edr_base_url"])
+        return tuple(required)
+
+    def get_optional_environment_fields(self) -> tuple[str, ...]:
+        profile = self.get_environment_profile()
+        optional = [
+            "business_timezone",
+            "service_name",
+            "server_host",
+            "server_port",
+            "log_level",
+            "cors_origins",
+            "llm_api_base",
+            "llm_model",
+        ]
+        if profile == "mock_local":
+            optional.extend([
+                "static_data_mode",
+                "static_data_path",
+                "siem_vendor",
+                "siem_base_url",
+                "edr_source_mode",
+                "edr_vendor",
+                "edr_base_url",
+            ])
+        else:
+            optional.append("mock_data_path")
+            if self.get_edr_source_mode() != "api":
+                optional.extend(["edr_vendor", "edr_base_url"])
+        return tuple(optional)
+
+    def get_required_secret_names(self) -> tuple[str, ...]:
+        required: list[str] = []
+        if self.get_environment_profile() == "pilot_local":
+            required.append("siem_auth_token")
+            if self.get_edr_source_mode() == "api":
+                required.append("edr_auth_token")
+        return tuple(required)
+
+    def get_optional_secret_names(self) -> tuple[str, ...]:
+        optional = ["llm_api_key"]
+        if self.get_environment_profile() == "mock_local":
+            optional.extend(["siem_auth_token", "edr_auth_token"])
+        elif self.get_edr_source_mode() != "api":
+            optional.append("edr_auth_token")
+        return tuple(optional)
+
+    def get_profile_contract_missing(self) -> tuple[str, ...]:
+        missing: list[str] = []
+        if self.get_environment_profile() == "mock_local":
+            if not str(self.mock_data_path or "").strip():
+                missing.append("mock_data_path")
+        else:
+            if not str(self.static_data_path or "").strip():
+                missing.append("static_data_path")
+            if not str(self.siem_base_url or "").strip():
+                missing.append("siem_base_url")
+            if not str(self.siem_auth_token or "").strip():
+                missing.append("siem_auth_token")
+            if self.get_edr_source_mode() == "api":
+                if not str(self.edr_base_url or "").strip():
+                    missing.append("edr_base_url")
+                if not str(self.edr_auth_token or "").strip():
+                    missing.append("edr_auth_token")
+        if str(self.case_store_backend or "").strip().lower() != "sqlite_local":
+            missing.append("case_store_backend(sqlite_local)")
+        if not str(self.case_store_path or "").strip():
+            missing.append("case_store_path")
+        return tuple(missing)
+
+    def get_environment_contract(self) -> dict[str, Any]:
+        return {
+            "environment_profile": self.get_environment_profile(),
+            "required_environment_fields": list(self.get_required_environment_fields()),
+            "optional_environment_fields": list(self.get_optional_environment_fields()),
+            "required_secret_names": list(self.get_required_secret_names()),
+            "optional_secret_names": list(self.get_optional_secret_names()),
+            "profile_contract_missing": list(self.get_profile_contract_missing()),
+            "profile_contract_ready": not self.get_profile_contract_missing(),
+        }
 
 
 settings = Settings()

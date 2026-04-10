@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S4-C-2026-04-10-006`
-- Stage: `Sprint 4 case lifecycle product review pass`
+- Snapshot ID: `S4-D-2026-04-10-001`
+- Stage: `Sprint 4 environment and secret profile freeze`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -57,6 +57,7 @@
 - S4-C-4 now locks lifecycle regression coverage under `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`, blocks closed-case reject/cancel updates, and proves deterministic create/retrieve/review/approve/close audit history through persisted round-trips.
 - S4-C-4 follow-up now routes the lifecycle regression create step through `runtime_service.create_case_sync()` while keeping deterministic case semantics via a controlled investigation output, closing the last review gap before `SP4-C-5`.
 - S4-C-5 now records the persisted case lifecycle product closeout under `docs/S4C5_PRODUCT_REVIEW_PASS.md`, accepting `S4-C` as the Sprint 4 baseline for pilot-facing analyst and manager usage.
+- S4-D-1 now freezes the pilot environment and secret profile contract under `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md`, exposes profile-level missing requirements through runtime readiness, and records that `SP4-D-2` must not start until `SP4-A-5` has an explicit governed closeout record.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -107,6 +108,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S4C3_ACTION_REQUEST_AND_APPROVAL_CONTRACT.md`
    - `docs/S4C4_CASE_LIFECYCLE_REGRESSION_TESTS.md`
    - `docs/S4C5_PRODUCT_REVIEW_PASS.md`
+   - `docs/S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -116,6 +118,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
 
 ### Canonical Authoritative Gate
 - `py -3 -m unittest -q backend.tests.test_t3_hunt backend.tests.test_secupilot_drafts backend.tests.test_runtime_service backend.tests.test_case_view backend.tests.test_siem_adapter_contract backend.tests.test_vendor_replay backend.tests.test_static_data_contracts backend.tests.test_static_data_adapters backend.tests.test_host_identity_resolver backend.tests.test_edr_adapter_contract backend.tests.test_edr_replay backend.tests.test_t3_production_parity backend.tests.test_persistent_case_contract backend.tests.test_case_action_request_contract backend.tests.test_case_store backend.tests.test_case_lifecycle_regression`
+- `py -3 -m unittest -q backend.tests.test_environment_profile`
 - `py -3 -m unittest -q backend.tests.test_persistent_case_contract`
 - `py -3 -m unittest -q backend.tests.test_case_action_request_contract`
 - `py -3 -m unittest -q backend.tests.test_case_store`
@@ -137,6 +140,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 ## Next Expected Use
 - Build a Claude review pack from the current snapshot.
 - Review current snapshot with Claude using the manifest and the generated review pack.
+- Before `SP4-D-2`, add `docs/S4A5_SOURCE_INTEGRATION_REVIEW_PASS.md` or an equivalent governed `HANDOFF.md` closeout note for `SP4-A-5`.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
 - Keep Git as the only code-truth layer and use release artifacts only for delivery.

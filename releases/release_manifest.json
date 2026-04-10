@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-C-2026-04-10-006",
+    "id": "S4-D-2026-04-10-001",
     "sprint": "Sprint 4",
-    "stage": "case-lifecycle-product-review-pass",
+    "stage": "environment-and-secret-profile-freeze",
     "created_at": "2026-04-08T00:00:00+08:00",
-    "updated_at": "2026-04-10T13:19:05.232569+08:00"
+    "updated_at": "2026-04-10T13:44:59.592118+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-C-2026-04-10-006.zip",
-    "current_release_sha256": "2dad92d32e0ea7369df4faa8377aad334e7ac14b565105c928df0c7f3c571d27"
+    "current_release_zip": "releases\\secupilot-S4-D-2026-04-10-001.zip",
+    "current_release_sha256": "67d78a6fd0c82c02bcec97ac32da15b80b9cbb38895ce04739ae0220eba128f6"
   },
   "key_files": [
     {
@@ -80,7 +80,7 @@
     {
       "path": "backend\\app\\config.py",
       "role": "config",
-      "sha256": "4da0a0064ee23e8c9665706ae4b60713734537ea9ff6c97e2dc7bdae217558a7"
+      "sha256": "1fc8064301d4671aa4b271edc92f6a023503582cf219e8550865951821d1256f"
     },
     {
       "path": "backend\\app\\agents\\case_view.py",
@@ -238,6 +238,11 @@
       "sha256": "e66266f69d3f7edd795123972e8f304c2f2afce11587efab5fceea5f5ad27a05"
     },
     {
+      "path": "backend\\tests\\test_environment_profile.py",
+      "role": "canonical-environment-profile-tests",
+      "sha256": "4f196d1bb4ccee0678fcbcb954fcc0e87f8087205c8d4ba297c4096bb3655125"
+    },
+    {
       "path": "mock_data\\process_events\\index.json",
       "role": "canonical-process-event-index",
       "sha256": "05691ef4b33f227509f26a743fb7da0e979386cfe3ad848cbedcdd1278e0586c"
@@ -315,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "1e6077ea47cb6e3c943dc5a454bf40b999e02a72fec6a6b0189a161d1800e348"
+      "sha256": "8b7daa44787e349a946f18b51aca88137cfed05a8f7afb6f8126305fe77c9638"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -355,7 +360,7 @@
     {
       "path": "docs\\SPRINT4_JIRA_BACKLOG.md",
       "role": "sprint4-jira-backlog",
-      "sha256": "098e58f7cbe08f85851d3f602d55665b6bfc948953031493724cde45b1337b87"
+      "sha256": "2d27a31caceff63ec2afa33a699c5379bf653b4ae4ac464bb089bc176662c58d"
     },
     {
       "path": "docs\\S4A1_STATIC_DATA_SOURCE_CONTRACT.md",
@@ -428,6 +433,11 @@
       "sha256": "1118bdf1f88c9d5f598d454affb943a4f6af83ea3abf3faca764d66746d29a41"
     },
     {
+      "path": "docs\\S4D1_ENVIRONMENT_AND_SECRET_PROFILE_FREEZE.md",
+      "role": "s4d1-environment-and-secret-profile-freeze",
+      "sha256": "ac6c49f977d780f8d9fa7ecf6245ac5868bb2fe0b551e95631416a64cff60094"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -435,7 +445,7 @@
     {
       "path": "scripts\\build_claude_review_pack.py",
       "role": "claude-review-pack-builder",
-      "sha256": "4283f3794c249ab7dd0327cb27926a21b6038e96cd922065f50cb69e6faf73f2"
+      "sha256": "552664a4638132cd2b26adac1a1a2f3244ee888b4c1ede80a73378eeefcedddc"
     },
     {
       "path": "scripts\\package_release.py",
@@ -480,7 +490,7 @@
     {
       "path": "scripts\\git_preflight.py",
       "role": "git-preflight",
-      "sha256": "98edfc730adc11f6d4a2f762df14c6ba6ad5c465424e8f665dc83957b92bede5"
+      "sha256": "57bb4fc5b731fc0aacaa68959fd532756464bfec54f59ad6518034521c5bc68c"
     },
     {
       "path": "scripts\\install_git_workflow.py",
@@ -530,7 +540,7 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "da307806355ddf3c5bea587167fe71192f6fb09d9fa5f480551e83c78451e7fd"
+      "sha256": "5fdc5a5c38d273e3e588df75d9480cb4e9ff3757b23c93ab6a5e5a3480c877c1"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
@@ -590,7 +600,8 @@
         "backend.tests.test_persistent_case_contract",
         "backend.tests.test_case_action_request_contract",
         "backend.tests.test_case_store",
-        "backend.tests.test_case_lifecycle_regression"
+        "backend.tests.test_case_lifecycle_regression",
+        "backend.tests.test_environment_profile"
       ],
       "status": "PASS"
     },
@@ -609,13 +620,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-C-2026-04-10-006",
+      "Snapshot ID: S4-D-2026-04-10-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-10T13:19:05.936042+08:00",
+    "last_verified_at": "2026-04-10T13:45:00.436962+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
