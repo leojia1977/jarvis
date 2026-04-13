@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-E-2026-04-13-002`
-- Stage: `sprint5-ai-collab-light-revision-closeout`
+- Snapshot ID: `S5-E-2026-04-13-003`
+- Stage: `sprint5-ai-collab-governance-decision`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -76,6 +76,7 @@
 - Post-S5-A decision checkpoint now records `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` as the governed post-S5-A decision record. S5-A is closed as a governed controlled pilot preparation baseline. This checkpoint does not authorize external pilot execution. The recommended immediate next step is `S5-E-1` lightweight governance review while external pilot inputs are gathered, unless product/governance can immediately provide all required pilot scope, role, access, evidence retention, redaction, go/no-go, and rollback/hold authority inputs.
 - S5-E-1 now records `docs/S5E1_AI_COLLAB_OPERATING_MODEL_REVIEW.md` as the AI collaboration operating model review closeout. S5-E-1 reviews `docs/AI_COLLAB_OPERATING_MODEL.md` and records `NEEDS_LIGHT_REVISION`. `docs/AI_COLLAB_OPERATING_MODEL.md` remains ungoverned and must not be treated as a governed contract. Future governance of `docs/AI_COLLAB_OPERATING_MODEL.md` requires a separate light-revision task, snapshot transition, manifest update, verification refresh, and review-pack alignment.
 - S5-E-2 now records `docs/S5E2_AI_COLLAB_LIGHT_REVISION_CLOSEOUT.md` as the AI collaboration operating model light revision closeout. `docs/AI_COLLAB_OPERATING_MODEL.md` was lightly revised but remains ungoverned. `docs/S5E2_AI_COLLAB_LIGHT_REVISION_CLOSEOUT.md` is the governed closeout record. Future governance of `docs/AI_COLLAB_OPERATING_MODEL.md` requires a separate snapshot path and manifest entry.
+- S5-E-3 now records `docs/S5E3_AI_COLLAB_GOVERNANCE_DECISION.md` as the AI collaboration operating model governance decision closeout. S5-E-3 records `APPROVE_GOVERNANCE` for `docs/AI_COLLAB_OPERATING_MODEL.md` as a future governed artifact. This does not itself govern `docs/AI_COLLAB_OPERATING_MODEL.md`; it must remain outside manifest key_files until a separate governance snapshot explicitly adds it.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -147,6 +148,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md`
    - `docs/S5E1_AI_COLLAB_OPERATING_MODEL_REVIEW.md`
    - `docs/S5E2_AI_COLLAB_LIGHT_REVISION_CLOSEOUT.md`
+   - `docs/S5E3_AI_COLLAB_GOVERNANCE_DECISION.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -185,7 +187,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Treat `S5-PLAN-2026-04-13-001` as the governed Sprint 5 planning baseline before starting `S5-A` or `S5-E` work.
 - Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the governed upstream checklist before `S5-A-2` dry-run evidence template work.
 - Use `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` to choose the next path: `S5-E-1` lightweight governance review as the default immediate next step while pilot inputs are gathered; external pilot decision package only if all required pilot decision inputs are available; `S5-C` only with dry-run feedback or explicit product decision; `S5-B / S5-D` discovery only if external inputs are available.
-- Next S5-E work should be a separate governance decision/review path for `docs/AI_COLLAB_OPERATING_MODEL.md` if product/governance chooses to govern it. That future step must add a manifest entry and complete normal snapshot, verification, review-pack, release-artifact, and full-gate alignment before the draft is treated as a governed contract.
+- The next S5-E step may govern `docs/AI_COLLAB_OPERATING_MODEL.md` itself by adding it through a separate snapshot path with `docs/HANDOFF.md` update, manifest key_file entry, `releases/verify_report.json` refresh, review-pack/release artifact alignment, full gate PASS, commit, and push.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
