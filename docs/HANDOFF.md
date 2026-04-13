@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-E-2026-04-13-004`
-- Stage: `sprint5-ai-collab-operating-model-governed`
+- Snapshot ID: `S5-MIDPOINT-2026-04-13-001`
+- Stage: `sprint5-midpoint-decision`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -78,6 +78,7 @@
 - S5-E-2 now records `docs/S5E2_AI_COLLAB_LIGHT_REVISION_CLOSEOUT.md` as the AI collaboration operating model light revision closeout. `docs/AI_COLLAB_OPERATING_MODEL.md` was lightly revised but remains ungoverned. `docs/S5E2_AI_COLLAB_LIGHT_REVISION_CLOSEOUT.md` is the governed closeout record. Future governance of `docs/AI_COLLAB_OPERATING_MODEL.md` requires a separate snapshot path and manifest entry.
 - S5-E-3 now records `docs/S5E3_AI_COLLAB_GOVERNANCE_DECISION.md` as the AI collaboration operating model governance decision closeout. S5-E-3 records `APPROVE_GOVERNANCE` for `docs/AI_COLLAB_OPERATING_MODEL.md` as a future governed artifact. This does not itself govern `docs/AI_COLLAB_OPERATING_MODEL.md`; it must remain outside manifest key_files until a separate governance snapshot explicitly adds it.
 - S5-E-4 now governs `docs/AI_COLLAB_OPERATING_MODEL.md` as the team collaboration operating model. The document governs collaboration workflow only; it does not override product PRDs, runtime contracts, `docs/RELEASE_PROCESS.md`, manifest, `verify_report`, review pack, release zip, or full gate requirements, and it does not introduce external tool dependencies.
+- Sprint 5 midpoint decision now records `docs/S5_MIDPOINT_DECISION.md` as the governed planning decision record. S5-A Controlled Pilot Preparation is closed, S5-E AI Collaboration Operating Model is governed as collaboration workflow guidance, external pilot execution remains unauthorized, and the next product path requires product/governance confirmation before implementation begins. The midpoint recommendation is conditional: external pilot decision package only if all required pilot inputs are available; S5-C only with dry-run feedback or explicit product decision; S5-B/S5-D discovery only if external inputs are available.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -151,6 +152,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5E2_AI_COLLAB_LIGHT_REVISION_CLOSEOUT.md`
    - `docs/S5E3_AI_COLLAB_GOVERNANCE_DECISION.md`
    - `docs/AI_COLLAB_OPERATING_MODEL.md`
+   - `docs/S5_MIDPOINT_DECISION.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -191,6 +193,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` to choose the next path: `S5-E-1` lightweight governance review as the default immediate next step while pilot inputs are gathered; external pilot decision package only if all required pilot decision inputs are available; `S5-C` only with dry-run feedback or explicit product decision; `S5-B / S5-D` discovery only if external inputs are available.
 - Use `docs/AI_COLLAB_OPERATING_MODEL.md` as governed collaboration workflow guidance for future multi-tool work.
 - Product/runtime decisions remain governed by their own PRDs, contracts, tests, and release process.
+- Use `docs/S5_MIDPOINT_DECISION.md` to choose the next mainline. No implementation stream should start from chat-only context without a structured ticket and governed baseline check.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
