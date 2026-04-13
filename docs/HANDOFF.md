@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-A-2026-04-13-003`
-- Stage: `sprint5-pilot-run-log-redaction-boundary-baseline`
+- Snapshot ID: `S5-A-2026-04-13-004`
+- Stage: `sprint5-pilot-sign-off-checklist-baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -70,6 +70,7 @@
 - S5-A-1 now records `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the controlled pilot preparation checklist. It separates preparation, dry-run, redaction, sign-off, and external pilot execution boundaries, and confirms S4/S5 governed evidence without starting external pilot execution.
 - S5-A-2 now records `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md` as the dry-run evidence template baseline. It converts the S5-A-1 preparation checklist into fillable evidence capture for the pilot validation gate and `POST /api/v1/pilot-smoke` path while preserving the dry-run-only boundary.
 - S5-A-3 now records `docs/S5A3_PILOT_RUN_LOG_REDACTION_BOUNDARY.md` as the pilot run log evidence redaction boundary baseline. It defines what dry-run, pilot-prep, and future sign-off evidence may retain without replacing S4-D-3 / `RELEASE_PROCESS` operator escalation triage redaction rules.
+- S5-A-4 now records `docs/S5A4_PILOT_SIGN_OFF_CHECKLIST.md` as the pilot sign-off checklist baseline. It defines `PASS` / `HOLD` / `NEEDS_DECISION` judgment for controlled dry-run sign-off without creating a real customer/operator sign-off record or authorizing external pilot execution.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -135,6 +136,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md`
    - `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md`
    - `docs/S5A3_PILOT_RUN_LOG_REDACTION_BOUNDARY.md`
+   - `docs/S5A4_PILOT_SIGN_OFF_CHECKLIST.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -172,7 +174,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Treat `S4-INTEGRATED-2026-04-13-001` as the governed Sprint 4 integrated pilot baseline before Sprint 5 planning, external pilot preparation, or pilot sign-off activity.
 - Treat `S5-PLAN-2026-04-13-001` as the governed Sprint 5 planning baseline before starting `S5-A` or `S5-E` work.
 - Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the governed upstream checklist before `S5-A-2` dry-run evidence template work.
-- Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md`, `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md`, and `docs/S5A3_PILOT_RUN_LOG_REDACTION_BOUNDARY.md` as the governed upstream inputs before `S5-A-4`; `S5-A-4` may use them to draft the pilot sign-off checklist, but must not change the S5-A-3 redaction boundary without separate review.
+- Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md`, `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md`, `docs/S5A3_PILOT_RUN_LOG_REDACTION_BOUNDARY.md`, and `docs/S5A4_PILOT_SIGN_OFF_CHECKLIST.md` as governed upstream inputs before `S5-A-5`; `S5-A-5` can use them to close the dry-run versus external pilot boundary, but must not reinterpret S5-A-4 `PASS` as authorization to start external pilot execution.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
