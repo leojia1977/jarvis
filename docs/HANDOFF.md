@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-A-2026-04-13-001`
-- Stage: `Sprint 5 pilot preparation checklist baseline`
+- Snapshot ID: `S5-A-2026-04-13-002`
+- Stage: `sprint5-dry-run-evidence-template-baseline`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -68,6 +68,7 @@
 - Sprint 4 integrated closeout now records `docs/S4_SPRINT4_PILOT_BASELINE_REVIEW.md` as the integrated review record and `docs/S4_SPRINT4_PILOT_BASELINE_REVIEW_PASS.md` as the integrated PASS closeout; `S4-A / S4-B / S4-C / S4-D` jointly satisfy the Sprint 4 Delivery Definition, and the current governed baseline is accepted as the Sprint 4 integrated pilot baseline for controlled pilot use.
 - Sprint 5 planning now records `docs/SPRINT5_DISCOVERY_BRIEF.md` as the Sprint 5 discovery record, `docs/SPRINT5_PRD.md` as the Sprint 5 PRD draft baseline, and `docs/SPRINT5_JIRA_BACKLOG.md` as the Sprint 5 backlog baseline. Sprint 5 starts from `S4-INTEGRATED-2026-04-13-001`; `S5-A` is the first product direction, `S5-E` is a lightweight parallel governance decision, `S5-C` is conditional, and `S5-B / S5-D` remain discovery-limited until external inputs exist.
 - S5-A-1 now records `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the controlled pilot preparation checklist. It separates preparation, dry-run, redaction, sign-off, and external pilot execution boundaries, and confirms S4/S5 governed evidence without starting external pilot execution.
+- S5-A-2 now records `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md` as the dry-run evidence template baseline. It converts the S5-A-1 preparation checklist into fillable evidence capture for the pilot validation gate and `POST /api/v1/pilot-smoke` path while preserving the dry-run-only boundary.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -131,6 +132,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/SPRINT5_PRD.md`
    - `docs/SPRINT5_JIRA_BACKLOG.md`
    - `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md`
+   - `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -168,6 +170,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Treat `S4-INTEGRATED-2026-04-13-001` as the governed Sprint 4 integrated pilot baseline before Sprint 5 planning, external pilot preparation, or pilot sign-off activity.
 - Treat `S5-PLAN-2026-04-13-001` as the governed Sprint 5 planning baseline before starting `S5-A` or `S5-E` work.
 - Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the governed upstream checklist before `S5-A-2` dry-run evidence template work.
+- Treat `docs/S5A2_DRY_RUN_EVIDENCE_TEMPLATE.md` as the governed dry-run evidence capture baseline before `S5-A-3`; `S5-A-3` may define the full pilot run log redaction boundary from these fields, but must not retroactively change the S5-A-2 dry-run-only boundary.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
