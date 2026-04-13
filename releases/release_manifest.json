@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-E-2026-04-13-003",
+    "id": "S5-E-2026-04-13-004",
     "sprint": "Sprint 5",
-    "stage": "sprint5-ai-collab-governance-decision",
+    "stage": "sprint5-ai-collab-operating-model-governed",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-13T20:14:14.127232+08:00"
+    "updated_at": "2026-04-13T20:20:45.813720+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-E-2026-04-13-003.zip",
-    "current_release_sha256": "7ce8496268287f3bb0b837d6a47e531bd4ebf3467e6e64b5ce0341d9eacb0d93"
+    "current_release_zip": "releases\\secupilot-S5-E-2026-04-13-004.zip",
+    "current_release_sha256": "d6c21377ff583063ddb30394d3cb740a59648c753d5b6d99f4c12368438bcbb8"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "819d34418b55932b24e7d71bb0cae50b194fb4dfceeb091ca1a7de55a7769acd"
+      "sha256": "c4c26766a827d14d9b4a87bf30fff4c017ab89db900805c6720588f51dedb764"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -543,6 +543,11 @@
       "sha256": "62a1583ba1439db04c9ad67628318f1923b4effc271cc70bb9bbb462e024e4b0"
     },
     {
+      "path": "docs\\AI_COLLAB_OPERATING_MODEL.md",
+      "role": "ai-collab-operating-model",
+      "sha256": "09b5a86f8513a2723fabf85a13d8e4c78f309bad7d084955edd566860fe88c3e"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -725,13 +730,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-E-2026-04-13-003",
+      "Snapshot ID: S5-E-2026-04-13-004",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-13T20:14:14.537869+08:00",
+    "last_verified_at": "2026-04-13T20:20:46.243913+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
