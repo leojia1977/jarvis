@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-A-2026-04-13-006`
-- Stage: `sprint5-controlled-pilot-preparation-review-pass`
+- Snapshot ID: `S5-DECISION-2026-04-13-001`
+- Stage: `post-s5a-decision-checkpoint`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -73,6 +73,7 @@
 - S5-A-4 now records `docs/S5A4_PILOT_SIGN_OFF_CHECKLIST.md` as the pilot sign-off checklist baseline. It defines `PASS` / `HOLD` / `NEEDS_DECISION` judgment for controlled dry-run sign-off without creating a real customer/operator sign-off record or authorizing external pilot execution.
 - S5-A-5 now records `docs/S5A5_DRY_RUN_EXTERNAL_PILOT_BOUNDARY_CLOSEOUT.md` as the dry-run versus external pilot boundary closeout. It closes the dry-run/external-pilot boundary for the S5-A preparation package, but it is not the S5-A stream review pass.
 - S5-A Controlled Pilot Preparation now records `docs/S5A_REVIEW_PASS.md` as the stream-level review pass. S5-A is closed as a governed controlled pilot preparation baseline. This does not authorize external pilot execution. External pilot execution, S5-C triggering, S5-E governance, and S5-B/S5-D scope expansion remain gated on separate product/governance decisions.
+- Post-S5-A decision checkpoint now records `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` as the governed post-S5-A decision record. S5-A is closed as a governed controlled pilot preparation baseline. This checkpoint does not authorize external pilot execution. The recommended immediate next step is `S5-E-1` lightweight governance review while external pilot inputs are gathered, unless product/governance can immediately provide all required pilot scope, role, access, evidence retention, redaction, go/no-go, and rollback/hold authority inputs.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -141,6 +142,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5A4_PILOT_SIGN_OFF_CHECKLIST.md`
    - `docs/S5A5_DRY_RUN_EXTERNAL_PILOT_BOUNDARY_CLOSEOUT.md`
    - `docs/S5A_REVIEW_PASS.md`
+   - `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -178,7 +180,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Treat `S4-INTEGRATED-2026-04-13-001` as the governed Sprint 4 integrated pilot baseline before Sprint 5 planning, external pilot preparation, or pilot sign-off activity.
 - Treat `S5-PLAN-2026-04-13-001` as the governed Sprint 5 planning baseline before starting `S5-A` or `S5-E` work.
 - Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the governed upstream checklist before `S5-A-2` dry-run evidence template work.
-- Next work should be chosen by product/governance decision among: external pilot decision package; S5-C case workflow hardening if triggered by dry-run feedback or explicit product decision; S5-E AI collaboration operating model governance review; or S5-B/S5-D discovery work only if external inputs are available.
+- Use `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` to choose the next path: `S5-E-1` lightweight governance review as the default immediate next step while pilot inputs are gathered; external pilot decision package only if all required pilot decision inputs are available; `S5-C` only with dry-run feedback or explicit product decision; `S5-B / S5-D` discovery only if external inputs are available.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
