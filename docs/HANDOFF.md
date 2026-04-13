@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-PILOT-INPUT-2026-04-13-001`
-- Stage: `external-pilot-input-intake`
+- Snapshot ID: `S5-PILOT-INPUT-2026-04-13-002`
+- Stage: `external-pilot-input-assessment`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -80,6 +80,7 @@
 - S5-E-4 now governs `docs/AI_COLLAB_OPERATING_MODEL.md` as the team collaboration operating model. The document governs collaboration workflow only; it does not override product PRDs, runtime contracts, `docs/RELEASE_PROCESS.md`, manifest, `verify_report`, review pack, release zip, or full gate requirements, and it does not introduce external tool dependencies.
 - Sprint 5 midpoint decision now records `docs/S5_MIDPOINT_DECISION.md` as the governed planning decision record. S5-A Controlled Pilot Preparation is closed, S5-E AI Collaboration Operating Model is governed as collaboration workflow guidance, external pilot execution remains unauthorized, and the next product path requires product/governance confirmation before implementation begins. The midpoint recommendation is conditional: external pilot decision package only if all required pilot inputs are available; S5-C only with dry-run feedback or explicit product decision; S5-B/S5-D discovery only if external inputs are available.
 - External pilot input intake now records `docs/S5_EXTERNAL_PILOT_INPUT_INTAKE.md` as the governed intake checklist. The intake defines the seven required input categories for any later external pilot decision package, does not authorize external pilot execution, and records that all seven categories currently require explicit product/governance confirmation before a decision package can proceed.
+- External pilot input assessment now records `docs/S5_EXTERNAL_PILOT_INPUT_ASSESSMENT.md` as the initial governed assessment state for the seven external pilot input categories. All seven categories are currently `UNKNOWN` in governed repo evidence, the project cannot draft an external pilot decision package yet, and external pilot execution remains unauthorized.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -155,6 +156,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/AI_COLLAB_OPERATING_MODEL.md`
    - `docs/S5_MIDPOINT_DECISION.md`
    - `docs/S5_EXTERNAL_PILOT_INPUT_INTAKE.md`
+   - `docs/S5_EXTERNAL_PILOT_INPUT_ASSESSMENT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -197,6 +199,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Product/runtime decisions remain governed by their own PRDs, contracts, tests, and release process.
 - Use `docs/S5_MIDPOINT_DECISION.md` to choose the next mainline. No implementation stream should start from chat-only context without a structured ticket and governed baseline check.
 - Use `docs/S5_EXTERNAL_PILOT_INPUT_INTAKE.md` to collect or confirm the seven external pilot inputs. If all seven are provided or explicitly accepted, the next step may be an external pilot decision package; if not, continue collecting inputs or choose `S5-C` / `S5-B` / `S5-D` according to governed midpoint criteria.
+- Use `docs/S5_EXTERNAL_PILOT_INPUT_ASSESSMENT.md` to collect or explicitly accept the seven external pilot inputs. If all seven become `PROVIDED` or explicitly accepted by product/governance, an external pilot decision package may be drafted; if inputs remain `UNKNOWN` and product explicitly chooses case workflow hardening, proceed to S5-C planning. `S5-B / S5-D` remain discovery-only unless source/telemetry inputs are available.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
