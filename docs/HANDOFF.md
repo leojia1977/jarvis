@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-C-PLAN-2026-04-13-001`
-- Stage: `sprint5-case-workflow-hardening-plan`
+- Snapshot ID: `S5-C-2026-04-13-001`
+- Stage: `sprint5-case-workflow-journey-contract`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -82,6 +82,7 @@
 - External pilot input intake now records `docs/S5_EXTERNAL_PILOT_INPUT_INTAKE.md` as the governed intake checklist. The intake defines the seven required input categories for any later external pilot decision package, does not authorize external pilot execution, and records that all seven categories currently require explicit product/governance confirmation before a decision package can proceed.
 - External pilot input assessment now records `docs/S5_EXTERNAL_PILOT_INPUT_ASSESSMENT.md` as the initial governed assessment state for the seven external pilot input categories. All seven categories are currently `UNKNOWN` in governed repo evidence, the project cannot draft an external pilot decision package yet, and external pilot execution remains unauthorized.
 - S5-C case workflow hardening plan now records `docs/S5C_CASE_WORKFLOW_HARDENING_PLAN.md` as the planning-only closeout. S5-C planning may proceed by explicit product decision while external pilot inputs remain `UNKNOWN`; this plan does not authorize implementation. S5-C must preserve S4-C durable case lifecycle, audit history, review/approval/close semantics, and non-destructive action request guarantees. `S5-B / S5-D` remain discovery-only unless source/telemetry inputs become available and a separate product/governance decision expands their scope.
+- S5-C-1 case workflow journey contract now records `docs/S5C1_CASE_WORKFLOW_JOURNEY_CONTRACT.md` as the governed journey contract. It defines descriptive `pilot_local` operator/analyst/manager/reviewer workflow roles and journey stages, preserves S4-C durable case lifecycle, audit history, review/approval/close semantics, closed-case safety, and non-destructive action request semantics, and does not authorize runtime/API/test implementation, enterprise RBAC, ticketing integration, workflow engine, destructive response automation, external pilot execution, or real customer/operator sign-off.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -159,6 +160,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5_EXTERNAL_PILOT_INPUT_INTAKE.md`
    - `docs/S5_EXTERNAL_PILOT_INPUT_ASSESSMENT.md`
    - `docs/S5C_CASE_WORKFLOW_HARDENING_PLAN.md`
+   - `docs/S5C1_CASE_WORKFLOW_JOURNEY_CONTRACT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -203,6 +205,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5_EXTERNAL_PILOT_INPUT_INTAKE.md` to collect or confirm the seven external pilot inputs. If all seven are provided or explicitly accepted, the next step may be an external pilot decision package; if not, continue collecting inputs or choose `S5-C` / `S5-B` / `S5-D` according to governed midpoint criteria.
 - Use `docs/S5_EXTERNAL_PILOT_INPUT_ASSESSMENT.md` to collect or explicitly accept the seven external pilot inputs. If all seven become `PROVIDED` or explicitly accepted by product/governance, an external pilot decision package may be drafted; if inputs remain `UNKNOWN` and product explicitly chooses case workflow hardening, proceed to S5-C planning. `S5-B / S5-D` remain discovery-only unless source/telemetry inputs are available.
 - Use `docs/S5C_CASE_WORKFLOW_HARDENING_PLAN.md` to draft `S5-C-1 Case Workflow Journey Contract`. Do not implement code, runtime, API, or test changes until a later governed ticket explicitly authorizes them.
+- Use `docs/S5C1_CASE_WORKFLOW_JOURNEY_CONTRACT.md` as the governed journey contract before drafting `S5-C-2 Close Reason And Lifecycle Semantics`. No implementation may start from S5-C-1 alone.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
