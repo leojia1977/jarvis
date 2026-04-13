@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S4-INTEGRATED-2026-04-13-001",
-    "sprint": "Sprint 4",
-    "stage": "sprint4-integrated-pilot-baseline-closeout",
+    "id": "S5-PLAN-2026-04-13-001",
+    "sprint": "Sprint 5",
+    "stage": "sprint5-planning-baseline",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-13T11:11:44.915088+08:00"
+    "updated_at": "2026-04-13T13:59:00.471052+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S4-INTEGRATED-2026-04-13-001.zip",
-    "current_release_sha256": "90ebbb421c3b83d5d054b80a0c91bf285a54128ea0418a8a316f55cf73dffad2"
+    "current_release_zip": "releases\\secupilot-S5-PLAN-2026-04-13-001.zip",
+    "current_release_sha256": "24ca868d27764b411a04965be8abd9151fe25f6ba906a5d449b6ecf37e20ad10"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "8bb393f0268bae7e5ef7219dc4ebc1977694d3b65d3be8f2afcb0f8099ec0fe2"
+      "sha256": "399dd755864e2c7f5324f016c1f949219edd0d57bd59304c209733e4d7233d9f"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -476,6 +476,21 @@
       "path": "docs\\S4_SPRINT4_PILOT_BASELINE_REVIEW_PASS.md",
       "role": "s4-integrated-pilot-baseline-review-pass",
       "sha256": "b3990167a859d0db762dd54123167d97bb9a5eff7ec2cbc7605e62eb1c7c9aa9"
+    },
+    {
+      "path": "docs\\SPRINT5_DISCOVERY_BRIEF.md",
+      "role": "sprint5-discovery-brief",
+      "sha256": "80e786008c1c012dd50591c684e2d12472e42318ade5165dd0885245731dfd89"
+    },
+    {
+      "path": "docs\\SPRINT5_PRD.md",
+      "role": "sprint5-prd",
+      "sha256": "04841ea36106db5b5fb69ede7ad586b3045849d089ceae6ea9559d379df6a2ae"
+    },
+    {
+      "path": "docs\\SPRINT5_JIRA_BACKLOG.md",
+      "role": "sprint5-jira-backlog",
+      "sha256": "83f17d8bc5dc6c2bd1b88469b72c1654d151e033b7e94d011815a860392cac89"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -660,13 +675,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S4-INTEGRATED-2026-04-13-001",
+      "Snapshot ID: S5-PLAN-2026-04-13-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-13T11:11:45.517869+08:00",
+    "last_verified_at": "2026-04-13T13:59:01.308904+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
