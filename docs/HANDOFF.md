@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-DECISION-2026-04-13-001`
-- Stage: `post-s5a-decision-checkpoint`
+- Snapshot ID: `S5-E-2026-04-13-001`
+- Stage: `sprint5-ai-collab-operating-model-review`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -74,6 +74,7 @@
 - S5-A-5 now records `docs/S5A5_DRY_RUN_EXTERNAL_PILOT_BOUNDARY_CLOSEOUT.md` as the dry-run versus external pilot boundary closeout. It closes the dry-run/external-pilot boundary for the S5-A preparation package, but it is not the S5-A stream review pass.
 - S5-A Controlled Pilot Preparation now records `docs/S5A_REVIEW_PASS.md` as the stream-level review pass. S5-A is closed as a governed controlled pilot preparation baseline. This does not authorize external pilot execution. External pilot execution, S5-C triggering, S5-E governance, and S5-B/S5-D scope expansion remain gated on separate product/governance decisions.
 - Post-S5-A decision checkpoint now records `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` as the governed post-S5-A decision record. S5-A is closed as a governed controlled pilot preparation baseline. This checkpoint does not authorize external pilot execution. The recommended immediate next step is `S5-E-1` lightweight governance review while external pilot inputs are gathered, unless product/governance can immediately provide all required pilot scope, role, access, evidence retention, redaction, go/no-go, and rollback/hold authority inputs.
+- S5-E-1 now records `docs/S5E1_AI_COLLAB_OPERATING_MODEL_REVIEW.md` as the AI collaboration operating model review closeout. S5-E-1 reviews `docs/AI_COLLAB_OPERATING_MODEL.md` and records `NEEDS_LIGHT_REVISION`. `docs/AI_COLLAB_OPERATING_MODEL.md` remains ungoverned and must not be treated as a governed contract. Future governance of `docs/AI_COLLAB_OPERATING_MODEL.md` requires a separate light-revision task, snapshot transition, manifest update, verification refresh, and review-pack alignment.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -143,6 +144,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5A5_DRY_RUN_EXTERNAL_PILOT_BOUNDARY_CLOSEOUT.md`
    - `docs/S5A_REVIEW_PASS.md`
    - `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md`
+   - `docs/S5E1_AI_COLLAB_OPERATING_MODEL_REVIEW.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -181,6 +183,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Treat `S5-PLAN-2026-04-13-001` as the governed Sprint 5 planning baseline before starting `S5-A` or `S5-E` work.
 - Treat `docs/S5A1_PILOT_PREPARATION_CHECKLIST.md` as the governed upstream checklist before `S5-A-2` dry-run evidence template work.
 - Use `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md` to choose the next path: `S5-E-1` lightweight governance review as the default immediate next step while pilot inputs are gathered; external pilot decision package only if all required pilot decision inputs are available; `S5-C` only with dry-run feedback or explicit product decision; `S5-B / S5-D` discovery only if external inputs are available.
+- Next S5-E work should be a light revision task for `docs/AI_COLLAB_OPERATING_MODEL.md`, limited to: de-binding Linear/Notion specific names from Open Follow-Ups; clarifying role-label alignment with `HANDOFF` wording; making `RELEASE_PROCESS` authoritative for release/governance closeout steps; and adding a governance-entry note. This next task must still not introduce external tool dependencies or change product/runtime scope.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
