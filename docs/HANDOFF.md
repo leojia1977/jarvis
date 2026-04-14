@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-C-IMPL-2026-04-14-004`
-- Stage: `sprint5-test-hardening-review-pass`
+- Snapshot ID: `S5-STREAM-REVIEW-2026-04-14-001`
+- Stage: `sprint5-stream-review-checkpoint`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -92,6 +92,7 @@
 - S5-C-IMPL-2 action request test hardening now records `backend/tests/test_case_action_request_contract.py` as the only modified file for this test-only closeout. It strengthens existing action request approval, rejection, cancellation, audit, snapshot immutability, and closed-case safety assertions without changing production code, runtime, API, schema, dependency, public close-case endpoint, external pilot, real SIEM/EDR/source-system, or real customer/operator sign-off behavior. Targeted test passed with `py -3 -m unittest -q backend.tests.test_case_action_request_contract`. Claude Code delta review found no `HIGH` or `MEDIUM` findings; one `LOW` duplicate assertion cleanup was addressed, and the `INFO` observations were non-blocking.
 - S5-C-IMPL-3 closed-case safety regression expansion now records `backend/tests/test_case_lifecycle_regression.py` as the only modified file for this test-only closeout. It strengthens deterministic closed-case retrieval, audit, action-request preservation, response immutability, and invalid lifecycle transition assertions without changing production code, runtime, API, schema, dependency, docs semantics, public close-case endpoint, external pilot, real SIEM/EDR/source-system, or real customer/operator sign-off behavior. Targeted test passed with `py -3 -m unittest -q backend.tests.test_case_lifecycle_regression`. Claude Code delta review found no `HIGH`, `MEDIUM`, or `LOW` findings; one `INFO` redundancy observation was non-blocking. The public close-case endpoint remains `KEEP_DEFERRED`, and the new helper-only invalid lifecycle transition guard rejects `closed -> archived` without adding `archived` as an accepted state.
 - S5-C-IMPL-4 test hardening review pass now records `docs/S5C_IMPL4_TEST_HARDENING_REVIEW_PASS.md` as the governed review-pass artifact for the S5-C implementation-preparation / test-hardening mini-stream. Predecessor baseline was `S5-C-IMPL-2026-04-14-003`. Claude Code review verdict was `SAFE`: no `HIGH` or `MEDIUM` findings, `LOW-1` was fixed before closeout by correcting the IMPL-2 residual observation, and `INFO-1` about IMPL-2/IMPL-3 having test-file changes rather than separate docs was non-blocking. Verdict: `PASS` for the S5-C implementation-preparation / test-hardening mini-stream only. PASS does not authorize production implementation, additional test edits, runtime/API/schema changes, dependency changes, public close-case endpoint work, external pilot execution, real customer/operator sign-off, or real external access. The public close-case HTTP endpoint remains `KEEP_DEFERRED`.
+- Sprint 5 stream review checkpoint now records `docs/S5_STREAM_REVIEW_CHECKPOINT.md` as the governed route-selection checkpoint. Predecessor baseline was `S5-C-IMPL-2026-04-14-004`. Claude Code review verdict was `SAFE`: no `HIGH`, `MEDIUM`, or `LOW` findings, and `INFO-1` was corrected before closeout by explicitly tracing S5-A evidence to `docs/S5_EXTERNAL_PILOT_DECISION_CHECKPOINT.md`. Preliminary verdict: `RECOMMEND_AI_COLLAB_AMENDMENT_DECISION`. This checkpoint does not authorize implementation, runtime/API/schema/test/dependency changes, public close-case endpoint work, external pilot execution, real customer/operator sign-off, real external access, or direct `docs/AI_COLLAB_OPERATING_MODEL.md` modification. S5-C remains parked safely, S5-C-4 public close-case endpoint remains `KEEP_DEFERRED`, and `S5-B / S5-D` remain discovery-only unless source/telemetry inputs become available.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -177,6 +178,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md`
    - `docs/S5C_IMPL1_DOC_TEST_ALIGNMENT.md`
    - `docs/S5C_IMPL4_TEST_HARDENING_REVIEW_PASS.md`
+   - `docs/S5_STREAM_REVIEW_CHECKPOINT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -230,6 +232,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5C_IMPL1_DOC_TEST_ALIGNMENT.md` as the governed doc/test alignment baseline before drafting any scoped S5-C test-hardening ticket. S5-C-IMPL-1 does not authorize code, test, runtime, API, schema, dependency, public close-case endpoint, external pilot, real external-system access, or real sign-off changes.
 - Use `backend/tests/test_case_action_request_contract.py` as the governed S5-C action request semantics hardening baseline. S5-C-IMPL-2 remains test-only and does not authorize production code, runtime, API, schema, dependency, public close-case endpoint, external pilot, real external-system access, or real sign-off changes.
 - Use `docs/S5C_IMPL4_TEST_HARDENING_REVIEW_PASS.md` as the governed S5-C implementation-preparation / test-hardening mini-stream review pass. Its `PASS` accepts the IMPL-1/2/3 mini-stream baseline only and does not authorize production implementation, additional test edits, runtime/API/schema changes, dependency changes, public close-case endpoint work, external pilot execution, real sign-off, or real external access.
+- Use `docs/S5_STREAM_REVIEW_CHECKPOINT.md` as the governed Sprint 5 route-selection checkpoint. The recommended next route is a separate docs-only `AI_COLLAB` amendment decision; the checkpoint itself does not authorize implementation, runtime/API/schema/test/dependency changes, public endpoint work, external pilot execution, real sign-off, real external access, or direct `docs/AI_COLLAB_OPERATING_MODEL.md` edits.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
