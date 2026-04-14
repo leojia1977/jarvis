@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-C-IMPL-2026-04-14-003",
+    "id": "S5-C-IMPL-2026-04-14-004",
     "sprint": "Sprint 5",
-    "stage": "sprint5-closed-case-safety-regression-expansion",
+    "stage": "sprint5-test-hardening-review-pass",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-14T14:54:23.451624+08:00"
+    "updated_at": "2026-04-14T15:12:58.972500+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-C-IMPL-2026-04-14-003.zip",
-    "current_release_sha256": "401dced81efc6de1a2ce1f798c8fb9b96f7ad514f1841674bec3ab5adff48381"
+    "current_release_zip": "releases\\secupilot-S5-C-IMPL-2026-04-14-004.zip",
+    "current_release_sha256": "5ac99cbb4870e7866ac78a0bae1da9ae5f0469c9370cf9068c7ba50d729f6b54"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "6d8f22e82ed43521620076cb1771f032121afce0e75fcb0eaca88de1e22c5111"
+      "sha256": "3dd7e075f4140e113ef4e251237d7bff358ee63daa746107b3e4ac8190d50f57"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -603,6 +603,11 @@
       "sha256": "0cfe0842b986f9c3b624ed6534fe0a1ecb4697b73d01f506b6f10acaf81857ad"
     },
     {
+      "path": "docs\\S5C_IMPL4_TEST_HARDENING_REVIEW_PASS.md",
+      "role": "case-workflow-test-hardening-review-pass",
+      "sha256": "fce954822eb5e221dd80ed644e66bedcc9571ba9f2a3f8a20eb819aac893d65d"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -785,13 +790,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-C-IMPL-2026-04-14-003",
+      "Snapshot ID: S5-C-IMPL-2026-04-14-004",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-14T14:54:24.404423+08:00",
+    "last_verified_at": "2026-04-14T15:13:00.128057+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
