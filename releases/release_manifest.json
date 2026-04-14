@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-C-IMPL-2026-04-14-001",
+    "id": "S5-C-IMPL-2026-04-14-002",
     "sprint": "Sprint 5",
-    "stage": "sprint5-case-workflow-doc-test-alignment",
+    "stage": "sprint5-action-request-test-hardening",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-14T13:48:27.489707+08:00"
+    "updated_at": "2026-04-14T14:18:21.732979+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-C-IMPL-2026-04-14-001.zip",
-    "current_release_sha256": "d99cd7773dac64937c85549332e4678820eb9b4daef385076815938b6dca2ae2"
+    "current_release_zip": "releases\\secupilot-S5-C-IMPL-2026-04-14-002.zip",
+    "current_release_sha256": "3f9e9892bb5386388a1217a6a98392940bf8c6ea6061d53092f095e7ff504c74"
   },
   "key_files": [
     {
@@ -225,7 +225,7 @@
     {
       "path": "backend\\tests\\test_case_action_request_contract.py",
       "role": "canonical-case-action-request-contract-tests",
-      "sha256": "587c2bf3853847cd2dcf70fd0f0a35d6737444ecc4491157211623cd820b84f9"
+      "sha256": "bf030cce43037b80e366b83aed003f852cb687f643ff40aa74c322103163d9c7"
     },
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "b9c7b565202f609ee0c9a0683e91e4fa65a08d6dac96b51be8337ee17b1d01c4"
+      "sha256": "dc9b0d3a6d2cd39a43d655e972acde30fe3407803d9f4ed98a80f2579a234b53"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -785,13 +785,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-C-IMPL-2026-04-14-001",
+      "Snapshot ID: S5-C-IMPL-2026-04-14-002",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-14T13:48:28.382785+08:00",
+    "last_verified_at": "2026-04-14T14:18:22.211666+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

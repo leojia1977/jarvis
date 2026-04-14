@@ -105,7 +105,19 @@ class CaseActionRequestContractTests(unittest.TestCase):
         self.assertEqual(submitted.action_requests[0].status, "pending_approval")
         self.assertEqual(approved.lifecycle_status, "approved")
         self.assertEqual(approved.action_requests[0].status, "approved")
+        self.assertEqual(approved.action_requests[0].action_request_id, submitted.action_requests[0].action_request_id)
+        self.assertEqual(approved.action_requests[0].action_type, "NETWORK_ISOLATE")
+        self.assertEqual(approved.action_requests[0].targets, ["WKST-047"])
+        self.assertEqual(approved.action_requests[0].rationale, "需要先进入审批流，不直接执行隔离")
+        self.assertEqual(approved.action_requests[0].source_case_status, "in_review")
         self.assertEqual(approved.action_requests[0].decision_by, "manager.chen")
+        self.assertEqual(approved.action_requests[0].decision_reason, "风险确认，可以执行")
+        self.assertEqual(approved.action_requests[0].decision_at_utc, "2026-04-10T11:03:00Z")
+        self.assertEqual(submitted.lifecycle_status, "in_review")
+        self.assertEqual(submitted.action_requests[0].status, "pending_approval")
+        self.assertIsNone(submitted.action_requests[0].decision_by)
+        self.assertIsNone(submitted.action_requests[0].decision_reason)
+        self.assertIsNone(submitted.action_requests[0].decision_at_utc)
         self.assertEqual(
             [entry.event_type for entry in approved.lifecycle_audit],
             [
@@ -117,6 +129,12 @@ class CaseActionRequestContractTests(unittest.TestCase):
                 "action_request_approved",
             ],
         )
+        approval_audit = approved.lifecycle_audit[-1]
+        self.assertEqual(approval_audit.event_type, "action_request_approved")
+        self.assertEqual(approval_audit.actor, "manager.chen")
+        self.assertEqual(approval_audit.reason, "风险确认，可以执行")
+        self.assertEqual(approval_audit.details["action_request_id"], submitted.action_requests[0].action_request_id)
+        self.assertEqual(approval_audit.case_status, "approved")
 
     def test_reject_and_cancel_follow_frozen_status_transitions(self):
         record = build_initial_persistent_case_record(
@@ -138,7 +156,25 @@ class CaseActionRequestContractTests(unittest.TestCase):
             at_utc="2026-04-10T11:02:00Z",
         )
 
+        self.assertEqual(cancelled.lifecycle_status, "open")
         self.assertEqual(cancelled.action_requests[0].status, "cancelled")
+        self.assertEqual(cancelled.action_requests[0].action_request_id, drafted.action_requests[0].action_request_id)
+        self.assertEqual(cancelled.action_requests[0].action_type, "NETWORK_ISOLATE")
+        self.assertEqual(cancelled.action_requests[0].targets, ["WKST-047"])
+        self.assertEqual(cancelled.action_requests[0].rationale, "进入审批流")
+        self.assertEqual(cancelled.action_requests[0].requested_by, "analyst.leo")
+        self.assertEqual(cancelled.action_requests[0].source_case_status, "open")
+        self.assertEqual(cancelled.action_requests[0].decision_by, "analyst.leo")
+        self.assertEqual(cancelled.action_requests[0].decision_reason, "误触发，撤销")
+        self.assertEqual(cancelled.action_requests[0].decision_at_utc, "2026-04-10T11:02:00Z")
+        self.assertEqual(drafted.action_requests[0].status, "draft")
+        self.assertIsNone(drafted.action_requests[0].decision_by)
+        self.assertIsNone(drafted.action_requests[0].decision_reason)
+        self.assertIsNone(drafted.action_requests[0].decision_at_utc)
+        cancellation_audit = cancelled.lifecycle_audit[-1]
+        self.assertEqual(cancellation_audit.event_type, "action_request_cancelled")
+        self.assertEqual(cancellation_audit.details["action_request_id"], drafted.action_requests[0].action_request_id)
+        self.assertEqual(cancellation_audit.case_status, "open")
 
         redrafted = create_action_request_from_case(
             record,
@@ -164,7 +200,20 @@ class CaseActionRequestContractTests(unittest.TestCase):
 
         self.assertEqual(rejected.lifecycle_status, "in_review")
         self.assertEqual(rejected.action_requests[0].status, "rejected")
+        self.assertEqual(rejected.action_requests[0].action_request_id, submitted.action_requests[0].action_request_id)
+        self.assertEqual(rejected.action_requests[0].action_type, "NETWORK_ISOLATE")
+        self.assertEqual(rejected.action_requests[0].targets, ["WKST-047"])
+        self.assertEqual(rejected.action_requests[0].rationale, "重新进入审批流")
+        self.assertEqual(rejected.action_requests[0].requested_by, "analyst.leo")
+        self.assertEqual(rejected.action_requests[0].source_case_status, "in_review")
+        self.assertEqual(rejected.action_requests[0].decision_by, "manager.chen")
         self.assertEqual(rejected.action_requests[0].decision_reason, "证据不足，拒绝执行")
+        self.assertEqual(rejected.action_requests[0].decision_at_utc, "2026-04-10T11:05:00Z")
+        rejection_audit = rejected.lifecycle_audit[-1]
+        self.assertEqual(rejection_audit.event_type, "action_request_rejected")
+        self.assertEqual(rejection_audit.details["action_request_id"], submitted.action_requests[0].action_request_id)
+        self.assertEqual(rejection_audit.case_status, "in_review")
+        self.assertNotIn("case_closed", [entry.event_type for entry in rejected.lifecycle_audit])
 
     def test_degraded_case_suppresses_action_request_creation(self):
         degraded_case = _base_case()
@@ -227,6 +276,12 @@ class CaseActionRequestContractTests(unittest.TestCase):
                 reason="关闭后不允许取消",
                 at_utc="2026-04-10T11:05:00Z",
             )
+
+        self.assertEqual(closed.lifecycle_status, "closed")
+        self.assertEqual(closed.action_requests[0].status, "pending_approval")
+        self.assertEqual(closed.lifecycle_audit[-1].event_type, "case_closed")
+        self.assertNotIn("action_request_rejected", [entry.event_type for entry in closed.lifecycle_audit])
+        self.assertNotIn("action_request_cancelled", [entry.event_type for entry in closed.lifecycle_audit])
 
 
 if __name__ == "__main__":
