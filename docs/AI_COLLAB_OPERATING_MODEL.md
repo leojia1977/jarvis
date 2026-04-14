@@ -8,6 +8,8 @@ Define one default operating model for human + AI collaboration in the `D:\产�
 - applies to planning, implementation, review, release governance, snapshot transitions, and conversation resets
 - does not replace product contracts, release rules, or runtime contracts already frozen elsewhere in `docs/`
 - defers to `docs/RELEASE_PROCESS.md` and existing governed release/snapshot rules for exact closeout, packaging, manifest, verification, review-pack, and full-gate requirements
+- does not change product semantics, runtime/API/schema behavior, tests, release tooling, dependencies, or manifest format
+- does not make external tools a default dependency
 
 ## Source Of Truth
 - root path: `D:\产品设计\New folder`
@@ -15,35 +17,49 @@ Define one default operating model for human + AI collaboration in the `D:\产�
 - governed truth lives in Git plus governed repo files such as `docs/HANDOFF.md`, `releases/release_manifest.json`, and `releases/verify_report.json`
 - chat history is coordination context, not code truth
 
-## Draft Governance Status
-This document remains a draft until it is explicitly added through a governed snapshot path that includes:
+## Governance Status And Amendment Traceability
+This document is governed as collaboration workflow guidance. Any future change to this document must use a governed snapshot path that includes:
 - `docs/HANDOFF.md` update
 - `releases/release_manifest.json` key_file entry
 - `releases/verify_report.json` refresh
 - review-pack and release artifact alignment
 - full gate PASS
 
-Before that happens, this document should not be treated as a governed contract.
+Amendment traceability:
+- Decision source: `docs/AI_COLLAB_OPERATING_MODEL_AMENDMENT_DECISION.md`
+- Baseline source: `AI-COLLAB-AMEND-DECISION-2026-04-14-001`
+- This amendment codifies collaboration operating rules only; it does not change product/runtime/test/release behavior.
 
 ## Operating Principles
-1. one writer at a time
+1. one writer at a time, scoped by ticket and file set
 2. implementation and review stay separate by default
 3. governance state must be recorded in repo artifacts, not only in chat
 4. new conversations are normal and expected; continuity must come from governed handoff, not model memory
 5. external review is useful, but must not become a critical-path dependency
+6. AI may recommend go/no-go, but the human operator makes final go/no-go decisions
+7. tool names are execution surfaces, not governance authority by themselves
 
 ## Role Assignment
 These role labels map to the current `docs/HANDOFF.md` practice:
 - VS Code: writer / execution workspace
-- Claude Code: review-only by default; may write only when explicitly authorized and not concurrently with VS Code on the same files
+- Claude Code: review-only by default; may write only when explicitly assigned `Primary Implementor` in a scoped ticket
 - Codex Web: planning, governance, prompt orchestration, and closeout judgment
-- Claude Web: optional external red-team reviewer, not critical path
+- Claude Web: optional high-value external reviewer, not a default blocker for routine tickets
 
 This is a wording clarification, not a workflow redesign.
 
+### Primary Implementor
+- every implementation ticket must name `primary_implementor`
+- `primary_implementor` is a role assignment, not a tool binding
+- the assignee may be the human operator, a human-supervised execution workspace, Claude Code, Codex local, or another explicitly named implementor
+- implementation tickets must define exact file scope, allowed changes, non-goals, acceptance criteria, and validation command when relevant
+- single-writer lock applies by ticket and file scope
+- the single-writer lock prevents uncoordinated concurrent edits; it does not block explicit human-directed emergency correction or human go/no-go authority
+- review-only readers may inspect in parallel as long as they do not edit the locked file scope
+
 ### VS Code
 - primary execution workspace
-- default and only file writer
+- default execution workspace and common file writer unless a ticket explicitly assigns another `Primary Implementor`
 - responsible for:
   - code and doc edits
   - local tests
@@ -68,20 +84,31 @@ This is a wording clarification, not a workflow redesign.
   - delta-focused code and doc review
   - bug, regression, contract, and testing-gap detection
   - bounded follow-up implementation only when explicitly authorized
-- must not edit the same scoped files concurrently with VS Code
+- may implement only when explicitly assigned `Primary Implementor` in a scoped ticket
+- if Claude Code implements, the ticket must define `reviewer_when_cc_implements`
+- Claude Code cannot be the sole reviewer of its own implementation
+- these rules do not prevent Claude Code from reviewing unrelated human, Codex, or VS Code work
+- must not edit the same scoped files concurrently with another writer
 
 ### Claude Web
 - independent red-team reviewer
-- used for milestone-level challenge, not routine implementation
+- used for high-value architecture, product, contract, milestone, or trigger-based external review, not routine implementation
 - responsible for:
   - product-logic challenge
   - governance challenge
   - maintainability and operator-clarity challenge
 - must not be treated as code truth or release truth
+- not a default blocker for routine tickets unless a `requires_external_review` trigger applies
+
+## Governance Decision Authority
+- AI systems may provide findings, evidence, risk analysis, and go/no-go recommendations
+- the human operator makes final go/no-go, priority, phase, commit, and push decisions
+- AI recommendations do not override human decisions
+- release gate, manifest, `docs/HANDOFF.md`, and governed snapshot discipline remain authoritative
 
 ## Default Workflow
 1. Codex Web defines the structured ticket.
-2. VS Code executes the scoped implementation.
+2. The named `primary_implementor` executes the scoped implementation under the single-writer lock.
 3. Codex Web prepares a delta-only review prompt.
 4. Claude Code performs `review only`.
 5. VS Code addresses accepted findings.
@@ -95,12 +122,16 @@ Each new task should be expressed by Codex Web with these sections:
 - `Goal`
 - `Scope`
 - `Non-goals`
+- `primary_implementor`
+- `reviewer`
+- `reviewer_when_cc_implements` if Claude Code is the implementor
 - `Acceptance Criteria`
 - `Files In Scope`
 - `Risks`
 - `Governance Checks`
 - `Test Plan`
 - `Review Target Delta`
+- `requires_external_review` decision
 
 Small tasks may compress the wording, but should still make goal, write scope, and acceptance explicit.
 
@@ -117,7 +148,7 @@ Small tasks may compress the wording, but should still make goal, write scope, a
 - not intended to re-audit the whole repo every round
 
 ### Claude Web Review
-- trigger only for:
+- trigger for:
   - stage baseline completion
   - high-risk governance transitions
   - pilot readiness challenge
@@ -127,6 +158,20 @@ Small tasks may compress the wording, but should still make goal, write scope, a
   - long-term maintainability
   - product coherence
   - governance robustness
+- external review can be Claude Web, another qualified reviewer, or a human-designated reviewer depending on ticket risk
+- external review does not replace human go/no-go
+
+### requires_external_review Triggers
+Set `requires_external_review=true` when a ticket includes any of these categories:
+- new contract freeze or modification to frozen contract
+- AP-01 to AP-06 architecture principle changes
+- new runtime/build dependency
+- source identity authority / telemetry normalization / case lifecycle / pilot readiness semantic changes
+- stream or milestone closeout
+- real external pilot/customer/operator evidence/access decisions
+- redaction/secret/evidence retention boundary changes
+
+Routine docs/test tickets do not require external review unless one of these triggers applies.
 
 ## Governed Snapshot Rule
 Use a governed snapshot when one of these is true:
@@ -151,6 +196,12 @@ Release process precedence:
 - this operating model describes collaboration workflow
 - `docs/RELEASE_PROCESS.md` and existing governed release/snapshot rules remain authoritative for exact release packaging, manifest, `verify_report`, review-pack, and full-gate requirements
 - if this document conflicts with product contracts, release rules, or runtime contracts, the governed product, release, and runtime contracts take precedence
+
+Integration verifier role:
+- integration verifier is a checklist role used at stream/milestone closeout or cross-component handoff
+- it checks cross-component flow such as identity authority, telemetry normalization, case lifecycle, audit/evidence, and release artifacts
+- it does not replace test suites, release gates, or human go/no-go
+- it should be invoked when a ticket changes or closes a stream touching multiple components
 
 ## Context Reset Rule
 
