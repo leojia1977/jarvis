@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-C-2026-04-14-005`
-- Stage: `sprint5-case-workflow-review-pass`
+- Snapshot ID: `S5-C-DECISION-2026-04-14-001`
+- Stage: `sprint5-case-workflow-implementation-decision`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -87,6 +87,7 @@
 - S5-C-3 action request approval / denial contract now records `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md` as the governed contract/planning artifact. Claude Code delta review found no `HIGH` or `MEDIUM` blockers and one `LOW` wording issue, which was addressed by avoiding runtime/system authorization wording. S5-C-3 preserves S4-C durable lifecycle, audit history, closed-case safety, and non-destructive action-request semantics; it does not authorize implementation, runtime/API/test changes, schema changes, new persisted lifecycle states, public close-case API implementation, destructive response automation, external pilot execution, or real customer/operator sign-off. `S5-C-4` owns the public close-case HTTP endpoint decision, and `S5-C-5` owns the case workflow review pass.
 - S5-C-4 public close-case HTTP endpoint decision now records `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md` as the governed decision artifact. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The preliminary decision is `KEEP_DEFERRED`: S5-C-4 does not implement or authorize the public close-case HTTP endpoint. Any future endpoint implementation requires a later governed implementation ticket with exact files, behavior changes, acceptance criteria, test plan, method/path/request/response/error model, audit behavior, and pending action request behavior. `S5-C-5` owns the case workflow review pass.
 - S5-C-5 case workflow review pass now records `docs/S5C5_CASE_WORKFLOW_REVIEW_PASS.md` as the governed stream-level review pass. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The S5-C stream verdict is `PASS`: the planning/contract stream is accepted as a governed baseline for future scoped implementation tickets. S5-C PASS does not authorize implementation, external pilot execution, public close-case endpoint implementation, real SIEM/EDR/source-system access, or real customer/operator sign-off. S5-C-4 selected `KEEP_DEFERRED` for the public close-case HTTP endpoint. Any future implementation ticket must define exact files, behavior changes, acceptance criteria, test plan, audit/evidence behavior, redaction/secret handling, pending action request behavior if relevant, hold/rollback criteria, and `reviewer_when_cc_implements` if Claude Code is primary implementor.
+- S5-C implementation decision checkpoint now records `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md` as the governed decision-routing artifact. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The selected preliminary route is `S5-C-IMPL-1_DOC_TEST_ALIGNMENT_ONLY`; this is only a next-route selection and does not authorize implementation. S5-C PASS remains a planning/contract baseline only. S5-C-4 selected `KEEP_DEFERRED` for the public close-case HTTP endpoint, and external pilot execution, real SIEM/EDR/source-system access, and real customer/operator sign-off remain unauthorized. Any future implementation ticket must define `primary_implementor`, `reviewer`, `reviewer_when_cc_implements` if Claude Code is primary implementor, exact files, exact behavior changes, acceptance criteria, test plan, audit/evidence behavior, redaction/secret handling check, pending action request behavior if relevant, hold/rollback criteria, and external review requirement.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -169,6 +170,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md`
    - `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md`
    - `docs/S5C5_CASE_WORKFLOW_REVIEW_PASS.md`
+   - `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -218,6 +220,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md` as the governed action-request semantics baseline for later S5-C work. No implementation may start from S5-C-3 alone.
 - Use `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md` as the governed endpoint decision baseline. S5-C-4 selected `KEEP_DEFERRED`; it does not implement or authorize the public close-case HTTP endpoint.
 - Use `docs/S5C5_CASE_WORKFLOW_REVIEW_PASS.md` as the governed S5-C planning/contract stream review pass. S5-C is accepted as a baseline for future scoped implementation tickets only; no implementation, external pilot execution, public close-case endpoint implementation, real SIEM/EDR/source-system access, or real customer/operator sign-off may start from S5-C PASS alone.
+- Use `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md` as the governed S5-C implementation decision route. The selected preliminary route is `S5-C-IMPL-1_DOC_TEST_ALIGNMENT_ONLY`, but it is only a route selection; no implementation may start until a later governed implementation ticket defines exact files, behavior changes, acceptance criteria, test plan, audit/evidence behavior, redaction/secret handling, pending action request behavior if relevant, hold/rollback criteria, external review requirement, and `reviewer_when_cc_implements` if Claude Code is primary implementor.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
