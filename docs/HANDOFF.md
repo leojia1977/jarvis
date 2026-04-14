@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-C-2026-04-14-003`
-- Stage: `sprint5-action-request-approval-denial-contract`
+- Snapshot ID: `S5-C-2026-04-14-004`
+- Stage: `sprint5-public-close-case-endpoint-decision`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -85,6 +85,7 @@
 - S5-C-1 case workflow journey contract now records `docs/S5C1_CASE_WORKFLOW_JOURNEY_CONTRACT.md` as the governed journey contract. It defines descriptive `pilot_local` operator/analyst/manager/reviewer workflow roles and journey stages, preserves S4-C durable case lifecycle, audit history, review/approval/close semantics, closed-case safety, and non-destructive action request semantics, and does not authorize runtime/API/test implementation, enterprise RBAC, ticketing integration, workflow engine, destructive response automation, external pilot execution, or real customer/operator sign-off.
 - S5-C-2 close reason and lifecycle semantics now records `docs/S5C2_CLOSE_REASON_AND_LIFECYCLE_SEMANTICS.md` as the governed contract/planning artifact. It defines close reason taxonomy and lifecycle semantics, preserves S4-C durable case lifecycle, audit history, closed-case safety, and non-destructive action request semantics, and does not authorize runtime/API/test implementation, public close-case API implementation, new persisted lifecycle states, destructive response automation, external pilot execution, or real customer/operator sign-off.
 - S5-C-3 action request approval / denial contract now records `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md` as the governed contract/planning artifact. Claude Code delta review found no `HIGH` or `MEDIUM` blockers and one `LOW` wording issue, which was addressed by avoiding runtime/system authorization wording. S5-C-3 preserves S4-C durable lifecycle, audit history, closed-case safety, and non-destructive action-request semantics; it does not authorize implementation, runtime/API/test changes, schema changes, new persisted lifecycle states, public close-case API implementation, destructive response automation, external pilot execution, or real customer/operator sign-off. `S5-C-4` owns the public close-case HTTP endpoint decision, and `S5-C-5` owns the case workflow review pass.
+- S5-C-4 public close-case HTTP endpoint decision now records `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md` as the governed decision artifact. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The preliminary decision is `KEEP_DEFERRED`: S5-C-4 does not implement or authorize the public close-case HTTP endpoint. Any future endpoint implementation requires a later governed implementation ticket with exact files, behavior changes, acceptance criteria, test plan, method/path/request/response/error model, audit behavior, and pending action request behavior. `S5-C-5` owns the case workflow review pass.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -165,6 +166,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5C1_CASE_WORKFLOW_JOURNEY_CONTRACT.md`
    - `docs/S5C2_CLOSE_REASON_AND_LIFECYCLE_SEMANTICS.md`
    - `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md`
+   - `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -211,7 +213,8 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5C_CASE_WORKFLOW_HARDENING_PLAN.md` to draft `S5-C-1 Case Workflow Journey Contract`. Do not implement code, runtime, API, or test changes until a later governed ticket explicitly authorizes them.
 - Use `docs/S5C1_CASE_WORKFLOW_JOURNEY_CONTRACT.md` as the governed journey contract before drafting `S5-C-2 Close Reason And Lifecycle Semantics`. No implementation may start from S5-C-1 alone.
 - Use `docs/S5C2_CLOSE_REASON_AND_LIFECYCLE_SEMANTICS.md` before drafting `S5-C-3 Action Request Approval / Denial Contract`. No implementation may start from S5-C-2 alone.
-- Use `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md` before drafting `S5-C-4 Public Close-Case API Decision` or `S5-C-5 Case Workflow Review Pass`. No implementation may start from S5-C-3 alone.
+- Use `docs/S5C3_ACTION_REQUEST_APPROVAL_DENIAL_CONTRACT.md` as the governed action-request semantics baseline for later S5-C work. No implementation may start from S5-C-3 alone.
+- Use `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md` before drafting `S5-C-5 Case Workflow Review Pass`. The S5-C-4 preliminary decision is `KEEP_DEFERRED`; it does not implement or authorize the public close-case HTTP endpoint, and any future endpoint implementation requires a later governed implementation ticket with exact files, behavior changes, acceptance criteria, test plan, method/path/request/response/error model, audit behavior, and pending action request behavior.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
