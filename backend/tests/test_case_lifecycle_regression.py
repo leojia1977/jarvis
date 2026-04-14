@@ -9,7 +9,10 @@ bootstrap()
 
 from backend.app.config import Settings  # noqa: E402
 from backend.app.runtime_service import SecuPilotRuntimeService  # noqa: E402
-from app.tools.persistent_case import transition_persistent_case_status  # noqa: E402
+from app.tools.persistent_case import (  # noqa: E402
+    build_initial_persistent_case_record,
+    transition_persistent_case_status,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -127,9 +130,27 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
 
         closed_status, closed_payload = service.get_case_sync(case_id)
         self.assertEqual(closed_status, 200)
-        self.assertEqual(closed_payload["persistent_case"]["lifecycle_status"], "closed")
+        persistent_case = closed_payload["persistent_case"]
+        self.assertEqual(persistent_case["case_id"], case_id)
+        self.assertIn(persistent_case["lifecycle_status"], {"open", "in_review", "approved", "closed"})
+        self.assertEqual(persistent_case["lifecycle_status"], "closed")
+        self.assertEqual(len(persistent_case["action_requests"]), 1)
+        action_request = persistent_case["action_requests"][0]
+        self.assertEqual(action_request["status"], "approved")
+        self.assertEqual(action_request["action_request_id"], action_request_id)
+        self.assertEqual(action_request["decision_by"], "manager.chen")
+        self.assertEqual(action_request["decision_reason"], "证据充分，批准执行")
+        lifecycle_audit = persistent_case["lifecycle_audit"]
+        self.assertEqual(len(lifecycle_audit), 7)
+        final_audit = lifecycle_audit[-1]
+        self.assertEqual(final_audit["event_type"], "case_closed")
+        self.assertEqual(final_audit["actor"], "manager.chen")
+        self.assertEqual(final_audit["reason"], "处置完成，关闭案例")
+        event_types = [entry["event_type"] for entry in lifecycle_audit]
+        self.assertNotIn("action_request_rejected", event_types)
+        self.assertNotIn("action_request_cancelled", event_types)
         self.assertEqual(
-            [entry["event_type"] for entry in closed_payload["persistent_case"]["lifecycle_audit"]],
+            event_types,
             [
                 "case_created",
                 "action_request_created",
@@ -174,16 +195,70 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
 
         first_status, first_payload = service.get_case_sync(case_id)
         self.assertEqual(first_status, 200)
+        self.assertIn("action_requests", first_payload["persistent_case"])
+        self.assertIn("lifecycle_audit", first_payload["persistent_case"])
+        first_audit_length = len(first_payload["persistent_case"]["lifecycle_audit"])
+        self.assertEqual(first_payload["persistent_case"]["lifecycle_audit"][-1]["event_type"], "case_closed")
         first_payload["persistent_case"]["case_view"]["executive_summary"]["verdict"] = "BROKEN"
 
         second_status, second_payload = service.get_case_sync(case_id)
         self.assertEqual(second_status, 200)
+        self.assertIsNot(first_payload, second_payload)
+        self.assertIsNot(first_payload["persistent_case"], second_payload["persistent_case"])
+        self.assertIn("action_requests", second_payload["persistent_case"])
+        self.assertIn("lifecycle_audit", second_payload["persistent_case"])
+        self.assertEqual(len(second_payload["persistent_case"]["lifecycle_audit"]), first_audit_length)
+        self.assertEqual(second_payload["persistent_case"]["lifecycle_audit"][-1]["event_type"], "case_closed")
+        self.assertIn(second_payload["persistent_case"]["lifecycle_status"], {"open", "in_review", "approved", "closed"})
         self.assertEqual(second_payload["persistent_case"]["lifecycle_status"], "closed")
         self.assertNotEqual(
             second_payload["persistent_case"]["case_view"]["executive_summary"]["verdict"],
             "BROKEN",
         )
         self.assertIn("recommended_action", second_payload["persistent_case"]["case_view"])
+
+    def test_invalid_lifecycle_status_transition_is_rejected(self):
+        record = build_initial_persistent_case_record(
+            {
+                "case_id": "CASE-LIFECYCLE-INVALID-001",
+                "version": "3.1",
+                "risk_score": 4.0,
+                "confidence_score": 0.72,
+                "confidence_label": "MEDIUM",
+                "verdict_status": "REVIEW_REQUIRED",
+                "investigation_status": "COMPLETE",
+                "scenario_name": "Invalid Lifecycle Transition",
+                "forensic_result": {
+                    "hosts_analyzed": ["WKST-047"],
+                    "total_suspicious_chains": 0,
+                    "top_chains": [],
+                    "attack_stages_observed": [],
+                    "persistence_mechanisms": [],
+                    "evidence_gaps": [],
+                },
+                "suggested_action": {},
+                "audit_trail": {"degraded": False, "degraded_reasons": []},
+            },
+            snapshot_id="S5-C-IMPL-2026-04-14-002",
+            actor="analyst.leo",
+            created_at_utc="2026-04-10T12:19:00Z",
+        )
+        closed = transition_persistent_case_status(
+            record,
+            to_status="closed",
+            actor="manager.chen",
+            reason="人工关闭",
+            at_utc="2026-04-10T12:20:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "invalid_case_status_transition:closed->archived"):
+            transition_persistent_case_status(
+                closed,
+                to_status="archived",
+                actor="manager.chen",
+                reason="invalid future status",
+                at_utc="2026-04-10T12:21:00Z",
+            )
 
 
 if __name__ == "__main__":
