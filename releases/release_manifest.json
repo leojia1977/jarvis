@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-STREAM-REVIEW-2026-04-14-001",
+    "id": "AI-COLLAB-AMEND-DECISION-2026-04-14-001",
     "sprint": "Sprint 5",
-    "stage": "sprint5-stream-review-checkpoint",
+    "stage": "ai-collab-operating-model-amendment-decision",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-14T15:34:26.260814+08:00"
+    "updated_at": "2026-04-14T17:24:48.944863+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-STREAM-REVIEW-2026-04-14-001.zip",
-    "current_release_sha256": "a07f40f9bd45f56d1baf9cf3b274c662c145f4c94eb5db46e4cdcdd1e3c36cbf"
+    "current_release_zip": "releases\\secupilot-AI-COLLAB-AMEND-DECISION-2026-04-14-001.zip",
+    "current_release_sha256": "230d16f6124b9c795ad78751797b12fb396dbd04a7cff55752c5d1b8eed11fc5"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "3954354f3b1b62af5729fe9a2946ada2c40fbf7204ab2f713456f330732cf2ff"
+      "sha256": "bf99b676599a663bd38c70043f1d4215d92764246c6f8fea2a5bff5eca4663c4"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -613,6 +613,11 @@
       "sha256": "59e58c1190c941fbdba4222f269eaed9330072bcf0aa16b5dff88bb13ec8f186"
     },
     {
+      "path": "docs\\AI_COLLAB_OPERATING_MODEL_AMENDMENT_DECISION.md",
+      "role": "ai-collab-operating-model-amendment-decision",
+      "sha256": "857834450ae0c2837474936fc8689e964aef75fbf0bfdb364a3b314a70038988"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -795,13 +800,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-STREAM-REVIEW-2026-04-14-001",
+      "Snapshot ID: AI-COLLAB-AMEND-DECISION-2026-04-14-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-14T15:34:26.795874+08:00",
+    "last_verified_at": "2026-04-14T17:24:49.897760+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
