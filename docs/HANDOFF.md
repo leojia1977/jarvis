@@ -6,8 +6,8 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5-C-DECISION-2026-04-14-001`
-- Stage: `sprint5-case-workflow-implementation-decision`
+- Snapshot ID: `S5-C-IMPL-2026-04-14-001`
+- Stage: `sprint5-case-workflow-doc-test-alignment`
 - Owner of code changes: `Codex`
 - Owner of product/review decisions: `Claude`
 
@@ -88,6 +88,7 @@
 - S5-C-4 public close-case HTTP endpoint decision now records `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md` as the governed decision artifact. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The preliminary decision is `KEEP_DEFERRED`: S5-C-4 does not implement or authorize the public close-case HTTP endpoint. Any future endpoint implementation requires a later governed implementation ticket with exact files, behavior changes, acceptance criteria, test plan, method/path/request/response/error model, audit behavior, and pending action request behavior. `S5-C-5` owns the case workflow review pass.
 - S5-C-5 case workflow review pass now records `docs/S5C5_CASE_WORKFLOW_REVIEW_PASS.md` as the governed stream-level review pass. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The S5-C stream verdict is `PASS`: the planning/contract stream is accepted as a governed baseline for future scoped implementation tickets. S5-C PASS does not authorize implementation, external pilot execution, public close-case endpoint implementation, real SIEM/EDR/source-system access, or real customer/operator sign-off. S5-C-4 selected `KEEP_DEFERRED` for the public close-case HTTP endpoint. Any future implementation ticket must define exact files, behavior changes, acceptance criteria, test plan, audit/evidence behavior, redaction/secret handling, pending action request behavior if relevant, hold/rollback criteria, and `reviewer_when_cc_implements` if Claude Code is primary implementor.
 - S5-C implementation decision checkpoint now records `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md` as the governed decision-routing artifact. Claude Code delta review found no `HIGH`, `MEDIUM`, `LOW`, or `INFO` findings. The selected preliminary route is `S5-C-IMPL-1_DOC_TEST_ALIGNMENT_ONLY`; this is only a next-route selection and does not authorize implementation. S5-C PASS remains a planning/contract baseline only. S5-C-4 selected `KEEP_DEFERRED` for the public close-case HTTP endpoint, and external pilot execution, real SIEM/EDR/source-system access, and real customer/operator sign-off remain unauthorized. Any future implementation ticket must define `primary_implementor`, `reviewer`, `reviewer_when_cc_implements` if Claude Code is primary implementor, exact files, exact behavior changes, acceptance criteria, test plan, audit/evidence behavior, redaction/secret handling check, pending action request behavior if relevant, hold/rollback criteria, and external review requirement.
+- S5-C-IMPL-1 doc/test alignment now records `docs/S5C_IMPL1_DOC_TEST_ALIGNMENT.md` as the governed documentation/test-plan alignment artifact. S5-C-IMPL-1 is documentation/test-plan alignment only, with preliminary decision `READY_FOR_SCOPED_TEST_HARDENING_TICKET`. Claude Code delta review raised one conditional `MEDIUM` precondition finding, but exact verification resolved it: `releases/release_manifest.json` contains `docs\S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md`, `docs/HANDOFF.md` records the checkpoint as governed, and `docs/S5C_IMPL1_DOC_TEST_ALIGNMENT.md` includes `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md` in Alignment Inputs. No source content blocker remains. S5-C-IMPL-1 authorizes no code, test, runtime, API, schema, dependency, external pilot, real SIEM/EDR/source-system, or real customer/operator sign-off changes. The public close-case endpoint remains `KEEP_DEFERRED`. Any future scoped test-hardening ticket must define `primary_implementor`, `reviewer`, `reviewer_when_cc_implements` if Claude Code is primary implementor, exact files, exact behavior changes, exact tests to add or modify, acceptance criteria, test command, audit/evidence behavior if relevant, redaction/secret handling check, hold/rollback criteria, and external review requirement.
 
 ## Working Rules
 1. Claude and Codex must both read `releases/release_manifest.json` before reviewing or changing anything.
@@ -171,6 +172,7 @@ Because Claude Web cannot directly browse your local filesystem like Codex:
    - `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md`
    - `docs/S5C5_CASE_WORKFLOW_REVIEW_PASS.md`
    - `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md`
+   - `docs/S5C_IMPL1_DOC_TEST_ALIGNMENT.md`
    - the exact code files under review
 4. In the prompt, state the snapshot ID and tell Claude not to use any other zip or folder as truth.
 5. Ask Claude to review or design, not to become the source of code truth.
@@ -221,6 +223,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5C4_PUBLIC_CLOSE_CASE_HTTP_ENDPOINT_DECISION.md` as the governed endpoint decision baseline. S5-C-4 selected `KEEP_DEFERRED`; it does not implement or authorize the public close-case HTTP endpoint.
 - Use `docs/S5C5_CASE_WORKFLOW_REVIEW_PASS.md` as the governed S5-C planning/contract stream review pass. S5-C is accepted as a baseline for future scoped implementation tickets only; no implementation, external pilot execution, public close-case endpoint implementation, real SIEM/EDR/source-system access, or real customer/operator sign-off may start from S5-C PASS alone.
 - Use `docs/S5C_IMPLEMENTATION_DECISION_CHECKPOINT.md` as the governed S5-C implementation decision route. The selected preliminary route is `S5-C-IMPL-1_DOC_TEST_ALIGNMENT_ONLY`, but it is only a route selection; no implementation may start until a later governed implementation ticket defines exact files, behavior changes, acceptance criteria, test plan, audit/evidence behavior, redaction/secret handling, pending action request behavior if relevant, hold/rollback criteria, external review requirement, and `reviewer_when_cc_implements` if Claude Code is primary implementor.
+- Use `docs/S5C_IMPL1_DOC_TEST_ALIGNMENT.md` as the governed doc/test alignment baseline before drafting any scoped S5-C test-hardening ticket. S5-C-IMPL-1 does not authorize code, test, runtime, API, schema, dependency, public close-case endpoint, external pilot, real external-system access, or real sign-off changes.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
