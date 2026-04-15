@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-ROUTE-POST-S5B-2026-04-15-001",
+    "id": "S5-D-DISCOVERY-2026-04-15-001",
     "sprint": "Sprint 5",
-    "stage": "sprint5-route-after-s5b-discovery-closeout",
+    "stage": "s5d-bounded-telemetry-discovery",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-15T12:40:39.330625+08:00"
+    "updated_at": "2026-04-15T14:04:39.708937+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-ROUTE-POST-S5B-2026-04-15-001.zip",
-    "current_release_sha256": "e394c77e75f596212db08c5b58b5fee540cedf7aeef92396dc1c20075e3ed9a2"
+    "current_release_zip": "releases\\secupilot-S5-D-DISCOVERY-2026-04-15-001.zip",
+    "current_release_sha256": "c32480a220ce950e9b6e347c32ddb1d677c7f7016d37cf8ffd7b43b293614e6e"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "0ce6e62ad45a0b9fb8a43e1eb24b99b453e56538900996e7ca4f044bc13748da"
+      "sha256": "2a5bf9e9c3d37a42ac324c8f9bd2476cb429d64a95c586a5af1ec0a74fd875cf"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -658,6 +658,11 @@
       "sha256": "e35ebb3691cf73ac8855a5ee3ad3da841a6f51f353a7ae67efe4ecca374ff3f3"
     },
     {
+      "path": "docs\\S5D_BOUNDED_TELEMETRY_DISCOVERY.md",
+      "role": "s5d-bounded-telemetry-discovery",
+      "sha256": "9e9a30a7a9489cc9d712962b62ef62f0928bfa424d6c4cd5c4bf3a21c6c97786"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -840,13 +845,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-ROUTE-POST-S5B-2026-04-15-001",
+      "Snapshot ID: S5-D-DISCOVERY-2026-04-15-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-15T12:40:40.419464+08:00",
+    "last_verified_at": "2026-04-15T14:04:40.306593+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
