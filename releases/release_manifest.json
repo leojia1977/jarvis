@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-NEXT-ROUTE-2026-04-15-001",
+    "id": "S5-B-DISCOVERY-2026-04-15-001",
     "sprint": "Sprint 5",
-    "stage": "sprint5-next-route-after-ai-collab-amendment",
+    "stage": "sprint5-bounded-source-input-discovery",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-15T09:33:12.837441+08:00"
+    "updated_at": "2026-04-15T09:55:05.053365+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-NEXT-ROUTE-2026-04-15-001.zip",
-    "current_release_sha256": "a5586df4565a7f1e25ed07759d33a21e6c06a4b3b54e3bb091bf2fbabafafdf7"
+    "current_release_zip": "releases\\secupilot-S5-B-DISCOVERY-2026-04-15-001.zip",
+    "current_release_sha256": "dc9ae3971c7a4e1c484c9fd77b483afc0054e8837b086fa1127c3c634863c268"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "bd8abd280cc0a06b3acf0c1f2da4074ae7af9d1b02f88541b08a9d0079053242"
+      "sha256": "8576905dab95cd1980e75781b42dfa71a36618c730da189089b1e49f2548798a"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -623,6 +623,11 @@
       "sha256": "ca59459f11972fe53c53b85ba20da8a83876ed096e3025bd0a4e0993bb22cb38"
     },
     {
+      "path": "docs\\S5B_BOUNDED_SOURCE_INPUT_DISCOVERY.md",
+      "role": "s5b-bounded-source-input-discovery",
+      "sha256": "f6feef98213b1f5a69aa9201d64834e94ea795fcf2c7434932c55c79cb899058"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -805,13 +810,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-NEXT-ROUTE-2026-04-15-001",
+      "Snapshot ID: S5-B-DISCOVERY-2026-04-15-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-15T09:33:13.733545+08:00",
+    "last_verified_at": "2026-04-15T09:55:06.401682+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
