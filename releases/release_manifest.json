@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "ORDIV-L1A01-ADAPTER-IMPL-2026-04-16-001",
+    "id": "ORDIV-L1A-REAL-DATA-VALIDATION-SCOPED-DECISION-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "ordiv-l1a01-adapter-implementation",
+    "stage": "ordiv-l1a-real-data-validation-scoped-decision",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T14:30:00.774858+08:00"
+    "updated_at": "2026-04-16T14:51:47.676760+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-ORDIV-L1A01-ADAPTER-IMPL-2026-04-16-001.zip",
-    "current_release_sha256": "68f47a6d5db3697d2eee23dbdcbd6fdc9e82b021c25aaab74e67aa2248584bb3"
+    "current_release_zip": "releases\\secupilot-ORDIV-L1A-REAL-DATA-VALIDATION-SCOPED-DECISION-2026-04-16-001.zip",
+    "current_release_sha256": "c4c5453844ce93ad197e9a26d9fb87706aa4343a45c8fd39b2f723ea5ae574b9"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "fd85a332e65cc51bd71cbb07649b62511c8c4bcbbcdefd8666b2a5a688b33be6"
+      "sha256": "7301da523ee44e2389e18cfd73d17536d839720f0566d83f7611db4218647e49"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -753,6 +753,11 @@
       "sha256": "f4b031267cad5ad0d6cc78491c09efac2c4057d1e9be69f296d4433342be95f2"
     },
     {
+      "path": "docs\\ORDIV_L1A_REAL_DATA_VALIDATION_SCOPED_DECISION.md",
+      "role": "ordiv-l1a-real-data-validation-scoped-decision",
+      "sha256": "60038ae9f6cefbca02887ab2e4884336b4fd57771a7660652137500cd3dffc74"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -935,13 +940,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: ORDIV-L1A01-ADAPTER-IMPL-2026-04-16-001",
+      "Snapshot ID: ORDIV-L1A-REAL-DATA-VALIDATION-SCOPED-DECISION-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T14:30:01.458548+08:00",
+    "last_verified_at": "2026-04-16T14:51:48.313441+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
