@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "ORDIV-L1A-OPENPYXL-DEPENDENCY-DECISION-2026-04-16-001",
+    "id": "ORDIV-L1A01-ADAPTER-IMPL-TICKET-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "ordiv-l1a-openpyxl-dependency-decision",
+    "stage": "ordiv-l1a01-adapter-implementation-ticket",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T13:21:05.303102+08:00"
+    "updated_at": "2026-04-16T13:50:21.926470+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-ORDIV-L1A-OPENPYXL-DEPENDENCY-DECISION-2026-04-16-001.zip",
-    "current_release_sha256": "86b8b3297f5afc50d273bd94d00ba0a759a899c2ff9721681a9d9b46c5703873"
+    "current_release_zip": "releases\\secupilot-ORDIV-L1A01-ADAPTER-IMPL-TICKET-2026-04-16-001.zip",
+    "current_release_sha256": "a13d79f29977bf636d70c2dbbf6160ef9fd2ff0c9c70f75410b060ca6e937ae9"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "f2deacebc006c22b8b3d0686c44486228bfc1f16c8777fe4705a52c1d4ed36af"
+      "sha256": "678a5816c303d29fc67ac092782f8d2cdd15b67dac2e5a4b4ad9a76b50d0a3c6"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -738,6 +738,11 @@
       "sha256": "2ba4824eee3648d1640481aa03838f982b87defb6dbafc85c64a18c9eefc2762"
     },
     {
+      "path": "docs\\ORDIV_L1A_01_SIEM_ALERT_XLSX_ADAPTER_IMPLEMENTATION_TICKET.md",
+      "role": "ordiv-l1a01-adapter-implementation-ticket",
+      "sha256": "1a2f0289209296cbcfa7b9656dd367f5d1aef0b8bce3d10bef5213024c5ef9fb"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -920,13 +925,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: ORDIV-L1A-OPENPYXL-DEPENDENCY-DECISION-2026-04-16-001",
+      "Snapshot ID: ORDIV-L1A01-ADAPTER-IMPL-TICKET-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T13:21:06.076019+08:00",
+    "last_verified_at": "2026-04-16T13:50:22.603187+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
