@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-POST-MILESTONE-ROUTE-2026-04-16-001",
+    "id": "S5-POST-MILESTONE-EXTERNAL-INPUT-TRACKER-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "s5-post-milestone-route-decision",
+    "stage": "s5-post-milestone-external-input-tracker",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T08:36:46.371831+08:00"
+    "updated_at": "2026-04-16T09:08:50.108227+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-POST-MILESTONE-ROUTE-2026-04-16-001.zip",
-    "current_release_sha256": "3447df2d7b613e7ead78b42c948ed741bb65c193ab95aa805cd50bc654244afd"
+    "current_release_zip": "releases\\secupilot-S5-POST-MILESTONE-EXTERNAL-INPUT-TRACKER-2026-04-16-001.zip",
+    "current_release_sha256": "bd77bc0267f3735b72369008fc9482266bc18acb03e503a3201483721595d5f4"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "8f46647c25d13c53c88b57f89dc20fcd4b93efde718a1d21539a121291e88674"
+      "sha256": "43d02d1b6e818dee487a4a97dea169eefd312dbf04e0266b5d829cf73ae02d2d"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -703,6 +703,11 @@
       "sha256": "6dee247ae4936ca293c3e3218c5389e4db25cab1d31c53def91ab89e83244b34"
     },
     {
+      "path": "docs\\S5_POST_MILESTONE_EXTERNAL_INPUT_TRACKER.md",
+      "role": "s5-post-milestone-external-input-tracker",
+      "sha256": "432a482c7d0bef55817aefa85f4635b753d2933f1d3f42ace3507c1f6131fbc4"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -885,13 +890,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-POST-MILESTONE-ROUTE-2026-04-16-001",
+      "Snapshot ID: S5-POST-MILESTONE-EXTERNAL-INPUT-TRACKER-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T08:36:47.128210+08:00",
+    "last_verified_at": "2026-04-16T09:08:50.720706+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
