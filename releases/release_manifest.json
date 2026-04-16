@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "ORDIV-L1A-REAL-DATA-VALIDATION-SCOPED-DECISION-2026-04-16-001",
+    "id": "S5-POST-ORDIV-L1A-ROUTE-DECISION-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "ordiv-l1a-real-data-validation-scoped-decision",
+    "stage": "s5-post-ordiv-l1a-route-decision",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T14:51:47.676760+08:00"
+    "updated_at": "2026-04-16T16:33:58.523167+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-ORDIV-L1A-REAL-DATA-VALIDATION-SCOPED-DECISION-2026-04-16-001.zip",
-    "current_release_sha256": "c4c5453844ce93ad197e9a26d9fb87706aa4343a45c8fd39b2f723ea5ae574b9"
+    "current_release_zip": "releases\\secupilot-S5-POST-ORDIV-L1A-ROUTE-DECISION-2026-04-16-001.zip",
+    "current_release_sha256": "906f8b120346448a2f652e3a3025477ec7ab3d0f006b8259b56bf19126708cb3"
   },
   "key_files": [
     {
@@ -210,7 +210,7 @@
     {
       "path": "backend\\tests\\test_edr_replay.py",
       "role": "canonical-edr-replay-tests",
-      "sha256": "34c3a986fcbcdd39199c10c8054da2f6a2b3906581bbcb2c0323398ce76f8c5c"
+      "sha256": "33e98b5ab92678bb17d9dbcb16e91265af31d6bfdfae2d3f134a151e2d25a95e"
     },
     {
       "path": "backend\\tests\\test_t3_production_parity.py",
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "7301da523ee44e2389e18cfd73d17536d839720f0566d83f7611db4218647e49"
+      "sha256": "6e245d458aba8a6e83aa073631a949c2aad2be1677855f978f86eef703ab8bfb"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -758,6 +758,11 @@
       "sha256": "60038ae9f6cefbca02887ab2e4884336b4fd57771a7660652137500cd3dffc74"
     },
     {
+      "path": "docs\\S5_POST_ORDIV_L1A_ROUTE_DECISION.md",
+      "role": "s5-post-ordiv-l1a-route-decision",
+      "sha256": "8c3738f326e2d8fb2f2d44305b0e2736b86f7ca7e30ac56d5cddcb7ff7284b90"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -940,13 +945,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: ORDIV-L1A-REAL-DATA-VALIDATION-SCOPED-DECISION-2026-04-16-001",
+      "Snapshot ID: S5-POST-ORDIV-L1A-ROUTE-DECISION-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T14:51:48.313441+08:00",
+    "last_verified_at": "2026-04-16T16:33:59.201118+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
