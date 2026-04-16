@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL5-TICKET-DEF-2026-04-16-001",
+    "id": "ORDIV-SCOPED-DECISION-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl5-ticket-definition",
+    "stage": "ordiv-scoped-decision",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T11:05:14.453413+08:00"
+    "updated_at": "2026-04-16T12:13:36.692151+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL5-TICKET-DEF-2026-04-16-001.zip",
-    "current_release_sha256": "6f9ced3a8c9fcfa20abf52c5fe623b0a96ae9d85ebf5b29333bf8f5e4ef7d464"
+    "current_release_zip": "releases\\secupilot-ORDIV-SCOPED-DECISION-2026-04-16-001.zip",
+    "current_release_sha256": "732e54ffe30384dc56ca092a72fa2748a70955b399008020d99904de987b2e96"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "9a7678bfb8ce974e8c7e0a473ec52164ad9eccb62df3d84fb699f9491cf72334"
+      "sha256": "b115bb5a719c6755dc2144ab4d531418604496870c2cab7723e4d22710d2a3ba"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -723,6 +723,11 @@
       "sha256": "b4c3be00d4fd7ae6229acb03d2023f9a1cb0d5c4f18b0deb0c6feb84d3d718ce"
     },
     {
+      "path": "docs\\OFFLINE_REAL_DATA_INTEGRATION_SCOPED_DECISION.md",
+      "role": "ordiv-scoped-decision",
+      "sha256": "608714f42b1ffead33450e37a96af47e74665931e2681ded6bc03e4e232d1465"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -905,13 +910,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL5-TICKET-DEF-2026-04-16-001",
+      "Snapshot ID: ORDIV-SCOPED-DECISION-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T11:05:15.040888+08:00",
+    "last_verified_at": "2026-04-16T12:13:37.279932+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -6,10 +6,11 @@
 - Any zip, copied folder, or loose file outside this root is input-only material until it is explicitly imported here.
 
 ## Current Snapshot
-- Snapshot ID: `S5C-IMPL5-TICKET-DEF-2026-04-16-001`
-- Stage: `s5c-impl5-ticket-definition`
-- Owner of code changes: `Codex`
-- Owner of product/review decisions: `Claude`
+- Snapshot ID: `ORDIV-SCOPED-DECISION-2026-04-16-001`
+- Stage: `ordiv-scoped-decision`
+- Owner of code/doc changes: `Codex local (human-authorized in current thread)`
+- Owner of product/governance decisions: `Human`
+- Reviewer: `Claude Code review-only`
 
 ## Current Scope
 - Canonical application code now lives under `backend/`.
@@ -289,6 +290,7 @@ The canonical suite above is the authoritative gate. Wrapper commands remain onl
 - Use `docs/S5C_SCOPED_IMPLEMENTATION_DECISION_PREP.md` as the governed decision-prep baseline before drafting any later S5-C Scoped Implementation Decision. It does not authorize implementation.
 - Use `docs/S5C_SCOPED_IMPLEMENTATION_DECISION.md` as the governed S5-C scoped implementation decision baseline before drafting any later implementation ticket. It permits only a later separate tightly scoped implementation ticket draft and does not authorize implementation now.
 - Use `docs/S5C_IMPL5_CASE_LIFECYCLE_ACTION_REQUEST_IMPLEMENTATION_TICKET.md` as the governed implementation-ticket definition baseline before drafting any later S5-C-IMPL-5 code/test ticket. It does not authorize implementation now.
+- Offline Real Data Integration scoped decision now records `docs/OFFLINE_REAL_DATA_INTEGRATION_SCOPED_DECISION.md` as the governed docs-only ORDIV scoped decision baseline. Baseline input was `S5C-IMPL5-TICKET-DEF-2026-04-16-001` at commit `99ba632bac2be9413a2b9674d1dacf8e9d984c30`. Actual primary implementor was `Codex local (human-authorized in current thread)`, with `Claude Code review-only` as reviewer; this records the execution surface honestly rather than defaulting to VS Code. Claude Code found no `HIGH` or `MEDIUM` blockers. `LOW-1` was fixed by requiring any repo-entry artifact to wait for a later governed ticket, for example `ORDIV-L1A-01`, to be drafted, reviewed, and accepted according to the scoped decision. `LOW-2` was fixed by adding per-row `Must not imply` and `HOLD trigger` safeguards to the candidate field-mapping table and clarifying that candidate target fields do not authorize new schema, persisted fields, adapter-contract fields, or frozen contract changes. `requires_external_review=true` because ORDIV touches offline real security data handling, output-side redaction, evidence-retention questions, future file-adapter behavior, S5-B source authority adjacency, S5-D telemetry normalization adjacency, dependency approval risk, and pilot-readiness adjacency. The recommended route is `RECOMMEND_SCOPED_DECISION` with later first candidate `RECOMMEND_NARROW_L1A_FIRST`. This permits only a later separate governed ORDIV-L1A-01 ticket draft for SIEM alert `.xlsx` ingestion and 14-field mapping validation; it does not authorize implementation now. Raw real `.xlsx`, syslog, device logs, payloads, SQL, IPs, hosts, usernames, IOC values, screenshots, customer/operator evidence, credentials, tokens, API keys, auth headers, cookies, or secret material must remain outside repo and outside AI review material unless output-side redacted as separately authorized. Evidence retention, redaction policy freeze, dependency changes, adapter code, tests, fixtures, local real-data execution, online Metron/Kafka/Solr/Elastic/SIEM/EDR/source/telemetry access, public close-case endpoint work, S5-B reopen, S5-D reopen, S4-A resolver changes, AI_COLLAB changes, external pilot execution/readiness, real sign-off, external review bypass, human go/no-go replacement, and automatic implementation remain unauthorized. S5-B and S5-D remain `PASS_AND_PARK`, public close-case endpoint remains `KEEP_DEFERRED`, external pilot inputs remain `NOT_READY` / `UNKNOWN`, and S4-A resolver order remains `asset_id -> hostname -> fqdn -> ip_address -> aliases`.
 - Use `py -3 scripts/git_preflight.py --mode pilot` as the canonical deterministic gate entry for pilot validation evidence refresh.
 - Make code changes only in `D:\产品设计\New folder`.
 - Package from this root only.
