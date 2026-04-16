@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-POST-MILESTONE-EXTERNAL-INPUT-TRACKER-2026-04-16-001",
+    "id": "S5C-SCOPED-IMPLEMENTATION-DECISION-PREP-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "s5-post-milestone-external-input-tracker",
+    "stage": "s5c-scoped-implementation-decision-prep",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T09:08:50.108227+08:00"
+    "updated_at": "2026-04-16T09:32:19.246770+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-POST-MILESTONE-EXTERNAL-INPUT-TRACKER-2026-04-16-001.zip",
-    "current_release_sha256": "bd77bc0267f3735b72369008fc9482266bc18acb03e503a3201483721595d5f4"
+    "current_release_zip": "releases\\secupilot-S5C-SCOPED-IMPLEMENTATION-DECISION-PREP-2026-04-16-001.zip",
+    "current_release_sha256": "ac00220bb9e9e21ec268a7650ffc2f610f38aeb0c245f87b45f0c4f5154400c7"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "43d02d1b6e818dee487a4a97dea169eefd312dbf04e0266b5d829cf73ae02d2d"
+      "sha256": "2e64b22ce4024f961b56a01eadb39bc6ba74e7bac1f3b0b0e696afcbc844dee4"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -708,6 +708,11 @@
       "sha256": "432a482c7d0bef55817aefa85f4635b753d2933f1d3f42ace3507c1f6131fbc4"
     },
     {
+      "path": "docs\\S5C_SCOPED_IMPLEMENTATION_DECISION_PREP.md",
+      "role": "s5c-scoped-implementation-decision-prep",
+      "sha256": "25c5d159eb9512b95a50e23417fdd85b2f100488582c0913bf084ccc16c568d0"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -890,13 +895,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-POST-MILESTONE-EXTERNAL-INPUT-TRACKER-2026-04-16-001",
+      "Snapshot ID: S5C-SCOPED-IMPLEMENTATION-DECISION-PREP-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T09:08:50.720706+08:00",
+    "last_verified_at": "2026-04-16T09:32:19.870084+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
