@@ -83,6 +83,13 @@ class EDRReplayTests(unittest.TestCase):
         self.assertEqual(time_range["tz_label"], "Asia/Shanghai")
         self.assertAlmostEqual((end_utc - start_utc).total_seconds(), days * 24 * 60 * 60, delta=1.0)
 
+    def _fixed_replay_time_range(self) -> TimeRangeSpec:
+        return TimeRangeSpec.from_value(
+            "7d",
+            tz_label="Asia/Shanghai",
+            now=datetime(2026, 4, 10, 12, 0, tzinfo=timezone.utc),
+        )
+
     def _build_adapter(self, vendor: str, scenario: str):
         transport = EDRReplayTransport(vendor, scenario)
         adapter = ProductionEDRAdapter(
@@ -180,7 +187,7 @@ class EDRReplayTests(unittest.TestCase):
                 intent="threat_hunt",
                 user_input="请检查横向移动",
                 target_asset_id="WKST-047",
-                time_range="7d",
+                time_range=self._fixed_replay_time_range(),
                 timeout=2.0,
             )
         )
@@ -216,7 +223,7 @@ class EDRReplayTests(unittest.TestCase):
                 intent="threat_hunt",
                 user_input="请检查勒索和C2",
                 target_asset_id="HR-PORTAL-01",
-                time_range="7d",
+                time_range=self._fixed_replay_time_range(),
                 timeout=2.0,
             )
         )
