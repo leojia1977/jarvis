@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-SCOPED-IMPLEMENTATION-DECISION-2026-04-16-001",
+    "id": "S5C-IMPL5-TICKET-DEF-2026-04-16-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-scoped-implementation-decision",
+    "stage": "s5c-impl5-ticket-definition",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T10:15:12.536895+08:00"
+    "updated_at": "2026-04-16T11:05:14.453413+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-SCOPED-IMPLEMENTATION-DECISION-2026-04-16-001.zip",
-    "current_release_sha256": "6434ab54cbc27382bd859221011f2ac9bf0dae1eeabe39187ccf99f54c7fdfe4"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL5-TICKET-DEF-2026-04-16-001.zip",
+    "current_release_sha256": "6f9ced3a8c9fcfa20abf52c5fe623b0a96ae9d85ebf5b29333bf8f5e4ef7d464"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "f2d696851d8c09ddbff4618a45a383f32b77b9d99c03b24f0b4c31e50524e9c8"
+      "sha256": "9a7678bfb8ce974e8c7e0a473ec52164ad9eccb62df3d84fb699f9491cf72334"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -718,6 +718,11 @@
       "sha256": "15a97bbdf001f3c369692f62cccffbec593b0742cf85b9fb6196738e64c38876"
     },
     {
+      "path": "docs\\S5C_IMPL5_CASE_LIFECYCLE_ACTION_REQUEST_IMPLEMENTATION_TICKET.md",
+      "role": "s5c-impl5-ticket-definition",
+      "sha256": "b4c3be00d4fd7ae6229acb03d2023f9a1cb0d5c4f18b0deb0c6feb84d3d718ce"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -900,13 +905,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-SCOPED-IMPLEMENTATION-DECISION-2026-04-16-001",
+      "Snapshot ID: S5C-IMPL5-TICKET-DEF-2026-04-16-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T10:15:13.121441+08:00",
+    "last_verified_at": "2026-04-16T11:05:15.040888+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
