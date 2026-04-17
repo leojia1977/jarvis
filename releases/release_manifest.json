@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001",
+    "id": "S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001",
     "sprint": "Sprint 5",
-    "stage": "s5-governance-context-model",
+    "stage": "s5-autonomous-vacation-operating-model",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-17T12:46:00.356971+08:00"
+    "updated_at": "2026-04-17T14:31:13.204998+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001.zip",
-    "current_release_sha256": "825198b565b86940c9986f85797d06f127779d5d319f09e5bcdbb7ba24c8415d"
+    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001.zip",
+    "current_release_sha256": "4c07422d292a868f94f239e0c98984b8a828f0f437a663427096db52026f222f"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "acfc30f044e802e2b3f98fb9603c5e7ea5e6c0e09916f7cf76f7927cca27a450"
+      "sha256": "eb24a7b5b4f1257597c403b26bcb9b96dec51f9ed57bebe61bce57ca57dd0e7e"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,47 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "7d05152bdc622a265135c14eda1a72b53ae664d8261f2bb62439df5059f665c3"
+      "sha256": "704a5e509fa6bd4bb4fed8b041b6cbdf4c0ded7068a6d2d134543232d5edf7d3"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "bd9bbce6597f744ac085a40e671f27ce8dfa184ba4610095991c4cf6ef649b15"
+      "sha256": "94440b292541779223a2ba1c68021568a0b331851755c1f4cb785f6c5fe0cd8f"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "5feb1de05cd659fc0e7906655ba5aeaf18f17688e38dfe3e12ee9ab14ca4ec31"
+      "sha256": "b02255a060a6bb62817d51deb9cddf2d86cf7bb0342623a70250bb19af40abd6"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
+      "role": "autonomous-vacation-operating-model",
+      "sha256": "7727ac2c4045b7135f7e97712a9b81ef19ac413c03bcf3e71ba93da0b71913c1"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_AUTHORIZATION_POLICY.md",
+      "role": "autonomous-authorization-policy",
+      "sha256": "224c831bfdc95c5468c0db2495a672c4dd25c7b818fe2f013c0850c6ab738702"
+    },
+    {
+      "path": "docs\\DELEGATED_APPROVER_CHARTER.md",
+      "role": "delegated-approver-charter",
+      "sha256": "24232ef7736a75f2a3f35c1b217e22a873b009dade768b6accbf680bab13433b"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
+      "role": "autonomous-delivery-pipeline",
+      "sha256": "c5ff92bc1cd739f7bf2719dc628d34367c3e4930d302ae5ed8e97b933c0758d7"
+    },
+    {
+      "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
+      "role": "l3-customer-trial-launch-critical-path",
+      "sha256": "bf526bc67c4e8e4f50f4095b3fbd519605d71073e26a97c118b0e80a6dc72a1d"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
+      "role": "autonomous-hold-queue",
+      "sha256": "205843953cf63a8330ff1a8dafe24e37e8edd8665c169a02a58d6276dd9ce304"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -985,13 +1015,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001",
+      "Snapshot ID: S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-17T12:46:01.064015+08:00",
+    "last_verified_at": "2026-04-17T14:31:14.040756+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001 |
-| Stage | s5-governance-context-model |
-| Baseline commit | `d972f3f32ada525ee04124be501f3521a3586c01` |
+| Snapshot | S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001 |
+| Stage | s5-autonomous-vacation-operating-model |
+| Baseline commit | `da15c383e14bc4cae6c97017f91549194c37487d` |
 
 This file summarizes parked, deferred, and possible future routes. It is a planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -41,8 +41,31 @@ Possible future routes require separate human product/governance decision:
 - Open public close-case endpoint route only through a high-risk governed route.
 - Open ORDIV report/CSV/L1B route only through required review and explicit authorization.
 - Open stream/milestone closeout only when readiness criteria and review triggers are satisfied.
+- Open autonomous L3 launch acceleration path only through the governed authorization policy, delegated approver charter, delivery pipeline, L3 critical path, and HOLD queue.
 
-## 5. Standing Prohibitions
+## 5. Autonomous L3 Launch Acceleration Path
+
+The autonomous L3 launch acceleration path is a candidate governed path for controlled customer-trial launch / private launch candidate preparation.
+
+Green/Yellow/Conditional Red authorization can accelerate future stages only after policy activation:
+
+- delegated approver is named
+- authorization window is named
+- lane and allowed actions are explicit
+- required review is satisfied
+- full gate and release rules are followed where applicable
+- no HOLD remains
+
+Parked items remain parked until explicit governed reopen/approval:
+
+- ORDIV-L1A remains `PARK_LOCAL_VALIDATION_NO_REPORT`.
+- S5-B remains `PASS_AND_PARK`.
+- S5-D remains `PASS_AND_PARK`.
+- Public close-case endpoint remains `KEEP_DEFERRED`.
+- External pilot execution remains unauthorized.
+- L3 launch execution remains unauthorized.
+
+## 6. Standing Prohibitions
 
 - No implementation is authorized.
 - No external pilot input is `READY`.

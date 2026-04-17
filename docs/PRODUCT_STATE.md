@@ -6,22 +6,24 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001 |
-| Stage | s5-governance-context-model |
-| Baseline commit | `d972f3f32ada525ee04124be501f3521a3586c01` |
+| Snapshot | S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001 |
+| Stage | s5-autonomous-vacation-operating-model |
+| Baseline commit | `da15c383e14bc4cae6c97017f91549194c37487d` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
+Section 1 identifies the stage that produced this rolling-map version; Section 2 identifies the governed PASS baseline this stage starts from until closeout verification updates the manifest.
+
 ## 2. Current Governed Baseline
 
-- Commit: `d972f3f32ada525ee04124be501f3521a3586c01`
-- Snapshot: `S5-POST-S5C-IMPL5-MAINLINE-ROUTE-SELECTION-2026-04-17-001`
-- Stage: `s5-post-s5c-impl5-mainline-route-selection`
+- Commit: `da15c383e14bc4cae6c97017f91549194c37487d`
+- Snapshot: `S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001`
+- Stage: `s5-governance-context-model`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-POST-S5C-IMPL5-MAINLINE-ROUTE-SELECTION-2026-04-17-001.zip`
+- Release artifact: `releases\secupilot-S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001.zip`
 
-The current baseline closes the post-S5-C-IMPL-5 mainline route-selection checkpoint. Because no new human product/governance input was supplied, the practical selected outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
+The current baseline closes the governance context model stage. It establishes governed product memory discipline and leaves the prior mainline practical outcome as `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
 ## 3. Sprint 5 State Summary
 
@@ -56,3 +58,26 @@ This product-state map cannot start code work. Any implementation requires a sep
 
 Future prompts may cite this file for governed memory, but they must still include the latest formal baseline, inherited boundaries, allowed files, and stage task. If this file conflicts with a source governed artifact, the source artifact and manifest-controlled baseline govern.
 
+## 7. Autonomous Vacation Operating Model
+
+The autonomous vacation operating model is now defined as a governance/authorization framework for safe autonomous progress during human absence.
+
+Current model:
+
+- Target is L3 Customer Trial Launch acceleration.
+- L3 means controlled customer-trial launch / private launch candidate.
+- L3 does not mean unrestricted public GA or multi-customer commercial GA.
+- Green, Yellow, and Conditional Red lanes define what AI may draft, implement, review, package, or HOLD.
+- Delegated approver and authorization window are placeholders until explicitly named.
+
+Current non-authorization:
+
+- The model does not itself authorize implementation.
+- The model does not authorize launch execution.
+- The model does not activate external pilot execution.
+- The model does not make any external pilot/customer-trial input `READY`.
+- The model does not authorize public endpoint work, real-data handling, credentials, evidence retention, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, S4-A resolver changes, or AI_COLLAB changes.
+
+Current readiness posture:
+
+External pilot/customer-trial readiness remains blocked until required inputs are provided or approved through a governed route, required review, and explicit human or delegated GO where allowed.
