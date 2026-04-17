@@ -10,9 +10,15 @@ from backend.app.config import Settings  # noqa: E402
 from app.tools.case_store import SQLitePersistentCaseStore  # noqa: E402
 from app.tools.persistent_case import (  # noqa: E402
     append_action_request_record,
+    approve_action_request,
     build_action_request_seed,
     build_initial_persistent_case_record,
+    cancel_action_request,
+    create_action_request_from_case,
+    persistent_case_record_from_dict,
     persistent_case_record_to_dict,
+    reject_action_request,
+    submit_action_request_for_approval,
     transition_persistent_case_status,
 )
 
@@ -188,6 +194,140 @@ class CaseStoreTests(unittest.TestCase):
         self.assertEqual(payload["case_id"], "CASE-S4C-STORE-001")
         self.assertEqual(payload["lifecycle_status"], "open")
         self.assertEqual(payload["case_view"]["recommended_action"]["action_type"], "NETWORK_ISOLATE")
+
+    def test_action_request_and_audit_serializer_round_trip_remains_replayable(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5-C-IMPL5-STORE-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-10T10:00:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic approval request",
+            at_utc="2026-04-10T10:01:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit synthetic request",
+            at_utc="2026-04-10T10:02:00Z",
+        )
+        rejected = reject_action_request(
+            submitted,
+            action_request_id=submitted.action_requests[0].action_request_id,
+            actor="manager.chen",
+            reason="synthetic request rejected",
+            at_utc="2026-04-10T10:03:00Z",
+        )
+
+        restored = persistent_case_record_from_dict(persistent_case_record_to_dict(rejected))
+
+        self.assertEqual(persistent_case_record_to_dict(restored), persistent_case_record_to_dict(rejected))
+        self.assertEqual(restored.lifecycle_status, "in_review")
+        self.assertEqual(restored.action_requests[0].status, "rejected")
+        self.assertEqual(restored.action_requests[0].rationale, "synthetic approval request")
+        self.assertEqual(restored.action_requests[0].decision_reason, "synthetic request rejected")
+        self.assertEqual(
+            [entry.event_type for entry in restored.lifecycle_audit],
+            [
+                "case_created",
+                "action_request_created",
+                "status_changed",
+                "action_request_submitted",
+                "action_request_rejected",
+            ],
+        )
+        self.assertEqual(
+            [entry.event_id for entry in restored.lifecycle_audit],
+            [
+                "CASE-S4C-STORE-001:audit-001",
+                "CASE-S4C-STORE-001:audit-002",
+                "CASE-S4C-STORE-001:audit-003",
+                "CASE-S4C-STORE-001:audit-004",
+                "CASE-S4C-STORE-001:audit-005",
+            ],
+        )
+
+    def test_closed_case_serializer_round_trip_rejects_action_request_mutations(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5-C-IMPL5-STORE-002",
+            actor="analyst.leo",
+            created_at_utc="2026-04-10T11:00:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic closed-case request",
+            at_utc="2026-04-10T11:01:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit before close",
+            at_utc="2026-04-10T11:02:00Z",
+        )
+        closed = transition_persistent_case_status(
+            submitted,
+            to_status="closed",
+            actor="manager.chen",
+            reason="synthetic close",
+            at_utc="2026-04-10T11:03:00Z",
+        )
+
+        restored = persistent_case_record_from_dict(persistent_case_record_to_dict(closed))
+
+        action_request_id = restored.action_requests[0].action_request_id
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            create_action_request_from_case(
+                restored,
+                actor="analyst.leo",
+                rationale="closed case must reject create",
+                at_utc="2026-04-10T11:04:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            submit_action_request_for_approval(
+                restored,
+                action_request_id=action_request_id,
+                actor="analyst.leo",
+                review_owner="manager.chen",
+                reason="closed case must reject submit",
+                at_utc="2026-04-10T11:05:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            approve_action_request(
+                restored,
+                action_request_id=action_request_id,
+                actor="manager.chen",
+                reason="closed case must reject approve",
+                at_utc="2026-04-10T11:06:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            reject_action_request(
+                restored,
+                action_request_id=action_request_id,
+                actor="manager.chen",
+                reason="closed case must reject reject",
+                at_utc="2026-04-10T11:07:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            cancel_action_request(
+                restored,
+                action_request_id=action_request_id,
+                actor="manager.chen",
+                reason="closed case must reject cancel",
+                at_utc="2026-04-10T11:08:00Z",
+            )
+
+        self.assertEqual(restored.lifecycle_status, "closed")
+        self.assertEqual(restored.action_requests[0].status, "pending_approval")
+        self.assertEqual(restored.lifecycle_audit[-1].event_type, "case_closed")
 
 
 if __name__ == "__main__":

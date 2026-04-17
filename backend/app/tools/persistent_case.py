@@ -12,7 +12,7 @@ and status semantics remain deterministic.
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field, replace
 from datetime import datetime, timezone
-from typing import Any, Literal, Optional
+from typing import Any, Literal, Optional, cast
 
 from app.agents.case_view import build_case_view
 from app.config import Settings, settings
@@ -50,6 +50,9 @@ FROZEN_ACTION_REQUEST_TRANSITIONS: dict[ActionRequestStatus, set[ActionRequestSt
     "rejected": set(),
     "cancelled": set(),
 }
+
+GOVERNED_CASE_LIFECYCLE_STATUSES = frozenset(FROZEN_CASE_STATUS_TRANSITIONS)
+GOVERNED_ACTION_REQUEST_STATUSES = frozenset(FROZEN_ACTION_REQUEST_TRANSITIONS)
 
 
 def _utc_now_iso() -> str:
@@ -176,6 +179,28 @@ def frozen_persistence_backend(runtime_settings: Settings = settings) -> Persist
 
 def allowed_case_status_transitions(status: CaseLifecycleStatus) -> tuple[CaseLifecycleStatus, ...]:
     return tuple(sorted(FROZEN_CASE_STATUS_TRANSITIONS.get(status, set())))
+
+
+def governed_case_lifecycle_statuses() -> tuple[CaseLifecycleStatus, ...]:
+    return tuple(sorted(GOVERNED_CASE_LIFECYCLE_STATUSES))
+
+
+def governed_action_request_statuses() -> tuple[ActionRequestStatus, ...]:
+    return tuple(sorted(GOVERNED_ACTION_REQUEST_STATUSES))
+
+
+def _require_case_lifecycle_status(value: Any) -> CaseLifecycleStatus:
+    normalized = str(value or "")
+    if normalized not in GOVERNED_CASE_LIFECYCLE_STATUSES:
+        raise ValueError(f"invalid_case_lifecycle_status:{normalized}")
+    return cast(CaseLifecycleStatus, normalized)
+
+
+def _require_action_request_status(value: Any) -> ActionRequestStatus:
+    normalized = str(value or "")
+    if normalized not in GOVERNED_ACTION_REQUEST_STATUSES:
+        raise ValueError(f"invalid_action_request_status:{normalized}")
+    return cast(ActionRequestStatus, normalized)
 
 
 def is_valid_case_status_transition(
@@ -357,7 +382,6 @@ def create_action_request_from_case(
         details={
             "action_request_id": action_request.action_request_id,
             "action_type": action_request.action_type,
-            "targets": deepcopy(action_request.targets),
             "approval_required": action_request.approval_required,
         },
     )
@@ -433,6 +457,9 @@ def approve_action_request(
     reason: str,
     at_utc: Optional[str] = None,
 ) -> PersistentCaseRecord:
+    if record.lifecycle_status == "closed":
+        raise ValueError("action_request_not_allowed_for_closed_case")
+
     timestamp = at_utc or _utc_now_iso()
     base_record = record
     if record.lifecycle_status != "approved":
@@ -599,11 +626,11 @@ def transition_persistent_case_status(
 
 def persistent_case_record_from_dict(payload: dict[str, Any]) -> PersistentCaseRecord:
     action_requests = [
-        CaseActionRequestRecord(**deepcopy(item))
+        _action_request_record_from_dict(item)
         for item in payload.get("action_requests", [])
     ]
     lifecycle_audit = [
-        CaseAuditEntry(**deepcopy(item))
+        _audit_entry_from_dict(item)
         for item in payload.get("lifecycle_audit", [])
     ]
     return PersistentCaseRecord(
@@ -613,7 +640,7 @@ def persistent_case_record_from_dict(payload: dict[str, Any]) -> PersistentCaseR
         source_snapshot_id=str(payload.get("source_snapshot_id") or ""),
         case_id=str(payload.get("case_id") or ""),
         threat_case_version=str(payload.get("threat_case_version") or ""),
-        lifecycle_status=str(payload.get("lifecycle_status") or "open"),
+        lifecycle_status=_require_case_lifecycle_status(payload.get("lifecycle_status") or "open"),
         created_at_utc=str(payload.get("created_at_utc") or ""),
         updated_at_utc=str(payload.get("updated_at_utc") or ""),
         review_owner=payload.get("review_owner"),
@@ -624,5 +651,30 @@ def persistent_case_record_from_dict(payload: dict[str, Any]) -> PersistentCaseR
     )
 
 
+def _action_request_record_from_dict(payload: dict[str, Any]) -> CaseActionRequestRecord:
+    data = deepcopy(payload)
+    data["status"] = _require_action_request_status(data.get("status"))
+    if data.get("source_case_status") is not None:
+        data["source_case_status"] = _require_case_lifecycle_status(data["source_case_status"])
+    return CaseActionRequestRecord(**data)
+
+
+def _audit_entry_from_dict(payload: dict[str, Any]) -> CaseAuditEntry:
+    data = deepcopy(payload)
+    data["case_status"] = _require_case_lifecycle_status(data.get("case_status"))
+    return CaseAuditEntry(**data)
+
+
+def _validate_persistent_case_record(record: PersistentCaseRecord) -> None:
+    _require_case_lifecycle_status(record.lifecycle_status)
+    for action_request in record.action_requests:
+        _require_action_request_status(action_request.status)
+        if action_request.source_case_status is not None:
+            _require_case_lifecycle_status(action_request.source_case_status)
+    for audit_entry in record.lifecycle_audit:
+        _require_case_lifecycle_status(audit_entry.case_status)
+
+
 def persistent_case_record_to_dict(record: PersistentCaseRecord) -> dict[str, Any]:
+    _validate_persistent_case_record(record)
     return asdict(record)

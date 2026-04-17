@@ -10,11 +10,11 @@
     "sprint": "Sprint 5",
     "stage": "s5c-impl5-code-test-ticket",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-17T08:13:26.785810+08:00"
+    "updated_at": "2026-04-17T09:11:52.980094+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S5C-IMPL5-CODE-TEST-TICKET-2026-04-17-001.zip",
-    "current_release_sha256": "c71137904aa8e86a5b7d6839da842c5184079e4f7f236a39a903efafb26f8b63"
+    "current_release_sha256": "74bf50939c80ac7341f9f633f86baa860e724b2eebdc07bbaecd5d30800a05ae"
   },
   "key_files": [
     {
@@ -145,7 +145,7 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "b184797eb16c87bf73af6afa92aaac57b426a9c47e5cf8133bd523bf4fd70a48"
+      "sha256": "8130cb19cb95798fda945eb1412364f3376aa5a8b1ade8c3ecd42b2fd66b09fd"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -225,7 +225,7 @@
     {
       "path": "backend\\tests\\test_case_action_request_contract.py",
       "role": "canonical-case-action-request-contract-tests",
-      "sha256": "bf030cce43037b80e366b83aed003f852cb687f643ff40aa74c322103163d9c7"
+      "sha256": "23314b91ff6e5c296b5cbb06a58a2cd3a9bda99e226fea0ac11cc8bc34303570"
     },
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
@@ -235,7 +235,7 @@
     {
       "path": "backend\\tests\\test_case_store.py",
       "role": "canonical-case-store-tests",
-      "sha256": "e66266f69d3f7edd795123972e8f304c2f2afce11587efab5fceea5f5ad27a05"
+      "sha256": "9e1398a575239cd2aab357b66ea73b010fc4670f170ca1a635c38d2b9510b7d6"
     },
     {
       "path": "backend\\tests\\test_environment_profile.py",
@@ -870,12 +870,12 @@
     {
       "path": "backend\\app\\runtime_service.py",
       "role": "runtime-service",
-      "sha256": "3b63f98b9b30c8e2e10899d041e41e27780633765c995f362d1903d9f8790e64"
+      "sha256": "099372ffd748ca420c121e875386644fe248ca7cf38c4bf8aaf7b129f36fbae0"
     },
     {
       "path": "backend\\tests\\test_runtime_service.py",
       "role": "runtime-service-tests",
-      "sha256": "98e70a6fab9eb39ac7ce4cbe316f8ad2d0a2b01c4ec0454c1cbf2bf0cc417a9a"
+      "sha256": "da49292a8b88bdcf5ef0d8033a50fae788ce37af40df025b41be26de427e73b2"
     },
     {
       "path": "run_runtime.py",
@@ -956,7 +956,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-17T08:13:27.861431+08:00",
+    "last_verified_at": "2026-04-17T09:11:53.822675+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

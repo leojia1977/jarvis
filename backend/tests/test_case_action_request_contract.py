@@ -1,3 +1,4 @@
+from copy import deepcopy
 import unittest
 
 from _project_bootstrap import bootstrap
@@ -8,6 +9,10 @@ from app.tools.persistent_case import (  # noqa: E402
     approve_action_request,
     cancel_action_request,
     create_action_request_from_case,
+    governed_action_request_statuses,
+    governed_case_lifecycle_statuses,
+    persistent_case_record_from_dict,
+    persistent_case_record_to_dict,
     reject_action_request,
     submit_action_request_for_approval,
     build_initial_persistent_case_record,
@@ -67,7 +72,90 @@ def _base_case():
     }
 
 
+SENSITIVE_AUDIT_MARKERS = (
+    "secret",
+    "token",
+    "api_key",
+    "authorization",
+    "cookie",
+    "raw_log",
+    "screenshot",
+    "export",
+    "payload_body",
+    "customer_evidence",
+)
+
+
+def _audit_strings(value):
+    if isinstance(value, dict):
+        for key, item in value.items():
+            yield str(key)
+            yield from _audit_strings(item)
+    elif isinstance(value, (list, tuple)):
+        for item in value:
+            yield from _audit_strings(item)
+    elif value is not None:
+        yield str(value)
+
+
+def _assert_no_sensitive_audit_values(test_case, record):
+    for entry in record.lifecycle_audit:
+        for value in _audit_strings(entry.__dict__):
+            lowered = value.lower()
+            for marker in SENSITIVE_AUDIT_MARKERS:
+                test_case.assertNotIn(marker, lowered)
+
+
 class CaseActionRequestContractTests(unittest.TestCase):
+    def test_governed_status_vocabularies_are_locked(self):
+        self.assertEqual(
+            set(governed_action_request_statuses()),
+            {"draft", "pending_approval", "approved", "rejected", "cancelled"},
+        )
+        self.assertEqual(
+            set(governed_case_lifecycle_statuses()),
+            {"open", "in_review", "approved", "closed"},
+        )
+        for forbidden_status in (
+            "denied",
+            "withdrawn",
+            "expired",
+            "escalated",
+            "auto_approved",
+            "under_review",
+            "archived",
+        ):
+            self.assertNotIn(forbidden_status, governed_action_request_statuses())
+            self.assertNotIn(forbidden_status, governed_case_lifecycle_statuses())
+
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5-C-IMPL5-STATUS-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-10T10:00:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic governed action request",
+            at_utc="2026-04-10T10:01:00Z",
+        )
+
+        invalid_action_payload = persistent_case_record_to_dict(drafted)
+        invalid_action_payload["action_requests"][0]["status"] = "denied"
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_status:denied"):
+            persistent_case_record_from_dict(invalid_action_payload)
+
+        invalid_lifecycle_payload = persistent_case_record_to_dict(record)
+        invalid_lifecycle_payload["lifecycle_status"] = "under_review"
+        with self.assertRaisesRegex(ValueError, "invalid_case_lifecycle_status:under_review"):
+            persistent_case_record_from_dict(invalid_lifecycle_payload)
+
+        invalid_source_payload = deepcopy(persistent_case_record_to_dict(drafted))
+        invalid_source_payload["action_requests"][0]["source_case_status"] = "under_review"
+        with self.assertRaisesRegex(ValueError, "invalid_case_lifecycle_status:under_review"):
+            persistent_case_record_from_dict(invalid_source_payload)
+
     def test_create_submit_and_approve_action_request_are_auditable(self):
         record = build_initial_persistent_case_record(
             _base_case(),
@@ -129,12 +217,19 @@ class CaseActionRequestContractTests(unittest.TestCase):
                 "action_request_approved",
             ],
         )
+        creation_audit = approved.lifecycle_audit[1]
+        self.assertEqual(creation_audit.event_type, "action_request_created")
+        self.assertNotIn("targets", creation_audit.details)
         approval_audit = approved.lifecycle_audit[-1]
         self.assertEqual(approval_audit.event_type, "action_request_approved")
         self.assertEqual(approval_audit.actor, "manager.chen")
         self.assertEqual(approval_audit.reason, "风险确认，可以执行")
         self.assertEqual(approval_audit.details["action_request_id"], submitted.action_requests[0].action_request_id)
+        self.assertEqual(set(approval_audit.details), {"action_request_id"})
         self.assertEqual(approval_audit.case_status, "approved")
+        self.assertNotIn("execution", approval_audit.details)
+        self.assertNotIn("customer_signoff", approval_audit.details)
+        _assert_no_sensitive_audit_values(self, approved)
 
     def test_reject_and_cancel_follow_frozen_status_transitions(self):
         record = build_initial_persistent_case_record(
@@ -231,7 +326,7 @@ class CaseActionRequestContractTests(unittest.TestCase):
                 rationale="降级案卷不应允许创建动作请求",
             )
 
-    def test_closed_case_blocks_reject_and_cancel_updates(self):
+    def test_closed_case_blocks_action_request_create_submit_approve_reject_and_cancel(self):
         record = build_initial_persistent_case_record(
             _base_case(),
             snapshot_id="S4-C-2026-04-10-004",
@@ -243,6 +338,32 @@ class CaseActionRequestContractTests(unittest.TestCase):
             rationale="进入审批流",
             at_utc="2026-04-10T11:01:00Z",
         )
+        closed_draft = transition_persistent_case_status(
+            drafted,
+            to_status="closed",
+            actor="manager.chen",
+            reason="人工关闭案例",
+            at_utc="2026-04-10T11:01:30Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            create_action_request_from_case(
+                closed_draft,
+                actor="analyst.leo",
+                rationale="关闭后不允许新建",
+                at_utc="2026-04-10T11:01:40Z",
+            )
+
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            submit_action_request_for_approval(
+                closed_draft,
+                action_request_id=drafted.action_requests[0].action_request_id,
+                actor="analyst.leo",
+                review_owner="manager.chen",
+                reason="关闭后不允许提交",
+                at_utc="2026-04-10T11:01:50Z",
+            )
+
         submitted = submit_action_request_for_approval(
             drafted,
             action_request_id=drafted.action_requests[0].action_request_id,
@@ -258,6 +379,15 @@ class CaseActionRequestContractTests(unittest.TestCase):
             reason="人工关闭案例",
             at_utc="2026-04-10T11:03:00Z",
         )
+
+        with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
+            approve_action_request(
+                closed,
+                action_request_id=submitted.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="关闭后不允许批准",
+                at_utc="2026-04-10T11:03:30Z",
+            )
 
         with self.assertRaisesRegex(ValueError, "action_request_not_allowed_for_closed_case"):
             reject_action_request(
@@ -280,8 +410,10 @@ class CaseActionRequestContractTests(unittest.TestCase):
         self.assertEqual(closed.lifecycle_status, "closed")
         self.assertEqual(closed.action_requests[0].status, "pending_approval")
         self.assertEqual(closed.lifecycle_audit[-1].event_type, "case_closed")
+        self.assertNotIn("action_request_approved", [entry.event_type for entry in closed.lifecycle_audit])
         self.assertNotIn("action_request_rejected", [entry.event_type for entry in closed.lifecycle_audit])
         self.assertNotIn("action_request_cancelled", [entry.event_type for entry in closed.lifecycle_audit])
+        _assert_no_sensitive_audit_values(self, closed)
 
 
 if __name__ == "__main__":

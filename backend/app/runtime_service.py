@@ -803,8 +803,13 @@ class SecuPilotRuntimeService:
             )
         except ValueError as exc:
             detail = str(exc)
+            error = (
+                "invalid_action_request_transition"
+                if detail == "action_request_not_allowed_for_closed_case"
+                else "action_request_unavailable"
+            )
             return 409, self._action_request_error_payload(
-                error="action_request_unavailable",
+                error=error,
                 case_id=record.case_id,
                 detail=detail,
             )

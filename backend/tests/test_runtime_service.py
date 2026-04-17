@@ -10,7 +10,7 @@ bootstrap()
 from backend.app.config import Settings
 from backend.app.runtime_service import SecuPilotRuntimeService
 from app.tools.case_store import load_current_snapshot_id
-from app.tools.persistent_case import build_initial_persistent_case_record
+from app.tools.persistent_case import build_initial_persistent_case_record, transition_persistent_case_status
 from app.tools.siem_adapter import ProductionSIEMAdapter
 
 
@@ -24,6 +24,33 @@ def _fresh_temp_root(name: str) -> Path:
     shutil.rmtree(target, ignore_errors=True)
     target.mkdir(parents=True, exist_ok=True)
     return target
+
+
+def _actionable_threat_case(case_id: str) -> dict:
+    return {
+        "case_id": case_id,
+        "version": "3.1",
+        "risk_score": 9.2,
+        "confidence_score": 0.92,
+        "confidence_label": "HIGH",
+        "verdict_status": "CRITICAL_ACTION_REQUIRED",
+        "investigation_status": "COMPLETE",
+        "scenario_name": "Synthetic Action Approval Flow",
+        "forensic_result": {
+            "hosts_analyzed": ["WKST-047"],
+            "total_suspicious_chains": 1,
+            "top_chains": [],
+            "attack_stages_observed": ["Execution"],
+            "persistence_mechanisms": [],
+            "evidence_gaps": [],
+        },
+        "suggested_action": {
+            "type": "NETWORK_ISOLATE",
+            "targets": ["WKST-047"],
+            "blast_radius_desc": "synthetic blast radius",
+        },
+        "audit_trail": {"degraded": False, "degraded_reasons": []},
+    }
 
 
 class FakeProductionTransport:
@@ -160,7 +187,7 @@ class RuntimeServiceTests(unittest.TestCase):
                 runtime_mode="production",
                 mock_data_path="./mock_data",
                 siem_base_url="https://siem.example.local",
-                siem_auth_token="secret-token",
+                siem_auth_token="synthetic-value",
             )
         )
         readiness = service.readiness()
@@ -183,7 +210,7 @@ class RuntimeServiceTests(unittest.TestCase):
                 runtime_mode="production",
                 mock_data_path="./mock_data",
                 siem_base_url="https://siem.example.local",
-                siem_auth_token="secret-token",
+                siem_auth_token="synthetic-value",
                 siem_vendor="splunk_like",
             ),
             adapter_factory=factory,
@@ -219,7 +246,7 @@ class RuntimeServiceTests(unittest.TestCase):
                 runtime_mode="production",
                 static_data_path="./mock_data",
                 siem_base_url="https://siem.example.local",
-                siem_auth_token="secret-token",
+                siem_auth_token="synthetic-value",
                 siem_vendor="splunk_like",
                 edr_source_mode="local_files",
             ),
@@ -265,7 +292,7 @@ class RuntimeServiceTests(unittest.TestCase):
                 runtime_mode="production",
                 static_data_path="./mock_data",
                 siem_base_url="https://siem.example.local",
-                siem_auth_token="secret-token",
+                siem_auth_token="synthetic-value",
                 siem_vendor="splunk_like",
                 edr_source_mode="local_files",
             ),
@@ -328,7 +355,7 @@ class RuntimeServiceTests(unittest.TestCase):
                 runtime_mode="production",
                 static_data_path="./mock_data",
                 siem_base_url="https://siem.example.local",
-                siem_auth_token="secret-token",
+                siem_auth_token="synthetic-value",
                 siem_vendor="splunk_like",
                 case_store_backend="unsupported_store",
             ),
@@ -362,7 +389,7 @@ class RuntimeServiceTests(unittest.TestCase):
                 runtime_mode="production",
                 static_data_path="./mock_data",
                 siem_base_url="https://siem.example.local",
-                siem_auth_token="secret-token",
+                siem_auth_token="synthetic-value",
                 siem_vendor="splunk_like",
                 edr_source_mode="local_files",
             ),
@@ -412,7 +439,7 @@ class RuntimeServiceTests(unittest.TestCase):
                     runtime_mode="production",
                     mock_data_path="./does-not-exist",
                     siem_base_url="https://siem.example.local",
-                    siem_auth_token="secret-token",
+                    siem_auth_token="synthetic-value",
                 )
             )
         readiness = service.readiness()
@@ -634,6 +661,145 @@ class RuntimeServiceTests(unittest.TestCase):
         self.assertIn(
             "action_request_approved",
             [item["event_type"] for item in approve_payload["persistent_case"]["lifecycle_audit"]],
+        )
+
+    def test_closed_case_action_request_paths_return_invalid_transition(self):
+        service = SecuPilotRuntimeService(self.mock_settings)
+        service._case_store = _InMemoryCaseStore()
+        service._case_store_error = None
+        record = build_initial_persistent_case_record(
+            _actionable_threat_case("CASE-ACTION-CLOSED-001"),
+            snapshot_id="S5-C-IMPL5-RUNTIME-001",
+            actor="analyst.leo",
+        )
+        service._require_case_store().save_case(record)
+        case_id = record.case_id
+
+        draft_status, draft_payload = service.create_action_request_sync(case_id, {
+            "actor": "analyst.leo",
+            "rationale": "synthetic closed-case request",
+        })
+        self.assertEqual(draft_status, 201)
+        action_request_id = draft_payload["action_request_id"]
+
+        submit_status, submit_payload = service.submit_action_request_sync(case_id, action_request_id, {
+            "actor": "analyst.leo",
+            "review_owner": "manager.chen",
+            "reason": "submit before close",
+        })
+        self.assertEqual(submit_status, 200)
+        self.assertEqual(submit_payload["action_request"]["status"], "pending_approval")
+
+        stored = service._require_case_store().get_case(case_id)
+        self.assertIsNotNone(stored)
+        closed = transition_persistent_case_status(
+            stored,
+            to_status="closed",
+            actor="manager.chen",
+            reason="synthetic close",
+            at_utc="2026-04-10T12:00:00Z",
+        )
+        service._require_case_store().save_case(closed)
+        closed_audit_length = len(closed.lifecycle_audit)
+
+        create_status, create_payload = service.create_action_request_sync(case_id, {
+            "actor": "analyst.leo",
+            "rationale": "closed case must reject create",
+        })
+        self.assertEqual(create_status, 409)
+        self.assertEqual(create_payload["error"], "invalid_action_request_transition")
+        self.assertEqual(create_payload["detail"], "action_request_not_allowed_for_closed_case")
+
+        governed_update_paths = [
+            (
+                service.submit_action_request_sync,
+                {
+                    "actor": "analyst.leo",
+                    "review_owner": "manager.chen",
+                    "reason": "closed case must reject submit",
+                },
+            ),
+            (
+                service.approve_action_request_sync,
+                {"actor": "manager.chen", "reason": "closed case must reject approve"},
+            ),
+            (
+                service.reject_action_request_sync,
+                {"actor": "manager.chen", "reason": "closed case must reject reject"},
+            ),
+            (
+                service.cancel_action_request_sync,
+                {"actor": "manager.chen", "reason": "closed case must reject cancel"},
+            ),
+        ]
+        for operation, operation_payload in governed_update_paths:
+            status_code, payload = operation(case_id, action_request_id, operation_payload)
+            self.assertEqual(status_code, 409)
+            self.assertEqual(payload["error"], "invalid_action_request_transition")
+            self.assertEqual(payload["detail"], "action_request_not_allowed_for_closed_case")
+            self.assertEqual(payload["action_request_id"], action_request_id)
+
+        restored = service._require_case_store().get_case(case_id)
+        self.assertIsNotNone(restored)
+        self.assertEqual(restored.lifecycle_status, "closed")
+        self.assertEqual(restored.action_requests[0].status, "pending_approval")
+        self.assertEqual(len(restored.lifecycle_audit), closed_audit_length)
+        self.assertEqual(restored.lifecycle_audit[-1].event_type, "case_closed")
+
+    def test_action_request_approval_records_review_without_external_execution(self):
+        transport = FakeProductionTransport()
+
+        def factory(mode, runtime_settings):
+            self.assertEqual(mode, "production")
+            return ProductionSIEMAdapter(runtime_settings, transport=transport)
+
+        service = SecuPilotRuntimeService(
+            Settings(
+                project_root=str(REPO_ROOT),
+                runtime_mode="production",
+                static_data_path="./mock_data",
+                siem_base_url="https://siem.example.local",
+                siem_auth_token="synthetic-value",
+                siem_vendor="splunk_like",
+                edr_source_mode="local_files",
+            ),
+            adapter_factory=factory,
+        )
+        service._case_store = _InMemoryCaseStore()
+        service._case_store_error = None
+        record = build_initial_persistent_case_record(
+            _actionable_threat_case("CASE-ACTION-NONEXEC-001"),
+            snapshot_id="S5-C-IMPL5-RUNTIME-002",
+            actor="analyst.leo",
+        )
+        service._case_store.save_case(record)
+
+        draft_status, draft_payload = service.create_action_request_sync(record.case_id, {
+            "actor": "analyst.leo",
+            "rationale": "synthetic review-only action request",
+        })
+        self.assertEqual(draft_status, 201)
+        action_request_id = draft_payload["action_request_id"]
+        submit_status, _ = service.submit_action_request_sync(record.case_id, action_request_id, {
+            "actor": "analyst.leo",
+            "review_owner": "manager.chen",
+            "reason": "submit for review",
+        })
+        self.assertEqual(submit_status, 200)
+        approve_status, approve_payload = service.approve_action_request_sync(record.case_id, action_request_id, {
+            "actor": "manager.chen",
+            "reason": "record review approval only",
+        })
+
+        self.assertEqual(approve_status, 200)
+        self.assertEqual(approve_payload["action_request"]["status"], "approved")
+        self.assertEqual(approve_payload["persistent_case"]["lifecycle_status"], "approved")
+        self.assertEqual(transport.calls, [])
+        self.assertNotIn("execution", approve_payload["action_request"])
+        self.assertNotIn("customer_signoff", approve_payload["action_request"])
+        self.assertEqual(
+            set(approve_payload["persistent_case"]["lifecycle_audit"][-1]["details"]),
+            {"action_request_id"},
         )
 
     def test_degraded_case_blocks_action_request_creation(self):
