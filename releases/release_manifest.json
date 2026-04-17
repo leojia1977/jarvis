@@ -10,11 +10,11 @@
     "sprint": "Sprint 5",
     "stage": "s5c-impl5-code-test-ticket",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-17T09:11:52.980094+08:00"
+    "updated_at": "2026-04-17T09:37:49.910289+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S5C-IMPL5-CODE-TEST-TICKET-2026-04-17-001.zip",
-    "current_release_sha256": "74bf50939c80ac7341f9f633f86baa860e724b2eebdc07bbaecd5d30800a05ae"
+    "current_release_sha256": "4d861eaeef7071f474ad6fb51bd59db297639f531cb63657e9f11648d9da0f4b"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "a6e5006b24c5610c58b0d4ca329991808388aa8cdfa2efaa61734b1110c7e4ba"
+      "sha256": "3ff1d09fd74f4ced8232eb5c5558b024805fded94eaee12d5656464aeb7c2529"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -956,7 +956,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-17T09:11:53.822675+08:00",
+    "last_verified_at": "2026-04-17T09:37:50.735569+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
