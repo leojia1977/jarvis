@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001 |
-| Stage | s5-autonomous-vacation-operating-model |
-| Baseline commit | `da15c383e14bc4cae6c97017f91549194c37487d` |
+| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
+| Stage | s5-autonomous-policy-activation-prep |
+| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
 
 This file summarizes parked, deferred, and possible future routes. It is a planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a plann
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only this docs-only governance context model route. It does not open a next implementation scoped ticket or any non-governance product route. Future work requires a separate governed route or ticket with review and human decision.
+The human product/governance input for this stage opens only this docs-only autonomous policy activation-prep route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -49,12 +49,16 @@ The autonomous L3 launch acceleration path is a candidate governed path for cont
 
 Green/Yellow/Conditional Red authorization can accelerate future stages only after policy activation:
 
-- delegated approver is named
-- authorization window is named
+- proposed delegated approver `jarvis, technical lead` is confirmed as an accountable human approver
+- authorization window is active: 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai
 - lane and allowed actions are explicit
+- required external review has passed where activation requires it
+- `DELEGATED_APPROVER_GO` is complete where Red approval is required
 - required review is satisfied
 - full gate and release rules are followed where applicable
 - no HOLD remains
+
+The activation-prep path documents SLA targets, allowed Red-1 approvals, Red-2 preparation limits, Red-3 prohibitions, target L3 deadline, and the network slow retry rule. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, or ORDIV report/CSV/L1B work.
 
 Parked items remain parked until explicit governed reopen/approval:
 

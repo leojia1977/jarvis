@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001 |
-| Stage | s5-autonomous-vacation-operating-model |
-| Baseline commit | `da15c383e14bc4cae6c97017f91549194c37487d` |
+| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
+| Stage | s5-autonomous-policy-activation-prep |
+| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -16,14 +16,14 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `da15c383e14bc4cae6c97017f91549194c37487d`
-- Snapshot: `S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001`
-- Stage: `s5-governance-context-model`
+- Commit: `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5`
+- Snapshot: `S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001`
+- Stage: `s5-autonomous-vacation-operating-model`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-GOVERNANCE-CONTEXT-MODEL-2026-04-17-001.zip`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001.zip`
 
-The current baseline closes the governance context model stage. It establishes governed product memory discipline and leaves the prior mainline practical outcome as `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
+The current baseline closes the autonomous vacation operating model stage. It defines the autonomous/L3 acceleration framework, but delegated approval remains inactive until governed activation conditions are satisfied.
 
 ## 3. Sprint 5 State Summary
 
@@ -68,7 +68,7 @@ Current model:
 - L3 means controlled customer-trial launch / private launch candidate.
 - L3 does not mean unrestricted public GA or multi-customer commercial GA.
 - Green, Yellow, and Conditional Red lanes define what AI may draft, implement, review, package, or HOLD.
-- Delegated approver and authorization window are placeholders until explicitly named.
+- Delegated approver and authorization window were placeholders at the closed baseline.
 
 Current non-authorization:
 
@@ -81,3 +81,21 @@ Current non-authorization:
 Current readiness posture:
 
 External pilot/customer-trial readiness remains blocked until required inputs are provided or approved through a governed route, required review, and explicit human or delegated GO where allowed.
+
+## 8. Autonomous Policy Activation Prep
+
+This stage records activation-prep details for the autonomous authorization policy.
+
+Activation-prep inputs:
+
+- Proposed delegated approver: `jarvis, technical lead`.
+- Authorization window: `2026-04-18 00:00 Asia/Shanghai` to `2026-05-06 23:59 Asia/Shanghai`.
+- Target L3 customer trial launch deadline: no later than `2026-05-06 23:59 Asia/Shanghai`.
+- Network slow retry rule: after more than 5 minutes of slow/unresponsive network or remote review/status behavior, idempotent/read-only requests may retry once; non-idempotent requests require status verification before retry.
+
+Activation posture:
+
+- Activation remains conditional/pending required external review and approver identity/accountability confirmation.
+- If `jarvis` is an accountable human technical lead, `jarvis` may serve as delegated approver during the authorization window.
+- If `jarvis` is an AI/system alias rather than an accountable human approver, Red-lane approval authority remains `NOT_ACTIVE` / `HOLD`.
+- This stage does not authorize implementation, launch execution, external pilot execution, production deployment, real data, credentials, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, S4-A resolver changes, or AI_COLLAB changes.

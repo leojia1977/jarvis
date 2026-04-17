@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Docs-only draft for autonomous delivery pipeline review |
-| Snapshot | S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001 |
-| Stage | s5-autonomous-vacation-operating-model |
-| Baseline commit | `da15c383e14bc4cae6c97017f91549194c37487d` |
+| Status | Docs-only activation-prep draft for autonomous delivery pipeline |
+| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
+| Stage | s5-autonomous-policy-activation-prep |
+| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -84,7 +84,21 @@ The message must not imply readiness, customer launch, or implementation authori
 - Do not include unrelated untracked files.
 - Do not rewrite pushed history unless explicitly instructed by the human.
 
-## 9. Failure Handling
+## 9. Network Slow Retry Rule
+
+If network access, remote review, GitHub, Claude Web, external reviewer, or remote status check is slow/unresponsive for more than 5 minutes:
+
+- For idempotent/read-only requests, AI may retry once.
+- For non-idempotent requests, AI must first check whether the prior request succeeded before retrying.
+- For git push, deployment, launch, external access, approval submission, package upload, or any customer/production-affecting action, AI must verify status before resending.
+- Maximum automatic retry count: 1.
+- If the second attempt exceeds 5 minutes or remains ambiguous, create/update HOLD queue and stop.
+- Network slowness never permits bypassing review, gate, release verification, delegated approval, Claude Web/external review, or HOLD conditions.
+- Do not duplicate approval requests unless the first request is confirmed not delivered or marked expired/void.
+- If delivery status cannot be confirmed due to network conditions, treat the request as ambiguous and apply HOLD.
+- Do not repeat non-idempotent launch/deploy/access actions without explicit delegated/human GO.
+
+## 10. Failure Handling
 
 - Fix failures if Green/Yellow and scoped.
 - HOLD if Red, ambiguous, or external input is missing.
