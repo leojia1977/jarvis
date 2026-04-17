@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-POST-ORDIV-L1A-ROUTE-DECISION-2026-04-16-001",
+    "id": "S5C-IMPL5-CODE-TEST-TICKET-2026-04-17-001",
     "sprint": "Sprint 5",
-    "stage": "s5-post-ordiv-l1a-route-decision",
+    "stage": "s5c-impl5-code-test-ticket",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-16T16:33:58.523167+08:00"
+    "updated_at": "2026-04-17T08:13:26.785810+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-POST-ORDIV-L1A-ROUTE-DECISION-2026-04-16-001.zip",
-    "current_release_sha256": "906f8b120346448a2f652e3a3025477ec7ab3d0f006b8259b56bf19126708cb3"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL5-CODE-TEST-TICKET-2026-04-17-001.zip",
+    "current_release_sha256": "c71137904aa8e86a5b7d6839da842c5184079e4f7f236a39a903efafb26f8b63"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "6e245d458aba8a6e83aa073631a949c2aad2be1677855f978f86eef703ab8bfb"
+      "sha256": "a6e5006b24c5610c58b0d4ca329991808388aa8cdfa2efaa61734b1110c7e4ba"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -763,6 +763,11 @@
       "sha256": "8c3738f326e2d8fb2f2d44305b0e2736b86f7ca7e30ac56d5cddcb7ff7284b90"
     },
     {
+      "path": "docs\\S5C_IMPL5_CASE_LIFECYCLE_ACTION_REQUEST_CODE_TEST_TICKET.md",
+      "role": "s5c-impl5-code-test-ticket",
+      "sha256": "c79a3f48df768a40d73b92e0b23b31e69d2faffde467841ae8ae7a67f2dbf587"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -945,13 +950,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-POST-ORDIV-L1A-ROUTE-DECISION-2026-04-16-001",
+      "Snapshot ID: S5C-IMPL5-CODE-TEST-TICKET-2026-04-17-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-16T16:33:59.201118+08:00",
+    "last_verified_at": "2026-04-17T08:13:27.861431+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
