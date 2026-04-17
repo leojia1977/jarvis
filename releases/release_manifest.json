@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001",
+    "id": "S5-POST-S5C-IMPL5-ROUTE-DECISION-2026-04-17-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl5-implementation-closeout",
+    "stage": "s5-post-s5c-impl5-route-decision",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-17T09:46:55.251712+08:00"
+    "updated_at": "2026-04-17T10:33:51.558482+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001.zip",
-    "current_release_sha256": "b76b6fd6e50601c8547b5b8d00aa865f78731b070e0744f2910415440f133c21"
+    "current_release_zip": "releases\\secupilot-S5-POST-S5C-IMPL5-ROUTE-DECISION-2026-04-17-001.zip",
+    "current_release_sha256": "d1d3f46119ed08b8073f9b7a256b1326d34f7483b5bff8d74b23187100d3eda6"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "bb1815f2c893d842766646639de89b0ab19eeb0e2c1a090a65a27cb4d81bc1ab"
+      "sha256": "0251cb5a6125e4057c0d05c561555080bc441ea47502cfcde03bcc98b5f3f52d"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -773,6 +773,11 @@
       "sha256": "c9202fe066c12bba1e6807aefcd19f94bb9c8514b235ef1c82ca95af5f09b56b"
     },
     {
+      "path": "docs\\S5_POST_S5C_IMPL5_ROUTE_DECISION.md",
+      "role": "s5-post-s5c-impl5-route-decision",
+      "sha256": "ce6bd716fdcaf0565c0147b139f7332bc356188746282d91da983cd40a42a5da"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -955,13 +960,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001",
+      "Snapshot ID: S5-POST-S5C-IMPL5-ROUTE-DECISION-2026-04-17-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-17T09:46:55.908064+08:00",
+    "last_verified_at": "2026-04-17T10:33:52.228400+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
