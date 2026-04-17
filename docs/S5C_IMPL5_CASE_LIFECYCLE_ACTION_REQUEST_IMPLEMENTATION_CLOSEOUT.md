@@ -5,21 +5,21 @@
 | Field | Value |
 | --- | --- |
 | Title | S5-C-IMPL-5 Case Lifecycle and Action Request Implementation Closeout |
-| Status | Draft docs-only implementation closeout for Claude Code review-only |
+| Status | Closed governed docs-only implementation closeout |
 | Scope | Docs-only closeout record for completed S5-C-IMPL-5 governed implementation |
-| Snapshot candidate | S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001 |
-| Stage candidate | s5c-impl5-implementation-closeout |
+| Snapshot | S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001 |
+| Stage | s5c-impl5-implementation-closeout |
 | Predecessor governed baseline commit | `c8b1e881cc13f91330e4b75d3b98fff454c21fa0` |
 | Previous snapshot | S5C-IMPL5-CODE-TEST-TICKET-2026-04-17-001 |
 | Previous stage | s5c-impl5-code-test-ticket |
 | Implementation commit | `42b0dd9` |
 | Implementation commit subject | `feat: harden S5-C action request lifecycle` |
-| Draft creator | VS Code / human-supervised workspace |
-| Reviewer | Claude Code review-only |
+| Closeout owner | VS Code / human-supervised workspace |
+| Reviewer | Claude Code review-only PASS, no findings |
 | Claude Web external review gate | CONDITIONAL PASS, no blockers |
 | Human GO | Granted for governed S5-C-IMPL-5 implementation |
 
-This artifact records the completed governed implementation and its review/test evidence. It does not authorize any additional code, test, dependency, fixture, runtime/API/schema, public endpoint, external pilot, or release-manifest work.
+This artifact records the completed governed implementation and its review/test evidence. It does not authorize any additional code, test, dependency, fixture, runtime/API/schema, public endpoint, external pilot, or release-manifest work outside the governed release process.
 
 ## 2. Closeout Purpose
 
@@ -134,8 +134,8 @@ This closeout does not authorize:
 - test changes
 - dependency changes
 - fixture creation or modification
-- manifest update before the repo release process explicitly instructs it after review
-- release packaging before review and explicit human instruction
+- ungoverned manifest changes outside this focused docs/release alignment
+- release packaging outside the governed gate
 - staging
 - commit
 - push
@@ -162,7 +162,7 @@ This closeout does not authorize:
 Hold this closeout if any of the following occur:
 
 - Any code/test/dependency/runtime/API/schema/fixture edit is requested in this closeout route.
-- Any manifest update is requested before the repo release process explicitly instructs it after review.
+- Any manifest or release artifact change is requested outside this focused docs/release alignment and the repo release process.
 - Any public close-case endpoint behavior is opened or implied.
 - Any new lifecycle status, action-request status, or close reason is required.
 - Any evidence-retention, evidence-pack, secret-handling, redaction-policy, or real-data behavior is introduced.
@@ -171,31 +171,33 @@ Hold this closeout if any of the following occur:
 - Any S5-B/S5-D reopen, S4-A resolver change, or AI_COLLAB change is requested.
 - Codex is asked to stage, commit, or push without the exact human authorization phrase recorded in section 7.
 
-## 10. Acceptance Criteria For This Draft
+## 10. Acceptance Criteria
 
-This docs-only closeout draft is acceptable for Claude Code review-only if:
+This governed docs-only implementation closeout is accepted when:
 
-- Exactly one new docs closeout artifact is created.
-- `docs/HANDOFF.md` is updated only to record this closeout and its next-use guidance.
+- The closeout artifact records a closed/governed status, not a draft review status.
+- `docs/HANDOFF.md` records this closeout and its next-use guidance without draft wording.
+- `releases/release_manifest.json` records snapshot `S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001` and stage `s5c-impl5-implementation-closeout`.
+- The closeout artifact is represented in manifest `key_files` with role `s5c-impl5-implementation-closeout`.
 - No code files are modified.
 - No test files are modified.
 - No dependency files are modified.
 - No fixtures are created or modified.
 - No AI_COLLAB files are modified.
-- No release manifest update is made.
-- No staging, commit, or push is performed.
+- No pre-existing untracked files are included.
+- No staging, commit, or push is performed before focused Claude Code review-only PASS and explicit human instruction.
 - Claude Web external review gate, human GO, implementation commit, Claude Code review-only PASS, targeted tests, and full gate evidence are recorded.
 - The role-boundary exception and future staging/commit/push authorization phrase are recorded.
 - Public close-case endpoint, S5-B, S5-D, ORDIV-L1A, external pilot, S4-A resolver, and AI_COLLAB boundaries remain preserved.
 
 ## 11. Closeout Recommendation
 
-`PRELIMINARY_RECOMMENDATION_READY_FOR_CLAUDE_CODE_REVIEW_ONLY`
+`CLOSEOUT_ACCEPTED_AS_GOVERNED_S5C_IMPL5_IMPLEMENTATION_CLOSEOUT`
 
 Meaning:
 
-- This docs-only closeout artifact may be sent to Claude Code in review-only mode.
-- If accepted and later governed through the repo release process, it records S5-C-IMPL-5 implementation as completed at `42b0dd9`.
+- This docs-only closeout records S5-C-IMPL-5 implementation as completed at `42b0dd9`.
+- The active snapshot/stage are aligned through the release manifest to `S5C-IMPL5-IMPLEMENTATION-CLOSEOUT-2026-04-17-001` / `s5c-impl5-implementation-closeout`.
 - Future staging, commit, and push remain owned by VS Code / human-supervised workspace unless the human explicitly authorizes Codex with the exact phrase in section 7.
 
 Non-meaning:
@@ -204,4 +206,5 @@ Non-meaning:
 - This does not authorize code/test/dependency/fixture changes.
 - This does not authorize public close-case endpoint work.
 - This does not authorize external pilot execution or readiness.
-- This does not authorize manifest update, staging, commit, or push by Codex.
+- This does not authorize further manifest/release-process changes outside governed review and human instruction.
+- This does not authorize staging, commit, or push by Codex.
