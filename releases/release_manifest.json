@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-POST-S5C-IMPL5-ROUTE-DECISION-2026-04-17-001",
+    "id": "S5-POST-S5C-IMPL5-MAINLINE-ROUTE-SELECTION-2026-04-17-001",
     "sprint": "Sprint 5",
-    "stage": "s5-post-s5c-impl5-route-decision",
+    "stage": "s5-post-s5c-impl5-mainline-route-selection",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-17T10:33:51.558482+08:00"
+    "updated_at": "2026-04-17T11:11:03.160048+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-POST-S5C-IMPL5-ROUTE-DECISION-2026-04-17-001.zip",
-    "current_release_sha256": "d1d3f46119ed08b8073f9b7a256b1326d34f7483b5bff8d74b23187100d3eda6"
+    "current_release_zip": "releases\\secupilot-S5-POST-S5C-IMPL5-MAINLINE-ROUTE-SELECTION-2026-04-17-001.zip",
+    "current_release_sha256": "179d75d90c51e6eb0afc255591e330c2fc53b56fa51507010b7d22533e7b15e7"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "0251cb5a6125e4057c0d05c561555080bc441ea47502cfcde03bcc98b5f3f52d"
+      "sha256": "f91d0cb9c6a97de75cc947c0cd466a0d75a235e5c99ea4abab23dba835b5c1f1"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -778,6 +778,11 @@
       "sha256": "ce6bd716fdcaf0565c0147b139f7332bc356188746282d91da983cd40a42a5da"
     },
     {
+      "path": "docs\\S5_POST_S5C_IMPL5_MAINLINE_ROUTE_SELECTION.md",
+      "role": "s5-post-s5c-impl5-mainline-route-selection",
+      "sha256": "94c9ca59252acc70f8ca37192c6e7f9fa5d18fd9d34d51639b4c0df0c3239ff9"
+    },
+    {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
       "role": "collaboration-contract",
       "sha256": "c18a6234baa30380e87ee9eb38f476eef33e6d8363160bfd2c6d6e2f283281f6"
@@ -960,13 +965,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-POST-S5C-IMPL5-ROUTE-DECISION-2026-04-17-001",
+      "Snapshot ID: S5-POST-S5C-IMPL5-MAINLINE-ROUTE-SELECTION-2026-04-17-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-17T10:33:52.228400+08:00",
+    "last_verified_at": "2026-04-17T11:11:03.880193+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
