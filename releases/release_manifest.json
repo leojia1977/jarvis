@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001",
+    "id": "S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001",
     "sprint": "Sprint 5",
-    "stage": "s5-autonomous-operation-startup",
+    "stage": "s5-autonomous-toolchain-integration",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-18T09:11:52.609786+08:00"
+    "updated_at": "2026-04-18T10:21:33.882235+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001.zip",
-    "current_release_sha256": "441589fd552622105584b06db566e8fca9bb5f1141b77e0cdffe2bf8b3859c66"
+    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001.zip",
+    "current_release_sha256": "46bd62aff5ac78315750e241fe2c790ddb1937f38702c571a0011b8211db7655"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "68d82c7d7f02b6731d58d7233774b69673b777546ed570aba750f4ba989c7947"
+      "sha256": "8b8f04b17d8295744ef20c6674caf110e7781a95fd1927158d473c6ce0849387"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "941008b3dda4b3813bf4f5b19bdf4b3584fe40639449403253d8cbd1c29902fd"
+      "sha256": "9be8487caae44e10ce3a02412b5faac6fe49d14ce59e241571adc730225bdfa4"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "5aacffa8c598308d208edf4cda22b521d1ff109924a4e1e406edaefd3414ec46"
+      "sha256": "7c2a2f16e0fe4f527a4ce7e439eaab9f4852e1b5170e9c81170389e00c805892"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "938c6a8a560d6c6340edd20f352de1744bfcbf5a35b1d24ab80dcd4af6def34c"
+      "sha256": "5a6cfed017529d01efeddd676f687336d3e1efdabdb402198220cfffc928c2e8"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -820,7 +820,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "a0ecdc7be846e2d6a8d8c471377682e47d42b3585707b23acf93cb07fec40734"
+      "sha256": "3c384678cb519870acd59ca89518c79f8b9754d461870d2f43b11b611c9d210f"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -830,7 +830,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "5807e40f5f838aad4afd30bc892b3102f7a07c90d823491d969ba457fba25866"
+      "sha256": "40f37e8a9f6d18e4220b04aac787060fda7b6be2c1058034891174dd2c76005f"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -845,7 +845,22 @@
     {
       "path": "docs\\AUTONOMOUS_OPERATION_STARTUP.md",
       "role": "autonomous-operation-startup",
-      "sha256": "d9e8ba78751d0f5c0650dcc402b601339fcf5a933ef1b7d7b7f1436ba69aff89"
+      "sha256": "16fd77723d45d618261af8a3954484912cc22d09fdb22155a23459116d7ed15c"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
+      "role": "autonomous-toolchain-integration",
+      "sha256": "e22386578d974fe55625ff962f0e21717928509dc7e154512dd477501b50f295"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
+      "role": "autonomous-tool-capability-matrix",
+      "sha256": "27890ce56f25fba00574af610192300092e88f14ce8ad5f35da5cebd883376fd"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
+      "role": "autonomous-tool-runbook",
+      "sha256": "84fb4ae5356a9b061be71f697ce125a7972a16c2f30393dbd8b3b257f4c36f06"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -1030,13 +1045,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001",
+      "Snapshot ID: S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-18T09:11:53.470626+08:00",
+    "last_verified_at": "2026-04-18T10:21:34.593775+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
-| Stage | s5-autonomous-operation-startup |
-| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
+| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
+| Stage | s5-autonomous-toolchain-integration |
+| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8`
-- Snapshot: `S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001`
-- Stage: `s5-autonomous-policy-final-activation`
+- Commit: `3e106c324b37f22114fdb8243c6ef158d471408f`
+- Snapshot: `S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001`
+- Stage: `s5-autonomous-operation-startup`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001.zip`
-- Release sha256: `f7c7f26018b74f4426add0fcf567936e175ab3b9fc8d102cbd921a6bbcb45c7e`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001.zip`
+- Release sha256: `441589fd552622105584b06db566e8fca9bb5f1141b77e0cdffe2bf8b3859c66`
 
-The current baseline closes the autonomous policy final activation stage. It records human product/governance `FINAL_HUMAN_GO`, advances policy state to `ACTIVE` only during the authorization window, closes AHQ-018, and preserves all remaining launch, deployment, external pilot, credential, real-data, public endpoint, parked-stream, ORDIV, and Red-3 boundaries.
+The current baseline closes the autonomous operation startup stage. It starts a docs-only autonomous operating loop with default 2-hour cadence, day-1 human confirmation for staging/commit/push, and preservation of all launch, deployment, external pilot, credential, real-data, public endpoint, parked-stream, ORDIV, and Red-3 boundaries.
 
 ## 3. Sprint 5 State Summary
 
@@ -166,3 +166,30 @@ Startup non-authorization:
 - AHQ-003 through AHQ-014 remain HOLD.
 - AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
 - AHQ-019 records day-1 staging/commit/push as requiring explicit human confirmation.
+
+## 12. Autonomous Toolchain Integration
+
+This stage defines the governed four-tool autonomous collaboration pipeline.
+
+Current toolchain status:
+
+- Codex automation remains `ACTIVE` only within policy limits and authorization window.
+- VS Code CLI is visible as `code.cmd`.
+- Claude Code access is through the user-configured `cc switch` API tool; `claude.exe` is not usable and must not be treated as the automation path.
+- Codex CLI is visible as `codex.exe`.
+- Claude Web is user-confirmed to run in an AdsPower browser/profile.
+- AdsPower Local API is reachable locally but requires API-key authentication; no key was used or recorded in this stage.
+- AdsPower browser/profile launch, session control, and automation are not verified as controllable.
+- Claude Web automation remains manual AdsPower prompt transfer only and is not verified.
+
+Current maturity:
+
+- Toolchain maturity is L1: local CLI detection for Codex/VS Code/Codex CLI, user-confirmed Claude Code access through `cc switch`, and manual review prompt transfer.
+- L2 non-interactive Claude Code review through `cc switch` is not verified.
+- L3 AdsPower browser/external review path is not verified. This L3 means toolchain maturity, not L3 Customer Trial Launch.
+- Full four-tool autonomous automation is not claimed.
+
+Toolchain non-authorization:
+
+- This stage does not authorize AdsPower/browser launch, AdsPower profile/session control, Claude Web login, credential/session handling, full gate, release packaging, staging, commit, push, external pilot execution, customer launch, production deployment, S5-B/S5-D reopen, ORDIV reopen, Red-3 action, S4-A resolver order changes, or AI_COLLAB changes.
+- AHQ-020 through AHQ-022 block claims of full four-tool automation, including AdsPower/Claude Web automation, until separately governed.

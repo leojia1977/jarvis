@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Governance Decision Log |
 | Status | Rolling governed append-only decision log |
-| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
-| Stage | s5-autonomous-operation-startup |
-| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
+| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
+| Stage | s5-autonomous-toolchain-integration |
+| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
 
 This log is a compact index of governed decisions. Detailed authority remains in the source governed docs, manifest, review packs, release verification records, and committed closeout artifacts.
 
@@ -42,6 +42,7 @@ This log is a compact index of governed decisions. Detailed authority remains in
 | 2026-04-17 | `S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001` | `docs\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md` | `OPEN_AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION_DOCS_ONLY_STAGE` | Records external governance/security review `PASS_WITH_CONDITIONS`, incorporates MEDIUM-1 startup guardrail, confirms jarvis is an accountable human technical lead, closes AHQ-015/AHQ-016, and advances policy state only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`. | Does not mark policy ACTIVE, authorize launch, production deployment, external pilot execution, real data, credentials, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, Red-3 action, S4-A resolver change, or AI_COLLAB change. |
 | 2026-04-18 | `S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001` | `docs\AUTONOMOUS_POLICY_FINAL_ACTIVATION.md` | `OPEN_AUTONOMOUS_POLICY_FINAL_ACTIVATION_DOCS_ONLY_STAGE` | Records human product/governance `FINAL_HUMAN_GO`, advances policy state to `ACTIVE` only during the authorization window, records `delegation_expires`, closes AHQ-018, and adds the `AUTONOMOUS_PERIOD_START` marker. | Does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 action, legal/commercial commitment, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes without separate human-level governed approval, S4-A resolver order change, or AI_COLLAB change. |
 | 2026-04-18 | `S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001` | `docs\AUTONOMOUS_OPERATION_STARTUP.md` | `OPEN_AUTONOMOUS_OPERATION_STARTUP_STAGE` | Opens the docs-only autonomous operating loop with a default 2-hour cadence, mandatory per-run startup checks, one-item work selection, lane classification, per-run output, network slow rule, HOLD preservation, and day-1 human confirmation requirement for staging/commit/push. | Does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 action, full gate, release packaging, staging, commit, push, S4-A resolver order change, or AI_COLLAB change. |
+| 2026-04-18 | `S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001` | `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md` | `OPEN_AUTONOMOUS_TOOLCHAIN_INTEGRATION_STAGE` | Defines the governed four-tool autonomous collaboration pipeline, records local CLI visibility for Codex/VS Code/Codex CLI, records Claude Code access through the user-configured `cc switch` API tool rather than `claude.exe`, records Claude Web as running in the user's AdsPower browser/profile, records that AdsPower Local API is reachable but requires API-key authentication, keeps Claude Code non-interactive review and AdsPower/Claude Web/browser automation unverified, and adds AHQ-020 through AHQ-022. | Does not execute the full toolchain, launch browsers or AdsPower profiles, log into Claude Web, handle credentials/sessions/API keys, run full gate, package release artifacts, stage, commit, push, launch, deploy, execute external pilot, reopen S5-B/S5-D or ORDIV, perform Red-3 action, change S4-A resolver order, or change AI_COLLAB. |
 
 ## 4.1 Autonomous Period Markers
 

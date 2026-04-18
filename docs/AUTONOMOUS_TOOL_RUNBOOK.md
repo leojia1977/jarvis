@@ -1,0 +1,197 @@
+# Autonomous Tool Runbook
+
+## 1. Document Control
+
+| Field | Value |
+| --- | --- |
+| Title | Autonomous Tool Runbook |
+| Status | Docs-only autonomous toolchain integration draft |
+| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
+| Stage | s5-autonomous-toolchain-integration |
+| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+
+This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
+
+## 2. Per-Run Startup
+
+Every run must:
+
+1. Read `docs\DELEGATED_APPROVER_CHARTER.md`.
+2. Verify `delegation_expires` has not passed.
+3. Load the eight core governance docs.
+4. Confirm manifest baseline and git cleanliness.
+5. Select one next allowed item.
+6. Classify lane as Green, Yellow, Red-1, Red-2, Red-3, or HOLD.
+7. Proceed only if lane and authorization are clear.
+
+If the charter cannot be read, `delegation_expires` is missing, or the authorization window has expired, all Red authority is HOLD and automation must stop.
+
+## 3. Tool Selection
+
+Use the lowest-risk tool that can complete the allowed step:
+
+- Use Codex workspace editing for allowed docs-only changes.
+- Use VS Code CLI only as a local workspace surface when needed and governed.
+- Use Claude Code through the `cc switch` API tool only after review-only command/API format and non-interactive behavior are verified.
+- Use Claude Web only through manual prompt transfer in the user's AdsPower browser/profile unless a later governed AdsPower browser path is verified.
+- Use Git only for inspection unless staging/commit/push is explicitly authorized.
+
+## 4. VS Code Workspace Usage
+
+VS Code is a local editing/workspace surface. It is not long-term product memory.
+
+Allowed:
+
+- Edit allowed docs when stage scope permits.
+- Inspect local files.
+- Prepare review material.
+
+Prohibited:
+
+- Treating unsaved/editor-only state as governed truth.
+- Modifying code/tests/dependencies/fixtures/runtime/API/schema/release scripts/AI_COLLAB outside allowed scope.
+- Staging, commit, or push during day 1 without explicit human confirmation.
+
+## 5. Claude Code / `cc switch` Review-Only Usage
+
+Claude Code automation may be used only through the user-configured `cc switch` API tool after command/API format and non-interactive behavior are verified. `claude.exe` is not usable in the current environment and must not be treated as the Claude Code automation path.
+
+Until verified, automation should generate a Claude Code review prompt and HOLD for human/tool execution.
+
+Review-only means:
+
+- no edits
+- no staging
+- no commit
+- no push
+
+API error, non-zero exit, unavailable `cc switch` path, or ambiguous output means HOLD.
+
+If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severity, apply only allowed focused fixes, refresh affected hashes, and return to review. If any finding requires out-of-scope files, external access, credentials, real data, Red-3, or unclear authority, HOLD.
+
+## 6. Claude Web / Manual External Review Path
+
+Claude Web is an external review path.
+
+The user-confirmed Claude Web surface is an AdsPower browser/profile. AdsPower/browser automation is not assumed. If the AdsPower browser path is not verified, automation must produce a Claude Web prompt and HOLD for manual transfer.
+
+No credentials, cookies, tokens, API keys, auth headers, or secret material may enter repo, chat, prompts, review packs, or logs.
+
+AdsPower browser/profile/session/login issues mean HOLD.
+
+Claude Web or external review is required for high-risk triggers already defined in governance docs.
+
+## 7. AdsPower Browser Automation Boundary
+
+AdsPower browser launch, profile control, and browser automation are not authorized by this stage.
+
+AdsPower Local API was reachable in local probing, but it requires API-key authentication. The API key is secret material. Do not paste it into chat, commit it to repo, add it to prompts, print it in logs, or ask the AI to read/display it. A later governed verification route must use a human-controlled non-secret provisioning path, such as a local environment variable or Windows Credential Manager reference, before any AdsPower automation test.
+
+Do not:
+
+- launch browsers or AdsPower profiles
+- log into Claude Web
+- inspect cookies, sessions, credentials, tokens, auth headers, AdsPower profiles, or browser profile state
+- print, store, or echo AdsPower API keys
+- claim Claude Web automation is verified
+
+AdsPower/browser capability may be documented as candidate-only until a later governed safe verification route exists.
+
+## 8. Closeout Gate Behavior
+
+Fast/full gate and release packaging may run only when the current stage prompt or later closeout instruction explicitly authorizes them.
+
+This stage does not run full gate and does not create release artifacts.
+
+If a gate is authorized later:
+
+- run the exact governed command
+- stop on failure unless the fix is Green/Yellow, scoped, and authorized
+- do not fabricate PASS, release sha, verification metadata, or review status
+
+## 9. Day-1 Commit/Push Rule
+
+During day 1, staging, commit, and push require explicit human confirmation.
+
+Automation may prepare:
+
+- changed-file list
+- diff summary
+- review prompt
+- gate plan
+- staging proposal
+
+Automation may not stage, commit, or push until explicit human confirmation is given.
+
+## 10. Network Slow Retry
+
+If network access, remote review, GitHub, Claude Web, external reviewer, or remote status check is slow or unresponsive for more than 5 minutes:
+
+- retry idempotent/read-only requests once
+- check prior status before retrying non-idempotent actions
+- do not resend approval, push, deploy, launch, upload, or external access actions unless prior status is known safe
+- if ambiguity remains, update HOLD context and stop
+
+Network slowness never permits bypassing review, gate, delegated approval, external review, or HOLD conditions.
+
+## 11. HOLD And Escalation
+
+HOLD if:
+
+- tool command is unavailable
+- command returns non-zero or ambiguous output
+- AdsPower/browser/session/login state is unknown
+- credential prompt appears
+- external access is requested
+- real data is requested
+- lane is ambiguous
+- required approval is missing or expired
+- unexpected file scope appears
+- review requires prohibited work
+
+Escalate to human or jarvis only within policy limits. Red-3 remains outside normal delegation.
+
+## 12. Per-Run Inbox Output Format
+
+Each run should report:
+
+```text
+AUTONOMOUS_RUN_REPORT
+Baseline:
+Selected task:
+Lane:
+Files proposed/touched:
+Tools used:
+Checks run:
+Review status:
+Gate status:
+HOLDs encountered:
+Next requested human/jarvis action:
+```
+
+## 13. Tool Result Conflicts
+
+If tool results conflict:
+
+- prefer repo-governed docs, manifest, and current git state over chat memory
+- do not merge conflicting claims
+- document the conflict
+- HOLD until a governed source resolves it
+
+## 14. Human Or Jarvis Approval Needed
+
+When approval is needed, produce a concise request containing:
+
+- stage/ticket
+- lane
+- exact action
+- allowed files/systems
+- external access yes/no
+- real data yes/no
+- evidence retention yes/no
+- redaction reference
+- rollback/HOLD criteria
+- expiration
+- required review
+
+Do not proceed on incomplete, ambiguous, or expired approval.

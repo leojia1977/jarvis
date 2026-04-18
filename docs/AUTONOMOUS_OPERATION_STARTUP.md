@@ -18,6 +18,19 @@
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
+## 1.1 Toolchain Integration Update
+
+The next governed stage is `S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001` / `s5-autonomous-toolchain-integration`.
+
+That stage upgrades the operating-loop design from Codex-only autonomous operation to a governed four-tool collaboration pipeline:
+
+- Codex autonomous operation loop
+- VS Code local workspace
+- Claude Code review path through the user-configured `cc switch` API tool
+- Claude Web external review path running in the user's AdsPower browser/profile
+
+Toolchain integration is definition and verification planning only. It does not execute the full toolchain, verify browser automation, log into Claude Web, handle credentials, or authorize launch/deploy/pilot/Red-3 work.
+
 ## 2. Startup Objective
 
 The objective is to allow safe autonomous progress on governed, non-launch work while the human is unavailable.

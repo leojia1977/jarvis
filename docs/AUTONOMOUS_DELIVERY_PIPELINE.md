@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Docs-only autonomous operation startup draft for autonomous delivery pipeline |
-| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
-| Stage | s5-autonomous-operation-startup |
-| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
+| Status | Docs-only autonomous toolchain integration draft for autonomous delivery pipeline |
+| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
+| Stage | s5-autonomous-toolchain-integration |
+| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -47,6 +47,20 @@ Work selection priority is:
 
 During day 1, automation may draft Green/Yellow docs-only stages and prepare closeout gate material where authorized, but staging, commit, and push require explicit human confirmation.
 
+## 1.3 Toolchain Routing
+
+The governed multi-tool pipeline is:
+
+1. Codex automation starts the run.
+2. Codex reads the charter, verifies `delegation_expires`, and loads core governance docs.
+3. Codex selects one item and classifies the lane.
+4. VS Code remains the local workspace surface for allowed edits.
+5. Claude Code access is through the user-configured `cc switch` API tool; it is review-only until non-interactive review command/API behavior is verified.
+6. Claude Web runs in the user's AdsPower browser/profile and remains a manual external review path until a governed AdsPower browser automation route is verified.
+7. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
+
+If the `cc switch` Claude Code path, AdsPower browser/profile, or Claude Web path is unavailable, ambiguous, or requires credentials/session access, the action is HOLD.
+
 ## 2. Pipeline Stages
 
 | Stage | Required input | Output |
@@ -67,6 +81,9 @@ During day 1, automation may draft Green/Yellow docs-only stages and prepare clo
 - Claude Code review-only is required for governed drafts and implementations unless a stage explicitly says otherwise.
 - Claude Web or a designated external reviewer is required when high-risk triggers apply.
 - Review does not replace human or delegated GO where GO is required.
+- Claude Code review automation through `cc switch` is not claimed until command/API format and non-interactive behavior are verified.
+- If the `cc switch` Claude Code path is not verified, generate a review prompt and HOLD for human/tool execution.
+- If Claude Web is required and AdsPower browser automation is not verified, generate a Claude Web prompt and HOLD for manual transfer.
 
 ## 4. Gate Commands
 
