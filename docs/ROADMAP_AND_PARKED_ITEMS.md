@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
-| Stage | s5-autonomous-policy-final-activation |
-| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
+| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
+| Stage | s5-autonomous-operation-startup |
+| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a passi
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only this docs-only autonomous policy final activation route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only this docs-only autonomous operation startup route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -61,6 +61,8 @@ Green/Yellow/Conditional Red authorization can accelerate future stages only wit
 - no HOLD remains
 
 The final activation path records `FINAL_HUMAN_GO`, closes AHQ-018 as `CLOSED_BY_FINAL_HUMAN_GO`, and adds an `AUTONOMOUS_PERIOD_START` marker. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.
+
+The autonomous operation startup path adds a default 2-hour operating cadence for safe Green/Yellow docs-only drafting and closeout-gate preparation. During day 1, staging, commit, and push still require explicit human confirmation. Startup does not close AHQ-003 through AHQ-014, does not remove AHQ-017 ambiguity handling, and does not authorize Red execution beyond exact per-action policy requirements.
 
 The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 

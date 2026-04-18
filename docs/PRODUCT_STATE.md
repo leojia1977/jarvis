@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
-| Stage | s5-autonomous-policy-final-activation |
-| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
+| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
+| Stage | s5-autonomous-operation-startup |
+| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,14 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `5981e478f0d47b4d2476556689d31c0429b7b88e`
-- Snapshot: `S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001`
-- Stage: `s5-autonomous-policy-external-review-approver-confirmation`
+- Commit: `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8`
+- Snapshot: `S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001`
+- Stage: `s5-autonomous-policy-final-activation`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001.zip`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001.zip`
+- Release sha256: `f7c7f26018b74f4426add0fcf567936e175ab3b9fc8d102cbd921a6bbcb45c7e`
 
-The current baseline closes the autonomous policy external review and approver confirmation stage. It records external governance/security review `PASS_WITH_CONDITIONS`, incorporates the MEDIUM-1 startup guardrail, confirms jarvis as an accountable human technical lead, and advances the policy only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO` before this final activation stage.
+The current baseline closes the autonomous policy final activation stage. It records human product/governance `FINAL_HUMAN_GO`, advances policy state to `ACTIVE` only during the authorization window, closes AHQ-018, and preserves all remaining launch, deployment, external pilot, credential, real-data, public endpoint, parked-stream, ORDIV, and Red-3 boundaries.
 
 ## 3. Sprint 5 State Summary
 
@@ -146,3 +147,22 @@ Current non-authorization:
 - Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it.
 - Launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, legal/commercial commitments, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes without separate human-level governed approval, S4-A resolver order changes, and AI_COLLAB changes remain unauthorized.
 - The L3 deadline remains a planning target only and is not readiness or launch authorization.
+
+## 11. Autonomous Operation Startup
+
+This stage starts the autonomous operating loop as a docs-only governance operation.
+
+Startup posture:
+
+- Default cadence is every 2 hours.
+- The loop selects one next allowed item per run unless a later stage prompt explicitly allows a different batch.
+- Green/Yellow docs-only stages may be drafted and closeout-gated when lane and authorization are clear.
+- During day 1, staging, commit, and push still require explicit human confirmation.
+- Each run must read `docs\DELEGATED_APPROVER_CHARTER.md`, verify `delegation_expires`, load the eight core governance docs, confirm manifest baseline and git cleanliness, select one allowed item, classify the lane, and proceed only when authorization is clear.
+
+Startup non-authorization:
+
+- This stage does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, S4-A resolver order changes, or AI_COLLAB changes.
+- AHQ-003 through AHQ-014 remain HOLD.
+- AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
+- AHQ-019 records day-1 staging/commit/push as requiring explicit human confirmation.

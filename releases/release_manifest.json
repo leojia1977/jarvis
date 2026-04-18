@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001",
+    "id": "S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001",
     "sprint": "Sprint 5",
-    "stage": "s5-autonomous-policy-final-activation",
+    "stage": "s5-autonomous-operation-startup",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-18T08:45:43.392228+08:00"
+    "updated_at": "2026-04-18T09:11:52.609786+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001.zip",
-    "current_release_sha256": "f7c7f26018b74f4426add0fcf567936e175ab3b9fc8d102cbd921a6bbcb45c7e"
+    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001.zip",
+    "current_release_sha256": "441589fd552622105584b06db566e8fca9bb5f1141b77e0cdffe2bf8b3859c66"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "fe46fc93722bc1ad4f89da5d6bdaef8c87c9d15c61edaf2b3ecf192e40081191"
+      "sha256": "68d82c7d7f02b6731d58d7233774b69673b777546ed570aba750f4ba989c7947"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "2764fb72fb5738fc358df8a1393486b752a383547c58df6d75c2ff9ce43ffee3"
+      "sha256": "941008b3dda4b3813bf4f5b19bdf4b3584fe40639449403253d8cbd1c29902fd"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "9d8bb4a0c9f20462d03292f93a7ff5d184a6b26e6038cd6eb273dd9ce3a8d184"
+      "sha256": "5aacffa8c598308d208edf4cda22b521d1ff109924a4e1e406edaefd3414ec46"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "610f3f0e9501f21df6c667738cc36310728aad46a42bfa94daded4b8f61fb072"
+      "sha256": "938c6a8a560d6c6340edd20f352de1744bfcbf5a35b1d24ab80dcd4af6def34c"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -820,7 +820,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "c36e2ce13d2bc28ecd9a5e145719adb8264967dbe09c168ef03c5dfaf48e7882"
+      "sha256": "a0ecdc7be846e2d6a8d8c471377682e47d42b3585707b23acf93cb07fec40734"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -830,7 +830,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "561a6e260aee272903acc0210d352bad01ae71ae096dd33c2209df89cf49fa07"
+      "sha256": "5807e40f5f838aad4afd30bc892b3102f7a07c90d823491d969ba457fba25866"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -841,6 +841,11 @@
       "path": "docs\\AUTONOMOUS_POLICY_FINAL_ACTIVATION.md",
       "role": "autonomous-policy-final-activation",
       "sha256": "44bbcd50554b7aa45eab9a3d0740f8dc15d5ec0973ec2a42251e5ed30451f5c0"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_OPERATION_STARTUP.md",
+      "role": "autonomous-operation-startup",
+      "sha256": "d9e8ba78751d0f5c0650dcc402b601339fcf5a933ef1b7d7b7f1436ba69aff89"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -1025,13 +1030,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001",
+      "Snapshot ID: S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-18T08:45:44.490860+08:00",
+    "last_verified_at": "2026-04-18T09:11:53.470626+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Docs-only final activation draft for autonomous delivery pipeline |
-| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
-| Stage | s5-autonomous-policy-final-activation |
-| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
+| Status | Docs-only autonomous operation startup draft for autonomous delivery pipeline |
+| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
+| Stage | s5-autonomous-operation-startup |
+| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -30,6 +30,22 @@ At the start of every autonomous session, Codex must re-read `docs\DELEGATED_APP
 Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
+
+## 1.2 Autonomous Operation Cadence
+
+Default autonomous operation cadence is every 2 hours.
+
+Each run should select one next allowed item, classify the lane, and report baseline read, selected task, files proposed or touched, checks run, HOLDs encountered, and any requested human or jarvis action.
+
+Work selection priority is:
+
+1. Green docs-only route judgment and planning artifacts.
+2. Yellow docs-only or test-plan-only tasks when exact scope exists.
+3. Red-1/Red-2 preparation packages only as drafts or `DELEGATED_APPROVER_GO` requests.
+4. L3 critical path blocker reduction by drafting templates, checklists, or question sets.
+5. HOLD queue maintenance.
+
+During day 1, automation may draft Green/Yellow docs-only stages and prepare closeout gate material where authorized, but staging, commit, and push require explicit human confirmation.
 
 ## 2. Pipeline Stages
 
