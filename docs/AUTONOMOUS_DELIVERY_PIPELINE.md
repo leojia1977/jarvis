@@ -5,12 +5,29 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Docs-only activation-prep draft for autonomous delivery pipeline |
-| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
-| Stage | s5-autonomous-policy-activation-prep |
-| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
+| Status | Docs-only external review and approver confirmation draft for autonomous delivery pipeline |
+| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
+| Stage | s5-autonomous-policy-external-review-approver-confirmation |
+| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
+
+## 1.1 Autonomous Session Startup Requirements
+
+Before autonomous action, the activation prompt must require loading the core governance docs:
+
+- `docs\AUTONOMOUS_AUTHORIZATION_POLICY.md`
+- `docs\DELEGATED_APPROVER_CHARTER.md`
+- `docs\AUTONOMOUS_DELIVERY_PIPELINE.md`
+- `docs\AUTONOMOUS_HOLD_QUEUE.md`
+- `docs\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md`
+- `docs\PRODUCT_STATE.md`
+- `docs\ROADMAP_AND_PARKED_ITEMS.md`
+- `docs\GOVERNANCE_DECISION_LOG.md`
+
+At the start of every autonomous session, Codex must re-read `docs\DELEGATED_APPROVER_CHARTER.md` and verify that `delegation_expires` has not passed. If the charter cannot be read, the timestamp is missing, or the authorization window has expired, all Red authority is HOLD and AI must not proceed with any Red-lane action.
+
+Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 ## 2. Pipeline Stages
 
@@ -66,6 +83,8 @@ After closeout, update rolling maps when the governed state changes:
 - `docs\ROADMAP_AND_PARKED_ITEMS.md`
 
 These maps summarize truth and do not authorize implementation.
+
+`docs\PRODUCT_STATE.md` and `docs\ROADMAP_AND_PARKED_ITEMS.md` are passive governed context. They are not active authorization.
 
 ## 7. Commit Message Conventions
 

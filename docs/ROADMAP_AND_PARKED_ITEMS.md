@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
-| Stage | s5-autonomous-policy-activation-prep |
-| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
+| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
+| Stage | s5-autonomous-policy-external-review-approver-confirmation |
+| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
 
-This file summarizes parked, deferred, and possible future routes. It is a planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
+This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only this docs-only autonomous policy activation-prep route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only this docs-only autonomous policy external review and approver confirmation route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -47,18 +47,22 @@ Possible future routes require separate human product/governance decision:
 
 The autonomous L3 launch acceleration path is a candidate governed path for controlled customer-trial launch / private launch candidate preparation.
 
-Green/Yellow/Conditional Red authorization can accelerate future stages only after policy activation:
+Green/Yellow/Conditional Red authorization can accelerate future stages only after final human activation GO:
 
-- proposed delegated approver `jarvis, technical lead` is confirmed as an accountable human approver
+- delegated approver `jarvis, technical lead` is confirmed as an accountable human approver
 - authorization window is active: 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai
+- policy state advances from `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO` to ACTIVE through a separate final human GO
+- every autonomous session starts by reading `docs\DELEGATED_APPROVER_CHARTER.md` and verifying `delegation_expires`
 - lane and allowed actions are explicit
-- required external review has passed where activation requires it
+- required external review conditions are incorporated
 - `DELEGATED_APPROVER_GO` is complete where Red approval is required
 - required review is satisfied
 - full gate and release rules are followed where applicable
 - no HOLD remains
 
-The activation-prep path documents SLA targets, allowed Red-1 approvals, Red-2 preparation limits, Red-3 prohibitions, target L3 deadline, and the network slow retry rule. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, or ORDIV report/CSV/L1B work.
+The external review and approver confirmation path records `PASS_WITH_CONDITIONS`, incorporates the MEDIUM-1 session-start guardrail, confirms jarvis accountable-human status, and advances policy state only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, or ORDIV report/CSV/L1B work.
+
+The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 
 Parked items remain parked until explicit governed reopen/approval:
 

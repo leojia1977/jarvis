@@ -5,22 +5,25 @@
 | Field | Value |
 | --- | --- |
 | Title | Delegated Approver Charter |
-| Status | Docs-only activation-prep draft; authority conditional pending required review |
-| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
-| Stage | s5-autonomous-policy-activation-prep |
-| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
+| Status | Docs-only external review and approver confirmation draft; authority ready pending final human GO |
+| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
+| Stage | s5-autonomous-policy-external-review-approver-confirmation |
+| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
 | Delegated approver | jarvis, technical lead |
 | Authorization window | 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai |
+| delegation_expires | 2026-05-06 23:59 Asia/Shanghai |
 
-This charter defines the purpose and limits of delegated approver authority during human absence. It is activation-prep only until required review is complete and approver accountability is confirmed.
+This charter defines the purpose and limits of delegated approver authority during human absence. External governance/security review returned `PASS_WITH_CONDITIONS`, and human product/governance confirmed jarvis is an accountable human technical lead. Authority is still not ACTIVE until separate final human GO.
 
-If `jarvis` is an accountable human technical lead, `jarvis` may serve as delegated approver during the authorization window. If `jarvis` is an AI/system alias rather than an accountable human approver, Red-lane approval authority remains `NOT_ACTIVE` / `HOLD`. AI may not approve its own Red-lane authority.
+Human confirms `jarvis` is an accountable human technical lead, not an AI agent, system alias, automation account, or non-human approval proxy. Jarvis may serve as delegated approver during the authorization window only after final human activation GO. AI may not approve its own Red-lane authority.
 
 ## 2. Purpose
 
 The delegated approver exists to unblock safe autonomous progress while preserving human-governed product authority. The delegated approver may approve bounded Red-lane actions only where this charter and `docs\AUTONOMOUS_AUTHORIZATION_POLICY.md` allow it.
 
 Delegated approver authority applies only during the authorization window and only for actions with complete approval records.
+
+Every autonomous session must start by reading this charter and verifying `delegation_expires` has not passed. If this charter cannot be read, `delegation_expires` is missing, or the authorization window has expired, all Red authority is HOLD and AI must not proceed with any Red-lane action.
 
 ## 3. May Approve
 
@@ -102,3 +105,4 @@ Escalate to the human or designated external reviewer if:
 - Revocation immediately returns the action to HOLD.
 - Approval for one action does not authorize adjacent actions.
 - Authority ends at 2026-05-06 23:59 Asia/Shanghai unless separately governed.
+- If `delegation_expires` has passed or cannot be verified, all Red authority is HOLD.

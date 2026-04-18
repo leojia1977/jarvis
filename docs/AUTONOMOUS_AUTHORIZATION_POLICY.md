@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Authorization Policy |
-| Status | Docs-only activation-prep draft; activation conditional pending required review |
-| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
-| Stage | s5-autonomous-policy-activation-prep |
-| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
+| Status | Docs-only external review and approver confirmation draft; activation ready pending final human GO |
+| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
+| Stage | s5-autonomous-policy-external-review-approver-confirmation |
+| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
 
 This policy defines standing authorization lanes for safe autonomous work while the human is unavailable. This stage prepares activation details and safety rules only. It does not execute Red work, launch, deploy, access external systems, handle credentials, or process real data.
 
@@ -16,18 +16,29 @@ This policy defines standing authorization lanes for safe autonomous work while 
 
 | Field | Value |
 | --- | --- |
-| Authorization status | ACTIVATION_PENDING_EXTERNAL_REVIEW_AND_APPROVER_IDENTITY_CONFIRMATION |
+| Authorization status | ACTIVATION_READY_PENDING_FINAL_HUMAN_GO |
 | Delegated approver | jarvis, technical lead |
 | Authorization window | 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai |
+| delegation_expires | 2026-05-06 23:59 Asia/Shanghai |
 | Target L3 customer trial launch deadline | No later than 2026-05-06 23:59 Asia/Shanghai |
 | Maximum autonomous lane | Green + Yellow + Red-1 with delegated approver GO + selected Red-2 preparation |
 | Approval expiration | Default 72 hours unless `DELEGATED_APPROVER_GO` specifies a shorter expiration |
 
-Activation remains conditional until required review is complete. Because this policy defines Red-lane authority and customer-trial acceleration rules, activation status remains `ACTIVATION_PENDING_EXTERNAL_REVIEW_AND_APPROVER_IDENTITY_CONFIRMATION` until the required external review path records PASS and approver accountability is confirmed.
+External governance/security review returned `PASS_WITH_CONDITIONS`, and human product/governance confirmed jarvis is an accountable human technical lead for the authorization window. This advances the policy only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`.
 
-If `jarvis` is an accountable human technical lead, `jarvis` may be recorded as delegated approver for the authorization window. If `jarvis` is an AI/system alias rather than an accountable human approver, Red-lane approval authority remains `NOT_ACTIVE` / `HOLD`. AI may not approve its own Red-lane authority.
+The policy is not `ACTIVE`. A separate final human activation GO is required before Red-lane delegated approval authority may be used.
 
-If the team chooses not to activate after review, this policy should be marked `PREPARED_NOT_ACTIVE`.
+Human confirms `jarvis` is an accountable human technical lead, not an AI agent, system alias, automation account, or non-human approval proxy. Jarvis may approve only explicitly allowed Red-1 and selected Red-2 actions, subject to required review, expiration, HOLD conditions, and `DELEGATED_APPROVER_GO` format. Jarvis may not approve Red-3 actions or any prohibited action.
+
+## 2.1 Autonomous Session Startup Guardrail
+
+At the start of every autonomous session, Codex must re-read `docs\DELEGATED_APPROVER_CHARTER.md` and verify that `delegation_expires` has not passed. If the charter cannot be read or the timestamp has passed, all Red authority reverts to HOLD and the AI must not proceed with any Red-lane action.
+
+If the charter cannot be read, `delegation_expires` is missing, or the authorization window has expired, all Red authority is HOLD.
+
+The final human activation GO prompt must include the MEDIUM-1 condition verbatim and must require loading the core governance docs before autonomous action.
+
+Lane ambiguity defaults to the higher-restriction lane. If the lane remains unclear after applying the higher-restriction default, the action is HOLD.
 
 ## 3. Green Lane
 

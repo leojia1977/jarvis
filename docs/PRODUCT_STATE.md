@@ -6,24 +6,26 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001 |
-| Stage | s5-autonomous-policy-activation-prep |
-| Baseline commit | `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5` |
+| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
+| Stage | s5-autonomous-policy-external-review-approver-confirmation |
+| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
+
+This rolling product-state map is passive governed context, not active authorization.
 
 Section 1 identifies the stage that produced this rolling-map version; Section 2 identifies the governed PASS baseline this stage starts from until closeout verification updates the manifest.
 
 ## 2. Current Governed Baseline
 
-- Commit: `d3f2945870e2e2cb8d0d7e313b67d396c8bf94c5`
-- Snapshot: `S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001`
-- Stage: `s5-autonomous-vacation-operating-model`
+- Commit: `3bfa35e5db3d1b99fa44ae6926238781862647ec`
+- Snapshot: `S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001`
+- Stage: `s5-autonomous-policy-activation-prep`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001.zip`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001.zip`
 
-The current baseline closes the autonomous vacation operating model stage. It defines the autonomous/L3 acceleration framework, but delegated approval remains inactive until governed activation conditions are satisfied.
+The current baseline closes the autonomous policy activation-prep stage. It defines the delegated approver/window/SLA/Red-lane preparation guardrails, but the policy remains inactive until later governed activation conditions are satisfied.
 
 ## 3. Sprint 5 State Summary
 
@@ -99,3 +101,26 @@ Activation posture:
 - If `jarvis` is an accountable human technical lead, `jarvis` may serve as delegated approver during the authorization window.
 - If `jarvis` is an AI/system alias rather than an accountable human approver, Red-lane approval authority remains `NOT_ACTIVE` / `HOLD`.
 - This stage does not authorize implementation, launch execution, external pilot execution, production deployment, real data, credentials, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, S4-A resolver changes, or AI_COLLAB changes.
+
+## 9. External Review And Approver Confirmation
+
+This stage records external governance/security review and jarvis accountable-human confirmation.
+
+Current policy state:
+
+- External governance/security review verdict: `PASS_WITH_CONDITIONS`.
+- MEDIUM-1 condition is incorporated as a mandatory autonomous session startup guardrail.
+- Human confirms `jarvis, technical lead` is an accountable human approver for the authorization window and is not an AI agent, system alias, automation account, or non-human approval proxy.
+- Policy may advance only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`.
+- Policy is not `ACTIVE`; a separate final human activation GO remains required.
+
+Session startup guardrail:
+
+- Every autonomous session must start by reading `docs\DELEGATED_APPROVER_CHARTER.md`.
+- Codex must verify `delegation_expires` / authorization window has not expired.
+- If the charter cannot be read, the timestamp is missing, or the authorization window has expired, all Red authority is HOLD.
+- Lane ambiguity defaults to the higher-restriction lane; if still unclear, HOLD.
+
+L3 target:
+
+The L3 deadline of no later than `2026-05-06 23:59 Asia/Shanghai` is a planning target only. It is not readiness, launch authorization, external pilot authorization, customer sign-off, or production deployment authorization.
