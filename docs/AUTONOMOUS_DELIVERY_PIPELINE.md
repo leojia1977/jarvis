@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Docs-only external review and approver confirmation draft for autonomous delivery pipeline |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Status | Docs-only final activation draft for autonomous delivery pipeline |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -28,6 +28,8 @@ Before autonomous action, the activation prompt must require loading the core go
 At the start of every autonomous session, Codex must re-read `docs\DELEGATED_APPROVER_CHARTER.md` and verify that `delegation_expires` has not passed. If the charter cannot be read, the timestamp is missing, or the authorization window has expired, all Red authority is HOLD and AI must not proceed with any Red-lane action.
 
 Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
+
+The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
 ## 2. Pipeline Stages
 

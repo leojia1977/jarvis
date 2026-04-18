@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,14 +18,14 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `3bfa35e5db3d1b99fa44ae6926238781862647ec`
-- Snapshot: `S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001`
-- Stage: `s5-autonomous-policy-activation-prep`
+- Commit: `5981e478f0d47b4d2476556689d31c0429b7b88e`
+- Snapshot: `S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001`
+- Stage: `s5-autonomous-policy-external-review-approver-confirmation`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001.zip`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001.zip`
 
-The current baseline closes the autonomous policy activation-prep stage. It defines the delegated approver/window/SLA/Red-lane preparation guardrails, but the policy remains inactive until later governed activation conditions are satisfied.
+The current baseline closes the autonomous policy external review and approver confirmation stage. It records external governance/security review `PASS_WITH_CONDITIONS`, incorporates the MEDIUM-1 startup guardrail, confirms jarvis as an accountable human technical lead, and advances the policy only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO` before this final activation stage.
 
 ## 3. Sprint 5 State Summary
 
@@ -106,7 +106,7 @@ Activation posture:
 
 This stage records external governance/security review and jarvis accountable-human confirmation.
 
-Current policy state:
+Policy state at that baseline:
 
 - External governance/security review verdict: `PASS_WITH_CONDITIONS`.
 - MEDIUM-1 condition is incorporated as a mandatory autonomous session startup guardrail.
@@ -124,3 +124,25 @@ Session startup guardrail:
 L3 target:
 
 The L3 deadline of no later than `2026-05-06 23:59 Asia/Shanghai` is a planning target only. It is not readiness, launch authorization, external pilot authorization, customer sign-off, or production deployment authorization.
+
+## 10. Autonomous Policy Final Activation
+
+This stage records final human activation of the autonomous authorization policy.
+
+Current policy state:
+
+- Human product/governance supplied `FINAL_HUMAN_GO`.
+- Policy status is `ACTIVE` only during the authorization window: `2026-04-18 00:00 Asia/Shanghai` to `2026-05-06 23:59 Asia/Shanghai`.
+- `delegation_expires` is `2026-05-06 23:59 Asia/Shanghai`.
+- Every autonomous session must load the core governance docs, re-read `docs\DELEGATED_APPROVER_CHARTER.md`, and verify `delegation_expires` has not passed before any autonomous action.
+- AHQ-018 is `CLOSED_BY_FINAL_HUMAN_GO`.
+- AHQ-003 through AHQ-014 remain HOLD unless later governed otherwise.
+- AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
+- Red-3 remains never AI-self-authorized and is not delegable by normal Red-1/Red-2 approval.
+
+Current non-authorization:
+
+- `ACTIVE` does not create blanket Red execution.
+- Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it.
+- Launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, legal/commercial commitments, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes without separate human-level governed approval, S4-A resolver order changes, and AI_COLLAB changes remain unauthorized.
+- The L3 deadline remains a planning target only and is not readiness or launch authorization.

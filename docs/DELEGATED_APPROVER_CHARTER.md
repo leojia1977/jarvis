@@ -5,17 +5,17 @@
 | Field | Value |
 | --- | --- |
 | Title | Delegated Approver Charter |
-| Status | Docs-only external review and approver confirmation draft; authority ready pending final human GO |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Status | Docs-only final activation draft; delegated authority ACTIVE during authorization window |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 | Delegated approver | jarvis, technical lead |
 | Authorization window | 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai |
 | delegation_expires | 2026-05-06 23:59 Asia/Shanghai |
 
-This charter defines the purpose and limits of delegated approver authority during human absence. External governance/security review returned `PASS_WITH_CONDITIONS`, and human product/governance confirmed jarvis is an accountable human technical lead. Authority is still not ACTIVE until separate final human GO.
+This charter defines the purpose and limits of delegated approver authority during human absence. External governance/security review returned `PASS_WITH_CONDITIONS`, human product/governance confirmed jarvis is an accountable human technical lead, and human product/governance supplied `FINAL_HUMAN_GO`. Authority is `ACTIVE` only during the authorization window and only within this charter and `docs\AUTONOMOUS_AUTHORIZATION_POLICY.md`.
 
-Human confirms `jarvis` is an accountable human technical lead, not an AI agent, system alias, automation account, or non-human approval proxy. Jarvis may serve as delegated approver during the authorization window only after final human activation GO. AI may not approve its own Red-lane authority.
+Human confirms `jarvis` is an accountable human technical lead, not an AI agent, system alias, automation account, or non-human approval proxy. Jarvis may serve as delegated approver during the authorization window only within policy limits. AI may not approve its own Red-lane authority.
 
 ## 2. Purpose
 
@@ -24,6 +24,8 @@ The delegated approver exists to unblock safe autonomous progress while preservi
 Delegated approver authority applies only during the authorization window and only for actions with complete approval records.
 
 Every autonomous session must start by reading this charter and verifying `delegation_expires` has not passed. If this charter cannot be read, `delegation_expires` is missing, or the authorization window has expired, all Red authority is HOLD and AI must not proceed with any Red-lane action.
+
+`ACTIVE` does not create blanket Red execution. Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any missing field, expired approval, lane ambiguity, or unresolved HOLD blocks the action.
 
 ## 3. May Approve
 
@@ -34,6 +36,8 @@ The delegated approver may approve:
 - L3 launch readiness package review
 - bounded customer-trial prep artifacts that do not execute launch
 - review escalation paths when evidence is complete
+
+Jarvis may not approve Red-3. Red-3 remains never AI-self-authorized and is not delegable by normal Red-1/Red-2 approval.
 
 ## 4. May Not Approve Without Human Pre-Authorization
 

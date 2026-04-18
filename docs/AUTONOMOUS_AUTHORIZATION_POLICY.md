@@ -5,18 +5,19 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Authorization Policy |
-| Status | Docs-only external review and approver confirmation draft; activation ready pending final human GO |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Status | Docs-only final activation draft; policy ACTIVE during authorization window |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 
-This policy defines standing authorization lanes for safe autonomous work while the human is unavailable. This stage prepares activation details and safety rules only. It does not execute Red work, launch, deploy, access external systems, handle credentials, or process real data.
+This policy defines standing authorization lanes for safe autonomous work while the human is unavailable. This stage records final human activation of the policy during the authorization window only. It does not execute Red work, launch, deploy, access external systems, handle credentials, or process real data.
 
 ## 2. Activation State
 
 | Field | Value |
 | --- | --- |
-| Authorization status | ACTIVATION_READY_PENDING_FINAL_HUMAN_GO |
+| Authorization status | ACTIVE |
+| Activation source | Human product/governance `FINAL_HUMAN_GO` |
 | Delegated approver | jarvis, technical lead |
 | Authorization window | 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai |
 | delegation_expires | 2026-05-06 23:59 Asia/Shanghai |
@@ -24,9 +25,9 @@ This policy defines standing authorization lanes for safe autonomous work while 
 | Maximum autonomous lane | Green + Yellow + Red-1 with delegated approver GO + selected Red-2 preparation |
 | Approval expiration | Default 72 hours unless `DELEGATED_APPROVER_GO` specifies a shorter expiration |
 
-External governance/security review returned `PASS_WITH_CONDITIONS`, and human product/governance confirmed jarvis is an accountable human technical lead for the authorization window. This advances the policy only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`.
+External governance/security review returned `PASS_WITH_CONDITIONS`, human product/governance confirmed jarvis is an accountable human technical lead for the authorization window, and human product/governance supplied `FINAL_HUMAN_GO`. This advances the policy to `ACTIVE` only during the authorization window.
 
-The policy is not `ACTIVE`. A separate final human activation GO is required before Red-lane delegated approval authority may be used.
+`ACTIVE` does not create blanket Red execution. Red-1/Red-2 actions still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
 Human confirms `jarvis` is an accountable human technical lead, not an AI agent, system alias, automation account, or non-human approval proxy. Jarvis may approve only explicitly allowed Red-1 and selected Red-2 actions, subject to required review, expiration, HOLD conditions, and `DELEGATED_APPROVER_GO` format. Jarvis may not approve Red-3 actions or any prohibited action.
 
@@ -36,9 +37,11 @@ At the start of every autonomous session, Codex must re-read `docs\DELEGATED_APP
 
 If the charter cannot be read, `delegation_expires` is missing, or the authorization window has expired, all Red authority is HOLD.
 
-The final human activation GO prompt must include the MEDIUM-1 condition verbatim and must require loading the core governance docs before autonomous action.
+The final human activation GO prompt included the MEDIUM-1 condition verbatim and required loading the core governance docs before autonomous action.
 
 Lane ambiguity defaults to the higher-restriction lane. If the lane remains unclear after applying the higher-restriction default, the action is HOLD.
+
+Any missing `DELEGATED_APPROVER_GO` field means HOLD. Any expired approval means HOLD. Any unresolved HOLD blocks the action.
 
 ## 3. Green Lane
 
@@ -130,6 +133,8 @@ The following are never AI-self-authorized:
 - evidence retention activation for real customer data without human/security/privacy approval
 - external pilot execution without exact launch/execution GO
 
+Red-3 remains never AI-self-authorized and is not delegable by normal Red-1/Red-2 approval. Jarvis may not approve Red-3. Any Red-3 action requires separate explicit human-level governed approval, and some Red-3 actions may remain never authorized by this policy.
+
 ## 9. Required Approval Format
 
 Any delegated approval must use this format:
@@ -172,4 +177,4 @@ AI cannot self-assign lane authority or infer commit/push authority from Green l
 
 ## 11. Standing Prohibitions
 
-This policy does not authorize raw secret handling, external pilot execution, real customer launch execution, production deployment, public endpoint activation, evidence retention activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, S4-A resolver change, or AI_COLLAB change.
+This policy does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B reopen, S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, legal/commercial commitments, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes without separate human-level governed approval, S4-A resolver order changes, or AI_COLLAB changes.

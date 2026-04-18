@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Governance Decision Log |
 | Status | Rolling governed append-only decision log |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 
 This log is a compact index of governed decisions. Detailed authority remains in the source governed docs, manifest, review packs, release verification records, and committed closeout artifacts.
 
@@ -40,13 +40,14 @@ This log is a compact index of governed decisions. Detailed authority remains in
 | 2026-04-17 | `S5-AUTONOMOUS-VACATION-OPERATING-MODEL-2026-04-17-001` | `docs\AUTONOMOUS_VACATION_OPERATING_MODEL.md` | `OPEN_AUTONOMOUS_VACATION_OPERATING_MODEL_DOCS_ONLY_STAGE` | Opens docs-only autonomous authorization and L3 Customer Trial Launch acceleration framework. | Does not authorize implementation, external pilot execution, customer launch execution, real data, credentials, public endpoint activation, or AI_COLLAB change. |
 | 2026-04-17 | `S5-AUTONOMOUS-POLICY-ACTIVATION-PREP-2026-04-17-001` | `docs\AUTONOMOUS_AUTHORIZATION_POLICY.md` | `OPEN_AUTONOMOUS_POLICY_ACTIVATION_PREP_DOCS_ONLY_STAGE` | Records activation-prep details for delegated approver `jarvis, technical lead`, authorization window, approval SLA, allowed Red-1/Red-2 preparation boundaries, Red-3 prohibitions, L3 target deadline, and network slow retry rule. | Does not authorize launch, production deployment, real data, credentials, public endpoint activation, Red execution unless later approved, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, S4-A resolver change, or AI_COLLAB change. |
 | 2026-04-17 | `S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001` | `docs\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md` | `OPEN_AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION_DOCS_ONLY_STAGE` | Records external governance/security review `PASS_WITH_CONDITIONS`, incorporates MEDIUM-1 startup guardrail, confirms jarvis is an accountable human technical lead, closes AHQ-015/AHQ-016, and advances policy state only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`. | Does not mark policy ACTIVE, authorize launch, production deployment, external pilot execution, real data, credentials, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, Red-3 action, S4-A resolver change, or AI_COLLAB change. |
+| 2026-04-18 | `S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001` | `docs\AUTONOMOUS_POLICY_FINAL_ACTIVATION.md` | `OPEN_AUTONOMOUS_POLICY_FINAL_ACTIVATION_DOCS_ONLY_STAGE` | Records human product/governance `FINAL_HUMAN_GO`, advances policy state to `ACTIVE` only during the authorization window, records `delegation_expires`, closes AHQ-018, and adds the `AUTONOMOUS_PERIOD_START` marker. | Does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 action, legal/commercial commitment, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes without separate human-level governed approval, S4-A resolver order change, or AI_COLLAB change. |
 
 ## 4.1 Autonomous Period Markers
 
-During any later activated autonomous period, this log must record explicit marker entries:
+During an activated autonomous period, this log must record explicit marker entries:
 
-- `AUTONOMOUS_PERIOD_START`
-- `AUTONOMOUS_PERIOD_END`
+- `AUTONOMOUS_PERIOD_START`: 2026-04-18 08:21 Asia/Shanghai, governed by `docs\AUTONOMOUS_POLICY_FINAL_ACTIVATION.md`; active authorization window ends at 2026-05-06 23:59 Asia/Shanghai.
+- `AUTONOMOUS_PERIOD_END`: required when the policy is deactivated, expires, or is replaced by later governed authority.
 
 Marker entries define the autonomous period boundary only. They do not authorize Red-lane action, implementation, launch execution, or external-system access by themselves.
 

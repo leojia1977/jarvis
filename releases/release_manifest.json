@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001",
+    "id": "S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001",
     "sprint": "Sprint 5",
-    "stage": "s5-autonomous-policy-external-review-approver-confirmation",
+    "stage": "s5-autonomous-policy-final-activation",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-18T08:11:19.398587+08:00"
+    "updated_at": "2026-04-18T08:45:43.392228+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001.zip",
-    "current_release_sha256": "ee32e8a182f646e798f380adbe0273b983cb01777b7021aba202ecfd405eb426"
+    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001.zip",
+    "current_release_sha256": "f7c7f26018b74f4426add0fcf567936e175ab3b9fc8d102cbd921a6bbcb45c7e"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "c759b03d84a473162f3ce1c0cf44402bb9310fe465308338228a84d343b52ff7"
+      "sha256": "fe46fc93722bc1ad4f89da5d6bdaef8c87c9d15c61edaf2b3ecf192e40081191"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "573ebb71bb667a9a1cf76bf5e03e5d16d05a2ee5c68b83e647c38ecca343df6b"
+      "sha256": "2764fb72fb5738fc358df8a1393486b752a383547c58df6d75c2ff9ce43ffee3"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "a80f66c0ae7d9713d77f93db5b201b42fabe8000a180db82ffaabf76169e1f88"
+      "sha256": "9d8bb4a0c9f20462d03292f93a7ff5d184a6b26e6038cd6eb273dd9ce3a8d184"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "515f42e4d6e9e4428d34980ae475ced4da327cfa0162d29d0d04d833243a1142"
+      "sha256": "610f3f0e9501f21df6c667738cc36310728aad46a42bfa94daded4b8f61fb072"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -810,32 +810,37 @@
     {
       "path": "docs\\AUTONOMOUS_AUTHORIZATION_POLICY.md",
       "role": "autonomous-authorization-policy",
-      "sha256": "19a85239df5bb9fbb630cf6c1f16b5214a4680d1c8a449841d1fbf3deb053230"
+      "sha256": "62a773caa2cbc7b452db8b74e23882c8d2b1604da5895797f4dd15c427bbee90"
     },
     {
       "path": "docs\\DELEGATED_APPROVER_CHARTER.md",
       "role": "delegated-approver-charter",
-      "sha256": "02b2ef50e25c5485aeb6bbfcd4e0de9be935f6922f6d78a5fc17eae3cac59763"
+      "sha256": "0cf5ab5442b4ae6207a5da16725fa8a8ae2491800151909fa69b952e52427719"
     },
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "023fc1a7f51ac58609c30b378039a0cb6f865e472fc225938e489aa51a3f06e4"
+      "sha256": "c36e2ce13d2bc28ecd9a5e145719adb8264967dbe09c168ef03c5dfaf48e7882"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
       "role": "l3-customer-trial-launch-critical-path",
-      "sha256": "148c83a237e66493f39473ca0d9dafd73d15f59c15544f1332614d8628336b88"
+      "sha256": "a3a2276bb7edb8b9cdf57108f749ad11cd5738c1d00752642b4caa2cec155efe"
     },
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "17a89755360429a7e5ea1fdf891292b6a344455ec7ce524f733af455164f1668"
+      "sha256": "561a6e260aee272903acc0210d352bad01ae71ae096dd33c2209df89cf49fa07"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
       "role": "autonomous-policy-external-review-approver-confirmation",
       "sha256": "7539e2c89c358ce8438994ffd49c531be311e4b115d69589d2419cce3387146a"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_POLICY_FINAL_ACTIVATION.md",
+      "role": "autonomous-policy-final-activation",
+      "sha256": "44bbcd50554b7aa45eab9a3d0740f8dc15d5ec0973ec2a42251e5ed30451f5c0"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -1020,13 +1025,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001",
+      "Snapshot ID: S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-18T08:11:20.561658+08:00",
+    "last_verified_at": "2026-04-18T08:45:44.490860+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

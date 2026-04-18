@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | L3 Customer Trial Launch Critical Path |
-| Status | Docs-only external review and approver confirmation draft for L3 customer trial launch critical path |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Status | Docs-only final activation draft for L3 customer trial launch critical path |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 
 `L3 Customer Trial Launch` means a controlled customer-trial launch or private launch candidate. It is not unrestricted public GA and not multi-customer commercial GA unless separately governed.
 
@@ -20,7 +20,8 @@ This document defines what must become true before launch. It does not authorize
 - External pilot execution remains unauthorized by this stage.
 - L3 launch execution remains unauthorized by this stage.
 - Target L3 customer trial launch deadline is no later than 2026-05-06 23:59 Asia/Shanghai, but this target is a planning target only and does not mark launch readiness `READY` or authorize launch.
-- Autonomous policy state may advance only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`; a separate final human GO is required before ACTIVE status.
+- Autonomous policy state is `ACTIVE` only during the authorization window and only within the policy limits.
+- `ACTIVE` does not authorize L3 launch execution, external pilot execution, production deployment, credential handling, real-data handling, or Red-3 action.
 
 ## 3. Status Vocabulary
 
@@ -56,7 +57,8 @@ Allowed status values:
 | S5-D telemetry reopen trigger | `HOLD` | Explicit telemetry gap and reopen decision. | Human/governance. | Document trigger checklist. | S5-D reopens silently. | S5-D reopen decision. | Conditional Red |
 | ORDIV report/CSV/L1B trigger | `HOLD` | Separate governed route and required review. | Human/governance/external reviewer. | Document parked state. | Report, CSV, or L1B work begins. | ORDIV route decision. | Red-2 |
 | Security/privacy review | `MISSING` | Reviewer, scope, evidence handling, sign-off rules. | Security/privacy owner or delegated approver. | Draft review checklist. | Review bypassed. | Security/privacy review. | Conditional Red |
-| External review before activation | `PROVIDED` | External review returned `PASS_WITH_CONDITIONS`; final human GO still required before ACTIVE status. | Human/product governance. | Prepare final activation checklist. | Policy marked ACTIVE without final human GO or MEDIUM-1 guardrail. | External review and approver confirmation record. | Conditional Red |
+| External review before activation | `PROVIDED` | External review returned `PASS_WITH_CONDITIONS`; MEDIUM-1 guardrail is incorporated. | Human/product governance. | Cite external review record. | Policy marked ACTIVE without MEDIUM-1 guardrail or final human activation record. | External review and approver confirmation record. | Conditional Red |
+| Final human activation GO | `PROVIDED` | Human supplied `FINAL_HUMAN_GO` and required core governance doc loading / charter reread guardrails. | Human/product governance. | Cite final activation record and keep per-action HOLD rules. | ACTIVE treated as blanket Red execution or launch authorization. | Final activation record. | Conditional Red |
 | Network slow retry rule | `PROVIDED` | Apply 5-minute threshold, one retry for idempotent/read-only requests, status check before non-idempotent retry. | Operator by lane; delegated/human GO for Red non-idempotent actions. | Document retry status and update HOLD if ambiguous. | Duplicate approval, push, deploy, launch, upload, or access action risk. | HOLD queue / request log. | Green/Yellow/Conditional Red |
 | Release artifact / verification baseline | `PROVIDED` | Current governed release artifact and manifest PASS. | Repo release process. | Cite current baseline. | Claim refreshed baseline without full gate. | Manifest/release verification. | Green |
 | L3 launch decision package | `MISSING` | All above inputs resolved or explicitly accepted. | Human or delegated approver if policy permits. | Draft package skeleton. | Package claims readiness with missing inputs. | L3 launch package. | Red-2 |

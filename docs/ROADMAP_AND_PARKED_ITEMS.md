@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-POLICY-EXTERNAL-REVIEW-APPROVER-CONFIRMATION-2026-04-17-001 |
-| Stage | s5-autonomous-policy-external-review-approver-confirmation |
-| Baseline commit | `3bfa35e5db3d1b99fa44ae6926238781862647ec` |
+| Snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
+| Stage | s5-autonomous-policy-final-activation |
+| Baseline commit | `5981e478f0d47b4d2476556689d31c0429b7b88e` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a passi
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only this docs-only autonomous policy external review and approver confirmation route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only this docs-only autonomous policy final activation route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, or public endpoint route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -47,11 +47,11 @@ Possible future routes require separate human product/governance decision:
 
 The autonomous L3 launch acceleration path is a candidate governed path for controlled customer-trial launch / private launch candidate preparation.
 
-Green/Yellow/Conditional Red authorization can accelerate future stages only after final human activation GO:
+Green/Yellow/Conditional Red authorization can accelerate future stages only within the ACTIVE authorization window and under all policy limits:
 
 - delegated approver `jarvis, technical lead` is confirmed as an accountable human approver
 - authorization window is active: 2026-04-18 00:00 Asia/Shanghai to 2026-05-06 23:59 Asia/Shanghai
-- policy state advances from `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO` to ACTIVE through a separate final human GO
+- policy state is `ACTIVE` only during that window after human product/governance `FINAL_HUMAN_GO`
 - every autonomous session starts by reading `docs\DELEGATED_APPROVER_CHARTER.md` and verifying `delegation_expires`
 - lane and allowed actions are explicit
 - required external review conditions are incorporated
@@ -60,7 +60,7 @@ Green/Yellow/Conditional Red authorization can accelerate future stages only aft
 - full gate and release rules are followed where applicable
 - no HOLD remains
 
-The external review and approver confirmation path records `PASS_WITH_CONDITIONS`, incorporates the MEDIUM-1 session-start guardrail, confirms jarvis accountable-human status, and advances policy state only to `ACTIVATION_READY_PENDING_FINAL_HUMAN_GO`. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, or ORDIV report/CSV/L1B work.
+The final activation path records `FINAL_HUMAN_GO`, closes AHQ-018 as `CLOSED_BY_FINAL_HUMAN_GO`, and adds an `AUTONOMOUS_PERIOD_START` marker. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.
 
 The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 
