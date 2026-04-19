@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Operation Startup |
-| Status | Updated by AdsPower profile launch verification draft |
-| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
-| Stage | s5-adspower-profile-launch-verification |
-| Route | OPEN_ADSPOWER_PROFILE_LAUNCH_VERIFICATION_STAGE |
-| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
-| Baseline snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Baseline stage | s5-vscode-role-toolchain-orchestration |
+| Status | Updated by cc switch command-path provisioning draft |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
+| Route | OPEN_CC_SWITCH_COMMAND_PATH_PROVISIONING_STAGE |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Baseline snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Baseline stage | s5-adspower-profile-launch-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001.zip` |
-| Baseline release sha256 | `0410a0e2379d15d7b5a7bd534bf619a25c938a3b884a64df2efda4d572408355` |
+| Baseline release artifact | `releases\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac` |
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
@@ -90,6 +90,8 @@ Every autonomous operation run must begin with these checks:
    - `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`
    - `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`
    - `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`
+   - `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`
+   - `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`
 5. Confirm manifest baseline and git cleanliness.
 6. Identify one next allowed item.
 7. Classify the lane as Green, Yellow, Red-1, Red-2, Red-3, or HOLD.
@@ -191,3 +193,11 @@ This startup stage does not authorize:
 After `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, the autonomous ops loop may close Green docs-only stages without separate per-closeout human confirmation only under the standing Green docs-only closeout rule in `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`.
 
 This standing rule is narrow. It does not apply to Yellow implementation, code/test changes, dependency changes, fixture changes, runtime/API/schema changes, release-script changes, contract changes, Red work, browser profile creation/switching, Claude Web login, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.
+
+## 13. CC Switch Review-Only Path
+
+After `S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001` closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, the autonomous ops loop may use Claude Code review-only evidence only through `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
+
+The verified path is limited to stdin prompt transfer to `claude.cmd` with `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
+
+This path does not authorize Claude Code edits, file-read review beyond supplied prompt material unless separately governed, command execution, tests, staging, commit, push, Red execution, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or replacing required human/delegated/Claude Web/external review.

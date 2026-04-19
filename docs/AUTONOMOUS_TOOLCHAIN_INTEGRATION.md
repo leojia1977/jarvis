@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by AdsPower profile launch verification draft |
-| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
-| Stage | s5-adspower-profile-launch-verification |
-| Route | OPEN_ADSPOWER_PROFILE_LAUNCH_VERIFICATION_STAGE |
-| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
-| Baseline snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Baseline stage | s5-vscode-role-toolchain-orchestration |
+| Status | Updated by cc switch command-path provisioning draft |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
+| Route | OPEN_CC_SWITCH_COMMAND_PATH_PROVISIONING_STAGE |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Baseline snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Baseline stage | s5-adspower-profile-launch-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001.zip` |
-| Baseline release sha256 | `0410a0e2379d15d7b5a7bd534bf619a25c938a3b884a64df2efda4d572408355` |
+| Baseline release artifact | `releases\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac` |
 
 ## 2. Purpose
 
@@ -25,7 +25,7 @@ This stage defines the governed multi-tool autonomous closed loop for:
 - Claude Code review path through the user-configured `cc switch` API tool
 - Claude Web external review path running in the user's AdsPower browser/profile
 
-This stage does not execute the full toolchain. It defines capability boundaries, commands, review paths, failure modes, HOLD rules, and authorization lanes before any later autonomous toolchain execution claim.
+This document does not by itself authorize full toolchain execution. It defines capability boundaries, commands, review paths, failure modes, HOLD rules, and authorization lanes before any broader autonomous toolchain execution claim.
 
 ## 3. Tool Roles
 
@@ -33,7 +33,7 @@ This stage does not execute the full toolchain. It defines capability boundaries
 | --- | --- |
 | Codex automation | Scheduler, planner, and executor within active policy limits. |
 | VS Code workspace | Local repo editing and workspace execution surface for allowed files; not product memory, not a lane authority, not an independent reviewer, and not a closeout authority by itself. |
-| Claude Code via `cc switch` API tool | Candidate review-only and possible non-interactive review runner after command/API format and behavior are verified. |
+| Claude Code via cc-switch routed `claude.cmd` | Verified review-only verdict capture path with strict invocation limits; not an editing, command-execution, staging, commit, push, or Red-approval tool. |
 | Claude Web in AdsPower browser/profile | External review path; user-confirmed current surface is AdsPower, but it is not assumed automatable until verified by a governed safe path. |
 
 Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodic reviews remain product memory. Chat windows and local tool sessions are execution context.
@@ -46,7 +46,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 4. Selects one item.
 5. Classifies lane.
 6. If Green/Yellow docs-only, drafts or prepares within allowed files through the governed local workspace surface.
-7. If review is needed, routes to Claude Code through the `cc switch` API tool only after review-only command/API behavior is verified, or produces a Claude Code review prompt and HOLDs for human/tool execution.
+7. If review is needed and the stage permits Claude Code review-only evidence, route to Claude Code through the verified `claude.cmd` stdin / `--bare` / verdict-line path in `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`; otherwise produce a Claude Code review prompt and HOLD for human/tool execution.
 8. If Claude Web or external review is needed, prepares an AdsPower/Claude Web prompt for manual transfer or HOLDs if the automation path is not verified.
 9. If gate is allowed, runs the closeout gate only when authorized by the current stage and lane rules.
 10. During day 1, staging, commit, and push still require explicit human confirmation.
@@ -57,7 +57,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | --- | --- |
 | Codex automation | ACTIVE only within the authorization window and policy limits. |
 | VS Code CLI | Visible as `code.cmd` by safe local command detection; governed as the local workspace/editing surface only. |
-| Claude Code via `cc switch` API tool | User-confirmed candidate access path, but the current verification found no local `cc` command or alias. `claude.exe` is visible but is not treated as the governed `cc switch` automation path. |
+| Claude Code via cc-switch routed `claude.cmd` | Verified for non-interactive review-only verdict-line capture through stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, no web requests, and unchanged git status. `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, and `--json-schema` are not accepted. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
 | AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication, configured profile start/attach, CDP connection, and Claude Web review-prompt readiness are verified with limits. Profile switching, profile creation, login automation, and session inspection remain unverified. |
 | Claude Web automation | Verified for review-prompt test only through an already-open Claude Web page. High-risk review, Red work, launch, deployment, and real-data use remain unauthorized. |
@@ -92,7 +92,7 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Codex, VS Code, and Codex CLI remain local-tool L1. VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. Claude Code through `cc switch` remains HOLD/L1-manual because no local `cc` command/API invocation was discoverable and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not verified.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Claude Code through cc-switch routed `claude.cmd` reaches L2 for non-interactive review-only verdict-line capture with strict limits. Codex, VS Code, and Codex CLI remain local-tool L1; VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. The full toolchain is a limited four-tool review loop for Green/docs-only review evidence only, not full autonomous implementation.
 
 ## 7.1 AdsPower Claude Web Verification Result
 
@@ -110,7 +110,7 @@ This verification does not authorize AdsPower profile launch, profile switching,
 
 `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` removes the duplicate autonomous ops loop and keeps one 2-hour loop as default.
 
-The loop may reference AdsPower Claude Web verification docs for safe review-prompt transfer only. It must not claim full four-tool automation while AHQ-020 remains HOLD for `cc switch` non-interactive Claude Code review.
+The loop may reference AdsPower Claude Web verification docs for safe review-prompt transfer only. At that baseline it could not claim full four-tool automation while AHQ-020 remained HOLD for `cc switch` non-interactive Claude Code review. Section 7.6 supersedes this only for limited verdict-line review capture.
 
 Standing Green docs-only closeout is allowed only after the ops-loop refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, and only under the exact Green docs-only closeout rule in `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`.
 
@@ -125,7 +125,7 @@ Result:
 - `claude.exe` was visible but is not the governed `cc switch` API path for this stage
 - no harmless non-interactive review-only request was submitted
 - no parseable review result was returned
-- AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`
+- AHQ-020 remained `HOLD_FOR_TOOL_VERIFICATION` at that baseline
 
 The stage does not verify Claude Code edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
 
@@ -159,6 +159,25 @@ Result:
 - No conversation text, cookies, sessions, tokens, auth headers, browser storage, profile files, API-key value, or profile identifier value were read or recorded.
 
 This verification does not authorize profile creation, profile switching, login automation, cookie/session/token/auth-header inspection, high-risk review automation, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
+
+## 7.6 CC Switch Command Path Provisioning Result
+
+`S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001` verifies a callable Claude Code review-only command path.
+
+Result:
+
+- no local `cc` command or alias is available
+- `claude.exe` remains rejected as the governed path
+- npm shim `claude.cmd` is available and reports Claude Code `2.1.86`
+- cc-switch environment variable names were present, but values were not printed or recorded
+- non-bare invocation returned stale project context and is rejected
+- command-argument multi-line prompts were truncated and are rejected
+- `--json-schema` timed out twice and is not verified
+- stdin prompt plus `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, and budget cap returned parseable `VERDICT: PASS`
+- no web search/fetch requests were made
+- before/after git status was unchanged
+
+This verifies only review-only verdict capture. Claude Code may not edit files, run commands, read secrets, stage, commit, push, perform Red work, replace human/delegated GO, or serve as the sole independent final reviewer when Claude Code or cc-switch behavior is itself under verification.
 
 ## 8. Non-Authorization
 

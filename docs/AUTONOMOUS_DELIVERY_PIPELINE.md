@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by AdsPower profile launch verification draft |
-| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
-| Stage | s5-adspower-profile-launch-verification |
-| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
+| Status | Updated by cc switch command-path provisioning draft |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -31,7 +31,7 @@ Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
-The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, and `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md` before using Claude Web review-prompt transfer or toolchain automation.
+The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, and `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md` before using Claude Web review-prompt transfer or Claude Code review-only automation.
 
 ## 1.2 Autonomous Operation Cadence
 
@@ -59,11 +59,11 @@ The governed multi-tool pipeline is:
 2. Codex reads the charter, verifies `delegation_expires`, and loads core governance docs.
 3. Codex selects one item and classifies the lane.
 4. VS Code remains the local workspace/editing execution surface for exact allowed files; it is not product memory, lane authority, review authority, release authority, or independent closeout authority.
-5. Claude Code access is intended through the user-configured `cc switch` API tool, but the current workspace has no discoverable local `cc` command/API path; it remains review-prompt/manual-transfer only until non-interactive review command/API behavior is verified.
+5. Claude Code access is verified only through cc-switch routed `claude.cmd` for review-only verdict capture using stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
 6. Claude Web runs in the user's AdsPower browser/profile. The configured-profile AdsPower/CDP path is verified for governed review-prompt transfer readiness only; high-risk use still requires the applicable review and GO gates.
 7. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
 
-If the `cc switch` Claude Code path, configured AdsPower browser/profile, or Claude Web path is unavailable, ambiguous, or requires credentials/session access, the action is HOLD.
+If the Claude Code review-only path, configured AdsPower browser/profile, or Claude Web path is unavailable, ambiguous, mutates files, creates staged files, makes unexpected web requests, or requires credentials/session access, the action is HOLD.
 
 ## 1.4 VS Code Workspace Boundary
 
@@ -93,8 +93,8 @@ This boundary does not authorize code/test implementation, browser login/session
 - Claude Code review-only is required for governed drafts and implementations unless a stage explicitly says otherwise.
 - Claude Web or a designated external reviewer is required when high-risk triggers apply.
 - Review does not replace human or delegated GO where GO is required.
-- Claude Code review automation through `cc switch` is not claimed until command/API format and non-interactive behavior are verified.
-- The current `cc switch` verification did not find a local `cc` command/API path, so AHQ-020 remains HOLD and automation must generate a review prompt for human/tool execution.
+- Claude Code review automation may use only the verified `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md` path: stdin prompt to `claude.cmd`, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
+- `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, and `--json-schema` are not accepted for autonomous review evidence.
 - If Claude Web is required and the verified configured-profile AdsPower path is unavailable, generate a Claude Web prompt and HOLD for manual transfer.
 
 ## 4. Gate Commands

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
-| Stage | s5-adspower-profile-launch-verification |
-| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a passi
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only the AdsPower configured-profile launch verification route for Claude Web review-prompt readiness. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, AdsPower profile switching/creation route, Claude Code implementation route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only the cc switch command-path provisioning route for Claude Code review-only verdict capture. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, AdsPower profile switching/creation route, Claude Code implementation route, Claude Code file-edit route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -64,17 +64,19 @@ The final activation path records `FINAL_HUMAN_GO`, closes AHQ-018 as `CLOSED_BY
 
 The autonomous operation startup path adds a default 2-hour operating cadence for safe Green/Yellow docs-only drafting and closeout-gate preparation. During day 1, staging, commit, and push still require explicit human confirmation. Startup does not close AHQ-003 through AHQ-014, does not remove AHQ-017 ambiguity handling, and does not authorize Red execution beyond exact per-action policy requirements.
 
-The autonomous toolchain integration path defines a four-tool collaboration model and current capability matrix. It may reduce planning risk by clarifying Codex, VS Code, Claude Code through the user-configured `cc switch` API tool, Claude Web running in the user's AdsPower browser/profile, Git, and release/gate boundaries, but it does not claim full four-tool automation. AdsPower Local API is reachable locally but requires API-key authentication, so any future automation route needs a human-controlled non-secret API-key provisioning path. AHQ-020 through AHQ-022 remain HOLD until Claude Code non-interactive review through `cc switch`, AdsPower/Claude Web automation, and AdsPower browser/profile/session control are separately governed and verified.
+The autonomous toolchain integration path defines a four-tool collaboration model and capability matrix. It reduced planning risk by clarifying Codex, VS Code, Claude Code through the user-configured `cc switch` API tool, Claude Web running in the user's AdsPower browser/profile, Git, and release/gate boundaries, but it did not claim full four-tool automation at that baseline. Later governed stages separately verified AdsPower Claude Web review-prompt transfer, configured AdsPower profile launch/attach to review-prompt readiness, and the bounded Claude Code verdict-line path.
 
 The AdsPower Claude Web automation verification path verifies only a harmless review-prompt round trip through an already-active AdsPower profile and already-open Claude Web page. It may unlock safe future review-prompt transfer, but it does not unlock AdsPower profile launch/switch control, login automation, secrets/session inspection, high-risk review substitution, Red execution, launch, deployment, external pilot execution, public endpoint work, real-data handling, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
-The autonomous ops loop refresh path removes the duplicate loop and narrows automatic closeout permission to Green docs-only stages after this refresh stage itself closes PASS. It may reduce human confirmation load for safe docs-only governance stages, but it does not authorize Yellow implementation, Red execution, full four-tool automation, AdsPower profile launch/switch, Claude Web login, `cc switch` non-interactive Claude Code review, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
+The autonomous ops loop refresh path removes the duplicate loop and narrows automatic closeout permission to Green docs-only stages after this refresh stage itself closes PASS. It may reduce human confirmation load for safe docs-only governance stages, but it does not authorize Yellow implementation, Red execution, full autonomous implementation, AdsPower profile switch, Claude Web login, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
 
-The `cc switch` Claude Code review automation verification path attempted only non-secret local command discovery. No `cc` command/API path was discoverable in the VS Code workspace, so AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`. The path does not authorize edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation. Next recommended route is `PARK_CC_SWITCH_REVIEW_AUTOMATION_VERIFICATION_WAIT_FOR_TOOL_PATH_INPUT`.
+The earlier `cc switch` Claude Code review automation verification path attempted only non-secret local command discovery. No `cc` command/API path was discoverable in the VS Code workspace at that time, so AHQ-020 remained `HOLD_FOR_TOOL_VERIFICATION`. The later cc switch command-path provisioning route supersedes that HOLD only for the bounded `claude.cmd` verdict-line review path.
 
 The VS Code role and toolchain orchestration path clarifies that VS Code is the local workspace/editing execution surface only. Codex remains the orchestrator for governance loading, lane classification, review routing, gate/package/release verification, manifest updates, and governed closeout under policy limits. VS Code is not product memory, approval authority, independent reviewer, route authority, PASS authority, or closeout authority by itself. This path does not authorize implementation, code/test changes, browser login/session access, AdsPower profile launch/switch, Red execution, launch, deployment, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or full four-tool automation.
 
 The AdsPower profile launch verification path verifies the configured profile launch/attach route to Claude Web review-prompt readiness. It may support future safe review-prompt transfer when the configured profile is not already active, but it does not authorize profile creation, profile switching, login automation, cookie/session/token/auth-header inspection, browser storage/profile-file inspection, reading Claude conversation history, high-risk review substitution, Yellow implementation, Red execution, launch, deployment, external pilot execution, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or full four-tool automation.
+
+The cc switch command-path provisioning route verifies only Claude Code review-only verdict capture through stdin prompt transfer to `claude.cmd` with `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status. It may support a limited four-tool Green/docs-only review loop, but it does not authorize Claude Code file edits, file-read review beyond supplied prompt material unless separately governed, command execution, tests, staging, commit, push, Yellow implementation, Red execution, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or full autonomous implementation.
 
 The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 

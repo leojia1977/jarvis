@@ -5,20 +5,22 @@
 | Field | Value |
 | --- | --- |
 | Title | CC Switch Claude Code Review Automation Verification |
-| Status | Docs-only verification draft |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
+| Status | Historical HOLD verification superseded by command-path provisioning draft |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
 | Route | OPEN_CC_SWITCH_CLAUDE_CODE_REVIEW_AUTOMATION_VERIFICATION_STAGE |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
-| Baseline snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Baseline stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Baseline snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Baseline stage | s5-adspower-profile-launch-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001.zip` |
-| Baseline release sha256 | `d10d9f2f6cb24db0dd5ccf14e8ee770416e81026f151f8af13640191290518f1` |
+| Baseline release artifact | `releases\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac` |
 
 ## 2. Purpose
 
 This stage verifies whether the user-configured `cc switch` API tool can safely serve as a non-interactive Claude Code review-only path for the autonomous ops loop.
+
+Later governing update: `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md` supersedes this HOLD outcome for one narrow callable path: stdin prompt transfer to `claude.cmd` with `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status. The historical evidence below remains useful for rejected paths: local `cc` unavailable, `claude.exe` rejected, and no request submitted in this earlier stage.
 
 Claude Code / `cc switch` is the tool being verified in this stage. Any output from that tool is test evidence only and is not the sole independent final reviewer for this stage. Final review must use Claude Web through the already-verified AdsPower active-profile review-prompt path, or human-supervised external review if Claude Web is unavailable.
 

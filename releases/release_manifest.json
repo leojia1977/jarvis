@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001",
+    "id": "S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001",
     "sprint": "Sprint 5",
-    "stage": "s5-adspower-profile-launch-verification",
+    "stage": "s5-cc-switch-command-path-provisioning",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-19T17:39:18.548579+08:00"
+    "updated_at": "2026-04-19T18:31:36.788627+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip",
-    "current_release_sha256": "10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac"
+    "current_release_zip": "releases\\secupilot-S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001.zip",
+    "current_release_sha256": "e25895471707c941ecef423db5de9cf3ec0f6239a39980ca069ef5618bbb39c5"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "1e77cd3bd12d17b9ca530da0966db871e8aa33bae207e9288f455d113ae745c8"
+      "sha256": "78d2acb575570ed223af5b1b47d630174910e852bd75ca887050f6ffc1380e1f"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "12ff7a21065564ce6acff8625fff26e0660c8debeed9e2b8b5c1c3f156d34441"
+      "sha256": "a791a5408bf87577fe8d76ff62acca6ac21018b32549340334a5e02d4e3f7688"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "58c5d70506148cc941847074e21e3375fc9ceb9b3fbf8b4d24ea767c582c6594"
+      "sha256": "a68131621913b77b7ea136f0735eb073c6d60246b0677063f924a92e6664d71e"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "c5e22ae3835087215527e788045d7eb88e4f8292e18531d9227ab8d7f796da35"
+      "sha256": "f88e411ae334939207f5950a5568f78296ea697b5365ded8795c5f287d48126b"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -820,7 +820,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "3084d6f221f84c2c9683c859d64150aa43cd8fc127ac8fc1d2400675d8368d69"
+      "sha256": "b0ab11995dcc2127975167048ba05fd945cad17ec3c58e3d7389b26d11673620"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -830,7 +830,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "4ab3f9da258425f9fb0181d2c16d9fef9769004341aaf4198ad933b4d76ef2f6"
+      "sha256": "740c60b64fd3eaaca0b4fdac073edc48d0b4f40f8720dbd21cbe582d0731e8fc"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -845,7 +845,7 @@
     {
       "path": "docs\\AUTONOMOUS_OPERATION_STARTUP.md",
       "role": "autonomous-operation-startup",
-      "sha256": "91d1995a36e89f8aa8b9f4f53d7203fb96347ad17e4d23fbe866bcfea0ae0300"
+      "sha256": "3381f8d9bfc821622f56cfb127184ac17c1e17e4f043a3cf83c377a2427af18f"
     },
     {
       "path": "docs\\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md",
@@ -855,27 +855,37 @@
     {
       "path": "docs\\CC_SWITCH_CLAUDE_CODE_REVIEW_AUTOMATION_VERIFICATION.md",
       "role": "cc-switch-claude-code-review-automation-verification",
-      "sha256": "0e25b9a0a7b0f00af62caecef64176df91f7dec34680d858a21d31af04e17ffd"
+      "sha256": "63c2cd275717edf37765cc9c176cf88348e82596551f657252b7df7108e71560"
     },
     {
       "path": "docs\\CC_SWITCH_CLAUDE_CODE_RUNBOOK.md",
       "role": "cc-switch-claude-code-runbook",
-      "sha256": "856ec7036c5f3327f7f31b2fe9d7973dce5e38c31d537edafbf815288e8ca7b6"
+      "sha256": "1c330de53b1d98ac412eeba277ca597a0eeb3eeaa43c599e93d43d85afdb5620"
+    },
+    {
+      "path": "docs\\CC_SWITCH_COMMAND_PATH_PROVISIONING.md",
+      "role": "cc-switch-command-path-provisioning",
+      "sha256": "abcedd079bd8c92988b0aa283d5ebb78a07f8f50a9c068f295d958a0ea3b9e0b"
+    },
+    {
+      "path": "docs\\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md",
+      "role": "cc-switch-review-only-invocation-runbook",
+      "sha256": "19e1c57bbbf004f6786271fbb00c072ec9f28dcba70ec76952cb9b22f4e47de2"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "791cce2a3a7696978d0bd14c5626318cdfd3634e768979a5d039748b3fae474a"
+      "sha256": "4c75ec416fd0bdca6d70bc5a17fcc4eb9aacad65eacefc107596cd07a2c65fd8"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "b5c9fe86cc424f7dda44f6cdafd112f45ba21e5809aa9803359e7864500089f7"
+      "sha256": "90f670728ecfdf43940009df7cdb71c67cd3559089732fac857ad1037834b17a"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "2ccf3da1959a1f35a97413a4bd7e49d6c4b4cccb9d49a7fe2f14620a39192506"
+      "sha256": "1ede002861477715b8baef1f8bf33ec349e8903d5a5f8c46f80fbb3383b1bb9d"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -1010,7 +1020,7 @@
     {
       "path": "docs\\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md",
       "role": "vscode-role-toolchain-orchestration",
-      "sha256": "b43df99d1a16a56db7812e9d2bc728982cff0a913d031151999215d664795e97"
+      "sha256": "c5a629ee4ceca1a850698ab9a2e0d8f0c4dda1307eb3e449cb38ccab9696fc83"
     },
     {
       "path": "docs\\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md",
@@ -1085,13 +1095,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001",
+      "Snapshot ID: S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-19T17:39:19.334954+08:00",
+    "last_verified_at": "2026-04-19T18:31:37.802107+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

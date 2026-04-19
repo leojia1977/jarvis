@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by AdsPower profile launch verification draft |
-| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
-| Stage | s5-adspower-profile-launch-verification |
-| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
+| Status | Updated by cc switch command-path provisioning draft |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -32,7 +32,7 @@ Use the lowest-risk tool that can complete the allowed step:
 
 - Use Codex workspace editing for allowed docs-only changes.
 - Use VS Code CLI only as a local workspace/editing surface when needed and governed; do not treat it as product memory, review authority, or closeout authority.
-- Use Claude Code through the `cc switch` API tool only after review-only command/API format and non-interactive behavior are verified.
+- Use Claude Code through the verified cc-switch routed `claude.cmd` path only for review-only verdict capture and only under `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
 - Use Claude Web through the verified AdsPower configured-profile path only for governed review-prompt transfer when the prompt contains no secrets, raw customer data, credentials, or unredacted real evidence.
 - Use Git only for inspection unless staging/commit/push is explicitly authorized.
 
@@ -59,22 +59,33 @@ If Codex output and VS Code workspace context conflict, prefer committed repo ev
 
 ## 5. Claude Code / `cc switch` Review-Only Usage
 
-Claude Code automation may be used only through the user-configured `cc switch` API tool after command/API format and non-interactive behavior are verified. The current verification found no local `cc` command or alias. `claude.exe` visibility is not enough and must not be treated as the governed `cc switch` automation path.
+Claude Code automation may be used only through the verified cc-switch routed `claude.cmd` path and only for review-only verdict capture.
 
-Until verified, automation should generate a Claude Code review prompt and HOLD for human/tool execution. For stages verifying `cc switch` itself, final independent review must come from Claude Web through the verified AdsPower active-profile path or from human-supervised external review.
+Required invocation:
+
+```text
+<stdin prompt> | claude.cmd -p --bare --output-format json --tools "" --no-session-persistence --permission-mode plan --max-budget-usd 0.05
+```
+
+The first line of the JSON wrapper `result` must parse as `VERDICT: PASS`, `VERDICT: PASS_WITH_FINDINGS`, `VERDICT: FAIL`, or `VERDICT: HOLD`.
+
+Do not use `claude.exe`, non-bare invocation, command-argument multi-line prompts, or `--json-schema` for autonomous review evidence. For stages verifying `cc switch` itself, final independent review must come from Claude Web through the verified AdsPower path or from human-supervised external review.
 
 Review-only means:
 
 - no edits
+- no file reads beyond supplied prompt material unless a later stage explicitly governs file-read review
+- no commands
+- no tests
 - no staging
 - no commit
 - no push
 
-API error, non-zero exit, unavailable `cc switch` path, or ambiguous output means HOLD.
+API error, non-zero exit, timeout, invalid wrapper JSON, missing or malformed verdict line, web request, permission escalation, unexpected file/status mutation, staged file, credential prompt, or ambiguous output means HOLD.
 
 If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severity, apply only allowed focused fixes, refresh affected hashes, and return to review. If any finding requires out-of-scope files, external access, credentials, real data, Red-3, or unclear authority, HOLD.
 
-`docs\CC_SWITCH_CLAUDE_CODE_RUNBOOK.md` governs any future retry. A future PASS may verify only non-interactive review-only prompt transfer and verdict capture; it does not authorize edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
+`docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md` governs all future autonomous use. The older `docs\CC_SWITCH_CLAUDE_CODE_RUNBOOK.md` remains historical context for the prior HOLD state. This verified path does not authorize edits, implementation, file-read review beyond supplied prompt material unless separately governed, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full autonomous implementation.
 
 ## 6. Claude Web / Manual External Review Path
 
@@ -214,7 +225,7 @@ Required split:
 - Codex owns orchestration, governance doc loading, lane classification, tool routing, gate/package/release verification when authorized, manifest updates, and closeout under policy limits.
 - VS Code owns only the local workspace/editing execution surface for exact allowed files.
 - Claude Web in AdsPower remains the verified review-prompt transfer path only.
-- Claude Code through `cc switch` remains HOLD until a callable non-interactive review-only path is governed and verified.
+- Claude Code through cc-switch routed `claude.cmd` is now verified only for callable non-interactive review-only verdict capture under `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
 
 This clarification does not authorize implementation, code/test changes, browser login/session access, AdsPower profile launch/switch, Red execution, launch, deployment, real-data handling, public endpoint work, staging, commit, or push.
 
@@ -236,3 +247,17 @@ Allowed only when governed stage scope permits:
 - stop before prompt submission unless a separate governed review prompt is authorized
 
 This note does not authorize profile switching, login automation, cookie/session/token/auth-header inspection, reading Claude conversation history, Red execution, launch, deployment, external pilot execution, real-data handling, public endpoint work, or full four-tool automation.
+
+## 18. CC Switch Command Path Provisioning Note
+
+`docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md` and `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md` govern the callable Claude Code review-only path.
+
+Allowed only when the governing stage permits Claude Code review-only evidence:
+
+- pass prompt material through stdin
+- use `claude.cmd` with `-p --bare --output-format json --tools "" --no-session-persistence --permission-mode plan --max-budget-usd 0.05`
+- require first-line `VERDICT: PASS`, `VERDICT: PASS_WITH_FINDINGS`, `VERDICT: FAIL`, or `VERDICT: HOLD`
+- parse wrapper JSON and first-line verdict
+- confirm no web requests and unchanged git status before/after
+
+This note does not authorize `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, `--json-schema`, Claude Code file edits, file-read review beyond supplied prompt material unless separately governed, command execution, tests, staging, commit, push, Red execution, launch, deployment, external pilot execution, real-data handling, public endpoint work, or replacing required human/delegated/Claude Web/external review.

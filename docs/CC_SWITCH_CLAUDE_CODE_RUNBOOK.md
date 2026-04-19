@@ -5,24 +5,24 @@
 | Field | Value |
 | --- | --- |
 | Title | CC Switch Claude Code Runbook |
-| Status | Docs-only runbook draft |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
+| Status | Superseded by cc switch command-path provisioning draft |
+| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
+| Stage | s5-cc-switch-command-path-provisioning |
+| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
 
-This runbook defines the safe operating pattern for a future governed `cc switch` Claude Code review-only path. The current stage did not verify the path because no local `cc` command/API invocation was discoverable in the VS Code workspace.
+This historical runbook records the earlier HOLD posture. The current governed invocation rules are now in `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
 
 ## 2. Current Status
 
-Current status: `HOLD_FOR_TOOL_VERIFICATION`.
+Current status: `VERIFIED_REVIEW_ONLY_VERDICT_LINE_WITH_LIMITS`, superseding the earlier `HOLD_FOR_TOOL_VERIFICATION` posture for review-only verdict capture only.
 
-The `cc switch` path may not be used autonomously until a later governed verification proves non-interactive review-only prompt transfer, parseable verdict capture, and no file/status mutation.
+The verified path may be used autonomously only under `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
 
-`claude.exe` visibility is not sufficient evidence for this runbook because the governed path is the user-configured `cc switch` API tool.
+`claude.exe` visibility is still not sufficient evidence and remains rejected. The verified callable path is stdin prompt transfer to the npm `claude.cmd` shim under cc-switch environment references, with `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
 
 ## 3. Allowed Use After Verification
 
-After a separate governed PASS, allowed use is limited to:
+Allowed use is limited to:
 
 - review-only prompt transfer
 - verdict capture
@@ -81,20 +81,16 @@ Every prompt must:
 
 ## 6. Required Output Format
 
-The expected response format is:
+The current expected response format is governed by `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`: the first line of the JSON wrapper `result` must be exactly one of:
 
 ```text
-Verdict: PASS | PASS_WITH_FINDINGS | FAIL | HOLD
-Finding count: <integer>
-Findings:
-- Severity: HIGH | MEDIUM | LOW | INFO
-  File: <path or N/A>
-  Summary: <brief finding>
-  Required action: <brief action or N/A>
-Token: <expected token when a token is requested>
+VERDICT: PASS
+VERDICT: PASS_WITH_FINDINGS
+VERDICT: FAIL
+VERDICT: HOLD
 ```
 
-If there are no findings, `Finding count` must be `0` and `Findings` may be `N/A`.
+Any finding detail after that first line is rationale and must not override a missing or invalid verdict line.
 
 ## 7. Result Handling
 
@@ -145,4 +141,4 @@ If the `cc switch` path is unavailable, incomplete, ambiguous, or fails:
 - use Claude Web through the verified AdsPower active-profile review-prompt path if final external review is required and available
 - otherwise use human-supervised external review
 
-Do not substitute `claude.exe` for `cc switch` unless a later governed route explicitly changes the verification target.
+Do not substitute `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, or `--json-schema` for the verified invocation path.
