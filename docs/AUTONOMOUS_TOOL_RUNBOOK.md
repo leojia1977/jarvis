@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by AdsPower Claude Web automation verification draft |
-| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Stage | s5-adspower-claude-web-automation-verification |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+| Status | Updated by autonomous ops loop refresh draft |
+| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
+| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -196,3 +196,9 @@ When approval is needed, produce a concise request containing:
 - required review
 
 Do not proceed on incomplete, ambiguous, or expired approval.
+
+## 15. Ops Loop Refresh Note
+
+The active autonomous ops loop must include toolchain and AdsPower Claude Web verification/runbook context before using Claude Web review-prompt transfer. The loop may not use Claude Web for prompts containing secrets, raw customer data, credentials, or unredacted real evidence.
+
+Standing Green docs-only closeout is governed by `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md` after that stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push. This runbook does not authorize Yellow implementation, Red execution, profile launch/switch, Claude Web login, or full four-tool automation.

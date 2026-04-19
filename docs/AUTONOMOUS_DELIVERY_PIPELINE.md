@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by AdsPower Claude Web automation verification draft |
-| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Stage | s5-adspower-claude-web-automation-verification |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+| Status | Updated by autonomous ops loop refresh draft |
+| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
+| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -31,6 +31,8 @@ Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
+The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, and `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md` before using Claude Web review-prompt transfer or toolchain automation.
+
 ## 1.2 Autonomous Operation Cadence
 
 Default autonomous operation cadence is every 2 hours.
@@ -46,6 +48,8 @@ Work selection priority is:
 5. HOLD queue maintenance.
 
 During day 1, automation may draft Green/Yellow docs-only stages and prepare closeout gate material where authorized, but staging, commit, and push require explicit human confirmation.
+
+After `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, standing Green docs-only closeout may proceed only under `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`. It requires exact file scope, no HOLD, manifest PASS, exact staged files, and inbox reporting. Yellow implementation, Red execution, browser profile launch/switch, Claude Web login, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, code/test/runtime/API/schema/dependency/fixture/release-script/contract changes, and AI_COLLAB changes remain outside this rule.
 
 ## 1.3 Toolchain Routing
 

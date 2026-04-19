@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Capability Matrix |
-| Status | Updated by AdsPower Claude Web automation verification draft |
-| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Stage | s5-adspower-claude-web-automation-verification |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+| Status | Updated by autonomous ops loop refresh draft |
+| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
+| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
 
 This matrix records current governed tool capability understanding. It does not authorize execution, credentials, browser automation, external review completion, staging, commit, push, full gate, or release packaging by itself.
 
@@ -31,3 +31,5 @@ This matrix records current governed tool capability understanding. It does not 
 Current claimed maturity is L3 limited for AdsPower / Claude Web review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain L1. Claude Code through `cc switch` remains L1; non-interactive Claude Code review is not verified. L4 and L5 are not claimed by this stage.
 
 No credentials, tokens, cookies, auth headers, session data, or account material may be entered into repo, chat, prompts, review packs, or logs.
+
+The autonomous ops loop refresh keeps one active 2-hour loop and permits standing Green docs-only closeout only after the refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push. This does not raise Claude Code `cc switch` maturity, does not verify AdsPower profile launch/switch, and does not authorize Red execution or full four-tool automation.

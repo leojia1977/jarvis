@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Stage | s5-adspower-claude-web-automation-verification |
-| Baseline commit | `bfd0920050d4780866dfdaba88fd3c7afece4e0c` |
+| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
+| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `bfd0920050d4780866dfdaba88fd3c7afece4e0c`
-- Snapshot: `S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001`
-- Stage: `s5-autonomous-toolchain-integration`
+- Commit: `62b8943465aa45966c72333ed8d8b07dcac50b7e`
+- Snapshot: `S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001`
+- Stage: `s5-adspower-claude-web-automation-verification`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001.zip`
-- Release sha256: `46bd62aff5ac78315750e241fe2c790ddb1937f38702c571a0011b8211db7655`
+- Release artifact: `releases\secupilot-S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001.zip`
+- Release sha256: `47dee911580fc3770b316655f736de7ffa551e8b53d6dfd299237717d6abb43a`
 
-The current baseline closes the autonomous toolchain integration stage. It records the governed four-tool model, Claude Code through `cc switch`, Claude Web in AdsPower, API-key secret boundaries, and keeps full four-tool automation claims blocked until verification.
+The current baseline closes the AdsPower Claude Web automation verification stage. It verifies only safe review-prompt transfer through an already-active AdsPower profile and already-open Claude Web page, and keeps full four-tool automation claims blocked by AHQ-020 and AHQ-022.
 
 ## 3. Sprint 5 State Summary
 
@@ -165,7 +165,7 @@ Startup non-authorization:
 - This stage does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, S4-A resolver order changes, or AI_COLLAB changes.
 - AHQ-003 through AHQ-014 remain HOLD.
 - AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
-- AHQ-019 records day-1 staging/commit/push as requiring explicit human confirmation.
+- AHQ-019 originally recorded day-1 staging/commit/push as requiring explicit human confirmation; current conditional supersession is recorded in Section 14 for Green docs-only closeout only after the refresh stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push.
 
 ## 12. Autonomous Toolchain Integration
 
@@ -178,21 +178,21 @@ Current toolchain status:
 - Claude Code access is through the user-configured `cc switch` API tool; `claude.exe` is not usable and must not be treated as the automation path.
 - Codex CLI is visible as `codex.exe`.
 - Claude Web is user-confirmed to run in an AdsPower browser/profile.
-- AdsPower Local API is reachable locally but requires API-key authentication; no key was used or recorded in this stage.
-- AdsPower browser/profile launch, session control, and automation are not verified as controllable.
-- Claude Web automation remains manual AdsPower prompt transfer only and is not verified.
+- AdsPower Local API accepts user-level environment-variable API-key provisioning without printing or recording the key.
+- AdsPower / Claude Web active-profile review-prompt transfer is `VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY`.
+- AdsPower browser/profile launch, switching, login automation, and broader session control remain unverified and unauthorized.
 
 Current maturity:
 
-- Toolchain maturity is L1: local CLI detection for Codex/VS Code/Codex CLI, user-confirmed Claude Code access through `cc switch`, and manual review prompt transfer.
+- Toolchain maturity is L3 limited for AdsPower / Claude Web review-prompt transfer through an already-active profile. Codex, VS Code, Codex CLI, and Claude Code through `cc switch` remain governed by their recorded maturity levels.
 - L2 non-interactive Claude Code review through `cc switch` is not verified.
-- L3 AdsPower browser/external review path is not verified. This L3 means toolchain maturity, not L3 Customer Trial Launch.
+- This L3 means toolchain maturity, not L3 Customer Trial Launch.
 - Full four-tool autonomous automation is not claimed.
 
 Toolchain non-authorization:
 
 - This stage does not authorize AdsPower/browser launch, AdsPower profile/session control, Claude Web login, credential/session handling, full gate, release packaging, staging, commit, push, external pilot execution, customer launch, production deployment, S5-B/S5-D reopen, ORDIV reopen, Red-3 action, S4-A resolver order changes, or AI_COLLAB changes.
-- AHQ-020 through AHQ-022 block claims of full four-tool automation, including AdsPower/Claude Web automation, until separately governed.
+- AHQ-020 still blocks full four-tool automation claims until Claude Code `cc switch` non-interactive review is separately governed and verified.
 
 ## 13. AdsPower Claude Web Automation Verification
 
@@ -218,3 +218,17 @@ Current capability:
 Current non-authorization:
 
 - This stage does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, legal/commercial commitments, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes, S4-A resolver order changes, AI_COLLAB changes, AdsPower profile launch/switch automation, login automation, cookie/session/token/auth-header inspection, full gate/package, staging, commit, or push.
+
+## 14. Autonomous Ops Loop Refresh And Day-1 Closeout
+
+This stage refreshes the autonomous ops loop after AdsPower Claude Web verification.
+
+Current ops-loop posture:
+
+- Duplicate autonomous ops loop card was removed; one active 2-hour ops loop should remain.
+- Future ops-loop prompts must load the core governance docs, toolchain docs, and AdsPower Claude Web verification/runbook docs before toolchain/review automation.
+- AHQ-019 is conditionally superseded only for standing Green docs-only closeout after this stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push.
+- Green docs-only automatic closeout requires exact file scope, review PASS where required, full gate/package/release verification PASS, manifest PASS, no HOLD, exact staged files, no unrelated staged files, and inbox reporting.
+- Yellow implementation, Red work, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, browser profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, code/test/runtime/API/schema/dependency/fixture/release-script/contract changes, and AI_COLLAB changes remain unauthorized without separate governed approval.
+
+Next recommended verification stage is `OPEN_CC_SWITCH_CLAUDE_CODE_REVIEW_AUTOMATION_VERIFICATION_STAGE`.

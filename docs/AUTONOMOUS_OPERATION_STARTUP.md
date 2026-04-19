@@ -18,6 +18,21 @@
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
+## 1.0 Current Refresh
+
+The current governed refresh stage is `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` / `s5-autonomous-ops-loop-refresh-day1-closeout`.
+
+That stage records:
+
+- duplicate autonomous ops loop removal
+- one active 2-hour ops loop as the default
+- expanded per-run read set including the toolchain docs and AdsPower Claude Web verification/runbook docs
+- standing Green docs-only closeout conditions after the refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push
+- AHQ-019 supersession only for Green docs-only closeout
+- AHQ-020 remaining HOLD until `cc switch` non-interactive Claude Code review is verified
+
+It does not authorize Yellow implementation, Red execution, browser profile launch/switch, Claude Web login, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
+
 ## 1.1 Toolchain Integration Update
 
 The next governed stage is `S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001` / `s5-autonomous-toolchain-integration`.
@@ -66,10 +81,16 @@ Every autonomous operation run must begin with these checks:
    - `docs\PRODUCT_STATE.md`
    - `docs\ROADMAP_AND_PARKED_ITEMS.md`
    - `docs\GOVERNANCE_DECISION_LOG.md`
-4. Confirm manifest baseline and git cleanliness.
-5. Identify one next allowed item.
-6. Classify the lane as Green, Yellow, Red-1, Red-2, Red-3, or HOLD.
-7. Proceed only if lane and authorization are clear.
+4. Load toolchain and AdsPower Claude Web governance docs when toolchain/review automation is relevant:
+   - `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`
+   - `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`
+   - `docs\AUTONOMOUS_TOOL_RUNBOOK.md`
+   - `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`
+   - `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`
+5. Confirm manifest baseline and git cleanliness.
+6. Identify one next allowed item.
+7. Classify the lane as Green, Yellow, Red-1, Red-2, Red-3, or HOLD.
+8. Proceed only if lane and authorization are clear.
 
 If `docs\DELEGATED_APPROVER_CHARTER.md` cannot be read, `delegation_expires` is missing, or the authorization window has expired, all Red authority is HOLD and automation must stop.
 
@@ -161,3 +182,9 @@ This startup stage does not authorize:
 - Red-3 execution
 - staging, commit, or push without explicit human confirmation during day 1
 - full gate or release packaging unless explicitly authorized after review
+
+## 12. Standing Green Docs-Only Closeout
+
+After `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, the autonomous ops loop may close Green docs-only stages without separate per-closeout human confirmation only under the standing Green docs-only closeout rule in `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`.
+
+This standing rule is narrow. It does not apply to Yellow implementation, code/test changes, dependency changes, fixture changes, runtime/API/schema changes, release-script changes, contract changes, Red work, browser profile launch/switch, Claude Web login, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.

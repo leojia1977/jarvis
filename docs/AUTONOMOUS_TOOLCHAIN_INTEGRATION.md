@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by AdsPower Claude Web automation verification draft |
-| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Stage | s5-adspower-claude-web-automation-verification |
+| Status | Updated by autonomous ops loop refresh draft |
+| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
+| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
 | Route | OPEN_AUTONOMOUS_TOOLCHAIN_INTEGRATION_STAGE |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
-| Baseline snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
-| Baseline stage | s5-autonomous-operation-startup |
+| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
+| Baseline snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
+| Baseline stage | s5-adspower-claude-web-automation-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001.zip` |
-| Baseline release sha256 | `441589fd552622105584b06db566e8fca9bb5f1141b77e0cdffe2bf8b3859c66` |
+| Baseline release artifact | `releases\secupilot-S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001.zip` |
+| Baseline release sha256 | `47dee911580fc3770b316655f736de7ffa551e8b53d6dfd299237717d6abb43a` |
 
 ## 2. Purpose
 
@@ -105,6 +105,14 @@ The follow-up verification stage `S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION
 - A harmless prompt round trip returned the expected non-secret test token.
 
 This verification does not authorize AdsPower profile launch, profile switching, login automation, cookie/session/token/auth-header inspection, high-risk review automation, or Red execution.
+
+## 7.2 Ops Loop Refresh Result
+
+`S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` removes the duplicate autonomous ops loop and keeps one 2-hour loop as default.
+
+The loop may reference AdsPower Claude Web verification docs for safe review-prompt transfer only. It must not claim full four-tool automation while AHQ-020 remains HOLD for `cc switch` non-interactive Claude Code review.
+
+Standing Green docs-only closeout is allowed only after the ops-loop refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, and only under the exact Green docs-only closeout rule in `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`.
 
 ## 8. Non-Authorization
 
