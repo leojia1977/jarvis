@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001",
+    "id": "S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001",
     "sprint": "Sprint 5",
-    "stage": "s5-autonomous-ops-loop-refresh-day1-closeout",
+    "stage": "s5-cc-switch-claude-code-review-automation-verification",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-19T15:17:02.878567+08:00"
+    "updated_at": "2026-04-19T15:49:43.661069+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001.zip",
-    "current_release_sha256": "d10d9f2f6cb24db0dd5ccf14e8ee770416e81026f151f8af13640191290518f1"
+    "current_release_zip": "releases\\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip",
+    "current_release_sha256": "85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "3e66cc326f5faee86926bf92b76dba0b823d6bbf1b677a123d765b8281e9d3d4"
+      "sha256": "7d93bc441c3f81b1251cedfdd4d2c9804170785fa83272ce0f10733ad4851709"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "d8d90c84ed59d9cc8530c2731dfc484944bb6efd3dbc01460278d0ab7084b992"
+      "sha256": "5eaecfd7809a5872ae966b96f9f5472f24b92650e5ceb78f24438b5600fb61f6"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "b152859ad7b8d32170a262d5fb23f3ab0460193de2930849bd71223ba9342d8d"
+      "sha256": "6047f8111bb9f6ab539b5a7daec41c64d3229d40f465210ea0edd09d87ef9729"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "066b0a25432cb21beafbbe35931c103f905b92f2a829ec678374adcc3f600872"
+      "sha256": "99334ebd5d76d64213972acf1c42e8e8e67230addafe0bc9f8e1afc11a8344cb"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -820,7 +820,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "ab1fa7ce8c64fb109683f2ee54fdda7edc4ac836160bb973652f40425f3d8faa"
+      "sha256": "388a8f7764435538353f747e8dc5615398c710a40d050d3c97d3d2db6e72cf85"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -830,7 +830,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "17567a2045db077edfd15de9c175cdd7b015d56604b170604fdf8aa40d27341a"
+      "sha256": "dfdb81de2dd083c42eb89b43bba58021b64087ad93b6732b9ea173337332e90d"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -853,19 +853,29 @@
       "sha256": "7f968209d8c394aea260258f6f47dd58bc6c3e83a66fcfad5e260fa7dc0a9d39"
     },
     {
+      "path": "docs\\CC_SWITCH_CLAUDE_CODE_REVIEW_AUTOMATION_VERIFICATION.md",
+      "role": "cc-switch-claude-code-review-automation-verification",
+      "sha256": "0e25b9a0a7b0f00af62caecef64176df91f7dec34680d858a21d31af04e17ffd"
+    },
+    {
+      "path": "docs\\CC_SWITCH_CLAUDE_CODE_RUNBOOK.md",
+      "role": "cc-switch-claude-code-runbook",
+      "sha256": "856ec7036c5f3327f7f31b2fe9d7973dce5e38c31d537edafbf815288e8ca7b6"
+    },
+    {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "6292c34748faeaee9dfd83ba1a4c55a8bbb852255db921b00dba962d4735d8d2"
+      "sha256": "feb2c9815f99521549aed298a3fdbeb3049c1c0606076298962c05c4bfff8db4"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "5759fb7d76aec8ce502bca4c12728ef06d9203a9487af6f6d188ba02583b37a8"
+      "sha256": "95733aa77a89e33b0b4b8f6d09823f7e1c20280e19d1806a729679df32347cb0"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "88fe9cd23abc171403b40030f264343e26d51fab9a5145207fafb9925148d50e"
+      "sha256": "d4b73ccf8eb039838e47caca715bb66050865a3455911aa18258679f545fdd1e"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -1060,13 +1070,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001",
+      "Snapshot ID: S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-19T15:17:03.669634+08:00",
+    "last_verified_at": "2026-04-19T15:49:44.420806+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

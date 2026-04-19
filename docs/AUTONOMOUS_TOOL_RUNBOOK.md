@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by autonomous ops loop refresh draft |
-| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
-| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
+| Status | Updated by cc switch verification draft |
+| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Stage | s5-cc-switch-claude-code-review-automation-verification |
+| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -54,9 +54,9 @@ Prohibited:
 
 ## 5. Claude Code / `cc switch` Review-Only Usage
 
-Claude Code automation may be used only through the user-configured `cc switch` API tool after command/API format and non-interactive behavior are verified. `claude.exe` is not usable in the current environment and must not be treated as the Claude Code automation path.
+Claude Code automation may be used only through the user-configured `cc switch` API tool after command/API format and non-interactive behavior are verified. The current verification found no local `cc` command or alias. `claude.exe` visibility is not enough and must not be treated as the governed `cc switch` automation path.
 
-Until verified, automation should generate a Claude Code review prompt and HOLD for human/tool execution.
+Until verified, automation should generate a Claude Code review prompt and HOLD for human/tool execution. For stages verifying `cc switch` itself, final independent review must come from Claude Web through the verified AdsPower active-profile path or from human-supervised external review.
 
 Review-only means:
 
@@ -68,6 +68,8 @@ Review-only means:
 API error, non-zero exit, unavailable `cc switch` path, or ambiguous output means HOLD.
 
 If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severity, apply only allowed focused fixes, refresh affected hashes, and return to review. If any finding requires out-of-scope files, external access, credentials, real data, Red-3, or unclear authority, HOLD.
+
+`docs\CC_SWITCH_CLAUDE_CODE_RUNBOOK.md` governs any future retry. A future PASS may verify only non-interactive review-only prompt transfer and verdict capture; it does not authorize edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
 
 ## 6. Claude Web / Manual External Review Path
 

@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by autonomous ops loop refresh draft |
-| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Status | Updated by cc switch verification draft |
+| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Stage | s5-cc-switch-claude-code-review-automation-verification |
 | Route | OPEN_AUTONOMOUS_TOOLCHAIN_INTEGRATION_STAGE |
-| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
-| Baseline snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Baseline stage | s5-adspower-claude-web-automation-verification |
+| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
+| Baseline snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
+| Baseline stage | s5-autonomous-ops-loop-refresh-day1-closeout |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001.zip` |
-| Baseline release sha256 | `47dee911580fc3770b316655f736de7ffa551e8b53d6dfd299237717d6abb43a` |
+| Baseline release artifact | `releases\secupilot-S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001.zip` |
+| Baseline release sha256 | `d10d9f2f6cb24db0dd5ccf14e8ee770416e81026f151f8af13640191290518f1` |
 
 ## 2. Purpose
 
@@ -57,7 +57,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | --- | --- |
 | Codex automation | ACTIVE only within the authorization window and policy limits. |
 | VS Code CLI | Visible as `code.cmd` by safe local command detection. |
-| Claude Code via `cc switch` API tool | User-confirmed access path; `claude.exe` is not usable and must not be treated as the Claude Code automation path. |
+| Claude Code via `cc switch` API tool | User-confirmed candidate access path, but the current verification found no local `cc` command or alias. `claude.exe` is visible but is not treated as the governed `cc switch` automation path. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
 | AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication and already-active profile CDP connection are verified for a harmless prompt round trip. Profile launch, profile switching, login automation, and session inspection remain unverified. |
 | Claude Web automation | Verified for review-prompt test only through an already-open Claude Web page. High-risk review, Red work, launch, deployment, and real-data use remain unauthorized. |
@@ -92,7 +92,7 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain local-tool L1. Claude Code through `cc switch` remains L1 and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not yet verified.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain local-tool L1. Claude Code through `cc switch` remains HOLD/L1-manual because no local `cc` command/API invocation was discoverable and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not verified.
 
 ## 7.1 AdsPower Claude Web Verification Result
 
@@ -113,6 +113,21 @@ This verification does not authorize AdsPower profile launch, profile switching,
 The loop may reference AdsPower Claude Web verification docs for safe review-prompt transfer only. It must not claim full four-tool automation while AHQ-020 remains HOLD for `cc switch` non-interactive Claude Code review.
 
 Standing Green docs-only closeout is allowed only after the ops-loop refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, and only under the exact Green docs-only closeout rule in `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`.
+
+## 7.3 CC Switch Claude Code Verification Result
+
+`S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001` attempted only non-secret local discovery for the governed `cc switch` Claude Code review-only path.
+
+Result:
+
+- no local `cc` command or PowerShell alias was available
+- `where.exe cc` found no match
+- `claude.exe` was visible but is not the governed `cc switch` API path for this stage
+- no harmless non-interactive review-only request was submitted
+- no parseable review result was returned
+- AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`
+
+The stage does not verify Claude Code edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
 
 ## 8. Non-Authorization
 

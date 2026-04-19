@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
-| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
+| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Stage | s5-cc-switch-claude-code-review-automation-verification |
+| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a passi
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only the autonomous ops loop refresh and Day-1 closeout clarification route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, broader AdsPower profile-launch route, Claude Code `cc switch` execution route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only the `cc switch` Claude Code review automation verification route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, broader AdsPower profile-launch route, Claude Code implementation route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -69,6 +69,8 @@ The autonomous toolchain integration path defines a four-tool collaboration mode
 The AdsPower Claude Web automation verification path verifies only a harmless review-prompt round trip through an already-active AdsPower profile and already-open Claude Web page. It may unlock safe future review-prompt transfer, but it does not unlock AdsPower profile launch/switch control, login automation, secrets/session inspection, high-risk review substitution, Red execution, launch, deployment, external pilot execution, public endpoint work, real-data handling, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
 The autonomous ops loop refresh path removes the duplicate loop and narrows automatic closeout permission to Green docs-only stages after this refresh stage itself closes PASS. It may reduce human confirmation load for safe docs-only governance stages, but it does not authorize Yellow implementation, Red execution, full four-tool automation, AdsPower profile launch/switch, Claude Web login, `cc switch` non-interactive Claude Code review, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
+
+The `cc switch` Claude Code review automation verification path attempted only non-secret local command discovery. No `cc` command/API path was discoverable in the VS Code workspace, so AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`. The path does not authorize edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation. Next recommended route is `PARK_CC_SWITCH_REVIEW_AUTOMATION_VERIFICATION_WAIT_FOR_TOOL_PATH_INPUT`.
 
 The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 

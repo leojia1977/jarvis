@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by autonomous ops loop refresh draft |
-| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
-| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
+| Status | Updated by cc switch verification draft |
+| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Stage | s5-cc-switch-claude-code-review-automation-verification |
+| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -59,7 +59,7 @@ The governed multi-tool pipeline is:
 2. Codex reads the charter, verifies `delegation_expires`, and loads core governance docs.
 3. Codex selects one item and classifies the lane.
 4. VS Code remains the local workspace surface for allowed edits.
-5. Claude Code access is through the user-configured `cc switch` API tool; it is review-only until non-interactive review command/API behavior is verified.
+5. Claude Code access is intended through the user-configured `cc switch` API tool, but the current workspace has no discoverable local `cc` command/API path; it remains review-prompt/manual-transfer only until non-interactive review command/API behavior is verified.
 6. Claude Web runs in the user's AdsPower browser/profile. The active-profile AdsPower/CDP path is verified for governed review-prompt transfer only; high-risk use still requires the applicable review and GO gates.
 7. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
 
@@ -86,7 +86,7 @@ If the `cc switch` Claude Code path, AdsPower browser/profile, or Claude Web pat
 - Claude Web or a designated external reviewer is required when high-risk triggers apply.
 - Review does not replace human or delegated GO where GO is required.
 - Claude Code review automation through `cc switch` is not claimed until command/API format and non-interactive behavior are verified.
-- If the `cc switch` Claude Code path is not verified, generate a review prompt and HOLD for human/tool execution.
+- The current `cc switch` verification did not find a local `cc` command/API path, so AHQ-020 remains HOLD and automation must generate a review prompt for human/tool execution.
 - If Claude Web is required and the verified active-profile AdsPower path is unavailable, generate a Claude Web prompt and HOLD for manual transfer.
 
 ## 4. Gate Commands

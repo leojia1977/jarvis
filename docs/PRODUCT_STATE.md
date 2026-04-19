@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Stage | s5-autonomous-ops-loop-refresh-day1-closeout |
-| Baseline commit | `62b8943465aa45966c72333ed8d8b07dcac50b7e` |
+| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Stage | s5-cc-switch-claude-code-review-automation-verification |
+| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `62b8943465aa45966c72333ed8d8b07dcac50b7e`
-- Snapshot: `S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001`
-- Stage: `s5-adspower-claude-web-automation-verification`
+- Commit: `73be4bc2669545be5b4357058fcf446eb461787c`
+- Snapshot: `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001`
+- Stage: `s5-autonomous-ops-loop-refresh-day1-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001.zip`
-- Release sha256: `47dee911580fc3770b316655f736de7ffa551e8b53d6dfd299237717d6abb43a`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001.zip`
+- Release sha256: `d10d9f2f6cb24db0dd5ccf14e8ee770416e81026f151f8af13640191290518f1`
 
-The current baseline closes the AdsPower Claude Web automation verification stage. It verifies only safe review-prompt transfer through an already-active AdsPower profile and already-open Claude Web page, and keeps full four-tool automation claims blocked by AHQ-020 and AHQ-022.
+The current baseline closes the autonomous ops loop refresh and Day-1 closeout stage. It removes the duplicate ops loop, keeps one active 2-hour loop, and permits standing Green docs-only closeout only under its exact post-PASS rule. Full four-tool automation remains unclaimed.
 
 ## 3. Sprint 5 State Summary
 
@@ -232,3 +232,31 @@ Current ops-loop posture:
 - Yellow implementation, Red work, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, browser profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, code/test/runtime/API/schema/dependency/fixture/release-script/contract changes, and AI_COLLAB changes remain unauthorized without separate governed approval.
 
 Next recommended verification stage is `OPEN_CC_SWITCH_CLAUDE_CODE_REVIEW_AUTOMATION_VERIFICATION_STAGE`.
+
+## 15. CC Switch Claude Code Review Automation Verification
+
+This stage opens verification of the user-configured `cc switch` API tool as a possible non-interactive Claude Code review-only path.
+
+Verification result:
+
+- No local `cc` command or PowerShell alias was available in the VS Code workspace.
+- `where.exe cc` found no match.
+- `claude.exe` was visible, but this stage does not treat it as the governed `cc switch` API path.
+- No harmless non-interactive review-only request was submitted.
+- No parseable Claude Code review result was returned.
+- Local command discovery did not change git status or create staged files.
+
+Current capability:
+
+- AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`.
+- AHQ-021 remains `VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY`.
+- AHQ-022 remains `PARTIAL_VERIFIED_ACTIVE_PROFILE_ONLY`.
+- AHQ-003 through AHQ-014 remain HOLD.
+- AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
+- Full four-tool automation is not claimed.
+
+Current non-authorization:
+
+- This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AdsPower profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, full four-tool automation, staging, commit, or push.
+
+Next recommended route is `PARK_CC_SWITCH_REVIEW_AUTOMATION_VERIFICATION_WAIT_FOR_TOOL_PATH_INPUT`.
