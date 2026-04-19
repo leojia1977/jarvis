@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by VS Code role orchestration draft |
-| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Stage | s5-vscode-role-toolchain-orchestration |
-| Route | OPEN_VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION_STAGE |
-| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
-| Baseline snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Baseline stage | s5-cc-switch-claude-code-review-automation-verification |
+| Status | Updated by AdsPower profile launch verification draft |
+| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Stage | s5-adspower-profile-launch-verification |
+| Route | OPEN_ADSPOWER_PROFILE_LAUNCH_VERIFICATION_STAGE |
+| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
+| Baseline snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Baseline stage | s5-vscode-role-toolchain-orchestration |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip` |
-| Baseline release sha256 | `85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8` |
+| Baseline release artifact | `releases\secupilot-S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `0410a0e2379d15d7b5a7bd534bf619a25c938a3b884a64df2efda4d572408355` |
 
 ## 2. Purpose
 
@@ -59,7 +59,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | VS Code CLI | Visible as `code.cmd` by safe local command detection; governed as the local workspace/editing surface only. |
 | Claude Code via `cc switch` API tool | User-confirmed candidate access path, but the current verification found no local `cc` command or alias. `claude.exe` is visible but is not treated as the governed `cc switch` automation path. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
-| AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication and already-active profile CDP connection are verified for a harmless prompt round trip. Profile launch, profile switching, login automation, and session inspection remain unverified. |
+| AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication, configured profile start/attach, CDP connection, and Claude Web review-prompt readiness are verified with limits. Profile switching, profile creation, login automation, and session inspection remain unverified. |
 | Claude Web automation | Verified for review-prompt test only through an already-open Claude Web page. High-risk review, Red work, launch, deployment, and real-data use remain unauthorized. |
 
 Visibility or a user-confirmed tool path means only that a candidate execution surface exists. It does not prove safe non-interactive behavior, authenticated session state, browser control, external review completion, or permission to use credentials.
@@ -92,7 +92,7 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain local-tool L1. VS Code is now explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. Claude Code through `cc switch` remains HOLD/L1-manual because no local `cc` command/API invocation was discoverable and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not verified.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Codex, VS Code, and Codex CLI remain local-tool L1. VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. Claude Code through `cc switch` remains HOLD/L1-manual because no local `cc` command/API invocation was discoverable and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not verified.
 
 ## 7.1 AdsPower Claude Web Verification Result
 
@@ -144,6 +144,22 @@ Result:
 
 If Codex and VS Code context disagree, the repo-governed docs, manifest, current git status, and current committed baseline control. If the conflict cannot be resolved from governed sources, HOLD.
 
+## 7.5 AdsPower Profile Launch Verification Result
+
+`S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001` verifies the configured AdsPower profile launch/attach path to Claude Web review-prompt readiness.
+
+Result:
+
+- `ADSPOWER_API_KEY` and `ADSPOWER_USER_ID` were present through local non-secret references; values were not printed or recorded.
+- AdsPower Local API `browser/start` succeeded for the configured profile identifier.
+- The returned CDP endpoint was reachable through HTTP and WebSocket.
+- A `claude.ai` page target was found after profile start/attach.
+- A minimal DOM probe confirmed `claude.ai`, an editable input surface, and no credential prompt.
+- No prompt was submitted in this stage.
+- No conversation text, cookies, sessions, tokens, auth headers, browser storage, profile files, API-key value, or profile identifier value were read or recorded.
+
+This verification does not authorize profile creation, profile switching, login automation, cookie/session/token/auth-header inspection, high-risk review automation, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
+
 ## 8. Non-Authorization
 
 This stage does not authorize:
@@ -165,7 +181,7 @@ This stage does not authorize:
 - ORDIV reopen
 - Red-3 execution
 - treating VS Code as product memory, approval authority, review authority, lane authority, or independent closeout authority
-- AdsPower/browser launch, profile control, or browser automation
+- AdsPower profile creation, profile switching, login automation, or broader session control
 - Claude Web login or account/session handling
 - staging, commit, or push
 - full gate or release packaging unless explicitly authorized after review

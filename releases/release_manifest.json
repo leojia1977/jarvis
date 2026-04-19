@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001",
+    "id": "S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001",
     "sprint": "Sprint 5",
-    "stage": "s5-vscode-role-toolchain-orchestration",
+    "stage": "s5-adspower-profile-launch-verification",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-19T16:18:08.969590+08:00"
+    "updated_at": "2026-04-19T17:39:18.548579+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001.zip",
-    "current_release_sha256": "0410a0e2379d15d7b5a7bd534bf619a25c938a3b884a64df2efda4d572408355"
+    "current_release_zip": "releases\\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip",
+    "current_release_sha256": "10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "a82e113e17c2222d7046fb5a5cf6536a33348e58d10a8200f763fc9d9b40d4e8"
+      "sha256": "1e77cd3bd12d17b9ca530da0966db871e8aa33bae207e9288f455d113ae745c8"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "79738ba8c401f1bb72ea449c1c4803e14ce2b88722ef56804e6606dba0d306f5"
+      "sha256": "12ff7a21065564ce6acff8625fff26e0660c8debeed9e2b8b5c1c3f156d34441"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "4dfb612a8cbac1fc2331cdbfb372259b317a04659d4cbb82c6e6984f132e279d"
+      "sha256": "58c5d70506148cc941847074e21e3375fc9ceb9b3fbf8b4d24ea767c582c6594"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "3046bead90c3d4a681fecc5ea6f1c1ad8a7a9291ea633a6718c5982627c42d56"
+      "sha256": "c5e22ae3835087215527e788045d7eb88e4f8292e18531d9227ab8d7f796da35"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -820,7 +820,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "805260350d3edd9d9dbd99e0e89d8e915e4fd48c67850e5589736aaff5ce49ea"
+      "sha256": "3084d6f221f84c2c9683c859d64150aa43cd8fc127ac8fc1d2400675d8368d69"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -830,7 +830,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "56d71b2693921e32a1280a699f3e3f0064c93132b0c513b45ccb9fd994d3c5a9"
+      "sha256": "4ab3f9da258425f9fb0181d2c16d9fef9769004341aaf4198ad933b4d76ef2f6"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -845,7 +845,7 @@
     {
       "path": "docs\\AUTONOMOUS_OPERATION_STARTUP.md",
       "role": "autonomous-operation-startup",
-      "sha256": "8eb834d6041158c19a7d2bd17016d40a10b6675ad87a8ad6600accd363a3b381"
+      "sha256": "91d1995a36e89f8aa8b9f4f53d7203fb96347ad17e4d23fbe866bcfea0ae0300"
     },
     {
       "path": "docs\\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md",
@@ -865,17 +865,17 @@
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "80414616247a89e5ac61b5598b5f2170ffc27bbf152dbd9dc864f2d7f132996f"
+      "sha256": "791cce2a3a7696978d0bd14c5626318cdfd3634e768979a5d039748b3fae474a"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "5c6dde89773c9f6c4d7db0568a93120c2265235c4217574630336dad27776f86"
+      "sha256": "b5c9fe86cc424f7dda44f6cdafd112f45ba21e5809aa9803359e7864500089f7"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "eb5cb8ff690c15c07b7db50344bdad41b39294d017dd29d60d337a403ebc9447"
+      "sha256": "2ccf3da1959a1f35a97413a4bd7e49d6c4b4cccb9d49a7fe2f14620a39192506"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -885,7 +885,7 @@
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_RUNBOOK.md",
       "role": "adspower-claude-web-runbook",
-      "sha256": "4c23d6ad32a32330f14f72f4d0d1b9603b8889e8037d9df2af7e984cf3edaa97"
+      "sha256": "340d54eaa554a55b2134489d4483a3ff0a402ea50b2e8e764bd3bbad8d7b5818"
     },
     {
       "path": "contracts\\AI_COLLAB_CONTRACT.md",
@@ -1011,6 +1011,16 @@
       "path": "docs\\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md",
       "role": "vscode-role-toolchain-orchestration",
       "sha256": "b43df99d1a16a56db7812e9d2bc728982cff0a913d031151999215d664795e97"
+    },
+    {
+      "path": "docs\\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md",
+      "role": "adspower-profile-launch-verification",
+      "sha256": "5392d7cfa45084016051dc730d7f3d2d57c9390a560f76155b3e55e6898c4a4a"
+    },
+    {
+      "path": "docs\\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md",
+      "role": "adspower-profile-launch-runbook",
+      "sha256": "a488ff0cfc2657e9850708e4b89cc0cffc2b4f64f7a185a5de6a2a4260c6e771"
     }
   ],
   "tests": [
@@ -1075,13 +1085,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001",
+      "Snapshot ID: S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-19T16:18:09.860455+08:00",
+    "last_verified_at": "2026-04-19T17:39:19.334954+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

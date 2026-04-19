@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | AdsPower Claude Web Runbook |
-| Status | Docs-only automation verification draft |
-| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
-| Stage | s5-adspower-claude-web-automation-verification |
-| Baseline commit | `bfd0920050d4780866dfdaba88fd3c7afece4e0c` |
+| Status | Updated by AdsPower profile launch verification draft |
+| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Stage | s5-adspower-profile-launch-verification |
+| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
 
 This runbook defines the safe operating pattern for Claude Web automation through AdsPower. It does not authorize launch, deployment, external pilot execution, real-data handling, credential handling, public endpoint work, parked-stream reopen, Red-3 action, or AI_COLLAB change.
 
@@ -49,8 +49,8 @@ If any startup check fails, HOLD.
 For approved review-prompt transfer only:
 
 1. Query AdsPower Local API using a non-logged bearer token.
-2. Locate an already-active AdsPower profile.
-3. Locate an already-open Claude Web page.
+2. Start or attach to the configured AdsPower profile only when `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md` permits it.
+3. Locate a Claude Web page.
 4. Connect through CDP without inspecting cookies, tokens, auth headers, browser storage, or profile files.
 5. Focus the Claude Web input surface.
 6. Insert the governed review prompt.
@@ -62,8 +62,8 @@ For approved review-prompt transfer only:
 
 Do not:
 
-- launch AdsPower profiles unless a later governed route verifies and authorizes profile launch
 - create or switch profiles
+- launch or attach to any AdsPower profile other than the configured governed profile identifier
 - automate login
 - enter passwords
 - read or export cookies

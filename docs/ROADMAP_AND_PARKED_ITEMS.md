@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Stage | s5-vscode-role-toolchain-orchestration |
-| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
+| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Stage | s5-adspower-profile-launch-verification |
+| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a passi
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only the VS Code role and toolchain orchestration clarification route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, broader AdsPower profile-launch route, Claude Code implementation route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only the AdsPower configured-profile launch verification route for Claude Web review-prompt readiness. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, AdsPower profile switching/creation route, Claude Code implementation route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -73,6 +73,8 @@ The autonomous ops loop refresh path removes the duplicate loop and narrows auto
 The `cc switch` Claude Code review automation verification path attempted only non-secret local command discovery. No `cc` command/API path was discoverable in the VS Code workspace, so AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`. The path does not authorize edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation. Next recommended route is `PARK_CC_SWITCH_REVIEW_AUTOMATION_VERIFICATION_WAIT_FOR_TOOL_PATH_INPUT`.
 
 The VS Code role and toolchain orchestration path clarifies that VS Code is the local workspace/editing execution surface only. Codex remains the orchestrator for governance loading, lane classification, review routing, gate/package/release verification, manifest updates, and governed closeout under policy limits. VS Code is not product memory, approval authority, independent reviewer, route authority, PASS authority, or closeout authority by itself. This path does not authorize implementation, code/test changes, browser login/session access, AdsPower profile launch/switch, Red execution, launch, deployment, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or full four-tool automation.
+
+The AdsPower profile launch verification path verifies the configured profile launch/attach route to Claude Web review-prompt readiness. It may support future safe review-prompt transfer when the configured profile is not already active, but it does not authorize profile creation, profile switching, login automation, cookie/session/token/auth-header inspection, browser storage/profile-file inspection, reading Claude conversation history, high-risk review substitution, Yellow implementation, Red execution, launch, deployment, external pilot execution, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or full four-tool automation.
 
 The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 

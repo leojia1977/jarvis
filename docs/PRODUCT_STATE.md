@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Stage | s5-vscode-role-toolchain-orchestration |
-| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
+| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Stage | s5-adspower-profile-launch-verification |
+| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `06a4bed2f328b02138bb8e6e9359bfc07936831d`
-- Snapshot: `S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001`
-- Stage: `s5-cc-switch-claude-code-review-automation-verification`
+- Commit: `a02e53fd1a439db5b14752144074be15759cd63d`
+- Snapshot: `S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001`
+- Stage: `s5-vscode-role-toolchain-orchestration`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip`
-- Release sha256: `85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8`
+- Release artifact: `releases\secupilot-S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001.zip`
+- Release sha256: `0410a0e2379d15d7b5a7bd534bf619a25c938a3b884a64df2efda4d572408355`
 
-The current baseline closes the cc switch Claude Code review automation verification stage. It keeps AHQ-020 in `HOLD_FOR_TOOL_VERIFICATION` because no local `cc` command/API path was discoverable. Standing Green docs-only closeout remains available only under the ops-loop refresh post-PASS rule. Full four-tool automation remains unclaimed.
+The current baseline closes the VS Code role and toolchain orchestration stage. It confirms VS Code as the local workspace/editing execution surface only, keeps AHQ-020 in `HOLD_FOR_TOOL_VERIFICATION`, preserves the AdsPower/Claude Web review-prompt-only limits, and does not claim full four-tool automation.
 
 ## 3. Sprint 5 State Summary
 
@@ -286,3 +286,30 @@ Current status:
 Current non-authorization:
 
 - This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AdsPower profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, full four-tool automation, staging, commit, or push.
+
+## 17. AdsPower Profile Launch Verification
+
+This stage verifies the configured AdsPower profile launch/attach path to Claude Web review-prompt readiness.
+
+Verification result:
+
+- `ADSPOWER_API_KEY` and `ADSPOWER_USER_ID` were present through local non-secret references, and neither value was printed or recorded.
+- AdsPower Local API `browser/start` succeeded for the configured profile identifier.
+- The returned CDP endpoint was reachable through HTTP and WebSocket.
+- A `claude.ai` page target was found after profile start/attach.
+- A minimal DOM probe confirmed `claude.ai`, an editable input surface, and no credential prompt.
+- No prompt was submitted in this stage.
+- No conversation text, cookies, sessions, tokens, auth headers, browser storage, profile files, API-key value, or profile identifier value were read or recorded.
+
+Current capability:
+
+- AHQ-022 may advance to `VERIFIED_PROFILE_LAUNCH_TO_REVIEW_PROMPT_READY_WITH_LIMITS`.
+- AHQ-021 remains `VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY`.
+- AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`.
+- AHQ-003 through AHQ-014 remain HOLD.
+- AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
+- Full four-tool automation remains unclaimed.
+
+Current non-authorization:
+
+- This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, profile creation, profile switching, Claude Web login, cookie/session/token/auth-header inspection, browser storage/profile-file inspection, reading Claude conversation history, full four-tool automation, staging, commit, or push.

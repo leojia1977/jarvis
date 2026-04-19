@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by VS Code role orchestration draft |
-| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Stage | s5-vscode-role-toolchain-orchestration |
-| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
+| Status | Updated by AdsPower profile launch verification draft |
+| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Stage | s5-adspower-profile-launch-verification |
+| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -33,7 +33,7 @@ Use the lowest-risk tool that can complete the allowed step:
 - Use Codex workspace editing for allowed docs-only changes.
 - Use VS Code CLI only as a local workspace/editing surface when needed and governed; do not treat it as product memory, review authority, or closeout authority.
 - Use Claude Code through the `cc switch` API tool only after review-only command/API format and non-interactive behavior are verified.
-- Use Claude Web through the verified AdsPower active-profile path only for governed review-prompt transfer when the prompt contains no secrets, raw customer data, credentials, or unredacted real evidence.
+- Use Claude Web through the verified AdsPower configured-profile path only for governed review-prompt transfer when the prompt contains no secrets, raw customer data, credentials, or unredacted real evidence.
 - Use Git only for inspection unless staging/commit/push is explicitly authorized.
 
 ## 4. VS Code Workspace Usage
@@ -80,7 +80,7 @@ If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severi
 
 Claude Web is an external review path.
 
-The user-confirmed Claude Web surface is an AdsPower browser/profile. The active-profile path is verified only for harmless review-prompt round trip. If the active profile or Claude Web page is missing, automation must produce a Claude Web prompt and HOLD for manual transfer.
+The user-confirmed Claude Web surface is an AdsPower browser/profile. The configured-profile path is verified only for safe launch/attach to review-prompt readiness and harmless review-prompt round trip. If the configured profile, CDP endpoint, Claude Web page, or input surface is missing, automation must produce a Claude Web prompt and HOLD for manual transfer.
 
 No credentials, cookies, tokens, API keys, auth headers, or secret material may enter repo, chat, prompts, review packs, or logs.
 
@@ -90,18 +90,19 @@ Claude Web or external review is required for high-risk triggers already defined
 
 ## 7. AdsPower Browser Automation Boundary
 
-AdsPower active-profile CDP automation is verified only for governed review-prompt transfer. AdsPower profile launch, profile switching, login automation, and broader session control are not authorized by this stage.
+AdsPower configured-profile launch/attach and CDP automation are verified only for governed review-prompt transfer readiness. AdsPower profile switching, profile creation, login automation, and broader session control are not authorized by this stage.
 
 AdsPower Local API accepts a user-level environment variable API key. The API key is secret material. Do not paste it into chat, commit it to repo, add it to prompts, print it in logs, or ask the AI to read/display it. Future runs must use a human-controlled non-secret provisioning path, such as a local environment variable or Windows Credential Manager reference.
 
 Do not:
 
-- launch browsers or AdsPower profiles
+- launch or attach to any AdsPower profile other than the configured governed profile identifier
 - switch AdsPower profiles
+- create AdsPower profiles
 - log into Claude Web
 - inspect cookies, sessions, credentials, tokens, auth headers, AdsPower profiles, or browser profile state
 - print, store, or echo AdsPower API keys
-- claim Claude Web automation is verified
+- claim blanket Claude Web automation is verified beyond the governed review-prompt path
 
 AdsPower/browser capability may be documented as candidate-only until a later governed safe verification route exists.
 
@@ -222,3 +223,16 @@ This clarification does not authorize implementation, code/test changes, browser
 The active autonomous ops loop must include toolchain and AdsPower Claude Web verification/runbook context before using Claude Web review-prompt transfer. The loop may not use Claude Web for prompts containing secrets, raw customer data, credentials, or unredacted real evidence.
 
 Standing Green docs-only closeout is governed by `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md` after that stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push. This runbook does not authorize Yellow implementation, Red execution, profile launch/switch, Claude Web login, or full four-tool automation.
+
+## 17. AdsPower Profile Launch Verification Note
+
+`docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md` and `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md` govern the configured AdsPower profile launch/attach path.
+
+Allowed only when governed stage scope permits:
+
+- read `ADSPOWER_API_KEY` and `ADSPOWER_USER_ID` through local non-secret references without printing values
+- call AdsPower Local API `browser/start` for the configured profile identifier
+- use the returned CDP endpoint to confirm Claude Web review-prompt readiness
+- stop before prompt submission unless a separate governed review prompt is authorized
+
+This note does not authorize profile switching, login automation, cookie/session/token/auth-header inspection, reading Claude conversation history, Red execution, launch, deployment, external pilot execution, real-data handling, public endpoint work, or full four-tool automation.

@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Operation Startup |
-| Status | Updated by VS Code role orchestration draft |
-| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
-| Stage | s5-vscode-role-toolchain-orchestration |
-| Route | OPEN_VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION_STAGE |
-| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
-| Baseline snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Baseline stage | s5-cc-switch-claude-code-review-automation-verification |
+| Status | Updated by AdsPower profile launch verification draft |
+| Snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
+| Stage | s5-adspower-profile-launch-verification |
+| Route | OPEN_ADSPOWER_PROFILE_LAUNCH_VERIFICATION_STAGE |
+| Baseline commit | `a02e53fd1a439db5b14752144074be15759cd63d` |
+| Baseline snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Baseline stage | s5-vscode-role-toolchain-orchestration |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip` |
-| Baseline release sha256 | `85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8` |
+| Baseline release artifact | `releases\secupilot-S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `0410a0e2379d15d7b5a7bd534bf619a25c938a3b884a64df2efda4d572408355` |
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
@@ -26,12 +26,12 @@ That stage records:
 
 - duplicate autonomous ops loop removal
 - one active 2-hour ops loop as the default
-- expanded per-run read set including the toolchain docs, VS Code role orchestration doc, and AdsPower Claude Web verification/runbook docs
+- expanded per-run read set including the toolchain docs, VS Code role orchestration doc, AdsPower Claude Web verification/runbook docs, and AdsPower profile launch verification/runbook docs
 - standing Green docs-only closeout conditions after the refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push
 - AHQ-019 supersession only for Green docs-only closeout
 - AHQ-020 remaining HOLD until `cc switch` non-interactive Claude Code review is verified
 
-It does not authorize Yellow implementation, Red execution, browser profile launch/switch, Claude Web login, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
+It does not authorize Yellow implementation, Red execution, browser profile creation/switching, Claude Web login, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
 
 ## 1.1 Toolchain Integration Update
 
@@ -88,6 +88,8 @@ Every autonomous operation run must begin with these checks:
    - `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`
    - `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`
    - `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`
+   - `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`
+   - `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`
 5. Confirm manifest baseline and git cleanliness.
 6. Identify one next allowed item.
 7. Classify the lane as Green, Yellow, Red-1, Red-2, Red-3, or HOLD.
@@ -188,4 +190,4 @@ This startup stage does not authorize:
 
 After `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, the autonomous ops loop may close Green docs-only stages without separate per-closeout human confirmation only under the standing Green docs-only closeout rule in `docs\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md`.
 
-This standing rule is narrow. It does not apply to Yellow implementation, code/test changes, dependency changes, fixture changes, runtime/API/schema changes, release-script changes, contract changes, Red work, browser profile launch/switch, Claude Web login, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.
+This standing rule is narrow. It does not apply to Yellow implementation, code/test changes, dependency changes, fixture changes, runtime/API/schema changes, release-script changes, contract changes, Red work, browser profile creation/switching, Claude Web login, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.
