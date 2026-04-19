@@ -5,9 +5,9 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Docs-only autonomous toolchain integration draft for autonomous delivery pipeline |
-| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
-| Stage | s5-autonomous-toolchain-integration |
+| Status | Updated by AdsPower Claude Web automation verification draft |
+| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
+| Stage | s5-adspower-claude-web-automation-verification |
 | Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
@@ -56,7 +56,7 @@ The governed multi-tool pipeline is:
 3. Codex selects one item and classifies the lane.
 4. VS Code remains the local workspace surface for allowed edits.
 5. Claude Code access is through the user-configured `cc switch` API tool; it is review-only until non-interactive review command/API behavior is verified.
-6. Claude Web runs in the user's AdsPower browser/profile and remains a manual external review path until a governed AdsPower browser automation route is verified.
+6. Claude Web runs in the user's AdsPower browser/profile. The active-profile AdsPower/CDP path is verified for governed review-prompt transfer only; high-risk use still requires the applicable review and GO gates.
 7. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
 
 If the `cc switch` Claude Code path, AdsPower browser/profile, or Claude Web path is unavailable, ambiguous, or requires credentials/session access, the action is HOLD.
@@ -83,7 +83,7 @@ If the `cc switch` Claude Code path, AdsPower browser/profile, or Claude Web pat
 - Review does not replace human or delegated GO where GO is required.
 - Claude Code review automation through `cc switch` is not claimed until command/API format and non-interactive behavior are verified.
 - If the `cc switch` Claude Code path is not verified, generate a review prompt and HOLD for human/tool execution.
-- If Claude Web is required and AdsPower browser automation is not verified, generate a Claude Web prompt and HOLD for manual transfer.
+- If Claude Web is required and the verified active-profile AdsPower path is unavailable, generate a Claude Web prompt and HOLD for manual transfer.
 
 ## 4. Gate Commands
 

@@ -5,9 +5,9 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Docs-only autonomous toolchain integration draft |
-| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
-| Stage | s5-autonomous-toolchain-integration |
+| Status | Updated by AdsPower Claude Web automation verification draft |
+| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
+| Stage | s5-adspower-claude-web-automation-verification |
 | Route | OPEN_AUTONOMOUS_TOOLCHAIN_INTEGRATION_STAGE |
 | Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
 | Baseline snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
@@ -59,8 +59,8 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | VS Code CLI | Visible as `code.cmd` by safe local command detection. |
 | Claude Code via `cc switch` API tool | User-confirmed access path; `claude.exe` is not usable and must not be treated as the Claude Code automation path. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
-| AdsPower browser/profile | User-confirmed Claude Web surface; local process is visible and Local API endpoint is reachable, but it requires API-key authentication. Launcher, profile, session, and automation control are not verified. |
-| Claude Web automation | Manual AdsPower transfer only; automation is not verified. |
+| AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication and already-active profile CDP connection are verified for a harmless prompt round trip. Profile launch, profile switching, login automation, and session inspection remain unverified. |
+| Claude Web automation | Verified for review-prompt test only through an already-open Claude Web page. High-risk review, Red work, launch, deployment, and real-data use remain unauthorized. |
 
 Visibility or a user-confirmed tool path means only that a candidate execution surface exists. It does not prove safe non-interactive behavior, authenticated session state, browser control, external review completion, or permission to use credentials.
 
@@ -92,7 +92,19 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: L1 for Codex, VS Code, and Codex CLI local detection plus user-confirmed Claude Code access through the `cc switch` API tool and manual prompt transfer. The full four-tool autonomous closed loop is not yet verified.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain local-tool L1. Claude Code through `cc switch` remains L1 and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not yet verified.
+
+## 7.1 AdsPower Claude Web Verification Result
+
+The follow-up verification stage `S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001` verified:
+
+- AdsPower Local API accepts the user-level environment variable API key without printing the key.
+- One already-active AdsPower profile is visible.
+- One already-open Claude Web page is visible through CDP target metadata.
+- Claude Web input can be focused through CDP.
+- A harmless prompt round trip returned the expected non-secret test token.
+
+This verification does not authorize AdsPower profile launch, profile switching, login automation, cookie/session/token/auth-header inspection, high-risk review automation, or Red execution.
 
 ## 8. Non-Authorization
 

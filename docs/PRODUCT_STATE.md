@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
-| Stage | s5-autonomous-toolchain-integration |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
+| Stage | s5-adspower-claude-web-automation-verification |
+| Baseline commit | `bfd0920050d4780866dfdaba88fd3c7afece4e0c` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `3e106c324b37f22114fdb8243c6ef158d471408f`
-- Snapshot: `S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001`
-- Stage: `s5-autonomous-operation-startup`
+- Commit: `bfd0920050d4780866dfdaba88fd3c7afece4e0c`
+- Snapshot: `S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001`
+- Stage: `s5-autonomous-toolchain-integration`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001.zip`
-- Release sha256: `441589fd552622105584b06db566e8fca9bb5f1141b77e0cdffe2bf8b3859c66`
+- Release artifact: `releases\secupilot-S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001.zip`
+- Release sha256: `46bd62aff5ac78315750e241fe2c790ddb1937f38702c571a0011b8211db7655`
 
-The current baseline closes the autonomous operation startup stage. It starts a docs-only autonomous operating loop with default 2-hour cadence, day-1 human confirmation for staging/commit/push, and preservation of all launch, deployment, external pilot, credential, real-data, public endpoint, parked-stream, ORDIV, and Red-3 boundaries.
+The current baseline closes the autonomous toolchain integration stage. It records the governed four-tool model, Claude Code through `cc switch`, Claude Web in AdsPower, API-key secret boundaries, and keeps full four-tool automation claims blocked until verification.
 
 ## 3. Sprint 5 State Summary
 
@@ -193,3 +193,28 @@ Toolchain non-authorization:
 
 - This stage does not authorize AdsPower/browser launch, AdsPower profile/session control, Claude Web login, credential/session handling, full gate, release packaging, staging, commit, push, external pilot execution, customer launch, production deployment, S5-B/S5-D reopen, ORDIV reopen, Red-3 action, S4-A resolver order changes, or AI_COLLAB changes.
 - AHQ-020 through AHQ-022 block claims of full four-tool automation, including AdsPower/Claude Web automation, until separately governed.
+
+## 13. AdsPower Claude Web Automation Verification
+
+This stage verifies the AdsPower / Claude Web path for a harmless review-prompt round trip.
+
+Verification result:
+
+- AdsPower API-key provisioning through a user-level environment variable was accepted without printing or recording the key.
+- An already-active AdsPower profile was visible through Local API.
+- One already-open Claude Web page was visible through CDP target metadata.
+- Claude Web input was focused through CDP.
+- A harmless test prompt returned the expected non-secret test token.
+
+Current capability:
+
+- AdsPower / Claude Web is `VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY`.
+- The verified path may support governed review-prompt transfer when no secrets, raw customer data, credentials, or unredacted evidence are included.
+- AHQ-021 advances to `VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY`.
+- AHQ-022 remains `PARTIAL_VERIFIED_ACTIVE_PROFILE_ONLY`; profile launch, profile switching, login automation, and broader session control remain unverified.
+- AHQ-023 is `CLOSED_BY_USER_ENV_AUTH_OK`.
+- AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`; Claude Code `cc switch` non-interactive review is still unverified.
+
+Current non-authorization:
+
+- This stage does not authorize launch execution, production deployment, external pilot execution, credential handling by AI, real-data handling, public endpoint activation, S5-B/S5-D reopen, ORDIV reopen/report/CSV/L1B work, Red-3 actions, legal/commercial commitments, public GA, customer/operator sign-off, evidence deletion, schema/API breaking changes, S4-A resolver order changes, AI_COLLAB changes, AdsPower profile launch/switch automation, login automation, cookie/session/token/auth-header inspection, full gate/package, staging, commit, or push.

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
-| Stage | s5-autonomous-toolchain-integration |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
+| Stage | s5-adspower-claude-web-automation-verification |
+| Baseline commit | `bfd0920050d4780866dfdaba88fd3c7afece4e0c` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -16,7 +16,7 @@ This file summarizes parked, deferred, and possible future routes. It is a passi
 
 The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
 
-The human product/governance input for this stage opens only this docs-only autonomous toolchain integration route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, browser automation route, or Claude Web login route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only this AdsPower / Claude Web automation verification route. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, broader AdsPower profile-launch route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -65,6 +65,8 @@ The final activation path records `FINAL_HUMAN_GO`, closes AHQ-018 as `CLOSED_BY
 The autonomous operation startup path adds a default 2-hour operating cadence for safe Green/Yellow docs-only drafting and closeout-gate preparation. During day 1, staging, commit, and push still require explicit human confirmation. Startup does not close AHQ-003 through AHQ-014, does not remove AHQ-017 ambiguity handling, and does not authorize Red execution beyond exact per-action policy requirements.
 
 The autonomous toolchain integration path defines a four-tool collaboration model and current capability matrix. It may reduce planning risk by clarifying Codex, VS Code, Claude Code through the user-configured `cc switch` API tool, Claude Web running in the user's AdsPower browser/profile, Git, and release/gate boundaries, but it does not claim full four-tool automation. AdsPower Local API is reachable locally but requires API-key authentication, so any future automation route needs a human-controlled non-secret API-key provisioning path. AHQ-020 through AHQ-022 remain HOLD until Claude Code non-interactive review through `cc switch`, AdsPower/Claude Web automation, and AdsPower browser/profile/session control are separately governed and verified.
+
+The AdsPower Claude Web automation verification path verifies only a harmless review-prompt round trip through an already-active AdsPower profile and already-open Claude Web page. It may unlock safe future review-prompt transfer, but it does not unlock AdsPower profile launch/switch control, login automation, secrets/session inspection, high-risk review substitution, Red execution, launch, deployment, external pilot execution, public endpoint work, real-data handling, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
 The L3 deadline is a planning target only. It is not readiness, launch authorization, customer sign-off, or external pilot execution authorization.
 

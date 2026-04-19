@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous HOLD Queue |
-| Status | Live governed HOLD queue autonomous toolchain integration draft |
-| Snapshot | S5-AUTONOMOUS-TOOLCHAIN-INTEGRATION-2026-04-18-001 |
-| Stage | s5-autonomous-toolchain-integration |
-| Baseline commit | `3e106c324b37f22114fdb8243c6ef158d471408f` |
+| Status | Live governed HOLD queue AdsPower Claude Web automation verification draft |
+| Snapshot | S5-ADSPOWER-CLAUDE-WEB-AUTOMATION-VERIFICATION-2026-04-18-001 |
+| Stage | s5-adspower-claude-web-automation-verification |
+| Baseline commit | `bfd0920050d4780866dfdaba88fd3c7afece4e0c` |
 
 This HOLD queue tracks blockers for autonomous vacation mode and L3 customer-trial launch acceleration. It does not authorize implementation or launch execution.
 
@@ -36,8 +36,9 @@ This HOLD queue tracks blockers for autonomous vacation mode and L3 customer-tri
 | AHQ-018 | Activation | Final human activation GO | Human product/governance supplied `FINAL_HUMAN_GO`, including MEDIUM-1 verbatim and core governance doc loading requirement. | Per-session charter reread, unexpired authorization window, complete approval records, and no unresolved HOLD for the action. | Human/product governance. | Maintain final activation checklist and period-end requirement. | Governed final activation record. | Conditional Red | CLOSED_BY_FINAL_HUMAN_GO | 2026-04-18 |
 | AHQ-019 | Git closeout | Day-1 staging/commit/push confirmation | Day 1 allows Green/Yellow docs-only drafting and closeout-gate preparation, but staging, commit, and push still require explicit human confirmation. | Explicit human confirmation for staging, commit, and push during day 1. | Human/product governance. | Prepare review-ready draft, diff summary, and gate plan. | Human confirmation. | Green/Yellow | HOLD_FOR_HUMAN_CONFIRMATION_DAY_1 | 2026-04-18 |
 | AHQ-020 | Toolchain review | Claude Code `cc switch` non-interactive review path | `claude.exe` is not usable; Claude Code access is through the user-configured `cc switch` API tool, but non-interactive review-only command/API behavior is not verified. | Governed `cc switch` command/API-format verification and review-only behavior evidence. | Human/toolchain governance. | Generate Claude Code review prompt and HOLD for human/tool execution. | Claude Code review-only after `cc switch` verification. | Green/Yellow | HOLD_FOR_TOOL_VERIFICATION | 2026-04-18 |
-| AHQ-021 | External review | Claude Web / AdsPower browser automation path | Claude Web is user-confirmed to run in an AdsPower browser/profile, but automation is not verified; Local API is reachable but requires API-key authentication. | Governed AdsPower browser/external review path verification without credentials in repo/chat and without exposing API keys. | Human/toolchain governance. | Prepare Claude Web prompt for manual transfer into AdsPower. | Claude Web/manual external review. | Conditional Red | HOLD_FOR_TOOL_VERIFICATION | 2026-04-18 |
-| AHQ-022 | Browser control | AdsPower browser/profile launcher / session control | AdsPower browser/profile launchers and session control are not verified as controllable in this stage; API-key provisioning path is not governed. | Separate governed AdsPower browser verification route with human-controlled non-secret API-key provisioning. | Human/toolchain governance. | Document AdsPower/browser candidate rows only. | External review if AdsPower browser path is selected. | Conditional Red | HOLD_FOR_TOOL_VERIFICATION | 2026-04-18 |
+| AHQ-021 | External review | Claude Web / AdsPower browser automation path | Claude Web active-profile automation passed a harmless review-prompt round trip without API-key disclosure or session/cookie/token inspection. | Future use must remain review-prompt-only unless separately governed; high-risk/Red use still requires review and GO gates. | Human/toolchain governance. | Use verified path only for safe governed review-prompt transfer. | Review by lane; external review for high-risk triggers. | Conditional Red | VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY | 2026-04-18 |
+| AHQ-022 | Browser control | AdsPower browser/profile launcher / session control | Active-profile CDP connection worked, but AdsPower profile launch, profile switching, login automation, and broader session control were not verified. | Separate governed AdsPower launcher/session verification route before launch/switch control. | Human/toolchain governance. | Use already-active profile path only when available; otherwise HOLD/manual transfer. | External review if broader browser path is selected. | Conditional Red | PARTIAL_VERIFIED_ACTIVE_PROFILE_ONLY | 2026-04-18 |
+| AHQ-023 | Secrets | AdsPower API-key non-secret provisioning | User-level environment variable API-key provisioning was available and accepted by AdsPower Local API; key value was not printed, stored, or recorded. | Future runs must keep non-secret provisioning and must not expose API-key material. | Human/toolchain governance. | Reference only the approved secret path. | Review by lane. | Conditional Red | CLOSED_BY_USER_ENV_AUTH_OK | 2026-04-18 |
 
 ## 3. Queue Rules
 
@@ -47,4 +48,6 @@ This HOLD queue tracks blockers for autonomous vacation mode and L3 customer-tri
 - No HOLD queue item authorizes real access, credentials, launch execution, public endpoint work, or parked-stream reopen.
 - `ACTIVE` policy does not create blanket Red execution and does not close AHQ-003 through AHQ-014 or AHQ-017.
 - Autonomous operation startup does not close any HOLD item by itself.
-- AHQ-020 through AHQ-022 do not block Green docs-only drafting, but they block claims of full four-tool automation, including AdsPower/Claude Web automation.
+- AHQ-020 still blocks claims of full four-tool automation because Claude Code `cc switch` non-interactive review is not verified.
+- AHQ-021 allows only safe Claude Web review-prompt transfer through the already-active AdsPower profile path.
+- AHQ-022 blocks AdsPower profile launch, profile switching, login automation, and broader session control.
