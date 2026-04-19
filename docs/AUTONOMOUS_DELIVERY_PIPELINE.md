@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by cc switch verification draft |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
+| Status | Updated by VS Code role orchestration draft |
+| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Stage | s5-vscode-role-toolchain-orchestration |
+| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -31,7 +31,7 @@ Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
-The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, and `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md` before using Claude Web review-prompt transfer or toolchain automation.
+The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, and `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md` before using Claude Web review-prompt transfer or toolchain automation.
 
 ## 1.2 Autonomous Operation Cadence
 
@@ -58,12 +58,20 @@ The governed multi-tool pipeline is:
 1. Codex automation starts the run.
 2. Codex reads the charter, verifies `delegation_expires`, and loads core governance docs.
 3. Codex selects one item and classifies the lane.
-4. VS Code remains the local workspace surface for allowed edits.
+4. VS Code remains the local workspace/editing execution surface for exact allowed files; it is not product memory, lane authority, review authority, release authority, or independent closeout authority.
 5. Claude Code access is intended through the user-configured `cc switch` API tool, but the current workspace has no discoverable local `cc` command/API path; it remains review-prompt/manual-transfer only until non-interactive review command/API behavior is verified.
 6. Claude Web runs in the user's AdsPower browser/profile. The active-profile AdsPower/CDP path is verified for governed review-prompt transfer only; high-risk use still requires the applicable review and GO gates.
 7. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
 
 If the `cc switch` Claude Code path, AdsPower browser/profile, or Claude Web path is unavailable, ambiguous, or requires credentials/session access, the action is HOLD.
+
+## 1.4 VS Code Workspace Boundary
+
+VS Code may be used only as the local repo editing/workspace surface for the selected governed task. Codex remains responsible for orchestration, governance doc loading, lane classification, review routing, gate/package/release verification when authorized, manifest updates, and governed closeout under policy limits.
+
+VS Code editor state, terminals, and local windows are execution context. They do not override repo-governed docs, the manifest, release verification, review results, or current git status. If VS Code-visible state conflicts with governed repo evidence, prefer governed repo evidence; if still ambiguous, HOLD.
+
+This boundary does not authorize code/test implementation, browser login/session access, AdsPower profile launch/switch, Claude Web login, credential/session/cookie/token/auth-header inspection, Red execution, launch, deployment, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, staging, commit, or push.
 
 ## 2. Pipeline Stages
 

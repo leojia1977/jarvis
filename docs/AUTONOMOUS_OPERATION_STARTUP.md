@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Operation Startup |
-| Status | Docs-only autonomous operation startup draft |
-| Snapshot | S5-AUTONOMOUS-OPERATION-STARTUP-2026-04-18-001 |
-| Stage | s5-autonomous-operation-startup |
-| Route | OPEN_AUTONOMOUS_OPERATION_STARTUP_STAGE |
-| Baseline commit | `ab8f022604c86fa6ed6edeb87435ca4f2f49c4b8` |
-| Baseline snapshot | S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001 |
-| Baseline stage | s5-autonomous-policy-final-activation |
+| Status | Updated by VS Code role orchestration draft |
+| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Stage | s5-vscode-role-toolchain-orchestration |
+| Route | OPEN_VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION_STAGE |
+| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
+| Baseline snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Baseline stage | s5-cc-switch-claude-code-review-automation-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-AUTONOMOUS-POLICY-FINAL-ACTIVATION-2026-04-18-001.zip` |
-| Baseline release sha256 | `f7c7f26018b74f4426add0fcf567936e175ab3b9fc8d102cbd921a6bbcb45c7e` |
+| Baseline release artifact | `releases\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8` |
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
@@ -26,7 +26,7 @@ That stage records:
 
 - duplicate autonomous ops loop removal
 - one active 2-hour ops loop as the default
-- expanded per-run read set including the toolchain docs and AdsPower Claude Web verification/runbook docs
+- expanded per-run read set including the toolchain docs, VS Code role orchestration doc, and AdsPower Claude Web verification/runbook docs
 - standing Green docs-only closeout conditions after the refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push
 - AHQ-019 supersession only for Green docs-only closeout
 - AHQ-020 remaining HOLD until `cc switch` non-interactive Claude Code review is verified
@@ -85,6 +85,7 @@ Every autonomous operation run must begin with these checks:
    - `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`
    - `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`
    - `docs\AUTONOMOUS_TOOL_RUNBOOK.md`
+   - `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`
    - `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`
    - `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`
 5. Confirm manifest baseline and git cleanliness.

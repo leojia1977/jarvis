@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
+| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Stage | s5-vscode-role-toolchain-orchestration |
+| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `73be4bc2669545be5b4357058fcf446eb461787c`
-- Snapshot: `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001`
-- Stage: `s5-autonomous-ops-loop-refresh-day1-closeout`
+- Commit: `06a4bed2f328b02138bb8e6e9359bfc07936831d`
+- Snapshot: `S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001`
+- Stage: `s5-cc-switch-claude-code-review-automation-verification`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001.zip`
-- Release sha256: `d10d9f2f6cb24db0dd5ccf14e8ee770416e81026f151f8af13640191290518f1`
+- Release artifact: `releases\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip`
+- Release sha256: `85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8`
 
-The current baseline closes the autonomous ops loop refresh and Day-1 closeout stage. It removes the duplicate ops loop, keeps one active 2-hour loop, and permits standing Green docs-only closeout only under its exact post-PASS rule. Full four-tool automation remains unclaimed.
+The current baseline closes the cc switch Claude Code review automation verification stage. It keeps AHQ-020 in `HOLD_FOR_TOOL_VERIFICATION` because no local `cc` command/API path was discoverable. Standing Green docs-only closeout remains available only under the ops-loop refresh post-PASS rule. Full four-tool automation remains unclaimed.
 
 ## 3. Sprint 5 State Summary
 
@@ -260,3 +260,29 @@ Current non-authorization:
 - This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AdsPower profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, full four-tool automation, staging, commit, or push.
 
 Next recommended route is `PARK_CC_SWITCH_REVIEW_AUTOMATION_VERIFICATION_WAIT_FOR_TOOL_PATH_INPUT`.
+
+## 16. VS Code Role And Toolchain Orchestration
+
+This stage clarifies the VS Code role in the autonomous workflow.
+
+Role outcome:
+
+- VS Code is the local workspace and editing execution surface for exact allowed files.
+- Codex remains responsible for orchestration, governance doc loading, lane classification, review routing, gate/package/release verification when authorized, manifest updates, and governed closeout under policy limits.
+- VS Code is not product memory, lane authority, product/governance route authority, review authority, release PASS authority, or independent closeout authority.
+- Claude Web in AdsPower remains the verified active-profile review-prompt transfer path only.
+- Claude Code through `cc switch` remains HOLD until a callable non-interactive review-only path is governed and verified.
+
+Current status:
+
+- VS Code remains L1 governed workspace surface.
+- AHQ-019 remains `SUPERSEDED_FOR_GREEN_DOCS_ONLY_AFTER_THIS_STAGE_PASS` for standing Green docs-only closeout only.
+- AHQ-020 remains `HOLD_FOR_TOOL_VERIFICATION`.
+- AHQ-021 remains `VERIFIED_FOR_REVIEW_PROMPT_TEST_ONLY`.
+- AHQ-022 remains `PARTIAL_VERIFIED_ACTIVE_PROFILE_ONLY`.
+- AHQ-003 through AHQ-014 remain HOLD.
+- AHQ-017 remains `HOLD_IF_AMBIGUOUS`.
+
+Current non-authorization:
+
+- This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AdsPower profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, full four-tool automation, staging, commit, or push.

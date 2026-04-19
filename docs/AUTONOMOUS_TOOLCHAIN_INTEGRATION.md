@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by cc switch verification draft |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
-| Route | OPEN_AUTONOMOUS_TOOLCHAIN_INTEGRATION_STAGE |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
-| Baseline snapshot | S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001 |
-| Baseline stage | s5-autonomous-ops-loop-refresh-day1-closeout |
+| Status | Updated by VS Code role orchestration draft |
+| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Stage | s5-vscode-role-toolchain-orchestration |
+| Route | OPEN_VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION_STAGE |
+| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
+| Baseline snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
+| Baseline stage | s5-cc-switch-claude-code-review-automation-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001.zip` |
-| Baseline release sha256 | `d10d9f2f6cb24db0dd5ccf14e8ee770416e81026f151f8af13640191290518f1` |
+| Baseline release artifact | `releases\secupilot-S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001.zip` |
+| Baseline release sha256 | `85f98d6ce66f6fd08f650da1e3b02108c8f14d076373bd3efe808ee7b53d7ce8` |
 
 ## 2. Purpose
 
@@ -32,7 +32,7 @@ This stage does not execute the full toolchain. It defines capability boundaries
 | Tool | Role |
 | --- | --- |
 | Codex automation | Scheduler, planner, and executor within active policy limits. |
-| VS Code workspace | Local editing and workspace surface; not long-term product memory. |
+| VS Code workspace | Local repo editing and workspace execution surface for allowed files; not product memory, not a lane authority, not an independent reviewer, and not a closeout authority by itself. |
 | Claude Code via `cc switch` API tool | Candidate review-only and possible non-interactive review runner after command/API format and behavior are verified. |
 | Claude Web in AdsPower browser/profile | External review path; user-confirmed current surface is AdsPower, but it is not assumed automatable until verified by a governed safe path. |
 
@@ -45,7 +45,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 3. Loads the eight core governance docs.
 4. Selects one item.
 5. Classifies lane.
-6. If Green/Yellow docs-only, drafts or prepares within allowed files.
+6. If Green/Yellow docs-only, drafts or prepares within allowed files through the governed local workspace surface.
 7. If review is needed, routes to Claude Code through the `cc switch` API tool only after review-only command/API behavior is verified, or produces a Claude Code review prompt and HOLDs for human/tool execution.
 8. If Claude Web or external review is needed, prepares an AdsPower/Claude Web prompt for manual transfer or HOLDs if the automation path is not verified.
 9. If gate is allowed, runs the closeout gate only when authorized by the current stage and lane rules.
@@ -56,7 +56,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | Area | Current status |
 | --- | --- |
 | Codex automation | ACTIVE only within the authorization window and policy limits. |
-| VS Code CLI | Visible as `code.cmd` by safe local command detection. |
+| VS Code CLI | Visible as `code.cmd` by safe local command detection; governed as the local workspace/editing surface only. |
 | Claude Code via `cc switch` API tool | User-confirmed candidate access path, but the current verification found no local `cc` command or alias. `claude.exe` is visible but is not treated as the governed `cc switch` automation path. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
 | AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication and already-active profile CDP connection are verified for a harmless prompt round trip. Profile launch, profile switching, login automation, and session inspection remain unverified. |
@@ -92,7 +92,7 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain local-tool L1. Claude Code through `cc switch` remains HOLD/L1-manual because no local `cc` command/API invocation was discoverable and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not verified.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip through an already-active profile. Codex, VS Code, and Codex CLI remain local-tool L1. VS Code is now explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. Claude Code through `cc switch` remains HOLD/L1-manual because no local `cc` command/API invocation was discoverable and non-interactive review behavior is not verified. The full four-tool autonomous closed loop is not verified.
 
 ## 7.1 AdsPower Claude Web Verification Result
 
@@ -129,6 +129,21 @@ Result:
 
 The stage does not verify Claude Code edits, implementation, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full four-tool automation.
 
+## 7.4 VS Code Role Orchestration Result
+
+`S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001` clarifies the VS Code role in the governed autonomous workflow.
+
+Result:
+
+- VS Code is the local workspace and editing execution surface.
+- Codex remains the orchestrator for run startup, governance loading, lane classification, review routing, gate/package/release verification, manifest updates, and governed closeout.
+- VS Code does not decide lane authority, product route, review sufficiency, PASS state, release verification, or closeout eligibility.
+- VS Code editor state, unsaved buffers, terminal sessions, and local tool windows are execution context, not product memory.
+- Repo-governed docs, manifest, release artifacts, review packs, and committed closeouts remain product memory.
+- This clarification does not raise VS Code above L1 and does not claim full four-tool automation.
+
+If Codex and VS Code context disagree, the repo-governed docs, manifest, current git status, and current committed baseline control. If the conflict cannot be resolved from governed sources, HOLD.
+
 ## 8. Non-Authorization
 
 This stage does not authorize:
@@ -149,6 +164,7 @@ This stage does not authorize:
 - S5-B/S5-D reopen
 - ORDIV reopen
 - Red-3 execution
+- treating VS Code as product memory, approval authority, review authority, lane authority, or independent closeout authority
 - AdsPower/browser launch, profile control, or browser automation
 - Claude Web login or account/session handling
 - staging, commit, or push

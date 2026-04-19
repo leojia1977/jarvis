@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous HOLD Queue |
-| Status | Live governed HOLD queue cc switch verification draft |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
+| Status | Live governed HOLD queue VS Code role orchestration draft |
+| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Stage | s5-vscode-role-toolchain-orchestration |
+| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
 
 This HOLD queue tracks blockers for autonomous vacation mode and L3 customer-trial launch acceleration. It does not authorize implementation or launch execution.
 
@@ -52,3 +52,4 @@ This HOLD queue tracks blockers for autonomous vacation mode and L3 customer-tri
 - AHQ-021 allows only safe Claude Web review-prompt transfer through the already-active AdsPower profile path.
 - AHQ-022 blocks AdsPower profile launch, profile switching, login automation, and broader session control.
 - AHQ-019 does not authorize Yellow implementation, Red execution, browser profile launch/switch, Claude Web login, cookie/session/token/auth-header inspection, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, code/test/runtime/API/schema/dependency/fixture/release-script/contract changes, or AI_COLLAB changes.
+- VS Code is the local workspace/editing execution surface only. It does not close HOLD items, assign lanes, approve review/PASS, authorize manifest PASS, or authorize staging/commit/push by itself.

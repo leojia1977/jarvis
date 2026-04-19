@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by cc switch verification draft |
-| Snapshot | S5-CC-SWITCH-CLAUDE-CODE-REVIEW-AUTOMATION-VERIFICATION-2026-04-19-001 |
-| Stage | s5-cc-switch-claude-code-review-automation-verification |
-| Baseline commit | `73be4bc2669545be5b4357058fcf446eb461787c` |
+| Status | Updated by VS Code role orchestration draft |
+| Snapshot | S5-VSCODE-ROLE-TOOLCHAIN-ORCHESTRATION-2026-04-19-001 |
+| Stage | s5-vscode-role-toolchain-orchestration |
+| Baseline commit | `06a4bed2f328b02138bb8e6e9359bfc07936831d` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -31,26 +31,31 @@ If the charter cannot be read, `delegation_expires` is missing, or the authoriza
 Use the lowest-risk tool that can complete the allowed step:
 
 - Use Codex workspace editing for allowed docs-only changes.
-- Use VS Code CLI only as a local workspace surface when needed and governed.
+- Use VS Code CLI only as a local workspace/editing surface when needed and governed; do not treat it as product memory, review authority, or closeout authority.
 - Use Claude Code through the `cc switch` API tool only after review-only command/API format and non-interactive behavior are verified.
 - Use Claude Web through the verified AdsPower active-profile path only for governed review-prompt transfer when the prompt contains no secrets, raw customer data, credentials, or unredacted real evidence.
 - Use Git only for inspection unless staging/commit/push is explicitly authorized.
 
 ## 4. VS Code Workspace Usage
 
-VS Code is a local editing/workspace surface. It is not long-term product memory.
+VS Code is a local editing/workspace surface. It is not long-term product memory, lane authority, review authority, route authority, manifest authority, or closeout authority by itself.
 
 Allowed:
 
 - Edit allowed docs when stage scope permits.
 - Inspect local files.
 - Prepare review material.
+- Support human-supervised implementation edits only when a separate governed ticket defines exact files, exact behavior, exact tests, review path, rollback/HOLD criteria, and approval requirements.
 
 Prohibited:
 
 - Treating unsaved/editor-only state as governed truth.
+- Using VS Code state to override repo-governed docs, manifest, release verification, review results, or current git status.
+- Assigning lane authority, review PASS, release PASS, or closeout eligibility from VS Code context alone.
 - Modifying code/tests/dependencies/fixtures/runtime/API/schema/release scripts/AI_COLLAB outside allowed scope.
-- Staging, commit, or push during day 1 without explicit human confirmation.
+- Staging, commit, or push outside the standing Green docs-only closeout rule or separate explicit authorization.
+
+If Codex output and VS Code workspace context conflict, prefer committed repo evidence, the manifest, current git status, and governed docs. If the conflict cannot be resolved from governed sources, HOLD.
 
 ## 5. Claude Code / `cc switch` Review-Only Usage
 
@@ -199,7 +204,20 @@ When approval is needed, produce a concise request containing:
 
 Do not proceed on incomplete, ambiguous, or expired approval.
 
-## 15. Ops Loop Refresh Note
+## 15. VS Code Role Orchestration Note
+
+`docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md` governs the VS Code role in the autonomous workflow.
+
+Required split:
+
+- Codex owns orchestration, governance doc loading, lane classification, tool routing, gate/package/release verification when authorized, manifest updates, and closeout under policy limits.
+- VS Code owns only the local workspace/editing execution surface for exact allowed files.
+- Claude Web in AdsPower remains the verified review-prompt transfer path only.
+- Claude Code through `cc switch` remains HOLD until a callable non-interactive review-only path is governed and verified.
+
+This clarification does not authorize implementation, code/test changes, browser login/session access, AdsPower profile launch/switch, Red execution, launch, deployment, real-data handling, public endpoint work, staging, commit, or push.
+
+## 16. Ops Loop Refresh Note
 
 The active autonomous ops loop must include toolchain and AdsPower Claude Web verification/runbook context before using Claude Web review-prompt transfer. The loop may not use Claude Web for prompts containing secrets, raw customer data, credentials, or unredacted real evidence.
 
