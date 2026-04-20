@@ -14,6 +14,7 @@ from app.tools.persistent_case import (  # noqa: E402
     build_action_request_seed,
     build_initial_persistent_case_record,
     cancel_action_request,
+    close_persistent_case,
     create_action_request_from_case,
     persistent_case_record_from_dict,
     persistent_case_record_to_dict,
@@ -251,6 +252,30 @@ class CaseStoreTests(unittest.TestCase):
                 "CASE-S4C-STORE-001:audit-005",
             ],
         )
+
+    def test_close_reason_audit_details_survive_serializer_round_trip(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5-C-IMPL6-STORE-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T09:30:00Z",
+        )
+        closed = close_persistent_case(
+            record,
+            actor="manager.chen",
+            close_reason="resolved_expected_activity",
+            reason="synthetic expected activity close",
+            at_utc="2026-04-20T09:31:00Z",
+        )
+
+        restored = persistent_case_record_from_dict(persistent_case_record_to_dict(closed))
+
+        self.assertEqual(restored.lifecycle_status, "closed")
+        final_audit = restored.lifecycle_audit[-1]
+        self.assertEqual(final_audit.event_type, "case_closed")
+        self.assertEqual(final_audit.reason, "synthetic expected activity close")
+        self.assertEqual(final_audit.details, {"close_reason": "resolved_expected_activity"})
+        self.assertNotIn("close_reason", persistent_case_record_to_dict(restored))
 
     def test_closed_case_serializer_round_trip_rejects_action_request_mutations(self):
         record = build_initial_persistent_case_record(

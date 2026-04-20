@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001 |
-| Stage | s5c-impl6-close-reason-internal-semantics-ticket |
-| Baseline commit | `b177f5eee17048601264668460cc26ae18618ef5` |
+| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl6-close-reason-internal-semantics-implementation-closeout |
+| Baseline commit | `38c91442f712d221d5017bb69e51b474a4062b7b` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET` as a docs-only scoped implementation ticket only.
+The current governed mainline outcome is S5-C-IMPL-6 implementation closeout for internal close reason semantics.
 
-The human product/governance input for this stage opens only the S5-C-IMPL-6 close reason internal semantics ticket. The selected outcome is Green docs-only scoping for a later Yellow implementation, not implementation itself. It does not open launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, Claude Code implementation, Claude Code file edits, or parked-stream reopen. Future implementation requires required review, explicit human GO, full gate, release verification, and governed closeout.
+The human product/governance input authorized the bounded Yellow implementation and then authorized full closeout gate/package/release verification. The implementation remains limited to internal helper semantics and synthetic tests. It does not open launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation beyond this closeout.
 
 ## 3. Parked And Deferred Items
 
@@ -173,3 +173,28 @@ The future implementation route must not touch `backend\app\runtime_service.py`,
 For this S5-C-IMPL-6 manifest draft, `releases\release_manifest.json` path fields follow the existing Windows source-of-truth manifest convention for this repository and do not authorize changing release tooling semantics.
 
 Implementation remains HOLD until required review, explicit human GO, full gate, release verification, and governed closeout are complete.
+
+## 10. S5-C-IMPL-6 Implementation Closeout
+
+Closeout route:
+
+- `S5-C-IMPL-6 Close Reason Internal Semantics Implementation Closeout`
+
+This route records that the bounded Yellow implementation was completed inside the governed S5-C-IMPL-6 file scope.
+
+Implemented scope:
+
+- internal close reason taxonomy validation in `backend\app\tools\persistent_case.py`
+- internal `close_persistent_case()` helper
+- close reason audit metadata in existing lifecycle audit `details`
+- synthetic lifecycle and store tests
+
+Preserved exclusions:
+
+- no `backend\app\runtime_service.py`
+- no `backend\app\main.py`
+- no public endpoint work
+- no runtime/API/schema behavior
+- no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, redaction policy freeze, parked-stream reopen, Red-3 action, or AI_COLLAB
+
+Full gate/package/release verification passed for the implementation closeout. Staging, commit, and push remain separately unauthorized.

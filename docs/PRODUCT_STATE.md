@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001 |
-| Stage | s5c-impl6-close-reason-internal-semantics-ticket |
-| Baseline commit | `b177f5eee17048601264668460cc26ae18618ef5` |
+| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl6-close-reason-internal-semantics-implementation-closeout |
+| Baseline commit | `38c91442f712d221d5017bb69e51b474a4062b7b` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `b177f5eee17048601264668460cc26ae18618ef5`
-- Snapshot: `S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001`
-- Stage: `s5c-next-scoped-implementation-ticket-prep`
+- Commit: `38c91442f712d221d5017bb69e51b474a4062b7b`
+- Snapshot: `S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001`
+- Stage: `s5c-impl6-close-reason-internal-semantics-ticket`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001.zip`
-- Release sha256: `bb9415c6bcee966099ec00f93fa0686df575fef7578478a16eb5a4ed61c5fc1c`
+- Release artifact: `releases\secupilot-S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001.zip`
+- Release sha256: `0c8280fda3193cc42144ec2b97990ac453d6cec76a0a58f3d6ad98b7477e12f6`
 
-The current baseline closes the S5-C next scoped implementation ticket-prep stage. It selects `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET` as the next docs-only scoped implementation ticket while preserving all launch, real-data, secret, public endpoint, parked-stream, Red, and AI_COLLAB prohibitions.
+The current baseline closes the S5-C-IMPL-6 close reason internal semantics ticket stage. It authorizes only the bounded Yellow implementation after required review and explicit human GO while preserving all launch, real-data, secret, public endpoint, parked-stream, Red, and AI_COLLAB prohibitions.
 
 ## 3. Sprint 5 State Summary
 
@@ -360,6 +360,30 @@ Current route meaning:
 Current non-authorization:
 
 - This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
+
+## 22. S5-C-IMPL-6 Close Reason Internal Semantics Implementation Closeout
+
+This stage records the completed bounded Yellow implementation for internal S5-C close reason semantics.
+
+Implementation outcome:
+
+- `backend\app\tools\persistent_case.py` now has internal S5-C close reason taxonomy validation and `close_persistent_case()` helper behavior.
+- Close reason is recorded only in existing lifecycle audit `details`.
+- No new lifecycle status, action-request status, public endpoint, runtime/API/schema behavior, top-level persisted field, fixture, dependency, release script, contract, or AI_COLLAB behavior is introduced.
+- Synthetic tests were added in `backend\tests\test_case_lifecycle_regression.py` and `backend\tests\test_case_store.py`.
+- `backend\tests\test_case_action_request_contract.py` was not edited because unresolved action-request closure interactions were not touched; it was still run as a regression test.
+- Claude Code review-only returned `PASS` for the final implementation diff.
+- Targeted tests and full structured unittest passed before full closeout gate.
+
+Full closeout status:
+
+- Full gate/package/release verification passed for this closeout.
+- `releases\release_manifest.json` and `releases\verify_report.json` record the release verification result.
+- Staging, commit, and push remain unauthorized without separate explicit authorization.
+
+Current non-authorization:
+
+- This stage does not authorize additional code changes, additional test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, staging, commit, or push.
 
 ## 20. S5-C Next Scoped Implementation Ticket Prep
 

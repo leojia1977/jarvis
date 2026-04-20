@@ -12,7 +12,7 @@ and status semantics remain deterministic.
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field, replace
 from datetime import datetime, timezone
-from typing import Any, Literal, Optional, cast
+from typing import Any, Literal, Optional, cast, get_args
 
 from app.agents.case_view import build_case_view
 from app.config import Settings, settings
@@ -24,6 +24,15 @@ PERSISTENCE_BACKEND = "sqlite_local"
 
 CaseLifecycleStatus = Literal["open", "in_review", "approved", "closed"]
 ActionRequestStatus = Literal["draft", "pending_approval", "approved", "rejected", "cancelled"]
+CaseCloseReason = Literal[
+    "resolved_false_positive",
+    "resolved_expected_activity",
+    "resolved_contained",
+    "duplicate_case",
+    "insufficient_evidence",
+    "out_of_scope",
+    "deferred_to_external_process",
+]
 AuditEventType = Literal[
     "case_created",
     "status_changed",
@@ -53,6 +62,18 @@ FROZEN_ACTION_REQUEST_TRANSITIONS: dict[ActionRequestStatus, set[ActionRequestSt
 
 GOVERNED_CASE_LIFECYCLE_STATUSES = frozenset(FROZEN_CASE_STATUS_TRANSITIONS)
 GOVERNED_ACTION_REQUEST_STATUSES = frozenset(FROZEN_ACTION_REQUEST_TRANSITIONS)
+GOVERNED_CASE_CLOSE_REASONS = frozenset(
+    (
+        "resolved_false_positive",
+        "resolved_expected_activity",
+        "resolved_contained",
+        "duplicate_case",
+        "insufficient_evidence",
+        "out_of_scope",
+        "deferred_to_external_process",
+    )
+)
+assert set(get_args(CaseCloseReason)) == GOVERNED_CASE_CLOSE_REASONS
 
 
 def _utc_now_iso() -> str:
@@ -189,6 +210,10 @@ def governed_action_request_statuses() -> tuple[ActionRequestStatus, ...]:
     return tuple(sorted(GOVERNED_ACTION_REQUEST_STATUSES))
 
 
+def governed_case_close_reasons() -> tuple[CaseCloseReason, ...]:
+    return tuple(sorted(GOVERNED_CASE_CLOSE_REASONS))
+
+
 def _require_case_lifecycle_status(value: Any) -> CaseLifecycleStatus:
     normalized = str(value or "")
     if normalized not in GOVERNED_CASE_LIFECYCLE_STATUSES:
@@ -201,6 +226,13 @@ def _require_action_request_status(value: Any) -> ActionRequestStatus:
     if normalized not in GOVERNED_ACTION_REQUEST_STATUSES:
         raise ValueError(f"invalid_action_request_status:{normalized}")
     return cast(ActionRequestStatus, normalized)
+
+
+def _require_case_close_reason(value: Any) -> CaseCloseReason:
+    normalized = str(value or "")
+    if normalized not in GOVERNED_CASE_CLOSE_REASONS:
+        raise ValueError(f"invalid_case_close_reason:{normalized}")
+    return cast(CaseCloseReason, normalized)
 
 
 def is_valid_case_status_transition(
@@ -621,6 +653,25 @@ def transition_persistent_case_status(
         updated_at_utc=timestamp,
         review_owner=resolved_review_owner,
         lifecycle_audit=[*record.lifecycle_audit, audit_entry],
+    )
+
+
+def close_persistent_case(
+    record: PersistentCaseRecord,
+    *,
+    actor: str,
+    close_reason: CaseCloseReason,
+    reason: str,
+    at_utc: Optional[str] = None,
+) -> PersistentCaseRecord:
+    governed_close_reason = _require_case_close_reason(close_reason)
+    return transition_persistent_case_status(
+        record,
+        to_status="closed",
+        actor=actor,
+        reason=reason,
+        details={"close_reason": governed_close_reason},
+        at_utc=at_utc,
     )
 
 

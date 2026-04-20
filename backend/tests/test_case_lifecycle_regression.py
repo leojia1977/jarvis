@@ -11,6 +11,8 @@ from backend.app.config import Settings  # noqa: E402
 from backend.app.runtime_service import SecuPilotRuntimeService  # noqa: E402
 from app.tools.persistent_case import (  # noqa: E402
     build_initial_persistent_case_record,
+    close_persistent_case,
+    governed_case_close_reasons,
     transition_persistent_case_status,
 )
 
@@ -28,6 +30,141 @@ def _fresh_temp_root(name: str) -> Path:
 
 
 class CaseLifecycleRegressionTests(unittest.TestCase):
+    def test_governed_case_close_reasons_match_s5c2_taxonomy(self):
+        self.assertEqual(
+            set(governed_case_close_reasons()),
+            {
+                "resolved_false_positive",
+                "resolved_expected_activity",
+                "resolved_contained",
+                "duplicate_case",
+                "insufficient_evidence",
+                "out_of_scope",
+                "deferred_to_external_process",
+            },
+        )
+
+    def test_internal_close_helper_records_governed_reason_in_audit_details(self):
+        record = build_initial_persistent_case_record(
+            {
+                "case_id": "CASE-S5C-IMPL6-CLOSE-001",
+                "version": "3.1",
+                "risk_score": 4.0,
+                "confidence_score": 0.72,
+                "confidence_label": "MEDIUM",
+                "verdict_status": "REVIEW_REQUIRED",
+                "investigation_status": "COMPLETE",
+                "scenario_name": "Close Reason Semantics",
+                "forensic_result": {
+                    "hosts_analyzed": ["WKST-047"],
+                    "total_suspicious_chains": 0,
+                    "top_chains": [],
+                    "attack_stages_observed": [],
+                    "persistence_mechanisms": [],
+                    "evidence_gaps": [],
+                },
+                "suggested_action": {},
+                "audit_trail": {"degraded": False, "degraded_reasons": []},
+            },
+            snapshot_id="S5-C-IMPL6-CLOSE-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T09:00:00Z",
+        )
+
+        closed = close_persistent_case(
+            record,
+            actor="manager.chen",
+            close_reason="insufficient_evidence",
+            reason="synthetic close reason validation",
+            at_utc="2026-04-20T09:05:00Z",
+        )
+
+        self.assertEqual(closed.lifecycle_status, "closed")
+        final_audit = closed.lifecycle_audit[-1]
+        self.assertEqual(final_audit.event_type, "case_closed")
+        self.assertEqual(final_audit.actor, "manager.chen")
+        self.assertEqual(final_audit.reason, "synthetic close reason validation")
+        self.assertEqual(final_audit.details, {"close_reason": "insufficient_evidence"})
+
+    def test_internal_close_helper_rejects_unknown_close_reason(self):
+        record = build_initial_persistent_case_record(
+            {
+                "case_id": "CASE-S5C-IMPL6-CLOSE-INVALID",
+                "version": "3.1",
+                "risk_score": 4.0,
+                "confidence_score": 0.72,
+                "confidence_label": "MEDIUM",
+                "verdict_status": "REVIEW_REQUIRED",
+                "investigation_status": "COMPLETE",
+                "scenario_name": "Invalid Close Reason",
+                "forensic_result": {
+                    "hosts_analyzed": ["WKST-047"],
+                    "total_suspicious_chains": 0,
+                    "top_chains": [],
+                    "attack_stages_observed": [],
+                    "persistence_mechanisms": [],
+                    "evidence_gaps": [],
+                },
+                "suggested_action": {},
+                "audit_trail": {"degraded": False, "degraded_reasons": []},
+            },
+            snapshot_id="S5-C-IMPL6-CLOSE-INVALID",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T09:10:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "invalid_case_close_reason:archived"):
+            close_persistent_case(
+                record,
+                actor="manager.chen",
+                close_reason="archived",
+                reason="invalid close reason",
+                at_utc="2026-04-20T09:11:00Z",
+            )
+
+    def test_internal_close_helper_rejects_closed_to_closed_transition(self):
+        record = build_initial_persistent_case_record(
+            {
+                "case_id": "CASE-S5C-IMPL6-DOUBLE-CLOSE",
+                "version": "3.1",
+                "risk_score": 4.0,
+                "confidence_score": 0.72,
+                "confidence_label": "MEDIUM",
+                "verdict_status": "REVIEW_REQUIRED",
+                "investigation_status": "COMPLETE",
+                "scenario_name": "Double Close Boundary",
+                "forensic_result": {
+                    "hosts_analyzed": ["WKST-047"],
+                    "total_suspicious_chains": 0,
+                    "top_chains": [],
+                    "attack_stages_observed": [],
+                    "persistence_mechanisms": [],
+                    "evidence_gaps": [],
+                },
+                "suggested_action": {},
+                "audit_trail": {"degraded": False, "degraded_reasons": []},
+            },
+            snapshot_id="S5-C-IMPL6-DOUBLE-CLOSE",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T09:20:00Z",
+        )
+        closed = close_persistent_case(
+            record,
+            actor="manager.chen",
+            close_reason="resolved_false_positive",
+            reason="first synthetic close",
+            at_utc="2026-04-20T09:21:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "invalid_case_status_transition:closed->closed"):
+            close_persistent_case(
+                closed,
+                actor="manager.chen",
+                close_reason="duplicate_case",
+                reason="second synthetic close",
+                at_utc="2026-04-20T09:22:00Z",
+            )
+
     def test_create_retrieve_review_approve_close_lifecycle_is_deterministic(self):
         temp_dir = _fresh_temp_root("case_lifecycle_regression")
         service = SecuPilotRuntimeService(

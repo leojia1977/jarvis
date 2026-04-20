@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001",
+    "id": "S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl6-close-reason-internal-semantics-ticket",
+    "stage": "s5c-impl6-close-reason-internal-semantics-implementation-closeout",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T10:34:07.639660+08:00"
+    "updated_at": "2026-04-20T11:12:31.878296+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001.zip",
-    "current_release_sha256": "0c8280fda3193cc42144ec2b97990ac453d6cec76a0a58f3d6ad98b7477e12f6"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip",
+    "current_release_sha256": "6568e236b2dc098ec4f52b8965db9f7090b8049d050db4d5edbdddc3bf7ad379"
   },
   "key_files": [
     {
@@ -145,7 +145,7 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "8130cb19cb95798fda945eb1412364f3376aa5a8b1ade8c3ecd42b2fd66b09fd"
+      "sha256": "71eeea2cb27bd24aee6aeeda6dba425acdac99cb8c6670576480caef63d51473"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -230,12 +230,12 @@
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
       "role": "canonical-case-lifecycle-regression-tests",
-      "sha256": "bfcdf1b2439af5eed66773c2d4cc6cbe477c2c23f77515a9a60551761f3fa13b"
+      "sha256": "1bb53063c15dbf9939f5eeeb033cb607b947784c2744a72eb7bacf60f33e0aa7"
     },
     {
       "path": "backend\\tests\\test_case_store.py",
       "role": "canonical-case-store-tests",
-      "sha256": "9e1398a575239cd2aab357b66ea73b010fc4670f170ca1a635c38d2b9510b7d6"
+      "sha256": "f384aaa6c80278bd114ea08de8223a306f63809298749026288c5a8c0ad54ed9"
     },
     {
       "path": "backend\\tests\\test_environment_profile.py",
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "6cebfc58113682ef7ca069e457f4af4ea6a3535de2c319d0635dad5d7fcbd3be"
+      "sha256": "d89969512a29def054725a2b17feff9baec81a7b470cca977d8436d2a03d949f"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "9c1ce330d7d6330d62e9e61e0b4cb782c2ba24288dfc0d0e61814c1b28de4846"
+      "sha256": "b18c8e2b5048facac1079e4dd2f12d1d9c5081899ce5a8e9476bed0a8f872d4d"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "07d257fc69f571b56aa558bd872890fca5132d9658a11024758afa0e7109d7d1"
+      "sha256": "715e256b0468cdf89072e5ba48b2dbcda523f8da731fe59dbff036490394ce29"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "7c0ae7e26d880baa456d22a5a909109faf0d97e84dc3f36bb5247a07af27869e"
+      "sha256": "f78f9c1aef1b059a175bd73e13f3312801478334a7082874a9fc537bef8ac5a0"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1046,6 +1046,11 @@
       "path": "docs\\S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET.md",
       "role": "s5c-impl6-close-reason-internal-semantics-ticket",
       "sha256": "89a19a388bd323a42384ba8a180bb1685e941296d208b112220c56ca46bcecd0"
+    },
+    {
+      "path": "docs\\S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_IMPLEMENTATION_CLOSEOUT.md",
+      "role": "s5c-impl6-close-reason-internal-semantics-implementation-closeout",
+      "sha256": "5720c790f22dad3b3c566940eb60007421bbe101b6f7bc30f8658dc43a935196"
     }
   ],
   "tests": [
@@ -1110,13 +1115,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001",
+      "Snapshot ID: S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T10:34:08.462075+08:00",
+    "last_verified_at": "2026-04-20T11:12:32.823372+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
