@@ -1,4 +1,6 @@
 from copy import deepcopy
+from dataclasses import replace
+from typing import get_args
 import unittest
 
 from _project_bootstrap import bootstrap
@@ -6,10 +8,12 @@ from _project_bootstrap import bootstrap
 bootstrap()
 
 from app.tools.persistent_case import (  # noqa: E402
+    AuditEventType,
     approve_action_request,
     cancel_action_request,
     create_action_request_from_case,
     governed_action_request_statuses,
+    governed_audit_event_types,
     governed_case_lifecycle_statuses,
     persistent_case_record_from_dict,
     persistent_case_record_to_dict,
@@ -108,6 +112,17 @@ def _assert_no_sensitive_audit_values(test_case, record):
 
 class CaseActionRequestContractTests(unittest.TestCase):
     def test_governed_status_vocabularies_are_locked(self):
+        expected_audit_events = {
+            "case_created",
+            "status_changed",
+            "action_request_created",
+            "action_request_submitted",
+            "action_request_approved",
+            "action_request_rejected",
+            "action_request_cancelled",
+            "case_closed",
+            "case_reopened",
+        }
         self.assertEqual(
             set(governed_action_request_statuses()),
             {"draft", "pending_approval", "approved", "rejected", "cancelled"},
@@ -116,6 +131,8 @@ class CaseActionRequestContractTests(unittest.TestCase):
             set(governed_case_lifecycle_statuses()),
             {"open", "in_review", "approved", "closed"},
         )
+        self.assertEqual(set(get_args(AuditEventType)), expected_audit_events)
+        self.assertEqual(set(governed_audit_event_types()), expected_audit_events)
         for forbidden_status in (
             "denied",
             "withdrawn",
@@ -127,6 +144,7 @@ class CaseActionRequestContractTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden_status, governed_action_request_statuses())
             self.assertNotIn(forbidden_status, governed_case_lifecycle_statuses())
+            self.assertNotIn(forbidden_status, governed_audit_event_types())
 
         record = build_initial_persistent_case_record(
             _base_case(),
@@ -155,6 +173,16 @@ class CaseActionRequestContractTests(unittest.TestCase):
         invalid_source_payload["action_requests"][0]["source_case_status"] = "under_review"
         with self.assertRaisesRegex(ValueError, "invalid_case_lifecycle_status:under_review"):
             persistent_case_record_from_dict(invalid_source_payload)
+
+        invalid_audit_payload = persistent_case_record_to_dict(record)
+        invalid_audit_payload["lifecycle_audit"][0]["event_type"] = "audit_log_uploaded"
+        with self.assertRaisesRegex(ValueError, "invalid_audit_event_type:audit_log_uploaded"):
+            persistent_case_record_from_dict(invalid_audit_payload)
+
+        mutated_audit = replace(record.lifecycle_audit[0], event_type="audit_log_uploaded")
+        mutated_record = replace(record, lifecycle_audit=[mutated_audit])
+        with self.assertRaisesRegex(ValueError, "invalid_audit_event_type:audit_log_uploaded"):
+            persistent_case_record_to_dict(mutated_record)
 
     def test_create_submit_and_approve_action_request_are_auditable(self):
         record = build_initial_persistent_case_record(

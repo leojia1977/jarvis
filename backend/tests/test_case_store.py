@@ -1,5 +1,6 @@
 import shutil
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
 from _project_bootstrap import bootstrap
@@ -277,6 +278,19 @@ class CaseStoreTests(unittest.TestCase):
         self.assertEqual(final_audit.reason, "synthetic expected activity close")
         self.assertEqual(final_audit.details, {"close_reason": "resolved_expected_activity"})
         self.assertNotIn("close_reason", persistent_case_record_to_dict(restored))
+
+    def test_serializer_validation_rejects_mutated_audit_event_type(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5-C-IMPL9-STORE-AUDIT-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T11:00:00Z",
+        )
+        mutated_audit = replace(record.lifecycle_audit[0], event_type="audit_log_uploaded")
+        mutated = replace(record, lifecycle_audit=[mutated_audit])
+
+        with self.assertRaisesRegex(ValueError, "invalid_audit_event_type:audit_log_uploaded"):
+            persistent_case_record_to_dict(mutated)
 
     def test_workflow_summary_source_data_survives_store_round_trip(self):
         temp_dir = _fresh_temp_root("case_store_workflow_summary")

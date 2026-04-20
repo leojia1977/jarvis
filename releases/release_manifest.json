@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
+    "id": "S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl8-internal-workflow-summary-implementation-closeout",
+    "stage": "s5c-impl9-audit-event-vocabulary-guard-implementation-closeout",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T18:00:43.896090+08:00"
+    "updated_at": "2026-04-20T18:21:35.013560+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip",
-    "current_release_sha256": "5f5f10be0a10e645a21dc477274789a36b0980f660f85099efaad367dde633be",
-    "baseline_release_sha256": "015b0f6596cf35aed753a167eadb4cf5ba5582a835302f2ddda7bf1f41185a43"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip",
+    "current_release_sha256": "ea1b855a437eb9977608a2df5cc028161d4a0a8c6ca892fab46cda73b945e5f6",
+    "baseline_release_sha256": "5f5f10be0a10e645a21dc477274789a36b0980f660f85099efaad367dde633be"
   },
   "key_files": [
     {
@@ -146,7 +146,7 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "813da5b9b58445aa29859ef861b42b0f78c71219128ca77bcef5ee5caa398d3e"
+      "sha256": "9835b76781f68b5ce8e24a5b4771c79cb90afcf0423d39f5f499061b864293c6"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -226,7 +226,7 @@
     {
       "path": "backend\\tests\\test_case_action_request_contract.py",
       "role": "canonical-case-action-request-contract-tests",
-      "sha256": "23314b91ff6e5c296b5cbb06a58a2cd3a9bda99e226fea0ac11cc8bc34303570"
+      "sha256": "729d452ce43be412989a56d74f58edce7cfc00d92e7578eab116e3e72eb4a8f9"
     },
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
@@ -236,7 +236,7 @@
     {
       "path": "backend\\tests\\test_case_store.py",
       "role": "canonical-case-store-tests",
-      "sha256": "765b553a6c1383d313cf950ef1a4748e1260c514ff48fb044d054e26296200c1"
+      "sha256": "dbf441a26c6ad3bf8f5a0787820b2309443c8fc28ec6e621576b65218b28cd05"
     },
     {
       "path": "backend\\tests\\test_environment_profile.py",
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "291f47c111899d146f516661294b6ae5d59e1ed03b86e832cdb1f4aa8720bbd0"
+      "sha256": "37c70e8551e60c7f3fba3d8dae83d49fd66c04eef82f74b7160634e9e56df3ad"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "e6de1478ebc993f700c283cf494cfe9ec7c8bd38fcd3deab00dc77fc8b6500a7"
+      "sha256": "984fd08f52ca52fdc038816bf5c650553862253af0d13f9364941857e2a716d2"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "b985198185e01d30a9e16819e43df262fcd03ddaabe95904537fd8e565f3bc9e"
+      "sha256": "879b022ce85d08ee783e403319f837d903fa6f32c9eb27b39c264e9df7364c02"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "f8e191671bff2cfbea513e0854da9dafc821faf6175b6014efa605f6febb09d1"
+      "sha256": "892c719940ac11f8cb7518ac2e2f789c70a0e4a4cf14bc08ebb6fa92ecf0b57f"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1087,6 +1087,11 @@
       "path": "docs\\S5C_IMPL8_INTERNAL_WORKFLOW_SUMMARY_IMPLEMENTATION_CLOSEOUT.md",
       "role": "s5c-impl8-internal-workflow-summary-implementation-closeout",
       "sha256": "a3795d35f32176b2f665b323efd9cdabae7b108dc44558c01a94cfab44194307"
+    },
+    {
+      "path": "docs\\S5C_IMPL9_AUDIT_EVENT_VOCABULARY_GUARD_IMPLEMENTATION_CLOSEOUT.md",
+      "role": "s5c-impl9-audit-event-vocabulary-guard-implementation-closeout",
+      "sha256": "dbc97a86567d3af95f32d9d03b109c628f6c2109e8e57f76b7a4ac61602439de"
     }
   ],
   "tests": [
@@ -1151,13 +1156,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
+      "Snapshot ID: S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T18:00:44.820519+08:00",
+    "last_verified_at": "2026-04-20T18:21:35.935458+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

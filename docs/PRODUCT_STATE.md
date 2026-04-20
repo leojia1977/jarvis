@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl8-internal-workflow-summary-implementation-closeout |
-| Baseline commit | `0948faf9efa8dfb977607babfb0da3f01b85fb65` |
+| Snapshot | S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl9-audit-event-vocabulary-guard-implementation-closeout |
+| Baseline commit | `18dd80cb568988bb5631b68c375a3647ca1072bb` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `0948faf`
-- Snapshot: `S5C-STREAM-REVIEW-REFRESH-2026-04-20-001`
-- Stage: `s5c-stream-review-refresh`
+- Commit: `18dd80c`
+- Snapshot: `S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
+- Stage: `s5c-impl8-internal-workflow-summary-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-STREAM-REVIEW-REFRESH-2026-04-20-001.zip`
-- Release sha256: `015b0f6596cf35aed753a167eadb4cf5ba5582a835302f2ddda7bf1f41185a43`
+- Release artifact: `releases\secupilot-S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
+- Release sha256: `5f5f10be0a10e645a21dc477274789a36b0980f660f85099efaad367dde633be`
 
-The current baseline enables the bounded Yellow backlog package in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_01`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline enables the next bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_02`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -629,3 +629,36 @@ Next default autonomous route after this closeout:
 Current non-authorization:
 
 - This stage does not authorize additional implementation, unlisted Yellow items, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 31. S5-C-IMPL-9 Audit Event Vocabulary Guard Implementation Closeout
+
+This stage records preauthorized Yellow backlog item `S5C-YB-02`.
+
+Implementation outcome:
+
+- `backend\app\tools\persistent_case.py` now adds `GOVERNED_AUDIT_EVENT_TYPES` derived from the existing `AuditEventType` literal.
+- `governed_audit_event_types()` returns the sorted existing audit event vocabulary.
+- `_require_audit_event_type()` rejects unknown values with `invalid_audit_event_type:<value>`.
+- `_audit_entry_from_dict()` and `_validate_persistent_case_record()` validate audit event types.
+- `backend\tests\test_case_action_request_contract.py` covers explicit current audit event vocabulary, invalid deserialization rejection, and serializer validation for mutated in-memory records.
+- `backend\tests\test_case_store.py` covers store serializer validation for mutated audit event types.
+- Claude Code review-only final verdict is `PASS`.
+- Targeted `backend.tests.test_case_action_request_contract backend.tests.test_case_store` passed before closeout gate.
+
+Preserved exclusions:
+
+- no new, renamed, removed, or reinterpreted audit event type
+- no migration or backfill
+- no `backend\app\runtime_service.py`
+- no `backend\app\main.py`
+- no runtime/API/schema or public endpoint behavior
+- no lifecycle status or action-request status change
+- no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, S5-B/S5-D, ORDIV, Red-3, S4-A resolver, or AI_COLLAB changes
+
+Next default autonomous route after this closeout:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, unlisted Yellow items, adding/renaming/removing/reinterpreting audit event types, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.

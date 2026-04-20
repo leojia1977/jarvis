@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl8-internal-workflow-summary-implementation-closeout |
-| Baseline commit | `0948faf9efa8dfb977607babfb0da3f01b85fb65` |
+| Snapshot | S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl9-audit-event-vocabulary-guard-implementation-closeout |
+| Baseline commit | `18dd80cb568988bb5631b68c375a3647ca1072bb` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the first preauthorized S5-C Yellow backlog item closeout.
+The current governed mainline outcome is the second preauthorized S5-C Yellow backlog item closeout.
 
-The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-01`, the internal workflow summary helper, under exact files and tests. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
+The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-02`, the audit event vocabulary guard, under exact files and tests. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -394,6 +394,43 @@ Still parked/deferred:
 - AI_COLLAB remains unchanged
 
 This route does not authorize unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
+
+## 19. S5-C-IMPL-9 Audit Event Vocabulary Guard Closeout
+
+Closed route:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_02`
+
+This route records the second bounded Yellow backlog item from `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`.
+
+Implemented scope:
+
+- governed audit event vocabulary constant in `backend\app\tools\persistent_case.py`
+- sorted read helper `governed_audit_event_types()`
+- `_require_audit_event_type()` validation helper
+- validation during audit-entry deserialization and persistent-case serialization validation
+- synthetic action-request contract tests in `backend\tests\test_case_action_request_contract.py`
+- synthetic store serializer validation in `backend\tests\test_case_store.py`
+
+Still parked/deferred:
+
+- public close-case endpoint remains `KEEP_DEFERRED`
+- S5-B remains `PASS_AND_PARK`
+- S5-D remains `PASS_AND_PARK`
+- ORDIV-L1A remains `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs remain `NOT_READY` / `UNKNOWN`
+- external pilot execution remains unauthorized
+- S4-A resolver order remains unchanged
+- AI_COLLAB remains unchanged
+
+Next default autonomous route:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`
+2. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`
+
+Each remaining item must still run one at a time under exact item-specific files, tests, review, full gate, release verification, manifest PASS, staged scope, and HOLD rules.
+
+This route does not authorize new audit event types, migrations, backfills, unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
 
 ## 18. S5-C-IMPL-8 Internal Workflow Summary Closeout
 

@@ -73,6 +73,7 @@ GOVERNED_CASE_CLOSE_REASONS = frozenset(
         "deferred_to_external_process",
     )
 )
+GOVERNED_AUDIT_EVENT_TYPES = frozenset(get_args(AuditEventType))
 assert set(get_args(CaseCloseReason)) == GOVERNED_CASE_CLOSE_REASONS
 
 
@@ -214,6 +215,10 @@ def governed_case_close_reasons() -> tuple[CaseCloseReason, ...]:
     return tuple(sorted(GOVERNED_CASE_CLOSE_REASONS))
 
 
+def governed_audit_event_types() -> tuple[AuditEventType, ...]:
+    return tuple(sorted(GOVERNED_AUDIT_EVENT_TYPES))
+
+
 def persistent_case_workflow_summary(record: PersistentCaseRecord) -> dict[str, Any]:
     """Return a read-only internal workflow summary derived from a case record.
 
@@ -267,6 +272,13 @@ def _require_case_close_reason(value: Any) -> CaseCloseReason:
     if normalized not in GOVERNED_CASE_CLOSE_REASONS:
         raise ValueError(f"invalid_case_close_reason:{normalized}")
     return cast(CaseCloseReason, normalized)
+
+
+def _require_audit_event_type(value: Any) -> AuditEventType:
+    normalized = str(value or "")
+    if normalized not in GOVERNED_AUDIT_EVENT_TYPES:
+        raise ValueError(f"invalid_audit_event_type:{normalized}")
+    return cast(AuditEventType, normalized)
 
 
 def is_valid_case_status_transition(
@@ -746,6 +758,7 @@ def _action_request_record_from_dict(payload: dict[str, Any]) -> CaseActionReque
 
 def _audit_entry_from_dict(payload: dict[str, Any]) -> CaseAuditEntry:
     data = deepcopy(payload)
+    data["event_type"] = _require_audit_event_type(data.get("event_type"))
     data["case_status"] = _require_case_lifecycle_status(data.get("case_status"))
     return CaseAuditEntry(**data)
 
@@ -757,6 +770,7 @@ def _validate_persistent_case_record(record: PersistentCaseRecord) -> None:
         if action_request.source_case_status is not None:
             _require_case_lifecycle_status(action_request.source_case_status)
     for audit_entry in record.lifecycle_audit:
+        _require_audit_event_type(audit_entry.event_type)
         _require_case_lifecycle_status(audit_entry.case_status)
 
 
