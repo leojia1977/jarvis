@@ -3,6 +3,10 @@ from __future__ import annotations
 from typing import Any, Optional
 
 
+# Structural marker: case-view review guidance never authorizes execution.
+EXECUTION_AUTHORIZED = False
+
+
 def _safe_list(value: Any) -> list:
     return value if isinstance(value, list) else []
 
@@ -294,10 +298,76 @@ def _status_banner(case: dict, analysis_limits: dict) -> dict:
     }
 
 
+def _analyst_questions(case: dict, recommended_action: dict, missing_telemetry: list, unavailable_tools: list[str]) -> list[str]:
+    forensic = case.get("forensic_result") or {}
+    investigation_status = case.get("investigation_status")
+    questions = []
+
+    if investigation_status == "DEGRADED":
+        questions.append("哪些关键遥测或工具需要补齐后重新运行调查？")
+    elif investigation_status == "PARTIAL" or missing_telemetry or unavailable_tools:
+        questions.append("哪些遥测缺口会影响当前结论的可信度？")
+
+    if _safe_list(forensic.get("top_chains")):
+        questions.append("首条可疑链的关键节点和证据是否足以支持复核结论？")
+    else:
+        questions.append("是否需要继续监控以等待新的可疑线索？")
+
+    if recommended_action.get("available"):
+        questions.append("建议动作的目标、影响面和审批依据是否完整？")
+    elif recommended_action.get("disabled_reason"):
+        questions.append("处置建议被禁用的原因是否已向复核人说明？")
+
+    return questions
+
+
+def _audit_focus() -> list[dict]:
+    return [
+        {
+            "ref": "persistent_case.lifecycle_status",
+            "reason": "复核当前生命周期状态是否允许下一步人工决策。",
+        },
+        {
+            "ref": "persistent_case.action_requests",
+            "reason": "如存在建议动作，先复核动作请求状态与审批要求。",
+        },
+        {
+            "ref": "persistent_case.lifecycle_audit",
+            "reason": "审批或关闭前复核追加式审计历史。",
+        },
+    ]
+
+
+def _review_guidance(case: dict, recommended_action: dict, missing_telemetry: list, unavailable_tools: list[str]) -> dict:
+    manager_review_relevant = bool(recommended_action.get("available") and recommended_action.get("approval_required"))
+    return {
+        "review_context": {
+            "investigation_status": case.get("investigation_status"),
+            "analyst_review_recommended": True,
+            "manager_review_relevant": manager_review_relevant,
+            "execution_authorized": EXECUTION_AUTHORIZED,
+            "source": "case_view.analysis_limits",
+        },
+        "manager_decision_context": {
+            "review_relevant": manager_review_relevant,
+            "action_type": recommended_action.get("action_type"),
+            "targets": list(recommended_action.get("targets") or []),
+            "approval_required": bool(recommended_action.get("approval_required")),
+            "action_state": recommended_action.get("action_state"),
+            "disabled_reason": recommended_action.get("disabled_reason"),
+            "execution_authorized": EXECUTION_AUTHORIZED,
+            "source": "recommended_action",
+        },
+        "analyst_questions": _analyst_questions(case, recommended_action, missing_telemetry, unavailable_tools),
+        "audit_focus": _audit_focus(),
+    }
+
+
 def _analysis_limits(case: dict, recommended_action: dict) -> dict:
     audit = case.get("audit_trail") or {}
     forensic = case.get("forensic_result") or {}
     degraded_reasons = _safe_list(audit.get("degraded_reasons"))
+    missing_telemetry = _safe_list(forensic.get("evidence_gaps"))
 
     unavailable_tools = []
     for reason in degraded_reasons:
@@ -311,12 +381,13 @@ def _analysis_limits(case: dict, recommended_action: dict) -> dict:
     return {
         "degraded": bool(audit.get("degraded")),
         "degraded_reasons": degraded_reasons,
-        "missing_telemetry": _safe_list(forensic.get("evidence_gaps")),
-        "missing_telemetry_summary": _missing_telemetry_summary(_safe_list(forensic.get("evidence_gaps"))),
+        "missing_telemetry": missing_telemetry,
+        "missing_telemetry_summary": _missing_telemetry_summary(missing_telemetry),
         "unavailable_tools": unavailable_tools,
         "unavailable_tools_summary": _unavailable_tools_summary(unavailable_tools),
         "unresolved_pivots": [],
         "action_disabled_reason": recommended_action.get("disabled_reason"),
+        "review_guidance": _review_guidance(case, recommended_action, missing_telemetry, unavailable_tools),
     }
 
 

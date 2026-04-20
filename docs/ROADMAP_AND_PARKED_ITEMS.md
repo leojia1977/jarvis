@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-TICKET-2026-04-20-001 |
-| Stage | s5c-impl7-case-review-surface-implementation-ticket |
-| Baseline commit | `46af57c3e8fd773ec7d8dc99c25169041672248a` |
+| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl7-case-review-surface-implementation-closeout |
+| Baseline commit | `93597df9f9bb9d5720607e291906948b544d325c` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is next product-development route selection after S5-C-IMPL-6 implementation closeout.
+The current governed mainline outcome is S5-C-IMPL-7 case review surface implementation closeout.
 
-The route selection chooses Green docs-only preparation for a possible later S5-C-IMPL-7 case review surface ticket. It does not authorize implementation, launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation.
+The closeout records a bounded Yellow implementation in the existing case-view read model only. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -254,6 +254,33 @@ Excluded:
 - fixtures, dependencies, release scripts, contracts, AI_COLLAB, real data, credentials, runtime behavior, launch, external pilot, S5-B/S5-D, ORDIV, Red-3
 
 Human product/governance supplied Yellow implementation GO in the route prompt, constrained by this ticket and effective only after this ticket closes PASS.
+
+## 14. S5-C-IMPL-7 Case Review Surface Implementation Closeout
+
+Closeout route:
+
+- `S5-C-IMPL-7 Case Review Surface Implementation Closeout`
+
+This route records that the bounded Yellow implementation was completed inside the governed S5-C-IMPL-7 file scope.
+
+Implemented scope:
+
+- internal review guidance under `analysis_limits["review_guidance"]` in `backend\app\agents\case_view.py`
+- synthetic regression coverage in `backend\tests\test_case_view.py`
+- review context, manager decision context, analyst questions, and audit-focus refs
+- explicit non-execution semantics through `execution_authorized: False`
+
+Preserved exclusions:
+
+- no `backend\tests\test_runtime_service.py`
+- no `backend\app\runtime_service.py`
+- no `backend\app\main.py`
+- no public endpoint work
+- no runtime/API/schema behavior
+- no `backend\app\tools\persistent_case.py`
+- no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, redaction policy freeze, parked-stream reopen, Red-3 action, or AI_COLLAB
+
+Full gate/package/release verification passed for the implementation closeout. Staging, commit, and push remain separately governed under `docs\AUTONOMOUS_AUTHORIZATION_POLICY.md` Section 10.
 
 Selected route:
 

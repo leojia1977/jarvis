@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-TICKET-2026-04-20-001",
+    "id": "S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl7-case-review-surface-implementation-ticket",
+    "stage": "s5c-impl7-case-review-surface-implementation-closeout",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T13:03:32.168081+08:00"
+    "updated_at": "2026-04-20T13:27:22.804659+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-TICKET-2026-04-20-001.zip",
-    "current_release_sha256": "0283ed09e1102f0add8f674159ccace8364c40ec74ded4bb4a78f7dc85f4cbb8",
-    "baseline_release_sha256": "f332304af953a2883d34c3017098eadab092b9c8b652dc4f4da249ccc4dc1282"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip",
+    "current_release_sha256": "9545c2c13cb0eaaae16b55c43b370a3891e7517531aadb3a81bd332e209e6c6b",
+    "baseline_release_sha256": "0283ed09e1102f0add8f674159ccace8364c40ec74ded4bb4a78f7dc85f4cbb8"
   },
   "key_files": [
     {
@@ -86,7 +86,7 @@
     {
       "path": "backend\\app\\agents\\case_view.py",
       "role": "case-view-shaping-layer",
-      "sha256": "150e5299e6472e3e7be12a264fef34ae7148d4b4608d386a86d03fe559fdbce9"
+      "sha256": "fe87ea840d6a9037d539df14de00178507a18572f1eba053557ab56c1ea18c4c"
     },
     {
       "path": "backend\\app\\agents\\graph.py",
@@ -176,7 +176,7 @@
     {
       "path": "backend\\tests\\test_case_view.py",
       "role": "canonical-case-view-tests",
-      "sha256": "3e391870a6e6f701400488b13028be172684a616348ada5882028969ba98b5f5"
+      "sha256": "bccc5198eb3d0de534fa074fa1031a81431bf4ff0c0315aaa5715c7600f084c1"
     },
     {
       "path": "backend\\tests\\test_siem_adapter_contract.py",
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "9749d138d02409efc5c469ec36a44bff54533330c56598518deafc33da080552"
+      "sha256": "674dfec66833aaf63b89c35c5d6563f53f942e8352b23936599be9079a958526"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "a1e10527a831a24b787feae59ef7db3f92eb788936bee991c5a329eec41366e7"
+      "sha256": "ccf0a5c1362a3ccb1b5cb343773a135226b17fd5fa75919f888361cb86e6f274"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "13b3a5d29c0319842de74edc77e4cf4b1e97e47c5049157a2ab50cd19ca1a66a"
+      "sha256": "27b3f4f9b970ecbb42d03ab5eca4deadeb1ceb7658f8ac6572e466e157bf0299"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "0680f7a5530ed41f8d4d4044ae8b33320d1b2e0a323ab7546922e542dc4ecd57"
+      "sha256": "d68b7f93ec076ba2eb93e4998eaaae8994133e0ab0295f78aed751d669b52b6f"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1062,6 +1062,11 @@
       "path": "docs\\S5C_IMPL7_CASE_REVIEW_SURFACE_IMPLEMENTATION_TICKET.md",
       "role": "s5c-impl7-case-review-surface-implementation-ticket",
       "sha256": "3675ed0adc855f3bb2ab13c2dc8baf50e75f8e29f322c2bd55d19ceabcf569ca"
+    },
+    {
+      "path": "docs\\S5C_IMPL7_CASE_REVIEW_SURFACE_IMPLEMENTATION_CLOSEOUT.md",
+      "role": "s5c-impl7-case-review-surface-implementation-closeout",
+      "sha256": "34eae8cd8cb3eb6db944fcb6f49ddf4430a840ef9ea01eac515f6a61248ac55f"
     }
   ],
   "tests": [
@@ -1126,13 +1131,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-TICKET-2026-04-20-001",
+      "Snapshot ID: S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T13:03:32.967426+08:00",
+    "last_verified_at": "2026-04-20T13:27:23.858621+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

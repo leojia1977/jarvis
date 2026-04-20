@@ -133,6 +133,15 @@ class CaseViewTests(unittest.TestCase):
                 "source",
             },
         )
+        self.assertEqual(
+            set(view["analysis_limits"]["review_guidance"].keys()),
+            {
+                "review_context",
+                "manager_decision_context",
+                "analyst_questions",
+                "audit_focus",
+            },
+        )
 
     def test_complete_case_has_all_panels(self):
         case = _base_case()
@@ -151,6 +160,29 @@ class CaseViewTests(unittest.TestCase):
         self.assertTrue(view["jarvis_plan"]["stop_conditions"])
         self.assertEqual(view["jarvis_plan"]["next_suggested"], "复核影响面后提交人工审批")
         self.assertEqual(view["why_it_matters"]["business_risk"], "HIGH")
+
+    def test_review_guidance_surfaces_manager_context_without_execution_authority(self):
+        case = _base_case()
+        view = build_case_view(case)
+        guidance = view["analysis_limits"]["review_guidance"]
+
+        self.assertTrue(guidance["review_context"]["analyst_review_recommended"])
+        self.assertTrue(guidance["review_context"]["manager_review_relevant"])
+        self.assertIs(guidance["review_context"]["execution_authorized"], False)
+        self.assertTrue(guidance["manager_decision_context"]["review_relevant"])
+        self.assertEqual(guidance["manager_decision_context"]["action_type"], "EMERGENCY_ISOLATE")
+        self.assertEqual(guidance["manager_decision_context"]["targets"], ["DEV-WS-01", "WKST-047"])
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
+        self.assertIn("审批依据", "".join(guidance["analyst_questions"]))
+        self.assertEqual(len(guidance["audit_focus"]), 3)
+        self.assertEqual(
+            {item["ref"] for item in guidance["audit_focus"]},
+            {
+                "persistent_case.lifecycle_status",
+                "persistent_case.action_requests",
+                "persistent_case.lifecycle_audit",
+            },
+        )
 
     def test_case_without_t3_chain_does_not_fail(self):
         case = _base_case()
@@ -175,6 +207,10 @@ class CaseViewTests(unittest.TestCase):
         self.assertEqual(view["executive_summary"]["status_banner"]["title"], "调查已降级")
         self.assertIn("timeout", view["analysis_limits"]["unavailable_tools"])
         self.assertIn("timeout", view["analysis_limits"]["unavailable_tools_summary"])
+        guidance = view["analysis_limits"]["review_guidance"]
+        self.assertFalse(guidance["review_context"]["manager_review_relevant"])
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
+        self.assertIn("重新运行调查", "".join(guidance["analyst_questions"]))
 
     def test_case_without_hunt_plan_returns_null_jarvis_panel(self):
         case = _base_case()
@@ -189,6 +225,9 @@ class CaseViewTests(unittest.TestCase):
         self.assertFalse(view["recommended_action"]["available"])
         self.assertEqual(view["recommended_action"]["action_state"], "UNAVAILABLE")
         self.assertIsNone(view["recommended_action"]["disabled_reason"])
+        guidance = view["analysis_limits"]["review_guidance"]
+        self.assertFalse(guidance["manager_decision_context"]["review_relevant"])
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
 
     def test_jarvis_panel_in_degraded_case_points_to_reinvestigation(self):
         case = _base_case()
@@ -209,6 +248,8 @@ class CaseViewTests(unittest.TestCase):
         self.assertTrue(view["executive_summary"]["status_banner"]["visible"])
         self.assertEqual(view["executive_summary"]["status_banner"]["title"], "调查存在缺口")
         self.assertIn("2 项遥测缺口", view["analysis_limits"]["missing_telemetry_summary"])
+        guidance = view["analysis_limits"]["review_guidance"]
+        self.assertIn("遥测缺口", "".join(guidance["analyst_questions"]))
 
     def test_complete_case_hides_status_banner(self):
         case = _base_case()
