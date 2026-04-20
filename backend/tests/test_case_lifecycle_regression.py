@@ -10,9 +10,14 @@ bootstrap()
 from backend.app.config import Settings  # noqa: E402
 from backend.app.runtime_service import SecuPilotRuntimeService  # noqa: E402
 from app.tools.persistent_case import (  # noqa: E402
+    approve_action_request,
     build_initial_persistent_case_record,
     close_persistent_case,
+    create_action_request_from_case,
     governed_case_close_reasons,
+    persistent_case_record_to_dict,
+    persistent_case_workflow_summary,
+    submit_action_request_for_approval,
     transition_persistent_case_status,
 )
 
@@ -27,6 +32,33 @@ def _fresh_temp_root(name: str) -> Path:
     shutil.rmtree(target, ignore_errors=True)
     target.mkdir(parents=True, exist_ok=True)
     return target
+
+
+def _workflow_summary_case() -> dict:
+    return {
+        "case_id": "CASE-S5C-IMPL8-SUMMARY-001",
+        "version": "3.1",
+        "risk_score": 8.3,
+        "confidence_score": 0.88,
+        "confidence_label": "HIGH",
+        "verdict_status": "CRITICAL_ACTION_REQUIRED",
+        "investigation_status": "COMPLETE",
+        "scenario_name": "Workflow Summary Helper",
+        "forensic_result": {
+            "hosts_analyzed": ["WKST-047"],
+            "total_suspicious_chains": 1,
+            "top_chains": [],
+            "attack_stages_observed": ["Execution"],
+            "persistence_mechanisms": [],
+            "evidence_gaps": [],
+        },
+        "suggested_action": {
+            "type": "NETWORK_ISOLATE",
+            "targets": ["WKST-047"],
+            "blast_radius_desc": "synthetic isolation boundary",
+        },
+        "audit_trail": {"degraded": False, "degraded_reasons": []},
+    }
 
 
 class CaseLifecycleRegressionTests(unittest.TestCase):
@@ -164,6 +196,74 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
                 reason="second synthetic close",
                 at_utc="2026-04-20T09:22:00Z",
             )
+
+    def test_workflow_summary_tracks_pending_approved_and_closed_sources_without_mutation(self):
+        record = build_initial_persistent_case_record(
+            _workflow_summary_case(),
+            snapshot_id="S5C-IMPL8-SUMMARY-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T10:00:00Z",
+        )
+        before_summary = persistent_case_record_to_dict(record)
+
+        open_summary = persistent_case_workflow_summary(record)
+        self.assertEqual(open_summary["lifecycle_status"], "open")
+        self.assertEqual(open_summary["pending_action_request_count"], 0)
+        self.assertEqual(open_summary["action_request_counts"]["pending_approval"], 0)
+        self.assertEqual(open_summary["latest_audit_event_type"], "case_created")
+        self.assertFalse(open_summary["execution_authorized"])
+        self.assertNotIn("close_reason", open_summary)
+
+        self.assertEqual(persistent_case_record_to_dict(record), before_summary)
+
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic summary approval request",
+            at_utc="2026-04-20T10:01:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit for workflow summary",
+            at_utc="2026-04-20T10:02:00Z",
+        )
+
+        submitted_summary = persistent_case_workflow_summary(submitted)
+        self.assertEqual(submitted_summary["lifecycle_status"], "in_review")
+        self.assertEqual(submitted_summary["review_owner"], "manager.chen")
+        self.assertEqual(submitted_summary["pending_action_request_count"], 1)
+        self.assertEqual(submitted_summary["action_request_counts"]["pending_approval"], 1)
+        self.assertEqual(submitted_summary["latest_audit_event_type"], "action_request_submitted")
+        self.assertEqual(submitted_summary["latest_audit_reason"], "submit for workflow summary")
+
+        approved = approve_action_request(
+            submitted,
+            action_request_id=submitted.action_requests[0].action_request_id,
+            actor="manager.chen",
+            reason="approve summary request",
+            at_utc="2026-04-20T10:03:00Z",
+        )
+        approved_summary = persistent_case_workflow_summary(approved)
+        self.assertEqual(approved_summary["lifecycle_status"], "approved")
+        self.assertEqual(approved_summary["action_request_counts"]["approved"], 1)
+        self.assertEqual(approved_summary["pending_action_request_count"], 0)
+        self.assertFalse(approved_summary["execution_authorized"])
+
+        closed = close_persistent_case(
+            approved,
+            actor="manager.chen",
+            close_reason="resolved_contained",
+            reason="close after summary review",
+            at_utc="2026-04-20T10:04:00Z",
+        )
+        closed_summary = persistent_case_workflow_summary(closed)
+        self.assertEqual(closed_summary["lifecycle_status"], "closed")
+        self.assertEqual(closed_summary["latest_audit_event_type"], "case_closed")
+        self.assertEqual(closed_summary["latest_audit_reason"], "close after summary review")
+        self.assertEqual(closed_summary["close_reason"], "resolved_contained")
 
     def test_create_retrieve_review_approve_close_lifecycle_is_deterministic(self):
         temp_dir = _fresh_temp_root("case_lifecycle_regression")

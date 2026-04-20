@@ -18,6 +18,7 @@ from app.tools.persistent_case import (  # noqa: E402
     create_action_request_from_case,
     persistent_case_record_from_dict,
     persistent_case_record_to_dict,
+    persistent_case_workflow_summary,
     reject_action_request,
     submit_action_request_for_approval,
     transition_persistent_case_status,
@@ -276,6 +277,56 @@ class CaseStoreTests(unittest.TestCase):
         self.assertEqual(final_audit.reason, "synthetic expected activity close")
         self.assertEqual(final_audit.details, {"close_reason": "resolved_expected_activity"})
         self.assertNotIn("close_reason", persistent_case_record_to_dict(restored))
+
+    def test_workflow_summary_source_data_survives_store_round_trip(self):
+        temp_dir = _fresh_temp_root("case_store_workflow_summary")
+        settings = Settings(
+            project_root=str(temp_dir),
+            case_store_path="./data/cases.sqlite3",
+        )
+        store = SQLitePersistentCaseStore(settings)
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5C-IMPL8-STORE-SUMMARY-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T10:20:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="summary source request",
+            at_utc="2026-04-20T10:21:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit source request",
+            at_utc="2026-04-20T10:22:00Z",
+        )
+        closed = close_persistent_case(
+            submitted,
+            actor="manager.chen",
+            close_reason="deferred_to_external_process",
+            reason="close with pending source request",
+            at_utc="2026-04-20T10:23:00Z",
+        )
+
+        store.save_case(closed)
+        restored = store.get_case(closed.case_id)
+
+        self.assertIsNotNone(restored)
+        self.assertEqual(
+            persistent_case_workflow_summary(restored),
+            persistent_case_workflow_summary(closed),
+        )
+        summary = persistent_case_workflow_summary(restored)
+        self.assertEqual(summary["lifecycle_status"], "closed")
+        self.assertEqual(summary["review_owner"], "manager.chen")
+        self.assertEqual(summary["pending_action_request_count"], 1)
+        self.assertEqual(summary["close_reason"], "deferred_to_external_process")
+        self.assertFalse(summary["execution_authorized"])
 
     def test_closed_case_serializer_round_trip_rejects_action_request_mutations(self):
         record = build_initial_persistent_case_record(

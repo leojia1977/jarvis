@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-STREAM-REVIEW-REFRESH-2026-04-20-001 |
-| Stage | s5c-stream-review-refresh |
-| Baseline commit | `0f59584f307aaf8e4adc582cfd73f83ae43c0dcc` |
+| Snapshot | S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl8-internal-workflow-summary-implementation-closeout |
+| Baseline commit | `0948faf9efa8dfb977607babfb0da3f01b85fb65` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the S5-C stream review refresh.
+The current governed mainline outcome is the first preauthorized S5-C Yellow backlog item closeout.
 
-The refresh records `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH` and defines a bounded Yellow backlog preauthorization package for exact internal S5-C helper/test hardening after this stage closes PASS. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
+The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-01`, the internal workflow summary helper, under exact files and tests. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -392,5 +392,41 @@ Still parked/deferred:
 - external pilot execution remains unauthorized
 - S4-A resolver order remains unchanged
 - AI_COLLAB remains unchanged
+
+This route does not authorize unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
+
+## 18. S5-C-IMPL-8 Internal Workflow Summary Closeout
+
+Closed route:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_01`
+
+This route records the first bounded Yellow backlog item from `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`.
+
+Implemented scope:
+
+- read-only `persistent_case_workflow_summary(record)` helper in `backend\app\tools\persistent_case.py`
+- lifecycle/action-request/audit/close-reason summary semantics derived only from `PersistentCaseRecord`
+- synthetic lifecycle regression tests in `backend\tests\test_case_lifecycle_regression.py`
+- synthetic store round-trip tests in `backend\tests\test_case_store.py`
+
+Still parked/deferred:
+
+- public close-case endpoint remains `KEEP_DEFERRED`
+- S5-B remains `PASS_AND_PARK`
+- S5-D remains `PASS_AND_PARK`
+- ORDIV-L1A remains `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs remain `NOT_READY` / `UNKNOWN`
+- external pilot execution remains unauthorized
+- S4-A resolver order remains unchanged
+- AI_COLLAB remains unchanged
+
+Next default autonomous route:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_02`
+2. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`
+3. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`
+
+Each remaining item must still run one at a time under exact item-specific files, tests, review, full gate, release verification, manifest PASS, staged scope, and HOLD rules.
 
 This route does not authorize unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.

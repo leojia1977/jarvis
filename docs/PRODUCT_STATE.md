@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-STREAM-REVIEW-REFRESH-2026-04-20-001 |
-| Stage | s5c-stream-review-refresh |
-| Baseline commit | `0f59584f307aaf8e4adc582cfd73f83ae43c0dcc` |
+| Snapshot | S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl8-internal-workflow-summary-implementation-closeout |
+| Baseline commit | `0948faf9efa8dfb977607babfb0da3f01b85fb65` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `0f59584`
-- Snapshot: `S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001`
-- Stage: `s5-post-s5c-impl7-route-decision`
+- Commit: `0948faf`
+- Snapshot: `S5C-STREAM-REVIEW-REFRESH-2026-04-20-001`
+- Stage: `s5c-stream-review-refresh`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001.zip`
-- Release sha256: `2f246b5c727e44401d1feb3c06d674c2ae6259d78ca9504f7ef34d64d6de7968`
+- Release artifact: `releases\secupilot-S5C-STREAM-REVIEW-REFRESH-2026-04-20-001.zip`
+- Release sha256: `015b0f6596cf35aed753a167eadb4cf5ba5582a835302f2ddda7bf1f41185a43`
 
-The current baseline selects `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE` as the next Green docs-only route. It does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline enables the bounded Yellow backlog package in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_01`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -599,3 +599,33 @@ Execution posture:
 Current non-authorization:
 
 - This stage does not authorize code/test implementation during the docs-only stream refresh, unlisted implementation, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 30. S5-C-IMPL-8 Internal Workflow Summary Implementation Closeout
+
+This stage records preauthorized Yellow backlog item `S5C-YB-01`.
+
+Implementation outcome:
+
+- `backend\app\tools\persistent_case.py` now adds `persistent_case_workflow_summary(record)` as a read-only internal helper derived only from `PersistentCaseRecord`.
+- The summary includes lifecycle status, review owner, action-request counts, pending action-request count, latest audit event/reason, and `execution_authorized: False`.
+- `close_reason` appears only when already present in existing lifecycle audit `details`.
+- `backend\tests\test_case_lifecycle_regression.py` covers open, submitted, approved, closed, close-reason, and non-mutation behavior.
+- `backend\tests\test_case_store.py` covers SQLite store round-trip preservation of summary source data.
+- Claude Code review-only final verdict is `PASS`.
+- Targeted `backend.tests.test_case_lifecycle_regression backend.tests.test_case_store` passed before closeout gate.
+
+Preserved exclusions:
+
+- no `backend\app\runtime_service.py`
+- no `backend\app\main.py`
+- no runtime/API/schema or public endpoint behavior
+- no persisted dataclass field, database column, lifecycle status, action-request status, audit event type, API response field, or case-view top-level panel
+- no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, S5-B/S5-D, ORDIV, Red-3, S4-A resolver, or AI_COLLAB changes
+
+Next default autonomous route after this closeout:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_02`
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, unlisted Yellow items, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.

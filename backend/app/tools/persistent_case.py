@@ -214,6 +214,40 @@ def governed_case_close_reasons() -> tuple[CaseCloseReason, ...]:
     return tuple(sorted(GOVERNED_CASE_CLOSE_REASONS))
 
 
+def persistent_case_workflow_summary(record: PersistentCaseRecord) -> dict[str, Any]:
+    """Return a read-only internal workflow summary derived from a case record.
+
+    ``close_reason`` is included only when it is already present in lifecycle
+    audit details, and this summary never authorizes execution.
+    """
+
+    action_request_counts = {
+        status: 0
+        for status in governed_action_request_statuses()
+    }
+    for action_request in record.action_requests:
+        action_request_counts[action_request.status] = action_request_counts.get(action_request.status, 0) + 1
+
+    latest_audit = record.lifecycle_audit[-1] if record.lifecycle_audit else None
+    summary: dict[str, Any] = {
+        "lifecycle_status": record.lifecycle_status,
+        "review_owner": record.review_owner,
+        "action_request_counts": action_request_counts,
+        "pending_action_request_count": action_request_counts.get("pending_approval", 0),
+        "latest_audit_event_type": latest_audit.event_type if latest_audit else None,
+        "latest_audit_reason": latest_audit.reason if latest_audit else None,
+        "execution_authorized": False,
+    }
+
+    for audit_entry in reversed(record.lifecycle_audit):
+        close_reason = audit_entry.details.get("close_reason")
+        if close_reason:
+            summary["close_reason"] = close_reason
+            break
+
+    return summary
+
+
 def _require_case_lifecycle_status(value: Any) -> CaseLifecycleStatus:
     normalized = str(value or "")
     if normalized not in GOVERNED_CASE_LIFECYCLE_STATUSES:
