@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `8a342825cea2cb45c45709cb32aa2e6b65320f2f` |
+| Snapshot | S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001 |
+| Stage | s5c-next-scoped-implementation-ticket-prep |
+| Baseline commit | `e399726f612916308f398437da4e6a36d88cb89b` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `5c1d8c1e288c1e16f47279f147fc4a973064e874`
-- Snapshot: `S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001`
-- Stage: `s5-cc-switch-command-path-provisioning`
+- Commit: `e399726f612916308f398437da4e6a36d88cb89b`
+- Snapshot: `S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001`
+- Stage: `s5-next-product-development-route-selection`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001.zip`
-- Release sha256: `e25895471707c941ecef423db5de9cf3ec0f6239a39980ca069ef5618bbb39c5`
+- Release artifact: `releases\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001.zip`
+- Release sha256: `12a1b9a952e32e46b09c5a144196725c3991b89e000e1625dae853d6594027a5`
 
-The current baseline closes the cc switch command-path provisioning stage. It verifies only the bounded Claude Code review-only verdict-line path through cc-switch routed `claude.cmd`, preserves all launch/real-data/secret/Red prohibitions, and defines only a limited four-tool Green/docs-only review loop, not full autonomous implementation.
+The current baseline closes the next product development route-selection stage. It selects `OPEN_S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP` as the next autonomously advanceable product-development task while preserving all launch, real-data, secret, public endpoint, parked-stream, Red, and AI_COLLAB prohibitions.
 
 ## 3. Sprint 5 State Summary
 
@@ -356,6 +356,27 @@ Current route meaning:
 - The follow-up ticket-prep stage must decide whether a clean next S5-C implementation ticket exists after S5-C-IMPL-5.
 - The follow-up ticket-prep stage may inspect governed docs and current code/test reality as baseline context, but it must not modify code or tests.
 - Any future implementation still requires a separate scoped implementation ticket, required review, human GO where required, full gate, release verification, and governed closeout.
+
+Current non-authorization:
+
+- This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
+
+## 20. S5-C Next Scoped Implementation Ticket Prep
+
+This stage prepares the next possible S5-C scoped implementation ticket as a docs-only artifact.
+
+Selected future candidate:
+
+- `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET`
+
+Current ticket-prep meaning:
+
+- A narrow future Yellow implementation candidate exists for internal S5-C close reason taxonomy validation and synthetic tests.
+- The candidate is limited to internal persistent-case helper behavior and test hardening.
+- The future ticket must preserve existing lifecycle status vocabulary and action-request status vocabulary.
+- The future ticket must not open public close-case endpoint work.
+- The future ticket must not add public API method/path/request/response/error model, runtime/API/schema expansion, fixture changes, dependency changes, real data, evidence retention, credentials, external pilot readiness/execution, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
+- Implementation remains HOLD until a separate scoped ticket, required review, explicit human GO, full gate, release verification, and governed closeout are completed.
 
 Current non-authorization:
 

@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `8a342825cea2cb45c45709cb32aa2e6b65320f2f` |
+| Snapshot | S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001 |
+| Stage | s5c-next-scoped-implementation-ticket-prep |
+| Baseline commit | `e399726f612916308f398437da4e6a36d88cb89b` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is `OPEN_S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP`.
+The current governed mainline outcome is `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET` as a future ticket candidate only.
 
-The human product/governance input for this stage opens only the next product-development route-selection stage and selects a Green docs-only S5-C ticket-prep route. It does not open implementation, launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, Claude Code implementation, Claude Code file edits, or parked-stream reopen. Future implementation requires a separate governed scoped ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only the next S5-C scoped implementation ticket-prep stage. The selected future candidate is Green docs-only preparation for a later Yellow implementation ticket, not implementation itself. It does not open launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, Claude Code implementation, Claude Code file edits, or parked-stream reopen. Future implementation requires a separate governed scoped ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -120,3 +120,24 @@ The route must not implement anything. It must preserve:
 Fallback if exact future S5-C scope cannot be safely named:
 
 - `PARK_NEXT_IMPLEMENTATION_AND_OPEN_EXTERNAL_INPUT_TRACKER_REFRESH_DOCS_ONLY`
+
+## 8. S5-C Next Scoped Implementation Ticket Prep
+
+Selected future candidate:
+
+- `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET`
+
+This route may prepare a later Yellow implementation ticket for internal S5-C close reason taxonomy validation and synthetic tests. It is selected because it can reduce a narrow S5-C-2 implementation gap without opening the public close-case endpoint.
+
+The candidate future route must preserve:
+
+- public close-case endpoint `KEEP_DEFERRED`
+- S5-B `PASS_AND_PARK`
+- S5-D `PASS_AND_PARK`
+- ORDIV-L1A `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs `NOT_READY` / `UNKNOWN`
+- external pilot execution unauthorized
+- S4-A resolver order `asset_id -> hostname -> fqdn -> ip_address -> aliases`
+- AI_COLLAB unchanged
+
+The candidate future route must not implement until a separate scoped ticket, required review, explicit human GO, full gate, release verification, and governed closeout are complete.
