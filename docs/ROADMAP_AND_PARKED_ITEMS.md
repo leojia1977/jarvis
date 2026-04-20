@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl7-case-review-surface-implementation-closeout |
-| Baseline commit | `93597df9f9bb9d5720607e291906948b544d325c` |
+| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002 |
+| Stage | s5-next-product-development-route-selection |
+| Baseline commit | `d753416a77099da4468d80e13d65897004a59bc1` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -302,3 +302,33 @@ The follow-up route must not implement anything. It must preserve:
 - AI_COLLAB unchanged
 
 Candidate exclusions remain `backend\app\runtime_service.py`, `backend\app\main.py`, public endpoint/API/schema files, fixtures, dependencies, release scripts, contracts, AI_COLLAB, real data, credentials, and any runtime behavior. Any later implementation remains HOLD until a separate scoped ticket, required review, explicit GO, full gate, release verification, and governed closeout are complete.
+
+## 15. Next Product Development Route Selection After S5-C-IMPL-7
+
+Selected next route:
+
+- `OPEN_POST_S5C_IMPL7_ROUTE_DECISION_STAGE`
+
+This route may draft a Green docs-only post-IMPL7 route-decision artifact. It is selected because S5-C-IMPL-5, S5-C-IMPL-6, and S5-C-IMPL-7 have all closed their bounded implementation scopes, and the next implementation candidate should not be invented without a route decision that reviews remaining product gaps.
+
+The route-decision stage may evaluate:
+
+- whether to open `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE`
+- whether a precise `OPEN_S5C_IMPL8_SCOPED_IMPLEMENTATION_TICKET_PREP` candidate exists
+- whether external input tracker refresh is the safer next Green docs-only blocker-reduction route
+- whether to park/wait for product input
+
+The follow-up route must not implement anything. It must preserve:
+
+- public close-case endpoint `KEEP_DEFERRED`
+- S5-B `PASS_AND_PARK`
+- S5-D `PASS_AND_PARK`
+- ORDIV-L1A `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs `NOT_READY` / `UNKNOWN`
+- external pilot execution unauthorized
+- S4-A resolver order `asset_id -> hostname -> fqdn -> ip_address -> aliases`
+- AI_COLLAB unchanged
+
+Fallback if exact future product-development scope cannot be safely named:
+
+- `PARK_AND_WAIT_FOR_PRODUCT_INPUT`
