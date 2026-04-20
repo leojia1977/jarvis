@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-TICKET-PREP-2026-04-20-001 |
-| Stage | s5c-impl7-case-review-surface-ticket-prep |
-| Baseline commit | `7af8841a10685c0420fdea8c3a6bddef2c207f51` |
+| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-TICKET-2026-04-20-001 |
+| Stage | s5c-impl7-case-review-surface-implementation-ticket |
+| Baseline commit | `46af57c3e8fd773ec7d8dc99c25169041672248a` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -414,6 +414,23 @@ Current non-authorization:
 ## 20. S5-C Next Scoped Implementation Ticket Prep
 
 ## 24. S5-C-IMPL-7 Case Review Surface Ticket Prep
+
+## 25. S5-C-IMPL-7 Case Review Surface Implementation Ticket
+
+This stage opens the scoped implementation ticket for S5-C-IMPL-7 as a docs-only artifact.
+
+Current ticket outcome:
+
+- `docs\S5C_IMPL7_CASE_REVIEW_SURFACE_IMPLEMENTATION_TICKET.md` defines a later Yellow implementation scope for bounded internal review guidance inside `analysis_limits["review_guidance"]`.
+- The allowed implementation file is limited to `backend\app\agents\case_view.py`.
+- The allowed synthetic test file is limited to `backend\tests\test_case_view.py`.
+- `backend\tests\test_runtime_service.py`, `backend\app\runtime_service.py`, `backend\app\main.py`, public endpoint/API/schema files, `backend\app\tools\persistent_case.py`, fixtures, dependencies, release scripts, contracts, and AI_COLLAB are excluded.
+- The future implementation must not add a new top-level case view panel or alter `CASE_VIEW_SCHEMA_VERSION`.
+- Human product/governance supplied Yellow implementation GO in the route prompt, constrained by the ticket scope and effective only after this ticket closes PASS.
+
+Current non-authorization:
+
+- This stage does not authorize files outside `backend\app\agents\case_view.py` and `backend\tests\test_case_view.py`, runtime/API/schema behavior, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
 
 This stage opens Green docs-only ticket prep for a possible later S5-C-IMPL-7 implementation ticket.
 

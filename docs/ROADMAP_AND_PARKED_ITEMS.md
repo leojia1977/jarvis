@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-TICKET-PREP-2026-04-20-001 |
-| Stage | s5c-impl7-case-review-surface-ticket-prep |
-| Baseline commit | `7af8841a10685c0420fdea8c3a6bddef2c207f51` |
+| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-TICKET-2026-04-20-001 |
+| Stage | s5c-impl7-case-review-surface-implementation-ticket |
+| Baseline commit | `46af57c3e8fd773ec7d8dc99c25169041672248a` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -223,6 +223,37 @@ The follow-up route must not implement anything. It must preserve:
 Candidate future file analysis may include `backend\app\agents\case_view.py`, `backend\tests\test_case_view.py`, and optionally `backend\tests\test_runtime_service.py` only as read-only ticket-prep context. Any later implementation remains HOLD until a separate scoped ticket, required review, explicit GO, full gate, release verification, and governed closeout are complete.
 
 ## 12. S5-C-IMPL-7 Case Review Surface Ticket Prep
+
+## 13. S5-C-IMPL-7 Case Review Surface Implementation Ticket
+
+Opened route:
+
+- `OPEN_S5C_IMPL7_CASE_REVIEW_SURFACE_IMPLEMENTATION_TICKET`
+
+This route defines the exact scoped Yellow implementation ticket for S5-C-IMPL-7.
+
+Allowed future implementation:
+
+- `backend\app\agents\case_view.py`
+- `backend\tests\test_case_view.py`
+
+Frozen behavior:
+
+- add bounded internal review guidance under `analysis_limits["review_guidance"]`
+- preserve existing top-level case view panels
+- keep `execution_authorized: False` in review/manager decision context
+- use synthetic tests only
+
+Excluded:
+
+- `backend\tests\test_runtime_service.py`
+- `backend\app\runtime_service.py`
+- `backend\app\main.py`
+- public endpoint/API/schema files
+- `backend\app\tools\persistent_case.py`
+- fixtures, dependencies, release scripts, contracts, AI_COLLAB, real data, credentials, runtime behavior, launch, external pilot, S5-B/S5-D, ORDIV, Red-3
+
+Human product/governance supplied Yellow implementation GO in the route prompt, constrained by this ticket and effective only after this ticket closes PASS.
 
 Selected route:
 
