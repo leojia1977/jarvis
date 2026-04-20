@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl6-close-reason-internal-semantics-implementation-closeout |
-| Baseline commit | `38c91442f712d221d5017bb69e51b474a4062b7b` |
+| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-001 |
+| Stage | s5-next-product-development-route-selection |
+| Baseline commit | `1deae49` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is S5-C-IMPL-6 implementation closeout for internal close reason semantics.
+The current governed mainline outcome is next product-development route selection after S5-C-IMPL-6 implementation closeout.
 
-The human product/governance input authorized the bounded Yellow implementation and then authorized full closeout gate/package/release verification. The implementation remains limited to internal helper semantics and synthetic tests. It does not open launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation beyond this closeout.
+The route selection chooses Green docs-only preparation for a possible later S5-C-IMPL-7 case review surface ticket. It does not authorize implementation, launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -198,3 +198,26 @@ Preserved exclusions:
 - no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, redaction policy freeze, parked-stream reopen, Red-3 action, or AI_COLLAB
 
 Full gate/package/release verification passed for the implementation closeout. Staging, commit, and push remain separately unauthorized.
+
+## 11. Next Product Development Route Selection After S5-C-IMPL-6
+
+Selected route:
+
+- `OPEN_S5C_IMPL7_CASE_REVIEW_SURFACE_TICKET_PREP`
+
+This route may draft a Green docs-only ticket-prep artifact for a possible later S5-C-IMPL-7 scoped implementation ticket.
+
+The candidate future task is analyst/manager case review surface or read-model hardening using existing governed data. It is selected because it can move the product toward a bounded in-repo development decision without reopening public close-case endpoint work, launch, real data, credentials, S5-B/S5-D, ORDIV, Red-3, or AI_COLLAB.
+
+The follow-up route must not implement anything. It must preserve:
+
+- public close-case endpoint `KEEP_DEFERRED`
+- S5-B `PASS_AND_PARK`
+- S5-D `PASS_AND_PARK`
+- ORDIV-L1A `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs `NOT_READY` / `UNKNOWN`
+- external pilot execution unauthorized
+- S4-A resolver order `asset_id -> hostname -> fqdn -> ip_address -> aliases`
+- AI_COLLAB unchanged
+
+Candidate future file analysis may include `backend\app\agents\case_view.py`, `backend\tests\test_case_view.py`, and optionally `backend\tests\test_runtime_service.py` only as read-only ticket-prep context. Any later implementation remains HOLD until a separate scoped ticket, required review, explicit GO, full gate, release verification, and governed closeout are complete.

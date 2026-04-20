@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl6-close-reason-internal-semantics-implementation-closeout |
-| Baseline commit | `38c91442f712d221d5017bb69e51b474a4062b7b` |
+| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-001 |
+| Stage | s5-next-product-development-route-selection |
+| Baseline commit | `1deae49` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `38c91442f712d221d5017bb69e51b474a4062b7b`
-- Snapshot: `S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001`
-- Stage: `s5c-impl6-close-reason-internal-semantics-ticket`
+- Commit: `1deae49`
+- Snapshot: `S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
+- Stage: `s5c-impl6-close-reason-internal-semantics-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001.zip`
-- Release sha256: `0c8280fda3193cc42144ec2b97990ac453d6cec76a0a58f3d6ad98b7477e12f6`
+- Release artifact: `releases\secupilot-S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
+- Release sha256: `6568e236b2dc098ec4f52b8965db9f7090b8049d050db4d5edbdddc3bf7ad379`
 
-The current baseline closes the S5-C-IMPL-6 close reason internal semantics ticket stage. It authorizes only the bounded Yellow implementation after required review and explicit human GO while preserving all launch, real-data, secret, public endpoint, parked-stream, Red, and AI_COLLAB prohibitions.
+The current baseline closes the S5-C-IMPL-6 close reason internal semantics implementation. It does not authorize additional implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -384,6 +384,32 @@ Full closeout status:
 Current non-authorization:
 
 - This stage does not authorize additional code changes, additional test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, staging, commit, or push.
+
+## 23. Next Product Development Route Selection After S5-C-IMPL-6
+
+This stage selects the next autonomously advanceable product-development task after S5-C-IMPL-6 closeout.
+
+Selected route:
+
+- `OPEN_S5C_IMPL7_CASE_REVIEW_SURFACE_TICKET_PREP`
+
+Current route meaning:
+
+- The next safe move is Green docs-only ticket prep for a possible later S5-C-IMPL-7 scoped implementation ticket.
+- The candidate theme is analyst/manager case review surface or read-model hardening using existing governed data.
+- The follow-up ticket-prep stage may inspect `backend\app\agents\case_view.py`, `backend\tests\test_case_view.py`, and related governed docs as read-only baseline context.
+- The follow-up ticket-prep stage must decide whether a later Yellow implementation can be scoped without public endpoint work, runtime service changes, persistence schema changes, real data, credentials, evidence retention, or Red triggers.
+- If exact future files, behavior, tests, and acceptance criteria cannot be named safely, the follow-up stage must HOLD.
+
+Automation impact:
+
+- The remaining non-automated areas do not block governed product development.
+- They remain HOLD boundaries around Red, launch, deployment, real data, credentials, public endpoint work, parked-stream reopen, AdsPower login/session/profile-switching, and Claude Code file-edit/command-execution behavior.
+- Green docs-only work and explicitly scoped Yellow implementation can continue under the activated policy and required review/GO rules.
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
 
 ## 20. S5-C Next Scoped Implementation Ticket Prep
 
