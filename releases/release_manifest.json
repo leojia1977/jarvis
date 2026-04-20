@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001",
+    "id": "S5C-STREAM-REVIEW-REFRESH-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5-post-s5c-impl7-route-decision",
+    "stage": "s5c-stream-review-refresh",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T15:01:05.538913+08:00"
+    "updated_at": "2026-04-20T15:35:07.289201+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001.zip",
-    "current_release_sha256": "2f246b5c727e44401d1feb3c06d674c2ae6259d78ca9504f7ef34d64d6de7968",
-    "baseline_release_sha256": "5a0ae49d813ca2d5ea7fdf561ecf066edeb96a8d56e00a80e70463fa64157ade"
+    "current_release_zip": "releases\\secupilot-S5C-STREAM-REVIEW-REFRESH-2026-04-20-001.zip",
+    "current_release_sha256": "015b0f6596cf35aed753a167eadb4cf5ba5582a835302f2ddda7bf1f41185a43",
+    "baseline_release_sha256": "2f246b5c727e44401d1feb3c06d674c2ae6259d78ca9504f7ef34d64d6de7968"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "47d25eb9dd1f39358d1fcd4f38f443770adab2a9972107c099732ef20a353c41"
+      "sha256": "6dc04195e065e55ae8b7d831cee718291880b913feaba0ad94859a28a6eccae1"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "56997f0a108fb61b746230fa3a76daf8abafb67efb613a264be9bcd9e001df7b"
+      "sha256": "76f73608c35c048b005d9b8857911d9aa0f2ab3e64ee6db67f194f097bbe5c0f"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "083f5d9d46463301f73b9f3f557e89fbb4053bfaaaa973262d5654128ac77c44"
+      "sha256": "f1a47a9ccc860cdd210b5f28b4437b9348d7c1d948ea6d9801ed73d7506988bf"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "c00412556e7537c80da48835475367c85c04b89447d83e745e31fccd953aacc6"
+      "sha256": "2b103da22af2cc237f6bce423f77542a86cf12586cb66865c66e0a29bf9d7181"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1072,6 +1072,16 @@
       "path": "docs\\S5_POST_S5C_IMPL7_ROUTE_DECISION.md",
       "role": "s5-post-s5c-impl7-route-decision",
       "sha256": "1781b5e55d6cfcbcfd5a4a690ca41de207e59d14d50e6c1727641a4d1f969823"
+    },
+    {
+      "path": "docs\\S5C_STREAM_REVIEW_REFRESH.md",
+      "role": "s5c-stream-review-refresh",
+      "sha256": "81e862d1317d5c55c00586286c13025e217775eec6b51ccd084358de421d9d32"
+    },
+    {
+      "path": "docs\\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md",
+      "role": "s5c-autonomous-yellow-backlog-preauthorization",
+      "sha256": "943c91cdd8d58b41e1a354ba3abf2d08cb991efe7df7fc642c943c1221e2865a"
     }
   ],
   "tests": [
@@ -1136,13 +1146,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001",
+      "Snapshot ID: S5C-STREAM-REVIEW-REFRESH-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T15:01:06.516481+08:00",
+    "last_verified_at": "2026-04-20T15:35:08.093724+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

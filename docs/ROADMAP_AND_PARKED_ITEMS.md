@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001 |
-| Stage | s5-post-s5c-impl7-route-decision |
-| Baseline commit | `7143b8b7fe3f22a68ee44a3596908925da44a7cf` |
+| Snapshot | S5C-STREAM-REVIEW-REFRESH-2026-04-20-001 |
+| Stage | s5c-stream-review-refresh |
+| Baseline commit | `0f59584f307aaf8e4adc582cfd73f83ae43c0dcc` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the post-S5-C-IMPL-7 route decision.
+The current governed mainline outcome is the S5-C stream review refresh.
 
-The route decision selects `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE` as the next safe Green docs-only product-development move after S5-C-IMPL-5, S5-C-IMPL-6, and S5-C-IMPL-7. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation.
+The refresh records `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH` and defines a bounded Yellow backlog preauthorization package for exact internal S5-C helper/test hardening after this stage closes PASS. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -355,3 +355,42 @@ Vacation-mode posture:
 - Red, launch, deployment, external pilot execution, real data, credentials, public endpoint activation, parked-stream reopen, Red-3, S4-A resolver change, and AI_COLLAB changes remain unavailable to unattended automation.
 
 This route decision does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, Yellow implementation, Red execution, launch, deployment, external pilot readiness/execution, credentials, real data, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, Claude Code file edits/command execution/tests, staging, commit, or push.
+
+## 17. S5-C Stream Review Refresh
+
+Stream decision:
+
+- `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`
+
+This route keeps S5-C moving through exact internal Yellow helper/test hardening rather than parking the stream or inventing a broad IMPL8 scope.
+
+Preauthorized Yellow backlog after this stage closes PASS:
+
+- `S5C-YB-01` internal workflow summary helper
+- `S5C-YB-02` audit event vocabulary guard
+- `S5C-YB-03` pending action-request boundary helpers
+- `S5C-YB-04` case-view review-guidance regression hardening, test-only
+
+The source artifact for exact files, tests, and HOLD rules is `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`.
+
+Default execution order:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_01`
+2. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_02`
+3. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`
+4. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`
+
+Each item must run one at a time, must obtain implementation review PASS, targeted tests PASS, full gate PASS, release verification PASS, manifest PASS, exact staged scope, and no-HOLD before closeout commit/push.
+
+Still parked/deferred:
+
+- public close-case endpoint remains `KEEP_DEFERRED`
+- S5-B remains `PASS_AND_PARK`
+- S5-D remains `PASS_AND_PARK`
+- ORDIV-L1A remains `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs remain `NOT_READY` / `UNKNOWN`
+- external pilot execution remains unauthorized
+- S4-A resolver order remains unchanged
+- AI_COLLAB remains unchanged
+
+This route does not authorize unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.

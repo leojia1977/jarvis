@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001 |
-| Stage | s5-post-s5c-impl7-route-decision |
-| Baseline commit | `7143b8b7fe3f22a68ee44a3596908925da44a7cf` |
+| Snapshot | S5C-STREAM-REVIEW-REFRESH-2026-04-20-001 |
+| Stage | s5c-stream-review-refresh |
+| Baseline commit | `0f59584f307aaf8e4adc582cfd73f83ae43c0dcc` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -16,17 +16,19 @@ This rolling product-state map is passive governed context, not active authoriza
 
 Section 1 identifies the stage that produced this rolling-map version; Section 2 identifies the governed PASS baseline this stage starts from until closeout verification updates the manifest.
 
+When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stage and Section 2 is the prior PASS baseline. That lag is intentional before closeout verification.
+
 ## 2. Current Governed Baseline
 
-- Commit: `7143b8b`
-- Snapshot: `S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002`
-- Stage: `s5-next-product-development-route-selection`
+- Commit: `0f59584`
+- Snapshot: `S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001`
+- Stage: `s5-post-s5c-impl7-route-decision`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002.zip`
-- Release sha256: `5a0ae49d813ca2d5ea7fdf561ecf066edeb96a8d56e00a80e70463fa64157ade`
+- Release artifact: `releases\secupilot-S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001.zip`
+- Release sha256: `2f246b5c727e44401d1feb3c06d674c2ae6259d78ca9504f7ef34d64d6de7968`
 
-The current baseline selects `OPEN_POST_S5C_IMPL7_ROUTE_DECISION_STAGE` as the next Green docs-only route. It does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline selects `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE` as the next Green docs-only route. It does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -568,3 +570,32 @@ Vacation-mode posture:
 Current non-authorization:
 
 - This stage does not authorize implementation, code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
+
+## 29. S5-C Stream Review Refresh
+
+This stage refreshes the S5-C stream after S5-C-IMPL-5, S5-C-IMPL-6, and S5-C-IMPL-7.
+
+Stream decision:
+
+- `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`
+
+Backlog preauthorization artifact:
+
+- `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`
+
+Preauthorized Yellow backlog items after this stage closes PASS:
+
+- `S5C-YB-01`: internal workflow summary helper in `backend\app\tools\persistent_case.py` with tests in `backend\tests\test_case_lifecycle_regression.py` and `backend\tests\test_case_store.py`.
+- `S5C-YB-02`: audit event vocabulary guard in `backend\app\tools\persistent_case.py` with tests in `backend\tests\test_case_action_request_contract.py` and `backend\tests\test_case_store.py`.
+- `S5C-YB-03`: pending action-request boundary helpers in `backend\app\tools\persistent_case.py` with tests in `backend\tests\test_case_action_request_contract.py` and `backend\tests\test_case_lifecycle_regression.py`.
+- `S5C-YB-04`: case-view review-guidance regression hardening in `backend\tests\test_case_view.py` only; any need to edit `backend\app\agents\case_view.py` must HOLD for a later separate scoped route.
+
+Execution posture:
+
+- Each Yellow item may run only one at a time after this stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push.
+- Each item still requires item-specific Claude Code review-only PASS, targeted tests PASS, full gate PASS, manifest PASS, exact staged scope, and no HOLD before closeout commit/push.
+- This preauthorization is not a general implementation authority and cannot be used for any unlisted item.
+
+Current non-authorization:
+
+- This stage does not authorize code/test implementation during the docs-only stream refresh, unlisted implementation, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
