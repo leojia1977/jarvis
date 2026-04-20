@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `d753416a77099da4468d80e13d65897004a59bc1` |
+| Snapshot | S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001 |
+| Stage | s5-post-s5c-impl7-route-decision |
+| Baseline commit | `7143b8b7fe3f22a68ee44a3596908925da44a7cf` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `d753416a`
-- Snapshot: `S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
-- Stage: `s5c-impl7-case-review-surface-implementation-closeout`
+- Commit: `7143b8b`
+- Snapshot: `S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002`
+- Stage: `s5-next-product-development-route-selection`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL7-CASE-REVIEW-SURFACE-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
-- Release sha256: `9545c2c13cb0eaaae16b55c43b370a3891e7517531aadb3a81bd332e209e6c6b`
+- Release artifact: `releases\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002.zip`
+- Release sha256: `5a0ae49d813ca2d5ea7fdf561ecf066edeb96a8d56e00a80e70463fa64157ade`
 
-The current baseline closes the S5-C-IMPL-7 implementation. It does not authorize additional implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline selects `OPEN_POST_S5C_IMPL7_ROUTE_DECISION_STAGE` as the next Green docs-only route. It does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -539,6 +539,31 @@ Automation impact:
 - Current toolchain limits do not block governed product development.
 - They remain HOLD boundaries around launch, deployment, external pilot execution, real data, credentials, public endpoint work, parked-stream reopen, AdsPower login/session/profile-switching, and Claude Code file-edit/command-execution behavior.
 - Green docs-only work and explicitly scoped Yellow implementation can continue under the activated policy and required review/GO rules.
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
+
+## 28. Post S5-C-IMPL-7 Route Decision
+
+This stage selects the next route after S5-C-IMPL-7 and records autonomous vacation-mode implications.
+
+Selected route:
+
+- `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE`
+
+Current route meaning:
+
+- The next safe move is Green docs-only S5-C stream review refresh.
+- The follow-up should review S5-C planning plus S5-C-IMPL-5, S5-C-IMPL-6, and S5-C-IMPL-7 implementation closeouts together.
+- The follow-up should decide whether S5-C is complete/parked for now, whether a precise S5-C-IMPL8 ticket-prep candidate exists, whether an autonomous Yellow backlog preauthorization package is warranted, or whether external input tracker refresh should be next.
+- It must not implement code or tests.
+
+Vacation-mode posture:
+
+- Green docs-only stages can proceed through review, full gate, release verification, manifest PASS, and closeout under AHQ-019 when exact scope/no-HOLD conditions pass.
+- Yellow implementation can proceed during human absence only after exact scoped ticket/GO or a later governed preauthorization package defines files, behavior, tests, review path, and HOLD criteria.
+- Launch, deployment, external pilot execution, real data, credentials, public endpoint activation, parked-stream reopen, Red-3, S4-A resolver change, and AI_COLLAB changes remain unavailable to unattended automation.
 
 Current non-authorization:
 

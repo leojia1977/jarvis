@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `d753416a77099da4468d80e13d65897004a59bc1` |
+| Snapshot | S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001 |
+| Stage | s5-post-s5c-impl7-route-decision |
+| Baseline commit | `7143b8b7fe3f22a68ee44a3596908925da44a7cf` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is S5-C-IMPL-7 case review surface implementation closeout.
+The current governed mainline outcome is the post-S5-C-IMPL-7 route decision.
 
-The closeout records a bounded Yellow implementation in the existing case-view read model only. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation.
+The route decision selects `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE` as the next safe Green docs-only product-development move after S5-C-IMPL-5, S5-C-IMPL-6, and S5-C-IMPL-7. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or additional implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -332,3 +332,26 @@ The follow-up route must not implement anything. It must preserve:
 Fallback if exact future product-development scope cannot be safely named:
 
 - `PARK_AND_WAIT_FOR_PRODUCT_INPUT`
+
+## 16. Post S5-C-IMPL-7 Route Decision
+
+Selected next route:
+
+- `OPEN_S5C_STREAM_REVIEW_REFRESH_STAGE`
+
+This route may draft a Green docs-only S5-C stream review refresh. It should review S5-C planning and the S5-C-IMPL-5, S5-C-IMPL-6, and S5-C-IMPL-7 implementation closeouts together before naming any further implementation gap.
+
+The follow-up route may decide among:
+
+- `S5_C_STREAM_COMPLETE_AND_PARK`
+- `OPEN_S5C_IMPL8_SCOPED_IMPLEMENTATION_TICKET_PREP`
+- `OPEN_AUTONOMOUS_YELLOW_BACKLOG_PREAUTH_STAGE`
+- `OPEN_EXTERNAL_INPUT_TRACKER_REFRESH_DOCS_ONLY`
+
+Vacation-mode posture:
+
+- Green docs-only stages can proceed through review, full gate, release verification, manifest PASS, and closeout under AHQ-019 when exact scope/no-HOLD conditions pass.
+- Yellow implementation can proceed during human absence only after exact scoped ticket/GO or a later governed preauthorization package defines files, behavior, tests, review path, and HOLD criteria.
+- Red, launch, deployment, external pilot execution, real data, credentials, public endpoint activation, parked-stream reopen, Red-3, S4-A resolver change, and AI_COLLAB changes remain unavailable to unattended automation.
+
+This route decision does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, Yellow implementation, Red execution, launch, deployment, external pilot readiness/execution, credentials, real data, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, Claude Code file edits/command execution/tests, staging, commit, or push.

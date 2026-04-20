@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002",
+    "id": "S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5-next-product-development-route-selection",
+    "stage": "s5-post-s5c-impl7-route-decision",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T14:16:22.420312+08:00"
+    "updated_at": "2026-04-20T15:01:05.538913+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002.zip",
-    "current_release_sha256": "5a0ae49d813ca2d5ea7fdf561ecf066edeb96a8d56e00a80e70463fa64157ade",
-    "baseline_release_sha256": "9545c2c13cb0eaaae16b55c43b370a3891e7517531aadb3a81bd332e209e6c6b"
+    "current_release_zip": "releases\\secupilot-S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001.zip",
+    "current_release_sha256": "2f246b5c727e44401d1feb3c06d674c2ae6259d78ca9504f7ef34d64d6de7968",
+    "baseline_release_sha256": "5a0ae49d813ca2d5ea7fdf561ecf066edeb96a8d56e00a80e70463fa64157ade"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "c79df8c881742160956b195a8eb48e4c668a4c7b95a21ce74a35420b14de3148"
+      "sha256": "47d25eb9dd1f39358d1fcd4f38f443770adab2a9972107c099732ef20a353c41"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "082831e3b887924252bcae35c3556ba230500d7732e126c2a850f97ed11d4dda"
+      "sha256": "56997f0a108fb61b746230fa3a76daf8abafb67efb613a264be9bcd9e001df7b"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "24bd032f96fb520ba6f98e8eac8b635797cc1ab815b2a03ef28b3da9d5d26d47"
+      "sha256": "083f5d9d46463301f73b9f3f557e89fbb4053bfaaaa973262d5654128ac77c44"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "8c3b6e76a55f377af95123ba7b9a193f7c55f9ab5d7535de80f16f8268076760"
+      "sha256": "c00412556e7537c80da48835475367c85c04b89447d83e745e31fccd953aacc6"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1067,6 +1067,11 @@
       "path": "docs\\S5C_IMPL7_CASE_REVIEW_SURFACE_IMPLEMENTATION_CLOSEOUT.md",
       "role": "s5c-impl7-case-review-surface-implementation-closeout",
       "sha256": "34eae8cd8cb3eb6db944fcb6f49ddf4430a840ef9ea01eac515f6a61248ac55f"
+    },
+    {
+      "path": "docs\\S5_POST_S5C_IMPL7_ROUTE_DECISION.md",
+      "role": "s5-post-s5c-impl7-route-decision",
+      "sha256": "1781b5e55d6cfcbcfd5a4a690ca41de207e59d14d50e6c1727641a4d1f969823"
     }
   ],
   "tests": [
@@ -1131,13 +1136,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-002",
+      "Snapshot ID: S5-POST-S5C-IMPL7-ROUTE-DECISION-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T14:16:23.312287+08:00",
+    "last_verified_at": "2026-04-20T15:01:06.516481+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
