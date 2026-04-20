@@ -219,6 +219,22 @@ def governed_audit_event_types() -> tuple[AuditEventType, ...]:
     return tuple(sorted(GOVERNED_AUDIT_EVENT_TYPES))
 
 
+def pending_action_request_ids(record: PersistentCaseRecord) -> tuple[str, ...]:
+    """Return IDs for action requests that are waiting for approval."""
+
+    return tuple(
+        action_request.action_request_id
+        for action_request in record.action_requests
+        if action_request.status == "pending_approval"
+    )
+
+
+def has_pending_action_requests(record: PersistentCaseRecord) -> bool:
+    """Return whether the record has action requests waiting for approval."""
+
+    return bool(pending_action_request_ids(record))
+
+
 def persistent_case_workflow_summary(record: PersistentCaseRecord) -> dict[str, Any]:
     """Return a read-only internal workflow summary derived from a case record.
 
@@ -233,12 +249,13 @@ def persistent_case_workflow_summary(record: PersistentCaseRecord) -> dict[str, 
     for action_request in record.action_requests:
         action_request_counts[action_request.status] = action_request_counts.get(action_request.status, 0) + 1
 
+    pending_ids = pending_action_request_ids(record)
     latest_audit = record.lifecycle_audit[-1] if record.lifecycle_audit else None
     summary: dict[str, Any] = {
         "lifecycle_status": record.lifecycle_status,
         "review_owner": record.review_owner,
         "action_request_counts": action_request_counts,
-        "pending_action_request_count": action_request_counts.get("pending_approval", 0),
+        "pending_action_request_count": len(pending_ids),
         "latest_audit_event_type": latest_audit.event_type if latest_audit else None,
         "latest_audit_reason": latest_audit.reason if latest_audit else None,
         "execution_authorized": False,

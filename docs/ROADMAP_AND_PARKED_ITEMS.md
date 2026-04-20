@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl9-audit-event-vocabulary-guard-implementation-closeout |
-| Baseline commit | `18dd80cb568988bb5631b68c375a3647ca1072bb` |
+| Snapshot | S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout |
+| Baseline commit | `eaca18fa77c5c1aa48e13274a9670b670705d1f4` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the second preauthorized S5-C Yellow backlog item closeout.
+The current governed mainline outcome is the third preauthorized S5-C Yellow backlog item closeout.
 
-The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-02`, the audit event vocabulary guard, under exact files and tests. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
+The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-03`, the pending action-request boundary helpers, under exact files and tests. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -431,6 +431,41 @@ Next default autonomous route:
 Each remaining item must still run one at a time under exact item-specific files, tests, review, full gate, release verification, manifest PASS, staged scope, and HOLD rules.
 
 This route does not authorize new audit event types, migrations, backfills, unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
+
+## 20. S5-C-IMPL-10 Pending Action Request Boundary Helpers Closeout
+
+Closed route:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`
+
+This route records the third bounded Yellow backlog item from `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`.
+
+Implemented scope:
+
+- `pending_action_request_ids(record)` in `backend\app\tools\persistent_case.py`
+- `has_pending_action_requests(record)` in `backend\app\tools\persistent_case.py`
+- workflow summary pending count derived from the pending helper
+- synthetic action-request contract tests in `backend\tests\test_case_action_request_contract.py`
+- synthetic lifecycle regression tests in `backend\tests\test_case_lifecycle_regression.py`
+
+Still parked/deferred:
+
+- public close-case endpoint remains `KEEP_DEFERRED`
+- S5-B remains `PASS_AND_PARK`
+- S5-D remains `PASS_AND_PARK`
+- ORDIV-L1A remains `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs remain `NOT_READY` / `UNKNOWN`
+- external pilot execution remains unauthorized
+- S4-A resolver order remains unchanged
+- AI_COLLAB remains unchanged
+
+Next default autonomous route:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`
+
+The remaining item must still run under exact item-specific files, tests, review, full gate, release verification, manifest PASS, staged scope, and HOLD rules.
+
+This route does not authorize endpoint behavior, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
 
 ## 18. S5-C-IMPL-8 Internal Workflow Summary Closeout
 

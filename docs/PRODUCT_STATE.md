@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl9-audit-event-vocabulary-guard-implementation-closeout |
-| Baseline commit | `18dd80cb568988bb5631b68c375a3647ca1072bb` |
+| Snapshot | S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
+| Stage | s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout |
+| Baseline commit | `eaca18fa77c5c1aa48e13274a9670b670705d1f4` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `18dd80c`
-- Snapshot: `S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
-- Stage: `s5c-impl8-internal-workflow-summary-implementation-closeout`
+- Commit: `eaca18f`
+- Snapshot: `S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
+- Stage: `s5c-impl9-audit-event-vocabulary-guard-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL8-INTERNAL-WORKFLOW-SUMMARY-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
-- Release sha256: `5f5f10be0a10e645a21dc477274789a36b0980f660f85099efaad367dde633be`
+- Release artifact: `releases\secupilot-S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
+- Release sha256: `ea1b855a437eb9977608a2df5cc028161d4a0a8c6ca892fab46cda73b945e5f6`
 
-The current baseline enables the next bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_02`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline enables the next bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -662,3 +662,36 @@ Next default autonomous route after this closeout:
 Current non-authorization:
 
 - This stage does not authorize additional implementation, unlisted Yellow items, adding/renaming/removing/reinterpreting audit event types, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 32. S5-C-IMPL-10 Pending Action Request Boundary Helpers Implementation Closeout
+
+This stage records preauthorized Yellow backlog item `S5C-YB-03`.
+
+Implementation outcome:
+
+- `backend\app\tools\persistent_case.py` now adds `pending_action_request_ids(record)` and `has_pending_action_requests(record)`.
+- Pending means action request status exactly `pending_approval`.
+- `persistent_case_workflow_summary(record)` now derives `pending_action_request_count` from `pending_action_request_ids(record)`.
+- `backend\tests\test_case_action_request_contract.py` covers draft, submitted, approved, rejected, and cancelled action-request pending detection.
+- `backend\tests\test_case_lifecycle_regression.py` covers workflow summary alignment and closed-case pending detection without mutation.
+- Claude Code review-only final verdict is `PASS`.
+- Targeted `backend.tests.test_case_action_request_contract backend.tests.test_case_lifecycle_regression` passed before closeout gate.
+
+Preserved exclusions:
+
+- no endpoint behavior
+- no `backend\app\runtime_service.py`
+- no `backend\app\main.py`
+- no runtime/API/schema or public endpoint behavior
+- no lifecycle status or action-request status change
+- no approve/reject/cancel/submit/close/reopen/execute behavior in the new helpers
+- no RBAC, ticketing, workflow-engine, external-system, or destructive-response semantics
+- no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, S5-B/S5-D, ORDIV, Red-3, S4-A resolver, or AI_COLLAB changes
+
+Next default autonomous route after this closeout:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, unlisted Yellow items, endpoint behavior, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.

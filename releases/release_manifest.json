@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
+    "id": "S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl9-audit-event-vocabulary-guard-implementation-closeout",
+    "stage": "s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T18:21:35.013560+08:00"
+    "updated_at": "2026-04-20T18:38:34.820475+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip",
-    "current_release_sha256": "ea1b855a437eb9977608a2df5cc028161d4a0a8c6ca892fab46cda73b945e5f6",
-    "baseline_release_sha256": "5f5f10be0a10e645a21dc477274789a36b0980f660f85099efaad367dde633be"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip",
+    "current_release_sha256": "d51e1333c7be35e6e09cd6d5956083cbe21d791c59f633893d6e5810eb04fa1f",
+    "baseline_release_sha256": "ea1b855a437eb9977608a2df5cc028161d4a0a8c6ca892fab46cda73b945e5f6"
   },
   "key_files": [
     {
@@ -146,7 +146,7 @@
     {
       "path": "backend\\app\\tools\\persistent_case.py",
       "role": "persistent-case-schema-contract",
-      "sha256": "9835b76781f68b5ce8e24a5b4771c79cb90afcf0423d39f5f499061b864293c6"
+      "sha256": "08db8d5b8a7aa248dd02aed82c2e0008c833828f7f2a97be53106b5b71c5de54"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -226,12 +226,12 @@
     {
       "path": "backend\\tests\\test_case_action_request_contract.py",
       "role": "canonical-case-action-request-contract-tests",
-      "sha256": "729d452ce43be412989a56d74f58edce7cfc00d92e7578eab116e3e72eb4a8f9"
+      "sha256": "0713d47f46cde0d041270e72ae7fc933d3ae89ce20e48f63d838738aa84d2598"
     },
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
       "role": "canonical-case-lifecycle-regression-tests",
-      "sha256": "f3f6c71d5e19d2a56faa96b7b03bbb00dd4a04c83749fb542384bbab1b4e31b6"
+      "sha256": "0fd97af39bbce3b873d5654f5426a9392520a36bf360527154d2c9818ae09a52"
     },
     {
       "path": "backend\\tests\\test_case_store.py",
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "37c70e8551e60c7f3fba3d8dae83d49fd66c04eef82f74b7160634e9e56df3ad"
+      "sha256": "965a974fe00faddbb9767b4640bd74cb6d613516c0a3908579d13baf2f52e8c3"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "984fd08f52ca52fdc038816bf5c650553862253af0d13f9364941857e2a716d2"
+      "sha256": "8a3827a8861baf212f63de50b1fa043b014fc1feb5069e2a5d2a4520cee89cc1"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "879b022ce85d08ee783e403319f837d903fa6f32c9eb27b39c264e9df7364c02"
+      "sha256": "3ad4598be0f33878a0b1264229805341d4beb5cebede90fe8d7776fee8d4865c"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "892c719940ac11f8cb7518ac2e2f789c70a0e4a4cf14bc08ebb6fa92ecf0b57f"
+      "sha256": "bb92b14fe7832c176d0e545dfcd34a6504a279b72005986e35321d71909afded"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1092,6 +1092,11 @@
       "path": "docs\\S5C_IMPL9_AUDIT_EVENT_VOCABULARY_GUARD_IMPLEMENTATION_CLOSEOUT.md",
       "role": "s5c-impl9-audit-event-vocabulary-guard-implementation-closeout",
       "sha256": "dbc97a86567d3af95f32d9d03b109c628f6c2109e8e57f76b7a4ac61602439de"
+    },
+    {
+      "path": "docs\\S5C_IMPL10_PENDING_ACTION_REQUEST_BOUNDARY_HELPERS_IMPLEMENTATION_CLOSEOUT.md",
+      "role": "s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout",
+      "sha256": "c291dee8a3a1af5d0dc1defebbac2e8bdb3e9d2ebfee47190913f230936e8d2e"
     }
   ],
   "tests": [
@@ -1156,13 +1161,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
+      "Snapshot ID: S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T18:21:35.935458+08:00",
+    "last_verified_at": "2026-04-20T18:38:35.721543+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

@@ -15,8 +15,10 @@ from app.tools.persistent_case import (  # noqa: E402
     governed_action_request_statuses,
     governed_audit_event_types,
     governed_case_lifecycle_statuses,
+    has_pending_action_requests,
     persistent_case_record_from_dict,
     persistent_case_record_to_dict,
+    pending_action_request_ids,
     reject_action_request,
     submit_action_request_for_approval,
     build_initial_persistent_case_record,
@@ -258,6 +260,86 @@ class CaseActionRequestContractTests(unittest.TestCase):
         self.assertNotIn("execution", approval_audit.details)
         self.assertNotIn("customer_signoff", approval_audit.details)
         _assert_no_sensitive_audit_values(self, approved)
+
+    def test_pending_action_request_helpers_are_read_only_status_boundary(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5C-IMPL10-PENDING-HELPERS-001",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T11:00:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic pending helper draft",
+            at_utc="2026-04-20T11:01:00Z",
+        )
+        before_drafted = persistent_case_record_to_dict(drafted)
+
+        self.assertEqual(pending_action_request_ids(drafted), ())
+        self.assertFalse(has_pending_action_requests(drafted))
+        self.assertEqual(persistent_case_record_to_dict(drafted), before_drafted)
+
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit pending helper request",
+            at_utc="2026-04-20T11:02:00Z",
+        )
+        before_submitted = persistent_case_record_to_dict(submitted)
+
+        self.assertEqual(
+            pending_action_request_ids(submitted),
+            (submitted.action_requests[0].action_request_id,),
+        )
+        self.assertTrue(has_pending_action_requests(submitted))
+        self.assertEqual(persistent_case_record_to_dict(submitted), before_submitted)
+
+        approved = approve_action_request(
+            submitted,
+            action_request_id=submitted.action_requests[0].action_request_id,
+            actor="manager.chen",
+            reason="approve helper request",
+            at_utc="2026-04-20T11:03:00Z",
+        )
+        self.assertEqual(pending_action_request_ids(approved), ())
+        self.assertFalse(has_pending_action_requests(approved))
+
+        rejected_draft = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic pending helper rejection",
+            at_utc="2026-04-20T11:04:00Z",
+        )
+        rejected_submitted = submit_action_request_for_approval(
+            rejected_draft,
+            action_request_id=rejected_draft.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit rejection helper request",
+            at_utc="2026-04-20T11:05:00Z",
+        )
+        rejected = reject_action_request(
+            rejected_submitted,
+            action_request_id=rejected_submitted.action_requests[0].action_request_id,
+            actor="manager.chen",
+            reason="reject helper request",
+            at_utc="2026-04-20T11:06:00Z",
+        )
+        self.assertEqual(pending_action_request_ids(rejected), ())
+        self.assertFalse(has_pending_action_requests(rejected))
+
+        cancelled = cancel_action_request(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            reason="cancel helper request",
+            at_utc="2026-04-20T11:07:00Z",
+        )
+        self.assertEqual(pending_action_request_ids(cancelled), ())
+        self.assertFalse(has_pending_action_requests(cancelled))
 
     def test_reject_and_cancel_follow_frozen_status_transitions(self):
         record = build_initial_persistent_case_record(

@@ -15,8 +15,10 @@ from app.tools.persistent_case import (  # noqa: E402
     close_persistent_case,
     create_action_request_from_case,
     governed_case_close_reasons,
+    has_pending_action_requests,
     persistent_case_record_to_dict,
     persistent_case_workflow_summary,
+    pending_action_request_ids,
     submit_action_request_for_approval,
     transition_persistent_case_status,
 )
@@ -235,6 +237,11 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
         self.assertEqual(submitted_summary["lifecycle_status"], "in_review")
         self.assertEqual(submitted_summary["review_owner"], "manager.chen")
         self.assertEqual(submitted_summary["pending_action_request_count"], 1)
+        self.assertEqual(
+            pending_action_request_ids(submitted),
+            (submitted.action_requests[0].action_request_id,),
+        )
+        self.assertTrue(has_pending_action_requests(submitted))
         self.assertEqual(submitted_summary["action_request_counts"]["pending_approval"], 1)
         self.assertEqual(submitted_summary["latest_audit_event_type"], "action_request_submitted")
         self.assertEqual(submitted_summary["latest_audit_reason"], "submit for workflow summary")
@@ -250,6 +257,8 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
         self.assertEqual(approved_summary["lifecycle_status"], "approved")
         self.assertEqual(approved_summary["action_request_counts"]["approved"], 1)
         self.assertEqual(approved_summary["pending_action_request_count"], 0)
+        self.assertEqual(pending_action_request_ids(approved), ())
+        self.assertFalse(has_pending_action_requests(approved))
         self.assertFalse(approved_summary["execution_authorized"])
 
         closed = close_persistent_case(
@@ -264,6 +273,44 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
         self.assertEqual(closed_summary["latest_audit_event_type"], "case_closed")
         self.assertEqual(closed_summary["latest_audit_reason"], "close after summary review")
         self.assertEqual(closed_summary["close_reason"], "resolved_contained")
+
+    def test_pending_action_request_helpers_detect_closed_pending_case_without_mutation(self):
+        record = build_initial_persistent_case_record(
+            _workflow_summary_case(),
+            snapshot_id="S5C-IMPL10-PENDING-HELPERS-002",
+            actor="analyst.leo",
+            created_at_utc="2026-04-20T11:10:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic pending helper close boundary",
+            at_utc="2026-04-20T11:11:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit before close boundary",
+            at_utc="2026-04-20T11:12:00Z",
+        )
+        closed = close_persistent_case(
+            submitted,
+            actor="manager.chen",
+            close_reason="insufficient_evidence",
+            reason="close without deciding pending request",
+            at_utc="2026-04-20T11:13:00Z",
+        )
+        before_closed = persistent_case_record_to_dict(closed)
+
+        self.assertEqual(closed.lifecycle_status, "closed")
+        self.assertEqual(
+            pending_action_request_ids(closed),
+            (submitted.action_requests[0].action_request_id,),
+        )
+        self.assertTrue(has_pending_action_requests(closed))
+        self.assertEqual(persistent_case_record_to_dict(closed), before_closed)
 
     def test_create_retrieve_review_approve_close_lifecycle_is_deterministic(self):
         temp_dir = _fresh_temp_root("case_lifecycle_regression")
