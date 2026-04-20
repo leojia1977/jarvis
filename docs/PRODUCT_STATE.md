@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-001 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `1deae49` |
+| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-TICKET-PREP-2026-04-20-001 |
+| Stage | s5c-impl7-case-review-surface-ticket-prep |
+| Baseline commit | `7af8841a10685c0420fdea8c3a6bddef2c207f51` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -412,6 +412,27 @@ Current non-authorization:
 - This stage does not authorize implementation, code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
 
 ## 20. S5-C Next Scoped Implementation Ticket Prep
+
+## 24. S5-C-IMPL-7 Case Review Surface Ticket Prep
+
+This stage opens Green docs-only ticket prep for a possible later S5-C-IMPL-7 implementation ticket.
+
+Selected future candidate:
+
+- `OPEN_S5C_IMPL7_CASE_REVIEW_SURFACE_TICKET_PREP`
+
+Current ticket-prep meaning:
+
+- A narrow future Yellow implementation candidate may exist for internal case review surface/read-model hardening.
+- The candidate is limited to existing `build_case_view()` shaping and synthetic tests unless a later governed ticket explicitly narrows more.
+- Candidate future files are `backend\app\agents\case_view.py` and `backend\tests\test_case_view.py`.
+- `backend\tests\test_runtime_service.py` is optional only if the later ticket explicitly decides existing runtime payload assertions must be protected and restates that condition.
+- `backend\app\runtime_service.py`, `backend\app\main.py`, public endpoint/API/schema files, fixtures, dependencies, release scripts, contracts, and AI_COLLAB remain excluded.
+- Implementation remains HOLD until a separate scoped implementation ticket, required review, explicit human GO, full gate, release verification, and governed closeout are completed.
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
 
 This stage prepares the next possible S5-C scoped implementation ticket as a docs-only artifact.
 

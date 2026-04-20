@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-20-001 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `1deae49` |
+| Snapshot | S5C-IMPL7-CASE-REVIEW-SURFACE-TICKET-PREP-2026-04-20-001 |
+| Stage | s5c-impl7-case-review-surface-ticket-prep |
+| Baseline commit | `7af8841a10685c0420fdea8c3a6bddef2c207f51` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -221,3 +221,26 @@ The follow-up route must not implement anything. It must preserve:
 - AI_COLLAB unchanged
 
 Candidate future file analysis may include `backend\app\agents\case_view.py`, `backend\tests\test_case_view.py`, and optionally `backend\tests\test_runtime_service.py` only as read-only ticket-prep context. Any later implementation remains HOLD until a separate scoped ticket, required review, explicit GO, full gate, release verification, and governed closeout are complete.
+
+## 12. S5-C-IMPL-7 Case Review Surface Ticket Prep
+
+Selected route:
+
+- `OPEN_S5C_IMPL7_CASE_REVIEW_SURFACE_TICKET_PREP`
+
+This route may draft a Green docs-only ticket-prep artifact for a possible later S5-C-IMPL-7 scoped implementation ticket.
+
+The candidate future task is internal case review surface/read-model hardening using existing governed case data. The future implementation candidate must remain bounded to `backend\app\agents\case_view.py` and `backend\tests\test_case_view.py` unless a later ticket explicitly includes `backend\tests\test_runtime_service.py` to protect existing runtime payload assertions.
+
+The follow-up route must not implement anything. It must preserve:
+
+- public close-case endpoint `KEEP_DEFERRED`
+- S5-B `PASS_AND_PARK`
+- S5-D `PASS_AND_PARK`
+- ORDIV-L1A `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs `NOT_READY` / `UNKNOWN`
+- external pilot execution unauthorized
+- S4-A resolver order `asset_id -> hostname -> fqdn -> ip_address -> aliases`
+- AI_COLLAB unchanged
+
+Candidate exclusions remain `backend\app\runtime_service.py`, `backend\app\main.py`, public endpoint/API/schema files, fixtures, dependencies, release scripts, contracts, AI_COLLAB, real data, credentials, and any runtime behavior. Any later implementation remains HOLD until a separate scoped ticket, required review, explicit GO, full gate, release verification, and governed closeout are complete.
