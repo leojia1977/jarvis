@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
-| Stage | s5-cc-switch-command-path-provisioning |
-| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001 |
+| Stage | s5-next-product-development-route-selection |
+| Baseline commit | `8a342825cea2cb45c45709cb32aa2e6b65320f2f` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is `PARK_AND_WAIT_FOR_PRODUCT_INPUT`.
+The current governed mainline outcome is `OPEN_S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP`.
 
-The human product/governance input for this stage opens only the cc switch command-path provisioning route for Claude Code review-only verdict capture. It does not open a next implementation scoped ticket, launch execution route, deployment route, real-data route, public endpoint route, login route, AdsPower profile switching/creation route, Claude Code implementation route, Claude Code file-edit route, or parked-stream reopen route. Future work requires a separate governed route or ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only the next product-development route-selection stage and selects a Green docs-only S5-C ticket-prep route. It does not open implementation, launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, Claude Code implementation, Claude Code file edits, or parked-stream reopen. Future implementation requires a separate governed scoped ticket with review and human or delegated decision where policy permits.
 
 ## 3. Parked And Deferred Items
 
@@ -97,3 +97,26 @@ Parked items remain parked until explicit governed reopen/approval:
 - No S5-B/S5-D/ORDIV/public endpoint/AI_COLLAB route is reopened.
 - No evidence retention, storage, replay, deletion, expiry, evidence-pack behavior, or redaction policy freeze is authorized.
 - No credentials, tokens, API keys, auth headers, cookies, or secret material may be introduced.
+
+## 7. Next Product Development Route Selection
+
+Selected next route:
+
+- `OPEN_S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP`
+
+This route may draft a Green docs-only ticket-prep artifact for a possible later S5-C scoped implementation ticket. It is selected because it can move product development toward a bounded implementation decision without crossing current HOLDs.
+
+The route must not implement anything. It must preserve:
+
+- public close-case endpoint `KEEP_DEFERRED`
+- S5-B `PASS_AND_PARK`
+- S5-D `PASS_AND_PARK`
+- ORDIV-L1A `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs `NOT_READY` / `UNKNOWN`
+- external pilot execution unauthorized
+- S4-A resolver order `asset_id -> hostname -> fqdn -> ip_address -> aliases`
+- AI_COLLAB unchanged
+
+Fallback if exact future S5-C scope cannot be safely named:
+
+- `PARK_NEXT_IMPLEMENTATION_AND_OPEN_EXTERNAL_INPUT_TRACKER_REFRESH_DOCS_ONLY`

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
-| Stage | s5-cc-switch-command-path-provisioning |
-| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001 |
+| Stage | s5-next-product-development-route-selection |
+| Baseline commit | `8a342825cea2cb45c45709cb32aa2e6b65320f2f` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -19,14 +19,14 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 ## 2. Current Governed Baseline
 
 - Commit: `5c1d8c1e288c1e16f47279f147fc4a973064e874`
-- Snapshot: `S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001`
-- Stage: `s5-adspower-profile-launch-verification`
+- Snapshot: `S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001`
+- Stage: `s5-cc-switch-command-path-provisioning`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip`
-- Release sha256: `10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac`
+- Release artifact: `releases\secupilot-S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001.zip`
+- Release sha256: `e25895471707c941ecef423db5de9cf3ec0f6239a39980ca069ef5618bbb39c5`
 
-The current baseline closes the AdsPower profile launch verification stage. It verifies the configured AdsPower profile launch/attach route to Claude Web review-prompt readiness, keeps AHQ-020 in `HOLD_FOR_TOOL_VERIFICATION` at that baseline, preserves all launch/real-data/secret/Red prohibitions, and does not claim full four-tool automation.
+The current baseline closes the cc switch command-path provisioning stage. It verifies only the bounded Claude Code review-only verdict-line path through cc-switch routed `claude.cmd`, preserves all launch/real-data/secret/Red prohibitions, and defines only a limited four-tool Green/docs-only review loop, not full autonomous implementation.
 
 ## 3. Sprint 5 State Summary
 
@@ -341,3 +341,22 @@ Current capability:
 Current non-authorization:
 
 - This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, AdsPower profile creation/switching, Claude Web login, cookie/session/token/auth-header inspection, Claude Code file edits, file-read review beyond supplied prompt material unless separately governed, command execution, tests, staging, commit, push, strict JSON-schema reliance, full autonomous implementation, or replacing required human/delegated/Claude Web/external review.
+
+## 19. Next Product Development Route Selection
+
+This stage selects the next autonomously advanceable product-development task from the current governed baseline.
+
+Selected route:
+
+- `OPEN_S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP`
+
+Current route meaning:
+
+- The next safe product-development move is Green docs-only ticket prep for a possible later S5-C scoped implementation ticket.
+- The follow-up ticket-prep stage must decide whether a clean next S5-C implementation ticket exists after S5-C-IMPL-5.
+- The follow-up ticket-prep stage may inspect governed docs and current code/test reality as baseline context, but it must not modify code or tests.
+- Any future implementation still requires a separate scoped implementation ticket, required review, human GO where required, full gate, release verification, and governed closeout.
+
+Current non-authorization:
+
+- This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
