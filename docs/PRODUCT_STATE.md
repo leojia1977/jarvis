@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001 |
-| Stage | s5c-next-scoped-implementation-ticket-prep |
-| Baseline commit | `e399726f612916308f398437da4e6a36d88cb89b` |
+| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001 |
+| Stage | s5c-impl6-close-reason-internal-semantics-ticket |
+| Baseline commit | `b177f5eee17048601264668460cc26ae18618ef5` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -18,15 +18,15 @@ Section 1 identifies the stage that produced this rolling-map version; Section 2
 
 ## 2. Current Governed Baseline
 
-- Commit: `e399726f612916308f398437da4e6a36d88cb89b`
-- Snapshot: `S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001`
-- Stage: `s5-next-product-development-route-selection`
+- Commit: `b177f5eee17048601264668460cc26ae18618ef5`
+- Snapshot: `S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001`
+- Stage: `s5c-next-scoped-implementation-ticket-prep`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-19-001.zip`
-- Release sha256: `12a1b9a952e32e46b09c5a144196725c3991b89e000e1625dae853d6594027a5`
+- Release artifact: `releases\secupilot-S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001.zip`
+- Release sha256: `bb9415c6bcee966099ec00f93fa0686df575fef7578478a16eb5a4ed61c5fc1c`
 
-The current baseline closes the next product development route-selection stage. It selects `OPEN_S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP` as the next autonomously advanceable product-development task while preserving all launch, real-data, secret, public endpoint, parked-stream, Red, and AI_COLLAB prohibitions.
+The current baseline closes the S5-C next scoped implementation ticket-prep stage. It selects `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET` as the next docs-only scoped implementation ticket while preserving all launch, real-data, secret, public endpoint, parked-stream, Red, and AI_COLLAB prohibitions.
 
 ## 3. Sprint 5 State Summary
 
@@ -377,6 +377,25 @@ Current ticket-prep meaning:
 - The future ticket must not open public close-case endpoint work.
 - The future ticket must not add public API method/path/request/response/error model, runtime/API/schema expansion, fixture changes, dependency changes, real data, evidence retention, credentials, external pilot readiness/execution, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
 - Implementation remains HOLD until a separate scoped ticket, required review, explicit human GO, full gate, release verification, and governed closeout are completed.
+
+Current non-authorization:
+
+- This stage does not authorize code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, release script changes, contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution, external pilot readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Code file edits, command execution, tests, staging, commit, or push.
+
+## 21. S5-C-IMPL-6 Close Reason Internal Semantics Ticket
+
+This stage opens the scoped implementation ticket for the next S5-C candidate as a docs-only artifact.
+
+Current ticket outcome:
+
+- `docs\S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET.md` defines a later Yellow implementation scope for internal S5-C close reason taxonomy validation.
+- The allowed future implementation file is limited to `backend\app\tools\persistent_case.py`.
+- The allowed future synthetic test files are limited to `backend\tests\test_case_lifecycle_regression.py`, `backend\tests\test_case_store.py`, and optionally `backend\tests\test_case_action_request_contract.py` only if the later implementation ticket or explicit human GO records that unresolved action-request closure interactions are touched.
+- The later implementation must preserve lifecycle vocabulary `open`, `in_review`, `approved`, `closed` and action-request vocabulary `draft`, `pending_approval`, `approved`, `rejected`, `cancelled`.
+- The later implementation may add internal close reason vocabulary validation and audit `details` metadata only. It must not add a new persisted dataclass field, public endpoint, runtime/API/schema behavior, fixture, dependency, real data, credential path, evidence retention behavior, or redaction policy freeze.
+- Importing, wiring, or exposing the helper through `backend\app\runtime_service.py`, `backend\app\main.py`, or any runtime/API path is out of scope and requires a separate governed route.
+- For this S5-C-IMPL-6 manifest draft, `releases\release_manifest.json` path fields follow the existing Windows source-of-truth manifest convention for this repository and do not authorize changing release tooling semantics.
+- Implementation remains HOLD until required review, explicit human GO, full gate, release verification, and governed closeout are completed.
 
 Current non-authorization:
 

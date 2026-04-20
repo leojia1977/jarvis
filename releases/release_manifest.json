@@ -6,15 +6,15 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001",
+    "id": "S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-next-scoped-implementation-ticket-prep",
+    "stage": "s5c-impl6-close-reason-internal-semantics-ticket",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-20T10:10:05.306408+08:00"
+    "updated_at": "2026-04-20T10:34:07.639660+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001.zip",
-    "current_release_sha256": "bb9415c6bcee966099ec00f93fa0686df575fef7578478a16eb5a4ed61c5fc1c"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001.zip",
+    "current_release_sha256": "0c8280fda3193cc42144ec2b97990ac453d6cec76a0a58f3d6ad98b7477e12f6"
   },
   "key_files": [
     {
@@ -320,7 +320,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "f36475001c4b5e562dc7334f383e3427df15a4edd058e1660ba86c71cb1ef18f"
+      "sha256": "6cebfc58113682ef7ca069e457f4af4ea6a3535de2c319d0635dad5d7fcbd3be"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,17 +790,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "74740909538adff9e064f78a07bb606824a6fd3bd8875ff19d658f6413787270"
+      "sha256": "9c1ce330d7d6330d62e9e61e0b4cb782c2ba24288dfc0d0e61814c1b28de4846"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "114aeed94659bca372a8d4579df69ee64b1c754b20b6f124b7f874c3d0b4c978"
+      "sha256": "07d257fc69f571b56aa558bd872890fca5132d9658a11024758afa0e7109d7d1"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "cca67ce8a7bd9d46dce379782e5652a8246e71a42daad10ae66ce3f09cde82a8"
+      "sha256": "7c0ae7e26d880baa456d22a5a909109faf0d97e84dc3f36bb5247a07af27869e"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1041,6 +1041,11 @@
       "path": "docs\\S5C_NEXT_SCOPED_IMPLEMENTATION_TICKET_PREP.md",
       "role": "s5c-next-scoped-implementation-ticket-prep",
       "sha256": "401ffaf507fd94070a31a1676f9e05e5d0d0c2e7e2359e43668a743139ff6df5"
+    },
+    {
+      "path": "docs\\S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET.md",
+      "role": "s5c-impl6-close-reason-internal-semantics-ticket",
+      "sha256": "89a19a388bd323a42384ba8a180bb1685e941296d208b112220c56ca46bcecd0"
     }
   ],
   "tests": [
@@ -1105,13 +1110,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001",
+      "Snapshot ID: S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-20T10:10:06.083580+08:00",
+    "last_verified_at": "2026-04-20T10:34:08.462075+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

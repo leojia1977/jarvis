@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-NEXT-SCOPED-IMPLEMENTATION-TICKET-PREP-2026-04-20-001 |
-| Stage | s5c-next-scoped-implementation-ticket-prep |
-| Baseline commit | `e399726f612916308f398437da4e6a36d88cb89b` |
+| Snapshot | S5C-IMPL6-CLOSE-REASON-INTERNAL-SEMANTICS-TICKET-2026-04-20-001 |
+| Stage | s5c-impl6-close-reason-internal-semantics-ticket |
+| Baseline commit | `b177f5eee17048601264668460cc26ae18618ef5` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET` as a future ticket candidate only.
+The current governed mainline outcome is `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET` as a docs-only scoped implementation ticket only.
 
-The human product/governance input for this stage opens only the next S5-C scoped implementation ticket-prep stage. The selected future candidate is Green docs-only preparation for a later Yellow implementation ticket, not implementation itself. It does not open launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, Claude Code implementation, Claude Code file edits, or parked-stream reopen. Future implementation requires a separate governed scoped ticket with review and human or delegated decision where policy permits.
+The human product/governance input for this stage opens only the S5-C-IMPL-6 close reason internal semantics ticket. The selected outcome is Green docs-only scoping for a later Yellow implementation, not implementation itself. It does not open launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, Claude Code implementation, Claude Code file edits, or parked-stream reopen. Future implementation requires required review, explicit human GO, full gate, release verification, and governed closeout.
 
 ## 3. Parked And Deferred Items
 
@@ -141,3 +141,35 @@ The candidate future route must preserve:
 - AI_COLLAB unchanged
 
 The candidate future route must not implement until a separate scoped ticket, required review, explicit human GO, full gate, release verification, and governed closeout are complete.
+
+## 9. S5-C-IMPL-6 Close Reason Internal Semantics Ticket
+
+Opened route:
+
+- `OPEN_S5C_IMPL6_CLOSE_REASON_INTERNAL_SEMANTICS_TICKET`
+
+This route records the docs-only scoped implementation ticket for a later Yellow implementation of internal S5-C close reason taxonomy validation and synthetic tests.
+
+The future implementation route is limited to:
+
+- internal helper semantics in `backend\app\tools\persistent_case.py`
+- synthetic regression tests in `backend\tests\test_case_lifecycle_regression.py`
+- synthetic store round-trip tests in `backend\tests\test_case_store.py`
+- optional action-request preservation tests in `backend\tests\test_case_action_request_contract.py` only if the later implementation ticket or explicit human GO records that unresolved action-request closure interactions are touched
+
+The future implementation route must preserve:
+
+- public close-case endpoint `KEEP_DEFERRED`
+- S5-B `PASS_AND_PARK`
+- S5-D `PASS_AND_PARK`
+- ORDIV-L1A `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs `NOT_READY` / `UNKNOWN`
+- external pilot execution unauthorized
+- S4-A resolver order `asset_id -> hostname -> fqdn -> ip_address -> aliases`
+- AI_COLLAB unchanged
+
+The future implementation route must not touch `backend\app\runtime_service.py`, `backend\app\main.py`, public API/schema behavior, fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, redaction policy freeze, public endpoint work, parked-stream reopen, Red-3 action, or AI_COLLAB. Importing, wiring, or exposing the helper through runtime/API paths requires a separate governed route.
+
+For this S5-C-IMPL-6 manifest draft, `releases\release_manifest.json` path fields follow the existing Windows source-of-truth manifest convention for this repository and do not authorize changing release tooling semantics.
+
+Implementation remains HOLD until required review, explicit human GO, full gate, release verification, and governed closeout are complete.
