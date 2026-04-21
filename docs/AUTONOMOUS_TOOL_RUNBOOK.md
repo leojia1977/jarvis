@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by mini-swe-agent PTY runner provisioning draft |
-| Snapshot | S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-pty-runner-provisioning |
-| Baseline commit | `839392406907824cbbf7b3320f3cd3479aaba0be` |
+| Status | Updated by mini-swe-agent WSL2 no-write dry-run verification draft |
+| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
+| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -32,7 +32,7 @@ Use the lowest-risk tool that can complete the allowed step:
 
 - Use Codex workspace editing for allowed docs-only changes.
 - Use VS Code CLI only as a local workspace/editing surface when needed and governed; do not treat it as product memory, review authority, or closeout authority.
-- Do not use SWE agent unless a separate governed install and capability verification route passes and the current Yellow item explicitly allows it.
+- Do not use SWE agent for product work unless the current Yellow item explicitly allows it after the WSL2 no-write dry-run verification PASS.
 - Use Claude Code through the verified cc-switch routed `claude.cmd` path only for review-only verdict capture and only under `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
 - Use Claude Web through the verified AdsPower configured-profile path only for governed review-prompt transfer when the prompt contains no secrets, raw customer data, credentials, or unredacted real evidence.
 - Use Git only for inspection unless staging/commit/push is explicitly authorized.
@@ -90,28 +90,28 @@ If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severi
 
 ## 5.1 SWE Agent Usage
 
-SWE agent / mini-swe-agent is currently execution HOLD.
+SWE agent / mini-swe-agent is currently verified only for WSL2 deterministic no-write dry-run mechanics.
 
 Current status:
 
 ```text
-HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING
+VERIFIED_NO_WRITE_DRY_RUN_WITH_LIMITS
 ```
 
-`mini-swe-agent` 2.2.8 is present in the user Python environment and `mini-extra` help is callable, but the main `mini` / `mini-swe-agent` entrypoint fails in the current Codex non-interactive Windows shell with `NoConsoleScreenBufferError`. The WSL probe found only docker-desktop rather than a governed user distro, `Ubuntu-24.04` is available online but not installed, and no `winpty`/PTY runner is available. Do not execute or integrate SWE agent unless human-controlled WSL2/PTY provisioning and a separate no-write dry-run verification route pass.
+`mini-swe-agent` 2.2.8 is installed in `SecuPilotUbuntu2404` under `/home/secupilot/.venvs/mini-swe-agent`. The WSL `mini` entrypoint is callable with an explicit path, and a deterministic no-write dry run completed from the repo-root mapping with only `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`, parseable trajectory output, zero cost, and unchanged git status. Do not execute or integrate SWE agent for product work unless a later exact Yellow item explicitly names SWE agent as a bounded implementation accelerator.
 
 SWE agent may not:
 
-- implement Yellow items
-- edit files
-- run tests
-- install dependencies
+- implement Yellow items unless explicitly named by the current Yellow item
+- edit files outside exact Yellow scope
+- run tests unless exact Yellow scope authorizes them
+- install dependencies in the repo
 - choose route or scope
 - replace Claude Code review-only, Claude Web/external review, Codex orchestration, human approval, or jarvis approval
 - update manifest, gate, package, release verification, rolling maps, or closeout
 - stage, commit, push, force-push, or rewrite history
 
-Future use requires `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`, and `docs\SWE_AGENT_RUNBOOK.md` plus later human-controlled WSL2/PTY provisioning and no-write dry-run verification PASS.
+Future use requires `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`, `docs\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md`, and `docs\SWE_AGENT_RUNBOOK.md`, plus a current exact Yellow item that names SWE agent.
 
 ## 6. Claude Web / Manual External Review Path
 

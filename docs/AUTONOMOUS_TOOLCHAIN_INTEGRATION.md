@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by mini-swe-agent PTY runner provisioning draft |
-| Snapshot | S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-pty-runner-provisioning |
-| Route | OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE |
-| Baseline commit | `839392406907824cbbf7b3320f3cd3479aaba0be` |
-| Baseline snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Baseline stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
+| Status | Updated by mini-swe-agent WSL2 no-write dry-run verification draft |
+| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
+| Route | OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE |
+| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
+| Baseline snapshot | S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
+| Baseline stage | s5c-impl12-reopen-lifecycle-audit-implementation-closeout |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001.zip` |
-| Baseline release sha256 | `4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab` |
+| Baseline release artifact | `releases\secupilot-S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip` |
+| Baseline release sha256 | `d6bf3675262d4df166f73fcba4ebb48f721bec90a094324553753977bf95b055` |
 
 ## 2. Purpose
 
@@ -34,7 +34,7 @@ This document does not by itself authorize full toolchain execution. It defines 
 | --- | --- |
 | Codex automation | Scheduler, planner, and executor within active policy limits. |
 | VS Code workspace | Local repo editing and workspace execution surface for allowed files; not product memory, not a lane authority, not an independent reviewer, and not a closeout authority by itself. |
-| SWE agent | Future bounded implementation accelerator candidate only; `mini-swe-agent` package/help is partially verified, but no suitable WSL/PTTY dry-run path exists yet and main agent execution remains HOLD. |
+| SWE agent | Future bounded implementation accelerator candidate only; WSL2 deterministic no-write main-agent dry run is verified with limits, but product-task execution requires a later exact Yellow item that explicitly names SWE agent. |
 | Claude Code via cc-switch routed `claude.cmd` | Verified review-only verdict capture path with strict invocation limits; not an editing, command-execution, staging, commit, push, or Red-approval tool. |
 | Claude Web in AdsPower browser/profile | External review path; user-confirmed current surface is AdsPower, but it is not assumed automatable until verified by a governed safe path. |
 
@@ -59,7 +59,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | --- | --- |
 | Codex automation | ACTIVE only within the authorization window and policy limits. |
 | VS Code CLI | Visible as `code.cmd` by safe local command detection; governed as the local workspace/editing surface only. |
-| SWE agent | `mini-swe-agent` 2.2.8 user package is present and `mini-extra` help is callable; main `mini` / `mini-swe-agent` entrypoint fails in the current non-interactive shell with `NoConsoleScreenBufferError`; WSL is only docker-desktop and no `winpty`/PTY runner is available. Remains execution HOLD and outside current Yellow backlog items. |
+| SWE agent | `mini-swe-agent` 2.2.8 is installed in `SecuPilotUbuntu2404` under `/home/secupilot/.venvs/mini-swe-agent`; `mini` help is callable, and a deterministic no-write dry run completed from the repo root mapping with unchanged git status. Product-task use remains unavailable unless a later exact Yellow item explicitly names SWE agent and carries all runbook controls. |
 | Claude Code via cc-switch routed `claude.cmd` | Verified for non-interactive review-only verdict-line capture through stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, no web requests, and unchanged git status. `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, and `--json-schema` are not accepted. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
 | AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication, configured profile start/attach, CDP connection, and Claude Web review-prompt readiness are verified with limits. Profile switching, profile creation, login automation, and session inspection remain unverified. |
@@ -95,7 +95,7 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Claude Code through cc-switch routed `claude.cmd` reaches L2 for non-interactive review-only verdict-line capture with strict limits. Codex, VS Code, and Codex CLI remain local-tool L1; VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. SWE agent is partial L1 for install/help visibility only and remains execution HOLD because no WSL/PTTY no-write dry-run path is available. The full toolchain is a limited four-tool review loop for Green/docs-only review evidence only, not full autonomous implementation.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Claude Code through cc-switch routed `claude.cmd` reaches L2 for non-interactive review-only verdict-line capture with strict limits. Codex, VS Code, and Codex CLI remain local-tool L1; VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. SWE agent has a verified WSL2 deterministic no-write dry-run path with limits, but model-backed product implementation and Yellow backlog participation require a later exact Yellow item. The full toolchain is a limited four-tool review/planning loop plus a candidate bounded accelerator path, not full autonomous implementation.
 
 ## 7.1 AdsPower Claude Web Verification Result
 
@@ -247,6 +247,25 @@ Result:
 
 SWE agent status is `HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING`. This stage does not authorize WSL distro installation by Codex, PTY runner installation by Codex, mini-swe-agent execution, Yellow backlog integration, code/test changes, dependency changes, staging, commit, or push outside closeout. It may not be used for Yellow backlog implementation until a later human-controlled WSL2/PTY provisioning step is complete and a separate no-write dry-run verification route passes.
 
+## 7.11 Mini SWE Agent WSL2 No-Write Dry Run Verification Result
+
+`S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001` verifies the bounded WSL2 mini-swe-agent runner path.
+
+Result:
+
+- `SecuPilotUbuntu2404` is installed as a WSL2 `Ubuntu-24.04` distro
+- normal user `secupilot` was used
+- repo path `/mnt/d/产品设计/New folder` was visible
+- `mini-swe-agent` version `2.2.8` is installed in `/home/secupilot/.venvs/mini-swe-agent`
+- `mini --help` is callable in WSL when first-run config prompting is bypassed with `MSWEA_CONFIGURED=true`
+- a deterministic no-write dry run used `--agent-class default`, `--model-class deterministic`, a temporary config under `/tmp`, and an output trajectory under `/tmp`
+- the only executed command was `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`
+- trajectory output recorded `exit_status=Submitted`, `api_calls=1`, `instance_cost=0.0`, and repo-root cwd `/mnt/d/产品设计/New folder`
+- before/after git status was unchanged except known unrelated untracked files
+- WSL was terminated after verification
+
+This verifies runner mechanics only. It does not authorize model-backed implementation, real product patch generation, Yellow backlog participation, dependency changes, review replacement, manifest/gate/release ownership, staging, commit, or push.
+
 ## 8. Non-Authorization
 
 This stage does not authorize:
@@ -268,7 +287,7 @@ This stage does not authorize:
 - ORDIV reopen
 - Red-3 execution
 - treating VS Code as product memory, approval authority, review authority, lane authority, or independent closeout authority
-- SWE agent execution, implementation assistance, review replacement, manifest/gate/release ownership, staging, commit, push, or Yellow backlog participation before separate governed non-interactive dry-run verification PASS
+- SWE agent execution against product work, model-backed implementation assistance, review replacement, manifest/gate/release ownership, staging, commit, push, or Yellow backlog participation unless a later exact Yellow item explicitly names SWE agent after the no-write verification PASS
 - AdsPower profile creation, profile switching, login automation, or broader session control
 - Claude Web login or account/session handling
 - staging, commit, or push

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
-| Stage | s5c-impl12-reopen-lifecycle-audit-implementation-closeout |
-| Baseline commit | `1c7d7230ee2b6563620961419d73c95dde8932e0` |
+| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
+| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `1c7d723`
-- Snapshot: `S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001`
-- Stage: `s5-mini-swe-agent-pty-runner-provisioning`
+- Commit: `e30336a`
+- Snapshot: `S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001`
+- Stage: `s5c-impl12-reopen-lifecycle-audit-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001.zip`
-- Release sha256: `b70b705336c99b51a2715d1c3d05fca9e2c0b8fdaa4c8fca1e39725af71cacdd`
+- Release artifact: `releases\secupilot-S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip`
+- Release sha256: `d6bf3675262d4df166f73fcba4ebb48f721bec90a094324553753977bf95b055`
 
-The current baseline selected human-controlled WSL2 / PTY runner provisioning for mini-swe-agent and kept SWE agent execution on HOLD pending a later no-write dry-run verification. This stage is a Yellow test-only implementation closeout for preauthorized `S5C-YB-05` reopen lifecycle audit regression. It does not authorize implementation beyond the exact test file, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, WSL distro installation, PTY runner installation, or AI_COLLAB changes.
+The current baseline closes preauthorized `S5C-YB-05` reopen lifecycle audit regression as a Yellow test-only implementation. This stage verifies the mini-swe-agent WSL2 no-write dry-run path. It does not authorize product-task SWE agent execution, Yellow backlog integration, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -989,3 +989,42 @@ Current non-authorization:
 Next route after this closeout:
 
 - `OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE`
+
+## 43. Mini SWE Agent WSL2 No-Write Dry Run Verification
+
+This stage verifies the bounded WSL2 runner path for `mini-swe-agent`.
+
+Verification result:
+
+- `SecuPilotUbuntu2404` is installed as a WSL2 `Ubuntu-24.04` distro.
+- normal Linux user `secupilot` was used for tool execution.
+- repo path `/mnt/d/产品设计/New folder` is visible from WSL.
+- `mini-swe-agent` version `2.2.8` is installed in `/home/secupilot/.venvs/mini-swe-agent`.
+- `mini --help` is callable in WSL with first-run config prompting bypassed by `MSWEA_CONFIGURED=true`.
+- a deterministic no-write dry run completed with `exit_status=Submitted`, `api_calls=1`, `instance_cost=0.0`, and only `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`.
+- trajectory/config output was written only under WSL `/tmp`, outside the repo.
+- before/after git status stayed unchanged except known unrelated untracked files.
+- WSL was terminated after verification.
+
+Current SWE agent status:
+
+- `VERIFIED_NO_WRITE_DRY_RUN_WITH_LIMITS`
+- tracked by AHQ-024
+
+Future allowed role:
+
+- bounded future implementation accelerator only
+- only after a later exact Yellow item explicitly names SWE agent
+- not independent decision maker
+- not final reviewer
+- not closeout owner
+- not manifest/gate/release owner
+- not staging/commit/push owner
+
+Current non-authorization:
+
+- This stage does not authorize SWE agent execution against product work, SWE agent integration into existing Yellow backlog items, model-backed implementation, production code changes, test changes, dependency changes in the repo, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+Next recommended route:
+
+- `OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE`

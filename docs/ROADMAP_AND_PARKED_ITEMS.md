@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
-| Stage | s5c-impl12-reopen-lifecycle-audit-implementation-closeout |
-| Baseline commit | `1c7d7230ee2b6563620961419d73c95dde8932e0` |
+| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
+| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, and the SWE agent install/capability verification. The current in-flight Yellow test-only stage closes preauthorized `S5C-YB-05` reopen lifecycle audit regression before returning to the mini-swe-agent WSL2 no-write dry-run verification route.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, and the S5C-YB-05 closeout. The current in-flight Green docs-only toolchain stage verifies mini-swe-agent WSL2 no-write dry-run mechanics.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent remains outside Yellow implementation until a later WSL2 no-write dry-run verification passes. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, SWE agent execution/integration, WSL distro installation, PTY runner installation, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits, but remains outside current or past Yellow implementation unless a later exact Yellow item explicitly names it. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, model-backed SWE execution/integration, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -765,3 +765,28 @@ Remaining product backlog:
 - `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_06` remains available later under exact scope, but it is not the immediate next route while the SWE toolchain verification resumes.
 
 This route does not authorize additional implementation, files outside `backend\tests\test_case_lifecycle_regression.py`, production code changes, runtime/API/schema work, public endpoint work, new lifecycle status, new audit event type, new close reason, SWE agent execution/integration, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 31. Mini SWE Agent WSL2 No-Write Dry Run Verification
+
+Current route:
+
+1. `OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE`
+
+Verification result:
+
+- `SecuPilotUbuntu2404` WSL2 `Ubuntu-24.04` distro is installed.
+- `mini-swe-agent` 2.2.8 is installed in an isolated WSL venv.
+- `mini` is callable through an explicit WSL path.
+- a deterministic no-write main-agent dry run completed with one harmless echo command and unchanged git status.
+
+Current status:
+
+1. `VERIFIED_NO_WRITE_DRY_RUN_WITH_LIMITS`
+
+Future possible route:
+
+1. `OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE`
+
+That route may update future Yellow backlog templates to allow SWE agent only as a bounded implementation accelerator when explicitly named by a later item. It must not add SWE agent retroactively to YB-06, YB-07, or any closed item.
+
+This route does not authorize SWE agent execution against product work, model-backed implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
