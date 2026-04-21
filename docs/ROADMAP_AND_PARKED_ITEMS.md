@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `e7de9c7d8de26cca77b76ce79949bf94e45bc819` |
+| Snapshot | S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001 |
+| Stage | s5-next-yellow-backlog-preauthorization |
+| Baseline commit | `8147407bfb7e0babeae539957fde5142528fce73` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, and the governed current phase summary. The current in-flight Green docs-only stage selects the next bounded product-development route.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, and the next product-development route selection. The current in-flight Green docs-only stage prepares the next exact Yellow backlog preauthorization package.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary now records current posture. This route selection does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, SWE agent integration, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, and route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`. This preauthorization stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, SWE agent integration, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -600,3 +600,32 @@ SWE agent posture:
 - absence does not block Green docs-only route selection or ordinary Codex/VS Code scoped Yellow work
 
 This route does not authorize implementation, code/test changes, runtime/API/schema work, public endpoint work, SWE agent installation/execution/integration, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 25. Next Yellow Backlog Preauthorization
+
+Current route:
+
+1. `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`
+
+Prepared package:
+
+1. `docs\NEXT_YELLOW_BACKLOG_PREAUTHORIZATION.md`
+
+Prepared future Yellow items:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_05` / `S5C-YB-05`: reopen lifecycle audit regression, test-only in `backend\tests\test_case_lifecycle_regression.py`.
+2. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_06` / `S5C-YB-06`: action-request terminal guard regression, expected test-only in `backend\tests\test_case_action_request_contract.py`, with `backend\app\tools\persistent_case.py` allowed only for a bounded existing-helper enforcement bug.
+3. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_07` / `S5C-YB-07`: workflow summary immutability regression, test-only in `backend\tests\test_case_lifecycle_regression.py`.
+
+Next default route after this stage closes PASS:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_05`
+
+Execution posture:
+
+- each item runs one at a time
+- each item uses exact allowed files and tests
+- anti-overengineering rules prohibit speculative abstraction, broad cleanup, new helpers/modules/frameworks unless item-named, and hidden scope expansion
+- SWE agent remains `NOT_INSTALLED_OR_NOT_VERIFIED` and outside this package
+
+This route does not authorize implementation during this docs-only package stage, unlisted Yellow items, unlisted files, runtime/API/schema work, public endpoint work, SWE agent installation/execution/integration, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or Claude Code file edits/command execution/tests/staging/commit/push outside exact item closeout rules.

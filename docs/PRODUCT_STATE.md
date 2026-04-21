@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001 |
-| Stage | s5-next-product-development-route-selection |
-| Baseline commit | `e7de9c7d8de26cca77b76ce79949bf94e45bc819` |
+| Snapshot | S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001 |
+| Stage | s5-next-yellow-backlog-preauthorization |
+| Baseline commit | `8147407bfb7e0babeae539957fde5142528fce73` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `e7de9c7`
-- Snapshot: `S5-CURRENT-PHASE-SUMMARY-REFRESH-2026-04-21-001`
-- Stage: `s5-current-phase-summary-refresh`
+- Commit: `8147407`
+- Snapshot: `S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001`
+- Stage: `s5-next-product-development-route-selection`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-CURRENT-PHASE-SUMMARY-REFRESH-2026-04-21-001.zip`
-- Release sha256: `ab69b2745a2b3fd3e95689dd7cd72d349fc0d428ccb1049ccea9dd68d1f47c24`
+- Release artifact: `releases\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001.zip`
+- Release sha256: `fd1e52ae1aaa576000d0344b37a70daf8c786b8825f6dae014c1669eb2a7fea4`
 
-The current baseline has closed the final bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`, added the reusable anti-overengineering Yellow backlog template, and created the governed current phase summary. This stage is a Green docs-only route selection and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline selected `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE` as the next bounded product-development route and records SWE agent as `NOT_INSTALLED_OR_NOT_VERIFIED`. This stage is a Green docs-only preauthorization package and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent integration, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -801,3 +801,34 @@ Future SWE agent verification route:
 Current non-authorization:
 
 - This stage does not authorize implementation, unlisted Yellow items, SWE agent installation/execution/integration, production code changes, test changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 37. Next Yellow Backlog Preauthorization
+
+This stage prepares the next exact Yellow backlog preauthorization package.
+
+Package artifact:
+
+- `docs\NEXT_YELLOW_BACKLOG_PREAUTHORIZATION.md`
+
+Prepared future items:
+
+- `S5C-YB-05`: reopen lifecycle audit regression, test-only in `backend\tests\test_case_lifecycle_regression.py`.
+- `S5C-YB-06`: action-request terminal guard regression, expected test-only in `backend\tests\test_case_action_request_contract.py`, with `backend\app\tools\persistent_case.py` allowed only if tests expose a bounded helper-enforcement bug.
+- `S5C-YB-07`: workflow summary immutability regression, test-only in `backend\tests\test_case_lifecycle_regression.py`.
+
+Next default route after this stage closes PASS:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_05`
+
+Package controls:
+
+- one Yellow item per autonomous run
+- exact files only
+- exact tests only
+- no new abstractions, helpers, vocabularies, services, modules, frameworks, broad cleanup, or speculative generalization unless explicitly named by the item
+- review must flag unnecessary abstraction and scope expansion
+- SWE agent remains `NOT_INSTALLED_OR_NOT_VERIFIED` and is not part of this package
+
+Current non-authorization:
+
+- This stage does not authorize implementation during the docs-only package stage, unlisted Yellow items, unlisted files, SWE agent installation/execution/integration, production code changes, test changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push outside exact item closeout rules.
