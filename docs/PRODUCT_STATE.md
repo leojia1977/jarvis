@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-capability-verification |
-| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
+| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-install-capability-verification |
+| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `96aea6c`
-- Snapshot: `S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001`
-- Stage: `s5-next-yellow-backlog-preauthorization`
+- Commit: `eaa473d`
+- Snapshot: `S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001`
+- Stage: `s5-swe-agent-capability-verification`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001.zip`
-- Release sha256: `02ffbfa63dbab0dcb00b39980c9ee7641d5958b6d2b66097fec6d033e46388b5`
+- Release artifact: `releases\secupilot-S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001.zip`
+- Release sha256: `8544ca1a09372152658507dc1ed0c96fb604a5f37e841e06b8c76100c1095405`
 
-The current baseline prepared the next exact Yellow backlog preauthorization package and kept SWE agent outside that package. This stage is a Green docs-only SWE agent capability verification and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent installation/execution, or AI_COLLAB changes.
+The current baseline verified that SWE agent was not available as a governed local tool and kept it outside the current Yellow backlog package. This stage is a Green docs-only SWE agent install/capability verification and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -865,3 +865,41 @@ Future allowed role after a separate PASS:
 Current non-authorization:
 
 - This stage does not authorize SWE agent installation, SWE agent execution, SWE agent integration into Yellow backlog items, implementation, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+## 39. SWE Agent Install And Capability Verification
+
+This stage governs installation visibility and safe dry-run eligibility for SWE agent / mini-swe-agent.
+
+Verification result:
+
+- official tool selection is `mini-swe-agent`, not legacy SWE-agent
+- `mini-swe-agent` version `2.2.8` is present in user Python site-packages
+- entrypoint scripts exist under the user Python Scripts directory
+- `mini-extra --help` and `mini-extra config --help` are callable
+- package import succeeds
+- `mini --help` and `mini-swe-agent --help` fail in the current Codex non-interactive Windows shell with `NoConsoleScreenBufferError`
+- no harmless no-write agent dry run was completed
+- no repo-root confinement, exact file-scope confinement, mutation control, or Yellow backlog compatibility was proven
+- before/after git status remained unchanged except known unrelated untracked files
+
+Current SWE agent status:
+
+- `PARTIAL_VERIFIED_INSTALL_HELP_ONLY_EXECUTION_HOLD`
+- tracked by AHQ-024
+
+Future unblock route:
+
+- `OPEN_MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION_STAGE`
+
+Future allowed role after a separate PASS:
+
+- bounded implementation accelerator only
+- not independent decision maker
+- not final reviewer
+- not closeout owner
+- not manifest/gate/release owner
+- not stage/commit/push owner
+
+Current non-authorization:
+
+- This stage does not authorize SWE agent execution, SWE agent integration into Yellow backlog items, implementation assistance, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.

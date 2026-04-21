@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001",
+    "id": "S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001",
     "sprint": "Sprint 5",
-    "stage": "s5-swe-agent-capability-verification",
+    "stage": "s5-swe-agent-install-capability-verification",
     "created_at": "2026-04-21T14:44:57.712850+08:00",
-    "updated_at": "2026-04-21T14:46:13.641617+08:00"
+    "updated_at": "2026-04-21T15:12:10.371177+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001.zip",
-    "current_release_sha256": "8544ca1a09372152658507dc1ed0c96fb604a5f37e841e06b8c76100c1095405",
-    "baseline_release_sha256": "02ffbfa63dbab0dcb00b39980c9ee7641d5958b6d2b66097fec6d033e46388b5"
+    "current_release_zip": "releases\\secupilot-S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001.zip",
+    "current_release_sha256": "e0dfea31a06b336aeb093c0fba2b230b9bd8e8decde37c6d3db38853fc69ad96",
+    "baseline_release_sha256": "8544ca1a09372152658507dc1ed0c96fb604a5f37e841e06b8c76100c1095405"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "6a63cf47cbce025c0c349eb85c35d46810ed7fb4e6b3dd1ebbea9617b3ec06a8"
+      "sha256": "1b4113da9bd8d8db2f6f99f96b83952adb1ff52c30f3f43c26133207553f6267"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "89a78dc85fbbe3f9397ac57cca6317659a019c7f157a334982b5e68cb48582de"
+      "sha256": "c0f042d4f05560b2a361e8fd02460b14a302b8902a31d35bb7851bed5e2776df"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "bfba5df71c88e447727cf719b9760dc22bc379afda712f32852137e59ec54084"
+      "sha256": "89fd7e60f6b37341a7408daebda186bea27688c339d5ef9fa3cbfefe94427f6d"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "fd82db15dee1987bf17fce944ce0c1042f46e326f56aa924e728d22511031232"
+      "sha256": "fcc60b17289ef190690084ae93fed203c4b00f0f32e72878657de682bac754f7"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -821,7 +821,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "d5c7d7586c5dde8b1461da65285965fc320a0fce11f158c628635d65667104d4"
+      "sha256": "1aba39a46fe712f59371fb319e66c36c867528075b955718745d69b3fc7a65c2"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -831,7 +831,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "3d87fbe95fee67c2a6b255364c5a8a325ce73ccdf887dfdcfff588895f70d6b6"
+      "sha256": "c7a5aa813723dd458110e796ff59b039fe9c37e8224f34272bab4b267134ec2a"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -876,17 +876,17 @@
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "79365c653eda4aee92e86e68474467cef922d44217b14850f3953c3bfcfe2a44"
+      "sha256": "e657ee09801692efb0636bb8f845cebd522415978b83460b2658fdbfab507779"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "b9bc11d18f7dd1101748e67d3a3542625f38294df2d171c161ef442ce1587158"
+      "sha256": "9ef465d491658feb131019d19d8fd5bb840a4a1d16a4173aa06cead58a0b8e30"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "554869e8c9de631b4bb20a3f9a41bea356679b4da951cc5836a97f53f84a467c"
+      "sha256": "d71c538d9270a5c43ddffb34f59171f1c6a6e62158d8d7f1ac73b9178da63a50"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -1141,7 +1141,12 @@
     {
       "path": "docs\\SWE_AGENT_RUNBOOK.md",
       "role": "swe-agent-runbook",
-      "sha256": "02c82a16176a47e5b60805d64e53d585f38a0ef066a27f546c8fc908a24663b9"
+      "sha256": "4c39fd64af2187e5df4d7e9bb2e18b13288669a7ff392a922a8a1fd023831d70"
+    },
+    {
+      "path": "docs\\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md",
+      "role": "swe-agent-install-capability-verification",
+      "sha256": "5ac44c341cd5a4684e9db27cbb05e627e4a8ec45923a85b209a5b31eccab55bf"
     }
   ],
   "tests": [
@@ -1206,13 +1211,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001",
+      "Snapshot ID: S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T14:46:14.915638+08:00",
+    "last_verified_at": "2026-04-21T15:12:11.348555+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

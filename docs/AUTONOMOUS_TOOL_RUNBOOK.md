@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by SWE agent capability verification draft |
-| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-capability-verification |
-| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
+| Status | Updated by SWE agent install/capability verification draft |
+| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-install-capability-verification |
+| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -90,15 +90,15 @@ If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severi
 
 ## 5.1 SWE Agent Usage
 
-SWE agent is currently HOLD.
+SWE agent / mini-swe-agent is currently execution HOLD.
 
 Current status:
 
 ```text
-SWE_AGENT_HOLD_FOR_TOOL_INSTALL_AND_VERIFICATION
+PARTIAL_VERIFIED_INSTALL_HELP_ONLY_EXECUTION_HOLD
 ```
 
-Do not install, execute, or integrate SWE agent unless a separate governed route explicitly authorizes that action.
+`mini-swe-agent` 2.2.8 is present in the user Python environment and `mini-extra` help is callable, but the main `mini` / `mini-swe-agent` entrypoint fails in the current Codex non-interactive Windows shell with `NoConsoleScreenBufferError`. Do not execute or integrate SWE agent unless a separate governed non-interactive dry-run verification route passes.
 
 SWE agent may not:
 
@@ -111,7 +111,7 @@ SWE agent may not:
 - update manifest, gate, package, release verification, rolling maps, or closeout
 - stage, commit, push, force-push, or rewrite history
 
-Future use requires `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md` and `docs\SWE_AGENT_RUNBOOK.md` plus a later install/capability verification PASS.
+Future use requires `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, and `docs\SWE_AGENT_RUNBOOK.md` plus a later non-interactive dry-run verification PASS.
 
 ## 6. Claude Web / Manual External Review Path
 

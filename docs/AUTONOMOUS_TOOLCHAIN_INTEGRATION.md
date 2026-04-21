@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by SWE agent capability verification draft |
-| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-capability-verification |
-| Route | OPEN_SWE_AGENT_CAPABILITY_VERIFICATION_STAGE |
-| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
-| Baseline snapshot | S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001 |
-| Baseline stage | s5-next-yellow-backlog-preauthorization |
+| Status | Updated by SWE agent install/capability verification draft |
+| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-install-capability-verification |
+| Route | OPEN_SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION_STAGE |
+| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
+| Baseline snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Baseline stage | s5-swe-agent-capability-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001.zip` |
-| Baseline release sha256 | `02ffbfa63dbab0dcb00b39980c9ee7641d5958b6d2b66097fec6d033e46388b5` |
+| Baseline release artifact | `releases\secupilot-S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001.zip` |
+| Baseline release sha256 | `8544ca1a09372152658507dc1ed0c96fb604a5f37e841e06b8c76100c1095405` |
 
 ## 2. Purpose
 
@@ -34,7 +34,7 @@ This document does not by itself authorize full toolchain execution. It defines 
 | --- | --- |
 | Codex automation | Scheduler, planner, and executor within active policy limits. |
 | VS Code workspace | Local repo editing and workspace execution surface for allowed files; not product memory, not a lane authority, not an independent reviewer, and not a closeout authority by itself. |
-| SWE agent | Future bounded implementation accelerator candidate only; currently HOLD because no command/package/module is installed or verified. |
+| SWE agent | Future bounded implementation accelerator candidate only; `mini-swe-agent` package/help is partially verified, but main agent execution remains HOLD. |
 | Claude Code via cc-switch routed `claude.cmd` | Verified review-only verdict capture path with strict invocation limits; not an editing, command-execution, staging, commit, push, or Red-approval tool. |
 | Claude Web in AdsPower browser/profile | External review path; user-confirmed current surface is AdsPower, but it is not assumed automatable until verified by a governed safe path. |
 
@@ -59,7 +59,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | --- | --- |
 | Codex automation | ACTIVE only within the authorization window and policy limits. |
 | VS Code CLI | Visible as `code.cmd` by safe local command detection; governed as the local workspace/editing surface only. |
-| SWE agent | Not installed or discoverable; no governed command/package/module path exists. Remains HOLD and outside current Yellow backlog items. |
+| SWE agent | `mini-swe-agent` 2.2.8 user package is present and `mini-extra` help is callable; main `mini` / `mini-swe-agent` entrypoint fails in the current non-interactive shell with `NoConsoleScreenBufferError`. Remains execution HOLD and outside current Yellow backlog items. |
 | Claude Code via cc-switch routed `claude.cmd` | Verified for non-interactive review-only verdict-line capture through stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, no web requests, and unchanged git status. `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, and `--json-schema` are not accepted. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
 | AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication, configured profile start/attach, CDP connection, and Claude Web review-prompt readiness are verified with limits. Profile switching, profile creation, login automation, and session inspection remain unverified. |
@@ -95,7 +95,7 @@ This section uses `L0` through `L5` for toolchain maturity only. It is not the L
 | L4 | Fully scheduled Green/Yellow closeout with human-confirmed commit/push policy. |
 | L5 | Delegated Red-1/selected Red-2 preparation with exact `DELEGATED_APPROVER_GO`. |
 
-Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Claude Code through cc-switch routed `claude.cmd` reaches L2 for non-interactive review-only verdict-line capture with strict limits. Codex, VS Code, and Codex CLI remain local-tool L1; VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. SWE agent remains L0 / HOLD. The full toolchain is a limited four-tool review loop for Green/docs-only review evidence only, not full autonomous implementation.
+Current maturity claim: AdsPower / Claude Web path is L3 for a harmless review-prompt round trip and for configured profile launch/attach to review-prompt readiness. Claude Code through cc-switch routed `claude.cmd` reaches L2 for non-interactive review-only verdict-line capture with strict limits. Codex, VS Code, and Codex CLI remain local-tool L1; VS Code is explicitly governed as the local workspace/editing execution surface, not a decision maker, review authority, product memory source, or closeout authority by itself. SWE agent is partial L1 for install/help visibility only and remains execution HOLD. The full toolchain is a limited four-tool review loop for Green/docs-only review evidence only, not full autonomous implementation.
 
 ## 7.1 AdsPower Claude Web Verification Result
 
@@ -196,6 +196,23 @@ Result:
 
 SWE agent may become only a future bounded implementation accelerator after a separate governed install and capability verification route proves repo-root confinement, exact file-scope confinement, no secret/real-data access, no dependency install without approval, no staging/commit/push, harmless dry run, before/after git status, and external review.
 
+## 7.8 SWE Agent Install And Capability Verification Result
+
+`S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001` records that `mini-swe-agent` is present but not yet usable as an autonomous implementation accelerator.
+
+Result:
+
+- official tool selection is `mini-swe-agent` rather than legacy SWE-agent
+- `mini-swe-agent` version `2.2.8` is present in user Python site-packages
+- entrypoints exist under `C:\Users\Administrator\AppData\Roaming\Python\Python314\Scripts`
+- `mini-extra --help` and `mini-extra config --help` succeed
+- package import succeeds
+- `mini --help` and `mini-swe-agent --help` fail in the current Codex non-interactive Windows shell with `NoConsoleScreenBufferError`
+- no harmless no-write agent dry run was completed
+- before/after git status stayed unchanged except known unrelated untracked files
+
+SWE agent status is `PARTIAL_VERIFIED_INSTALL_HELP_ONLY_EXECUTION_HOLD`. It may not be used for Yellow backlog implementation until a later governed non-interactive dry-run verification stage proves callable main-agent behavior, no-write dry run, repo-root confinement, exact file-scope confinement, no secret/real-data access, no dependency install without approval, no staging/commit/push, before/after git status, and external review.
+
 ## 8. Non-Authorization
 
 This stage does not authorize:
@@ -217,7 +234,7 @@ This stage does not authorize:
 - ORDIV reopen
 - Red-3 execution
 - treating VS Code as product memory, approval authority, review authority, lane authority, or independent closeout authority
-- SWE agent installation, execution, implementation assistance, review replacement, manifest/gate/release ownership, staging, commit, push, or Yellow backlog participation before separate governed verification PASS
+- SWE agent execution, implementation assistance, review replacement, manifest/gate/release ownership, staging, commit, push, or Yellow backlog participation before separate governed non-interactive dry-run verification PASS
 - AdsPower profile creation, profile switching, login automation, or broader session control
 - Claude Web login or account/session handling
 - staging, commit, or push

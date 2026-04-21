@@ -5,29 +5,67 @@
 | Field | Value |
 | --- | --- |
 | Title | SWE Agent Runbook |
-| Status | Candidate runbook; SWE agent remains HOLD |
-| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-capability-verification |
-| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
+| Status | Candidate runbook; mini-swe-agent installed but execution remains HOLD |
+| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-install-capability-verification |
+| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
 
-This runbook records the future safety requirements for SWE agent. It does not authorize installation, execution, implementation, staging, commit, or push.
+This runbook records the current safe boundary for SWE agent / mini-swe-agent. It does not authorize agent execution, implementation, staging, commit, or push.
 
 ## 2. Current Status
 
 Current status:
 
 ```text
-SWE_AGENT_HOLD_FOR_TOOL_INSTALL_AND_VERIFICATION
+PARTIAL_VERIFIED_INSTALL_HELP_ONLY_EXECUTION_HOLD
 ```
 
 Reason:
 
-- no local command path was found
-- no Python package was found
-- no Python module was found
-- no harmless dry run was possible
+- `mini-swe-agent` version `2.2.8` is present in user Python site-packages
+- entrypoint scripts exist under `C:\Users\Administrator\AppData\Roaming\Python\Python314\Scripts`
+- `mini-extra --help` and `mini-extra config --help` are callable
+- package import succeeds
+- `mini --help` and `mini-swe-agent --help` fail in the current Codex non-interactive Windows shell with `NoConsoleScreenBufferError`
+- no harmless no-write agent dry run was completed
 
-## 3. Future Verification Startup
+## 3. Allowed Commands In This State
+
+Allowed for future Green docs-only verification only:
+
+```text
+py -3 -m pip show mini-swe-agent
+py -3 -c "import minisweagent, importlib.metadata as m; print(m.version('mini-swe-agent'))"
+C:\Users\Administrator\AppData\Roaming\Python\Python314\Scripts\mini-extra.exe --help
+C:\Users\Administrator\AppData\Roaming\Python\Python314\Scripts\mini-extra.exe config --help
+```
+
+These commands may verify installation and help text only. They must not read or print config values, secrets, tokens, API keys, model keys, or environment variable values.
+
+Any future main-agent verification must first prove PATH resolution or use an explicit absolute command path. PATH absence is a blocker, not a warning.
+
+## 4. Prohibited Commands In This State
+
+Do not invoke the main agent entrypoints for repo work:
+
+```text
+mini
+mini-swe-agent
+mini.exe
+mini-swe-agent.exe
+```
+
+They are not verified as safe or callable for unattended automation in the current environment.
+
+Do not run:
+
+- any task prompt against the repo
+- any mutation or patch command
+- any model-backed run
+- any command that may install dependencies
+- any command that may write trajectories, logs, cache, or generated files into the repo unless a later route governs the exact output location
+
+## 5. Future Verification Startup
 
 A future governed route must start by:
 
@@ -36,29 +74,32 @@ A future governed route must start by:
 3. Loading the core governance docs.
 4. Confirming latest manifest baseline is PASS.
 5. Confirming clean git status except known unrelated untracked files.
-6. Recording exact SWE agent command path or install source.
+6. Recording exact mini-swe-agent command path.
 7. Recording exact version.
-8. Recording exact allowed test workspace.
+8. Recording exact test workspace and output directory.
 9. Capturing before/after `git status --short`.
 
-## 4. Safe Verification Sequence
+## 6. Safe Verification Sequence
 
 Future verification must proceed in this order:
 
-1. Discover command/package path.
-2. Print version/help only.
-3. Run a harmless no-write or dry-run command if available.
-4. Confirm no file mutation.
-5. Confirm no staged files.
-6. Confirm no remote action.
-7. Confirm no credentials or real data are requested.
-8. Confirm output is parseable and bounded.
-9. Only then consider a synthetic patch-plan test.
-10. HOLD before any real repo mutation unless a separate exact Yellow ticket authorizes mutation.
+1. Confirm official install source and version.
+2. Print package/version/help only.
+3. Verify PATH resolution or explicit absolute-path invocation before any main-agent attempt.
+4. Declare the compatible shell/runner for mini-swe-agent's console requirements.
+5. Resolve the current Codex non-interactive Windows `NoConsoleScreenBufferError` or move to a governed PTY-capable route such as WSL2.
+6. Run a harmless no-write or dry-run command if available.
+7. Confirm no file mutation.
+8. Confirm no staged files.
+9. Confirm no remote action.
+10. Confirm no credentials or real data are requested.
+11. Confirm output is parseable and bounded.
+12. Only then consider a synthetic patch-plan test in a throwaway workspace.
+13. HOLD before any real repo mutation unless a separate exact Yellow ticket authorizes mutation.
 
 No gate may be skipped, reordered, inferred, or satisfied retroactively.
 
-## 5. Allowed Future Use After Separate PASS
+## 7. Allowed Future Use After Separate PASS
 
 After a later verification PASS, SWE agent may be proposed only as a:
 
@@ -79,7 +120,7 @@ Allowed only when a later Yellow item explicitly names it:
 - independent review after output
 - full gate and release verification before closeout
 
-## 6. Prohibited Use
+## 8. Prohibited Use
 
 SWE agent must not:
 
@@ -104,13 +145,15 @@ SWE agent must not:
 - perform Red-3 action
 - modify AI_COLLAB
 
-## 7. HOLD Conditions
+## 9. HOLD Conditions
 
 HOLD immediately if:
 
 - command path is missing
+- PATH resolution or explicit absolute-path invocation is not verified
 - install source is ambiguous
 - version cannot be captured
+- the main agent command still fails before help in the automation environment
 - dry run is unavailable
 - dry run mutates files unexpectedly
 - command writes outside exact scope
@@ -121,7 +164,7 @@ HOLD immediately if:
 - test failure requires out-of-scope fix
 - any Red-3 trigger appears
 
-## 8. Relationship To Existing Tools
+## 10. Relationship To Existing Tools
 
 SWE agent is subordinate to the existing governed workflow:
 
