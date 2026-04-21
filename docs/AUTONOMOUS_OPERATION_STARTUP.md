@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Operation Startup |
-| Status | Updated by cc switch command-path provisioning draft |
-| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
-| Stage | s5-cc-switch-command-path-provisioning |
-| Route | OPEN_CC_SWITCH_COMMAND_PATH_PROVISIONING_STAGE |
-| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
-| Baseline snapshot | S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001 |
-| Baseline stage | s5-adspower-profile-launch-verification |
+| Status | Updated by anti-overengineering template refresh draft |
+| Snapshot | S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001 |
+| Stage | s5-autonomous-yellow-backlog-template-anti-overengineering-refresh |
+| Route | OPEN_AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH_STAGE |
+| Baseline commit | `54f2408f026a971ec969db7c8a49a2300d324cb2` |
+| Baseline snapshot | S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
+| Baseline stage | s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-ADSPOWER-PROFILE-LAUNCH-VERIFICATION-2026-04-19-001.zip` |
-| Baseline release sha256 | `10c213c7d32cd22527c9a41f32102cc0906041882e79cd8420c329982bf214ac` |
+| Baseline release artifact | `releases\secupilot-S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip` |
+| Baseline release sha256 | `89a1ea2581e2bb08953375a41c4b206051e45bb04e158559f63ca0ff8a36a677` |
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
@@ -25,11 +25,12 @@ The current governed refresh stage is `S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSE
 That stage records:
 
 - duplicate autonomous ops loop removal
-- one active 2-hour ops loop as the default
+- one active 1-hour ops loop as the default after the later anti-overengineering refresh
 - expanded per-run read set including the toolchain docs, VS Code role orchestration doc, AdsPower Claude Web verification/runbook docs, and AdsPower profile launch verification/runbook docs
 - standing Green docs-only closeout conditions after the refresh stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push
 - AHQ-019 supersession only for Green docs-only closeout
 - AHQ-020 remaining HOLD until `cc switch` non-interactive Claude Code review is verified
+- later anti-overengineering refresh requiring minimal ticket-mapped changes for future Yellow backlog items
 
 It does not authorize Yellow implementation, Red execution, browser profile creation/switching, Claude Web login, launch, deployment, external pilot execution, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, or AI_COLLAB changes.
 
@@ -52,10 +53,19 @@ The objective is to allow safe autonomous progress on governed, non-launch work 
 
 Default cadence:
 
-- Run an autonomous operation check every 2 hours.
+- Run an autonomous operation check every 1 hour.
 - Select one next allowed item per run unless the stage prompt explicitly authorizes a different batch.
 - Prefer Green/Yellow docs-only stages and closeout-gated drafting where authorization is clear.
 - Stop on ambiguity, expired delegation, unreadable charter, missing baseline, unexpected dirty scope, or unresolved HOLD.
+
+Anti-overengineering guard:
+
+- Implement the smallest change that satisfies the exact ticket behavior and required tests.
+- Do not introduce a new abstraction, helper, registry, vocabulary, adapter, service, module, or generalized framework unless the ticket explicitly names it.
+- Do not generalize for future routes, states, statuses, formats, roles, backends, transports, or workflows.
+- Do not do unrelated renames, reorganizations, cleanup refactors, or while-we-are-here improvements.
+- Every changed line should map to an explicit ticket sentence or required test.
+- If a broader abstraction seems desirable, HOLD and record a scoped design note instead of implementing it.
 
 ## 3. Day-1 Limitation
 
@@ -201,3 +211,5 @@ After `S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001` closes with review
 The verified path is limited to stdin prompt transfer to `claude.cmd` with `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
 
 This path does not authorize Claude Code edits, file-read review beyond supplied prompt material unless separately governed, command execution, tests, staging, commit, push, Red execution, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or replacing required human/delegated/Claude Web/external review.
+
+If the Claude Code review-only path fails before producing a verdict because of local process-spawn failure such as `spawn EPERM`, automation must not retry indefinitely. It must record the failure once, then use the verified AdsPower Claude Web review-prompt path as a fallback only for non-secret review material. If that fallback is unavailable, ambiguous, or cannot return a clear verdict, HOLD.

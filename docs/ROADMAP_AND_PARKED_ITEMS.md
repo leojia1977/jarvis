@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
-| Stage | s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout |
-| Baseline commit | `7260184229728a712bee1d614fbfe0e3642a4125` |
+| Snapshot | S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001 |
+| Stage | s5-autonomous-yellow-backlog-template-anti-overengineering-refresh |
+| Baseline commit | `54f2408f026a971ec969db7c8a49a2300d324cb2` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout. The current in-flight Green docs-only stage refreshes autonomous cadence, review fallback recovery, and Yellow backlog anti-overengineering templates.
 
-The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-04`, the case-view review-guidance regression hardening item, under exact test-only file scope. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. This template refresh does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -62,7 +62,7 @@ Green/Yellow/Conditional Red authorization can accelerate future stages only wit
 
 The final activation path records `FINAL_HUMAN_GO`, closes AHQ-018 as `CLOSED_BY_FINAL_HUMAN_GO`, and adds an `AUTONOMOUS_PERIOD_START` marker. It does not itself authorize launch execution, external pilot execution, production deployment, real-data handling, credential handling, public endpoint activation, S5-B/S5-D reopen, ORDIV report/CSV/L1B work, Red-3 action, S4-A resolver changes, or AI_COLLAB changes.
 
-The autonomous operation startup path adds a default 2-hour operating cadence for safe Green/Yellow docs-only drafting and closeout-gate preparation. During day 1, staging, commit, and push still require explicit human confirmation. Startup does not close AHQ-003 through AHQ-014, does not remove AHQ-017 ambiguity handling, and does not authorize Red execution beyond exact per-action policy requirements.
+The autonomous operation startup path added a default operating cadence for safe Green/Yellow docs-only drafting and closeout-gate preparation. The later anti-overengineering template refresh aligns the active cadence to every 1 hour. Startup does not close AHQ-003 through AHQ-014, does not remove AHQ-017 ambiguity handling, and does not authorize Red execution beyond exact per-action policy requirements.
 
 The autonomous toolchain integration path defines a four-tool collaboration model and capability matrix. It reduced planning risk by clarifying Codex, VS Code, Claude Code through the user-configured `cc switch` API tool, Claude Web running in the user's AdsPower browser/profile, Git, and release/gate boundaries, but it did not claim full four-tool automation at that baseline. Later governed stages separately verified AdsPower Claude Web review-prompt transfer, configured AdsPower profile launch/attach to review-prompt readiness, and the bounded Claude Code verdict-line path.
 
@@ -539,3 +539,25 @@ Next recommended autonomous route:
 The recommended next route is Green docs-only and should add anti-overengineering and max-change-budget rules to the next Yellow backlog preauthorization template. It must not mix with this YB-04 closeout.
 
 This route does not authorize production code changes, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
+
+## 22. Autonomous Yellow Backlog Template Anti-Overengineering Refresh
+
+Current route:
+
+1. `OPEN_AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH_STAGE`
+
+This Green docs-only route updates autonomous operations guidance after the final preauthorized S5-C Yellow backlog item closed.
+
+Updated planning posture:
+
+- active autonomous cadence is every 1 hour
+- local Claude Code review-only process-spawn failure can fall back to the verified AdsPower Claude Web review-prompt path when safe
+- future Yellow backlog preauthorization packages must use the reusable anti-overengineering template
+- each future Yellow item must name exact allowed files, exact tests, exact allowed behavior, max-change budget, review checklist, and HOLD conditions
+- unnecessary abstraction, speculative generalization, broad cleanup, and while-we-are-here work are explicit review risks
+
+Next possible route after this stage closes PASS:
+
+1. `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+This route does not authorize implementation, code/test changes, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or Claude Code file edits/command execution/tests/staging/commit/push.

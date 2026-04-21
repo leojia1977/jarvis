@@ -37,11 +37,13 @@ The duplicate `autonomous-ops-loop` automation was removed. The remaining active
 Required standing state:
 
 - exactly one active autonomous ops loop should run by default
-- cadence remains every 2 hours
+- cadence is updated by the later anti-overengineering refresh to every 1 hour
 - prompt must open an inbox item for each run
 - prompt must load current core governance docs, toolchain docs, and AdsPower Claude Web verification/runbook docs before action
 - prompt must include the AdsPower Claude Web active-profile review-prompt boundary
 - prompt must not claim full four-tool automation while AHQ-020 remains HOLD
+- prompt must include anti-overengineering and max-change-budget rules for Yellow backlog work
+- prompt must fallback to AdsPower Claude Web review-prompt transfer when Claude Code review-only fails before verdict with local process-spawn errors such as `spawn EPERM`
 
 ## 4. Refreshed Per-Run Read Set
 

@@ -39,6 +39,28 @@ Every listed Yellow implementation item must satisfy all standing preconditions 
 
 This preauthorization includes staging, commit, and push for each listed Yellow item only after that item's review PASS, targeted tests PASS, full gate PASS, release verification PASS, manifest PASS, exact staged scope, and no-HOLD checks pass. It does not authorize staging, commit, or push for any unlisted item or excluded file.
 
+## 2.1 Future Backlog Template Anti-Overengineering Rules
+
+This package predates the reusable Yellow backlog template, but the following rules are now mandatory for the next Yellow backlog preauthorization package and should be copied into every future package:
+
+1. Implement the smallest change that satisfies the exact ticket behavior and required tests.
+2. Do not introduce a new abstraction, helper, registry, vocabulary, adapter, service, module, or generalized framework unless the ticket explicitly names it.
+3. Do not generalize for future routes, states, statuses, formats, roles, backends, transports, or workflows.
+4. Do not perform unrelated renames, reorganizations, cleanup refactors, or while-we-are-here improvements.
+5. Prefer local assertions and narrowly scoped tests over framework-level changes.
+6. Every changed line must map to an explicit ticket sentence, exact allowed behavior, or required test.
+7. If a broader abstraction seems desirable, HOLD and record a scoped design note instead of implementing it.
+8. Reviews must flag unnecessary abstraction or speculative generalization.
+9. Any scope expansion means HOLD.
+
+Each future backlog item must include this max-change budget:
+
+- exact allowed files only
+- max new helper count: zero unless explicitly listed, otherwise one
+- max new public or internal concept names: only names listed in the ticket
+- tests: only enough to satisfy the required assertions, no speculative matrix
+- non-goals: explicit excluded files, behaviors, runtime/API/schema effects, launch/deploy/data/credential/public-endpoint paths, and parked-stream reopen paths
+
 ## 3. Backlog Item 01 - Internal Workflow Summary Helper
 
 | Field | Value |

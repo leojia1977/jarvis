@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by cc switch command-path provisioning draft |
-| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
-| Stage | s5-cc-switch-command-path-provisioning |
-| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Status | Updated by anti-overengineering template refresh draft |
+| Snapshot | S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001 |
+| Stage | s5-autonomous-yellow-backlog-template-anti-overengineering-refresh |
+| Baseline commit | `54f2408f026a971ec969db7c8a49a2300d324cb2` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -35,9 +35,18 @@ The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md
 
 ## 1.2 Autonomous Operation Cadence
 
-Default autonomous operation cadence is every 2 hours.
+Default autonomous operation cadence is every 1 hour.
 
 Each run should select one next allowed item, classify the lane, and report baseline read, selected task, files proposed or touched, checks run, HOLDs encountered, and any requested human or jarvis action.
+
+Each run must apply the anti-overengineering guard before editing:
+
+- implement the smallest change that satisfies the exact ticket behavior and required tests
+- do not introduce a new abstraction, helper, registry, vocabulary, adapter, service, module, or generalized framework unless the ticket explicitly names it
+- do not generalize for future routes, states, statuses, formats, roles, backends, transports, or workflows
+- do not do unrelated renames, reorganizations, cleanup refactors, or while-we-are-here improvements
+- every changed line should map to an explicit ticket sentence or required test
+- if a broader abstraction seems desirable, HOLD and record a scoped design note instead of implementing it
 
 Work selection priority is:
 
@@ -64,6 +73,8 @@ The governed multi-tool pipeline is:
 7. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
 
 If the Claude Code review-only path, configured AdsPower browser/profile, or Claude Web path is unavailable, ambiguous, mutates files, creates staged files, makes unexpected web requests, or requires credentials/session access, the action is HOLD.
+
+If Claude Code review-only fails before a verdict because of local process-spawn failure such as `spawn EPERM`, do not retry indefinitely. Record the failure once, then route non-secret review material through the verified AdsPower Claude Web review-prompt path. If that fallback is unavailable, ambiguous, or cannot produce a clear verdict, HOLD.
 
 ## 1.4 VS Code Workspace Boundary
 

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
-| Stage | s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout |
-| Baseline commit | `7260184229728a712bee1d614fbfe0e3642a4125` |
+| Snapshot | S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001 |
+| Stage | s5-autonomous-yellow-backlog-template-anti-overengineering-refresh |
+| Baseline commit | `54f2408f026a971ec969db7c8a49a2300d324cb2` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `7260184`
-- Snapshot: `S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
-- Stage: `s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout`
+- Commit: `54f2408`
+- Snapshot: `S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001`
+- Stage: `s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
-- Release sha256: `d51e1333c7be35e6e09cd6d5956083cbe21d791c59f633893d6e5810eb04fa1f`
+- Release artifact: `releases\secupilot-S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip`
+- Release sha256: `89a1ea2581e2bb08953375a41c4b206051e45bb04e158559f63ca0ff8a36a677`
 
-The current baseline enables the final bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline has closed the final bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage is a Green docs-only template refresh that aligns autonomous cadence and future backlog-template guardrails; it does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -156,7 +156,7 @@ This stage starts the autonomous operating loop as a docs-only governance operat
 
 Startup posture:
 
-- Default cadence is every 2 hours.
+- Default cadence is every 1 hour after the anti-overengineering template refresh.
 - The loop selects one next allowed item per run unless a later stage prompt explicitly allows a different batch.
 - Green/Yellow docs-only stages may be drafted and closeout-gated when lane and authorization are clear.
 - During day 1, staging, commit, and push still require explicit human confirmation.
@@ -227,7 +227,7 @@ This stage refreshes the autonomous ops loop after AdsPower Claude Web verificat
 
 Current ops-loop posture:
 
-- Duplicate autonomous ops loop card was removed; one active 2-hour ops loop should remain.
+- Duplicate autonomous ops loop card was removed; one active ops loop should remain. The active cadence is updated to every 1 hour by the anti-overengineering template refresh.
 - Future ops-loop prompts must load the core governance docs, toolchain docs, and AdsPower Claude Web verification/runbook docs before toolchain/review automation.
 - AHQ-019 is conditionally superseded only for standing Green docs-only closeout after this stage itself closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push.
 - Green docs-only automatic closeout requires exact file scope, review PASS where required, full gate/package/release verification PASS, manifest PASS, no HOLD, exact staged files, no unrelated staged files, and inbox reporting.
@@ -726,3 +726,29 @@ Next recommended autonomous route after this closeout:
 Current non-authorization:
 
 - This stage does not authorize additional implementation, unlisted Yellow items, production code changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 34. Autonomous Yellow Backlog Template Anti-Overengineering Refresh
+
+This stage records a Green docs-only refresh after YB-04 closeout.
+
+Refresh outcome:
+
+- `docs\AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH.md` records the route, cadence, fallback, HOLD, and non-authorization boundaries.
+- `docs\AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION_TEMPLATE.md` is the reusable template for the next Yellow backlog preauthorization package.
+- `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md` now carries a future-template anti-overengineering section for any later package.
+- The autonomous docs align the active loop cadence to every 1 hour.
+- If governed Claude Code review-only fails before verdict with local process-spawn failure such as `spawn EPERM`, automation records the failure once and may use the verified AdsPower Claude Web review-prompt path as fallback; ambiguity means HOLD.
+
+Future Yellow backlog packages must include:
+
+- exact allowed files
+- exact required tests
+- exact allowed behavior
+- max-change budget
+- anti-overengineering rules
+- review checklist flagging unnecessary abstraction and speculative generalization
+- explicit HOLD conditions
+
+Current non-authorization:
+
+- This stage does not authorize implementation, unlisted Yellow items, production code changes, test changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.

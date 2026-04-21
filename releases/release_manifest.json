@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001",
+    "id": "S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout",
+    "stage": "s5-autonomous-yellow-backlog-template-anti-overengineering-refresh",
     "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-21T12:54:23.839924+08:00"
+    "updated_at": "2026-04-21T13:13:06.202315+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip",
-    "current_release_sha256": "89a1ea2581e2bb08953375a41c4b206051e45bb04e158559f63ca0ff8a36a677",
-    "baseline_release_sha256": "d51e1333c7be35e6e09cd6d5956083cbe21d791c59f633893d6e5810eb04fa1f"
+    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001.zip",
+    "current_release_sha256": "7c0d8d3c8b021a268acba757fb537336c97e657710f31685d057b8f609a6efbf",
+    "baseline_release_sha256": "89a1ea2581e2bb08953375a41c4b206051e45bb04e158559f63ca0ff8a36a677"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "a36c5e38aa89766c2c3a1eed52e1f95b212f48bffcdea1a6b4998ac473ced396"
+      "sha256": "c5bdd117c5599e0f26a3eb600f022232d8e7659fb8e85a103646c9f066ae635e"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "bf0aebb8624a15024a3671ebd72c2fec6dd1c8174aaca40738838ed91c11ca88"
+      "sha256": "639c55adef51f105643f5f696f2a09d9a099a14ed9eba3e25d3132fa554b3a85"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "8f68632ae6d3b2f169bb64e8a2cbbed2cde726d755ea87e60e5968c7b24e5eb0"
+      "sha256": "1b36a86005f9b873d05c10a44c8d9636221c09d0c00a330a24d927318f12abd8"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "343f93dafb83b68c58b58407434a96e5eac5beb21c544a34431f258be9c2803b"
+      "sha256": "735b4efcec0dd446568de97ce52af5c97340ceed8e07a1e25718a9344853707f"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -821,7 +821,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "b0ab11995dcc2127975167048ba05fd945cad17ec3c58e3d7389b26d11673620"
+      "sha256": "481699b19c2702db85cb32891608c9ad1a35f3dbbfce5458f5c741c03165bd7f"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -846,12 +846,12 @@
     {
       "path": "docs\\AUTONOMOUS_OPERATION_STARTUP.md",
       "role": "autonomous-operation-startup",
-      "sha256": "3381f8d9bfc821622f56cfb127184ac17c1e17e4f043a3cf83c377a2427af18f"
+      "sha256": "9ff2efb45fb98f192bc0892af8ff7fa6e552cc3825f4a88a3a4fcd6664172481"
     },
     {
       "path": "docs\\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md",
       "role": "autonomous-ops-loop-refresh-day1-closeout",
-      "sha256": "7f968209d8c394aea260258f6f47dd58bc6c3e83a66fcfad5e260fa7dc0a9d39"
+      "sha256": "4037935af2bcda8e88cc191c26bc2a5ce4c7461112acf1899148a579c1cbb759"
     },
     {
       "path": "docs\\CC_SWITCH_CLAUDE_CODE_REVIEW_AUTOMATION_VERIFICATION.md",
@@ -876,7 +876,7 @@
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "4c75ec416fd0bdca6d70bc5a17fcc4eb9aacad65eacefc107596cd07a2c65fd8"
+      "sha256": "5ffcff5e11ce495449d0ee52300329400384eb71b6f06fe2291ee56d4a86315c"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
@@ -1081,7 +1081,7 @@
     {
       "path": "docs\\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md",
       "role": "s5c-autonomous-yellow-backlog-preauthorization",
-      "sha256": "943c91cdd8d58b41e1a354ba3abf2d08cb991efe7df7fc642c943c1221e2865a"
+      "sha256": "3404dd0933eb961e0c1011287f0c47a1a94ff588b352a4183110f3e118b915e2"
     },
     {
       "path": "docs\\S5C_IMPL8_INTERNAL_WORKFLOW_SUMMARY_IMPLEMENTATION_CLOSEOUT.md",
@@ -1102,6 +1102,16 @@
       "path": "docs\\S5C_IMPL11_CASE_VIEW_REVIEW_GUIDANCE_REGRESSION_HARDENING_IMPLEMENTATION_CLOSEOUT.md",
       "role": "s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout",
       "sha256": "46891c47e18619ed1c67411356804ef9ed7de03f671cb5923c7e495b16852f60"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH.md",
+      "role": "autonomous-yellow-backlog-template-anti-overengineering-refresh",
+      "sha256": "f6a1d9e1c7e97d6678addedceea69d0a9fda85aa81b2a5aa7dc92e4911b4be51"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION_TEMPLATE.md",
+      "role": "autonomous-yellow-backlog-preauthorization-template",
+      "sha256": "86d5e81312c4c8ccf007e04f5a2dc6c28dc0155295f4c08e47490fbe0cbb3477"
     }
   ],
   "tests": [
@@ -1166,13 +1176,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001",
+      "Snapshot ID: S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T12:54:24.905370+08:00",
+    "last_verified_at": "2026-04-21T13:13:07.106951+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

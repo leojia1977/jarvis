@@ -108,7 +108,7 @@ This verification does not authorize AdsPower profile launch, profile switching,
 
 ## 7.2 Ops Loop Refresh Result
 
-`S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` removes the duplicate autonomous ops loop and keeps one 2-hour loop as default.
+`S5-AUTONOMOUS-OPS-LOOP-REFRESH-DAY1-CLOSEOUT-2026-04-19-001` removes the duplicate autonomous ops loop and keeps one active loop as default. The later anti-overengineering template refresh updates the active cadence to every 1 hour.
 
 The loop may reference AdsPower Claude Web verification docs for safe review-prompt transfer only. At that baseline it could not claim full four-tool automation while AHQ-020 remained HOLD for `cc switch` non-interactive Claude Code review. Section 7.6 supersedes this only for limited verdict-line review capture.
 
