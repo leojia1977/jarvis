@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001 |
-| Stage | s5-autonomous-yellow-backlog-template-anti-overengineering-refresh |
-| Baseline commit | `54f2408f026a971ec969db7c8a49a2300d324cb2` |
+| Snapshot | S5-CURRENT-PHASE-SUMMARY-REFRESH-2026-04-21-001 |
+| Stage | s5-current-phase-summary-refresh |
+| Baseline commit | `6111611ab6ecb822a1954f254b9071dbd97cc283` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout. The current in-flight Green docs-only stage refreshes autonomous cadence, review fallback recovery, and Yellow backlog anti-overengineering templates.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout plus the autonomous Yellow backlog template anti-overengineering refresh. The current in-flight Green docs-only stage creates a governed current phase summary.
 
-The YB-04 closeout completed under exact test-only file scope. This template refresh does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. This phase-summary refresh does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -559,5 +559,23 @@ Updated planning posture:
 Next possible route after this stage closes PASS:
 
 1. `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+This route does not authorize implementation, code/test changes, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 23. Current Phase Summary Refresh
+
+Current route:
+
+1. `OPEN_CURRENT_PHASE_SUMMARY_REFRESH_STAGE`
+
+This Green docs-only route creates the governed current phase summary at `docs\SECUPILOT_PHASE_SUMMARY_20260421.md`.
+
+Updated planning posture:
+
+- the stale root summary `SecuPilot_阶段性总结_20260409.md` is superseded for orientation
+- current completed automation and S5-C product-development work is summarized in a manifest-governed doc
+- remaining HOLDs are listed as boundaries rather than blockers to bounded Green/Yellow progress
+- next recommended route remains `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+- future Yellow packages should use `docs\AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION_TEMPLATE.md`
 
 This route does not authorize implementation, code/test changes, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or Claude Code file edits/command execution/tests/staging/commit/push.
