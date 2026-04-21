@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout |
-| Baseline commit | `eaca18fa77c5c1aa48e13274a9670b670705d1f4` |
+| Snapshot | S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
+| Stage | s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout |
+| Baseline commit | `7260184229728a712bee1d614fbfe0e3642a4125` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `eaca18f`
-- Snapshot: `S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
-- Stage: `s5c-impl9-audit-event-vocabulary-guard-implementation-closeout`
+- Commit: `7260184`
+- Snapshot: `S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001`
+- Stage: `s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL9-AUDIT-EVENT-VOCABULARY-GUARD-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
-- Release sha256: `ea1b855a437eb9977608a2df5cc028161d4a0a8c6ca892fab46cda73b945e5f6`
+- Release artifact: `releases\secupilot-S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001.zip`
+- Release sha256: `d51e1333c7be35e6e09cd6d5956083cbe21d791c59f633893d6e5810eb04fa1f`
 
-The current baseline enables the next bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_03`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline enables the final bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`. This stage selects and closes only `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`; it does not authorize unlisted implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -695,3 +695,34 @@ Next default autonomous route after this closeout:
 Current non-authorization:
 
 - This stage does not authorize additional implementation, unlisted Yellow items, endpoint behavior, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 33. S5-C-IMPL-11 Case View Review Guidance Regression Hardening Implementation Closeout
+
+This stage records preauthorized Yellow backlog item `S5C-YB-04`.
+
+Implementation outcome:
+
+- `backend\tests\test_case_view.py` now adds synthetic regression coverage for internal case-view review guidance edge cases.
+- The new tests cover no-chain complete cases, low-confidence cases, degraded cases with suggested action, partial cases with evidence gaps, review guidance nesting under `analysis_limits`, and unchanged top-level case-view panels.
+- This item is test-only: no production code, runtime/API/schema behavior, public endpoint behavior, persistence, fixtures, dependencies, release scripts, contracts, real data, credentials, or AI_COLLAB behavior is introduced.
+- Claude Code review-only final verdict is `PASS_WITH_FINDINGS` with no blocking findings.
+- Targeted `backend.tests.test_case_view` passed before closeout gate.
+
+Preserved exclusions:
+
+- no `backend\app\agents\case_view.py`
+- no `backend\app\runtime_service.py`
+- no `backend\app\main.py`
+- no runtime/API/schema or public endpoint behavior
+- no persistent case file changes
+- no case-view schema version bump
+- no new top-level case-view panel
+- no fixtures, dependencies, release scripts, contracts, real data, credentials, evidence retention, S5-B/S5-D, ORDIV, Red-3, S4-A resolver, or AI_COLLAB changes
+
+Next recommended autonomous route after this closeout:
+
+- `OPEN_AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH_STAGE`
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, unlisted Yellow items, production code changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.

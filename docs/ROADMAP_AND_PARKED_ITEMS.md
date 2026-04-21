@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL10-PENDING-ACTION-REQUEST-BOUNDARY-HELPERS-IMPLEMENTATION-CLOSEOUT-2026-04-20-001 |
-| Stage | s5c-impl10-pending-action-request-boundary-helpers-implementation-closeout |
-| Baseline commit | `eaca18fa77c5c1aa48e13274a9670b670705d1f4` |
+| Snapshot | S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
+| Stage | s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout |
+| Baseline commit | `7260184229728a712bee1d614fbfe0e3642a4125` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the third preauthorized S5-C Yellow backlog item closeout.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout.
 
-The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-03`, the pending action-request boundary helpers, under exact files and tests. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, or unlisted implementation.
+The refresh recorded `S5_C_STREAM_REFRESH_PASS_WITH_YELLOW_BACKLOG_PREAUTH`. This stage implements only `S5C-YB-04`, the case-view review-guidance regression hardening item, under exact test-only file scope. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -502,3 +502,40 @@ Next default autonomous route:
 Each remaining item must still run one at a time under exact item-specific files, tests, review, full gate, release verification, manifest PASS, staged scope, and HOLD rules.
 
 This route does not authorize unlisted implementation, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.
+
+## 21. S5-C-IMPL-11 Case View Review Guidance Regression Hardening Closeout
+
+Closed route:
+
+- `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_04`
+
+This route records the fourth bounded Yellow backlog item from `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`.
+
+Implemented scope:
+
+- synthetic case-view review-guidance regression tests in `backend\tests\test_case_view.py`
+- no-chain complete case non-execution guidance coverage
+- low-confidence case analyst-review guidance coverage
+- degraded case suggested-action disabled execution coverage
+- partial evidence-gap bounded question coverage
+- top-level case-view panel preservation guard
+- `analysis_limits["review_guidance"]` location preservation guard
+
+Still parked/deferred:
+
+- public close-case endpoint remains `KEEP_DEFERRED`
+- S5-B remains `PASS_AND_PARK`
+- S5-D remains `PASS_AND_PARK`
+- ORDIV-L1A remains `PARK_LOCAL_VALIDATION_NO_REPORT`
+- external pilot inputs remain `NOT_READY` / `UNKNOWN`
+- external pilot execution remains unauthorized
+- S4-A resolver order remains unchanged
+- AI_COLLAB remains unchanged
+
+Next recommended autonomous route:
+
+1. `OPEN_AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH_STAGE`
+
+The recommended next route is Green docs-only and should add anti-overengineering and max-change-budget rules to the next Yellow backlog preauthorization template. It must not mix with this YB-04 closeout.
+
+This route does not authorize production code changes, runtime/API/schema work, public endpoint work, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, or AI_COLLAB changes.

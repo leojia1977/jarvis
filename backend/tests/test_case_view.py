@@ -7,6 +7,17 @@ bootstrap()
 from app.agents.case_view import build_case_view, generate_one_liner  # noqa: E402
 
 
+EXPECTED_CASE_VIEW_PANELS = {
+    "executive_summary",
+    "what_happened",
+    "why_it_matters",
+    "jarvis_plan",
+    "recommended_action",
+    "evidence_panels",
+    "analysis_limits",
+}
+
+
 def _sample_chain(chain_id="WKST-047:chain-000", host="WKST-047"):
     return {
         "chain_id": chain_id,
@@ -94,21 +105,13 @@ def _base_case():
 
 
 class CaseViewTests(unittest.TestCase):
+    def assertTopLevelPanelsUnchanged(self, view):
+        self.assertEqual(set(view.keys()), EXPECTED_CASE_VIEW_PANELS)
+
     def test_case_view_contract_shape_is_stable(self):
         case = _base_case()
         view = build_case_view(case)
-        self.assertEqual(
-            set(view.keys()),
-            {
-                "executive_summary",
-                "what_happened",
-                "why_it_matters",
-                "jarvis_plan",
-                "recommended_action",
-                "evidence_panels",
-                "analysis_limits",
-            },
-        )
+        self.assertTopLevelPanelsUnchanged(view)
         self.assertEqual(
             set(view["executive_summary"].keys()),
             {
@@ -289,6 +292,88 @@ class CaseViewTests(unittest.TestCase):
         degraded_case["forensic_result"]["top_chains"] = []
         degraded_line = generate_one_liner(degraded_case)
         self.assertIn("调查数据不完整", degraded_line)
+
+    def test_no_chain_complete_case_keeps_review_guidance_safe(self):
+        case = _base_case()
+        case["forensic_result"]["top_chains"] = []
+        case["forensic_result"]["hosts_analyzed"] = ["DEV-WS-01"]
+        case["forensic_result"]["evidence_gaps"] = []
+        case["suggested_action"] = None
+
+        view = build_case_view(case)
+        self.assertTopLevelPanelsUnchanged(view)
+        self.assertEqual(
+            view["analysis_limits"]["review_guidance"]["review_context"]["source"],
+            "case_view.analysis_limits",
+        )
+        guidance = view["analysis_limits"]["review_guidance"]
+        self.assertTrue(guidance["review_context"]["analyst_review_recommended"])
+        self.assertFalse(guidance["review_context"]["manager_review_relevant"])
+        self.assertIs(guidance["review_context"]["execution_authorized"], False)
+        self.assertFalse(guidance["manager_decision_context"]["review_relevant"])
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
+        self.assertIn("继续监控", "".join(guidance["analyst_questions"]))
+
+    def test_low_confidence_case_keeps_manager_execution_unauthorized(self):
+        case = _base_case()
+        case["confidence_score"] = 0.31
+        case["confidence_label"] = "LOW"
+        case["suggested_action"] = None
+
+        view = build_case_view(case)
+        self.assertTopLevelPanelsUnchanged(view)
+        self.assertIn("置信度低", view["executive_summary"]["one_liner"])
+        guidance = view["analysis_limits"]["review_guidance"]
+        self.assertTrue(guidance["review_context"]["analyst_review_recommended"])
+        self.assertFalse(guidance["review_context"]["manager_review_relevant"])
+        self.assertFalse(guidance["manager_decision_context"]["review_relevant"])
+        self.assertIs(guidance["review_context"]["execution_authorized"], False)
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
+
+    def test_degraded_case_with_suggested_action_disables_execution(self):
+        case = _base_case()
+        case["investigation_status"] = "DEGRADED"
+        case["verdict_status"] = "DEGRADED"
+        case["audit_trail"] = {"degraded": True, "degraded_reasons": ["t3_failed"]}
+
+        view = build_case_view(case)
+        self.assertTopLevelPanelsUnchanged(view)
+        self.assertFalse(view["recommended_action"]["available"])
+        self.assertEqual(view["recommended_action"]["action_state"], "DISABLED_DEGRADED")
+        self.assertEqual(view["recommended_action"]["disabled_reason"], "调查降级，处置建议不可用")
+        guidance = view["analysis_limits"]["review_guidance"]
+        self.assertFalse(guidance["review_context"]["manager_review_relevant"])
+        self.assertFalse(guidance["manager_decision_context"]["review_relevant"])
+        self.assertEqual(guidance["manager_decision_context"]["action_state"], "DISABLED_DEGRADED")
+        self.assertIs(guidance["review_context"]["execution_authorized"], False)
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
+
+    def test_partial_case_with_evidence_gaps_keeps_questions_bounded(self):
+        case = _base_case()
+        case["investigation_status"] = "PARTIAL"
+        case["forensic_result"]["evidence_gaps"] = [
+            {"gap_id": "WKST-047:gap-001", "type": "edr_delay", "impact": "process chain may be incomplete"},
+        ]
+
+        view = build_case_view(case)
+        self.assertTopLevelPanelsUnchanged(view)
+        guidance = view["analysis_limits"]["review_guidance"]
+        questions = "".join(guidance["analyst_questions"])
+        self.assertIn("遥测缺口", questions)
+        self.assertIn("首条可疑链", questions)
+        self.assertIn("审批依据", questions)
+        self.assertIs(guidance["review_context"]["execution_authorized"], False)
+        self.assertIs(guidance["manager_decision_context"]["execution_authorized"], False)
+
+    def test_review_guidance_remains_nested_under_analysis_limits_only(self):
+        case = _base_case()
+        view = build_case_view(case)
+
+        self.assertTopLevelPanelsUnchanged(view)
+        self.assertIn("review_guidance", view["analysis_limits"])
+        self.assertNotIn("review_guidance", view)
+        self.assertNotIn("review_guidance", view["recommended_action"])
+        self.assertNotIn("execution_authorized", view)
 
 
 if __name__ == "__main__":
