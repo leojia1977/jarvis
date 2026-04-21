@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
-| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `e30336a`
-- Snapshot: `S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001`
-- Stage: `s5c-impl12-reopen-lifecycle-audit-implementation-closeout`
+- Commit: `0b20b9b`
+- Snapshot: `S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001`
+- Stage: `s5-mini-swe-agent-wsl2-no-write-dry-run-verification`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip`
-- Release sha256: `d6bf3675262d4df166f73fcba4ebb48f721bec90a094324553753977bf95b055`
+- Release artifact: `releases\secupilot-S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001.zip`
+- Release sha256: `4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e`
 
-The current baseline closes preauthorized `S5C-YB-05` reopen lifecycle audit regression as a Yellow test-only implementation. This stage verifies the mini-swe-agent WSL2 no-write dry-run path. It does not authorize product-task SWE agent execution, Yellow backlog integration, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline verifies the mini-swe-agent WSL2 no-write dry-run path. This stage integrates SWE agent into future Yellow backlog templates only as an optional bounded implementation accelerator. It does not authorize product-task SWE agent execution, model-backed implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -1028,3 +1028,32 @@ Current non-authorization:
 Next recommended route:
 
 - `OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE`
+
+## 44. SWE Agent Yellow Backlog Template Integration
+
+This stage records Green docs-only template integration for SWE agent / mini-swe-agent.
+
+Integration result:
+
+- future Yellow backlog templates may include an optional SWE agent block
+- the default per item is `SWE agent use: not authorized for this item`
+- the only allowed positive role name is `bounded implementation accelerator`
+- actual SWE agent use still requires a later exact Yellow item to explicitly name it
+- the item must define exact repo root, allowed files, behavior, tests, max-change budget, WSL command path/version, model credential non-secret path if needed, output location, independent review, before/after git status checks, full gate, release verification, and HOLD rules
+- Codex remains orchestration, review routing, manifest, gate, release, and closeout owner
+- VS Code remains the local workspace/editing surface
+- SWE agent cannot review itself, approve work, select route, expand scope, stage, commit, push, or own closeout
+
+Non-retroactive status:
+
+- `S5C-YB-05` is already closed and is not SWE-enabled.
+- `S5C-YB-06` and `S5C-YB-07` as currently defined in `docs\NEXT_YELLOW_BACKLOG_PREAUTHORIZATION.md` are not SWE-enabled.
+- Current or closed Yellow items require a later governed amended package or exact Yellow item before SWE agent can participate.
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, AI_COLLAB changes, SWE agent execution against product work, model-backed implementation, Yellow item participation, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+Recommended next route after this stage closes PASS:
+
+- `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`

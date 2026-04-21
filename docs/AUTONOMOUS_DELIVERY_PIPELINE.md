@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by mini-swe-agent WSL2 no-write dry-run verification draft |
-| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
-| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
+| Status | Updated by SWE agent Yellow backlog template integration draft |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -31,7 +31,7 @@ Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
-The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`, `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`, `docs\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md`, and `docs\SWE_AGENT_RUNBOOK.md` before using Claude Web review-prompt transfer, Claude Code review-only automation, or considering SWE agent.
+The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`, `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`, `docs\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md`, `docs\SWE_AGENT_RUNBOOK.md`, and `docs\SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION.md` before using Claude Web review-prompt transfer, Claude Code review-only automation, or considering SWE agent.
 
 ## 1.2 Autonomous Operation Cadence
 
@@ -68,7 +68,7 @@ The governed multi-tool pipeline is:
 2. Codex reads the charter, verifies `delegation_expires`, and loads core governance docs.
 3. Codex selects one item and classifies the lane.
 4. VS Code remains the local workspace/editing execution surface for exact allowed files; it is not product memory, lane authority, review authority, release authority, or independent closeout authority.
-5. SWE agent has a verified WSL2 deterministic no-write dry-run path with limits. It remains unavailable for product work unless a later Yellow item explicitly allows it as a bounded implementation accelerator with exact files, exact tests, max-change budget, independent review, and HOLD conditions.
+5. SWE agent has a verified WSL2 deterministic no-write dry-run path with limits. Future Yellow backlog templates may include it only as an optional bounded implementation accelerator, and it remains unavailable for product work unless a later exact Yellow item explicitly names it with exact files, exact tests, max-change budget, independent review, and HOLD conditions.
 6. Claude Code access is verified only through cc-switch routed `claude.cmd` for review-only verdict capture using stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
 7. Claude Web runs in the user's AdsPower browser/profile. The configured-profile AdsPower/CDP path is verified for governed review-prompt transfer readiness only; high-risk use still requires the applicable review and GO gates.
 8. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.
@@ -76,6 +76,26 @@ The governed multi-tool pipeline is:
 If the Claude Code review-only path, configured AdsPower browser/profile, Claude Web path, or SWE agent future accelerator path is unavailable, ambiguous, mutates files unexpectedly, creates staged files, makes unexpected web requests, or requires credentials/session access, the action is HOLD.
 
 If Claude Code review-only fails before a verdict because of local process-spawn failure such as `spawn EPERM`, do not retry indefinitely. Record the failure once, then route non-secret review material through the verified AdsPower Claude Web review-prompt path. If that fallback is unavailable, ambiguous, or cannot produce a clear verdict, HOLD.
+
+## 1.3.1 SWE Agent Yellow Template Rule
+
+SWE agent / mini-swe-agent is disabled by default for Yellow items. Future backlog packages may include an optional SWE agent block only after `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001` closes PASS.
+
+The block must state either:
+
+```text
+SWE agent use: not authorized for this item
+```
+
+or:
+
+```text
+SWE agent use: authorized only as bounded implementation accelerator for this item
+```
+
+The authorized form is valid only when the same item explicitly names exact repo root, files, behavior, tests, max-change budget, WSL command path/version, model credential non-secret path if needed, output location, independent review, before/after git status checks, and HOLD conditions.
+
+Existing current or closed Yellow items do not inherit SWE agent authority retroactively.
 
 ## 1.4 VS Code Workspace Boundary
 

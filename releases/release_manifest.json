@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001",
+    "id": "S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001",
     "sprint": "Sprint 5",
-    "stage": "s5-mini-swe-agent-wsl2-no-write-dry-run-verification",
-    "created_at": "2026-04-21T17:12:43.436672+08:00",
-    "updated_at": "2026-04-21T17:18:45.549063+08:00"
+    "stage": "s5-swe-agent-yellow-backlog-template-integration",
+    "created_at": "2026-04-21T17:29:33.166308+08:00",
+    "updated_at": "2026-04-21T17:58:26.791341+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001.zip",
-    "current_release_sha256": "4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e",
-    "baseline_release_sha256": "d6bf3675262d4df166f73fcba4ebb48f721bec90a094324553753977bf95b055"
+    "current_release_zip": "releases\\secupilot-S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001.zip",
+    "current_release_sha256": "5f61a16807cb3a3f417c5f6ddb3e203c36ac11aaf55df26518a9ee3ed56fe1cf",
+    "baseline_release_sha256": "4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "d97fd348d3be3f389e5f67c80b0423b86a16ab76bca9bb5f084fb01557aedad6"
+      "sha256": "feb1e08fad1578472d54098b24f3544a927f97166c26401aaf26353fd906e1d1"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "product-state",
-      "sha256": "8e09141defe0e933d863cb3ebc9ae0e76c04adb9665e7277cfa2ae280c4dc8fc"
+      "sha256": "3c0ebeb60ffb65bb486f9c0541e5fca201eab7f55e43107b88b55c8dab6b1915"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "13cf2f155bac4d9753734dc2380d5dd0b462fef2f646240023eca67690d74e1e"
+      "sha256": "7202168f2511bad8927666985b6a00bc0e10495ee428e4326123389a9015eff3"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "65535597a7d8d157081d7e554cb9aa5ada958b7bfcad841ab09c5bb70ca2d26a"
+      "sha256": "7cddc1a4395c3eab751a133603985bb73c4ec2a81159e758cc9f8cc96ee38777"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -821,7 +821,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "12e2d608b8cfb4f653a2d9ab362e0336527d226f0ae700b7aa916c8315d7b399"
+      "sha256": "9387cfb97f10a4b36988f919f4437cfe52c9190e4a3ad32c0fc894e6569c652f"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -831,7 +831,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "e71556069301c093489d0ce9e2ea55f0a199f8c318e2195f16241ec8dfe5a3a4"
+      "sha256": "9b658280a4645bc7afb535f59b7fd2b4c020da97ce83007c6d25e0e6dede2d50"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -846,7 +846,7 @@
     {
       "path": "docs\\AUTONOMOUS_OPERATION_STARTUP.md",
       "role": "autonomous-operation-startup",
-      "sha256": "9ff2efb45fb98f192bc0892af8ff7fa6e552cc3825f4a88a3a4fcd6664172481"
+      "sha256": "dc770642f30aafd783d93f623175309c190ce2f2535c823b109c3ae941ddf768"
     },
     {
       "path": "docs\\AUTONOMOUS_OPS_LOOP_REFRESH_AND_DAY1_CLOSEOUT.md",
@@ -876,17 +876,17 @@
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "4a6af11010e34fbd9f01c219a0d4dc84bfdfccda8bb795cf251d9bf072e4529a"
+      "sha256": "ece3c27debffb5b5493b4be6e6582f9427712a8f3cd34be0009d51f9d9339c09"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "01f0deaff4f2b72dfd1411b125504a57e0f795667ad7c014a9e1f40527d7c46e"
+      "sha256": "8b85d7a949ac6e90c33cff5b51dd077d362b7946d4a73236be6e03e93b6c6e9e"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "fb858f73180a8f1f1ecd042a121811c14a38a143d26e33d5bb6b46326518bb96"
+      "sha256": "7272a346b371debb7729c96aed26266992fcaa21a1c16a4e3c73d736267f595b"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -1111,7 +1111,7 @@
     {
       "path": "docs\\AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION_TEMPLATE.md",
       "role": "autonomous-yellow-backlog-preauthorization-template",
-      "sha256": "86d5e81312c4c8ccf007e04f5a2dc6c28dc0155295f4c08e47490fbe0cbb3477"
+      "sha256": "a5680ed7cf2a15388049f79c95eb794f7c5d0a3e17389de35564f039113a7cae"
     },
     {
       "path": "docs\\CURRENT_PHASE_SUMMARY_REFRESH.md",
@@ -1126,7 +1126,7 @@
     {
       "path": "docs\\NEXT_YELLOW_BACKLOG_PREAUTHORIZATION.md",
       "role": "next-yellow-backlog-preauthorization",
-      "sha256": "b2c1c34a94dbeed3352b4ca2dc9ce614135f0e9fec10c87251d39e17344b09bc"
+      "sha256": "5b13709ba9771a9452c91e472e1bb390e1a9b25fc170f137a08db28b4aa379c0"
     },
     {
       "path": "docs\\NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE.md",
@@ -1141,7 +1141,7 @@
     {
       "path": "docs\\SWE_AGENT_RUNBOOK.md",
       "role": "swe-agent-runbook",
-      "sha256": "b576a25d2647f9f9666fca73d2640426ad8398fbbe7358a5a4bf3a0c88e0a893"
+      "sha256": "36129cb4c58cf092b4bb432f57934923a61705e79538fee7be2bd51a7c0de2bd"
     },
     {
       "path": "docs\\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md",
@@ -1167,6 +1167,11 @@
       "path": "docs\\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md",
       "role": "mini-swe-agent-wsl2-no-write-dry-run-verification",
       "sha256": "76ca63e5b92fbc5b467bd4731b65a7e0e44a2ecc1c9e6e0ef8adc336d4ff4e94"
+    },
+    {
+      "path": "docs\\SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION.md",
+      "role": "swe-agent-yellow-backlog-template-integration",
+      "sha256": "41398a9225f04e086cecdd9cf2d1e3244214f87b5fe46d9eda12df9202e8ba81"
     }
   ],
   "tests": [
@@ -1231,13 +1236,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001",
+      "Snapshot ID: S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T17:18:46.779687+08:00",
+    "last_verified_at": "2026-04-21T17:58:27.654606+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1247,25 +1252,26 @@
     "report_path": "releases\\verify_report.json"
   },
   "future_route": {
-    "id": "OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE",
+    "id": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "preconditions": [
-      "this WSL2 no-write dry-run verification stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push",
-      "future stage is Green docs-only template integration only",
-      "SWE agent role remains bounded implementation accelerator only",
-      "no retroactive enablement for current or closed Yellow backlog items",
-      "no model-backed product implementation until a later exact Yellow item explicitly names SWE agent",
+      "this SWE agent Yellow backlog template integration stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push",
+      "future route is Green docs-only product-development route selection unless a later governed prompt supersedes it",
+      "SWE agent remains optional and disabled by default for Yellow items",
+      "current and closed Yellow items remain not SWE-enabled",
+      "no model-backed SWE agent product implementation until a later exact Yellow item explicitly names SWE agent",
       "no secrets, real data, browser/session material, Red work, launch, deployment, public endpoint, S5-B/S5-D, ORDIV, or AI_COLLAB changes"
     ]
   },
   "stage_outcome": {
-    "implementation_status": "DRY_RUN_VERIFIED_FULL_GATE_PASS",
-    "route": "OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE",
-    "tool": "mini-swe-agent",
-    "wsl_distro": "SecuPilotUbuntu2404",
-    "wsl_user": "secupilot",
-    "mini_swe_agent_version": "2.2.8",
-    "dry_run_result": "PASS_NO_WRITE_DETERMINISTIC",
-    "ahq_024_status": "VERIFIED_NO_WRITE_DRY_RUN_WITH_LIMITS",
-    "future_route": "OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE"
+    "implementation_status": "DOCS_ONLY_TEMPLATE_INTEGRATION_FULL_GATE_PASS",
+    "route": "OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE",
+    "lane": "Green docs-only",
+    "swe_agent_role": "bounded implementation accelerator",
+    "default_item_posture": "SWE agent use: not authorized for this item",
+    "retroactive_enablement": "not authorized",
+    "current_package": "S5C-YB-05/S5C-YB-06/S5C-YB-07 remain not SWE-enabled",
+    "future_route": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
+    "release_verification": "PASS",
+    "review_status": "PASS"
   }
 }

@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | SWE Agent Runbook |
-| Status | Candidate runbook; WSL2 no-write dry run verified with limits |
-| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
-| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
+| Status | Candidate runbook; future Yellow template integration draft |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
 
 This runbook records the current safe boundary for SWE agent / mini-swe-agent. It does not authorize product-task agent execution, implementation, staging, commit, or push.
 
@@ -112,26 +112,38 @@ No gate may be skipped, reordered, inferred, or satisfied retroactively.
 
 ## 7. Allowed Future Use After This PASS
 
-After this verification closes PASS, SWE agent may be proposed only as a:
+After the WSL2 no-write dry-run verification closes PASS and `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001` closes PASS, future Yellow backlog templates may include SWE agent only as a:
 
 ```text
 bounded implementation accelerator
 ```
 
-Allowed only when a later Yellow item explicitly names it:
+Allowed only when a later exact Yellow item explicitly names it:
 
 - exact repo root
 - exact files
 - exact behavior
 - exact tests
 - exact max-change budget
+- exact WSL command path and version check
 - no secrets
 - no real data
+- model credential non-secret path if model-backed execution is needed
+- output and trajectory location, preferably outside the repo
+- before/after git status checks
 - no Red trigger
 - Codex-owned orchestration
 - independent review after output
 - full gate and release verification before closeout
 - no staging, commit, push, PR creation, or remote action by SWE agent
+
+Default for every item remains:
+
+```text
+SWE agent use: not authorized for this item
+```
+
+No current or closed Yellow item inherits SWE agent authority retroactively.
 
 ## 8. Prohibited Use
 

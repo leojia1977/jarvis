@@ -227,13 +227,15 @@ HOLD if:
 
 ## 7. SWE Agent Posture
 
-SWE agent remains:
+This package was created before the WSL2 no-write dry-run verification and before the SWE agent Yellow template integration route. Its listed items are not SWE-enabled.
 
 ```text
-NOT_INSTALLED_OR_NOT_VERIFIED
+SWE agent use: not authorized for this package
 ```
 
-SWE agent is not part of this package. It may not implement, review, stage, commit, push, or unblock any item until a separate `OPEN_SWE_AGENT_CAPABILITY_VERIFICATION_STAGE` passes and a later governed package explicitly allows its bounded participation.
+Later verification advanced SWE agent / mini-swe-agent to `VERIFIED_NO_WRITE_DRY_RUN_WITH_LIMITS`, but this does not retroactively amend `S5C-YB-05`, `S5C-YB-06`, or `S5C-YB-07`.
+
+SWE agent is not part of this package. It may not implement, review, stage, commit, push, or unblock any item in this package unless a later governed package or exact Yellow item explicitly names SWE agent as a bounded implementation accelerator and carries all controls from `docs\SWE_AGENT_RUNBOOK.md` and `docs\AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION_TEMPLATE.md`.
 
 ## 8. Closeout Sequence Per Item
 
@@ -278,7 +280,7 @@ This package does not authorize:
 - Red-3 action
 - AdsPower profile creation/switching or Claude Web login automation
 - cookie/session/token/auth-header/browser-storage/profile-file inspection
-- SWE agent installation, execution, or integration
+- SWE agent execution or integration for this package
 
 ## 10. Next Default Route
 

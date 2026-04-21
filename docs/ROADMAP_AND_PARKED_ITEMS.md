@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
-| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, and the S5C-YB-05 closeout. The current in-flight Green docs-only toolchain stage verifies mini-swe-agent WSL2 no-write dry-run mechanics.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, the S5C-YB-05 closeout, and the mini-swe-agent WSL2 no-write dry-run verification. The current in-flight Green docs-only toolchain stage integrates SWE agent as an optional future Yellow backlog template accelerator.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits, but remains outside current or past Yellow implementation unless a later exact Yellow item explicitly names it. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, model-backed SWE execution/integration, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits. This stage updates future Yellow backlog templates so SWE agent can be named only as a bounded implementation accelerator by a later exact Yellow item; it remains outside current and past Yellow implementation. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, model-backed SWE execution/integration, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -790,3 +790,24 @@ Future possible route:
 That route may update future Yellow backlog templates to allow SWE agent only as a bounded implementation accelerator when explicitly named by a later item. It must not add SWE agent retroactively to YB-06, YB-07, or any closed item.
 
 This route does not authorize SWE agent execution against product work, model-backed implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 32. SWE Agent Yellow Backlog Template Integration
+
+Current route:
+
+1. `OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE`
+
+Integration decision:
+
+- future Yellow backlog templates may include an optional SWE agent block
+- the default is `SWE agent use: not authorized for this item`
+- positive use must name SWE agent exactly as `bounded implementation accelerator`
+- later exact Yellow item must define exact repo root, files, behavior, tests, max-change budget, WSL command path/version, model credential non-secret path if needed, output location, independent review, before/after git status checks, full gate, release verification, and HOLD rules
+- current and closed Yellow items are not retroactively SWE-enabled
+
+Future possible routes:
+
+1. `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+2. Open a later exact Yellow item that explicitly names SWE agent only if product/governance wants to test bounded accelerator participation on a safe item.
+
+This route does not authorize SWE agent execution against product work, model-backed implementation, current or past Yellow item participation, code/test changes, dependency changes in the repo, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.

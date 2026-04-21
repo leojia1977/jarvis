@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by mini-swe-agent WSL2 no-write dry-run verification draft |
-| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
-| Route | OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE |
-| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
-| Baseline snapshot | S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
-| Baseline stage | s5c-impl12-reopen-lifecycle-audit-implementation-closeout |
+| Status | Updated by SWE agent Yellow backlog template integration draft |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Route | OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
+| Baseline snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Baseline stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip` |
-| Baseline release sha256 | `d6bf3675262d4df166f73fcba4ebb48f721bec90a094324553753977bf95b055` |
+| Baseline release artifact | `releases\secupilot-S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001.zip` |
+| Baseline release sha256 | `4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e` |
 
 ## 2. Purpose
 
@@ -34,7 +34,7 @@ This document does not by itself authorize full toolchain execution. It defines 
 | --- | --- |
 | Codex automation | Scheduler, planner, and executor within active policy limits. |
 | VS Code workspace | Local repo editing and workspace execution surface for allowed files; not product memory, not a lane authority, not an independent reviewer, and not a closeout authority by itself. |
-| SWE agent | Future bounded implementation accelerator candidate only; WSL2 deterministic no-write main-agent dry run is verified with limits, but product-task execution requires a later exact Yellow item that explicitly names SWE agent. |
+| SWE agent | Future bounded implementation accelerator candidate only; WSL2 deterministic no-write main-agent dry run is verified with limits, future Yellow templates may include an optional accelerator block, and product-task execution requires a later exact Yellow item that explicitly names SWE agent. |
 | Claude Code via cc-switch routed `claude.cmd` | Verified review-only verdict capture path with strict invocation limits; not an editing, command-execution, staging, commit, push, or Red-approval tool. |
 | Claude Web in AdsPower browser/profile | External review path; user-confirmed current surface is AdsPower, but it is not assumed automatable until verified by a governed safe path. |
 
@@ -59,7 +59,7 @@ Repo-governed docs, manifest, snapshots, route decisions, closeouts, and periodi
 | --- | --- |
 | Codex automation | ACTIVE only within the authorization window and policy limits. |
 | VS Code CLI | Visible as `code.cmd` by safe local command detection; governed as the local workspace/editing surface only. |
-| SWE agent | `mini-swe-agent` 2.2.8 is installed in `SecuPilotUbuntu2404` under `/home/secupilot/.venvs/mini-swe-agent`; `mini` help is callable, and a deterministic no-write dry run completed from the repo root mapping with unchanged git status. Product-task use remains unavailable unless a later exact Yellow item explicitly names SWE agent and carries all runbook controls. |
+| SWE agent | `mini-swe-agent` 2.2.8 is installed in `SecuPilotUbuntu2404` under `/home/secupilot/.venvs/mini-swe-agent`; `mini` help is callable, and a deterministic no-write dry run completed from the repo root mapping with unchanged git status. Future Yellow templates may include optional bounded accelerator controls, but product-task use remains unavailable unless a later exact Yellow item explicitly names SWE agent and carries all runbook controls. |
 | Claude Code via cc-switch routed `claude.cmd` | Verified for non-interactive review-only verdict-line capture through stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, no web requests, and unchanged git status. `claude.exe`, local `cc`, non-bare invocation, command-argument multi-line prompts, and `--json-schema` are not accepted. |
 | Codex CLI | Visible as `codex.exe` by safe local command detection. |
 | AdsPower browser/profile | User-confirmed Claude Web surface; Local API authentication, configured profile start/attach, CDP connection, and Claude Web review-prompt readiness are verified with limits. Profile switching, profile creation, login automation, and session inspection remain unverified. |
@@ -265,6 +265,20 @@ Result:
 - WSL was terminated after verification
 
 This verifies runner mechanics only. It does not authorize model-backed implementation, real product patch generation, Yellow backlog participation, dependency changes, review replacement, manifest/gate/release ownership, staging, commit, or push.
+
+## 7.12 SWE Agent Yellow Backlog Template Integration Result
+
+`S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001` integrates SWE agent into future Yellow backlog templates only as an optional bounded implementation accelerator.
+
+Result:
+
+- the reusable Yellow backlog preauthorization template now requires an explicit per-item SWE agent posture
+- the default is `SWE agent use: not authorized for this item`
+- the authorized form must be exactly `bounded implementation accelerator`
+- a later exact Yellow item must name repo root, files, behavior, tests, max-change budget, command path/version, model credential non-secret path if needed, output location, independent review, before/after git status checks, and HOLD rules
+- current and closed Yellow items are not retroactively SWE-enabled
+
+This integration does not authorize SWE agent execution against product work, model-backed implementation, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, or any product code/test change.
 
 ## 8. Non-Authorization
 

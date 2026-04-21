@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Operation Startup |
-| Status | Updated by anti-overengineering template refresh draft |
-| Snapshot | S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001 |
-| Stage | s5-autonomous-yellow-backlog-template-anti-overengineering-refresh |
-| Route | OPEN_AUTONOMOUS_YELLOW_BACKLOG_TEMPLATE_ANTI_OVERENGINEERING_REFRESH_STAGE |
-| Baseline commit | `54f2408f026a971ec969db7c8a49a2300d324cb2` |
-| Baseline snapshot | S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
-| Baseline stage | s5c-impl11-case-view-review-guidance-regression-hardening-implementation-closeout |
+| Status | Updated by SWE agent Yellow backlog template integration draft |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Route | OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
+| Baseline snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Baseline stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5C-IMPL11-CASE-VIEW-REVIEW-GUIDANCE-REGRESSION-HARDENING-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip` |
-| Baseline release sha256 | `89a1ea2581e2bb08953375a41c4b206051e45bb04e158559f63ca0ff8a36a677` |
+| Baseline release artifact | `releases\secupilot-S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001.zip` |
+| Baseline release sha256 | `4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e` |
 
 This document starts the autonomous operating loop. It does not start product launch, external pilot execution, production deployment, credential handling, real-data handling, public endpoint work, S5-B/S5-D reopen, ORDIV work, or Red-3 action.
 
@@ -102,6 +102,13 @@ Every autonomous operation run must begin with these checks:
    - `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`
    - `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`
    - `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`
+   - `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`
+   - `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`
+   - `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`
+   - `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`
+   - `docs\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md`
+   - `docs\SWE_AGENT_RUNBOOK.md`
+   - `docs\SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION.md`
 5. Confirm manifest baseline and git cleanliness.
 6. Identify one next allowed item.
 7. Classify the lane as Green, Yellow, Red-1, Red-2, Red-3, or HOLD.
@@ -213,3 +220,19 @@ The verified path is limited to stdin prompt transfer to `claude.cmd` with `--ba
 This path does not authorize Claude Code edits, file-read review beyond supplied prompt material unless separately governed, command execution, tests, staging, commit, push, Red execution, launch, deployment, external pilot execution, credentials, real data, public endpoint work, S5-B/S5-D reopen, ORDIV work, AI_COLLAB changes, or replacing required human/delegated/Claude Web/external review.
 
 If the Claude Code review-only path fails before producing a verdict because of local process-spawn failure such as `spawn EPERM`, automation must not retry indefinitely. It must record the failure once, then use the verified AdsPower Claude Web review-prompt path as a fallback only for non-secret review material. If that fallback is unavailable, ambiguous, or cannot return a clear verdict, HOLD.
+
+## 14. SWE Agent Bounded Accelerator Rule
+
+After `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001` closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push, future Yellow backlog templates may include SWE agent only as an optional bounded implementation accelerator.
+
+Default per item:
+
+```text
+SWE agent use: not authorized for this item
+```
+
+SWE agent may run only when a later exact Yellow item explicitly names it and defines exact repo root, allowed files, behavior, tests, max-change budget, model/credential non-secret path if needed, WSL command path/version, output location, independent review, gate, closeout, and HOLD rules.
+
+This rule does not retroactively enable SWE agent for current or closed items, including `S5C-YB-05`, `S5C-YB-06`, or `S5C-YB-07` as currently defined.
+
+SWE agent remains prohibited from route selection, scope expansion, review replacement, manifest/gate/release ownership, staging, commit, push, launch, deployment, real data, credentials, public endpoint work, S5-B/S5-D reopen, ORDIV work, Red-3 action, browser/session access, and AI_COLLAB changes.

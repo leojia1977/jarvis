@@ -53,12 +53,51 @@ Each Yellow backlog item must include:
 
 If the item cannot be described this tightly, it is not ready for autonomous Yellow implementation and must become a Green docs-only ticket-prep or design-note route instead.
 
+## 4.1 Optional SWE Agent Accelerator Block
+
+SWE agent / mini-swe-agent is optional and disabled by default. Every future Yellow backlog item must explicitly state one of:
+
+```text
+SWE agent use: not authorized for this item
+```
+
+or:
+
+```text
+SWE agent use: authorized only as bounded implementation accelerator for this item
+```
+
+The authorized form may be used only after `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001` closes with review PASS, full gate PASS, release verification PASS, manifest PASS, closeout commit, and push.
+
+If an item authorizes SWE agent use, the item must include:
+
+| Field | Required content |
+| --- | --- |
+| SWE agent role | Exactly `bounded implementation accelerator`. |
+| Exact repo root | The repo path visible to the runner. |
+| Exact command path | Absolute WSL command path and version check. |
+| Exact allowed files | Same exact file list as the Yellow item; no extra files. |
+| Exact allowed behavior | Same item behavior; no scope expansion. |
+| Required tests | Exact commands the item already requires. |
+| Max-change budget | Explicit maximum changed files, helpers, and concept names. |
+| Model/credential path | `not used` or governed non-secret path; values must not be printed. |
+| Output location | Prefer outside repo unless the item names an in-repo artifact. |
+| Before/after checks | `git status --short`, no staged files, exact diff scope. |
+| Review path | Independent review of generated output; SWE agent cannot review itself. |
+| Closeout ownership | Codex owns manifest, gate, release, staging plan, commit, and push under policy. |
+| HOLD if | Unlisted file, unexpected mutation, staged file, secret/real-data/browser/session access, network/model ambiguity, Red trigger, or out-of-scope test failure. |
+
+SWE agent must not select route, define acceptance criteria, expand scope, replace review, own closeout, update manifest, run release packaging, stage, commit, push, or perform remote actions.
+
+Existing Yellow backlog packages and closed/current items do not inherit SWE agent authority retroactively. A later item must explicitly name SWE agent to use it.
+
 ## 5. Review Checklist
 
 Review must check:
 
 - allowed files match the item
 - tests match the item
+- SWE agent is either explicitly `not authorized for this item` or is tightly bounded by the optional accelerator block
 - no unrelated file, helper, abstraction, cleanup, rename, or reorganizing is included
 - no future-facing generalization is introduced
 - no new status, event, vocabulary, panel, schema, route, adapter, service, or workflow is introduced unless explicitly named

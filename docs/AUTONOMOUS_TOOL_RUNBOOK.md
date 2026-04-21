@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by mini-swe-agent WSL2 no-write dry-run verification draft |
-| Snapshot | S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-wsl2-no-write-dry-run-verification |
-| Baseline commit | `e30336adf8ddce098391bd86954a560858a62df6` |
+| Status | Updated by SWE agent Yellow backlog template integration draft |
+| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
+| Stage | s5-swe-agent-yellow-backlog-template-integration |
+| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -99,6 +99,16 @@ VERIFIED_NO_WRITE_DRY_RUN_WITH_LIMITS
 ```
 
 `mini-swe-agent` 2.2.8 is installed in `SecuPilotUbuntu2404` under `/home/secupilot/.venvs/mini-swe-agent`. The WSL `mini` entrypoint is callable with an explicit path, and a deterministic no-write dry run completed from the repo-root mapping with only `echo COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT`, parseable trajectory output, zero cost, and unchanged git status. Do not execute or integrate SWE agent for product work unless a later exact Yellow item explicitly names SWE agent as a bounded implementation accelerator.
+
+Future Yellow backlog templates may include an optional SWE agent accelerator block after `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001` closes PASS. The default remains:
+
+```text
+SWE agent use: not authorized for this item
+```
+
+The authorized form is valid only when the current exact Yellow item names SWE agent, sets its role to `bounded implementation accelerator`, and defines exact files, tests, behavior, max-change budget, WSL command path/version, model credential non-secret path if needed, output location, independent review, before/after git status checks, and HOLD rules.
+
+Current or closed Yellow items do not inherit SWE agent authority retroactively.
 
 SWE agent may not:
 
