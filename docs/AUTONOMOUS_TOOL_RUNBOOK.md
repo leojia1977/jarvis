@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Tool Runbook |
-| Status | Updated by cc switch command-path provisioning draft |
-| Snapshot | S5-CC-SWITCH-COMMAND-PATH-PROVISIONING-2026-04-19-001 |
-| Stage | s5-cc-switch-command-path-provisioning |
-| Baseline commit | `5c1d8c1e288c1e16f47279f147fc4a973064e874` |
+| Status | Updated by SWE agent capability verification draft |
+| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-capability-verification |
+| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
 
 This runbook defines toolchain operating rules. It does not authorize browser launch, Claude Web login, external review automation, full gate, release packaging, staging, commit, push, launch execution, production deployment, external pilot execution, credential handling, real-data handling, or Red-3 action.
 
@@ -32,6 +32,7 @@ Use the lowest-risk tool that can complete the allowed step:
 
 - Use Codex workspace editing for allowed docs-only changes.
 - Use VS Code CLI only as a local workspace/editing surface when needed and governed; do not treat it as product memory, review authority, or closeout authority.
+- Do not use SWE agent unless a separate governed install and capability verification route passes and the current Yellow item explicitly allows it.
 - Use Claude Code through the verified cc-switch routed `claude.cmd` path only for review-only verdict capture and only under `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`.
 - Use Claude Web through the verified AdsPower configured-profile path only for governed review-prompt transfer when the prompt contains no secrets, raw customer data, credentials, or unredacted real evidence.
 - Use Git only for inspection unless staging/commit/push is explicitly authorized.
@@ -86,6 +87,31 @@ API error, non-zero exit, timeout, invalid wrapper JSON, missing or malformed ve
 If Claude Code review says `PASS_WITH_FINDINGS`, classify each finding by severity, apply only allowed focused fixes, refresh affected hashes, and return to review. If any finding requires out-of-scope files, external access, credentials, real data, Red-3, or unclear authority, HOLD.
 
 `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md` governs all future autonomous use. The older `docs\CC_SWITCH_CLAUDE_CODE_RUNBOOK.md` remains historical context for the prior HOLD state. This verified path does not authorize edits, implementation, file-read review beyond supplied prompt material unless separately governed, code execution, staging, commit, push, Red execution, launch/deploy, real data, external pilot execution, or full autonomous implementation.
+
+## 5.1 SWE Agent Usage
+
+SWE agent is currently HOLD.
+
+Current status:
+
+```text
+SWE_AGENT_HOLD_FOR_TOOL_INSTALL_AND_VERIFICATION
+```
+
+Do not install, execute, or integrate SWE agent unless a separate governed route explicitly authorizes that action.
+
+SWE agent may not:
+
+- implement Yellow items
+- edit files
+- run tests
+- install dependencies
+- choose route or scope
+- replace Claude Code review-only, Claude Web/external review, Codex orchestration, human approval, or jarvis approval
+- update manifest, gate, package, release verification, rolling maps, or closeout
+- stage, commit, push, force-push, or rewrite history
+
+Future use requires `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md` and `docs\SWE_AGENT_RUNBOOK.md` plus a later install/capability verification PASS.
 
 ## 6. Claude Web / Manual External Review Path
 

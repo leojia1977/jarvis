@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001",
+    "id": "S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001",
     "sprint": "Sprint 5",
-    "stage": "s5-next-yellow-backlog-preauthorization",
-    "created_at": "2026-04-10T19:36:34.6045254+08:00",
-    "updated_at": "2026-04-21T14:28:33.522218+08:00"
+    "stage": "s5-swe-agent-capability-verification",
+    "created_at": "2026-04-21T14:44:57.712850+08:00",
+    "updated_at": "2026-04-21T14:46:13.641617+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001.zip",
-    "current_release_sha256": "02ffbfa63dbab0dcb00b39980c9ee7641d5958b6d2b66097fec6d033e46388b5",
-    "baseline_release_sha256": "fd1e52ae1aaa576000d0344b37a70daf8c786b8825f6dae014c1669eb2a7fea4"
+    "current_release_zip": "releases\\secupilot-S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001.zip",
+    "current_release_sha256": "8544ca1a09372152658507dc1ed0c96fb604a5f37e841e06b8c76100c1095405",
+    "baseline_release_sha256": "02ffbfa63dbab0dcb00b39980c9ee7641d5958b6d2b66097fec6d033e46388b5"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff-doc",
-      "sha256": "8af0d44f7668d1c54e70453b120e7857391e30550a8b4988ff95777fb0acff90"
+      "sha256": "6a63cf47cbce025c0c349eb85c35d46810ed7fb4e6b3dd1ebbea9617b3ec06a8"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state-map",
-      "sha256": "dc73b9f4b263d1a09c48e90458132a19b39eee6bb5c6f0d98eb4218bc70acdc6"
+      "sha256": "89a78dc85fbbe3f9397ac57cca6317659a019c7f157a334982b5e68cb48582de"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "708e3b3af8ffff4094f554c4099f2ffd000de4919bf1da1c76653a2ed6474823"
+      "sha256": "bfba5df71c88e447727cf719b9760dc22bc379afda712f32852137e59ec54084"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "18ad9504b030ac3c721785cb82d03d50eb9b4cd84d941389e2c549c13c1be5c3"
+      "sha256": "fd82db15dee1987bf17fce944ce0c1042f46e326f56aa924e728d22511031232"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -821,7 +821,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "481699b19c2702db85cb32891608c9ad1a35f3dbbfce5458f5c741c03165bd7f"
+      "sha256": "d5c7d7586c5dde8b1461da65285965fc320a0fce11f158c628635d65667104d4"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -831,7 +831,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "740c60b64fd3eaaca0b4fdac073edc48d0b4f40f8720dbd21cbe582d0731e8fc"
+      "sha256": "3d87fbe95fee67c2a6b255364c5a8a325ce73ccdf887dfdcfff588895f70d6b6"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -876,17 +876,17 @@
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "5ffcff5e11ce495449d0ee52300329400384eb71b6f06fe2291ee56d4a86315c"
+      "sha256": "79365c653eda4aee92e86e68474467cef922d44217b14850f3953c3bfcfe2a44"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "90f670728ecfdf43940009df7cdb71c67cd3559089732fac857ad1037834b17a"
+      "sha256": "b9bc11d18f7dd1101748e67d3a3542625f38294df2d171c161ef442ce1587158"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "1ede002861477715b8baef1f8bf33ec349e8903d5a5f8c46f80fbb3383b1bb9d"
+      "sha256": "554869e8c9de631b4bb20a3f9a41bea356679b4da951cc5836a97f53f84a467c"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -1132,6 +1132,16 @@
       "path": "docs\\NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE.md",
       "role": "next-yellow-backlog-preauthorization-stage",
       "sha256": "7749c6df37a9e4055f8fec85277424b634e10b3aa0e0756d4e01237a3631042f"
+    },
+    {
+      "path": "docs\\SWE_AGENT_CAPABILITY_VERIFICATION.md",
+      "role": "swe-agent-capability-verification",
+      "sha256": "eac9e63d81c684fdda06f21d937598bf185448de43f6b83fabbef19f6d932852"
+    },
+    {
+      "path": "docs\\SWE_AGENT_RUNBOOK.md",
+      "role": "swe-agent-runbook",
+      "sha256": "02c82a16176a47e5b60805d64e53d585f38a0ef066a27f546c8fc908a24663b9"
     }
   ],
   "tests": [
@@ -1196,13 +1206,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001",
+      "Snapshot ID: S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T14:28:34.440900+08:00",
+    "last_verified_at": "2026-04-21T14:46:14.915638+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

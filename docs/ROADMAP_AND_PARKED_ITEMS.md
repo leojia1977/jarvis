@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001 |
-| Stage | s5-next-yellow-backlog-preauthorization |
-| Baseline commit | `8147407bfb7e0babeae539957fde5142528fce73` |
+| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-capability-verification |
+| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, and the next product-development route selection. The current in-flight Green docs-only stage prepares the next exact Yellow backlog preauthorization package.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, and the next Yellow backlog preauthorization package. The current in-flight Green docs-only stage verifies SWE agent as a possible future accelerator.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, and route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`. This preauthorization stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, SWE agent integration, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. SWE agent is now verified as not installed or discoverable, so it remains HOLD. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, SWE agent installation/execution/integration, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -629,3 +629,29 @@ Execution posture:
 - SWE agent remains `NOT_INSTALLED_OR_NOT_VERIFIED` and outside this package
 
 This route does not authorize implementation during this docs-only package stage, unlisted Yellow items, unlisted files, runtime/API/schema work, public endpoint work, SWE agent installation/execution/integration, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or Claude Code file edits/command execution/tests/staging/commit/push outside exact item closeout rules.
+
+## 26. SWE Agent Capability Verification
+
+Current route:
+
+1. `OPEN_SWE_AGENT_CAPABILITY_VERIFICATION_STAGE`
+
+Verification result:
+
+- SWE agent is not installed or discoverable
+- no governed local command path exists
+- no pip package or Python module exists in the current environment
+- no dry run was possible
+- no install or execution was performed
+
+Current status:
+
+1. `HOLD_FOR_TOOL_INSTALL_AND_VERIFICATION`
+
+Future possible route:
+
+1. `OPEN_SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION_STAGE`
+
+Future verification must prove repo-root confinement, exact file-scope confinement, harmless dry run, no secret or real-data access, no dependency install without approval, no staging/commit/push, before/after git status, and external review before SWE agent can be used as a bounded implementation accelerator.
+
+This route does not authorize SWE agent installation, SWE agent execution, Yellow backlog participation, code/test changes, dependency changes, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.

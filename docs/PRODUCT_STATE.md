@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001 |
-| Stage | s5-next-yellow-backlog-preauthorization |
-| Baseline commit | `8147407bfb7e0babeae539957fde5142528fce73` |
+| Snapshot | S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001 |
+| Stage | s5-swe-agent-capability-verification |
+| Baseline commit | `96aea6cd0b9dc65e913896eab9978b345787f208` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `8147407`
-- Snapshot: `S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001`
-- Stage: `s5-next-product-development-route-selection`
+- Commit: `96aea6c`
+- Snapshot: `S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001`
+- Stage: `s5-next-yellow-backlog-preauthorization`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001.zip`
-- Release sha256: `fd1e52ae1aaa576000d0344b37a70daf8c786b8825f6dae014c1669eb2a7fea4`
+- Release artifact: `releases\secupilot-S5-NEXT-YELLOW-BACKLOG-PREAUTHORIZATION-2026-04-21-001.zip`
+- Release sha256: `02ffbfa63dbab0dcb00b39980c9ee7641d5958b6d2b66097fec6d033e46388b5`
 
-The current baseline selected `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE` as the next bounded product-development route and records SWE agent as `NOT_INSTALLED_OR_NOT_VERIFIED`. This stage is a Green docs-only preauthorization package and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent integration, or AI_COLLAB changes.
+The current baseline prepared the next exact Yellow backlog preauthorization package and kept SWE agent outside that package. This stage is a Green docs-only SWE agent capability verification and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent installation/execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -832,3 +832,36 @@ Package controls:
 Current non-authorization:
 
 - This stage does not authorize implementation during the docs-only package stage, unlisted Yellow items, unlisted files, SWE agent installation/execution/integration, production code changes, test changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push outside exact item closeout rules.
+
+## 38. SWE Agent Capability Verification
+
+This stage verifies SWE agent as a possible future bounded implementation accelerator.
+
+Verification result:
+
+- no `sweagent`, `swe-agent`, `swe`, `sweagent-run`, or `swe-agent-run` command was found
+- no `swe-agent` or `sweagent` pip package was found
+- no `sweagent`, `swe_agent`, or `sweagent_run` Python module was found
+- no install, network package pull, dry run, implementation, test execution, dependency change, or repo mutation was performed
+
+Current SWE agent status:
+
+- `HOLD_FOR_TOOL_INSTALL_AND_VERIFICATION`
+- tracked by AHQ-024
+
+Future unblock route:
+
+- `OPEN_SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION_STAGE`
+
+Future allowed role after a separate PASS:
+
+- bounded implementation accelerator only
+- not independent decision maker
+- not final reviewer
+- not closeout owner
+- not manifest/gate/release owner
+- not stage/commit/push owner
+
+Current non-authorization:
+
+- This stage does not authorize SWE agent installation, SWE agent execution, SWE agent integration into Yellow backlog items, implementation, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
