@@ -211,3 +211,27 @@ This stage does not authorize:
 - Claude Web login automation
 - cookie/session/token/auth-header/browser-storage/profile-file inspection
 - staging, commit, or push before closeout rules are satisfied
+
+## 11. Follow-Up Noninteractive Dry Run Verification
+
+`S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001` attempted the required WSL2 / PTY-capable no-write dry-run route.
+
+Follow-up result:
+
+- WSL2 exists only as `docker-desktop`, not a governed user distro.
+- The probed WSL shell lacked `bash`, had an empty `PATH`, and did not expose usable Python or mini-swe-agent commands.
+- `winpty` was not available.
+- `cmd.exe /c` did not resolve `NoConsoleScreenBufferError`.
+- No harmless no-write main-agent dry run was completed.
+
+Updated status:
+
+```text
+HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE
+```
+
+Future route:
+
+```text
+OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE
+```

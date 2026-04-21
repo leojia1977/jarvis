@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-install-capability-verification |
-| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
+| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
+| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `eaa473d`
-- Snapshot: `S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001`
-- Stage: `s5-swe-agent-capability-verification`
+- Commit: `262dc49`
+- Snapshot: `S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001`
+- Stage: `s5-swe-agent-install-capability-verification`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-SWE-AGENT-CAPABILITY-VERIFICATION-2026-04-21-001.zip`
-- Release sha256: `8544ca1a09372152658507dc1ed0c96fb604a5f37e841e06b8c76100c1095405`
+- Release artifact: `releases\secupilot-S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001.zip`
+- Release sha256: `e0dfea31a06b336aeb093c0fba2b230b9bd8e8decde37c6d3db38853fc69ad96`
 
-The current baseline verified that SWE agent was not available as a governed local tool and kept it outside the current Yellow backlog package. This stage is a Green docs-only SWE agent install/capability verification and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, or AI_COLLAB changes.
+The current baseline verified `mini-swe-agent` user-package presence and help visibility but kept SWE agent execution on HOLD. This stage is a Green docs-only mini-swe-agent noninteractive dry-run verification and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, WSL distro installation, PTY runner installation, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -903,3 +903,30 @@ Future allowed role after a separate PASS:
 Current non-authorization:
 
 - This stage does not authorize SWE agent execution, SWE agent integration into Yellow backlog items, implementation assistance, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+## 40. Mini SWE Agent Noninteractive Dry Run Verification
+
+This stage verifies whether mini-swe-agent can run a harmless no-write dry run through WSL2 or another PTY-capable runner.
+
+Verification result:
+
+- WSL2 exists, but the only listed distribution is `docker-desktop`, not a governed user distro.
+- The probed WSL shell lacked `bash`, exposed an empty `PATH`, and did not provide usable Python or mini-swe-agent commands.
+- WSL reported a localhost proxy warning in NAT mode.
+- `winpty` was unavailable.
+- `cmd.exe /c` still failed with `NoConsoleScreenBufferError`.
+- No harmless no-write main-agent dry run was completed.
+- Before/after git status remained unchanged except known unrelated untracked files.
+
+Current SWE agent status:
+
+- `HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE`
+- tracked by AHQ-024
+
+Future unblock route:
+
+- `OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE`
+
+Current non-authorization:
+
+- This stage does not authorize SWE agent execution, SWE agent integration into Yellow backlog items, implementation assistance, WSL distro installation, PTY runner installation, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.

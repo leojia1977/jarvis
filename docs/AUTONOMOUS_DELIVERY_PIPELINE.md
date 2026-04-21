@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by SWE agent install/capability verification draft |
-| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-install-capability-verification |
-| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
+| Status | Updated by mini-swe-agent noninteractive dry-run verification draft |
+| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
+| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
 
 This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
 
@@ -31,7 +31,7 @@ Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
-The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`, `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, and `docs\SWE_AGENT_RUNBOOK.md` before using Claude Web review-prompt transfer, Claude Code review-only automation, or considering SWE agent.
+The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`, `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, and `docs\SWE_AGENT_RUNBOOK.md` before using Claude Web review-prompt transfer, Claude Code review-only automation, or considering SWE agent.
 
 ## 1.2 Autonomous Operation Cadence
 
@@ -68,7 +68,7 @@ The governed multi-tool pipeline is:
 2. Codex reads the charter, verifies `delegation_expires`, and loads core governance docs.
 3. Codex selects one item and classifies the lane.
 4. VS Code remains the local workspace/editing execution surface for exact allowed files; it is not product memory, lane authority, review authority, release authority, or independent closeout authority.
-5. SWE agent remains execution HOLD unless a separate governed non-interactive dry-run verification route passes and a later Yellow item explicitly allows it as a bounded implementation accelerator.
+5. SWE agent remains execution HOLD unless a separate governed PTY runner provisioning plus no-write dry-run verification route passes and a later Yellow item explicitly allows it as a bounded implementation accelerator.
 6. Claude Code access is verified only through cc-switch routed `claude.cmd` for review-only verdict capture using stdin, `--bare`, JSON wrapper output, disabled tools, no session persistence, plan permission mode, budget cap, first-line verdict parsing, no web requests, and unchanged git status.
 7. Claude Web runs in the user's AdsPower browser/profile. The configured-profile AdsPower/CDP path is verified for governed review-prompt transfer readiness only; high-risk use still requires the applicable review and GO gates.
 8. Full gate, release packaging, staging, commit, and push run only when explicitly authorized by the current stage or later closeout instruction.

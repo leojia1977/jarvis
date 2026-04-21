@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-install-capability-verification |
-| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
+| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
+| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, and the first SWE agent capability verification. The current in-flight Green docs-only stage verifies SWE agent installation visibility and safe dry-run eligibility.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, and the SWE agent install/capability verification. The current in-flight Green docs-only stage verifies whether WSL2 or a PTY-capable runner can support a no-write mini-swe-agent dry run.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. SWE agent / mini-swe-agent is now partially verified for user-package presence and help visibility, but main agent execution remains HOLD because no no-write dry run is verified. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, SWE agent execution/integration, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. SWE agent / mini-swe-agent is partially verified for user-package presence and help visibility, but main agent execution remains HOLD because no WSL/PTTY no-write dry run is available. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, test changes, SWE agent execution/integration, WSL distro installation, PTY runner installation, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -682,3 +682,29 @@ Future possible route:
 Future verification must prove callable main-agent behavior, harmless no-write dry run, repo-root confinement, exact file-scope confinement, no secret or real-data access, no dependency install without approval, no staging/commit/push, before/after git status, and external review before SWE agent can be used as a bounded implementation accelerator.
 
 This route does not authorize SWE agent execution, Yellow backlog participation, implementation assistance, code/test changes, dependency changes, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 28. Mini SWE Agent Noninteractive Dry Run Verification
+
+Current route:
+
+1. `OPEN_MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION_STAGE`
+
+Verification result:
+
+- WSL2 exists only as `docker-desktop`, not a governed user distro
+- probed WSL shell lacked `bash`, had an empty `PATH`, and did not expose usable Python or mini-swe-agent commands
+- `winpty` is unavailable
+- `cmd.exe /c` still fails with `NoConsoleScreenBufferError`
+- no harmless no-write main-agent dry run was completed
+
+Current status:
+
+1. `HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE`
+
+Future possible route:
+
+1. `OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE`
+
+Future provisioning must establish a normal user-controlled WSL2 distro or equivalent PTY runner, exact command path/version, no-write dry run, repo-root confinement, exact file-scope confinement, no secret or real-data access, no dependency install without approval, no staging/commit/push, before/after git status, and external review before SWE agent can be used as a bounded implementation accelerator.
+
+This route does not authorize SWE agent execution, Yellow backlog participation, implementation assistance, WSL distro installation, PTY runner installation, code/test changes, dependency changes, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.

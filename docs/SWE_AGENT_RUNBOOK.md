@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | SWE Agent Runbook |
-| Status | Candidate runbook; mini-swe-agent installed but execution remains HOLD |
-| Snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Stage | s5-swe-agent-install-capability-verification |
-| Baseline commit | `eaa473d28cf3b1b029f46a240b5b1e853a00f980` |
+| Status | Candidate runbook; mini-swe-agent dry-run remains HOLD |
+| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
+| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
 
 This runbook records the current safe boundary for SWE agent / mini-swe-agent. It does not authorize agent execution, implementation, staging, commit, or push.
 
@@ -17,7 +17,7 @@ This runbook records the current safe boundary for SWE agent / mini-swe-agent. I
 Current status:
 
 ```text
-PARTIAL_VERIFIED_INSTALL_HELP_ONLY_EXECUTION_HOLD
+HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE
 ```
 
 Reason:
@@ -27,6 +27,9 @@ Reason:
 - `mini-extra --help` and `mini-extra config --help` are callable
 - package import succeeds
 - `mini --help` and `mini-swe-agent --help` fail in the current Codex non-interactive Windows shell with `NoConsoleScreenBufferError`
+- WSL2 is present only as docker-desktop, not a governed user distro; no usable WSL Python or mini-swe-agent path is available
+- the docker-desktop WSL probe emitted a localhost proxy/NAT warning; future WSL provisioning must resolve or document proxy behavior before package fetch, model-backed callbacks, or agent execution
+- no `winpty` or governed PTY runner is available
 - no harmless no-write agent dry run was completed
 
 ## 3. Allowed Commands In This State
@@ -87,7 +90,7 @@ Future verification must proceed in this order:
 2. Print package/version/help only.
 3. Verify PATH resolution or explicit absolute-path invocation before any main-agent attempt.
 4. Declare the compatible shell/runner for mini-swe-agent's console requirements.
-5. Resolve the current Codex non-interactive Windows `NoConsoleScreenBufferError` or move to a governed PTY-capable route such as WSL2.
+5. Resolve the current Codex non-interactive Windows `NoConsoleScreenBufferError` or move to a governed PTY-capable route such as a normal user-controlled WSL2 distro.
 6. Run a harmless no-write or dry-run command if available.
 7. Confirm no file mutation.
 8. Confirm no staged files.
@@ -154,6 +157,9 @@ HOLD immediately if:
 - install source is ambiguous
 - version cannot be captured
 - the main agent command still fails before help in the automation environment
+- only docker-desktop WSL is available instead of a governed user distro
+- PTY runner such as `winpty` is unavailable
+- WSL localhost proxy/NAT behavior is unresolved for the proposed runner
 - dry run is unavailable
 - dry run mutates files unexpectedly
 - command writes outside exact scope
