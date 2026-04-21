@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
-| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
+| Snapshot | S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-pty-runner-provisioning |
+| Baseline commit | `839392406907824cbbf7b3320f3cd3479aaba0be` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `262dc49`
-- Snapshot: `S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001`
-- Stage: `s5-swe-agent-install-capability-verification`
+- Commit: `8393924`
+- Snapshot: `S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001`
+- Stage: `s5-mini-swe-agent-noninteractive-dry-run-verification`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001.zip`
-- Release sha256: `e0dfea31a06b336aeb093c0fba2b230b9bd8e8decde37c6d3db38853fc69ad96`
+- Release artifact: `releases\secupilot-S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001.zip`
+- Release sha256: `4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab`
 
-The current baseline verified `mini-swe-agent` user-package presence and help visibility but kept SWE agent execution on HOLD. This stage is a Green docs-only mini-swe-agent noninteractive dry-run verification and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, WSL distro installation, PTY runner installation, or AI_COLLAB changes.
+The current baseline attempted WSL2 / PTY-capable mini-swe-agent no-write dry-run verification and kept SWE agent execution on HOLD because no governed user WSL2 distro or PTY runner is available. This stage is a Green docs-only mini-swe-agent PTY runner provisioning decision and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, WSL distro installation, PTY runner installation, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -930,3 +930,36 @@ Future unblock route:
 Current non-authorization:
 
 - This stage does not authorize SWE agent execution, SWE agent integration into Yellow backlog items, implementation assistance, WSL distro installation, PTY runner installation, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+## 41. Mini SWE Agent PTY Runner Provisioning
+
+This stage governs the next safe runner path for mini-swe-agent after noninteractive Windows and docker-desktop WSL probes failed to produce a harmless no-write main-agent dry run.
+
+Provisioning result:
+
+- WSL2 is installed and reports version `2.6.3.0`.
+- The only installed WSL distro remains `docker-desktop`, which is not a governed user-controlled development distro.
+- `wsl.exe --list --online` is reachable and lists `Ubuntu-24.04`.
+- `winget.exe` is visible but was not used.
+- `winpty` remains unavailable.
+- `wt.exe` and `conhost.exe` visibility is insufficient by itself because no governed no-write mini-swe-agent dry run passed through those surfaces.
+- No WSL distro installation, PTY runner installation, package installation, dependency modification, or main-agent execution was performed.
+
+Current SWE agent status:
+
+- `HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING`
+- tracked by AHQ-024
+
+Selected future route:
+
+- Human-controlled provisioning of `Ubuntu-24.04` or an equivalent normal user-controlled WSL2 distro.
+- After provisioning, open `OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE`.
+
+Product-development posture:
+
+- Because a new PRD is expected soon, new Yellow implementation should pause after this tools stage unless the PRD is delayed or product/governance explicitly chooses to continue from the existing YB-05 package.
+- Once the new PRD arrives, the recommended next product route is a Green docs-only PRD intake and route rebase before any further implementation.
+
+Current non-authorization:
+
+- This stage does not authorize SWE agent execution, SWE agent integration into Yellow backlog items, implementation assistance, WSL distro installation by Codex, PTY runner installation by Codex, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.

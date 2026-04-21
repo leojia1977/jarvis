@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001",
+    "id": "S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001",
     "sprint": "Sprint 5",
-    "stage": "s5-mini-swe-agent-noninteractive-dry-run-verification",
+    "stage": "s5-mini-swe-agent-pty-runner-provisioning",
     "created_at": "2026-04-21T14:44:57.712850+08:00",
-    "updated_at": "2026-04-21T16:02:19.491952+08:00"
+    "updated_at": "2026-04-21T16:24:17.988004+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001.zip",
-    "current_release_sha256": "4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab",
-    "baseline_release_sha256": "e0dfea31a06b336aeb093c0fba2b230b9bd8e8decde37c6d3db38853fc69ad96"
+    "current_release_zip": "releases\\secupilot-S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001.zip",
+    "current_release_sha256": "b70b705336c99b51a2715d1c3d05fca9e2c0b8fdaa4c8fca1e39725af71cacdd",
+    "baseline_release_sha256": "4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab"
   },
   "key_files": [
     {
@@ -320,8 +320,8 @@
     },
     {
       "path": "docs\\HANDOFF.md",
-      "role": "handoff-doc",
-      "sha256": "61163b4b2e91dea22d211521081bdf60a1bee81a6ae6fdbc1fec3ea933f5ee61"
+      "role": "handoff",
+      "sha256": "2f6135f1ed1e849bf6b5e6fa93aed92261a285a414d30fbd6719e04e4507ed68"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,18 +790,18 @@
     },
     {
       "path": "docs\\PRODUCT_STATE.md",
-      "role": "rolling-product-state-map",
-      "sha256": "feafc6aebd5b51699f79c2f57f41c8ff36a85847ec6633eee30dcfaca7f8500c"
+      "role": "product-state",
+      "sha256": "ded26aba14f6af3ea65bff040ead1b27bd269335a6d0d446af010803a23d78c9"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "92f35349c677e50a66d845ad16b4d4449a3e5959557911e14a3f15e8c9f6953a"
+      "sha256": "bc23b2509e27795adca4077242fa4b617f8465cc27b86ed6bafbf6d4047579b3"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "860ce28d2124f6566981ffe50b020ae4b446774ce1640ad40d0f8a8f6c49122a"
+      "sha256": "8558701820a3f34e5a73234e619bbd6af262aaf3a59924b19572136b3d52e58c"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -821,7 +821,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "a3f5cab16362919e0d60b97bd6ea80d737692874b2da2737f3ff5122a1799810"
+      "sha256": "036d3725f50e35a11cf52091b82721369f09ae5c5b8ffeb320597e73934ee854"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -831,7 +831,7 @@
     {
       "path": "docs\\AUTONOMOUS_HOLD_QUEUE.md",
       "role": "autonomous-hold-queue",
-      "sha256": "5aa0b9c7c6a5cc67cad7c144306ecff2258913a700e642c01adcd6062884b5aa"
+      "sha256": "a1663a47cc2766a30aa2a2c4144254b01506cbdb7001e4b945d8efe44fbc11b4"
     },
     {
       "path": "docs\\AUTONOMOUS_POLICY_EXTERNAL_REVIEW_AND_APPROVER_CONFIRMATION.md",
@@ -876,17 +876,17 @@
     {
       "path": "docs\\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md",
       "role": "autonomous-toolchain-integration",
-      "sha256": "48aef59e1ea69a6bb825c7397717861ab034b6d454606711b90124c2ca7ba2cb"
+      "sha256": "ff3bd45edd9ca849437dc07e9a3076de5cd06625c6d6bedee4e3ad260a97df1a"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md",
       "role": "autonomous-tool-capability-matrix",
-      "sha256": "d8e1644967122e6d8c0f9ed3099c326e0cda0a204a458b5ae2d95c11ee25a528"
+      "sha256": "f845221655c0a0f04c9952f95e3f9f1ccf6de7b517ab05e39a59c1e5a49ea2a9"
     },
     {
       "path": "docs\\AUTONOMOUS_TOOL_RUNBOOK.md",
       "role": "autonomous-tool-runbook",
-      "sha256": "f326a30ea9a87975472efe4c7d2436faa43dc1c45a0b664f394de63873b07ba2"
+      "sha256": "959610b84feb5001ea1e0c718c63274c5139144836d9d541755505c792c85a24"
     },
     {
       "path": "docs\\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md",
@@ -1141,7 +1141,7 @@
     {
       "path": "docs\\SWE_AGENT_RUNBOOK.md",
       "role": "swe-agent-runbook",
-      "sha256": "16a150edb47357f1c08b5eea50ff265ff7f545183a68860b4b5b1c69b3a3615d"
+      "sha256": "9e1c765209bc41b1e5e3af2543d1a0ea9571bab93b1a560ede84e8c7f7ac5779"
     },
     {
       "path": "docs\\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md",
@@ -1152,6 +1152,11 @@
       "path": "docs\\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md",
       "role": "mini-swe-agent-noninteractive-dry-run-verification",
       "sha256": "ebfbc02e596428c7e75a76624d15a1e71dc18fcc4f90f64c8a7f8edc47c05ab6"
+    },
+    {
+      "path": "docs\\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md",
+      "role": "mini-swe-agent-pty-runner-provisioning",
+      "sha256": "0384b33f4315c7f9e9685f2e4e18f7d53299b677a94d8021800609ce8d905695"
     }
   ],
   "tests": [
@@ -1216,13 +1221,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001",
+      "Snapshot ID: S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T16:02:20.546739+08:00",
+    "last_verified_at": "2026-04-21T16:24:19.034905+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1232,24 +1237,27 @@
     "report_path": "releases\\verify_report.json"
   },
   "future_route": {
-    "id": "OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE",
+    "id": "OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE",
     "preconditions": [
-      "normal user-controlled WSL2 distro or governed PTY runner selected",
-      "runner path and version recorded",
-      "mini-swe-agent command path and version recorded",
+      "human-controlled Ubuntu-24.04 or equivalent normal WSL2 user distro provisioned outside Codex automation",
+      "repo path mapping from WSL to the governed workspace confirmed",
+      "Python and mini-swe-agent command path/version verified without printing secrets",
       "PATH resolution or absolute-path invocation verified before main-agent attempt",
-      "WSL localhost proxy/NAT behavior resolved or documented before network package fetch or model-backed callback",
-      "no secret values printed read logged or committed",
-      "before and after git status captured",
+      "proxy/NAT behavior documented before package fetch or model-backed callback",
       "harmless synthetic no-write dry run completed",
-      "no file mutation staged files remote actions repo dependency installs browser actions real data or credential access",
-      "external review confirms bounded role before Yellow backlog consideration"
+      "repo-root confinement and exact file-scope confinement proven",
+      "no dependency install without approval, no file mutation, no staged files, no remote actions, no browser actions, no real data, and no credential access",
+      "before/after git status captured",
+      "external review confirms bounded future accelerator role"
     ]
   },
   "stage_outcome": {
-    "capability_status": "HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE",
-    "hold_reason": "No suitable user-controlled WSL2 distro, PTY runner, or Windows invocation path was available for harmless no-write mini-swe-agent main-agent dry run.",
-    "future_route": "OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE",
-    "yellow_backlog_integration": "not_authorized"
+    "capability_status": "HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING",
+    "hold_reason": "No normal user-controlled WSL2 distro or governed PTY runner is provisioned for harmless no-write mini-swe-agent main-agent dry run.",
+    "selected_future_runner_route": "HUMAN_CONTROLLED_WSL2_USER_DISTRO_FIRST",
+    "recommended_distro": "Ubuntu-24.04",
+    "future_route": "OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE",
+    "yellow_backlog_integration": "not_authorized",
+    "product_development_recommendation": "WAIT_FOR_NEW_PRD_THEN_OPEN_PRD_INTAKE_AND_ROUTE_REBASE unless product/governance explicitly continues from existing YB-05"
   }
 }

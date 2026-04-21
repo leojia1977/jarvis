@@ -5,16 +5,16 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Toolchain Integration |
-| Status | Updated by mini-swe-agent noninteractive dry-run verification draft |
-| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
-| Route | OPEN_MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION_STAGE |
-| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
-| Baseline snapshot | S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001 |
-| Baseline stage | s5-swe-agent-install-capability-verification |
+| Status | Updated by mini-swe-agent PTY runner provisioning draft |
+| Snapshot | S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-pty-runner-provisioning |
+| Route | OPEN_MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING_STAGE |
+| Baseline commit | `839392406907824cbbf7b3320f3cd3479aaba0be` |
+| Baseline snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
+| Baseline stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
 | Baseline manifest status | PASS |
-| Baseline release artifact | `releases\secupilot-S5-SWE-AGENT-INSTALL-CAPABILITY-VERIFICATION-2026-04-21-001.zip` |
-| Baseline release sha256 | `e0dfea31a06b336aeb093c0fba2b230b9bd8e8decde37c6d3db38853fc69ad96` |
+| Baseline release artifact | `releases\secupilot-S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001.zip` |
+| Baseline release sha256 | `4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab` |
 
 ## 2. Purpose
 
@@ -228,7 +228,24 @@ Result:
 - no harmless no-write main-agent dry run was completed
 - git status stayed unchanged except known unrelated untracked files
 
-SWE agent status is `HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE`. It may not be used for Yellow backlog implementation until a later governed PTY runner provisioning route passes and then a no-write dry-run verification passes.
+SWE agent remains `HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE` and may not be used for Yellow backlog implementation.
+
+## 7.10 Mini SWE Agent PTY Runner Provisioning Result
+
+`S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001` records the safe provisioning route for mini-swe-agent.
+
+Result:
+
+- WSL version `2.6.3.0` is installed
+- only `docker-desktop` is installed as a WSL distro
+- `wsl.exe --list --online` is reachable and lists `Ubuntu-24.04`
+- `winget.exe` is visible, but no install was performed
+- `winpty` is unavailable
+- `wt.exe` and `conhost.exe` visibility is not accepted as a governed noninteractive PTY runner
+- selected future route is human-controlled `Ubuntu-24.04` WSL2 user distro provisioning
+- new PRD is expected soon, so product development should wait for PRD intake/rebase before starting new Yellow implementation unless product/governance explicitly proceeds with the existing YB-05 route
+
+SWE agent status is `HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING`. This stage does not authorize WSL distro installation by Codex, PTY runner installation by Codex, mini-swe-agent execution, Yellow backlog integration, code/test changes, dependency changes, staging, commit, or push outside closeout. It may not be used for Yellow backlog implementation until a later human-controlled WSL2/PTY provisioning step is complete and a separate no-write dry-run verification route passes.
 
 ## 8. Non-Authorization
 

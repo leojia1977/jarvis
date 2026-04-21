@@ -5,10 +5,10 @@
 | Field | Value |
 | --- | --- |
 | Title | SWE Agent Runbook |
-| Status | Candidate runbook; mini-swe-agent dry-run remains HOLD |
-| Snapshot | S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-noninteractive-dry-run-verification |
-| Baseline commit | `262dc49081ff4d41b0ae425536b098e53a218136` |
+| Status | Candidate runbook; mini-swe-agent PTY runner remains HOLD |
+| Snapshot | S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001 |
+| Stage | s5-mini-swe-agent-pty-runner-provisioning |
+| Baseline commit | `839392406907824cbbf7b3320f3cd3479aaba0be` |
 
 This runbook records the current safe boundary for SWE agent / mini-swe-agent. It does not authorize agent execution, implementation, staging, commit, or push.
 
@@ -17,7 +17,7 @@ This runbook records the current safe boundary for SWE agent / mini-swe-agent. I
 Current status:
 
 ```text
-HOLD_WSL_PTY_DRY_RUN_NOT_AVAILABLE
+HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING
 ```
 
 Reason:
@@ -30,6 +30,8 @@ Reason:
 - WSL2 is present only as docker-desktop, not a governed user distro; no usable WSL Python or mini-swe-agent path is available
 - the docker-desktop WSL probe emitted a localhost proxy/NAT warning; future WSL provisioning must resolve or document proxy behavior before package fetch, model-backed callbacks, or agent execution
 - no `winpty` or governed PTY runner is available
+- `wsl.exe --list --online` can see `Ubuntu-24.04`, but no normal user-controlled WSL2 distro is installed
+- this stage selects human-controlled `Ubuntu-24.04` WSL2 provisioning as the preferred future route
 - no harmless no-write agent dry run was completed
 
 ## 3. Allowed Commands In This State
@@ -158,6 +160,7 @@ HOLD immediately if:
 - version cannot be captured
 - the main agent command still fails before help in the automation environment
 - only docker-desktop WSL is available instead of a governed user distro
+- normal user-controlled WSL2 distro provisioning has not been completed
 - PTY runner such as `winpty` is unavailable
 - WSL localhost proxy/NAT behavior is unresolved for the proposed runner
 - dry run is unavailable
