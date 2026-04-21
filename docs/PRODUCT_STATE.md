@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-CURRENT-PHASE-SUMMARY-REFRESH-2026-04-21-001 |
-| Stage | s5-current-phase-summary-refresh |
-| Baseline commit | `6111611ab6ecb822a1954f254b9071dbd97cc283` |
+| Snapshot | S5-NEXT-PRODUCT-DEVELOPMENT-ROUTE-SELECTION-2026-04-21-001 |
+| Stage | s5-next-product-development-route-selection |
+| Baseline commit | `e7de9c7d8de26cca77b76ce79949bf94e45bc819` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `6111611`
-- Snapshot: `S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001`
-- Stage: `s5-autonomous-yellow-backlog-template-anti-overengineering-refresh`
+- Commit: `e7de9c7`
+- Snapshot: `S5-CURRENT-PHASE-SUMMARY-REFRESH-2026-04-21-001`
+- Stage: `s5-current-phase-summary-refresh`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-AUTONOMOUS-YELLOW-BACKLOG-TEMPLATE-ANTI-OVERENGINEERING-REFRESH-2026-04-21-001.zip`
-- Release sha256: `7c0d8d3c8b021a268acba757fb537336c97e657710f31685d057b8f609a6efbf`
+- Release artifact: `releases\secupilot-S5-CURRENT-PHASE-SUMMARY-REFRESH-2026-04-21-001.zip`
+- Release sha256: `ab69b2745a2b3fd3e95689dd7cd72d349fc0d428ccb1049ccea9dd68d1f47c24`
 
-The current baseline has closed the final bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md` and added the reusable anti-overengineering Yellow backlog template. This stage is a Green docs-only current phase summary refresh; it does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline has closed the final bounded Yellow backlog item in `docs\S5C_AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION.md`, added the reusable anti-overengineering Yellow backlog template, and created the governed current phase summary. This stage is a Green docs-only route selection and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -771,3 +771,33 @@ Recommended next route:
 Current non-authorization:
 
 - This stage does not authorize implementation, unlisted Yellow items, production code changes, test changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
+
+## 36. Next Product Development Route Selection
+
+This stage records a Green docs-only next route selection.
+
+Selected route:
+
+- `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`
+
+Selection rationale:
+
+- the current baseline has a reusable Yellow backlog preauthorization template
+- the next useful product-development step is to define a new exact backlog package before any implementation
+- no current exact Yellow item exists after YB-04
+- launch, deploy, real data, credentials, public endpoint work, S5-B/S5-D, ORDIV, Red-3, and AI_COLLAB remain unavailable
+
+SWE agent status:
+
+- `NOT_INSTALLED_OR_NOT_VERIFIED`
+- future allowed role: bounded implementation accelerator only after separate capability verification
+- not part of the current autonomous execution path
+- does not block the selected Green docs-only route
+
+Future SWE agent verification route:
+
+- `OPEN_SWE_AGENT_CAPABILITY_VERIFICATION_STAGE`
+
+Current non-authorization:
+
+- This stage does not authorize implementation, unlisted Yellow items, SWE agent installation/execution/integration, production code changes, test changes, runtime/API/schema changes, public endpoint work, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, or Claude Code file edits/command execution/tests/staging/commit/push.
