@@ -199,6 +199,54 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
                 at_utc="2026-04-20T09:22:00Z",
             )
 
+    def test_reopen_from_closed_case_records_reopen_audit_and_preserves_close_reason(self):
+        record = build_initial_persistent_case_record(
+            {
+                "case_id": "CASE-S5C-IMPL12-REOPEN-AUDIT",
+                "version": "3.1",
+                "risk_score": 5.1,
+                "confidence_score": 0.74,
+                "confidence_label": "MEDIUM",
+                "verdict_status": "REVIEW_REQUIRED",
+                "investigation_status": "COMPLETE",
+                "scenario_name": "Reopen Lifecycle Audit",
+                "forensic_result": {
+                    "hosts_analyzed": ["WKST-047"],
+                    "total_suspicious_chains": 0,
+                    "top_chains": [],
+                    "attack_stages_observed": [],
+                    "persistence_mechanisms": [],
+                    "evidence_gaps": [],
+                },
+                "suggested_action": {},
+                "audit_trail": {"degraded": False, "degraded_reasons": []},
+            },
+            snapshot_id="S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT",
+            actor="analyst.leo",
+            created_at_utc="2026-04-21T08:00:00Z",
+        )
+        closed = close_persistent_case(
+            record,
+            actor="manager.chen",
+            close_reason="resolved_false_positive",
+            reason="close before reopen regression",
+            at_utc="2026-04-21T08:01:00Z",
+        )
+
+        reopened = transition_persistent_case_status(
+            closed,
+            to_status="open",
+            actor="manager.chen",
+            reason="reopen after additional review",
+            at_utc="2026-04-21T08:02:00Z",
+        )
+
+        self.assertEqual(reopened.lifecycle_status, "open")
+        self.assertEqual(reopened.lifecycle_audit[-1].event_type, "case_reopened")
+        self.assertEqual(reopened.lifecycle_audit[-1].case_status, "open")
+        self.assertEqual(reopened.lifecycle_audit[-1].reason, "reopen after additional review")
+        self.assertEqual(reopened.lifecycle_audit[-2].details["close_reason"], "resolved_false_positive")
+
     def test_workflow_summary_tracks_pending_approved_and_closed_sources_without_mutation(self):
         record = build_initial_persistent_case_record(
             _workflow_summary_case(),

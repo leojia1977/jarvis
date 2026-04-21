@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001",
+    "id": "S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001",
     "sprint": "Sprint 5",
-    "stage": "s5-mini-swe-agent-pty-runner-provisioning",
+    "stage": "s5c-impl12-reopen-lifecycle-audit-implementation-closeout",
     "created_at": "2026-04-21T14:44:57.712850+08:00",
-    "updated_at": "2026-04-21T16:24:17.988004+08:00"
+    "updated_at": "2026-04-21T16:43:15.264268+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001.zip",
-    "current_release_sha256": "b70b705336c99b51a2715d1c3d05fca9e2c0b8fdaa4c8fca1e39725af71cacdd",
-    "baseline_release_sha256": "4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001.zip",
+    "current_release_sha256": "d6bf3675262d4df166f73fcba4ebb48f721bec90a094324553753977bf95b055",
+    "baseline_release_sha256": "b70b705336c99b51a2715d1c3d05fca9e2c0b8fdaa4c8fca1e39725af71cacdd"
   },
   "key_files": [
     {
@@ -230,8 +230,8 @@
     },
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
-      "role": "canonical-case-lifecycle-regression-tests",
-      "sha256": "0fd97af39bbce3b873d5654f5426a9392520a36bf360527154d2c9818ae09a52"
+      "role": "case-lifecycle-regression-tests",
+      "sha256": "e956fcb020c17697e22962dc57431cf4d72d12b712878231f4b6eb1c8a86c50b"
     },
     {
       "path": "backend\\tests\\test_case_store.py",
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "2f6135f1ed1e849bf6b5e6fa93aed92261a285a414d30fbd6719e04e4507ed68"
+      "sha256": "eaa64288b3184b999c2a6b0c1aedfade2652100deca1382e79712dab52e6c962"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "product-state",
-      "sha256": "ded26aba14f6af3ea65bff040ead1b27bd269335a6d0d446af010803a23d78c9"
+      "sha256": "538bf38c6065eb8e214379e42175e13185048543a7f1a1aed630a8b2536708c3"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "governance-decision-log",
-      "sha256": "bc23b2509e27795adca4077242fa4b617f8465cc27b86ed6bafbf6d4047579b3"
+      "sha256": "9302451a7d47a85d4ed48b1a8355e2f14db39b673408106e7306d1b79d952ea4"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "roadmap-and-parked-items",
-      "sha256": "8558701820a3f34e5a73234e619bbd6af262aaf3a59924b19572136b3d52e58c"
+      "sha256": "46c220149eae839cfd7808569381a94901a62d7323a13fb4036fe5a52053eefb"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1157,6 +1157,11 @@
       "path": "docs\\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md",
       "role": "mini-swe-agent-pty-runner-provisioning",
       "sha256": "0384b33f4315c7f9e9685f2e4e18f7d53299b677a94d8021800609ce8d905695"
+    },
+    {
+      "path": "docs\\S5C_IMPL12_REOPEN_LIFECYCLE_AUDIT_IMPLEMENTATION_CLOSEOUT.md",
+      "role": "s5c-impl12-reopen-lifecycle-audit-closeout",
+      "sha256": "c3798d15446aefc6a3e23809c579c6920df7f31afa6614821aafbab86f875368"
     }
   ],
   "tests": [
@@ -1221,13 +1226,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001",
+      "Snapshot ID: S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T16:24:19.034905+08:00",
+    "last_verified_at": "2026-04-21T16:43:16.424059+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1239,25 +1244,25 @@
   "future_route": {
     "id": "OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE",
     "preconditions": [
-      "human-controlled Ubuntu-24.04 or equivalent normal WSL2 user distro provisioned outside Codex automation",
-      "repo path mapping from WSL to the governed workspace confirmed",
-      "Python and mini-swe-agent command path/version verified without printing secrets",
-      "PATH resolution or absolute-path invocation verified before main-agent attempt",
-      "proxy/NAT behavior documented before package fetch or model-backed callback",
-      "harmless synthetic no-write dry run completed",
-      "repo-root confinement and exact file-scope confinement proven",
+      "SecuPilotUbuntu2404 WSL2 distro remains available and stopped before verification starts",
+      "working tree is clean except known out-of-scope untracked files",
+      "mini-swe-agent command path and version inside WSL are verified without printing secrets",
+      "PATH resolution or absolute path invocation is verified before main-agent attempt",
+      "harmless synthetic no-write dry run is used",
+      "repo-root confinement and exact file-scope confinement are proven",
       "no dependency install without approval, no file mutation, no staged files, no remote actions, no browser actions, no real data, and no credential access",
       "before/after git status captured",
       "external review confirms bounded future accelerator role"
     ]
   },
   "stage_outcome": {
-    "capability_status": "HOLD_PENDING_HUMAN_WSL2_USER_DISTRO_PROVISIONING",
-    "hold_reason": "No normal user-controlled WSL2 distro or governed PTY runner is provisioned for harmless no-write mini-swe-agent main-agent dry run.",
-    "selected_future_runner_route": "HUMAN_CONTROLLED_WSL2_USER_DISTRO_FIRST",
-    "recommended_distro": "Ubuntu-24.04",
-    "future_route": "OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE",
-    "yellow_backlog_integration": "not_authorized",
-    "product_development_recommendation": "WAIT_FOR_NEW_PRD_THEN_OPEN_PRD_INTAKE_AND_ROUTE_REBASE unless product/governance explicitly continues from existing YB-05"
+    "implementation_status": "PASS_PENDING_FULL_GATE_AFTER_REVIEW",
+    "item": "S5C-YB-05",
+    "route": "OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_05",
+    "changed_file": "backend\\tests\\test_case_lifecycle_regression.py",
+    "targeted_tests": "py -3 -m unittest -q backend.tests.test_case_lifecycle_regression",
+    "targeted_tests_result": "PASS",
+    "review_result": "PASS after focused fix",
+    "future_route": "OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE"
   }
 }

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001 |
-| Stage | s5-mini-swe-agent-pty-runner-provisioning |
-| Baseline commit | `839392406907824cbbf7b3320f3cd3479aaba0be` |
+| Snapshot | S5C-IMPL12-REOPEN-LIFECYCLE-AUDIT-IMPLEMENTATION-CLOSEOUT-2026-04-21-001 |
+| Stage | s5c-impl12-reopen-lifecycle-audit-implementation-closeout |
+| Baseline commit | `1c7d7230ee2b6563620961419d73c95dde8932e0` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `8393924`
-- Snapshot: `S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001`
-- Stage: `s5-mini-swe-agent-noninteractive-dry-run-verification`
+- Commit: `1c7d723`
+- Snapshot: `S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001`
+- Stage: `s5-mini-swe-agent-pty-runner-provisioning`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-MINI-SWE-AGENT-NONINTERACTIVE-DRY-RUN-VERIFICATION-2026-04-21-001.zip`
-- Release sha256: `4b88b134fdfbb13f380f07d842bb0c702b8da90b9d87112cce624f5c3a470eab`
+- Release artifact: `releases\secupilot-S5-MINI-SWE-AGENT-PTY-RUNNER-PROVISIONING-2026-04-21-001.zip`
+- Release sha256: `b70b705336c99b51a2715d1c3d05fca9e2c0b8fdaa4c8fca1e39725af71cacdd`
 
-The current baseline attempted WSL2 / PTY-capable mini-swe-agent no-write dry-run verification and kept SWE agent execution on HOLD because no governed user WSL2 distro or PTY runner is available. This stage is a Green docs-only mini-swe-agent PTY runner provisioning decision and does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, WSL distro installation, PTY runner installation, or AI_COLLAB changes.
+The current baseline selected human-controlled WSL2 / PTY runner provisioning for mini-swe-agent and kept SWE agent execution on HOLD pending a later no-write dry-run verification. This stage is a Yellow test-only implementation closeout for preauthorized `S5C-YB-05` reopen lifecycle audit regression. It does not authorize implementation beyond the exact test file, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution or Yellow backlog integration, WSL distro installation, PTY runner installation, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -963,3 +963,29 @@ Product-development posture:
 Current non-authorization:
 
 - This stage does not authorize SWE agent execution, SWE agent integration into Yellow backlog items, implementation assistance, WSL distro installation by Codex, PTY runner installation by Codex, production code changes, test changes, dependency changes, fixture changes, runtime/API/schema changes, public endpoint work, release script changes, contract changes, AI_COLLAB changes, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+## 42. S5-C-IMPL-12 Reopen Lifecycle Audit Implementation Closeout
+
+This stage records the closeout for preauthorized Yellow backlog item `S5C-YB-05`.
+
+Implemented scope:
+
+- Adds one synthetic regression test in `backend\tests\test_case_lifecycle_regression.py`.
+- Closes a persistent case through existing `close_persistent_case()`.
+- Reopens the same case through existing `transition_persistent_case_status(..., to_status="open", ...)`.
+- Asserts the reopened lifecycle status, final `case_reopened` audit event, final audit case status, final audit reason, and earlier close audit `details["close_reason"]` preservation.
+
+Verification before closeout gate:
+
+- Claude Code review-only returned `PASS_WITH_FINDINGS`; the only LOW finding was fixed.
+- Focused re-review returned `PASS`.
+- `py -3 -m unittest -q backend.tests.test_case_lifecycle_regression` passed with 10 tests OK.
+- `git diff --check` passed with no output.
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, files outside `backend\tests\test_case_lifecycle_regression.py`, production code changes, runtime/API/schema behavior, public endpoint work, new lifecycle status, new audit event type, new close reason, dependency changes, fixture changes, release script changes, contract changes, AI_COLLAB changes, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, SWE agent execution or Yellow backlog participation, staging, commit, or push before closeout rules are satisfied.
+
+Next route after this closeout:
+
+- `OPEN_MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION_STAGE`
