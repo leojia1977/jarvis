@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001 |
-| Stage | s5-live-prd-intake-runbook-metrics |
-| Baseline commit | `6eb2cd809c89d989b1c8f91d2b5328212b1ea18d` |
+| Snapshot | S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001 |
+| Stage | s5-prd-intake-automation-trigger |
+| Baseline commit | `47f86dc4249155a30bc617eb26f522f9caf4b739` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -1045,5 +1045,37 @@ Still parked or deferred:
 - no S5-B/S5-D/ORDIV reopen
 - no Red-3 action
 - no Claude Web review claim without an actual verdict
+
+This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 41. PRD Intake Automation Trigger
+
+Current route:
+
+1. `OPEN_PRD_INTAKE_AUTOMATION_TRIGGER_STAGE`
+
+Trigger result:
+
+- `docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md` defines positive triggers, non-triggers, safety screen, trigger state machine, idempotency, and input boundary.
+- `docs\PRD_INTAKE_RUN_TRIGGER.md` defines the exact run packet, required read set, output contract, Claude Web queue rule, SWE disabled state, and inbox report template.
+- `docs\PRD_INTAKE_AUTOMATION_TRIGGER_CLOSEOUT.md` records the trigger closeout and non-authorization boundaries.
+
+Future use:
+
+1. At each ops-loop run while waiting for PRD, apply the trigger rules first.
+2. If no positive trigger exists, keep waiting and do not edit the live metrics record.
+3. If a positive trigger exists, execute the run trigger, run safety screen, start live intake, and populate metrics.
+4. Open route selection only when run trigger and live intake produce route-selection readiness.
+
+Still parked or deferred:
+
+- no implementation without a later exact scoped ticket and GO
+- no SWE product execution without a later exact Yellow item
+- no external pilot execution or readiness claim
+- no public endpoint work
+- no S5-B/S5-D/ORDIV reopen
+- no Red-3 action
+- no Claude Web review claim without an actual verdict
+- no metrics edit during no-trigger wait state
 
 This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.

@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001",
+    "id": "S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001",
     "sprint": "Sprint 5",
-    "stage": "s5-live-prd-intake-runbook-metrics",
-    "created_at": "2026-04-22T15:14:33+08:00",
-    "updated_at": "2026-04-22T15:21:32.896403+08:00"
+    "stage": "s5-prd-intake-automation-trigger",
+    "created_at": "2026-04-22T15:29:38+08:00",
+    "updated_at": "2026-04-22T15:37:23.840102+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001.zip",
-    "current_release_sha256": "4f65a779f30803bb042031399d16ab2aa52b3b900e95c809e607caccee441448",
-    "baseline_release_sha256": "23ab8922382c3743de4746b34372f1ef1eb96a0e62239f33e144cd83d469ea21"
+    "current_release_zip": "releases\\secupilot-S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001.zip",
+    "current_release_sha256": "1cd77a9224b94a2d09a2f50938fd33b9f26db32175d06279d547caa5c649bcb2",
+    "baseline_release_sha256": "4f65a779f30803bb042031399d16ab2aa52b3b900e95c809e607caccee441448"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "e83c764fd84728405dfdbf4e669823c5cac6c2117dbecd46ac9e32d03991e61a"
+      "sha256": "83aa674cb0e08489a7ba1d79c135c5fcfd716f3ddf8791ff7231a6f4b2882fb3"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state",
-      "sha256": "badea63dc14ca3b39bf131b7be009c0dc12303256cb3b59f352e57f604d96b4b"
+      "sha256": "637cbb899e002f5b66762fcc5f2d806645e1b4484573d8fad395f0fea8af29ec"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "rolling-governance-decision-log",
-      "sha256": "2ffd7903fa8c03ac198ec7e4dbf7b12eeda74307a4c925a0dacc52ae2081c77c"
+      "sha256": "38f522055c7b8bf05cfe5b3a944f883394e5297bd442f7f951939b9d8e09e300"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "rolling-roadmap-and-parked-items",
-      "sha256": "e65e30f71cd1d6144bcde10c61c1d9d4894286f13f4029c605c5d62b1100ffe8"
+      "sha256": "c29891f6f9c8b78b55ca208904a07624abde31874e9e4a465aa795b6c37ce80d"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -821,7 +821,7 @@
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PIPELINE.md",
       "role": "autonomous-delivery-pipeline",
-      "sha256": "9387cfb97f10a4b36988f919f4437cfe52c9190e4a3ad32c0fc894e6569c652f"
+      "sha256": "709328da611f083ef30687e3fbc1957ab383a92ead69c2f56f6974c6ff6e41c5"
     },
     {
       "path": "docs\\L3_CUSTOMER_TRIAL_LAUNCH_CRITICAL_PATH.md",
@@ -1196,12 +1196,12 @@
     {
       "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md",
       "role": "swe-autonomous-delivery-acceleration-playbook",
-      "sha256": "7f2f4f5e363e2258daec0d70d8d243904684b2ced9a80e38c12ddeb49fef49ea"
+      "sha256": "2be56ff58fa3642d6211051652b375b3f1564214dbf98778cc794b24ac23d52d"
     },
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PROMPT_PACK.md",
       "role": "autonomous-delivery-prompt-pack",
-      "sha256": "a2fe7e1578f5c9eac38f5a80148398d08274b524a43693b8f30ac3ad5dfdb5e7"
+      "sha256": "1098cb542dcd5a2136fd1b27abc8cfd8223da80a065ead83e786462f6c6c8768"
     },
     {
       "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md",
@@ -1231,17 +1231,32 @@
     {
       "path": "docs\\LIVE_PRD_INTAKE_RUNBOOK.md",
       "role": "live-prd-intake-runbook",
-      "sha256": "93f316c8cdf658943918582accadf7060cd807b7c4d8275c11b7d5c2e3f7fe28"
+      "sha256": "d753dde8d58aff73a917e77c26cc943d8422d411d9dadce6bc18d8cad73e1af0"
     },
     {
       "path": "docs\\LIVE_PRD_INTAKE_METRICS_RECORD.md",
       "role": "live-prd-intake-metrics-record",
-      "sha256": "eaab0ef6ac4594fa54066cb6bc480a1aa531d8bf9ea0b5397e332afc19bc0f76"
+      "sha256": "98a852a597734f16d0d1c25892e8ba4b124b24660916ee4e4e3eb610566a6f84"
     },
     {
       "path": "docs\\LIVE_PRD_INTAKE_RUNBOOK_METRICS_CLOSEOUT.md",
       "role": "live-prd-intake-runbook-metrics-closeout",
       "sha256": "f4766baa3a870ff7f6e581e8b936f997906e1e31189c483ad8833fd0d7133a47"
+    },
+    {
+      "path": "docs\\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md",
+      "role": "prd-intake-automation-trigger-rules",
+      "sha256": "7e0fab101ef674b8e5298889833f19b4ac28379e7b748e0f9e83f197e2841af3"
+    },
+    {
+      "path": "docs\\PRD_INTAKE_RUN_TRIGGER.md",
+      "role": "prd-intake-run-trigger",
+      "sha256": "cffd45daa841d4bc70523e37508c9a6ad938a3d6d5fdf84a13f513dcee5a614b"
+    },
+    {
+      "path": "docs\\PRD_INTAKE_AUTOMATION_TRIGGER_CLOSEOUT.md",
+      "role": "prd-intake-automation-trigger-closeout",
+      "sha256": "d67881580e0211f5ca87fc42f900ebd0e3cf33720ebb91a92067ee41629f77f9"
     }
   ],
   "tests": [
@@ -1306,13 +1321,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001",
+      "Snapshot ID: S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-22T15:21:33.893003+08:00",
+    "last_verified_at": "2026-04-22T15:37:25.213724+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1332,26 +1347,27 @@
     ]
   },
   "stage_outcome": {
-    "implementation_status": "GREEN_DOCS_ONLY_LIVE_PRD_INTAKE_RUNBOOK_METRICS_FULL_GATE_PASS",
-    "route": "OPEN_LIVE_PRD_INTAKE_RUNBOOK_METRICS_STAGE",
+    "implementation_status": "GREEN_DOCS_ONLY_PRD_INTAKE_AUTOMATION_TRIGGER_FULL_GATE_PASS",
+    "route": "OPEN_PRD_INTAKE_AUTOMATION_TRIGGER_STAGE",
     "lane": "Green docs-only",
-    "decision": "FORMALIZE_LIVE_PRD_INTAKE_RUNBOOK_AND_METRICS_RECORD",
+    "decision": "FORMALIZE_PRD_INTAKE_AUTOMATION_TRIGGER_AND_RUN_TRIGGER",
     "accepted_artifacts": [
-      "docs\\LIVE_PRD_INTAKE_RUNBOOK.md",
-      "docs\\LIVE_PRD_INTAKE_METRICS_RECORD.md",
-      "docs\\LIVE_PRD_INTAKE_RUNBOOK_METRICS_CLOSEOUT.md"
+      "docs\\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md",
+      "docs\\PRD_INTAKE_RUN_TRIGGER.md",
+      "docs\\PRD_INTAKE_AUTOMATION_TRIGGER_CLOSEOUT.md"
     ],
     "preserved_product_posture": "WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION",
     "acceleration_controls": [
-      "live PRD intake starts only after real PRD or explicit product direction exists",
-      "intake runbook captures product source timestamp baseline safety screen goals non-goals routes review path and HOLDs",
-      "metrics record captures timestamps elapsed minutes prompt routing review queues SWE eligibility scope creep and over-generalization findings",
-      "Claude Web usage limit or queued state is not PASS without an actual verdict",
-      "SWE remains disabled unless a later exact Yellow item authorizes bounded implementation accelerator use",
-      "route selection proceeds only when intake decision allows it"
+      "ops loop checks PRD trigger rules while waiting for latest PRD or explicit product direction",
+      "positive trigger requires governed product source authority and safety screen before live intake starts",
+      "run trigger calls live PRD intake runbook and metrics record only after positive trigger",
+      "no-trigger runs keep waiting and must not edit the live metrics record",
+      "trigger key source_id source_timestamp baseline_snapshot prevents duplicate intake runs",
+      "Claude Web queued unavailable or usage-limited state is not PASS without an actual verdict",
+      "SWE remains disabled unless a later exact Yellow item authorizes bounded implementation accelerator use"
     ],
     "next_route_when_ready": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "release_verification": "PASS",
-    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_LIVE_PRD_INTAKE_RUNBOOK_METRICS"
+    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_PRD_INTAKE_AUTOMATION_TRIGGER"
   }
 }

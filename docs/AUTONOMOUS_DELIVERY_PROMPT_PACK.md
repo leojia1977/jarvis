@@ -131,6 +131,48 @@ Required output:
 - Next governed artifact:
 ```
 
+## 4.2 PRD Intake Automation Trigger Prompt
+
+Use at the start of an autonomous ops-loop run when the current posture is `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`.
+
+This prompt determines whether live PRD intake should start. It must not invent product scope.
+
+```text
+<Required Prompt Header>
+<Anti-Generalization Clause>
+
+Review type: PRD intake automation trigger check
+Output role: trigger decision only
+
+Candidate source context:
+- Current user/product input:
+- Candidate PRD/source id:
+- Candidate source timestamp:
+- Current baseline snapshot:
+- Current baseline commit:
+- Current git status:
+- Claude Web availability:
+
+Task:
+1. Apply docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md.
+2. Decide whether a positive governed PRD/product-source trigger exists.
+3. If no positive trigger exists, return WAIT and do not edit metrics.
+4. If a positive trigger exists, identify the source id, timestamp, and authority.
+5. Screen for secrets, credentials, raw customer data, browser/session material, and unredacted evidence.
+6. Decide whether docs\PRD_INTAKE_RUN_TRIGGER.md may execute.
+
+Required output:
+- Trigger decision: START_LIVE_PRD_INTAKE / WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION / HOLD
+- Source id:
+- Source timestamp:
+- Source authority:
+- Safety screen:
+- Claude Web state:
+- Metrics edit allowed: yes/no
+- HOLDs:
+- Next governed artifact:
+```
+
 ## 5. SWE Bounded Implementation Prompt
 
 Use only when a later exact Yellow item explicitly authorizes SWE as `bounded implementation accelerator`.
@@ -424,6 +466,6 @@ When the latest PRD or explicit product direction arrives, use this prompt pack 
 OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE
 ```
 
-The first live PRD-driven loop should also use `docs\LIVE_PRD_INTAKE_RUNBOOK.md` and populate `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md` before route selection proceeds.
+The first live PRD-driven loop should also use `docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md`, `docs\PRD_INTAKE_RUN_TRIGGER.md`, `docs\LIVE_PRD_INTAKE_RUNBOOK.md`, and populate `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md` before route selection proceeds.
 
 If no PRD or explicit product direction exists, continue waiting and do not open implementation.

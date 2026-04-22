@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001 |
-| Stage | s5-live-prd-intake-runbook-metrics |
-| Baseline commit | `6eb2cd809c89d989b1c8f91d2b5328212b1ea18d` |
+| Snapshot | S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001 |
+| Stage | s5-prd-intake-automation-trigger |
+| Baseline commit | `47f86dc4249155a30bc617eb26f522f9caf4b739` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -1302,3 +1302,30 @@ Current product posture remains:
 Current non-authorization:
 
 - This stage does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, AI_COLLAB changes, Yellow implementation, SWE product execution, direct SWE repo writes, Red execution, launch execution, production deployment, external pilot execution or readiness claims, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Web review claims without an actual verdict, or staging/commit/push outside governed closeout rules.
+
+## 53. PRD Intake Automation Trigger
+
+This stage governs the automation trigger layer that connects the autonomous ops loop to live PRD intake.
+
+Accepted artifacts:
+
+- `docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md`
+- `docs\PRD_INTAKE_RUN_TRIGGER.md`
+- `docs\PRD_INTAKE_AUTOMATION_TRIGGER_CLOSEOUT.md`
+
+Operating outcome:
+
+- Each autonomous ops-loop run should first check for a governed PRD/product-source trigger when the product posture is `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`.
+- Positive triggers include latest PRD, explicit product direction, governed PRD file inside the source root, governed PRD replacement/amendment, or an ops-loop wakeup that carries concrete product source.
+- Non-triggers include future PRD expectations, discussions, placeholders, old PRD references without current authority, roadmap history, model-generated ideas, files outside the source root, unsafe source material, Claude Web availability changes alone, or SWE availability changes alone.
+- A positive trigger executes `docs\PRD_INTAKE_RUN_TRIGGER.md`, then starts `docs\LIVE_PRD_INTAKE_RUNBOOK.md` and metrics only after source authority and safety screen pass.
+- The trigger key is `source_id + source_timestamp + baseline_snapshot` to avoid duplicate intake runs.
+
+Current product posture remains:
+
+- `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`
+- next product route when input arrives and trigger/runbook allow it: `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, AI_COLLAB changes, Yellow implementation, SWE product execution, direct SWE repo writes, Red execution, launch execution, production deployment, external pilot execution or readiness claims, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Web review claims without an actual verdict, metrics edits without a positive trigger and safety screen, or staging/commit/push outside governed closeout rules.

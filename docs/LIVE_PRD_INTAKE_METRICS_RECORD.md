@@ -52,6 +52,15 @@ Source root:
 Manifest path:
 Intake status:
 
+Trigger:
+- trigger_checked_at:
+- trigger_decision:
+- trigger_source:
+- trigger_evidence:
+- trigger_key:
+- positive_trigger:
+- trigger_hold:
+
 Timestamps:
 - prd_received_at:
 - intake_started_at:

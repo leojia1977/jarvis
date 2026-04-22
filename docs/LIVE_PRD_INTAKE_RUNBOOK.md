@@ -28,6 +28,13 @@ Start this runbook only when at least one governed product input exists:
 - governed PRD file added or identified inside the source root
 - governed product decision that replaces or amends a PRD
 
+For autonomous ops-loop use, the product input must first pass:
+
+```text
+docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md
+docs\PRD_INTAKE_RUN_TRIGGER.md
+```
+
 If none exists, stop with:
 
 ```text

@@ -5,12 +5,12 @@
 | Field | Value |
 | --- | --- |
 | Title | Autonomous Delivery Pipeline |
-| Status | Updated by SWE agent Yellow backlog template integration draft |
-| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
-| Stage | s5-swe-agent-yellow-backlog-template-integration |
-| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
+| Status | Updated by PRD intake automation trigger baseline |
+| Snapshot | S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001 |
+| Stage | s5-prd-intake-automation-trigger |
+| Baseline commit | `47f86dc4249155a30bc617eb26f522f9caf4b739` |
 
-This pipeline defines how autonomous work should move from backlog item to governed closeout. It does not authorize implementation or launch execution.
+This pipeline defines how autonomous work should move from PRD/product-source trigger or backlog item to governed closeout. It does not authorize implementation or launch execution.
 
 ## 1.1 Autonomous Session Startup Requirements
 
@@ -31,7 +31,7 @@ Lane ambiguity defaults to the higher-restriction lane. If still unclear, HOLD.
 
 The policy is `ACTIVE` only during the authorization window and only after the charter reread and expiry check pass. `ACTIVE` does not create blanket Red execution; Red-1/Red-2 still require exact per-action `DELEGATED_APPROVER_GO` where policy requires it, and any unresolved HOLD blocks the action.
 
-The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`, `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`, `docs\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md`, `docs\SWE_AGENT_RUNBOOK.md`, and `docs\SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION.md` before using Claude Web review-prompt transfer, Claude Code review-only automation, or considering SWE agent.
+The autonomous ops loop must also load `docs\AUTONOMOUS_TOOLCHAIN_INTEGRATION.md`, `docs\AUTONOMOUS_TOOL_CAPABILITY_MATRIX.md`, `docs\AUTONOMOUS_TOOL_RUNBOOK.md`, `docs\VSCODE_ROLE_AND_TOOLCHAIN_ORCHESTRATION.md`, `docs\ADSPOWER_CLAUDE_WEB_AUTOMATION_VERIFICATION.md`, `docs\ADSPOWER_CLAUDE_WEB_RUNBOOK.md`, `docs\ADSPOWER_PROFILE_LAUNCH_VERIFICATION.md`, `docs\ADSPOWER_PROFILE_LAUNCH_RUNBOOK.md`, `docs\CC_SWITCH_COMMAND_PATH_PROVISIONING.md`, `docs\CC_SWITCH_REVIEW_ONLY_INVOCATION_RUNBOOK.md`, `docs\SWE_AGENT_CAPABILITY_VERIFICATION.md`, `docs\SWE_AGENT_INSTALL_AND_CAPABILITY_VERIFICATION.md`, `docs\MINI_SWE_AGENT_NONINTERACTIVE_DRY_RUN_VERIFICATION.md`, `docs\MINI_SWE_AGENT_PTY_RUNNER_PROVISIONING.md`, `docs\MINI_SWE_AGENT_WSL2_NO_WRITE_DRY_RUN_VERIFICATION.md`, `docs\SWE_AGENT_RUNBOOK.md`, `docs\SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION.md`, `docs\LIVE_PRD_INTAKE_RUNBOOK.md`, `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md`, `docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md`, and `docs\PRD_INTAKE_RUN_TRIGGER.md` before using Claude Web review-prompt transfer, Claude Code review-only automation, SWE agent, or PRD intake automation.
 
 ## 1.2 Autonomous Operation Cadence
 
@@ -50,11 +50,50 @@ Each run must apply the anti-overengineering guard before editing:
 
 Work selection priority is:
 
-1. Green docs-only route judgment and planning artifacts.
-2. Yellow docs-only or test-plan-only tasks when exact scope exists.
-3. Red-1/Red-2 preparation packages only as drafts or `DELEGATED_APPROVER_GO` requests.
-4. L3 critical path blocker reduction by drafting templates, checklists, or question sets.
-5. HOLD queue maintenance.
+1. PRD intake trigger check when the loop is in `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`.
+2. Green docs-only route judgment and planning artifacts.
+3. Yellow docs-only or test-plan-only tasks when exact scope exists.
+4. Red-1/Red-2 preparation packages only as drafts or `DELEGATED_APPROVER_GO` requests.
+5. L3 critical path blocker reduction by drafting templates, checklists, or question sets.
+6. HOLD queue maintenance.
+
+### 1.2.1 PRD Intake Automation Trigger
+
+When the current posture is:
+
+```text
+WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION
+```
+
+each autonomous ops loop run should first apply:
+
+```text
+docs\PRD_INTAKE_AUTOMATION_TRIGGER_RULES.md
+```
+
+If a positive trigger exists, the loop should execute:
+
+```text
+docs\PRD_INTAKE_RUN_TRIGGER.md
+```
+
+The run trigger may start:
+
+```text
+docs\LIVE_PRD_INTAKE_RUNBOOK.md
+```
+
+and may create or update:
+
+```text
+docs\LIVE_PRD_INTAKE_METRICS_RECORD.md
+```
+
+only after a positive product-source trigger and safety screen pass.
+
+If no positive trigger exists, the loop must report waiting state and must not edit the metrics record.
+
+The trigger layer does not authorize product route invention, implementation, SWE execution, code/test changes, Claude Web PASS without an actual verdict, launch, deployment, external pilot execution, real data, credentials, public endpoint work, or parked-stream reopen.
 
 During day 1, automation may draft Green/Yellow docs-only stages and prepare closeout gate material where authorized, but staging, commit, and push require explicit human confirmation.
 
@@ -109,6 +148,8 @@ This boundary does not authorize code/test implementation, browser login/session
 
 | Stage | Required input | Output |
 | --- | --- | --- |
+| PRD trigger check | Current thread/product source, manifest, rolling maps | Live intake trigger, WAIT, or HOLD |
+| Live PRD intake | Positive governed product-source trigger | Intake summary and metrics record |
 | Backlog item | Human/delegated/governed source need | Candidate work item |
 | Route judgment | Baseline, boundaries, risk lane | Route decision or HOLD |
 | Scoped ticket | Exact files, behavior, tests, lane, HOLD rules | Implementation or docs ticket |
