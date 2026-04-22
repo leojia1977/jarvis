@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001",
+    "id": "S5-TICKET-READINESS-CHECKLIST-2026-04-22-001",
     "sprint": "Sprint 5",
-    "stage": "s5-swe-autonomous-delivery-acceleration-baseline",
-    "created_at": "2026-04-22T14:49:28+08:00",
-    "updated_at": "2026-04-22T14:51:26.607000+08:00"
+    "stage": "s5-ticket-readiness-checklist",
+    "created_at": "2026-04-22T14:56:19+08:00",
+    "updated_at": "2026-04-22T14:58:48.542063+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001.zip",
-    "current_release_sha256": "faf92876910799419101d3f79aa04b57b26403aca717ede55f45e5a5cb5ea075",
-    "baseline_release_sha256": "26e512ca05829c7be4b016f1ce3cfbd8e38fbd7e3db5a9f9afe21f3d6e77a512"
+    "current_release_zip": "releases\\secupilot-S5-TICKET-READINESS-CHECKLIST-2026-04-22-001.zip",
+    "current_release_sha256": "b524f208a1dd9b17e149fa4f4197189b000e5a45d3b279aa4aa2a45b9d0517e6",
+    "baseline_release_sha256": "faf92876910799419101d3f79aa04b57b26403aca717ede55f45e5a5cb5ea075"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "f8f4d2231527458cd455a2481e0acca5239c652efd4c2659fb35532acf3db500"
+      "sha256": "1e10c26617165bea63f3f0a2eb79aef4d09cb366a442942310e72e389b0817b0"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state",
-      "sha256": "f3ff70574752a0f091d0a45f92193a51bfabbe8ff4d9b1ebe2999a993335202d"
+      "sha256": "6f1b59077325872420682855a1141cea6508b991e5b8f0f16ea35481b1f250b2"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "rolling-governance-decision-log",
-      "sha256": "64182c4843fd9859eefac78477f7e7e2d60809abc8e6bc0bd10ca5bc19610a19"
+      "sha256": "aef8e38f9020abe0a9ffb14efef4658a00970a1096146eaef354388be757ddb2"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "rolling-roadmap-and-parked-items",
-      "sha256": "99a0b8b3692b5d1fd739f948f7f800f2950ffd15edbb17c543ee36d9b106c2f5"
+      "sha256": "9220889ad6c5849524cecfe486a5fa09dd25b2b430bb5569c8970466b18fb9d7"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1196,17 +1196,27 @@
     {
       "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md",
       "role": "swe-autonomous-delivery-acceleration-playbook",
-      "sha256": "948ccdfcde91deab75c3e70d91f14418e59e64563ede8598cc923890854e1db9"
+      "sha256": "de86c37d5b5a0029c8c6e5ad766430c389a4aa6d3643ccc86e6514cf924087bc"
     },
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PROMPT_PACK.md",
       "role": "autonomous-delivery-prompt-pack",
-      "sha256": "13ed71d2fdcebc77acce3e90de12b64778e034a870c9972dbdaebc2d629b750e"
+      "sha256": "4b4e129deaeb0cf8e309bda69fe92d96014ea5ff7225b8b96fe2debd050bc7cf"
     },
     {
       "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md",
       "role": "swe-autonomous-delivery-acceleration-closeout",
       "sha256": "4073639d92a56ff76ee9cacd4993af9782b864004b30a360690678d649023e8f"
+    },
+    {
+      "path": "docs\\TICKET_READINESS_CHECKLIST.md",
+      "role": "ticket-readiness-checklist",
+      "sha256": "163890f8134e4ed8d53708e80c129a898e9bf6d680a746cbfc4c87a03c60e2c8"
+    },
+    {
+      "path": "docs\\TICKET_READINESS_CHECKLIST_CLOSEOUT.md",
+      "role": "ticket-readiness-checklist-closeout",
+      "sha256": "cfe1979b97b9835daa6cd026b48c2dd78cce2a288c88912bd20b66f4287b6119"
     }
   ],
   "tests": [
@@ -1271,13 +1281,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001",
+      "Snapshot ID: S5-TICKET-READINESS-CHECKLIST-2026-04-22-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-22T14:51:27.693696+08:00",
+    "last_verified_at": "2026-04-22T14:58:49.684895+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1297,26 +1307,24 @@
     ]
   },
   "stage_outcome": {
-    "implementation_status": "GREEN_DOCS_ONLY_ACCELERATION_BASELINE_FULL_GATE_PASS",
-    "route": "OPEN_SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_STAGE",
+    "implementation_status": "GREEN_DOCS_ONLY_TICKET_READINESS_CHECKLIST_FULL_GATE_PASS",
+    "route": "OPEN_TICKET_READINESS_CHECKLIST_STAGE",
     "lane": "Green docs-only",
-    "decision": "FORMALIZE_SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_AND_PROMPT_PACK",
+    "decision": "FORMALIZE_TICKET_READINESS_CHECKLIST_AS_ADMISSION_GATE",
     "accepted_artifacts": [
-      "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md",
-      "docs\\AUTONOMOUS_DELIVERY_PROMPT_PACK.md",
-      "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md"
+      "docs\\TICKET_READINESS_CHECKLIST.md",
+      "docs\\TICKET_READINESS_CHECKLIST_CLOSEOUT.md"
     ],
     "preserved_product_posture": "WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION",
     "acceleration_controls": [
-      "Codex prompt routing remains orchestration rather than approval",
-      "VS Code remains local workspace and execution surface",
-      "SWE remains bounded implementation accelerator only when later exact Yellow item names it",
-      "Claude Code remains focused code review",
-      "Claude Web remains product architecture governance review",
-      "anti-generalization contract applies to accelerated delivery loops"
+      "ticket readiness checklist runs after PRD intake and route selection",
+      "exact behavior files tests review gate release commit and HOLD fields are required before implementation tickets",
+      "SWE remains disabled unless checklist and exact Yellow item both allow bounded implementation accelerator use",
+      "Red and HOLD triggers cannot be downgraded into Yellow tickets",
+      "anti-generalization checks are required before exact ticket admission"
     ],
     "next_route_when_ready": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "release_verification": "PASS",
-    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_ACCELERATION_BASELINE"
+    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_TICKET_READINESS_CHECKLIST"
   }
 }

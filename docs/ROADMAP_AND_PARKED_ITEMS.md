@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001 |
-| Stage | s5-swe-autonomous-delivery-acceleration-baseline |
-| Baseline commit | `4912cf5579a52efc04dfd033ccc1edaa71c2e427` |
+| Snapshot | S5-TICKET-READINESS-CHECKLIST-2026-04-22-001 |
+| Stage | s5-ticket-readiness-checklist |
+| Baseline commit | `becc4d9491d1b54a7593ee5b8fa47e7f119bd17d` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -950,6 +950,35 @@ Still parked or deferred:
 
 - no implementation without a later exact scoped ticket and GO
 - no SWE product execution without a later exact Yellow item naming SWE as `bounded implementation accelerator`
+- no external pilot execution or readiness claim
+- no public endpoint work
+- no S5-B/S5-D/ORDIV reopen
+- no Red-3 action
+
+This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 38. Ticket Readiness Checklist
+
+Current route:
+
+1. `OPEN_TICKET_READINESS_CHECKLIST_STAGE`
+
+Checklist result:
+
+- `docs\TICKET_READINESS_CHECKLIST.md` is the governed admission checklist before exact tickets and SWE acceleration.
+- `docs\TICKET_READINESS_CHECKLIST_CLOSEOUT.md` records the checklist closeout and non-authorization boundaries.
+
+Future use:
+
+1. After PRD intake and route selection, evaluate candidate work against the checklist.
+2. Open an exact implementation ticket only after the checklist returns `READY_FOR_EXACT_TICKET`.
+3. Allow SWE only after the checklist returns `READY_FOR_SWE_ACCELERATION` and a later exact Yellow item explicitly names SWE as `bounded implementation accelerator`.
+4. Use `NEEDS_GREEN_DOCS_ONLY_TICKET_PREP`, `NEEDS_CLAUDE_WEB_REVIEW`, `NEEDS_HUMAN_OR_JARVIS_GO`, or `HOLD` when exact scope, review, authority, or risk posture is incomplete.
+
+Still parked or deferred:
+
+- no implementation without a later exact scoped ticket and GO
+- no SWE product execution without a later exact Yellow item
 - no external pilot execution or readiness claim
 - no public endpoint work
 - no S5-B/S5-D/ORDIV reopen

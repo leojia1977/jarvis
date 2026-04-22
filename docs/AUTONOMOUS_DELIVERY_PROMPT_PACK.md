@@ -85,6 +85,8 @@ Required output:
 
 Use only when a later exact Yellow item explicitly authorizes SWE as `bounded implementation accelerator`.
 
+Before this prompt is sent, the candidate ticket must pass `docs\TICKET_READINESS_CHECKLIST.md` with `READY_FOR_SWE_ACCELERATION`.
+
 ```text
 <Required Prompt Header>
 <Anti-Generalization Clause>
@@ -119,6 +121,39 @@ Required output:
 - Tests to run:
 - Scope risks:
 - HOLD if any:
+```
+
+## 5.1 Ticket Readiness Record Prompt
+
+Use after PRD intake and route selection, before opening an implementation ticket.
+
+```text
+<Required Prompt Header>
+<Anti-Generalization Clause>
+
+Review type: ticket readiness check
+Output role: readiness decision
+
+Candidate work:
+- Product source:
+- Route:
+- Lane:
+- Proposed behavior:
+- Proposed files:
+- Proposed tests:
+- Proposed SWE use:
+- Known HOLD boundaries:
+
+Task:
+Evaluate the candidate work against docs\TICKET_READINESS_CHECKLIST.md.
+
+Required output:
+- Decision: READY_FOR_EXACT_TICKET / READY_FOR_SWE_ACCELERATION / NEEDS_GREEN_DOCS_ONLY_TICKET_PREP / NEEDS_CLAUDE_WEB_REVIEW / NEEDS_HUMAN_OR_JARVIS_GO / HOLD
+- Missing required fields:
+- Red/HOLD triggers:
+- Anti-generalization risks:
+- SWE eligibility:
+- Required next artifact:
 ```
 
 ## 6. Claude Code Focused Review Prompt

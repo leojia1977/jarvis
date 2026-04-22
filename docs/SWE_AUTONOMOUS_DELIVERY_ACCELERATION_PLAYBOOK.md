@@ -37,6 +37,7 @@ Target delivery shape:
 PRD or explicit product direction
 -> PRD intake
 -> route selection
+-> ticket readiness checklist
 -> exact ticket
 -> bounded SWE acceleration where explicitly allowed
 -> Codex implementation in the VS Code workspace
@@ -305,19 +306,20 @@ Use this loop after PRD or explicit product direction exists and a governed rout
 3. Confirm PRD or explicit product direction exists.
 4. Draft PRD intake or route selection.
 5. Route to Claude Web when product, architecture, governance, or high-risk review is required.
-6. Draft exact ticket.
-7. Decide whether SWE is allowed.
-8. Send bounded SWE prompt only if the ticket explicitly allows it.
-9. Codex reviews SWE output.
-10. Codex edits exact files in the VS Code workspace when implementation is authorized.
-11. Run targeted tests.
-12. Send focused diff to Claude Code.
-13. Fix blocking findings inside exact scope.
-14. Run full gate when required.
-15. Package and verify release only when authorized.
-16. Create closeout artifact when required.
-17. Stage, commit, and push only when the governing authority explicitly allows it.
-18. Report outcome, tests, review status, HOLDs, and next route.
+6. Run the Ticket Readiness Checklist.
+7. Draft exact ticket only if the checklist allows it.
+8. Decide whether SWE is allowed.
+9. Send bounded SWE prompt only if the ticket explicitly allows it.
+10. Codex reviews SWE output.
+11. Codex edits exact files in the VS Code workspace when implementation is authorized.
+12. Run targeted tests.
+13. Send focused diff to Claude Code.
+14. Fix blocking findings inside exact scope.
+15. Run full gate when required.
+16. Package and verify release only when authorized.
+17. Create closeout artifact when required.
+18. Stage, commit, and push only when the governing authority explicitly allows it.
+19. Report outcome, tests, review status, HOLDs, and next route.
 ```
 
 Any step that requires unlisted files, real data, credentials, browser/session access, public endpoint work, launch/deploy action, parked-stream reopen, or Red-3 action is HOLD.
@@ -397,3 +399,9 @@ OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE
 ```
 
 That stage should use this playbook to keep role boundaries clear, route prompts through Codex, limit SWE to bounded acceleration, and prevent model-driven over-generalization.
+
+Before any exact implementation ticket is opened, route output must pass:
+
+```text
+docs\TICKET_READINESS_CHECKLIST.md
+```
