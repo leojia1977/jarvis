@@ -35,6 +35,7 @@ Target delivery shape:
 
 ```text
 PRD or explicit product direction
+-> live PRD intake runbook and metrics record
 -> PRD intake
 -> route selection
 -> ticket readiness checklist
@@ -307,23 +308,24 @@ Use this loop after PRD or explicit product direction exists and a governed rout
 1. Load baseline and required governance docs.
 2. Verify delegation window when autonomous policy applies.
 3. Confirm PRD or explicit product direction exists.
-4. Draft PRD intake or route selection.
-5. Route to Claude Web when product, architecture, governance, or high-risk review is required.
-6. Run the Ticket Readiness Checklist.
-7. Run the dry-run rehearsal guard if route/toolchain state is uncertain or this is the first live use after a rehearsal baseline.
-8. Draft exact ticket only if the checklist allows it.
-9. Decide whether SWE is allowed.
-10. Send bounded SWE prompt only if the ticket explicitly allows it.
-11. Codex reviews SWE output.
-12. Codex edits exact files in the VS Code workspace when implementation is authorized.
-13. Run targeted tests.
-14. Send focused diff to Claude Code.
-15. Fix blocking findings inside exact scope.
-16. Run full gate when required.
-17. Package and verify release only when authorized.
-18. Create closeout artifact when required.
-19. Stage, commit, and push only when the governing authority explicitly allows it.
-20. Report outcome, tests, review status, HOLDs, and next route.
+4. Run the Live PRD Intake Runbook and start the Metrics Record.
+5. Draft PRD intake or route selection.
+6. Route to Claude Web when product, architecture, governance, or high-risk review is required.
+7. Run the Ticket Readiness Checklist.
+8. Run the dry-run rehearsal guard if route/toolchain state is uncertain or this is the first live use after a rehearsal baseline.
+9. Draft exact ticket only if the checklist allows it.
+10. Decide whether SWE is allowed.
+11. Send bounded SWE prompt only if the ticket explicitly allows it.
+12. Codex reviews SWE output.
+13. Codex edits exact files in the VS Code workspace when implementation is authorized.
+14. Run targeted tests.
+15. Send focused diff to Claude Code.
+16. Fix blocking findings inside exact scope.
+17. Run full gate when required.
+18. Package and verify release only when authorized.
+19. Create closeout artifact when required.
+20. Stage, commit, and push only when the governing authority explicitly allows it.
+21. Report outcome, tests, review status, HOLDs, and next route.
 ```
 
 Any step that requires unlisted files, real data, credentials, browser/session access, public endpoint work, launch/deploy action, parked-stream reopen, or Red-3 action is HOLD.
@@ -342,6 +344,22 @@ The rehearsal guard may prove:
 - prompt copying is orchestration, not approval
 
 The rehearsal guard must not create product scope, submit external prompts as if review is complete, run SWE against product work, edit code/tests, or bypass the later exact ticket and review path.
+
+### 8.2 Live PRD Intake Runbook
+
+Use `docs\LIVE_PRD_INTAKE_RUNBOOK.md` as the first executable checklist when the latest PRD or explicit product direction arrives.
+
+The live runbook must:
+
+- register the PRD/source and timestamp
+- load the current baseline and governance docs
+- screen for secrets, credentials, raw customer data, browser/session material, and unredacted evidence
+- summarize goals, non-goals, changed assumptions, affected areas, candidate routes, lane classification, review path, and HOLD triggers
+- verify Claude Web availability when product, architecture, governance, high-risk, Red, or HOLD review is required
+- start `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md`
+- return either route-selection readiness or a named HOLD
+
+The live runbook is an intake and measurement step only. It does not authorize implementation, SWE execution, code/test changes, release, launch, deployment, or external pilot execution.
 
 ## 9. Metrics
 
@@ -363,6 +381,8 @@ Each accelerated delivery loop should record:
 - overgeneralization findings
 - files changed count
 - cycle time from ticket open to closeout
+
+Use `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md` for the first PRD-driven live loop. The metrics record must distinguish copied prompts, submitted prompts, queued reviews, actual verdicts, HOLDs, scope creep findings, and over-generalization findings.
 
 The preferred trend is:
 
@@ -417,7 +437,7 @@ After the next PRD or explicit product direction arrives, the first governed ste
 OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE
 ```
 
-That stage should use this playbook to keep role boundaries clear, route prompts through Codex, limit SWE to bounded acceleration, and prevent model-driven over-generalization.
+That stage should first use `docs\LIVE_PRD_INTAKE_RUNBOOK.md` and `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md`, then use this playbook to keep role boundaries clear, route prompts through Codex, limit SWE to bounded acceleration, and prevent model-driven over-generalization.
 
 Before any exact implementation ticket is opened, route output must pass:
 

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-AUTONOMOUS-DELIVERY-DRY-RUN-REHEARSAL-2026-04-22-001 |
-| Stage | s5-autonomous-delivery-dry-run-rehearsal |
-| Baseline commit | `ddc5022c5524177f3a799cb6c1518dc89e0e39c3` |
+| Snapshot | S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001 |
+| Stage | s5-live-prd-intake-runbook-metrics |
+| Baseline commit | `6eb2cd809c89d989b1c8f91d2b5328212b1ea18d` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -1266,6 +1266,33 @@ Claude Web availability note:
 - User reported `Usage limit reached; resets 1:00 AM` on 2026-04-22.
 - The reset target is recorded as `2026-04-23 01:00 Asia/Shanghai`.
 - Any later product/architecture/governance route requiring Claude Web before a real verdict must remain `NEEDS_CLAUDE_WEB_REVIEW` or `HOLD_PENDING_CLAUDE_WEB_RESET`.
+
+Current product posture remains:
+
+- `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`
+- next product route when input arrives: `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, AI_COLLAB changes, Yellow implementation, SWE product execution, direct SWE repo writes, Red execution, launch execution, production deployment, external pilot execution or readiness claims, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, Claude Web review claims without an actual verdict, or staging/commit/push outside governed closeout rules.
+
+## 52. Live PRD Intake Runbook And Metrics
+
+This stage governs the first live PRD intake checklist and timing ledger before a real PRD or explicit product direction arrives.
+
+Accepted artifacts:
+
+- `docs\LIVE_PRD_INTAKE_RUNBOOK.md`
+- `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md`
+- `docs\LIVE_PRD_INTAKE_RUNBOOK_METRICS_CLOSEOUT.md`
+
+Operating outcome:
+
+- The first real PRD or explicit product direction must start with `docs\LIVE_PRD_INTAKE_RUNBOOK.md`.
+- Intake must create or update `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md`.
+- The intake record must capture product source, timestamp, baseline, safety screen, goals, non-goals, changed assumptions, affected areas, candidate routes, lane classification, review path, Claude Web state, ticket-readiness precheck, SWE eligibility, HOLDs, anti-generalization findings, and next governed artifact.
+- Claude Web usage limit, unknown availability, or queued prompt state remains not PASS.
+- SWE remains disabled until a later exact Yellow item explicitly names it as `bounded implementation accelerator`.
 
 Current product posture remains:
 

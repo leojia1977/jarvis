@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-AUTONOMOUS-DELIVERY-DRY-RUN-REHEARSAL-2026-04-22-001 |
-| Stage | s5-autonomous-delivery-dry-run-rehearsal |
-| Baseline commit | `ddc5022c5524177f3a799cb6c1518dc89e0e39c3` |
+| Snapshot | S5-LIVE-PRD-INTAKE-RUNBOOK-METRICS-2026-04-22-001 |
+| Stage | s5-live-prd-intake-runbook-metrics |
+| Baseline commit | `6eb2cd809c89d989b1c8f91d2b5328212b1ea18d` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -1004,6 +1004,37 @@ Future use:
 3. Treat missing product source in ticket readiness as `HOLD_NO_PRODUCT_SOURCE`.
 4. Treat Claude Web usage-limit state as queued/unavailable, not architecture/governance PASS.
 5. Keep SWE disabled until a later exact Yellow item explicitly names `bounded implementation accelerator`.
+
+Still parked or deferred:
+
+- no implementation without a later exact scoped ticket and GO
+- no SWE product execution without a later exact Yellow item
+- no external pilot execution or readiness claim
+- no public endpoint work
+- no S5-B/S5-D/ORDIV reopen
+- no Red-3 action
+- no Claude Web review claim without an actual verdict
+
+This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 40. Live PRD Intake Runbook And Metrics
+
+Current route:
+
+1. `OPEN_LIVE_PRD_INTAKE_RUNBOOK_METRICS_STAGE`
+
+Runbook result:
+
+- `docs\LIVE_PRD_INTAKE_RUNBOOK.md` is the governed first-response checklist for the next real PRD or explicit product direction.
+- `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md` is the governed fillable timing and evidence ledger for the first live PRD intake loop.
+- `docs\LIVE_PRD_INTAKE_RUNBOOK_METRICS_CLOSEOUT.md` records the closeout and non-authorization boundaries.
+
+Future use:
+
+1. Start the runbook only when a real PRD or explicit product direction exists.
+2. Record timing, review state, prompt state, ticket-readiness precheck, SWE eligibility, HOLDs, scope creep findings, and over-generalization findings.
+3. Open `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE` only when the intake decision permits route selection.
+4. Preserve Claude Web queued/unavailable states as not PASS until an actual verdict exists.
 
 Still parked or deferred:
 

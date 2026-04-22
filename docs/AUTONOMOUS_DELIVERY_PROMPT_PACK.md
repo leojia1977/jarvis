@@ -81,6 +81,56 @@ Required output:
 - Non-authorization reminders:
 ```
 
+## 4.1 Live PRD Intake Metrics Prompt
+
+Use before route selection to turn a real PRD or explicit product direction into a governed intake summary and metrics record.
+
+```text
+<Required Prompt Header>
+<Anti-Generalization Clause>
+
+Review type: live PRD intake and metrics record
+Output role: intake evidence and timing ledger
+
+Input:
+- PRD or explicit product direction:
+- PRD/source timestamp:
+- Current baseline summary:
+- Current parked/HOLD boundaries:
+- Claude Web availability:
+
+Task:
+1. Register product source and timestamp.
+2. Screen for secrets, credentials, raw customer data, browser/session material, and unredacted evidence.
+3. Summarize product goals.
+4. Summarize non-goals.
+5. Identify changed assumptions from the current baseline.
+6. Identify affected product areas and parked boundaries.
+7. Propose candidate routes.
+8. Classify lane for each route.
+9. Identify required review path.
+10. Identify HOLD triggers.
+11. Populate the LIVE_PRD_INTAKE_METRICS_RECORD fields that are knowable.
+12. Recommend the next governed artifact.
+
+Required output:
+- Intake decision: READY_FOR_ROUTE_SELECTION / NEEDS_CLAUDE_WEB_REVIEW / NEEDS_HUMAN_OR_JARVIS_GO / NEEDS_GREEN_DOCS_ONLY_INTAKE_PREP / HOLD
+- PRD/source:
+- Goals:
+- Non-goals:
+- Changed assumptions:
+- Affected areas:
+- Candidate routes:
+- Lane classification:
+- Required review:
+- Claude Web state:
+- Ticket-readiness precheck:
+- SWE eligibility:
+- HOLDs:
+- Metrics fields populated:
+- Next governed artifact:
+```
+
 ## 5. SWE Bounded Implementation Prompt
 
 Use only when a later exact Yellow item explicitly authorizes SWE as `bounded implementation accelerator`.
@@ -373,5 +423,7 @@ When the latest PRD or explicit product direction arrives, use this prompt pack 
 ```text
 OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE
 ```
+
+The first live PRD-driven loop should also use `docs\LIVE_PRD_INTAKE_RUNBOOK.md` and populate `docs\LIVE_PRD_INTAKE_METRICS_RECORD.md` before route selection proceeds.
 
 If no PRD or explicit product direction exists, continue waiting and do not open implementation.
