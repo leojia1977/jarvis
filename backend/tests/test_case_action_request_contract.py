@@ -420,6 +420,175 @@ class CaseActionRequestContractTests(unittest.TestCase):
         self.assertEqual(rejection_audit.case_status, "in_review")
         self.assertNotIn("case_closed", [entry.event_type for entry in rejected.lifecycle_audit])
 
+    def test_terminal_approved_action_request_rejects_further_transitions(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-APPROVED-001",
+            created_at_utc="2026-04-21T10:00:00Z",
+        )
+
+        approved_draft = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="approve terminal guard request",
+            at_utc="2026-04-21T10:01:00Z",
+        )
+        approved_submitted = submit_action_request_for_approval(
+            approved_draft,
+            action_request_id=approved_draft.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit request for approval",
+            at_utc="2026-04-21T10:02:00Z",
+        )
+        approved = approve_action_request(
+            approved_submitted,
+            action_request_id=approved_submitted.action_requests[0].action_request_id,
+            actor="manager.chen",
+            reason="approve request",
+            at_utc="2026-04-21T10:03:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:approved->pending_approval"):
+            submit_action_request_for_approval(
+                approved,
+                action_request_id=approved.action_requests[0].action_request_id,
+                actor="analyst.leo",
+                review_owner="manager.chen",
+                reason="resubmit approved request",
+                at_utc="2026-04-21T10:04:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:approved->rejected"):
+            reject_action_request(
+                approved,
+                action_request_id=approved.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="reject approved request",
+                at_utc="2026-04-21T10:05:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:approved->cancelled"):
+            cancel_action_request(
+                approved,
+                action_request_id=approved.action_requests[0].action_request_id,
+                actor="analyst.leo",
+                reason="cancel approved request",
+                at_utc="2026-04-21T10:06:00Z",
+            )
+
+        self.assertEqual(approved.action_requests[0].status, "approved")
+
+    def test_terminal_rejected_action_request_rejects_further_transitions(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-REJECTED-001",
+            created_at_utc="2026-04-21T10:07:00Z",
+        )
+
+        rejected_draft = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="reject terminal guard request",
+            at_utc="2026-04-21T10:07:00Z",
+        )
+        rejected_submitted = submit_action_request_for_approval(
+            rejected_draft,
+            action_request_id=rejected_draft.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit request for rejection",
+            at_utc="2026-04-21T10:08:00Z",
+        )
+        rejected = reject_action_request(
+            rejected_submitted,
+            action_request_id=rejected_submitted.action_requests[0].action_request_id,
+            actor="manager.chen",
+            reason="reject request",
+            at_utc="2026-04-21T10:09:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:rejected->approved"):
+            approve_action_request(
+                rejected,
+                action_request_id=rejected.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="approve rejected request",
+                at_utc="2026-04-21T10:10:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:rejected->pending_approval"):
+            submit_action_request_for_approval(
+                rejected,
+                action_request_id=rejected.action_requests[0].action_request_id,
+                actor="analyst.leo",
+                review_owner="manager.chen",
+                reason="resubmit rejected request",
+                at_utc="2026-04-21T10:11:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:rejected->cancelled"):
+            cancel_action_request(
+                rejected,
+                action_request_id=rejected.action_requests[0].action_request_id,
+                actor="analyst.leo",
+                reason="cancel rejected request",
+                at_utc="2026-04-21T10:12:00Z",
+            )
+
+        self.assertEqual(rejected.action_requests[0].status, "rejected")
+
+    def test_terminal_cancelled_action_request_rejects_further_transitions(self):
+        record = build_initial_persistent_case_record(
+            _base_case(),
+            snapshot_id="S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-CANCELLED-001",
+            created_at_utc="2026-04-21T10:20:00Z",
+        )
+
+        cancelled_draft = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="cancel terminal guard request",
+            at_utc="2026-04-21T10:20:00Z",
+        )
+        cancelled = cancel_action_request(
+            cancelled_draft,
+            action_request_id=cancelled_draft.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            reason="cancel request",
+            at_utc="2026-04-21T10:21:00Z",
+        )
+
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:cancelled->approved"):
+            approve_action_request(
+                cancelled,
+                action_request_id=cancelled.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="approve cancelled request",
+                at_utc="2026-04-21T10:22:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:cancelled->pending_approval"):
+            submit_action_request_for_approval(
+                cancelled,
+                action_request_id=cancelled.action_requests[0].action_request_id,
+                actor="analyst.leo",
+                review_owner="manager.chen",
+                reason="resubmit cancelled request",
+                at_utc="2026-04-21T10:23:00Z",
+            )
+        with self.assertRaisesRegex(ValueError, "invalid_action_request_transition:cancelled->rejected"):
+            reject_action_request(
+                cancelled,
+                action_request_id=cancelled.action_requests[0].action_request_id,
+                actor="manager.chen",
+                reason="reject cancelled request",
+                at_utc="2026-04-21T10:24:00Z",
+            )
+
+        self.assertEqual(cancelled.action_requests[0].status, "cancelled")
+
+    def test_action_request_status_vocabulary_remains_frozen(self):
+        self.assertEqual(
+            set(governed_action_request_statuses()),
+            {"draft", "pending_approval", "approved", "rejected", "cancelled"},
+        )
+
     def test_degraded_case_suppresses_action_request_creation(self):
         degraded_case = _base_case()
         degraded_case["investigation_status"] = "DEGRADED"

@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001",
+    "id": "S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001",
     "sprint": "Sprint 5",
-    "stage": "s5-swe-agent-yellow-backlog-template-integration",
-    "created_at": "2026-04-21T17:29:33.166308+08:00",
-    "updated_at": "2026-04-21T17:58:26.791341+08:00"
+    "stage": "s5c-impl13-action-request-terminal-guards-implementation-closeout",
+    "created_at": "2026-04-22T13:15:23.209805+08:00",
+    "updated_at": "2026-04-22T13:16:12.369548+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001.zip",
-    "current_release_sha256": "5f61a16807cb3a3f417c5f6ddb3e203c36ac11aaf55df26518a9ee3ed56fe1cf",
-    "baseline_release_sha256": "4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e"
+    "current_release_zip": "releases\\secupilot-S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001.zip",
+    "current_release_sha256": "cb6bee444f4d34f52b00dd83808ecfc9e749e550c5bfbfec57f50b73fc3d95dd",
+    "baseline_release_sha256": "5f61a16807cb3a3f417c5f6ddb3e203c36ac11aaf55df26518a9ee3ed56fe1cf"
   },
   "key_files": [
     {
@@ -145,8 +145,8 @@
     },
     {
       "path": "backend\\app\\tools\\persistent_case.py",
-      "role": "persistent-case-schema-contract",
-      "sha256": "08db8d5b8a7aa248dd02aed82c2e0008c833828f7f2a97be53106b5b71c5de54"
+      "role": "persistent-case-lifecycle-model",
+      "sha256": "1fb400e320b9c3cbd85cf2993c8af20cf1b374a651d712d2f8f8b2fdbfa4598b"
     },
     {
       "path": "backend\\app\\tools\\case_store.py",
@@ -225,8 +225,8 @@
     },
     {
       "path": "backend\\tests\\test_case_action_request_contract.py",
-      "role": "canonical-case-action-request-contract-tests",
-      "sha256": "0713d47f46cde0d041270e72ae7fc933d3ae89ce20e48f63d838738aa84d2598"
+      "role": "case-action-request-contract-tests",
+      "sha256": "e57a4ed7b476f18bbb3345584e72bb74d7ced23bac004c5229992486f9a94d5e"
     },
     {
       "path": "backend\\tests\\test_case_lifecycle_regression.py",
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "feb1e08fad1578472d54098b24f3544a927f97166c26401aaf26353fd906e1d1"
+      "sha256": "7cba4ea32e551f0c14db9f3ce129b389bcd5e1d91f3d7368d366ca16a2ba6677"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -790,18 +790,18 @@
     },
     {
       "path": "docs\\PRODUCT_STATE.md",
-      "role": "product-state",
-      "sha256": "3c0ebeb60ffb65bb486f9c0541e5fca201eab7f55e43107b88b55c8dab6b1915"
+      "role": "rolling-product-state",
+      "sha256": "e12a5b87864801e891f6c35213a72190e1d63b25d4a21282a00b877e413bab2f"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
-      "role": "governance-decision-log",
-      "sha256": "7202168f2511bad8927666985b6a00bc0e10495ee428e4326123389a9015eff3"
+      "role": "rolling-governance-decision-log",
+      "sha256": "b6420c826f27a27d7cc5caa74ba1bcecc537bc59f0847f8e80ea46cd620be337"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
-      "role": "roadmap-and-parked-items",
-      "sha256": "7cddc1a4395c3eab751a133603985bb73c4ec2a81159e758cc9f8cc96ee38777"
+      "role": "rolling-roadmap-and-parked-items",
+      "sha256": "967d222c01c01a0cda5d69fabf0bd67de17d7f352872663e75f101ff5b3ee681"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1172,6 +1172,11 @@
       "path": "docs\\SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION.md",
       "role": "swe-agent-yellow-backlog-template-integration",
       "sha256": "41398a9225f04e086cecdd9cf2d1e3244214f87b5fe46d9eda12df9202e8ba81"
+    },
+    {
+      "path": "docs\\S5C_IMPL13_ACTION_REQUEST_TERMINAL_GUARDS_IMPLEMENTATION_CLOSEOUT.md",
+      "role": "s5c-impl13-action-request-terminal-guards-closeout",
+      "sha256": "4dd39a5ac07f9be10658e9c3c5a54445d4244ffa7283d47ea6087268d62d153f"
     }
   ],
   "tests": [
@@ -1236,13 +1241,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001",
+      "Snapshot ID: S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-21T17:58:27.654606+08:00",
+    "last_verified_at": "2026-04-22T13:16:13.808440+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1252,26 +1257,28 @@
     "report_path": "releases\\verify_report.json"
   },
   "future_route": {
-    "id": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
+    "id": "RESTORE_STASHED_SWE_YB07_TICKET_DRAFT_AND_CONTINUE_CLOSEOUT",
     "preconditions": [
-      "this SWE agent Yellow backlog template integration stage closes with review PASS, full gate PASS, release verification PASS, closeout commit, and push",
-      "future route is Green docs-only product-development route selection unless a later governed prompt supersedes it",
-      "SWE agent remains optional and disabled by default for Yellow items",
-      "current and closed Yellow items remain not SWE-enabled",
-      "no model-backed SWE agent product implementation until a later exact Yellow item explicitly names SWE agent",
-      "no secrets, real data, browser/session material, Red work, launch, deployment, public endpoint, S5-B/S5-D, ORDIV, or AI_COLLAB changes"
+      "this S5C-YB-06 closeout closes with review PASS or PASS_WITH_FINDINGS with no blocking findings",
+      "full gate PASS, release verification PASS, manifest PASS, closeout commit, and push complete",
+      "restore the stashed SWE-enabled YB-07 docs-only ticket draft without overwriting this closeout",
+      "update the restored YB-07 ticket draft to the new governed PASS baseline before running its closeout gate",
+      "no launch, deployment, external pilot execution, credentials, real data, public endpoint, S5-B/S5-D, ORDIV, Red-3, AI_COLLAB, or unlisted file changes"
     ]
   },
   "stage_outcome": {
-    "implementation_status": "DOCS_ONLY_TEMPLATE_INTEGRATION_FULL_GATE_PASS",
-    "route": "OPEN_SWE_AGENT_YELLOW_BACKLOG_TEMPLATE_INTEGRATION_STAGE",
-    "lane": "Green docs-only",
-    "swe_agent_role": "bounded implementation accelerator",
-    "default_item_posture": "SWE agent use: not authorized for this item",
-    "retroactive_enablement": "not authorized",
-    "current_package": "S5C-YB-05/S5C-YB-06/S5C-YB-07 remain not SWE-enabled",
-    "future_route": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
-    "release_verification": "PASS",
-    "review_status": "PASS"
+    "implementation_status": "YELLOW_IMPLEMENTATION_CLOSEOUT_PENDING_FULL_GATE",
+    "route": "OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_06",
+    "item": "S5C-YB-06",
+    "lane": "Yellow implementation",
+    "allowed_files": [
+      "backend\\tests\\test_case_action_request_contract.py",
+      "backend\\app\\tools\\persistent_case.py"
+    ],
+    "targeted_test": "py -3 -m unittest -q backend.tests.test_case_action_request_contract",
+    "targeted_test_status": "PASS",
+    "review_status": "PASS_WITH_FINDINGS_NO_BLOCKING_FINDINGS",
+    "release_verification": "PENDING_FULL_GATE_AFTER_REVIEW",
+    "future_route": "RESTORE_STASHED_SWE_YB07_TICKET_DRAFT_AND_CONTINUE_CLOSEOUT"
   }
 }

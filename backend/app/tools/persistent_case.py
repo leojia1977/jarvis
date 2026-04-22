@@ -556,6 +556,10 @@ def approve_action_request(
         raise ValueError("action_request_not_allowed_for_closed_case")
 
     timestamp = at_utc or _utc_now_iso()
+    index, existing = _find_action_request(record, action_request_id)
+    if not is_valid_action_request_transition(existing.status, "approved"):
+        raise ValueError(f"invalid_action_request_transition:{existing.status}->approved")
+
     base_record = record
     if record.lifecycle_status != "approved":
         base_record = transition_persistent_case_status(
@@ -565,10 +569,6 @@ def approve_action_request(
             reason="action_request_approved",
             at_utc=timestamp,
         )
-
-    index, existing = _find_action_request(base_record, action_request_id)
-    if not is_valid_action_request_transition(existing.status, "approved"):
-        raise ValueError(f"invalid_action_request_transition:{existing.status}->approved")
 
     updated_request = replace(
         existing,

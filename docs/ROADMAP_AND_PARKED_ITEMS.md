@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
-| Stage | s5-swe-agent-yellow-backlog-template-integration |
-| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
+| Snapshot | S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001 |
+| Stage | s5c-impl13-action-request-terminal-guards-implementation-closeout |
+| Baseline commit | `6162a2dcc9263685d8f3fdec1c298895f53a355b` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, the S5C-YB-05 closeout, and the mini-swe-agent WSL2 no-write dry-run verification. The current in-flight Green docs-only toolchain stage integrates SWE agent as an optional future Yellow backlog template accelerator.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, the S5C-YB-05 closeout, the mini-swe-agent WSL2 no-write dry-run verification, and the SWE agent Yellow backlog template integration. The current in-flight Yellow closeout records S5C-YB-06 action-request terminal guard regression work.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits. This stage updates future Yellow backlog templates so SWE agent can be named only as a bounded implementation accelerator by a later exact Yellow item; it remains outside current and past Yellow implementation. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, model-backed SWE execution/integration, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits, and future templates may name it only as a bounded implementation accelerator. This stage closes `S5C-YB-06` within exact allowed files and keeps SWE agent outside the work. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, unlisted production code changes, model-backed SWE execution/integration, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -811,3 +811,31 @@ Future possible routes:
 2. Open a later exact Yellow item that explicitly names SWE agent only if product/governance wants to test bounded accelerator participation on a safe item.
 
 This route does not authorize SWE agent execution against product work, model-backed implementation, current or past Yellow item participation, code/test changes, dependency changes in the repo, runtime/API/schema work, public endpoint work, review replacement, route selection, manifest/gate/release ownership, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 33. S5-C-IMPL-13 Action Request Terminal Guards Implementation Closeout
+
+Current route:
+
+1. `OPEN_S5C_PREAUTHORIZED_YELLOW_BACKLOG_ITEM_06`
+
+Implementation result:
+
+- `backend\tests\test_case_action_request_contract.py` adds synthetic terminal guard regression coverage for approved, rejected, and cancelled action requests.
+- `backend\app\tools\persistent_case.py` moves `approve_action_request()` action-request lookup and transition validation before case lifecycle transition.
+- `FROZEN_ACTION_REQUEST_TRANSITIONS` remains unchanged.
+- No action-request status is added, removed, renamed, or reinterpreted.
+
+Verification before closeout gate:
+
+- Claude Code review-only returned `PASS_WITH_FINDINGS`.
+- Focused fixes closed the prior MEDIUM and LOW findings.
+- Final focused re-review returned `PASS_WITH_FINDINGS` with all targeted findings closed and no blocking finding.
+- Targeted action-request contract tests passed with 10 tests OK.
+- `git diff --check` passed for the allowed files.
+
+Next working step after closeout:
+
+1. Restore the stashed SWE-enabled YB-07 ticket draft.
+2. Continue its docs-only closeout gate from the new governed baseline.
+
+This route does not authorize additional implementation, unlisted files, new statuses, transition-matrix expansion, runtime/API/schema behavior, public endpoint work, action execution, RBAC, ticketing, workflow-engine, external-system or destructive-response semantics, dependency or fixture changes, release-script or contract changes, AI_COLLAB changes, SWE agent execution, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.

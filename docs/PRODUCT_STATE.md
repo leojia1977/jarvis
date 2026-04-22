@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001 |
-| Stage | s5-swe-agent-yellow-backlog-template-integration |
-| Baseline commit | `0b20b9b1fb991cb66d4898d83d0b8ce0609deca3` |
+| Snapshot | S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001 |
+| Stage | s5c-impl13-action-request-terminal-guards-implementation-closeout |
+| Baseline commit | `6162a2dcc9263685d8f3fdec1c298895f53a355b` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `0b20b9b`
-- Snapshot: `S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001`
-- Stage: `s5-mini-swe-agent-wsl2-no-write-dry-run-verification`
+- Commit: `6162a2d`
+- Snapshot: `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001`
+- Stage: `s5-swe-agent-yellow-backlog-template-integration`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-MINI-SWE-AGENT-WSL2-NO-WRITE-DRY-RUN-VERIFICATION-2026-04-21-001.zip`
-- Release sha256: `4dd7f904eadea00d3f1ce39fe63f83614ee2acbb82dc1313c9febf847fecd84e`
+- Release artifact: `releases\secupilot-S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001.zip`
+- Release sha256: `5f61a16807cb3a3f417c5f6ddb3e203c36ac11aaf55df26518a9ee3ed56fe1cf`
 
-The current baseline verifies the mini-swe-agent WSL2 no-write dry-run path. This stage integrates SWE agent into future Yellow backlog templates only as an optional bounded implementation accelerator. It does not authorize product-task SWE agent execution, model-backed implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, or AI_COLLAB changes.
+The current baseline integrates SWE agent into future Yellow backlog templates only as an optional bounded implementation accelerator. This in-flight stage closes `S5C-YB-06` action-request terminal guard regression work. It does not authorize launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -1057,3 +1057,30 @@ Current non-authorization:
 Recommended next route after this stage closes PASS:
 
 - `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+## 45. S5-C-IMPL-13 Action Request Terminal Guards Implementation Closeout
+
+This stage records the governed closeout for preauthorized Yellow backlog item `S5C-YB-06`.
+
+Implemented scope:
+
+- `backend\tests\test_case_action_request_contract.py` adds synthetic regression coverage that approved, rejected, and cancelled action requests reject further governed terminal transitions.
+- `backend\app\tools\persistent_case.py` moves action-request lookup and transition validation before case lifecycle transition in `approve_action_request()`.
+- `FROZEN_ACTION_REQUEST_TRANSITIONS` remains unchanged.
+- The action-request status vocabulary remains exactly `draft`, `pending_approval`, `approved`, `rejected`, and `cancelled`.
+
+Verification before closeout gate:
+
+- Claude Code review-only returned `PASS_WITH_FINDINGS`.
+- The prior MEDIUM and LOW findings were fixed and focused re-reviewed.
+- Final focused re-review returned `PASS_WITH_FINDINGS` with all targeted findings closed and no blocking finding.
+- `py -3 -m unittest -q backend.tests.test_case_action_request_contract` passed with 10 tests OK.
+- `git diff --check` passed for the allowed files.
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, unlisted files, new statuses, transition-matrix expansion, runtime/API/schema behavior, public endpoint work, action execution, RBAC, ticketing, workflow-engine, external-system or destructive-response semantics, dependency changes, fixture changes, release-script changes, contract changes, AI_COLLAB changes, SWE agent execution, Red execution, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, staging, commit, or push before closeout rules are satisfied.
+
+Next working step after this closeout:
+
+- restore the stashed SWE-enabled YB-07 ticket draft and continue its docs-only closeout gate from the new governed baseline.
