@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001",
+    "id": "S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001",
     "sprint": "Sprint 5",
-    "stage": "s5-wait-for-prd-and-route-selection-readiness",
-    "created_at": "2026-04-22T13:54:47.338316+08:00",
-    "updated_at": "2026-04-22T13:57:55.221933+08:00"
+    "stage": "s5-swe-autonomous-delivery-acceleration-baseline",
+    "created_at": "2026-04-22T14:49:28+08:00",
+    "updated_at": "2026-04-22T14:51:26.607000+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001.zip",
-    "current_release_sha256": "26e512ca05829c7be4b016f1ce3cfbd8e38fbd7e3db5a9f9afe21f3d6e77a512",
-    "baseline_release_sha256": "40fb42dcf166c1b80343656e48e6d914fc88c0bcebef3f8e34d162e49b6704dc"
+    "current_release_zip": "releases\\secupilot-S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001.zip",
+    "current_release_sha256": "faf92876910799419101d3f79aa04b57b26403aca717ede55f45e5a5cb5ea075",
+    "baseline_release_sha256": "26e512ca05829c7be4b016f1ce3cfbd8e38fbd7e3db5a9f9afe21f3d6e77a512"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "345aec44a4c57870a3614328de0b26579b7dbad54878b85d689917e293556173"
+      "sha256": "f8f4d2231527458cd455a2481e0acca5239c652efd4c2659fb35532acf3db500"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state",
-      "sha256": "e39115ac3e7d34a96f305e3c945265a8147bfd5561a832817ca3ae06943dced0"
+      "sha256": "f3ff70574752a0f091d0a45f92193a51bfabbe8ff4d9b1ebe2999a993335202d"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "rolling-governance-decision-log",
-      "sha256": "05c9206c4be854dadd8eb33e612e7836ce7de83b60cd86403169ed2f6e462a9c"
+      "sha256": "64182c4843fd9859eefac78477f7e7e2d60809abc8e6bc0bd10ca5bc19610a19"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "rolling-roadmap-and-parked-items",
-      "sha256": "462d1cab7f449870a04b0b61b5eb7e7177036ba6f07f4fa951cd3e5708977543"
+      "sha256": "99a0b8b3692b5d1fd739f948f7f800f2950ffd15edbb17c543ee36d9b106c2f5"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1192,6 +1192,21 @@
       "path": "docs\\WAIT_FOR_PRD_AND_ROUTE_SELECTION_READINESS.md",
       "role": "wait-for-prd-and-route-selection-readiness",
       "sha256": "168d44a8276db1b05428c1f05911315c58abf52d00c34a2aaa305448a0ae059e"
+    },
+    {
+      "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md",
+      "role": "swe-autonomous-delivery-acceleration-playbook",
+      "sha256": "948ccdfcde91deab75c3e70d91f14418e59e64563ede8598cc923890854e1db9"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_DELIVERY_PROMPT_PACK.md",
+      "role": "autonomous-delivery-prompt-pack",
+      "sha256": "13ed71d2fdcebc77acce3e90de12b64778e034a870c9972dbdaebc2d629b750e"
+    },
+    {
+      "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md",
+      "role": "swe-autonomous-delivery-acceleration-closeout",
+      "sha256": "4073639d92a56ff76ee9cacd4993af9782b864004b30a360690678d649023e8f"
     }
   ],
   "tests": [
@@ -1256,13 +1271,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001",
+      "Snapshot ID: S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-22T13:57:56.278465+08:00",
+    "last_verified_at": "2026-04-22T14:51:27.693696+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1282,18 +1297,26 @@
     ]
   },
   "stage_outcome": {
-    "implementation_status": "GREEN_DOCS_ONLY_WAITING_STAGE_FULL_GATE_PASS",
-    "route": "OPEN_WAIT_FOR_PRD_AND_ROUTE_SELECTION_READINESS_STAGE",
+    "implementation_status": "GREEN_DOCS_ONLY_ACCELERATION_BASELINE_FULL_GATE_PASS",
+    "route": "OPEN_SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_STAGE",
     "lane": "Green docs-only",
-    "decision": "WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION",
-    "allowed_while_waiting": [
-      "PRD availability monitoring if supplied by future prompt or automation",
-      "docs-only status summaries",
-      "route-selection readiness notes",
-      "rolling-map hygiene"
+    "decision": "FORMALIZE_SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_AND_PROMPT_PACK",
+    "accepted_artifacts": [
+      "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md",
+      "docs\\AUTONOMOUS_DELIVERY_PROMPT_PACK.md",
+      "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md"
+    ],
+    "preserved_product_posture": "WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION",
+    "acceleration_controls": [
+      "Codex prompt routing remains orchestration rather than approval",
+      "VS Code remains local workspace and execution surface",
+      "SWE remains bounded implementation accelerator only when later exact Yellow item names it",
+      "Claude Code remains focused code review",
+      "Claude Web remains product architecture governance review",
+      "anti-generalization contract applies to accelerated delivery loops"
     ],
     "next_route_when_ready": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "release_verification": "PASS",
-    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_WAITING_STAGE"
+    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_ACCELERATION_BASELINE"
   }
 }

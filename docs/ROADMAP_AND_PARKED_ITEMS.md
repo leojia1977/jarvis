@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001 |
-| Stage | s5-wait-for-prd-and-route-selection-readiness |
-| Baseline commit | `dc24d934999f6684a38da81ce787727c20c8d49f` |
+| Snapshot | S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001 |
+| Stage | s5-swe-autonomous-delivery-acceleration-baseline |
+| Baseline commit | `4912cf5579a52efc04dfd033ccc1edaa71c2e427` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -927,3 +927,32 @@ Future route when PRD arrives:
 1. `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
 
 This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 37. SWE Autonomous Delivery Acceleration Baseline
+
+Current route:
+
+1. `OPEN_SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_STAGE`
+
+Acceleration baseline result:
+
+- `docs\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md` is the governed role and delivery-loop playbook.
+- `docs\AUTONOMOUS_DELIVERY_PROMPT_PACK.md` is the governed reusable prompt template pack.
+- `docs\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md` records the closeout and non-authorization boundaries.
+
+Future use:
+
+1. When the next PRD or explicit product direction arrives, use these artifacts during `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`.
+2. Use prompt templates for PRD intake, SWE bounded acceleration, Claude Code focused review, Claude Web product/architecture/governance review, Human/Jarvis GO-no-go, and prompt routing records.
+3. Keep the anti-generalization contract active for all accelerated delivery loops.
+
+Still parked or deferred:
+
+- no implementation without a later exact scoped ticket and GO
+- no SWE product execution without a later exact Yellow item naming SWE as `bounded implementation accelerator`
+- no external pilot execution or readiness claim
+- no public endpoint work
+- no S5-B/S5-D/ORDIV reopen
+- no Red-3 action
+
+This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.

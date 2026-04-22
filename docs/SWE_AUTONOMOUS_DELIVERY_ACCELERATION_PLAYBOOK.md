@@ -5,11 +5,11 @@
 | Field | Value |
 | --- | --- |
 | Title | SWE Autonomous Delivery Acceleration Playbook |
-| Status | Green docs-only design draft |
+| Status | Governed Green docs-only acceleration playbook baseline |
 | Scope | Define role boundaries, prompt routing, SWE accelerator use, anti-generalization rules, and delivery-loop metrics before the next PRD arrives |
-| Snapshot | S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001 |
-| Stage | s5-wait-for-prd-and-route-selection-readiness |
-| Baseline commit | `ec491a1da73464e930a9bed7f3586b3d92cb59eb` |
+| Snapshot | S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001 |
+| Stage | s5-swe-autonomous-delivery-acceleration-baseline |
+| Baseline commit | `4912cf5579a52efc04dfd033ccc1edaa71c2e427` |
 | Baseline manifest status | PASS |
 | Lane | Green docs-only readiness note |
 

@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001 |
-| Stage | s5-wait-for-prd-and-route-selection-readiness |
-| Baseline commit | `dc24d934999f6684a38da81ce787727c20c8d49f` |
+| Snapshot | S5-SWE-AUTONOMOUS-DELIVERY-ACCELERATION-BASELINE-2026-04-22-001 |
+| Stage | s5-swe-autonomous-delivery-acceleration-baseline |
+| Baseline commit | `4912cf5579a52efc04dfd033ccc1edaa71c2e427` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -1178,3 +1178,33 @@ Next product route when PRD or explicit product direction arrives:
 Current non-authorization:
 
 - This stage does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution or readiness claims, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, SWE agent product execution, or staging/commit/push outside governed Green docs-only closeout rules.
+
+## 49. SWE Autonomous Delivery Acceleration Baseline
+
+This stage governs the SWE autonomous delivery acceleration playbook and prompt pack as Green docs-only readiness artifacts before the next PRD arrives.
+
+Accepted artifacts:
+
+- `docs\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md`
+- `docs\AUTONOMOUS_DELIVERY_PROMPT_PACK.md`
+- `docs\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md`
+
+Operating outcome:
+
+- Codex is the orchestrator, implementation owner, prompt router, and verification/release owner where authorized.
+- VS Code remains the local workspace and execution surface.
+- SWE / mini-swe-agent remains only a bounded implementation accelerator when a later exact Yellow item explicitly names it.
+- Claude Code is focused code review.
+- Claude Web is product, architecture, governance, high-risk, and Red/HOLD review.
+- Human/Jarvis owns product direction and authorization boundaries.
+- The prompt pack provides reusable bounded prompts for PRD intake, SWE acceleration, Claude Code review, Claude Web review, Human/Jarvis GO-no-go, and routing records.
+- The anti-generalization contract is now explicit acceleration guidance: no helper/module/registry/framework/service/reusable abstraction/future-proofing/cleanup refactor/hidden requirement unless a ticket explicitly names it.
+
+Current product posture remains:
+
+- `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`
+- next product route when input arrives: `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+Current non-authorization:
+
+- This stage does not authorize implementation, code/test/dependency/fixture/runtime/API/schema/release-script/contract changes, AI_COLLAB changes, Yellow implementation, Red execution, launch execution, production deployment, external pilot execution or readiness claims, credential handling, real-data handling, evidence retention, redaction policy freeze, public endpoint work, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, cookie/session/token/auth-header/browser-storage/profile-file inspection, SWE agent product execution without a later exact Yellow item, or staging/commit/push outside governed closeout rules.
