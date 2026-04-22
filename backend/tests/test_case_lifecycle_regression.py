@@ -322,6 +322,45 @@ class CaseLifecycleRegressionTests(unittest.TestCase):
         self.assertEqual(closed_summary["latest_audit_reason"], "close after summary review")
         self.assertEqual(closed_summary["close_reason"], "resolved_contained")
 
+    def test_workflow_summary_mutation_does_not_change_future_summary(self):
+        record = build_initial_persistent_case_record(
+            _workflow_summary_case(),
+            snapshot_id="S5C-IMPL14-WORKFLOW-SUMMARY-IMMUTABILITY",
+            actor="analyst.leo",
+            created_at_utc="2026-04-22T10:00:00Z",
+        )
+        drafted = create_action_request_from_case(
+            record,
+            actor="analyst.leo",
+            rationale="synthetic immutability request",
+            at_utc="2026-04-22T10:01:00Z",
+        )
+        submitted = submit_action_request_for_approval(
+            drafted,
+            action_request_id=drafted.action_requests[0].action_request_id,
+            actor="analyst.leo",
+            review_owner="manager.chen",
+            reason="submit before summary mutation",
+            at_utc="2026-04-22T10:02:00Z",
+        )
+
+        first_summary = persistent_case_workflow_summary(submitted)
+        first_summary["lifecycle_status"] = "closed"
+        first_summary["pending_action_request_count"] = 0
+        first_summary["execution_authorized"] = True
+        first_summary["action_request_counts"]["pending_approval"] = 0
+        first_summary["action_request_counts"]["approved"] = 99
+
+        second_summary = persistent_case_workflow_summary(submitted)
+
+        self.assertIsNot(first_summary, second_summary)
+        self.assertIsNot(first_summary["action_request_counts"], second_summary["action_request_counts"])
+        self.assertEqual(second_summary["lifecycle_status"], "in_review")
+        self.assertEqual(second_summary["pending_action_request_count"], 1)
+        self.assertEqual(second_summary["action_request_counts"]["pending_approval"], 1)
+        self.assertEqual(second_summary["action_request_counts"]["approved"], 0)
+        self.assertFalse(second_summary["execution_authorized"])
+
     def test_pending_action_request_helpers_detect_closed_pending_case_without_mutation(self):
         record = build_initial_persistent_case_record(
             _workflow_summary_case(),

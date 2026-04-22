@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-YB07-SWE-WORKFLOW-SUMMARY-IMMUTABILITY-TICKET-2026-04-22-001 |
-| Stage | s5c-yb07-swe-workflow-summary-immutability-ticket |
-| Baseline commit | `8e81dfdd2332a3e51fe8cb318276e7eb892b0bae` |
+| Snapshot | S5C-IMPL14-WORKFLOW-SUMMARY-IMMUTABILITY-IMPLEMENTATION-CLOSEOUT-2026-04-22-001 |
+| Stage | s5c-impl14-workflow-summary-immutability-implementation-closeout |
+| Baseline commit | `7206f718651029a1fa92ccde1ca4d8428b5796ab` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `8e81dfd`
-- Snapshot: `S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001`
-- Stage: `s5c-impl13-action-request-terminal-guards-implementation-closeout`
+- Commit: `7206f71`
+- Snapshot: `S5C-YB07-SWE-WORKFLOW-SUMMARY-IMMUTABILITY-TICKET-2026-04-22-001`
+- Stage: `s5c-yb07-swe-workflow-summary-immutability-ticket`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001.zip`
-- Release sha256: `cb6bee444f4d34f52b00dd83808ecfc9e749e550c5bfbfec57f50b73fc3d95dd`
+- Release artifact: `releases\secupilot-S5C-YB07-SWE-WORKFLOW-SUMMARY-IMMUTABILITY-TICKET-2026-04-22-001.zip`
+- Release sha256: `2721a30ef2a1af36c1295718e21008e6ce08c524940a3c2383f6fa90847eef22`
 
-The current baseline closes `S5C-YB-06` action-request terminal guard regression work and keeps SWE agent outside that item. This in-flight docs-only stage opens the first exact SWE-enabled Yellow item ticket for workflow summary immutability. It does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent product execution, or AI_COLLAB changes.
+The current baseline opens the first exact SWE-enabled Yellow item ticket for workflow summary immutability. This in-flight stage closes the Yellow test-only implementation for that item. It does not authorize launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, additional SWE agent product execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -1114,3 +1114,37 @@ Non-retroactive status:
 Current non-authorization:
 
 - This stage does not authorize implementation, production code changes, runtime/API/schema behavior, public endpoint work, dependency changes, fixture changes, release-script changes, contract changes, AI_COLLAB changes, direct SWE agent repo writes, model-backed SWE execution without a later governed non-secret credential path, review replacement, route selection by SWE agent, manifest/gate/release ownership by SWE agent, staging, commit, push, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+## 47. S5-C-IMPL-14 Workflow Summary Immutability Implementation Closeout
+
+This stage records the governed closeout for exact SWE-enabled Yellow item `S5C-YB-07-SWE`.
+
+Implemented scope:
+
+- `backend\tests\test_case_lifecycle_regression.py` adds one synthetic workflow-summary immutability regression test.
+- The test mutates the first returned summary and nested `action_request_counts` dict.
+- The test calls `persistent_case_workflow_summary()` again and proves the second summary remains record-derived.
+- The test asserts both top-level and nested summary objects are distinct.
+- `execution_authorized` remains `False`.
+
+SWE agent participation:
+
+- SWE agent was authorized only as a bounded implementation accelerator.
+- SWE agent was not used for product patch generation or repo writes.
+- Codex/VS Code performed the exact test-only edit because the item did not require model-backed SWE output and WSL proxy/NAT/model-credential behavior remains a HOLD trigger for broader SWE runs.
+
+Verification before closeout gate:
+
+- Claude Code review-only returned `PASS_WITH_FINDINGS`.
+- The only LOW finding was fixed with explicit identity assertions.
+- Focused re-review returned `PASS`.
+- `py -3 -m unittest -q backend.tests.test_case_lifecycle_regression` passed with 11 tests OK.
+- `git diff --check` passed for the allowed file.
+
+Current non-authorization:
+
+- This stage does not authorize additional implementation, production code changes, runtime/API/schema behavior, public endpoint work, dependency changes, fixture changes, release-script changes, contract changes, AI_COLLAB changes, direct SWE agent repo writes, model-backed SWE execution without a later governed non-secret credential path, review replacement, route selection by SWE agent, manifest/gate/release ownership by SWE agent, staging, commit, push, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
+
+Recommended next route after this closeout:
+
+- `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
