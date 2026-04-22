@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5C-IMPL14-WORKFLOW-SUMMARY-IMMUTABILITY-IMPLEMENTATION-CLOSEOUT-2026-04-22-001",
+    "id": "S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001",
     "sprint": "Sprint 5",
-    "stage": "s5c-impl14-workflow-summary-immutability-implementation-closeout",
-    "created_at": "2026-04-22T13:35:46.158461+08:00",
-    "updated_at": "2026-04-22T13:36:18.048409+08:00"
+    "stage": "s5-wait-for-prd-and-route-selection-readiness",
+    "created_at": "2026-04-22T13:54:47.338316+08:00",
+    "updated_at": "2026-04-22T13:57:55.221933+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5C-IMPL14-WORKFLOW-SUMMARY-IMMUTABILITY-IMPLEMENTATION-CLOSEOUT-2026-04-22-001.zip",
-    "current_release_sha256": "40fb42dcf166c1b80343656e48e6d914fc88c0bcebef3f8e34d162e49b6704dc",
-    "baseline_release_sha256": "2721a30ef2a1af36c1295718e21008e6ce08c524940a3c2383f6fa90847eef22"
+    "current_release_zip": "releases\\secupilot-S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001.zip",
+    "current_release_sha256": "26e512ca05829c7be4b016f1ce3cfbd8e38fbd7e3db5a9f9afe21f3d6e77a512",
+    "baseline_release_sha256": "40fb42dcf166c1b80343656e48e6d914fc88c0bcebef3f8e34d162e49b6704dc"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "ea0c4e9a7ce19d552f4811713e489a72488ce652a7c5790a33795077e6541d42"
+      "sha256": "345aec44a4c57870a3614328de0b26579b7dbad54878b85d689917e293556173"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state",
-      "sha256": "f786b02d0e88d6f762f8efd2623d0bda4b26297ea480881131d26cd154e1c39a"
+      "sha256": "e39115ac3e7d34a96f305e3c945265a8147bfd5561a832817ca3ae06943dced0"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "rolling-governance-decision-log",
-      "sha256": "53a3478f012bd1c359e02e33e05759d3bcee7303fc1b2a67083f239ba38f0d68"
+      "sha256": "05c9206c4be854dadd8eb33e612e7836ce7de83b60cd86403169ed2f6e462a9c"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "rolling-roadmap-and-parked-items",
-      "sha256": "f885d82181f8cc9d3aefcf008ea5a6e3c143b8b704d7151b838a730c95e28c19"
+      "sha256": "462d1cab7f449870a04b0b61b5eb7e7177036ba6f07f4fa951cd3e5708977543"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1187,6 +1187,11 @@
       "path": "docs\\S5C_IMPL14_WORKFLOW_SUMMARY_IMMUTABILITY_IMPLEMENTATION_CLOSEOUT.md",
       "role": "s5c-impl14-workflow-summary-immutability-closeout",
       "sha256": "2c64ee90199b5bbd905a9af9523a6ef33ea92877e3c845c4f7283deab552ed0b"
+    },
+    {
+      "path": "docs\\WAIT_FOR_PRD_AND_ROUTE_SELECTION_READINESS.md",
+      "role": "wait-for-prd-and-route-selection-readiness",
+      "sha256": "168d44a8276db1b05428c1f05911315c58abf52d00c34a2aaa305448a0ae059e"
     }
   ],
   "tests": [
@@ -1251,13 +1256,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5C-IMPL14-WORKFLOW-SUMMARY-IMMUTABILITY-IMPLEMENTATION-CLOSEOUT-2026-04-22-001",
+      "Snapshot ID: S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-22T13:37:01.248930+08:00",
+    "last_verified_at": "2026-04-22T13:57:56.278465+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1269,27 +1274,26 @@
   "future_route": {
     "id": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "preconditions": [
-      "this S5C-YB-07-SWE implementation closeout closes with review PASS, full gate PASS, release verification PASS, manifest PASS, closeout commit, and push",
-      "future route is Green docs-only product-development route selection unless a later governed prompt supersedes it",
-      "no additional implementation without a separate exact Yellow item or governed route decision",
-      "SWE agent remains bounded implementation accelerator only when an exact later item names it",
+      "latest PRD or explicit product direction is available",
+      "route selection loads current PASS baseline, rolling maps, and handoff",
+      "route selection names exact next steps before implementation begins",
+      "if no PRD or product direction is available, continue waiting rather than inventing scope",
       "no launch, deployment, external pilot execution, credentials, real data, public endpoint, S5-B/S5-D, ORDIV, Red-3, AI_COLLAB, or unlisted file changes"
     ]
   },
   "stage_outcome": {
-    "implementation_status": "YELLOW_TEST_ONLY_IMPLEMENTATION_CLOSEOUT_FULL_GATE_PASS",
-    "route": "OPEN_S5C_YB07_SWE_WORKFLOW_SUMMARY_IMMUTABILITY",
-    "item": "S5C-YB-07-SWE",
-    "lane": "Yellow test-only",
-    "allowed_files": [
-      "backend\\tests\\test_case_lifecycle_regression.py"
+    "implementation_status": "GREEN_DOCS_ONLY_WAITING_STAGE_FULL_GATE_PASS",
+    "route": "OPEN_WAIT_FOR_PRD_AND_ROUTE_SELECTION_READINESS_STAGE",
+    "lane": "Green docs-only",
+    "decision": "WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION",
+    "allowed_while_waiting": [
+      "PRD availability monitoring if supplied by future prompt or automation",
+      "docs-only status summaries",
+      "route-selection readiness notes",
+      "rolling-map hygiene"
     ],
-    "targeted_test": "py -3 -m unittest -q backend.tests.test_case_lifecycle_regression",
-    "targeted_test_status": "PASS",
-    "review_status": "PASS_AFTER_FOCUSED_LOW_FIX",
-    "swe_agent_role": "bounded implementation accelerator",
-    "swe_agent_product_participation": "not used for patch generation or repo writes",
+    "next_route_when_ready": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "release_verification": "PASS",
-    "future_route": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE"
+    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_WAITING_STAGE"
   }
 }

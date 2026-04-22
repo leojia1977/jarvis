@@ -6,17 +6,17 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5C-IMPL14-WORKFLOW-SUMMARY-IMMUTABILITY-IMPLEMENTATION-CLOSEOUT-2026-04-22-001 |
-| Stage | s5c-impl14-workflow-summary-immutability-implementation-closeout |
-| Baseline commit | `7206f718651029a1fa92ccde1ca4d8428b5796ab` |
+| Snapshot | S5-WAIT-FOR-PRD-AND-ROUTE-SELECTION-READINESS-2026-04-22-001 |
+| Stage | s5-wait-for-prd-and-route-selection-readiness |
+| Baseline commit | `dc24d934999f6684a38da81ce787727c20c8d49f` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
 ## 2. Current Mainline Posture
 
-The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, the S5C-YB-05 closeout, the mini-swe-agent WSL2 no-write dry-run verification, the SWE agent Yellow backlog template integration, the S5C-YB-06 action-request terminal guard regression closeout, and the S5C-YB-07-SWE ticket. The current in-flight Yellow test-only closeout records workflow summary immutability regression coverage.
+The current governed mainline outcome is the fourth preauthorized S5-C Yellow backlog item closeout, the autonomous Yellow backlog template anti-overengineering refresh, the governed current phase summary, the next product-development route selection, the next Yellow backlog preauthorization package, the SWE agent install/capability verification sequence, the S5C-YB-05 closeout, the mini-swe-agent WSL2 no-write dry-run verification, the SWE agent Yellow backlog template integration, the S5C-YB-06 action-request terminal guard regression closeout, the S5C-YB-07-SWE ticket, and the S5C-YB-07-SWE implementation closeout. The current in-flight Green docs-only stage pauses new product implementation until the latest PRD or explicit product direction is available.
 
-The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits, and future templates may name it only as a bounded implementation accelerator. YB-06 closed within exact allowed files and remains not SWE-enabled. This stage implements `S5C-YB-07-SWE` as a test-only workflow summary immutability item. SWE agent was not used for product patch generation or repo writes. This stage does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, model-backed SWE execution/integration, direct SWE repo writes, or unlisted implementation.
+The YB-04 closeout completed under exact test-only file scope. The template refresh added future anti-overengineering rules. The phase summary records current posture, route selection chose `OPEN_NEXT_YELLOW_BACKLOG_PREAUTHORIZATION_STAGE`, and the package prepared YB-05 through YB-07. YB-05 now adds only synthetic reopen lifecycle audit regression coverage in the exact allowed test file. SWE agent / mini-swe-agent now has a WSL2 deterministic no-write dry-run verified path with limits, and future templates may name it only as a bounded implementation accelerator. YB-06 closed within exact allowed files and remains not SWE-enabled. YB-07-SWE closed as a test-only workflow summary immutability item. This stage waits for the latest PRD before opening new product implementation. It does not authorize launch execution, deployment, real-data handling, public endpoint work, login route, AdsPower profile switching/creation, parked-stream reopen, runtime/API/schema behavior, production code changes, model-backed SWE execution/integration, direct SWE repo writes, or unlisted implementation.
 
 ## 3. Parked And Deferred Items
 
@@ -898,3 +898,32 @@ Future possible routes:
 2. Open another exact Yellow item only after a governed route-selection or preauthorization stage.
 
 This route does not authorize additional implementation, production code changes, runtime/API/schema work, public endpoint work, dependency or fixture changes, release-script or contract changes, AI_COLLAB changes, direct SWE agent repo writes, model-backed SWE execution without a later governed non-secret credential path, review replacement, route selection by SWE agent, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 36. Wait For PRD And Route Selection Readiness
+
+Current route:
+
+1. `OPEN_WAIT_FOR_PRD_AND_ROUTE_SELECTION_READINESS_STAGE`
+
+Waiting decision:
+
+1. `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`
+
+Current product posture:
+
+- Recent S5-C internal hardening Yellow items are closed.
+- Automation/tooling is ready for bounded Green/Yellow work.
+- New product implementation should not proceed without the latest PRD or explicit product direction.
+
+Allowed while waiting:
+
+- docs-only status summaries
+- PRD availability monitoring if supplied by future prompt or automation
+- route-selection readiness notes
+- rolling-map hygiene
+
+Future route when PRD arrives:
+
+1. `OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE`
+
+This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
