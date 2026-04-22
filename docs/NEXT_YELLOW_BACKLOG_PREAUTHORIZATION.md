@@ -237,6 +237,22 @@ Later verification advanced SWE agent / mini-swe-agent to `VERIFIED_NO_WRITE_DRY
 
 SWE agent is not part of this package. It may not implement, review, stage, commit, push, or unblock any item in this package unless a later governed package or exact Yellow item explicitly names SWE agent as a bounded implementation accelerator and carries all controls from `docs\SWE_AGENT_RUNBOOK.md` and `docs\AUTONOMOUS_YELLOW_BACKLOG_PREAUTHORIZATION_TEMPLATE.md`.
 
+## 7.1 Later Exact SWE-Enabled Item
+
+A later exact item is opened by `docs\S5C_YB07_SWE_WORKFLOW_SUMMARY_IMMUTABILITY_TICKET.md`.
+
+That later item:
+
+- uses item ID `S5C-YB-07-SWE`
+- is not retroactive to this package
+- does not authorize already-closed `S5C-YB-06` work
+- may be selected only after its own ticket stage closes PASS and the workspace is clean against a governed PASS baseline
+- authorizes SWE agent only as a `bounded implementation accelerator`
+- limits SWE agent to no-write patch-suggestion / implementation-plan mode for the first SWE-enabled product item
+- keeps actual file edits, tests, review routing, manifest, release, staging, commit, and push under Codex/VS Code closeout ownership
+
+The original `S5C-YB-07` entry above remains not SWE-enabled unless the later exact item is selected under its own route and closeout rules.
+
 ## 8. Closeout Sequence Per Item
 
 Each listed item may close only after this exact order:

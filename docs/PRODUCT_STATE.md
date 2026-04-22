@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Product State |
 | Status | Rolling governed product-state map |
-| Snapshot | S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001 |
-| Stage | s5c-impl13-action-request-terminal-guards-implementation-closeout |
-| Baseline commit | `6162a2dcc9263685d8f3fdec1c298895f53a355b` |
+| Snapshot | S5C-YB07-SWE-WORKFLOW-SUMMARY-IMMUTABILITY-TICKET-2026-04-22-001 |
+| Stage | s5c-yb07-swe-workflow-summary-immutability-ticket |
+| Baseline commit | `8e81dfdd2332a3e51fe8cb318276e7eb892b0bae` |
 
 This file summarizes governed product truth for orientation. It does not override source governed docs, manifest state, route decisions, closeouts, or release verification records. It does not authorize implementation.
 
@@ -20,15 +20,15 @@ When Section 1 and Section 2 differ, Section 1 is the in-flight rolling-map stag
 
 ## 2. Current Governed Baseline
 
-- Commit: `6162a2d`
-- Snapshot: `S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001`
-- Stage: `s5-swe-agent-yellow-backlog-template-integration`
+- Commit: `8e81dfd`
+- Snapshot: `S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001`
+- Stage: `s5c-impl13-action-request-terminal-guards-implementation-closeout`
 - Manifest: `releases\release_manifest.json`
 - Manifest status at baseline: `PASS`
-- Release artifact: `releases\secupilot-S5-SWE-AGENT-YELLOW-BACKLOG-TEMPLATE-INTEGRATION-2026-04-21-001.zip`
-- Release sha256: `5f61a16807cb3a3f417c5f6ddb3e203c36ac11aaf55df26518a9ee3ed56fe1cf`
+- Release artifact: `releases\secupilot-S5C-IMPL13-ACTION-REQUEST-TERMINAL-GUARDS-IMPLEMENTATION-CLOSEOUT-2026-04-22-001.zip`
+- Release sha256: `cb6bee444f4d34f52b00dd83808ecfc9e749e550c5bfbfec57f50b73fc3d95dd`
 
-The current baseline integrates SWE agent into future Yellow backlog templates only as an optional bounded implementation accelerator. This in-flight stage closes `S5C-YB-06` action-request terminal guard regression work. It does not authorize launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent execution, or AI_COLLAB changes.
+The current baseline closes `S5C-YB-06` action-request terminal guard regression work and keeps SWE agent outside that item. This in-flight docs-only stage opens the first exact SWE-enabled Yellow item ticket for workflow summary immutability. It does not authorize implementation, launch, real-data handling, secret handling, public endpoint work, parked-stream reopen, Red execution, SWE agent product execution, or AI_COLLAB changes.
 
 ## 3. Sprint 5 State Summary
 
@@ -1084,3 +1084,33 @@ Current non-authorization:
 Next working step after this closeout:
 
 - restore the stashed SWE-enabled YB-07 ticket draft and continue its docs-only closeout gate from the new governed baseline.
+
+## 46. S5-C YB-07 SWE Workflow Summary Immutability Ticket
+
+This stage opens the first exact SWE-enabled Yellow item ticket after `S5C-YB-06` reached a governed PASS baseline.
+
+Ticket result:
+
+- New governing artifact: `docs\S5C_YB07_SWE_WORKFLOW_SUMMARY_IMMUTABILITY_TICKET.md`.
+- Item ID: `S5C-YB-07-SWE`.
+- Future route: `OPEN_S5C_YB07_SWE_WORKFLOW_SUMMARY_IMMUTABILITY`.
+- Future lane: Yellow test-only.
+- Allowed file: `backend\tests\test_case_lifecycle_regression.py`.
+- Required targeted test: `py -3 -m unittest -q backend.tests.test_case_lifecycle_regression`.
+- Full gate remains required before future implementation closeout: `py -3 scripts\git_preflight.py --mode all`.
+
+SWE agent status for this item:
+
+- explicitly authorized only as `bounded implementation accelerator`
+- first-item execution mode is no-write patch-suggestion / implementation-plan only
+- actual file edits remain owned by Codex/VS Code under exact file scope
+- SWE agent cannot review itself, own manifest/gate/release, stage, commit, push, select route, expand scope, or handle secrets/real data/browser sessions
+
+Non-retroactive status:
+
+- `S5C-YB-06` is already closed and is not SWE-enabled.
+- Current and closed Yellow items remain outside SWE agent participation unless a later exact governed item names SWE agent.
+
+Current non-authorization:
+
+- This stage does not authorize implementation, production code changes, runtime/API/schema behavior, public endpoint work, dependency changes, fixture changes, release-script changes, contract changes, AI_COLLAB changes, direct SWE agent repo writes, model-backed SWE execution without a later governed non-secret credential path, review replacement, route selection by SWE agent, manifest/gate/release ownership by SWE agent, staging, commit, push, launch execution, production deployment, external pilot execution or readiness, credential handling, real-data handling, evidence retention, redaction policy freeze, S5-B/S5-D reopen, ORDIV work, S4-A resolver change, Red-3 action, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header/browser-storage/profile-file inspection.
