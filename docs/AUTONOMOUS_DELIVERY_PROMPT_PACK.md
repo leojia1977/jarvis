@@ -156,6 +156,47 @@ Required output:
 - Required next artifact:
 ```
 
+## 5.2 Dry Run Rehearsal Prompt Copy
+
+Use before a live PRD-driven loop when the team wants to rehearse routing, prompt copying, ticket readiness, SWE eligibility, and review availability without opening product scope.
+
+This prompt copy is orchestration material only. Do not submit it as a product review, do not ask SWE to run, and do not claim Claude Web review completion if Claude Web is unavailable.
+
+```text
+<Required Prompt Header>
+<Anti-Generalization Clause>
+
+Review type: autonomous delivery dry-run rehearsal
+Output role: rehearsal evidence only
+
+Dry-run inputs:
+- Product source: <latest PRD / explicit product direction / missing>
+- Candidate route: <route or missing>
+- Candidate ticket: <exact ticket or none>
+- Claude Web availability: <available / usage-limited until timestamp / unknown>
+- SWE eligibility: <not authorized / candidate only after exact Yellow item>
+
+Task:
+1. Confirm whether product source exists.
+2. If product source is missing, return WAIT/HOLD and do not invent scope.
+3. Evaluate whether Ticket Readiness Checklist can pass.
+4. Confirm whether SWE is authorized.
+5. Confirm whether Claude Code review is applicable.
+6. Confirm whether Claude Web review is available, queued, or HOLD.
+7. Identify any over-generalization risk.
+8. Identify the next governed artifact.
+
+Required output:
+- Dry-run decision:
+- Ticket readiness state:
+- SWE state:
+- Claude Code state:
+- Claude Web state:
+- HOLDs:
+- Anti-generalization findings:
+- Next governed artifact:
+```
+
 ## 6. Claude Code Focused Review Prompt
 
 Use for focused code review after Codex has produced a bounded diff.
@@ -197,6 +238,8 @@ Claude Code review evidence does not approve product direction, Red work, launch
 ## 7. Claude Web Architecture / Governance Prompt
 
 Use when product, architecture, governance, or high-risk boundaries are involved.
+
+If Claude Web is usage-limited or unavailable, record the result as `NEEDS_CLAUDE_WEB_REVIEW`, `CLAUDE_WEB_REVIEW_QUEUED`, or `HOLD_PENDING_CLAUDE_WEB_RESET`. Do not use Claude Code, SWE, VS Code, or Codex output as a replacement verdict for Claude Web product, architecture, governance, high-risk, Red, or HOLD review.
 
 ```text
 <Required Prompt Header>

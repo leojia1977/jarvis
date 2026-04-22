@@ -6,16 +6,16 @@
     "layout": "structured-compat-root"
   },
   "snapshot": {
-    "id": "S5-TICKET-READINESS-CHECKLIST-2026-04-22-001",
+    "id": "S5-AUTONOMOUS-DELIVERY-DRY-RUN-REHEARSAL-2026-04-22-001",
     "sprint": "Sprint 5",
-    "stage": "s5-ticket-readiness-checklist",
-    "created_at": "2026-04-22T14:56:19+08:00",
-    "updated_at": "2026-04-22T14:58:48.542063+08:00"
+    "stage": "s5-autonomous-delivery-dry-run-rehearsal",
+    "created_at": "2026-04-22T15:04:02+08:00",
+    "updated_at": "2026-04-22T15:11:29.903436+08:00"
   },
   "artifacts": {
-    "current_release_zip": "releases\\secupilot-S5-TICKET-READINESS-CHECKLIST-2026-04-22-001.zip",
-    "current_release_sha256": "b524f208a1dd9b17e149fa4f4197189b000e5a45d3b279aa4aa2a45b9d0517e6",
-    "baseline_release_sha256": "faf92876910799419101d3f79aa04b57b26403aca717ede55f45e5a5cb5ea075"
+    "current_release_zip": "releases\\secupilot-S5-AUTONOMOUS-DELIVERY-DRY-RUN-REHEARSAL-2026-04-22-001.zip",
+    "current_release_sha256": "23ab8922382c3743de4746b34372f1ef1eb96a0e62239f33e144cd83d469ea21",
+    "baseline_release_sha256": "b524f208a1dd9b17e149fa4f4197189b000e5a45d3b279aa4aa2a45b9d0517e6"
   },
   "key_files": [
     {
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "1e10c26617165bea63f3f0a2eb79aef4d09cb366a442942310e72e389b0817b0"
+      "sha256": "e8e187f444513b6ea388add7eb98060be06e0ff6dad8d3fc33991b187b6bcb41"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -791,17 +791,17 @@
     {
       "path": "docs\\PRODUCT_STATE.md",
       "role": "rolling-product-state",
-      "sha256": "6f1b59077325872420682855a1141cea6508b991e5b8f0f16ea35481b1f250b2"
+      "sha256": "6d740596d0345d72584425fcca7069ab8bfdbf9bdcd9cbaaec2b7efbe1b10426"
     },
     {
       "path": "docs\\GOVERNANCE_DECISION_LOG.md",
       "role": "rolling-governance-decision-log",
-      "sha256": "aef8e38f9020abe0a9ffb14efef4658a00970a1096146eaef354388be757ddb2"
+      "sha256": "c1b3f73260c583d20e0c7c77dccc76bc3ac8844d4e275633e437da4661755b8b"
     },
     {
       "path": "docs\\ROADMAP_AND_PARKED_ITEMS.md",
       "role": "rolling-roadmap-and-parked-items",
-      "sha256": "9220889ad6c5849524cecfe486a5fa09dd25b2b430bb5569c8970466b18fb9d7"
+      "sha256": "d3d622c5af54f0520eefcfeb12ffb6bccf09e0a463ea8ee5c57387be2c69117d"
     },
     {
       "path": "docs\\AUTONOMOUS_VACATION_OPERATING_MODEL.md",
@@ -1196,12 +1196,12 @@
     {
       "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_PLAYBOOK.md",
       "role": "swe-autonomous-delivery-acceleration-playbook",
-      "sha256": "de86c37d5b5a0029c8c6e5ad766430c389a4aa6d3643ccc86e6514cf924087bc"
+      "sha256": "f31e10446058d6f598a86e43f031c69a27f3d9595f84b9fb099f4292b1003cbe"
     },
     {
       "path": "docs\\AUTONOMOUS_DELIVERY_PROMPT_PACK.md",
       "role": "autonomous-delivery-prompt-pack",
-      "sha256": "4b4e129deaeb0cf8e309bda69fe92d96014ea5ff7225b8b96fe2debd050bc7cf"
+      "sha256": "2295a13329c8650d2c89bc54f640a04260333a17e2f0c3141456391a86edd15c"
     },
     {
       "path": "docs\\SWE_AUTONOMOUS_DELIVERY_ACCELERATION_BASELINE_CLOSEOUT.md",
@@ -1217,6 +1217,16 @@
       "path": "docs\\TICKET_READINESS_CHECKLIST_CLOSEOUT.md",
       "role": "ticket-readiness-checklist-closeout",
       "sha256": "cfe1979b97b9835daa6cd026b48c2dd78cce2a288c88912bd20b66f4287b6119"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL.md",
+      "role": "autonomous-delivery-dry-run-rehearsal",
+      "sha256": "f6ef1ccb99ec3a722d7dc737e8ee5320d572efcc2711b1cc2bcf2c2c893ae2e8"
+    },
+    {
+      "path": "docs\\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL_CLOSEOUT.md",
+      "role": "autonomous-delivery-dry-run-rehearsal-closeout",
+      "sha256": "33b22a86df9b8bd3d5a281d494bf2d689ad368df4d89bbdce90db7bd955f90ad"
     }
   ],
   "tests": [
@@ -1281,13 +1291,13 @@
     "codex_role": "implementation-and-release",
     "required_prompt_header": [
       "Single source of truth: D:\\产品设计\\New folder",
-      "Snapshot ID: S5-TICKET-READINESS-CHECKLIST-2026-04-22-001",
+      "Snapshot ID: S5-AUTONOMOUS-DELIVERY-DRY-RUN-REHEARSAL-2026-04-22-001",
       "Manifest: D:\\产品设计\\New folder\\releases\\release_manifest.json",
       "Do not use any file outside this root as latest code truth."
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-22T14:58:49.684895+08:00",
+    "last_verified_at": "2026-04-22T15:11:31.055704+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
@@ -1307,24 +1317,26 @@
     ]
   },
   "stage_outcome": {
-    "implementation_status": "GREEN_DOCS_ONLY_TICKET_READINESS_CHECKLIST_FULL_GATE_PASS",
-    "route": "OPEN_TICKET_READINESS_CHECKLIST_STAGE",
+    "implementation_status": "GREEN_DOCS_ONLY_AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL_FULL_GATE_PASS",
+    "route": "OPEN_AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL_STAGE",
     "lane": "Green docs-only",
-    "decision": "FORMALIZE_TICKET_READINESS_CHECKLIST_AS_ADMISSION_GATE",
+    "decision": "FORMALIZE_AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL",
     "accepted_artifacts": [
-      "docs\\TICKET_READINESS_CHECKLIST.md",
-      "docs\\TICKET_READINESS_CHECKLIST_CLOSEOUT.md"
+      "docs\\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL.md",
+      "docs\\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL_CLOSEOUT.md"
     ],
     "preserved_product_posture": "WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION",
     "acceleration_controls": [
-      "ticket readiness checklist runs after PRD intake and route selection",
-      "exact behavior files tests review gate release commit and HOLD fields are required before implementation tickets",
-      "SWE remains disabled unless checklist and exact Yellow item both allow bounded implementation accelerator use",
-      "Red and HOLD triggers cannot be downgraded into Yellow tickets",
-      "anti-generalization checks are required before exact ticket admission"
+      "dry-run rehearsal uses missing PRD as a stop-path control",
+      "ticket readiness result remains HOLD_NO_PRODUCT_SOURCE when product source is missing",
+      "SWE remains disabled unless a later exact Yellow item authorizes bounded implementation accelerator use",
+      "Claude Code is not applicable when no diff exists",
+      "Claude Web usage limit is queued or HOLD rather than PASS",
+      "prompt copying remains orchestration and does not create approval",
+      "anti-generalization controls reject invented product scope"
     ],
     "next_route_when_ready": "OPEN_NEXT_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_STAGE",
     "release_verification": "PASS",
-    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_TICKET_READINESS_CHECKLIST"
+    "review_status": "NOT_REQUIRED_GREEN_DOCS_ONLY_DRY_RUN_REHEARSAL_CLAUDE_WEB_QUEUED_USAGE_LIMIT_NOT_USED"
   }
 }

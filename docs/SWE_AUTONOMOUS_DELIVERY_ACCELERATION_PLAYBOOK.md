@@ -38,6 +38,7 @@ PRD or explicit product direction
 -> PRD intake
 -> route selection
 -> ticket readiness checklist
+-> optional dry-run rehearsal guard when the route/toolchain state is uncertain
 -> exact ticket
 -> bounded SWE acceleration where explicitly allowed
 -> Codex implementation in the VS Code workspace
@@ -167,6 +168,8 @@ Expected output should name:
 - explicit non-authorization reminders
 
 Claude Web review is not local execution, release verification, or manifest PASS.
+
+If Claude Web is unavailable because of usage limits, the review state must be recorded as queued or HOLD. Claude Code, SWE, VS Code, and Codex cannot mark a Claude Web architecture, product, governance, high-risk, Red, or HOLD review as PASS by substitution.
 
 ### 4.4 Human / Jarvis Prompt
 
@@ -307,22 +310,38 @@ Use this loop after PRD or explicit product direction exists and a governed rout
 4. Draft PRD intake or route selection.
 5. Route to Claude Web when product, architecture, governance, or high-risk review is required.
 6. Run the Ticket Readiness Checklist.
-7. Draft exact ticket only if the checklist allows it.
-8. Decide whether SWE is allowed.
-9. Send bounded SWE prompt only if the ticket explicitly allows it.
-10. Codex reviews SWE output.
-11. Codex edits exact files in the VS Code workspace when implementation is authorized.
-12. Run targeted tests.
-13. Send focused diff to Claude Code.
-14. Fix blocking findings inside exact scope.
-15. Run full gate when required.
-16. Package and verify release only when authorized.
-17. Create closeout artifact when required.
-18. Stage, commit, and push only when the governing authority explicitly allows it.
-19. Report outcome, tests, review status, HOLDs, and next route.
+7. Run the dry-run rehearsal guard if route/toolchain state is uncertain or this is the first live use after a rehearsal baseline.
+8. Draft exact ticket only if the checklist allows it.
+9. Decide whether SWE is allowed.
+10. Send bounded SWE prompt only if the ticket explicitly allows it.
+11. Codex reviews SWE output.
+12. Codex edits exact files in the VS Code workspace when implementation is authorized.
+13. Run targeted tests.
+14. Send focused diff to Claude Code.
+15. Fix blocking findings inside exact scope.
+16. Run full gate when required.
+17. Package and verify release only when authorized.
+18. Create closeout artifact when required.
+19. Stage, commit, and push only when the governing authority explicitly allows it.
+20. Report outcome, tests, review status, HOLDs, and next route.
 ```
 
 Any step that requires unlisted files, real data, credentials, browser/session access, public endpoint work, launch/deploy action, parked-stream reopen, or Red-3 action is HOLD.
+
+### 8.1 Dry Run Rehearsal Guard
+
+Use `docs\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL.md` when a future live loop needs to confirm the choreography before opening product implementation.
+
+The rehearsal guard may prove:
+
+- no PRD or explicit product direction means `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`
+- Ticket Readiness Checklist blocks missing product source
+- SWE remains disabled without an exact Yellow item
+- Claude Code review is not applicable when no diff exists
+- Claude Web usage-limit state is queued/unavailable, not PASS
+- prompt copying is orchestration, not approval
+
+The rehearsal guard must not create product scope, submit external prompts as if review is complete, run SWE against product work, edit code/tests, or bypass the later exact ticket and review path.
 
 ## 9. Metrics
 

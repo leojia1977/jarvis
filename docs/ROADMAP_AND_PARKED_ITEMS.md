@@ -6,9 +6,9 @@
 | --- | --- |
 | Title | Roadmap And Parked Items |
 | Status | Rolling governed roadmap and parked-items map |
-| Snapshot | S5-TICKET-READINESS-CHECKLIST-2026-04-22-001 |
-| Stage | s5-ticket-readiness-checklist |
-| Baseline commit | `becc4d9491d1b54a7593ee5b8fa47e7f119bd17d` |
+| Snapshot | S5-AUTONOMOUS-DELIVERY-DRY-RUN-REHEARSAL-2026-04-22-001 |
+| Stage | s5-autonomous-delivery-dry-run-rehearsal |
+| Baseline commit | `ddc5022c5524177f3a799cb6c1518dc89e0e39c3` |
 
 This file summarizes parked, deferred, and possible future routes. It is a passive governed context and planning aid only. It does not authorize implementation, reopen parked streams, create pilot readiness, or override source governed docs.
 
@@ -983,5 +983,36 @@ Still parked or deferred:
 - no public endpoint work
 - no S5-B/S5-D/ORDIV reopen
 - no Red-3 action
+
+This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
+
+## 39. Autonomous Delivery Dry Run Rehearsal
+
+Current route:
+
+1. `OPEN_AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL_STAGE`
+
+Rehearsal result:
+
+- `docs\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL.md` is the governed non-product rehearsal package for the SWE autonomous delivery loop.
+- `docs\AUTONOMOUS_DELIVERY_DRY_RUN_REHEARSAL_CLOSEOUT.md` records the rehearsal closeout and non-authorization boundaries.
+
+Future use:
+
+1. Use this rehearsal before the first live PRD-driven accelerated loop, or whenever route/toolchain state is uncertain.
+2. Treat missing PRD or explicit product direction as `WAIT_FOR_LATEST_PRD_OR_EXPLICIT_PRODUCT_DIRECTION`.
+3. Treat missing product source in ticket readiness as `HOLD_NO_PRODUCT_SOURCE`.
+4. Treat Claude Web usage-limit state as queued/unavailable, not architecture/governance PASS.
+5. Keep SWE disabled until a later exact Yellow item explicitly names `bounded implementation accelerator`.
+
+Still parked or deferred:
+
+- no implementation without a later exact scoped ticket and GO
+- no SWE product execution without a later exact Yellow item
+- no external pilot execution or readiness claim
+- no public endpoint work
+- no S5-B/S5-D/ORDIV reopen
+- no Red-3 action
+- no Claude Web review claim without an actual verdict
 
 This route does not authorize implementation, code/test changes, dependency changes in the repo, runtime/API/schema work, release-script/contract changes, public endpoint work, review replacement, route selection without PRD/input, manifest/gate/release ownership by SWE agent, staging, commit, push, Red execution, launch, deployment, real data, credentials, evidence retention, redaction policy freeze, external pilot, S5-B/S5-D reopen, ORDIV work, Red-3 action, S4-A resolver change, AI_COLLAB changes, AdsPower profile creation/switching, Claude Web login automation, or cookie/session/token/auth-header inspection.
