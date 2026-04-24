@@ -7,6 +7,7 @@
 - `backend/app/runtime_service.py`: canonical runtime service boundary
 - `backend/app/config.py`: canonical runtime and adapter configuration
 - `backend/tests/`: structured test entrypoints
+- `frontend/`: canonical Vite React TypeScript Web workbench surface
 - `scripts/`: canonical data/build utilities
 - `mock_data/`: canonical generated datasets
 - `docs/`: governed design, contract, release, and collaboration documents
@@ -58,7 +59,8 @@
   - Wrapper status: temporary until a backend/tests canonical replacement exists
 
 ## Canonical Import and Execution Rules
-- New implementation work must target `backend/app/`, `backend/tests/`, and `scripts/`.
+- New backend/runtime implementation work must target `backend/app/`, `backend/tests/`, and `scripts/`.
+- New frontend Web workbench implementation work must target `frontend/` after the S6 scaffold decision.
 - New docs and governance updates must target `docs/` and `releases/`.
 - New imports should use canonical modules, for example:
   - `from app.agents.graph import ...`
@@ -74,7 +76,8 @@
 - Do not add new root-level wrappers unless there is an explicit compatibility need and a documented retirement path.
 
 ## Current Rule
-- Canonical code lives under `backend/` and `scripts/`.
+- Canonical backend/runtime code lives under `backend/` and `scripts/`.
+- Canonical frontend Web workbench code lives under `frontend/`.
 - Root files are compatibility shims only.
 - Git workflow and release governance are part of the controlled project structure.
 

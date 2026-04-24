@@ -21,3 +21,10 @@ process_events/
 data/*.sqlite3
 data/*.sqlite3-shm
 data/*.sqlite3-wal
+
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/*.tsbuildinfo
+frontend/vite.config.d.ts
+frontend/vite.config.js
