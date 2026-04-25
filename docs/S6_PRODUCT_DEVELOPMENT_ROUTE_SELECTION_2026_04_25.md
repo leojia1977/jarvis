@@ -278,3 +278,55 @@ PENDING_STAGE_COMMIT_PUSH
 ```
 
 The working tree still contains earlier uncommitted intake records and unrelated untracked files. Do not stage unrelated files during the P1-CD-A closeout.
+
+## 13. Update 2026-04-25: P1-CD-A Commit And P1-CD-B Ticket Prep
+
+P1-CD-A was subsequently committed and pushed:
+
+```text
+40929a2 Implement P1 case detail layout spine
+```
+
+Next selected P1 ticket:
+
+```text
+P1-CD-B: Right contextual evidence panel controls
+```
+
+Ticket-prep record:
+
+```text
+docs\S6_P1_CD_B_EVIDENCE_PANEL_CONTROLS_TICKET_PREP_2026_04_25.md
+```
+
+Outcome:
+
+```text
+P1-CD-B READY_FOR_EXACT_TICKET
+```
+
+P1-CD-B remains bounded to right evidence-panel `Auto / Manual`, `Pin / Lock`, manual frame switching, and click/focus fallback on narrative sections. Cross-surface AR propagation, backend-driven state sync, route handoff, E2E migration tests, and concurrency collision handling remain deferred until the logic-collision walkthrough sign-off unlocks them.
+
+## 14. Update 2026-04-25: P1-CD-B Implementation Gate
+
+P1-CD-B implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS
+```
+
+Gate evidence:
+
+- frontend test: `npm run test -- --run` PASS, 7 tests passed;
+- frontend build: `npm run build` PASS;
+- backend guard: `py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view` PASS, 42 tests passed;
+- focused `claude.cmd --print` review found P1 issues that were fixed;
+- focused `claude.cmd --print` re-review: NO BLOCKING FINDINGS.
+
+Current closeout state:
+
+```text
+PENDING_STAGE_COMMIT_PUSH
+```
+
+Do not stage unrelated untracked files during the P1-CD-B closeout.

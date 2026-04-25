@@ -3,16 +3,20 @@ import {
   ChevronRight,
   History,
   Inbox,
+  Lock,
   MessageSquareText,
   Search,
   Send,
-  ShieldCheck
+  ShieldCheck,
+  Unlock
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
 
 type Role = "P0" | "P1" | "P2" | "P3";
 type Route = "inbox" | "case";
 type CoverageLevel = "L0" | "L1" | "L2" | "L3";
+type EvidenceFrameId = "process" | "topology" | "timeline" | "lineage";
+type EvidenceMode = "auto" | "manual";
 
 interface NavItem {
   label: string;
@@ -47,6 +51,7 @@ interface WorkbenchCase {
     decision: string[];
   };
   evidenceFrames: Array<{
+    id: EvidenceFrameId;
     title: string;
     provenance: string;
     summary: string;
@@ -114,21 +119,25 @@ const CASES: WorkbenchCase[] = [
     },
     evidenceFrames: [
       {
+        id: "process",
         title: "Process / Execution Evidence",
         provenance: "T3",
         summary: "Remote-service creation and child process signals are present; inferred links stay visually secondary."
       },
       {
+        id: "topology",
         title: "Topology / Blast Radius Preview",
         provenance: "L2 preview",
         summary: "Neighboring host exposure is shown as a bounded preview, not as full advanced topology."
       },
       {
+        id: "timeline",
         title: "Event Timeline",
         provenance: "T1",
         summary: "Timeline anchors are ordered around the privileged session and remote activity window."
       },
       {
+        id: "lineage",
         title: "Attack Chain / Lineage & Confidence",
         provenance: "T5",
         summary: "Lineage confidence is sufficient for review, with unsupported claims kept visible."
@@ -190,21 +199,25 @@ const CASES: WorkbenchCase[] = [
     },
     evidenceFrames: [
       {
+        id: "process",
         title: "Process / Execution Evidence",
         provenance: "T3",
         summary: "The script execution is visible, while lower-confidence ancestry stays de-emphasized."
       },
       {
+        id: "topology",
         title: "Topology / Blast Radius Preview",
         provenance: "L1 limited",
         summary: "No broad topology is shown because coverage is below the L2 baseline for this frame."
       },
       {
+        id: "timeline",
         title: "Event Timeline",
         provenance: "T1",
         summary: "The visible timeline centers on the script event and current case submission."
       },
       {
+        id: "lineage",
         title: "Attack Chain / Lineage & Confidence",
         provenance: "Limited",
         summary: "Lineage is intentionally constrained until stronger supporting evidence exists."
@@ -360,6 +373,7 @@ function App() {
           <CaseDetail
             activeCase={activeCase}
             followUp={followUp}
+            key={activeCase.id}
             onBack={() => navigate("inbox")}
             onFollowUpChange={setFollowUp}
             onFollowUpSubmit={submitFollowUp}
@@ -420,13 +434,59 @@ function CaseDetail({
   onFollowUpChange: (value: string) => void;
   onFollowUpSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }) {
+  const [activeEvidenceFrameId, setActiveEvidenceFrameId] =
+    useState<EvidenceFrameId>("process");
+  const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("auto");
+  const [isEvidencePinned, setIsEvidencePinned] = useState(false);
+
   const narrativeSections = [
-    { key: "WHAT", items: activeCase.narrative.what },
-    { key: "WHY", items: activeCase.narrative.why },
-    { key: "INTENT", items: activeCase.narrative.intent },
-    { key: "HONESTY", items: activeCase.narrative.honesty },
-    { key: "DECISION", items: activeCase.narrative.decision }
+    {
+      key: "WHAT",
+      items: activeCase.narrative.what,
+      evidenceFrameId: "timeline" as EvidenceFrameId,
+      evidenceLabel: "Event Timeline"
+    },
+    {
+      key: "WHY",
+      items: activeCase.narrative.why,
+      evidenceFrameId: "topology" as EvidenceFrameId,
+      evidenceLabel: "Topology / Blast Radius Preview"
+    },
+    {
+      key: "INTENT",
+      items: activeCase.narrative.intent,
+      evidenceFrameId: "lineage" as EvidenceFrameId,
+      evidenceLabel: "Attack Chain / Lineage & Confidence"
+    },
+    {
+      key: "HONESTY",
+      items: activeCase.narrative.honesty,
+      evidenceFrameId: "lineage" as EvidenceFrameId,
+      evidenceLabel: "Attack Chain / Lineage & Confidence"
+    },
+    {
+      key: "DECISION",
+      items: activeCase.narrative.decision,
+      evidenceFrameId: "process" as EvidenceFrameId,
+      evidenceLabel: "Process / Execution Evidence"
+    }
   ];
+  const activeEvidenceFrame =
+    activeCase.evidenceFrames.find((frame) => frame.id === activeEvidenceFrameId) ??
+    activeCase.evidenceFrames[0];
+  const canUseNarrativeEvidence = evidenceMode === "auto" && !isEvidencePinned;
+
+  function handleNarrativeEvidenceTrigger(frameId: EvidenceFrameId) {
+    if (!canUseNarrativeEvidence) {
+      return;
+    }
+    setActiveEvidenceFrameId(frameId);
+  }
+
+  function selectManualEvidenceFrame(frameId: EvidenceFrameId) {
+    setActiveEvidenceFrameId(frameId);
+    setEvidenceMode("manual");
+  }
 
   return (
     <section className="page-region case-detail" aria-labelledby="case-title">
@@ -496,7 +556,19 @@ function CaseDetail({
           <div className="spine-sections">
             {narrativeSections.map((section) => (
               <article className="spine-section" key={section.key}>
-                <h3>{section.key}</h3>
+                <div className="spine-section-header">
+                  <h3>{section.key}</h3>
+                  <button
+                    aria-label={`${section.key} evidence anchor`}
+                    aria-disabled={!canUseNarrativeEvidence}
+                    onClick={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
+                    onFocus={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
+                    onMouseEnter={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
+                    type="button"
+                  >
+                    Show evidence
+                  </button>
+                </div>
                 {section.items.map((item, index) => (
                   <p key={`${section.key}-${index}`}>{item}</p>
                 ))}
@@ -508,16 +580,59 @@ function CaseDetail({
         <aside className="evidence-panel" aria-labelledby="evidence-panel-title">
           <p className="section-kicker">Region D</p>
           <h2 id="evidence-panel-title">Contextual Evidence</h2>
-          <p className="evidence-mode">Read-only frame summaries for this ticket</p>
-          <div className="evidence-frame-list">
+          <div className="evidence-toolbar" aria-label="Evidence panel controls">
+            <div className="evidence-mode-toggle" aria-label="Evidence mode" role="group">
+              <button
+                aria-pressed={evidenceMode === "auto"}
+                onClick={() => setEvidenceMode("auto")}
+                type="button"
+              >
+                Auto
+              </button>
+              <button
+                aria-pressed={evidenceMode === "manual"}
+                onClick={() => setEvidenceMode("manual")}
+                type="button"
+              >
+                Manual
+              </button>
+            </div>
+            <button
+              aria-pressed={isEvidencePinned}
+              className="pin-button"
+              onClick={() => setIsEvidencePinned((current) => !current)}
+              type="button"
+            >
+              {isEvidencePinned ? (
+                <Unlock aria-hidden="true" size={15} />
+              ) : (
+                <Lock aria-hidden="true" size={15} />
+              )}
+              <span>{isEvidencePinned ? "Unpin" : "Pin"}</span>
+            </button>
+          </div>
+          <p className="evidence-mode">
+            Read-only frame summaries with Auto / Manual and Pin controls.
+          </p>
+          <article className="active-evidence-frame" aria-live="polite">
+            <div>
+              <h3>{activeEvidenceFrame.title}</h3>
+              <span>{activeEvidenceFrame.provenance}</span>
+            </div>
+            <p>{activeEvidenceFrame.summary}</p>
+            {isEvidencePinned ? <small>Pinned evidence frame</small> : null}
+          </article>
+          <div className="evidence-frame-switcher" aria-label="Evidence frame switcher">
             {activeCase.evidenceFrames.map((frame) => (
-              <article className="evidence-frame" key={frame.title}>
-                <div>
-                  <h3>{frame.title}</h3>
-                  <span>{frame.provenance}</span>
-                </div>
-                <p>{frame.summary}</p>
-              </article>
+              <button
+                aria-pressed={frame.id === activeEvidenceFrameId}
+                key={frame.id}
+                onClick={() => selectManualEvidenceFrame(frame.id)}
+                type="button"
+              >
+                <span>{frame.title}</span>
+                <small>{frame.provenance}</small>
+              </button>
             ))}
           </div>
         </aside>

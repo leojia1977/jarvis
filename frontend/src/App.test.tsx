@@ -64,9 +64,44 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByText(/Read-only frame summaries/i)).toBeInTheDocument();
     expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();
     const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
-    expect(within(evidencePanel).queryByRole("button")).not.toBeInTheDocument();
     expect(within(evidencePanel).queryByRole("textbox")).not.toBeInTheDocument();
     expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+  });
+
+  it("supports P1 evidence Auto, Manual, and Pin controls without hover-only access", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
+    const autoButton = within(evidencePanel).getByRole("button", { name: "Auto" });
+    const manualButton = within(evidencePanel).getByRole("button", { name: "Manual" });
+
+    expect(autoButton).toHaveAttribute("aria-pressed", "true");
+    expect(within(evidencePanel).getByRole("button", { name: "Pin" })).toBeInTheDocument();
+    expect(within(evidencePanel).getByRole("heading", { name: "Process / Execution Evidence" })).toBeInTheDocument();
+
+    await user.click(within(evidencePanel).getByRole("button", { name: /Event Timeline/i }));
+
+    expect(manualButton).toHaveAttribute("aria-pressed", "true");
+    expect(within(evidencePanel).getByRole("heading", { name: "Event Timeline" })).toBeInTheDocument();
+
+    await user.click(within(evidencePanel).getByRole("button", { name: "Pin" }));
+    expect(within(evidencePanel).getByText("Pinned evidence frame")).toBeInTheDocument();
+
+    const whyEvidenceAnchor = screen.getByRole("button", { name: "WHY evidence anchor" });
+    expect(whyEvidenceAnchor).toHaveAttribute("aria-disabled", "true");
+    await user.click(whyEvidenceAnchor);
+    expect(within(evidencePanel).getByRole("heading", { name: "Event Timeline" })).toBeInTheDocument();
+
+    await user.click(within(evidencePanel).getByRole("button", { name: "Unpin" }));
+    await user.click(autoButton);
+    expect(whyEvidenceAnchor).toHaveAttribute("aria-disabled", "false");
+    await user.click(whyEvidenceAnchor);
+
+    expect(autoButton).toHaveAttribute("aria-pressed", "true");
+    expect(within(evidencePanel).getByRole("heading", { name: "Topology / Blast Radius Preview" })).toBeInTheDocument();
   });
 
   it("keeps the case follow-up input visible on low coverage cases", async () => {
