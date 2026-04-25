@@ -884,3 +884,67 @@ Next automation route:
 ```text
 OPEN_E0_04_PLAYWRIGHT_SEED_IMPLEMENTATION
 ```
+
+## 28. Update 2026-04-25: E0-04 Implementation Gate
+
+E0-04 implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES
+```
+
+Implemented:
+
+- exact `@playwright/test` dependency and local Chromium setup;
+- `test:e2e` script and Playwright config for the local Vite app;
+- seed Playwright specs for current mock-only fixture-driven LC-P / LC-B / LC-N red lines;
+- minimal stable `data-testid` attributes for browser assertions.
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 4 test files, 36 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS
+
+npm run test:e2e
+PASS: 5 tests
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS with non-blocking notes
+```
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_04
+```
+
+Still not implemented:
+
+- P2 strong-confirm composer;
+- P2 decision workflows;
+- CS-P2-05 concurrency behavior;
+- route handoff or cross-surface propagation;
+- backend/runtime/API/schema;
+- real data, secrets, deploy, public endpoint, or external pilot.
+
+Next automation route:
+
+```text
+NO_CODE_TICKET_READY_AFTER_E0_04_UNTIL_NEXT_EXACT_LAUNCH_CHECKLIST
+```

@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-04 Playwright LC-P LC-B LC-N Seed Launch Checklist 2026-04-25 |
 | Ticket | `E0-04` |
-| Status | READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -227,4 +227,91 @@ Authorized next action:
 
 ```text
 Implement E0-04 Playwright seed inside the exact dependency and file scope.
+```
+
+## 14. Implementation Closeout
+
+Implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES
+```
+
+Implemented:
+
+- exact Playwright dependency `@playwright/test`;
+- `test:e2e` script;
+- Playwright Chromium seed config for the local Vite app;
+- LC-P / LC-B / LC-N seed specs for current fixture-driven states;
+- minimal `data-testid` attributes for stable browser assertions;
+- `.gitignore` entries for Playwright local reports and test results.
+
+Still not implemented:
+
+- P2 strong-confirm composer;
+- P2 approve/delay/observe/reject workflows;
+- CS-P2-05 stale approve/concurrency behavior;
+- route handoff or cross-surface propagation;
+- backend/runtime/API/schema;
+- real data, secrets, launch, deploy, public endpoint, or external pilot.
+
+Gate evidence:
+
+```text
+npm install --save-dev @playwright/test
+PASS
+
+npx playwright install chromium
+PASS
+
+npm run test -- --run
+PASS: 4 test files, 36 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS
+
+npm run test:e2e
+PASS: 5 tests
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS with non-blocking notes
+```
+
+Non-blocking notes accepted:
+
+- some LC-N assertions are forward guards that intentionally pass by proving absent DOM today and become stronger once later views exist;
+- phase-number assertions depend on the governed E0-02 fixture records;
+- `action-request-panel` text assertions intentionally catch fixture-string drift;
+- invalid `/approval` deep-link behavior depends on the current app catch-all layout behavior;
+- future build-fidelity E2E may switch from Vite dev server to preview.
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_04
+```
+
+Reason:
+
+- no E0-01 authority semantic change;
+- no `ContextValidator` loosening;
+- no product workflow implementation;
+- no route handoff, cross-surface propagation, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot behavior.
+
+Closeout decision:
+
+```text
+READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
 ```

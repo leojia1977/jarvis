@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
-    "test": "vitest run",
+    "test": "vitest run --exclude tests/e2e/**",
+    "test:e2e": "playwright test",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -27,6 +28,7 @@
     "jsdom": "^27.3.0",
     "vitest": "^4.0.16",
     "storybook": "^10.3.5",
-    "@storybook/react-vite": "^10.3.5"
+    "@storybook/react-vite": "^10.3.5",
+    "@playwright/test": "^1.59.1"
   }
 }

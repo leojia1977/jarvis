@@ -396,7 +396,7 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
             </button>
           </form>
 
-          <div className="coverage-badge" aria-label="Coverage level">
+          <div className="coverage-badge" aria-label="Coverage level" data-testid="coverage-badge">
             <span className="coverage-dot" />
             <span>Coverage {activeCase.coverage}</span>
           </div>
@@ -435,7 +435,11 @@ function MockContextSelector({
   onPhaseChange: (phase: number) => void;
 }) {
   return (
-    <div className="mock-context" aria-label="Mock fixture resolved context">
+    <div
+      className="mock-context"
+      aria-label="Mock fixture resolved context"
+      data-testid="resolved-context"
+    >
       <label htmlFor="mock-phase-selector">Mock fixture phase</label>
       <select
         id="mock-phase-selector"
@@ -561,7 +565,11 @@ function CaseDetail({
   }
 
   return (
-    <section className="page-region case-detail" aria-labelledby="case-title">
+    <section
+      className="page-region case-detail"
+      aria-labelledby="case-title"
+      data-testid="case-detail-surface"
+    >
       <button className="back-button" onClick={onBack} type="button">
         <ArrowLeft aria-hidden="true" size={18} />
         <span>Inbox</span>
@@ -572,7 +580,9 @@ function CaseDetail({
           <p>{activeCase.id}</p>
           <h1 id="case-title">{activeCase.title}</h1>
         </div>
-        <span className="state-pill">{CASE_STATE_LABELS[activeCase.state]}</span>
+        <span className="state-pill" data-testid="case-state-pill">
+          {CASE_STATE_LABELS[activeCase.state]}
+        </span>
       </div>
 
       <div className="case-workspace" aria-label="Case detail workspace">
@@ -611,7 +621,11 @@ function CaseDetail({
             </ol>
           </section>
 
-          <section className="rail-section" aria-labelledby="action-request-title">
+          <section
+            className="rail-section"
+            aria-labelledby="action-request-title"
+            data-testid="action-request-panel"
+          >
             <p className="section-kicker">Region B3</p>
             <h2 id="action-request-title">Action Request</h2>
             <p>{activeCase.actionRequest}</p>
@@ -649,7 +663,11 @@ function CaseDetail({
           </div>
         </section>
 
-        <aside className="evidence-panel" aria-labelledby="evidence-panel-title">
+        <aside
+          className="evidence-panel"
+          aria-labelledby="evidence-panel-title"
+          data-testid="evidence-panel"
+        >
           <p className="section-kicker">Region D</p>
           <h2 id="evidence-panel-title">Contextual Evidence</h2>
           <div className="evidence-toolbar" aria-label="Evidence panel controls">
