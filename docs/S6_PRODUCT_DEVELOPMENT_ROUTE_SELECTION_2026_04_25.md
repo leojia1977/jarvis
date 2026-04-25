@@ -835,3 +835,52 @@ Next automation route:
 ```text
 OPEN_E0_04_PLAYWRIGHT_LCP_LCB_LCN_SEED_LAUNCH_CHECKLIST
 ```
+
+## 27. Update 2026-04-25: E0-04 Launch Checklist
+
+E0-04 launch checklist:
+
+```text
+docs\S6_E0_04_PLAYWRIGHT_LCP_LCB_LCN_SEED_LAUNCH_CHECKLIST_2026_04_25.md
+```
+
+Checklist result:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO
+```
+
+Bounded interpretation:
+
+```text
+GO_FOR_PLAYWRIGHT_SEED_ONLY
+```
+
+Exact dependency scope:
+
+```text
+npm install --save-dev @playwright/test
+npx playwright install chromium
+```
+
+Scope:
+
+- add `test:e2e` script;
+- add Playwright config for the local Vite app;
+- add seed specs for current fixture-driven LC-P / LC-B / LC-N red lines;
+- add minimal `data-testid` attributes only when needed for stable LC assertions.
+
+Still blocked:
+
+- no P2 strong-confirm composer;
+- no P2 approve/delay/observe/reject workflow implementation;
+- no CS-P2-05 concurrency implementation;
+- no route handoff or cross-surface propagation;
+- no backend/runtime/API/schema;
+- no real data, secrets, launch, deploy, public endpoint, or external pilot.
+
+Next automation route:
+
+```text
+OPEN_E0_04_PLAYWRIGHT_SEED_IMPLEMENTATION
+```
