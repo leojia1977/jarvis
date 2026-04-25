@@ -31,7 +31,32 @@ interface WorkbenchCase {
   nextStep: string;
   summary: string;
   state: "UNDER_INVESTIGATION" | "PENDING_APPROVAL";
+  triggerSource: string;
+  freshness: string;
+  actionRequest: string;
+  trace: Array<{
+    label: string;
+    detail: string;
+    provenance: string;
+  }>;
+  narrative: {
+    what: string[];
+    why: string[];
+    intent: string[];
+    honesty: string[];
+    decision: string[];
+  };
+  evidenceFrames: Array<{
+    title: string;
+    provenance: string;
+    summary: string;
+  }>;
 }
+
+const CASE_STATE_LABELS: Record<WorkbenchCase["state"], string> = {
+  UNDER_INVESTIGATION: "Under investigation",
+  PENDING_APPROVAL: "Pending P2 review"
+};
 
 const CASES: WorkbenchCase[] = [
   {
@@ -43,7 +68,72 @@ const CASES: WorkbenchCase[] = [
     nextStep: "Review summary and decide escalation",
     summary:
       "Multiple correlated process and identity signals indicate likely lateral movement. Evidence detail remains inside the case context.",
-    state: "UNDER_INVESTIGATION"
+    state: "UNDER_INVESTIGATION",
+    triggerSource: "Identity + EDR correlation",
+    freshness: "Signals refreshed 4 min ago",
+    actionRequest: "No pending request. P1 can prepare a request for P2 after review.",
+    trace: [
+      {
+        label: "Triggered",
+        detail: "Privilege change and remote service activity entered the case queue.",
+        provenance: "Case signal"
+      },
+      {
+        label: "Enriched",
+        detail: "Host, identity, and nearby execution context were attached.",
+        provenance: "Context layer"
+      },
+      {
+        label: "Processing complete",
+        detail: "Engine trace is available as provenance, not as lifecycle state.",
+        provenance: "T1 / T3 / T5"
+      }
+    ],
+    narrative: {
+      what: [
+        "WKST-047 started remote service activity after a privileged session changed hands.",
+        "The case combines process execution, identity movement, and host context into one investigation object."
+      ],
+      why: [
+        "The signals form a plausible lateral-movement path rather than a single isolated process event.",
+        "Coverage is L2, so the page shows an impact preview without presenting it as a complete L3 topology."
+      ],
+      intent: [
+        "The most likely operator intent is to establish execution reach on a neighboring system.",
+        "The immediate concern is whether the same credential path appears on adjacent hosts."
+      ],
+      honesty: [
+        "Unsupported claim: business impact is estimated from the available host context and is not confirmed by an owner.",
+        "Confidence would rise if process ancestry and peer-host freshness are confirmed.",
+        "Current coverage does not prove a full blast-radius chain."
+      ],
+      decision: [
+        "P1 should read the evidence, add an investigation note if needed, and submit a request to P2 only if the escalation remains justified.",
+        "No approval or final execution-mode decision belongs on this P1 surface."
+      ]
+    },
+    evidenceFrames: [
+      {
+        title: "Process / Execution Evidence",
+        provenance: "T3",
+        summary: "Remote-service creation and child process signals are present; inferred links stay visually secondary."
+      },
+      {
+        title: "Topology / Blast Radius Preview",
+        provenance: "L2 preview",
+        summary: "Neighboring host exposure is shown as a bounded preview, not as full advanced topology."
+      },
+      {
+        title: "Event Timeline",
+        provenance: "T1",
+        summary: "Timeline anchors are ordered around the privileged session and remote activity window."
+      },
+      {
+        title: "Attack Chain / Lineage & Confidence",
+        provenance: "T5",
+        summary: "Lineage confidence is sufficient for review, with unsupported claims kept visible."
+      }
+    ]
   },
   {
     id: "CASE-002",
@@ -54,7 +144,72 @@ const CASES: WorkbenchCase[] = [
     nextStep: "Ask a follow-up before action request",
     summary:
       "A privileged script was observed during the current window. Lower coverage keeps deeper lineage out of the default view.",
-    state: "PENDING_APPROVAL"
+    state: "PENDING_APPROVAL",
+    triggerSource: "Script execution monitor",
+    freshness: "Signals refreshed 11 min ago",
+    actionRequest: "Request submitted to P2. P1 view remains read-only for approval outcome.",
+    trace: [
+      {
+        label: "Triggered",
+        detail: "Privileged script execution opened a case for review.",
+        provenance: "Case signal"
+      },
+      {
+        label: "Enriched",
+        detail: "Coverage remains limited while identity context is still thin.",
+        provenance: "Context layer"
+      },
+      {
+        label: "Submitted",
+        detail: "The case is waiting for P2 review; this is not a P1 approval surface.",
+        provenance: "Case lifecycle"
+      }
+    ],
+    narrative: {
+      what: [
+        "DB-02 ran a privileged script inside the current observation window.",
+        "The case keeps the script event, host identity, and available context together for P1 review."
+      ],
+      why: [
+        "The behavior is sensitive because it occurred on a database host with elevated privileges.",
+        "Coverage is L1, so the page avoids presenting deeper lineage as known fact."
+      ],
+      intent: [
+        "The available signal supports a cautious investigation posture, not a confident attribution.",
+        "The next likely question is whether the script was expected maintenance or unauthorized execution."
+      ],
+      honesty: [
+        "Unsupported claim: lateral movement is not established from the current L1 evidence.",
+        "Confidence would rise if scheduled-change records and process ancestry are attached.",
+        "Current coverage does not unlock a detailed lineage narrative."
+      ],
+      decision: [
+        "P1 should keep the case context available and use the follow-up input for missing maintenance context.",
+        "The submitted request waits for P2 review; P1 does not approve or reject it here."
+      ]
+    },
+    evidenceFrames: [
+      {
+        title: "Process / Execution Evidence",
+        provenance: "T3",
+        summary: "The script execution is visible, while lower-confidence ancestry stays de-emphasized."
+      },
+      {
+        title: "Topology / Blast Radius Preview",
+        provenance: "L1 limited",
+        summary: "No broad topology is shown because coverage is below the L2 baseline for this frame."
+      },
+      {
+        title: "Event Timeline",
+        provenance: "T1",
+        summary: "The visible timeline centers on the script event and current case submission."
+      },
+      {
+        title: "Attack Chain / Lineage & Confidence",
+        provenance: "Limited",
+        summary: "Lineage is intentionally constrained until stronger supporting evidence exists."
+      }
+    ]
   }
 ];
 
@@ -265,6 +420,14 @@ function CaseDetail({
   onFollowUpChange: (value: string) => void;
   onFollowUpSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }) {
+  const narrativeSections = [
+    { key: "WHAT", items: activeCase.narrative.what },
+    { key: "WHY", items: activeCase.narrative.why },
+    { key: "INTENT", items: activeCase.narrative.intent },
+    { key: "HONESTY", items: activeCase.narrative.honesty },
+    { key: "DECISION", items: activeCase.narrative.decision }
+  ];
+
   return (
     <section className="page-region case-detail" aria-labelledby="case-title">
       <button className="back-button" onClick={onBack} type="button">
@@ -277,16 +440,90 @@ function CaseDetail({
           <p>{activeCase.id}</p>
           <h1 id="case-title">{activeCase.title}</h1>
         </div>
-        <span className="state-pill">{activeCase.state.replaceAll("_", " ")}</span>
+        <span className="state-pill">{CASE_STATE_LABELS[activeCase.state]}</span>
       </div>
 
-      <section className="summary-panel" aria-label="Case summary">
-        <div className="summary-kicker">Summary</div>
-        <h2>{activeCase.verdict}</h2>
-        <p>{activeCase.summary}</p>
-      </section>
+      <div className="case-workspace" aria-label="Case detail workspace">
+        <aside className="case-rail" aria-label="Case rail">
+          <section className="rail-section" aria-labelledby="case-lifecycle-title">
+            <p className="section-kicker">Region B1</p>
+            <h2 id="case-lifecycle-title">Case Lifecycle</h2>
+            <span className="state-pill rail-state">{CASE_STATE_LABELS[activeCase.state]}</span>
+            <dl className="rail-facts">
+              <div>
+                <dt>Trigger source</dt>
+                <dd>{activeCase.triggerSource}</dd>
+              </div>
+              <div>
+                <dt>Coverage</dt>
+                <dd>{activeCase.coverage}</dd>
+              </div>
+              <div>
+                <dt>Freshness</dt>
+                <dd>{activeCase.freshness}</dd>
+              </div>
+            </dl>
+          </section>
 
-      <form className="follow-up-input" onSubmit={onFollowUpSubmit}>
+          <section className="rail-section" aria-labelledby="processing-trace-title">
+            <p className="section-kicker">Region B2</p>
+            <h2 id="processing-trace-title">Processing Trace</h2>
+            <ol className="trace-list">
+              {activeCase.trace.map((item) => (
+                <li key={`${activeCase.id}-${item.label}`}>
+                  <span>{item.label}</span>
+                  <p>{item.detail}</p>
+                  <small>{item.provenance}</small>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="rail-section" aria-labelledby="action-request-title">
+            <p className="section-kicker">Region B3</p>
+            <h2 id="action-request-title">Action Request</h2>
+            <p>{activeCase.actionRequest}</p>
+          </section>
+        </aside>
+
+        <section className="narrative-spine" aria-labelledby="narrative-title">
+          <div className="summary-panel" aria-label="Case summary">
+            <div className="summary-kicker">Narrative spine</div>
+            <h2 id="narrative-title">{activeCase.verdict}</h2>
+            <p>{activeCase.summary}</p>
+          </div>
+
+          <div className="spine-sections">
+            {narrativeSections.map((section) => (
+              <article className="spine-section" key={section.key}>
+                <h3>{section.key}</h3>
+                {section.items.map((item, index) => (
+                  <p key={`${section.key}-${index}`}>{item}</p>
+                ))}
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <aside className="evidence-panel" aria-labelledby="evidence-panel-title">
+          <p className="section-kicker">Region D</p>
+          <h2 id="evidence-panel-title">Contextual Evidence</h2>
+          <p className="evidence-mode">Read-only frame summaries for this ticket</p>
+          <div className="evidence-frame-list">
+            {activeCase.evidenceFrames.map((frame) => (
+              <article className="evidence-frame" key={frame.title}>
+                <div>
+                  <h3>{frame.title}</h3>
+                  <span>{frame.provenance}</span>
+                </div>
+                <p>{frame.summary}</p>
+              </article>
+            ))}
+          </div>
+        </aside>
+      </div>
+
+      <form className="follow-up-input dialogue-dock" onSubmit={onFollowUpSubmit}>
         <MessageSquareText aria-hidden="true" size={20} />
         <label className="sr-only" htmlFor="case-follow-up">
           Case follow-up input

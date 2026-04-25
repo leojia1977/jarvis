@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
@@ -44,6 +44,29 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(window.location.pathname).toBe("/case/CASE-001");
     expect(screen.getByText("CASE-001")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Critical action required/i })).toBeInTheDocument();
+  });
+
+  it("renders the P1 Case Detail layout regions and narrative spine", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    expect(screen.getByRole("heading", { name: "Case Lifecycle" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Processing Trace" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Action Request" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "WHAT" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "WHY" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "INTENT" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "HONESTY" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "DECISION" })).toBeInTheDocument();
+    expect(screen.getAllByText(/Unsupported claim/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/Read-only frame summaries/i)).toBeInTheDocument();
+    expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();
+    const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
+    expect(within(evidencePanel).queryByRole("button")).not.toBeInTheDocument();
+    expect(within(evidencePanel).queryByRole("textbox")).not.toBeInTheDocument();
+    expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
   });
 
   it("keeps the case follow-up input visible on low coverage cases", async () => {
