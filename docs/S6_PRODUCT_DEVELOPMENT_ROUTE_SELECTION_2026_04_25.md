@@ -730,3 +730,46 @@ Next required human/Jarvis decision:
 ```text
 Authorize or hold E0-02 closeout stage/commit/push.
 ```
+
+## 25. Update 2026-04-25: E0-03 Launch Checklist
+
+E0-03 launch checklist:
+
+```text
+docs\S6_E0_03_STORYBOOK_FIRST_STORY_SET_LAUNCH_CHECKLIST_2026_04_25.md
+```
+
+Checklist result:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO
+```
+
+Scope:
+
+- create the first static Storybook story set for existing mock-only workbench phases;
+- render fixture Phase 0-6 through the already validated E0-02 adapter path;
+- add only a minimal `initialPhaseNumber` story hook to the existing `App`;
+- verify with frontend tests, frontend build, Storybook build, backend guard, `git diff --check`, and Claude Code focused review.
+
+Bounded interpretation:
+
+```text
+GO_FOR_STATIC_FIRST_STORY_SET_ONLY
+```
+
+Still blocked:
+
+- no P2 strong-confirm composer implementation;
+- no P2 delay/observe/reject interactive workflow implementation;
+- no CS-P2-05 stale approve/concurrency implementation;
+- no Playwright E2E;
+- no P1/P2/P3 new page implementation beyond the existing workbench story frame;
+- no P3 contract ratification claims;
+- no backend/runtime/API/schema, real data, secrets, deploy, or external pilot.
+
+Next automation route:
+
+```text
+OPEN_E0_03_STORYBOOK_FIRST_STORY_SET_IMPLEMENTATION
+```
