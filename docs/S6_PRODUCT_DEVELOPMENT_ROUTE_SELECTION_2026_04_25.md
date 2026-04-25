@@ -573,7 +573,7 @@ Route implications:
 - No P1/P2/P3 page implementation starts under `E0-01`.
 - Claude Code focused review is required after implementation diff.
 - Claude Web architecture/governance review is required because `E0-01` defines root rendering authority and fail-closed validation behavior.
-- Stage/commit/push remains unauthorized for `E0-01` until Jarvis explicitly authorizes that closeout.
+- `E0-01` later closed in commit `aaaa199`.
 
 ## 22. Update 2026-04-25: E0-01 Implementation Gate
 
@@ -618,6 +618,48 @@ E0-03
 E0-04
 ```
 
-The Claude Web review gate no longer blocks E0-01. Downstream ticket execution should still wait for E0-01 closeout stage/commit/push authorization, unless Jarvis explicitly authorizes proceeding before that closeout.
+The Claude Web review gate no longer blocks E0-01. E0-01 closeout was committed and pushed as `aaaa199 Implement Sprint 0 E0-01 surface context`.
 
-Stage/commit/push remains unauthorized for this E0-01 closeout.
+## 23. Update 2026-04-25: E0-02 Launch Checklist
+
+E0-02 launch checklist:
+
+```text
+docs\S6_E0_02_CORE_SURFACE_MOCK_FIXTURE_ADAPTER_LAUNCH_CHECKLIST_2026_04_25.md
+```
+
+Checklist result:
+
+```text
+READY_FOR_JARVIS_IMPLEMENTATION_GO
+```
+
+Scope:
+
+- map the repo-local fixture Phase 0-6 records into `ResolvedSurfaceContext`;
+- validate every adapted phase through `validateResolvedSurfaceContext`;
+- optionally update current app wiring only to replace existing app-local phase/role/coverage/case-state derivation with adapter output while preserving behavior;
+- add focused unit/component tests.
+
+Non-goals remain:
+
+- no new P1/P2/P3 page implementation;
+- no Storybook stories;
+- no Playwright E2E;
+- no backend/runtime/API/schema;
+- no real data, secrets, launch, deploy, public endpoint, or external pilot;
+- no broad abstraction or service/registry layer.
+
+Jira cloud state:
+
+```text
+NO_CLOUD_MUTATION
+```
+
+Jira delta artifacts are generated outside the repo under `D:\产品设计\secupilot0421` for Jarvis review before any cloud sync.
+
+Next required human/Jarvis decision:
+
+```text
+Approve or hold E0-02 implementation GO.
+```

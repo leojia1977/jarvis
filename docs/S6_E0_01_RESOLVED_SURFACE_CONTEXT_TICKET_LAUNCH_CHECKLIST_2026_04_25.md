@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-01 ResolvedSurfaceContext Launch Checklist 2026-04-25 |
 | Ticket | `E0-01` |
-| Status | IMPLEMENTED_GATE_PASS_REVIEW_PASS_PENDING_STAGE_COMMIT_PUSH |
+| Status | CLOSED_COMMITTED_PUSHED |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -306,9 +306,13 @@ Claude Web PASS is review evidence only. It does not authorize launch, deploy, r
 Current closeout state:
 
 ```text
-PENDING_STAGE_COMMIT_PUSH_AUTHORIZATION
+CLOSED_COMMITTED_PUSHED
 ```
 
-The Claude Web architecture/governance review gate is no longer blocking. `E0-02`, `E0-03`, and `E0-04` remain pending downstream launch sequencing until E0-01 closeout stage/commit/push is explicitly authorized by Jarvis or Jarvis explicitly authorizes proceeding before that closeout.
+Closeout commit:
 
-Stage, commit, and push remain unauthorized for this closeout.
+```text
+aaaa199 Implement Sprint 0 E0-01 surface context
+```
+
+The Claude Web architecture/governance review gate no longer blocks E0-01. `E0-02`, `E0-03`, and `E0-04` remain subject to their own per-ticket launch checklists and Jarvis GO before implementation.
