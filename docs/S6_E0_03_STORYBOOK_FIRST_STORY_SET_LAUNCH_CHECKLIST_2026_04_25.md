@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-03 Storybook First Story Set Launch Checklist 2026-04-25 |
 | Ticket | `E0-03` |
-| Status | READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -223,4 +223,94 @@ Authorized next action:
 
 ```text
 Implement E0-03 static first Storybook story set inside the exact allowed file scope.
+```
+
+## 14. Implementation Closeout Evidence
+
+Implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES
+```
+
+Implemented files:
+
+- `frontend/.storybook/preview.ts`
+- `frontend/src/App.tsx`
+- `frontend/src/App.test.tsx`
+- `frontend/src/secupilot/surface/storybook/CoreSurfaceStories.stories.tsx`
+
+Implemented behavior:
+
+- added a minimal `initialPhaseNumber` prop to `App` so Storybook stories can render governed fixture phases without URL/storage authority;
+- loaded existing app CSS in Storybook preview;
+- added static Storybook stories for Phase 0-6 plus a cross-surface phase overview;
+- kept stories on the existing mock-only workbench and E0-02 adapter path;
+- added a focused component test for initial Phase 3 rendering through the resolved context path.
+
+Storybook stories added:
+
+- `P1 / Case Detail / Initial Investigation`
+- `P1 / Case Detail / Waiting On P2`
+- `P2 / Approval / Pending Review`
+- `P2 / Approval / Observation Window Active`
+- `P2 / Approval / Window Expired Return Pending`
+- `P2 / Approval / Terminal Lock`
+- `P3 / Manager / Readonly Review`
+- `Walkthrough / Core Surface Phase Overview`
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 4 test files, 36 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS with non-blocking notes
+```
+
+Non-blocking review notes:
+
+- `resetStoryRoute()` is called inside story render functions. This is acceptable for static Storybook routing because it only sets route view before `App` mounts and does not provide data authority.
+- `CrossSurfacePhaseOverview` is a documentation story with fixture phase cards rather than an `App` render. This is acceptable because it is a static walkthrough overview, not a product surface implementation.
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_03
+```
+
+Reason:
+
+- E0-03 did not change E0-01 authority semantics;
+- E0-03 did not loosen `ContextValidator`;
+- E0-03 did not implement P2 workflows, P3 ratification scope, Playwright, backend/runtime/API/schema, route handoff, cross-surface propagation, real data, secrets, deploy, or external pilot behavior.
+
+## 15. Closeout Decision
+
+Decision:
+
+```text
+READY_FOR_STAGE_COMMIT_PUSH_AND_JIRA_DONE_SYNC
+```
+
+Next automation route after closeout:
+
+```text
+OPEN_E0_04_PLAYWRIGHT_LCP_LCB_LCN_SEED_LAUNCH_CHECKLIST
 ```

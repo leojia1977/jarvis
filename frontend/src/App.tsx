@@ -282,9 +282,13 @@ function initialRoute(): { route: Route; caseId: string | null } {
   return { route: "inbox", caseId: null };
 }
 
-function App() {
+interface AppProps {
+  initialPhaseNumber?: number;
+}
+
+function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = {}) {
   const [{ route, caseId }, setLocation] = useState(initialRoute);
-  const [activePhaseNumber, setActivePhaseNumber] = useState(FIXTURE_PHASES[0]?.phase ?? 0);
+  const [activePhaseNumber, setActivePhaseNumber] = useState(initialPhaseNumber);
   const [globalQuery, setGlobalQuery] = useState("");
   const [followUp, setFollowUp] = useState("");
 

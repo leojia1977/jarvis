@@ -106,6 +106,16 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getAllByText(/PENDING_APPROVAL/i).length).toBeGreaterThan(0);
   });
 
+  it("can render a governed initial phase for static Storybook stories", () => {
+    render(<App initialPhaseNumber={3} />);
+
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P2");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("P2_APPROVAL");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent(
+      "OBSERVATION_WINDOW"
+    );
+  });
+
   it("supports P1 evidence Auto, Manual, and Pin controls without hover-only access", async () => {
     const user = userEvent.setup();
     render(<App />);

@@ -773,3 +773,65 @@ Next automation route:
 ```text
 OPEN_E0_03_STORYBOOK_FIRST_STORY_SET_IMPLEMENTATION
 ```
+
+## 26. Update 2026-04-25: E0-03 Implementation Gate
+
+E0-03 implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES
+```
+
+Implemented:
+
+- static Storybook first story set for existing mock-only workbench phases;
+- minimal `App initialPhaseNumber` story hook;
+- Storybook CSS loading via preview;
+- Phase 0-6 stories plus cross-surface phase overview;
+- focused test proving initial phase rendering through resolved context.
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 4 test files, 36 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS with non-blocking notes
+```
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_03
+```
+
+Still not implemented:
+
+- P2 strong-confirm composer;
+- P2 delay/observe/reject workflows;
+- CS-P2-05 stale approve/concurrency;
+- Playwright E2E;
+- P3 ratification scope;
+- backend/runtime/API/schema, real data, secrets, deploy, or external pilot.
+
+Next automation route:
+
+```text
+OPEN_E0_04_PLAYWRIGHT_LCP_LCB_LCN_SEED_LAUNCH_CHECKLIST
+```
