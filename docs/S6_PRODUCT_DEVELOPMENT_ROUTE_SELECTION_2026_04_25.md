@@ -384,3 +384,39 @@ PENDING_STAGE_COMMIT_PUSH
 ```
 
 Do not stage unrelated untracked files during the S6-MF-A closeout.
+
+## 17. Update 2026-04-25: S6-SB-A Storybook Tooling Prep
+
+S6-MF-A was subsequently committed and pushed:
+
+```text
+a8b08ef Integrate core surface mock fixture
+```
+
+Next selected Storybook preparation ticket:
+
+```text
+S6-SB-A: Storybook Static Core Surface Stories
+```
+
+Ticket-prep record:
+
+```text
+docs\S6_SB_A_STORYBOOK_STATIC_CORE_SURFACE_STORIES_TICKET_PREP_2026_04_25.md
+```
+
+Outcome:
+
+```text
+S6-SB-A NEEDS_DEPENDENCY_INSTALL_DECISION
+```
+
+S6-SB-A is Green docs-only. It does not install Storybook, change frontend package files, create `.storybook` config, create story files, or set up Playwright.
+
+Recommended next route:
+
+```text
+OPEN_S6_SB_B_STORYBOOK_REACT_VITE_TOOLING_SETUP
+```
+
+S6-SB-B requires explicit dependency-install authorization before any `npm create storybook@latest`, `package.json`, `package-lock.json`, or `.storybook` changes.
