@@ -523,3 +523,101 @@ Recommended next route remains:
 ```text
 OPEN_S6_SB_C_STORYBOOK_STATIC_CORE_SURFACE_STORIES
 ```
+
+## 21. Update 2026-04-25: Sprint 0 E0-01 Route Insertion
+
+New incoming Sprint 0 execution-gate inputs were reviewed:
+
+```text
+D:\产品设计\secupilot0421\incoming_pending\SecuPilot_Frontend_Sprint_0_Execution_Checklist_and_PR_Review_Gate_v0.2.md
+D:\产品设计\secupilot0421\incoming_pending\SecuPilot_PR_Brief_E0-01_ResolvedSurfaceContext_ContextValidator_SH-08_v0.2.md
+```
+
+Route decision:
+
+```text
+OPEN_E0_01_RESOLVED_SURFACE_CONTEXT_VALIDATOR_SH08
+```
+
+Ticket launch checklist:
+
+```text
+docs\S6_E0_01_RESOLVED_SURFACE_CONTEXT_TICKET_LAUNCH_CHECKLIST_2026_04_25.md
+```
+
+Reason:
+
+- `E0-01` defines the root frontend rendering authority before page composition;
+- Storybook first story set depends on validated `ResolvedSurfaceContext` / provider behavior;
+- Playwright seed should test the validator and `SH-08` red lines after the foundation exists;
+- SWE remains disabled because `E0-01` defines authority and fail-closed security behavior, not a bulk implementation task.
+
+Version reconciliation:
+
+```text
+Accept Sprint 0 checklist v0.2 and E0-01 PR Brief v0.2 as execution-gate inputs.
+Do not roll current source of truth back to Backlog Tracker v0.2.
+GoNoGo v0.2.1, Backlog Tracker v0.4, Visual Kickoff v0.3, and G0 confirmation remain current.
+```
+
+Updated route order:
+
+1. `E0-01` — ResolvedSurfaceContext + ContextValidator + SH-08.
+2. `E0-02` — Mock Fixture Adapter phase states.
+3. `E0-03` — Storybook first story set.
+4. `E0-04` — Playwright LC-P / LC-B / LC-N seed.
+
+Route implications:
+
+- `OPEN_S6_SB_C_STORYBOOK_STATIC_CORE_SURFACE_STORIES` is deferred until `E0-01` closeout passes or is explicitly accepted by Jarvis.
+- No P1/P2/P3 page implementation starts under `E0-01`.
+- Claude Code focused review is required after implementation diff.
+- Claude Web architecture/governance review is required because `E0-01` defines root rendering authority and fail-closed validation behavior.
+- Stage/commit/push remains unauthorized for `E0-01` until Jarvis explicitly authorizes that closeout.
+
+## 22. Update 2026-04-25: E0-01 Implementation Gate
+
+E0-01 implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_WEB_PASS
+```
+
+Implemented:
+
+- `ResolvedSurfaceContext` type contract;
+- fail-closed `ContextValidator`;
+- sanitized `SH-08 / Security Halt`;
+- `ResolvedSurfaceContextProvider` skeleton;
+- unit/component tests.
+
+Gate evidence:
+
+- frontend test PASS, 25 tests passed;
+- frontend build PASS;
+- backend guard PASS, 42 tests passed;
+- `git diff --check` PASS;
+- Claude Code focused review: `NO BLOCKING FINDINGS` after P2 fix and re-review;
+- Claude Web architecture/governance review via governed AdsPower review-prompt transfer: `E0-01_DECISION: PASS`.
+
+Claude Web informational notes were non-blocking: simple fail-closed real-data-like marker detection may false-positive on future synthetic fixtures, visible `SecurityHaltCode` reason text can be hardened later, and non-P2 `action_mode === null` semantics were confirmed intentional.
+
+Claude Code review found one P2 closeout-before-finish issue: raw technical payload detection was limited to P3 role/surface. The issue was fixed by rejecting raw technical payloads across all surfaces, with added tests for P1 raw payload and `CROSS_SURFACE` walkthrough behavior.
+
+Mandatory external architecture/governance state:
+
+```text
+CLAUDE_WEB_REVIEW_PASS
+```
+
+No downstream implementation has started yet for:
+
+```text
+E0-02
+E0-03
+E0-04
+```
+
+The Claude Web review gate no longer blocks E0-01. Downstream ticket execution should still wait for E0-01 closeout stage/commit/push authorization, unless Jarvis explicitly authorizes proceeding before that closeout.
+
+Stage/commit/push remains unauthorized for this E0-01 closeout.
