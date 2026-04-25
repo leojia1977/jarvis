@@ -663,3 +663,70 @@ Next required human/Jarvis decision:
 ```text
 Approve or hold E0-02 implementation GO.
 ```
+
+## 24. Update 2026-04-25: E0-02 Implementation Gate
+
+E0-02 implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_P3_NOTES
+```
+
+Implemented:
+
+- `coreSurfaceFixtureAdapter` maps fixture Phase 0-6 records into `ResolvedSurfaceContext`;
+- source fixture surfaces are normalized from `P2_APPROVAL_SURFACE` and `P3_MANAGER_VIEW` to governed `P2_APPROVAL` and `P3_MANAGER`;
+- every adapted phase is validated through `validateResolvedSurfaceContext`;
+- current app mock phase selector and context pills use validated adapter output instead of app-local role/coverage/case-state fallback helpers;
+- focused adapter and component tests cover fixture integrity, all 7 phases, URL/storage authority isolation, P3 raw payload exclusion, and unchanged visible boundaries.
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 4 test files, 35 tests
+
+npm run build
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+
+fixture SHA256
+PASS: 814F21AACFE2E2B25514990188F9801D81F0ED4A464F7A03B05DD235E4A02B47
+```
+
+Claude Code focused review:
+
+```text
+PASS with non-blocking P3 notes
+```
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_02
+```
+
+Reason:
+
+- no E0-01 authority semantic change;
+- no `ContextValidator` loosening;
+- no Storybook, Playwright, backend/runtime/API/schema, route handoff, cross-surface propagation, real data, secrets, deploy, or external pilot behavior.
+
+Jira cloud state:
+
+```text
+AUTHORIZED_BUT_NOT_EXECUTED_PENDING_SAFE_ENV_CREDENTIALS
+```
+
+The token previously provided in chat must not be hard-coded into commands, logs, repo files, or prompts.
+
+Next required human/Jarvis decision:
+
+```text
+Authorize or hold E0-02 closeout stage/commit/push.
+```

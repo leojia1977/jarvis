@@ -173,7 +173,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
 
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P3");
-    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("P3_MANAGER_VIEW");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("P3_MANAGER");
     expect(screen.queryByText(panelTitle("process_evidence"))).not.toBeInTheDocument();
     expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();

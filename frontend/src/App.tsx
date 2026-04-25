@@ -11,17 +11,21 @@ import {
   Unlock
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
-import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
+import {
+  adaptCoreSurfaceFixturePhase,
+  CORE_SURFACE_FIXTURE,
+  CORE_SURFACE_FIXTURE_PHASE_OPTIONS,
+  CORE_SURFACE_FIXTURE_PHASES,
+  CoreSurfaceFixturePhase
+} from "./secupilot/surface/fixtures/coreSurfaceFixtureAdapter";
+import {
+  CaseState,
+  CoverageLevel,
+  ResolvedSurfaceContext,
+  Role
+} from "./secupilot/surface/context/types";
 
-type Role = "P0" | "P1" | "P2" | "P3";
 type Route = "inbox" | "case";
-type CoverageLevel = "L0" | "L1" | "L2" | "L3";
-type CaseState =
-  | "UNDER_INVESTIGATION"
-  | "PENDING_APPROVAL"
-  | "OBSERVATION_WINDOW"
-  | "APPROVED_PENDING_EXECUTION"
-  | "CLOSED";
 type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
@@ -94,59 +98,8 @@ interface FixtureEvidencePanel {
   p3_rendering?: string;
 }
 
-interface FixturePhase {
-  phase: number;
-  name: string;
-  surface: string;
-  role: string;
-  case_state: string;
-  ar_status: string | null;
-  expected_ui: string[];
-}
-
-interface CoreSurfaceFixture {
-  fixture_version: string;
-  status: string;
-  ids: {
-    case_id: string;
-    action_request_id: string;
-    audit_trail_id: string;
-  };
-  case: {
-    case_id: string;
-    coverage_level: string;
-    title: string;
-    severity: string;
-    source: string;
-    trigger_source: string;
-    narrative_sections: FixtureNarrativeSection[];
-    honesty_layer: {
-      unsupported_claims: string[];
-      what_would_raise_confidence: string[];
-      what_would_disprove_current_verdict: string[];
-    };
-  };
-  evidence_panels: FixtureEvidencePanel[];
-  action_request_initial: {
-    action_request_id: string;
-    status: string;
-    action_mode: string | null;
-    recommended_action: string;
-    urgency_text: string;
-  };
-  audit_trail: Array<{
-    audit_id: string;
-    event: string;
-    actor_role: string;
-    case_state_after: string;
-    ar_status_after: string;
-    action_mode?: string;
-  }>;
-  phases: FixturePhase[];
-}
-
-const FIXTURE = coreSurfaceFixture as CoreSurfaceFixture;
-const FIXTURE_PHASES = FIXTURE.phases;
+const FIXTURE = CORE_SURFACE_FIXTURE;
+const FIXTURE_PHASES = CORE_SURFACE_FIXTURE_PHASES;
 const EVIDENCE_FRAME_IDS: EvidenceFrameId[] = [
   "process_evidence",
   "lateral_topology",
@@ -161,18 +114,6 @@ const CASE_STATE_LABELS: Record<CaseState, string> = {
   APPROVED_PENDING_EXECUTION: "Approved pending execution",
   CLOSED: "Closed"
 };
-
-function toRole(value: string): Role {
-  return value === "P0" || value === "P1" || value === "P2" || value === "P3" ? value : "P1";
-}
-
-function toCoverage(value: string): CoverageLevel {
-  return value === "L0" || value === "L1" || value === "L2" || value === "L3" ? value : "L0";
-}
-
-function toCaseState(value: string): CaseState {
-  return value in CASE_STATE_LABELS ? (value as CaseState) : "UNDER_INVESTIGATION";
-}
 
 function toRisk(value: string): "High" | "Critical" {
   return value.toUpperCase() === "CRITICAL" ? "Critical" : "High";
@@ -197,18 +138,21 @@ function getFixtureSectionEvidence(sectionKey: NarrativeKey, fallback: EvidenceF
   return ref ? toEvidenceFrameId(ref) : fallback;
 }
 
-function buildActionRequestSummary(phase: FixturePhase): string {
+function buildActionRequestSummary(
+  phase: CoreSurfaceFixturePhase,
+  context: ResolvedSurfaceContext
+): string {
   const arId = FIXTURE.ids.action_request_id;
-  if (!phase.ar_status) {
+  if (!context.action_request) {
     return `No action request submitted. Fixture AR ${arId} remains unavailable to P1 until submit.`;
   }
   if (phase.phase === 1) {
     return `${arId} - Waiting on P2 - submit action is read-only in this mock phase.`;
   }
-  return `${arId} - ${phase.ar_status} - resolved from mock phase ${phase.phase}.`;
+  return `${arId} - ${context.action_request.ar_status} - resolved from mock phase ${phase.phase}.`;
 }
 
-function buildTrace(phase: FixturePhase): WorkbenchCase["trace"] {
+function buildTrace(phase: CoreSurfaceFixturePhase): WorkbenchCase["trace"] {
   const auditEvents = FIXTURE.audit_trail.slice(0, Math.max(0, Math.min(phase.phase, FIXTURE.audit_trail.length)));
   if (auditEvents.length === 0) {
     return [
@@ -245,28 +189,31 @@ function buildEvidenceFrames(role: Role): WorkbenchCase["evidenceFrames"] {
     }));
 }
 
-function buildWorkbenchCase(phase: FixturePhase): WorkbenchCase {
-  const role = toRole(phase.role);
+function buildWorkbenchCase(
+  phase: CoreSurfaceFixturePhase,
+  context: ResolvedSurfaceContext
+): WorkbenchCase {
+  const role = context.session.role;
   return {
     id: FIXTURE.ids.case_id,
     title: FIXTURE.case.title,
     verdict: `${FIXTURE.case.severity} mock case - ${phase.name}`,
     risk: toRisk(FIXTURE.case.severity),
-    coverage: toCoverage(FIXTURE.case.coverage_level),
+    coverage: context.case.coverage_level,
     nextStep:
       phase.phase === 1
         ? "Waiting on P2 - submit action is read-only"
         : phase.expected_ui.join(" - "),
     summary: `${FIXTURE.case.trigger_source}. Phase ${phase.phase} is resolved from mock fixture v${FIXTURE.fixture_version}.`,
-    state: toCaseState(phase.case_state),
+    state: context.case.case_state,
     phaseNumber: phase.phase,
     phaseName: phase.name,
-    resolvedSurface: phase.surface,
+    resolvedSurface: context.surface,
     resolvedRole: role,
-    arStatus: phase.ar_status,
+    arStatus: context.action_request?.ar_status ?? null,
     triggerSource: FIXTURE.case.source,
     freshness: `Mock fixture v${FIXTURE.fixture_version}; no live refresh`,
-    actionRequest: buildActionRequestSummary(phase),
+    actionRequest: buildActionRequestSummary(phase, context),
     trace: buildTrace(phase),
     narrative: {
       what: getFixtureSectionSentences("WHAT"),
@@ -343,8 +290,12 @@ function App() {
 
   const activePhase =
     FIXTURE_PHASES.find((phase) => phase.phase === activePhaseNumber) ?? FIXTURE_PHASES[0];
-  const role = toRole(activePhase.role);
-  const cases = useMemo(() => [buildWorkbenchCase(activePhase)], [activePhase]);
+  const activeContext = useMemo(() => adaptCoreSurfaceFixturePhase(activePhase), [activePhase]);
+  const role = activeContext.session.role;
+  const cases = useMemo(
+    () => [buildWorkbenchCase(activePhase, activeContext)],
+    [activeContext, activePhase]
+  );
   const activeCase = useMemo(
     () => cases.find((item) => item.id === caseId) ?? cases[0],
     [caseId, cases]
@@ -352,7 +303,7 @@ function App() {
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(role));
 
   function selectRole(nextRole: Role) {
-    const nextPhase = FIXTURE_PHASES.find((phase) => toRole(phase.role) === nextRole);
+    const nextPhase = FIXTURE_PHASES.find((phase) => phase.role === nextRole);
     if (nextPhase) {
       setActivePhaseNumber(nextPhase.phase);
     }
@@ -387,7 +338,7 @@ function App() {
 
         <div className="role-switcher" aria-label="Role selector">
           {(["P0", "P1", "P2", "P3"] as Role[]).map((item) => {
-            const hasFixturePhase = FIXTURE_PHASES.some((phase) => toRole(phase.role) === item);
+            const hasFixturePhase = FIXTURE_PHASES.some((phase) => phase.role === item);
             return (
               <button
                 aria-disabled={!hasFixturePhase}
@@ -447,6 +398,7 @@ function App() {
           </div>
 
           <MockContextSelector
+            activeContext={activeContext}
             activePhase={activePhase}
             onPhaseChange={setActivePhaseNumber}
           />
@@ -470,10 +422,12 @@ function App() {
 }
 
 function MockContextSelector({
+  activeContext,
   activePhase,
   onPhaseChange
 }: {
-  activePhase: FixturePhase;
+  activeContext: ResolvedSurfaceContext;
+  activePhase: CoreSurfaceFixturePhase;
   onPhaseChange: (phase: number) => void;
 }) {
   return (
@@ -484,17 +438,17 @@ function MockContextSelector({
         onChange={(event) => onPhaseChange(Number(event.target.value))}
         value={activePhase.phase}
       >
-        {FIXTURE_PHASES.map((phase) => (
+        {CORE_SURFACE_FIXTURE_PHASE_OPTIONS.map((phase) => (
           <option key={phase.phase} value={phase.phase}>
-            {`Phase ${phase.phase} - ${phase.surface} - ${phase.case_state}`}
+            {`Phase ${phase.phase} - ${phase.surface} - ${phase.caseState}`}
           </option>
         ))}
       </select>
       <div className="resolved-context-pills">
-        <span>{`Role ${toRole(activePhase.role)}`}</span>
-        <span>{activePhase.surface}</span>
-        <span>{activePhase.case_state}</span>
-        <span>{activePhase.ar_status ?? "AR none"}</span>
+        <span>{`Role ${activeContext.session.role}`}</span>
+        <span>{activeContext.surface}</span>
+        <span>{activeContext.case.case_state}</span>
+        <span>{activeContext.action_request?.ar_status ?? "AR none"}</span>
       </div>
     </div>
   );

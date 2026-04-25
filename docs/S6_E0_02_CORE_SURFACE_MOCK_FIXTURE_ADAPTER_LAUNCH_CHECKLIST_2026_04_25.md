@@ -6,11 +6,11 @@
 | --- | --- |
 | Title | S6 E0-02 Core Surface Mock Fixture Adapter Launch Checklist 2026-04-25 |
 | Ticket | `E0-02` |
-| Status | READY_FOR_JARVIS_IMPLEMENTATION_GO |
+| Status | IMPLEMENTED_GATE_PASS_PENDING_CLOSEOUT_AUTHORIZATION |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
-| Baseline commit | `aaaa199` |
+| Implementation baseline commit | `0fd2a1b` |
 | Primary implementor | Codex |
 | Execution surface | `codex` |
 | Workspace surface | VS Code / local repo |
@@ -33,7 +33,15 @@ Generate Jira delta CSV and update notes.
 Do not mutate Jira cloud yet.
 ```
 
-This authorization does not start implementation. Implementation requires a later explicit Jarvis GO.
+Jarvis later authorized:
+
+```text
+Authorize stage/commit/push for the planning/docs update.
+Authorize E0-02 bounded implementation GO.
+Authorize Jira cloud update.
+```
+
+Implementation is now complete and gated. The Jira cloud update has not been executed because safe runtime credentials are not present in the shell environment and the API token provided in chat must not be hard-coded into commands, logs, repo files, or prompts.
 
 ## 3. Source Authority
 
@@ -233,20 +241,124 @@ Reason:
 
 ## 13. Decision
 
-Decision:
+Launch decision:
 
 ```text
 READY_FOR_JARVIS_IMPLEMENTATION_GO
 ```
 
-Authorized next technical action after Jarvis GO:
+Authorized technical action after Jarvis GO:
 
 ```text
 Implement E0-02 inside the exact allowed file scope, then run the required gates and focused review.
 ```
 
-Not authorized yet:
+Implementation result:
 
 ```text
-implementation, stage, commit, push, Jira cloud mutation, launch, deploy, real data, external pilot
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_P3_NOTES
 ```
+
+Not authorized by this checklist:
+
+```text
+launch, deploy, real data, external pilot
+```
+
+## 14. Implementation Closeout Evidence
+
+Implemented files:
+
+- `frontend/src/secupilot/surface/fixtures/coreSurfaceFixtureAdapter.ts`
+- `frontend/src/secupilot/surface/fixtures/__tests__/coreSurfaceFixtureAdapter.test.ts`
+- `frontend/src/App.tsx`
+- `frontend/src/App.test.tsx`
+
+Implemented behavior:
+
+- maps fixture Phase 0-6 records into `ResolvedSurfaceContext`;
+- normalizes source fixture surfaces `P2_APPROVAL_SURFACE` and `P3_MANAGER_VIEW` to governed surfaces `P2_APPROVAL` and `P3_MANAGER`;
+- validates every adapted context through `validateResolvedSurfaceContext`;
+- throws fail-closed errors when an unsupported phase or invalid adapted context is encountered;
+- keeps URL, localStorage, sessionStorage, and route path out of authority sourcing;
+- keeps P3 manager context read-only and excludes privileged raw technical payload from adapted context and DOM;
+- updates the current app phase selector and visible context pills to use validated adapter output.
+
+Fixture integrity:
+
+```text
+repo-local fixture SHA256: 814F21AACFE2E2B25514990188F9801D81F0ED4A464F7A03B05DD235E4A02B47
+expected SHA256:           814F21AACFE2E2B25514990188F9801D81F0ED4A464F7A03B05DD235E4A02B47
+```
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 4 test files, 35 tests
+
+npm run build
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS with non-blocking P3 notes
+```
+
+Non-blocking review notes:
+
+- Phase 3 mock-only `observation_window_remaining_minutes` starts equal to total observation-window minutes; an inline comment now records that a future live timer must replace this value.
+- `actionModeForPhase()` currently maps action modes by fixed fixture phase number because fixture v0.1 does not carry per-phase `action_mode`; if fixture phases expand later, the fixture should declare `action_mode` directly.
+
+Claude Web/external review:
+
+```text
+NOT REQUIRED_FOR_E0_02
+```
+
+Reason:
+
+- E0-02 did not change E0-01 root authority semantics;
+- E0-02 did not loosen `ContextValidator`;
+- E0-02 did not introduce product semantics beyond fixture phase adaptation;
+- E0-02 did not touch Storybook, Playwright, backend/runtime/API/schema, route handoff, cross-surface propagation, real data, secrets, deploy, or external pilot behavior.
+
+## 15. Jira Cloud Update Status
+
+Jarvis authorized Jira cloud update, but execution remains blocked pending safe credential injection.
+
+Observed shell state:
+
+```text
+JIRA_BASE_URL: not set
+JIRA_EMAIL: not set
+JIRA_API_TOKEN: not set
+```
+
+Decision:
+
+```text
+JIRA_CLOUD_UPDATE_AUTHORIZED_BUT_NOT_EXECUTED_PENDING_SAFE_ENV_CREDENTIALS
+```
+
+The API token previously provided in chat must not be pasted into shell commands, committed to repo, printed in logs, or added to prompts.
+
+## 16. Pending Jarvis Decision
+
+E0-02 is ready for closeout authorization.
+
+Pending decision:
+
+```text
+Authorize or hold E0-02 stage/commit/push.
+```
+
+Until that decision, implementation files remain unstaged in the working tree.
