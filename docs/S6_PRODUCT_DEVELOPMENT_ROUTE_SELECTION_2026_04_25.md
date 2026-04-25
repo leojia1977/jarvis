@@ -330,3 +330,57 @@ PENDING_STAGE_COMMIT_PUSH
 ```
 
 Do not stage unrelated untracked files during the P1-CD-B closeout.
+
+## 15. Update 2026-04-25: S6-MF-A Ticket Prep
+
+P1-CD-B was subsequently committed and pushed:
+
+```text
+66b45c8 Implement P1 evidence panel controls
+```
+
+Next selected mock-fixture ticket:
+
+```text
+S6-MF-A: Core Surface Mock Fixture Integration
+```
+
+Ticket-prep record:
+
+```text
+docs\S6_MF_A_CORE_SURFACE_MOCK_FIXTURE_INTEGRATION_TICKET_PREP_2026_04_25.md
+```
+
+Outcome:
+
+```text
+S6-MF-A READY_FOR_EXACT_TICKET
+```
+
+S6-MF-A is bounded to repo-local fixture import, mock-only resolved context, and a local Phase 0-6 selector. Storybook setup, Playwright setup, P1 to P2 AR propagation, P2 to P3 audit propagation, route handoff, backend-driven state sync, and bounded implementation sprint data-flow work remain separate later tickets.
+
+## 16. Update 2026-04-25: S6-MF-A Implementation Gate
+
+S6-MF-A implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS
+```
+
+Gate evidence:
+
+- fixture source hash: `814F21AACFE2E2B25514990188F9801D81F0ED4A464F7A03B05DD235E4A02B47`;
+- repo-local fixture hash: `814F21AACFE2E2B25514990188F9801D81F0ED4A464F7A03B05DD235E4A02B47`;
+- frontend test: `npm run test -- --run` PASS, 9 tests passed;
+- frontend build: `npm run build` PASS;
+- backend guard: `py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view` PASS, 42 tests passed;
+- focused `claude.cmd --print` review found P1 issues that were fixed;
+- focused `claude.cmd --print` re-review: NO BLOCKING FINDINGS.
+
+Current closeout state:
+
+```text
+PENDING_STAGE_COMMIT_PUSH
+```
+
+Do not stage unrelated untracked files during the S6-MF-A closeout.

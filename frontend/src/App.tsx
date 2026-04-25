@@ -11,12 +11,24 @@ import {
   Unlock
 } from "lucide-react";
 import { FormEvent, useMemo, useState } from "react";
+import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
 
 type Role = "P0" | "P1" | "P2" | "P3";
 type Route = "inbox" | "case";
 type CoverageLevel = "L0" | "L1" | "L2" | "L3";
-type EvidenceFrameId = "process" | "topology" | "timeline" | "lineage";
+type CaseState =
+  | "UNDER_INVESTIGATION"
+  | "PENDING_APPROVAL"
+  | "OBSERVATION_WINDOW"
+  | "APPROVED_PENDING_EXECUTION"
+  | "CLOSED";
+type EvidenceFrameId =
+  | "process_evidence"
+  | "lateral_topology"
+  | "event_timeline"
+  | "attack_lineage";
 type EvidenceMode = "auto" | "manual";
+type NarrativeKey = "WHAT" | "WHY" | "INTENT" | "HONESTY" | "DECISION";
 
 interface NavItem {
   label: string;
@@ -34,7 +46,12 @@ interface WorkbenchCase {
   coverage: CoverageLevel;
   nextStep: string;
   summary: string;
-  state: "UNDER_INVESTIGATION" | "PENDING_APPROVAL";
+  state: CaseState;
+  phaseNumber: number;
+  phaseName: string;
+  resolvedSurface: string;
+  resolvedRole: Role;
+  arStatus: string | null;
   triggerSource: string;
   freshness: string;
   actionRequest: string;
@@ -58,173 +75,218 @@ interface WorkbenchCase {
   }>;
 }
 
-const CASE_STATE_LABELS: Record<WorkbenchCase["state"], string> = {
+interface FixtureSentence {
+  sentence_id: string;
+  text: string;
+  evidence_panel_ref?: string;
+}
+
+interface FixtureNarrativeSection {
+  section: string;
+  sentences: FixtureSentence[];
+}
+
+interface FixtureEvidencePanel {
+  panel_id: string;
+  standard_title: string;
+  provenance_chip: string;
+  contains_host_level_raw_evidence?: boolean;
+  p3_rendering?: string;
+}
+
+interface FixturePhase {
+  phase: number;
+  name: string;
+  surface: string;
+  role: string;
+  case_state: string;
+  ar_status: string | null;
+  expected_ui: string[];
+}
+
+interface CoreSurfaceFixture {
+  fixture_version: string;
+  status: string;
+  ids: {
+    case_id: string;
+    action_request_id: string;
+    audit_trail_id: string;
+  };
+  case: {
+    case_id: string;
+    coverage_level: string;
+    title: string;
+    severity: string;
+    source: string;
+    trigger_source: string;
+    narrative_sections: FixtureNarrativeSection[];
+    honesty_layer: {
+      unsupported_claims: string[];
+      what_would_raise_confidence: string[];
+      what_would_disprove_current_verdict: string[];
+    };
+  };
+  evidence_panels: FixtureEvidencePanel[];
+  action_request_initial: {
+    action_request_id: string;
+    status: string;
+    action_mode: string | null;
+    recommended_action: string;
+    urgency_text: string;
+  };
+  audit_trail: Array<{
+    audit_id: string;
+    event: string;
+    actor_role: string;
+    case_state_after: string;
+    ar_status_after: string;
+    action_mode?: string;
+  }>;
+  phases: FixturePhase[];
+}
+
+const FIXTURE = coreSurfaceFixture as CoreSurfaceFixture;
+const FIXTURE_PHASES = FIXTURE.phases;
+const EVIDENCE_FRAME_IDS: EvidenceFrameId[] = [
+  "process_evidence",
+  "lateral_topology",
+  "event_timeline",
+  "attack_lineage"
+];
+
+const CASE_STATE_LABELS: Record<CaseState, string> = {
   UNDER_INVESTIGATION: "Under investigation",
-  PENDING_APPROVAL: "Pending P2 review"
+  PENDING_APPROVAL: "Pending P2 review",
+  OBSERVATION_WINDOW: "Observation window",
+  APPROVED_PENDING_EXECUTION: "Approved pending execution",
+  CLOSED: "Closed"
 };
 
-const CASES: WorkbenchCase[] = [
-  {
-    id: "CASE-001",
-    title: "Suspicious lateral movement on WKST-047",
-    verdict: "Critical action required",
-    risk: "Critical",
-    coverage: "L2",
-    nextStep: "Review summary and decide escalation",
-    summary:
-      "Multiple correlated process and identity signals indicate likely lateral movement. Evidence detail remains inside the case context.",
-    state: "UNDER_INVESTIGATION",
-    triggerSource: "Identity + EDR correlation",
-    freshness: "Signals refreshed 4 min ago",
-    actionRequest: "No pending request. P1 can prepare a request for P2 after review.",
-    trace: [
-      {
-        label: "Triggered",
-        detail: "Privilege change and remote service activity entered the case queue.",
-        provenance: "Case signal"
-      },
-      {
-        label: "Enriched",
-        detail: "Host, identity, and nearby execution context were attached.",
-        provenance: "Context layer"
-      },
-      {
-        label: "Processing complete",
-        detail: "Engine trace is available as provenance, not as lifecycle state.",
-        provenance: "T1 / T3 / T5"
-      }
-    ],
-    narrative: {
-      what: [
-        "WKST-047 started remote service activity after a privileged session changed hands.",
-        "The case combines process execution, identity movement, and host context into one investigation object."
-      ],
-      why: [
-        "The signals form a plausible lateral-movement path rather than a single isolated process event.",
-        "Coverage is L2, so the page shows an impact preview without presenting it as a complete L3 topology."
-      ],
-      intent: [
-        "The most likely operator intent is to establish execution reach on a neighboring system.",
-        "The immediate concern is whether the same credential path appears on adjacent hosts."
-      ],
-      honesty: [
-        "Unsupported claim: business impact is estimated from the available host context and is not confirmed by an owner.",
-        "Confidence would rise if process ancestry and peer-host freshness are confirmed.",
-        "Current coverage does not prove a full blast-radius chain."
-      ],
-      decision: [
-        "P1 should read the evidence, add an investigation note if needed, and submit a request to P2 only if the escalation remains justified.",
-        "No approval or final execution-mode decision belongs on this P1 surface."
-      ]
-    },
-    evidenceFrames: [
-      {
-        id: "process",
-        title: "Process / Execution Evidence",
-        provenance: "T3",
-        summary: "Remote-service creation and child process signals are present; inferred links stay visually secondary."
-      },
-      {
-        id: "topology",
-        title: "Topology / Blast Radius Preview",
-        provenance: "L2 preview",
-        summary: "Neighboring host exposure is shown as a bounded preview, not as full advanced topology."
-      },
-      {
-        id: "timeline",
-        title: "Event Timeline",
-        provenance: "T1",
-        summary: "Timeline anchors are ordered around the privileged session and remote activity window."
-      },
-      {
-        id: "lineage",
-        title: "Attack Chain / Lineage & Confidence",
-        provenance: "T5",
-        summary: "Lineage confidence is sufficient for review, with unsupported claims kept visible."
-      }
-    ]
-  },
-  {
-    id: "CASE-002",
-    title: "Privileged script execution on DB-02",
-    verdict: "High confidence investigation",
-    risk: "High",
-    coverage: "L1",
-    nextStep: "Ask a follow-up before action request",
-    summary:
-      "A privileged script was observed during the current window. Lower coverage keeps deeper lineage out of the default view.",
-    state: "PENDING_APPROVAL",
-    triggerSource: "Script execution monitor",
-    freshness: "Signals refreshed 11 min ago",
-    actionRequest: "Request submitted to P2. P1 view remains read-only for approval outcome.",
-    trace: [
-      {
-        label: "Triggered",
-        detail: "Privileged script execution opened a case for review.",
-        provenance: "Case signal"
-      },
-      {
-        label: "Enriched",
-        detail: "Coverage remains limited while identity context is still thin.",
-        provenance: "Context layer"
-      },
-      {
-        label: "Submitted",
-        detail: "The case is waiting for P2 review; this is not a P1 approval surface.",
-        provenance: "Case lifecycle"
-      }
-    ],
-    narrative: {
-      what: [
-        "DB-02 ran a privileged script inside the current observation window.",
-        "The case keeps the script event, host identity, and available context together for P1 review."
-      ],
-      why: [
-        "The behavior is sensitive because it occurred on a database host with elevated privileges.",
-        "Coverage is L1, so the page avoids presenting deeper lineage as known fact."
-      ],
-      intent: [
-        "The available signal supports a cautious investigation posture, not a confident attribution.",
-        "The next likely question is whether the script was expected maintenance or unauthorized execution."
-      ],
-      honesty: [
-        "Unsupported claim: lateral movement is not established from the current L1 evidence.",
-        "Confidence would rise if scheduled-change records and process ancestry are attached.",
-        "Current coverage does not unlock a detailed lineage narrative."
-      ],
-      decision: [
-        "P1 should keep the case context available and use the follow-up input for missing maintenance context.",
-        "The submitted request waits for P2 review; P1 does not approve or reject it here."
-      ]
-    },
-    evidenceFrames: [
-      {
-        id: "process",
-        title: "Process / Execution Evidence",
-        provenance: "T3",
-        summary: "The script execution is visible, while lower-confidence ancestry stays de-emphasized."
-      },
-      {
-        id: "topology",
-        title: "Topology / Blast Radius Preview",
-        provenance: "L1 limited",
-        summary: "No broad topology is shown because coverage is below the L2 baseline for this frame."
-      },
-      {
-        id: "timeline",
-        title: "Event Timeline",
-        provenance: "T1",
-        summary: "The visible timeline centers on the script event and current case submission."
-      },
-      {
-        id: "lineage",
-        title: "Attack Chain / Lineage & Confidence",
-        provenance: "Limited",
-        summary: "Lineage is intentionally constrained until stronger supporting evidence exists."
-      }
-    ]
+function toRole(value: string): Role {
+  return value === "P0" || value === "P1" || value === "P2" || value === "P3" ? value : "P1";
+}
+
+function toCoverage(value: string): CoverageLevel {
+  return value === "L0" || value === "L1" || value === "L2" || value === "L3" ? value : "L0";
+}
+
+function toCaseState(value: string): CaseState {
+  return value in CASE_STATE_LABELS ? (value as CaseState) : "UNDER_INVESTIGATION";
+}
+
+function toRisk(value: string): "High" | "Critical" {
+  return value.toUpperCase() === "CRITICAL" ? "Critical" : "High";
+}
+
+function toEvidenceFrameId(value: string | undefined): EvidenceFrameId {
+  return EVIDENCE_FRAME_IDS.includes(value as EvidenceFrameId)
+    ? (value as EvidenceFrameId)
+    : "process_evidence";
+}
+
+function getFixtureSection(sectionKey: NarrativeKey): FixtureNarrativeSection | undefined {
+  return FIXTURE.case.narrative_sections.find((section) => section.section === sectionKey);
+}
+
+function getFixtureSectionSentences(sectionKey: NarrativeKey): string[] {
+  return getFixtureSection(sectionKey)?.sentences.map((sentence) => sentence.text) ?? [];
+}
+
+function getFixtureSectionEvidence(sectionKey: NarrativeKey, fallback: EvidenceFrameId): EvidenceFrameId {
+  const ref = getFixtureSection(sectionKey)?.sentences[0]?.evidence_panel_ref;
+  return ref ? toEvidenceFrameId(ref) : fallback;
+}
+
+function buildActionRequestSummary(phase: FixturePhase): string {
+  const arId = FIXTURE.ids.action_request_id;
+  if (!phase.ar_status) {
+    return `No action request submitted. Fixture AR ${arId} remains unavailable to P1 until submit.`;
   }
-];
+  if (phase.phase === 1) {
+    return `${arId} - Waiting on P2 - submit action is read-only in this mock phase.`;
+  }
+  return `${arId} - ${phase.ar_status} - resolved from mock phase ${phase.phase}.`;
+}
+
+function buildTrace(phase: FixturePhase): WorkbenchCase["trace"] {
+  const auditEvents = FIXTURE.audit_trail.slice(0, Math.max(0, Math.min(phase.phase, FIXTURE.audit_trail.length)));
+  if (auditEvents.length === 0) {
+    return [
+      {
+        label: "Fixture loaded",
+        detail: `${FIXTURE.ids.case_id} is resolved from mock fixture v${FIXTURE.fixture_version}.`,
+        provenance: "mock-only"
+      },
+      {
+        label: "Source boundary",
+        detail: "Role, coverage, and state come from resolved fixture context, not URL or browser storage.",
+        provenance: "resolved context"
+      }
+    ];
+  }
+  return auditEvents.map((event) => ({
+    label: event.event.replaceAll("_", " "),
+    detail: `${event.actor_role} moved the mock case context to ${event.case_state_after}.`,
+    provenance: event.audit_id
+  }));
+}
+
+function buildEvidenceFrames(role: Role): WorkbenchCase["evidenceFrames"] {
+  return FIXTURE.evidence_panels
+    .filter((panel) => role !== "P3" || !panel.contains_host_level_raw_evidence)
+    .map((panel) => ({
+      id: toEvidenceFrameId(panel.panel_id),
+      title: panel.standard_title,
+      provenance: panel.provenance_chip,
+      summary:
+        role === "P3" && panel.p3_rendering
+          ? panel.p3_rendering
+          : `Mock fixture panel ${panel.panel_id}; provenance remains metadata only.`
+    }));
+}
+
+function buildWorkbenchCase(phase: FixturePhase): WorkbenchCase {
+  const role = toRole(phase.role);
+  return {
+    id: FIXTURE.ids.case_id,
+    title: FIXTURE.case.title,
+    verdict: `${FIXTURE.case.severity} mock case - ${phase.name}`,
+    risk: toRisk(FIXTURE.case.severity),
+    coverage: toCoverage(FIXTURE.case.coverage_level),
+    nextStep:
+      phase.phase === 1
+        ? "Waiting on P2 - submit action is read-only"
+        : phase.expected_ui.join(" - "),
+    summary: `${FIXTURE.case.trigger_source}. Phase ${phase.phase} is resolved from mock fixture v${FIXTURE.fixture_version}.`,
+    state: toCaseState(phase.case_state),
+    phaseNumber: phase.phase,
+    phaseName: phase.name,
+    resolvedSurface: phase.surface,
+    resolvedRole: role,
+    arStatus: phase.ar_status,
+    triggerSource: FIXTURE.case.source,
+    freshness: `Mock fixture v${FIXTURE.fixture_version}; no live refresh`,
+    actionRequest: buildActionRequestSummary(phase),
+    trace: buildTrace(phase),
+    narrative: {
+      what: getFixtureSectionSentences("WHAT"),
+      why: getFixtureSectionSentences("WHY"),
+      intent: [
+        `Mock fixture intent stays bounded to ${FIXTURE.case.trigger_source}; no additional attacker claim is synthesized.`
+      ],
+      honesty: [
+        ...FIXTURE.case.honesty_layer.unsupported_claims,
+        ...FIXTURE.case.honesty_layer.what_would_raise_confidence,
+        ...FIXTURE.case.honesty_layer.what_would_disprove_current_verdict
+      ],
+      decision: [
+        `Recommended action from fixture: ${FIXTURE.action_request_initial.recommended_action}.`,
+        "P1 still cannot choose ActionMode; P2 remains the approval authority in later phases."
+      ]
+    },
+    evidenceFrames: buildEvidenceFrames(role)
+  };
+}
 
 const NAV_ITEMS: NavItem[] = [
   {
@@ -275,15 +337,26 @@ function initialRoute(): { route: Route; caseId: string | null } {
 
 function App() {
   const [{ route, caseId }, setLocation] = useState(initialRoute);
-  const [role, setRole] = useState<Role>("P1");
+  const [activePhaseNumber, setActivePhaseNumber] = useState(FIXTURE_PHASES[0]?.phase ?? 0);
   const [globalQuery, setGlobalQuery] = useState("");
   const [followUp, setFollowUp] = useState("");
 
+  const activePhase =
+    FIXTURE_PHASES.find((phase) => phase.phase === activePhaseNumber) ?? FIXTURE_PHASES[0];
+  const role = toRole(activePhase.role);
+  const cases = useMemo(() => [buildWorkbenchCase(activePhase)], [activePhase]);
   const activeCase = useMemo(
-    () => CASES.find((item) => item.id === caseId) ?? CASES[0],
-    [caseId]
+    () => cases.find((item) => item.id === caseId) ?? cases[0],
+    [caseId, cases]
   );
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(role));
+
+  function selectRole(nextRole: Role) {
+    const nextPhase = FIXTURE_PHASES.find((phase) => toRole(phase.role) === nextRole);
+    if (nextPhase) {
+      setActivePhaseNumber(nextPhase.phase);
+    }
+  }
 
   function navigate(nextRoute: Route, nextCaseId?: string) {
     const path = nextRoute === "case" && nextCaseId ? `/case/${nextCaseId}` : "/inbox";
@@ -313,16 +386,21 @@ function App() {
         </div>
 
         <div className="role-switcher" aria-label="Role selector">
-          {(["P0", "P1", "P2", "P3"] as Role[]).map((item) => (
-            <button
-              className={item === role ? "role active" : "role"}
-              key={item}
-              onClick={() => setRole(item)}
-              type="button"
-            >
-              {item}
-            </button>
-          ))}
+          {(["P0", "P1", "P2", "P3"] as Role[]).map((item) => {
+            const hasFixturePhase = FIXTURE_PHASES.some((phase) => toRole(phase.role) === item);
+            return (
+              <button
+                aria-disabled={!hasFixturePhase}
+                className={item === role ? "role active" : "role"}
+                disabled={!hasFixturePhase}
+                key={item}
+                onClick={() => selectRole(item)}
+                type="button"
+              >
+                {item}
+              </button>
+            );
+          })}
         </div>
 
         <nav className="nav-list">
@@ -367,22 +445,58 @@ function App() {
             <span className="coverage-dot" />
             <span>Coverage {activeCase.coverage}</span>
           </div>
+
+          <MockContextSelector
+            activePhase={activePhase}
+            onPhaseChange={setActivePhaseNumber}
+          />
         </header>
 
         {route === "case" ? (
           <CaseDetail
             activeCase={activeCase}
             followUp={followUp}
-            key={activeCase.id}
+            key={`${activeCase.id}-${activeCase.phaseNumber}`}
             onBack={() => navigate("inbox")}
             onFollowUpChange={setFollowUp}
             onFollowUpSubmit={submitFollowUp}
           />
         ) : (
-          <InboxView cases={CASES} onOpenCase={(nextCaseId) => navigate("case", nextCaseId)} />
+          <InboxView cases={cases} onOpenCase={(nextCaseId) => navigate("case", nextCaseId)} />
         )}
       </section>
     </main>
+  );
+}
+
+function MockContextSelector({
+  activePhase,
+  onPhaseChange
+}: {
+  activePhase: FixturePhase;
+  onPhaseChange: (phase: number) => void;
+}) {
+  return (
+    <div className="mock-context" aria-label="Mock fixture resolved context">
+      <label htmlFor="mock-phase-selector">Mock fixture phase</label>
+      <select
+        id="mock-phase-selector"
+        onChange={(event) => onPhaseChange(Number(event.target.value))}
+        value={activePhase.phase}
+      >
+        {FIXTURE_PHASES.map((phase) => (
+          <option key={phase.phase} value={phase.phase}>
+            {`Phase ${phase.phase} - ${phase.surface} - ${phase.case_state}`}
+          </option>
+        ))}
+      </select>
+      <div className="resolved-context-pills">
+        <span>{`Role ${toRole(activePhase.role)}`}</span>
+        <span>{activePhase.surface}</span>
+        <span>{activePhase.case_state}</span>
+        <span>{activePhase.ar_status ?? "AR none"}</span>
+      </div>
+    </div>
   );
 }
 
@@ -435,7 +549,7 @@ function CaseDetail({
   onFollowUpSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }) {
   const [activeEvidenceFrameId, setActiveEvidenceFrameId] =
-    useState<EvidenceFrameId>("process");
+    useState<EvidenceFrameId>(activeCase.evidenceFrames[0]?.id ?? "process_evidence");
   const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("auto");
   const [isEvidencePinned, setIsEvidencePinned] = useState(false);
 
@@ -443,31 +557,31 @@ function CaseDetail({
     {
       key: "WHAT",
       items: activeCase.narrative.what,
-      evidenceFrameId: "timeline" as EvidenceFrameId,
+      evidenceFrameId: getFixtureSectionEvidence("WHAT", "event_timeline"),
       evidenceLabel: "Event Timeline"
     },
     {
       key: "WHY",
       items: activeCase.narrative.why,
-      evidenceFrameId: "topology" as EvidenceFrameId,
+      evidenceFrameId: getFixtureSectionEvidence("WHY", "lateral_topology"),
       evidenceLabel: "Topology / Blast Radius Preview"
     },
     {
       key: "INTENT",
       items: activeCase.narrative.intent,
-      evidenceFrameId: "lineage" as EvidenceFrameId,
+      evidenceFrameId: getFixtureSectionEvidence("INTENT", "attack_lineage"),
       evidenceLabel: "Attack Chain / Lineage & Confidence"
     },
     {
       key: "HONESTY",
       items: activeCase.narrative.honesty,
-      evidenceFrameId: "lineage" as EvidenceFrameId,
+      evidenceFrameId: getFixtureSectionEvidence("HONESTY", "attack_lineage"),
       evidenceLabel: "Attack Chain / Lineage & Confidence"
     },
     {
       key: "DECISION",
       items: activeCase.narrative.decision,
-      evidenceFrameId: "process" as EvidenceFrameId,
+      evidenceFrameId: "process_evidence" as EvidenceFrameId,
       evidenceLabel: "Process / Execution Evidence"
     }
   ];

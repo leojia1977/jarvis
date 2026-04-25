@@ -103,6 +103,11 @@ button {
   box-shadow: 0 1px 4px rgba(25, 37, 50, 0.12);
 }
 
+.role:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
 .nav-list {
   display: flex;
   flex-direction: column;
@@ -146,7 +151,7 @@ button {
 
 .topbar {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) auto;
+  grid-template-columns: minmax(320px, 1fr) auto minmax(260px, 0.75fr);
   gap: 18px;
   align-items: center;
   padding: 18px 28px;
@@ -216,6 +221,47 @@ button {
   height: 9px;
   border-radius: 50%;
   background: #77a33f;
+}
+
+.mock-context {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+}
+
+.mock-context label {
+  color: #667085;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mock-context select {
+  min-width: 0;
+  min-height: 38px;
+  border: 1px solid #c7d5cf;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #243140;
+  padding: 0 9px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.resolved-context-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.resolved-context-pills span {
+  border: 1px solid #d7ded4;
+  border-radius: 999px;
+  background: #f8fbf6;
+  color: #52606d;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .page-region {

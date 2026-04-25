@@ -1,0 +1,263 @@
+{
+  "fixture_version": "0.1",
+  "status": "mock-only",
+  "non_authorization": {
+    "launch": false,
+    "deploy": false,
+    "real_data": false,
+    "external_pilot": false,
+    "secrets": false
+  },
+  "ids": {
+    "case_id": "CASE-2847",
+    "action_request_id": "AR-2847-ISO-001",
+    "audit_trail_id": "AUDIT-2847-AR-001"
+  },
+  "case": {
+    "case_id": "CASE-2847",
+    "coverage_level": "L2",
+    "recorded_case_coverage_level": "L2",
+    "current_customer_coverage_level": "L2",
+    "effective_visibility_level": "L2",
+    "title": "可疑横向移动 — 内网多主机凭证尝试",
+    "severity": "HIGH",
+    "source": "Microsoft Sentinel mock fixture",
+    "trigger_source": "NTLM lateral movement pattern",
+    "primary_host": "ws-finance-042",
+    "primary_user": "jsmith@corp.example",
+    "affected_hosts_count": 7,
+    "successful_auth_count": 3,
+    "business_context": {
+      "source_segment": "Finance",
+      "target_segment": "IT-Infra",
+      "cmdb_business_tags": ["Payroll system", "ERP core database", "Finance shared directory"]
+    },
+    "narrative_sections": [
+      {
+        "section": "WHAT",
+        "sentences": [
+          {
+            "sentence_id": "WHAT-01",
+            "text": "ws-finance-042 started NTLM authentication attempts against multiple internal servers.",
+            "evidence_panel_ref": "process_evidence"
+          },
+          {
+            "sentence_id": "WHAT-02",
+            "text": "Seven hosts were probed within eighteen minutes; three authentications succeeded.",
+            "evidence_panel_ref": "event_timeline"
+          }
+        ]
+      },
+      {
+        "section": "WHY",
+        "sentences": [
+          {
+            "sentence_id": "WHY-01",
+            "text": "The authentication pattern is consistent with credential-reuse lateral movement.",
+            "evidence_panel_ref": "attack_lineage"
+          },
+          {
+            "sentence_id": "WHY-02",
+            "text": "Finance to IT-Infra cross-segment success is the highest-risk signal.",
+            "evidence_panel_ref": "lateral_topology"
+          }
+        ]
+      },
+      {
+        "section": "HONESTY",
+        "sentences": [
+          {
+            "sentence_id": "HONESTY-01",
+            "text": "Host-level process telemetry for srv-file-03 is unavailable under current L2 coverage.",
+            "evidence_panel_ref": "process_evidence"
+          }
+        ]
+      }
+    ],
+    "honesty_layer": {
+      "unsupported_claims": [
+        "File access on srv-file-03 is inferred; direct EDR process telemetry is unavailable.",
+        "Account compromise is probable but not proven; MFA records are missing.",
+        "Pass-the-hash is a behavioral hypothesis, not directly evidenced."
+      ],
+      "what_would_raise_confidence": [
+        "srv-file-03 process creation logs.",
+        "MFA authentication records for jsmith@corp.example.",
+        "Additional host-level EDR events for the 09:14–09:32 window."
+      ],
+      "what_would_disprove_current_verdict": [
+        "Confirmed maintenance job initiated by jsmith@corp.example.",
+        "MFA evidence proving an expected legitimate session.",
+        "No file, process, or network activity after successful authentication."
+      ]
+    }
+  },
+  "evidence_panels": [
+    {
+      "panel_id": "process_evidence",
+      "standard_title": "进程证据",
+      "provenance_chip": "T3",
+      "contains_host_level_raw_evidence": true,
+      "p3_rendering": "summary_only_dom_absent_for_host_raw_evidence"
+    },
+    {
+      "panel_id": "lateral_topology",
+      "standard_title": "横向移动拓扑",
+      "provenance_chip": "T5",
+      "contains_host_level_raw_evidence": false
+    },
+    {
+      "panel_id": "event_timeline",
+      "standard_title": "事件时间线",
+      "provenance_chip": "T3",
+      "contains_inferred_nodes": true
+    },
+    {
+      "panel_id": "attack_lineage",
+      "standard_title": "攻击谱系与置信度",
+      "provenance_chip": "T5",
+      "contains_host_level_raw_evidence": false
+    }
+  ],
+  "action_request_initial": {
+    "action_request_id": "AR-2847-ISO-001",
+    "case_id": "CASE-2847",
+    "created_by_role": "P1",
+    "status": "PENDING_APPROVAL",
+    "action_mode": null,
+    "recommended_action": "isolate ws-finance-042 and lock jsmith@corp.example pending review",
+    "urgency_text": "urgent",
+    "observation_window_minutes": null,
+    "observation_expiry_action": null,
+    "note": "null observation fields mean P2 has not configured an observation window yet; they do not mean the window is not required."
+  },
+  "audit_trail": [
+    {
+      "audit_id": "AUD-001",
+      "event": "AR_SUBMITTED",
+      "actor_role": "P1",
+      "case_state_after": "PENDING_APPROVAL",
+      "ar_status_after": "PENDING_APPROVAL"
+    },
+    {
+      "audit_id": "AUD-002",
+      "event": "P2_OPENED_AR",
+      "actor_role": "P2",
+      "case_state_after": "PENDING_APPROVAL",
+      "ar_status_after": "PENDING_APPROVAL"
+    },
+    {
+      "audit_id": "AUD-003",
+      "event": "OBSERVE_ONLY_SELECTED",
+      "actor_role": "P2",
+      "case_state_after": "OBSERVATION_WINDOW",
+      "ar_status_after": "OBSERVATION_WINDOW",
+      "action_mode": "OBSERVE_ONLY",
+      "observation_window_minutes": 60,
+      "observation_expiry_action": "RETURN_TO_PENDING_APPROVAL"
+    },
+    {
+      "audit_id": "AUD-004",
+      "event": "OBSERVATION_WINDOW_EXPIRED",
+      "actor_role": "SYSTEM",
+      "case_state_after": "PENDING_APPROVAL",
+      "ar_status_after": "PENDING_APPROVAL",
+      "expiry_action": "RETURN_TO_PENDING_APPROVAL"
+    },
+    {
+      "audit_id": "AUD-005",
+      "event": "APPROVED_AFTER_WINDOW",
+      "actor_role": "P2",
+      "case_state_after": "APPROVED_PENDING_EXECUTION",
+      "ar_status_after": "APPROVED_PENDING_EXECUTION",
+      "action_mode": "IMMEDIATE"
+    }
+  ],
+  "phases": [
+    {
+      "phase": 0,
+      "name": "P1 initial investigation",
+      "surface": "P1_CASE_DETAIL",
+      "role": "P1",
+      "case_state": "UNDER_INVESTIGATION",
+      "ar_status": null,
+      "expected_ui": ["submit_to_p2_available", "no_action_mode_fields"]
+    },
+    {
+      "phase": 1,
+      "name": "P1 submitted AR",
+      "surface": "P1_CASE_DETAIL",
+      "role": "P1",
+      "case_state": "PENDING_APPROVAL",
+      "ar_status": "PENDING_APPROVAL",
+      "expected_ui": ["waiting_on_p2_banner", "submit_button_disabled", "no_duplicate_submit"]
+    },
+    {
+      "phase": 2,
+      "name": "P2 pending approval",
+      "surface": "P2_APPROVAL_SURFACE",
+      "role": "P2",
+      "case_state": "PENDING_APPROVAL",
+      "ar_status": "PENDING_APPROVAL",
+      "expected_ui": ["approve_delay_observe_reject_modes_visible", "approve_window_disabled", "reject_reason_required"]
+    },
+    {
+      "phase": 3,
+      "name": "P2 observe-only active window",
+      "surface": "P2_APPROVAL_SURFACE",
+      "role": "P2",
+      "case_state": "OBSERVATION_WINDOW",
+      "ar_status": "OBSERVATION_WINDOW",
+      "expected_ui": ["readonly_countdown_state", "no_approve_reject_delay_cta"]
+    },
+    {
+      "phase": 4,
+      "name": "window expired back to pending",
+      "surface": "P2_APPROVAL_SURFACE",
+      "role": "P2",
+      "case_state": "PENDING_APPROVAL",
+      "ar_status": "PENDING_APPROVAL",
+      "expected_ui": ["backend_signal_or_polling_refresh", "wake_visual_emphasis", "no_auto_execute"]
+    },
+    {
+      "phase": 5,
+      "name": "approved pending execution",
+      "surface": "P2_APPROVAL_SURFACE",
+      "role": "P2",
+      "case_state": "APPROVED_PENDING_EXECUTION",
+      "ar_status": "APPROVED_PENDING_EXECUTION",
+      "expected_ui": ["terminal_lock", "no_withdraw_cta"]
+    },
+    {
+      "phase": 6,
+      "name": "P3 manager review",
+      "surface": "P3_MANAGER_VIEW",
+      "role": "P3",
+      "case_state": "APPROVED_PENDING_EXECUTION",
+      "ar_status": "APPROVED_PENDING_EXECUTION",
+      "expected_ui": ["approval_audit_summary_readonly", "no_host_raw_evidence_dom", "honesty_tone_preserved"]
+    }
+  ],
+  "guard_cases": {
+    "url_coverage_injection": {
+      "input_url": "/case/CASE-2847?coverage=L3",
+      "expected": "resolved coverage remains L2 from backend context"
+    },
+    "storage_role_injection": {
+      "storage_payload": "role=P3;coverage=L3",
+      "expected": "ignored for authorization and visibility source of truth"
+    },
+    "p3_approval_deeplink": {
+      "input_url": "/approval?caseId=CASE-2847",
+      "expected": "REDIRECT_HARD to /manager"
+    },
+    "dirty_update_during_observation": {
+      "event": "new_log_push_received",
+      "expected": "show refresh available; do not auto-refresh interrupt current reading"
+    },
+    "concurrency_stale_approve": {
+      "scenario": "P2A observes, P2B stale-approves",
+      "expected": "backend rejects stale approve; P2B UI syncs to OBSERVATION_WINDOW"
+    }
+  }
+}
