@@ -485,3 +485,41 @@ OPEN_S6_SB_C_STORYBOOK_STATIC_CORE_SURFACE_STORIES
 ```
 
 S6-SB-C should remain bounded to mock-only P1/P2/P3 static Storybook stories driven by the repo-local fixture, with Playwright still separate.
+
+## 20. Update 2026-04-25: G0 Pre-Start Confirmation
+
+G0 pre-start confirmation record:
+
+```text
+docs\S6_G0_PRE_START_CONFIRMATION_2026_04_25.md
+```
+
+Decision:
+
+```text
+G0_PRE_START_CONFIRMATION_PASS_WITH_NON_BLOCKING_RATIFICATION_CHECKPOINTS
+```
+
+Confirmed items:
+
+- G0-01 checklist receipt is now recorded as a repo-local automation receipt for implementor / reviewer / TL / design / governance owner surfaces;
+- G0-02 baseline version table is confirmed from PRD v1.0 and GoNoGo v0.2.1 current execution package references;
+- G0-05 P3 Contract full ratification is scheduled before the first `P3-MV-*` implementation ticket;
+- G0-06 P2 v0.3 lightweight ratification is scheduled before the first `P2-AP-*` implementation ticket;
+- G0-07 `NV-01`~`NV-07` plus `HF-01` are present in Visual Kickoff v0.3 first design batch evidence;
+- G0-08 first bounded Sprint 0 Jira smoke tickets are created and verified;
+- G0-09 AI_COLLAB execution fields are present in Backlog Tracker v0.4 and Jira smoke task metadata.
+
+Interpretation:
+
+- G0 confirmation is automation-owned; Human/Jarvis is not responsible for manually executing these checks.
+- Current P1, Storybook, mock fixture, route/handoff, and other bounded mock-only automation can continue under exact ticket checklists.
+- P2 implementation remains gated by `P2_V0_3_LIGHTWEIGHT_RATIFICATION_BEFORE_FIRST_P2_AP_IMPLEMENTATION`.
+- P3 implementation remains gated by `P3_FULL_RATIFICATION_BEFORE_FIRST_P3_MV_IMPLEMENTATION`.
+- Full Jira/Linear backlog import or idempotent sync still requires separate authorization.
+
+Recommended next route remains:
+
+```text
+OPEN_S6_SB_C_STORYBOOK_STATIC_CORE_SURFACE_STORIES
+```
