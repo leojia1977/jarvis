@@ -420,3 +420,68 @@ OPEN_S6_SB_B_STORYBOOK_REACT_VITE_TOOLING_SETUP
 ```
 
 S6-SB-B requires explicit dependency-install authorization before any `npm create storybook@latest`, `package.json`, `package-lock.json`, or `.storybook` changes.
+
+## 18. Update 2026-04-25: S6-SB-B Storybook Tooling Setup
+
+S6-SB-A was subsequently committed and pushed:
+
+```text
+75aecc2 Prepare Storybook core surface story plan
+```
+
+Next selected Storybook tooling ticket:
+
+```text
+S6-SB-B: Storybook React Vite Tooling Setup
+```
+
+Ticket-prep record:
+
+```text
+docs\S6_SB_B_STORYBOOK_REACT_VITE_TOOLING_SETUP_TICKET_PREP_2026_04_25.md
+```
+
+Outcome:
+
+```text
+S6-SB-B READY_FOR_EXACT_TOOLING_IMPLEMENTATION
+```
+
+Human/Jarvis authorization was supplied for Storybook dependency installation. Scope remains minimal Storybook React Vite tooling only; no product stories, no Playwright, no backend/API/schema, no cross-surface propagation, no real data, no launch, and no deployment.
+
+## 19. Update 2026-04-25: S6-SB-B Implementation Gate
+
+S6-SB-B implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS
+```
+
+Gate evidence:
+
+- Storybook React Vite tooling installed with `--no-features`;
+- direct Storybook devDependencies added: `storybook`, `@storybook/react-vite`;
+- `frontend/.storybook/main.ts` uses React Vite framework and no addons;
+- generated tutorial/sample stories were removed from governed output;
+- `npm run storybook -- --help` PASS;
+- `npm run test -- --run` PASS, 9 tests passed;
+- `npm run build` PASS;
+- `npm run build-storybook -- --disable-telemetry --loglevel warn` PASS with expected no-story warning;
+- backend guard PASS, 42 tests passed;
+- `git diff --check` PASS;
+- corrected frontend-directory forbidden dependency check returned empty for Playwright/test-runner/addon-vitest packages;
+- focused `claude.cmd --print` review and follow-up found NO BLOCKING FINDINGS.
+
+Current closeout state:
+
+```text
+PENDING_STAGE_COMMIT_PUSH
+```
+
+Recommended next route after S6-SB-B closeout:
+
+```text
+OPEN_S6_SB_C_STORYBOOK_STATIC_CORE_SURFACE_STORIES
+```
+
+S6-SB-C should remain bounded to mock-only P1/P2/P3 static Storybook stories driven by the repo-local fixture, with Playwright still separate.

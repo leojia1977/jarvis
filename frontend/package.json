@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.1",
@@ -23,6 +25,8 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "jsdom": "^27.3.0",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "storybook": "^10.3.5",
+    "@storybook/react-vite": "^10.3.5"
   }
 }
