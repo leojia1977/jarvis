@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-03B Storybook Negative Boundary Stories Launch Checklist 2026-04-27 |
 | Ticket | `E0-03B` |
-| Status | READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -218,3 +218,87 @@ Implement E0-03B only if changes remain limited to the Storybook registry-negati
 ```
 
 Any need to change `App`, components, fixture registry, fixture adapter, validator, Playwright specs, dependencies, or backend/runtime/API/schema converts this ticket to HOLD.
+
+## 14. Implementation Closeout Evidence
+
+Implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+```
+
+Implemented file:
+
+- `frontend/src/secupilot/surface/storybook/CoreSurfaceStories.stories.tsx`
+
+Implemented behavior:
+
+- added Storybook registry views for validated phase fixtures, including Phase 07 `CROSS_SURFACE` as fixture-only metadata;
+- added boundary-case registry stories for P3 audit summary unavailable, P2 CMDB tags unavailable, dirty observation-window update, and stale approve rejection;
+- added resolver-degradation registry stories for L1 blast radius payload, L1 lineage confidence degradation, P3 technical detail redaction, and search-history current/recorded visibility conflicts;
+- added a fail-closed poison-pill inventory story that lists poison-pill fixture IDs without calling `getFixture()` or rendering invalid contexts;
+- kept all renderable fixture loading on `mockFixtureAdapter.getFixture(id)` with default validation behavior;
+- did not add or forward `validate=false`.
+
+Explicitly not implemented:
+
+- App, component, page, route, fixture registry, fixture adapter, validator, Playwright, dependency, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, or external pilot changes.
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 5 test files, 47 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS: Storybook completed successfully; Vite chunk-size warning only
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warning only
+```
+
+Claude Code focused review:
+
+```text
+PASS
+```
+
+Review notes:
+
+- single implementation file only;
+- no `validate=false`;
+- poison-pill fixtures are listed only as non-renderable fail-closed documentation;
+- no blocking Storybook rendering risk found.
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_03B
+```
+
+Reason:
+
+- no authority semantic change;
+- no validator strictness change;
+- no App/page/product workflow change;
+- no backend/runtime/API/schema, route handoff, cross-surface propagation, real-data, secrets, deploy, public endpoint, or external pilot behavior.
+
+## 15. Closeout Decision
+
+Decision:
+
+```text
+READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+```
+
+Next route after closeout:
+
+```text
+E0_04B_REMAINS_HOLD_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
+```

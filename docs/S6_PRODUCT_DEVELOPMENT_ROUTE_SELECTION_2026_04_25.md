@@ -1182,3 +1182,75 @@ OPEN_E0_03B_STORYBOOK_NEGATIVE_BOUNDARY_IMPLEMENTATION_ONLY_IF_ALLOWED_FILES_REM
 ```
 
 `E0-04B` remains parked until `E0-03B` closes and a relaunch proves exact renderable redline scope.
+
+## 34. Update 2026-04-27: E0-03B Storybook Negative Boundary Implementation Gate
+
+E0-03B implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+```
+
+Implemented:
+
+- Storybook registry view for validated phase fixtures, including Phase 07 `CROSS_SURFACE` as fixture-only metadata;
+- boundary-case registry stories for P3 audit summary unavailable, P2 CMDB tags unavailable, dirty observation-window update, and stale approve rejection;
+- resolver-degradation registry stories for L1 blast radius payload, L1 lineage confidence degradation, P3 technical detail redaction, and search-history current/recorded visibility conflicts;
+- fail-closed poison-pill inventory story listing poison-pill fixture IDs without loading or rendering invalid contexts.
+
+Implemented file:
+
+```text
+frontend/src/secupilot/surface/storybook/CoreSurfaceStories.stories.tsx
+```
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 5 test files, 47 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS: chunk-size warning only
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warning only
+```
+
+Claude Code focused review:
+
+```text
+PASS
+```
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_03B
+```
+
+Still not implemented:
+
+- App/page/component changes;
+- fixture registry, fixture adapter, or validator changes;
+- Playwright tests;
+- backend/runtime/API/schema;
+- route handoff, cross-surface propagation, real-data, secrets, deploy, public endpoint, or external pilot.
+
+Closeout decision:
+
+```text
+READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+```
+
+`E0-04B` remains:
+
+```text
+HOLD_FOR_IMPLEMENTATION_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
+```
