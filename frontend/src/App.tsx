@@ -572,10 +572,10 @@ function InboxView({
     <section className="page-region" aria-labelledby="inbox-title">
       <div className="page-heading">
         <p>Case Inbox</p>
-        <h1 id="inbox-title">Current case queue</h1>
+        <h1 id="inbox-title">Case-first intake</h1>
       </div>
 
-      <div className="case-grid">
+      <div className="case-grid" data-testid="case-first-inbox-list">
         {cases.map((item) => (
           <article className="case-card" key={item.id}>
             <div className="case-card-topline">

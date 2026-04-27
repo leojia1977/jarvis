@@ -2031,18 +2031,20 @@ docs/S6_IN_T01_INBOX_BASE_STRUCTURE_RECONCILIATION_CHECKLIST_2026_04_27.md
 Decision:
 
 ```text
-RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Interpretation:
 
 - Current repo behavior covers an Inbox skeleton, minimal fields, and the case-first open path.
-- `IN-T01` is not closeout-ready because current copy still includes queue-oriented language while the tracker note says not to expose work-queue affordance.
+- Queue-oriented copy has been removed and replaced with `Case-first intake`.
+- Jira cloud is synchronized as `SCRUM-28 [IN-T01] Inbox base structure and minimal fields`, parent `SCRUM-7`, status `已完成`.
+- Gates passed: frontend tests 58, frontend build, backend guard 42, `git diff --check`, and Claude Code focused review `PASS`.
 
 Next route:
 
 ```text
-OPEN_CD_T04_HONESTY_LAYER_LAUNCH_CHECKLIST
+OPEN_CD_T01_CASE_HEADER_IMPLEMENTATION
 ```
 
 ## 54. Update 2026-04-27: CD-T04 Honesty Layer Launch Checklist

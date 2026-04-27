@@ -56,6 +56,10 @@ describe("SecuPilot first-batch workbench slice", () => {
     const user = userEvent.setup();
     render(<App />);
 
+    expect(screen.getByRole("heading", { name: "Case-first intake" })).toBeInTheDocument();
+    expect(screen.getByTestId("case-first-inbox-list")).toBeInTheDocument();
+    expect(document.body).not.toHaveTextContent(/work queue|current case queue|approval queue/i);
+
     await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
 
     expect(window.location.pathname).toBe("/case/CASE-2847");
