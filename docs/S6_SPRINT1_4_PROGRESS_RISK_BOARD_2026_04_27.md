@@ -19,9 +19,9 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 26 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 27 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
-| Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
+| Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 17 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
@@ -47,6 +47,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `CD-T02` | Sprint 1 | Implemented and Jira-synced. |
 | `CD-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `CD-T04` | Sprint 1 | Implemented and Jira-synced. |
+| `CD-T05` | Sprint 1 | P3 executive summary implemented, gated, reviewed, Jira-synced as `SCRUM-52`. |
 | `CH-T01` | Sprint 4 | Coverage & Health page skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-42`. |
 | `EP-T01` | Sprint 1 | Implemented and pushed. |
 | `EP-T02` | Sprint 1 | Inferred-node weakening slot skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-38`. |
@@ -65,13 +66,13 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through MV-T01 implementation, GS-T05 no-code closeout, and CD-T05 source-field map checklist. |
+| _None_ | _N/A_ | Current batch completed through MV-T01 implementation, GS-T05 no-code closeout, CD-T05 source-field map checklist, and CD-T05 implementation. |
 
 ## 5. Auto-Ready
 
 | Ticket | Sprint | Unlock condition |
 | --- | --- | --- |
-| `CD-T05` | Sprint 1 | G0-05 signoff is repo-local YES and source-field map checklist is complete as `SCRUM-51`; implementation still requires separate GO and no later P3 field-set revision confirmation at launch. |
+| _None_ | _N/A_ | No auto-ready implementation ticket remains after `CD-T05` closeout. |
 
 ## 6. Skeleton-Ready
 
@@ -142,9 +143,9 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 26 / 54
+Done: 27 / 54
 Running: 0
-Auto-ready: 1
+Auto-ready: 0
 Skeleton-ready: 0
 Checklist-only: 0
 Blocked/HOLD/design/authority: 27
@@ -153,11 +154,11 @@ Blocked/HOLD/design/authority: 27
 Best next automation burn-down path:
 
 ```text
-CD-T05 implementation if separately authorized -> next exact authority-isolated checklist -> safe Jira parity sync
+CD-T06 isolated checklist -> next exact authority-isolated ticket -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:
 
 ```text
-Keep P2/AP follow-ups isolated one ticket at a time; CD-T05 now has source-field map but still needs explicit implementation GO
+Keep P2/AP/CD follow-ups isolated one ticket at a time; do not start CD-T07 until both CD-T05 and CD-T06 are accepted
 ```

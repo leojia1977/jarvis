@@ -1427,6 +1427,92 @@ button {
   line-height: 1.6;
 }
 
+.p3-executive-summary {
+  display: grid;
+  gap: 14px;
+  border: 1px solid #ccd9d4;
+  border-radius: 8px;
+  background: #fbfdfb;
+  box-shadow: 0 10px 22px rgba(28, 41, 51, 0.05);
+  padding: 20px;
+}
+
+.p3-executive-summary-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.p3-executive-summary h2,
+.p3-executive-summary h3,
+.p3-executive-summary p {
+  margin: 0;
+}
+
+.p3-executive-summary h2 {
+  color: #172832;
+  font-size: 21px;
+  letter-spacing: 0;
+}
+
+.p3-executive-summary h3 {
+  color: #13547a;
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.p3-executive-summary p,
+.p3-executive-summary li {
+  color: #4b5968;
+  line-height: 1.5;
+}
+
+.p3-executive-summary-header p[data-summary-field] {
+  margin-top: 8px;
+}
+
+.p3-executive-summary-badge {
+  flex: 0 0 auto;
+  border: 1px solid #b9ccbf;
+  border-radius: 999px;
+  background: #eef7f3;
+  color: #0f4f4a;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.p3-executive-summary-caution,
+.p3-executive-summary-signal-grid article,
+.p3-executive-summary-boundary {
+  border: 1px solid #d9e2dc;
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.p3-executive-summary ul {
+  display: grid;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.p3-executive-summary-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.p3-executive-summary-boundary {
+  color: #53616d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .narrative-spine {
   display: grid;
   gap: 14px;
@@ -1889,12 +1975,15 @@ button {
   .manager-topline,
   .manager-layout,
   .manager-dialogue-dock,
+  .p3-executive-summary-header,
+  .p3-executive-summary-signal-grid,
   .coverage-health-summary {
     grid-template-columns: 1fr;
   }
 
   .manager-topline,
-  .manager-dialogue-dock {
+  .manager-dialogue-dock,
+  .p3-executive-summary-header {
     flex-direction: column;
   }
 

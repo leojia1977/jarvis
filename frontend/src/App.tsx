@@ -94,6 +94,11 @@ interface WorkbenchCase {
     visibilityFields: Record<string, SwitchState>;
     unsupportedClaims: string[];
   };
+  honestyLayer: {
+    unsupportedClaims: string[];
+    confidenceSignals: string[];
+    disproofSignals: string[];
+  };
 }
 
 interface FixtureSentence {
@@ -378,6 +383,11 @@ function buildWorkbenchCase(
       uiMessages: context.ui_messages,
       visibilityFields: context.resolved_visibility.fields,
       unsupportedClaims: context.honesty.unsupported_claims
+    },
+    honestyLayer: {
+      unsupportedClaims: context.honesty.unsupported_claims,
+      confidenceSignals: context.honesty.what_would_raise_confidence,
+      disproofSignals: context.honesty.what_would_disprove_current_verdict
     }
   };
 }
@@ -1889,6 +1899,10 @@ function CaseDetail({
             </p>
           </div>
 
+          {activeCase.resolvedRole === "P3" ? (
+            <P3ExecutiveSummary activeCase={activeCase} />
+          ) : null}
+
           <RedlineRenderabilityPanel activeCase={activeCase} />
 
           <div className="spine-sections">
@@ -2101,6 +2115,117 @@ function CaseDetail({
           </div>
         </div>
       ) : null}
+    </section>
+  );
+}
+
+function P3ExecutiveSummary({ activeCase }: { activeCase: WorkbenchCase }) {
+  const unsupportedClaims = activeCase.honestyLayer.unsupportedClaims;
+  const confidenceSignals = activeCase.honestyLayer.confidenceSignals;
+  const disproofSignals = activeCase.honestyLayer.disproofSignals;
+
+  return (
+    <section
+      aria-labelledby="p3-executive-summary-title"
+      className="p3-executive-summary"
+      data-approval-audit-summary="not-implemented"
+      data-component-scope="cd-t05-case-detail-only"
+      data-manager-handoff="not-implemented"
+      data-role="P3"
+      data-source-boundary="summary-honesty-unsupported-confidence-disproof"
+      data-testid="p3-executive-summary"
+    >
+      <div className="p3-executive-summary-header">
+        <div>
+          <p className="section-kicker">P3 Executive Summary</p>
+          <h2 id="p3-executive-summary-title">Independent executive summary</h2>
+          <p
+            data-summary-field="summary_layer.verdict"
+            data-testid="p3-executive-summary-verdict"
+          >
+            {activeCase.verdict}
+          </p>
+          <p
+            data-summary-field="summary_layer.summary"
+            data-testid="p3-executive-summary-summary"
+          >
+            {activeCase.summary}
+          </p>
+        </div>
+        <span
+          className="p3-executive-summary-badge"
+          data-summary-field="summary_layer.coverage_level"
+          data-testid="p3-executive-summary-coverage"
+        >
+          {activeCase.coverage} ceiling
+        </span>
+      </div>
+
+      <section
+        aria-labelledby="p3-executive-summary-caution-title"
+        className="p3-executive-summary-caution"
+        data-source-field="honesty_layer.unsupported_claims"
+        data-testid="p3-executive-summary-caution"
+      >
+        <h3 id="p3-executive-summary-caution-title">Management caution</h3>
+        {unsupportedClaims.length > 0 ? (
+          <ul>
+            {unsupportedClaims.map((claim) => (
+              <li data-testid="p3-executive-summary-unsupported-claim" key={claim}>
+                {claim}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p data-state="unavailable">No unsupported-claims projection is supplied.</p>
+        )}
+        <p data-testid="p3-executive-summary-caution-copy">
+          Management language remains cautious; this component does not claim complete control
+          or complete elimination.
+        </p>
+      </section>
+
+      <div className="p3-executive-summary-signal-grid">
+        <article
+          data-source-field="honesty_layer.what_would_raise_confidence"
+          data-testid="p3-executive-summary-confidence"
+        >
+          <h3>Would raise confidence</h3>
+          {confidenceSignals.length > 0 ? (
+            <ul>
+              {confidenceSignals.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            <p data-state="unavailable">No confidence-raising projection is supplied.</p>
+          )}
+        </article>
+        <article
+          data-source-field="honesty_layer.what_would_disprove_current_verdict"
+          data-testid="p3-executive-summary-disproof"
+        >
+          <h3>Would disprove current verdict</h3>
+          {disproofSignals.length > 0 ? (
+            <ul>
+              {disproofSignals.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            <p data-state="unavailable">No disproof projection is supplied.</p>
+          )}
+        </article>
+      </div>
+
+      <div
+        className="p3-executive-summary-boundary"
+        data-forbidden-sources="absent"
+        data-testid="p3-executive-summary-boundary"
+      >
+        Raw technical evidence, approval controls, action controls, audit summary, and
+        cross-page manager output are not mounted in CD-T05.
+      </div>
     </section>
   );
 }

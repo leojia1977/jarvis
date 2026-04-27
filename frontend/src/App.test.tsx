@@ -564,6 +564,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(
       screen.getByText(coreSurfaceFixture.case.honesty_layer.unsupported_claims[0])
     ).toBeInTheDocument();
+    expect(screen.queryByTestId("p3-executive-summary")).not.toBeInTheDocument();
     expect(screen.getByText(/Read-only frame summaries/i)).toBeInTheDocument();
     expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();
     const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
@@ -599,6 +600,78 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(honestyLayer).toHaveAttribute("data-expanded", "true");
     expect(within(honestyLayer).getByText(confidenceDetail)).toBeInTheDocument();
+  });
+
+  it("renders a P3 independent executive summary inside Case Detail from allowed fields only", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={6} />);
+
+    const summary = screen.getByTestId("p3-executive-summary");
+    const unsupportedClaims = within(summary).getAllByTestId(
+      "p3-executive-summary-unsupported-claim"
+    );
+
+    expect(summary).toHaveAttribute("data-role", "P3");
+    expect(summary).toHaveAttribute("data-component-scope", "cd-t05-case-detail-only");
+    expect(summary).toHaveAttribute(
+      "data-source-boundary",
+      "summary-honesty-unsupported-confidence-disproof"
+    );
+    expect(summary).toHaveAttribute("data-manager-handoff", "not-implemented");
+    expect(summary).toHaveAttribute("data-approval-audit-summary", "not-implemented");
+    expect(within(summary).getByTestId("p3-executive-summary-verdict")).toHaveAttribute(
+      "data-summary-field",
+      "summary_layer.verdict"
+    );
+    expect(within(summary).getByTestId("p3-executive-summary-summary")).toHaveAttribute(
+      "data-summary-field",
+      "summary_layer.summary"
+    );
+    expect(within(summary).getByTestId("p3-executive-summary-coverage")).toHaveAttribute(
+      "data-summary-field",
+      "summary_layer.coverage_level"
+    );
+    expect(within(summary).getByTestId("p3-executive-summary-caution")).toHaveAttribute(
+      "data-source-field",
+      "honesty_layer.unsupported_claims"
+    );
+    expect(within(summary).getByTestId("p3-executive-summary-confidence")).toHaveAttribute(
+      "data-source-field",
+      "honesty_layer.what_would_raise_confidence"
+    );
+    expect(within(summary).getByTestId("p3-executive-summary-disproof")).toHaveAttribute(
+      "data-source-field",
+      "honesty_layer.what_would_disprove_current_verdict"
+    );
+    expect(unsupportedClaims[0]).toHaveTextContent(
+      coreSurfaceFixture.case.honesty_layer.unsupported_claims[0]
+    );
+    expect(summary).toHaveTextContent(
+      coreSurfaceFixture.case.honesty_layer.what_would_raise_confidence[0]
+    );
+    expect(summary).toHaveTextContent(
+      coreSurfaceFixture.case.honesty_layer.what_would_disprove_current_verdict[0]
+    );
+  });
+
+  it("keeps CD-T05 forbidden sources and over-certain copy out of the P3 summary", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={6} />);
+
+    const summary = screen.getByTestId("p3-executive-summary");
+
+    expect(within(summary).queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(within(summary).queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
+    expect(within(summary).queryByRole("button", { name: /approve|reject|delay|observe/i }))
+      .not.toBeInTheDocument();
+    expect(within(summary).queryByText(/blast radius|lineage confidence|process raw/i))
+      .not.toBeInTheDocument();
+    expect(summary).not.toHaveTextContent(/完全受控|已彻底消除/i);
+    expect(summary).not.toHaveTextContent(/MTTA|MTTR|ROI|queue count/i);
+    expect(screen.queryByTestId("p3-executive-summary")).toBeInTheDocument();
+    expect(screen.queryByTestId("manager-view-surface")).not.toBeInTheDocument();
   });
 
   it("loads the core fixture and exposes a mock-only phase selector", async () => {
