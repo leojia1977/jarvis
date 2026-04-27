@@ -37,6 +37,7 @@ type EvidenceFrameId =
 type EvidenceMode = "auto" | "manual";
 type SubordinatePanel = "evidence" | "timeline" | "blast_radius";
 type NarrativeKey = "WHAT" | "WHY" | "INTENT" | "HONESTY" | "DECISION";
+type SearchFocusScope = "summary" | "approval_audit" | "history_audit";
 
 interface NavItem {
   label: string;
@@ -128,6 +129,27 @@ const EVIDENCE_FRAME_IDS: EvidenceFrameId[] = [
   "event_timeline",
   "attack_lineage",
   "technical_summary_fallback"
+];
+const SEARCH_FOCUS_SCOPES: Array<{
+  id: SearchFocusScope;
+  label: string;
+  description: string;
+}> = [
+  {
+    id: "summary",
+    label: "Summary",
+    description: "Read-only case summary and guard facts."
+  },
+  {
+    id: "approval_audit",
+    label: "Approval audit",
+    description: "Read-only approval-audit focus; no approval controls are attached."
+  },
+  {
+    id: "history_audit",
+    label: "History audit",
+    description: "Read-only historical audit focus with recorded coverage preserved."
+  }
 ];
 type RedlineFixtureId = (typeof E0_04C_REDLINE_FIXTURE_IDS)[number];
 type RenderableMockPhase = Pick<CoreSurfaceFixturePhase, "phase" | "name" | "expected_ui">;
@@ -355,6 +377,10 @@ function initialRoute(): { route: Route; caseId: string | null } {
 
 function isCoverageLevel(value: string | null): value is CoverageLevel {
   return value === "L0" || value === "L1" || value === "L2" || value === "L3";
+}
+
+function isSearchFocusScope(value: string | null): value is SearchFocusScope {
+  return value === "summary" || value === "approval_audit" || value === "history_audit";
 }
 
 function clampCoverageRequest(
@@ -654,10 +680,13 @@ function SearchHistoryView({
   activeCase: WorkbenchCase;
   activeContext: ResolvedSurfaceContext;
 }) {
-  const requestedCoverageParam = new URLSearchParams(window.location.search).get("coverage");
+  const queryParams = new URLSearchParams(window.location.search);
+  const requestedCoverageParam = queryParams.get("coverage");
   const requestedCoverage = isCoverageLevel(requestedCoverageParam)
     ? requestedCoverageParam
     : null;
+  const requestedFocusParam = queryParams.get("focus");
+  const effectiveFocus = isSearchFocusScope(requestedFocusParam) ? requestedFocusParam : "summary";
   const recordedCoverage = activeContext.case.coverage_level;
   const effectiveCoverage = clampCoverageRequest(requestedCoverage, recordedCoverage);
 
@@ -709,6 +738,37 @@ function SearchHistoryView({
           </div>
         </dl>
       </article>
+
+      <section
+        aria-labelledby="history-focus-title"
+        className="history-focus-scope-panel"
+        data-effective-focus={effectiveFocus}
+        data-focus-authority="hint-only"
+        data-requested-focus={requestedFocusParam ?? "none"}
+        data-testid="history-focus-scopes"
+      >
+        <div>
+          <p className="section-kicker">SH-T05</p>
+          <h2 id="history-focus-title">Read-only focus scopes</h2>
+          <p>
+            Focus is a display hint only. It does not change role, coverage, case state,
+            ActionMode, or write authority.
+          </p>
+        </div>
+        <ul aria-label="Allowed history focus scopes">
+          {SEARCH_FOCUS_SCOPES.map((scope) => (
+            <li
+              aria-current={scope.id === effectiveFocus ? "true" : undefined}
+              data-focus-scope={scope.id}
+              data-testid="history-focus-scope"
+              key={scope.id}
+            >
+              <span>{scope.label}</span>
+              <p>{scope.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <article className="history-case-row" data-testid="history-case-row">
         <div>

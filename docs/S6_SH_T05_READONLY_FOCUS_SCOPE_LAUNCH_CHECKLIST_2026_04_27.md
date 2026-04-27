@@ -7,7 +7,7 @@
 | Title | S6 SH-T05 Readonly Focus Scope Launch Checklist 2026-04-27 |
 | Ticket | `SH-T05` |
 | Scope | `/search readonly focus scopes` |
-| Status | READY_FOR_RECONCILIATION_OR_BOUNDED_IMPLEMENTATION_GO |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -122,5 +122,11 @@ HOLD if:
 Next safe automation action:
 
 ```text
-SH_T05_RECONCILE_OR_IMPLEMENT
+OPEN_SH_T07_WRITE_CTA_ABSENCE_LAUNCH_CHECKLIST
+```
+
+Closeout record:
+
+```text
+docs\S6_SH_T05_READONLY_FOCUS_SCOPE_CLOSEOUT_2026_04_27.md
 ```

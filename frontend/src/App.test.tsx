@@ -53,7 +53,7 @@ describe("SecuPilot first-batch workbench slice", () => {
   });
 
   it("resolves the history route through clamp-first guard without URL or storage authority", () => {
-    window.history.pushState({}, "", "/search?tab=history&coverage=L3&role=P3");
+    window.history.pushState({}, "", "/search?tab=history&coverage=L3&role=P3&focus=raw_technical");
     window.localStorage.setItem("role", "P3");
     window.sessionStorage.setItem("coverage", "L3");
 
@@ -61,6 +61,8 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     const historySurface = screen.getByTestId("history-surface");
     const routeGuard = screen.getByTestId("history-route-guard");
+    const focusScopes = screen.getByTestId("history-focus-scopes");
+    const scopeItems = screen.getAllByTestId("history-focus-scope");
 
     expect(screen.getByRole("heading", { name: "History guard" })).toBeInTheDocument();
     expect(routeGuard).toHaveAttribute("data-route-order", "resolve-clamp-guard-render");
@@ -68,6 +70,21 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(routeGuard).toHaveAttribute("data-requested-coverage", "L3");
     expect(routeGuard).toHaveAttribute("data-recorded-coverage", "L2");
     expect(routeGuard).toHaveAttribute("data-effective-coverage", "L2");
+    expect(focusScopes).toHaveAttribute("data-focus-authority", "hint-only");
+    expect(focusScopes).toHaveAttribute("data-requested-focus", "raw_technical");
+    expect(focusScopes).toHaveAttribute("data-effective-focus", "summary");
+    expect(scopeItems).toHaveLength(3);
+    expect(scopeItems.map((item) => item.getAttribute("data-focus-scope"))).toEqual([
+      "summary",
+      "approval_audit",
+      "history_audit"
+    ]);
+    expect(scopeItems.map((item) => item.textContent)).toEqual([
+      "SummaryRead-only case summary and guard facts.",
+      "Approval auditRead-only approval-audit focus; no approval controls are attached.",
+      "History auditRead-only historical audit focus with recorded coverage preserved."
+    ]);
+    expect(scopeItems[0]).toHaveAttribute("aria-current", "true");
     expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L2");
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
     expect(within(historySurface).getByTestId("history-write-guard")).toHaveTextContent(
@@ -77,6 +94,43 @@ describe("SecuPilot first-batch workbench slice", () => {
       within(historySurface).queryByRole("button", { name: /approve|reject|delay|observe|close/i })
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+  });
+
+  it("accepts only governed read-only history focus hints without changing authority", () => {
+    window.history.pushState({}, "", "/search?tab=history&focus=approval_audit");
+
+    render(<App />);
+
+    const focusScopes = screen.getByTestId("history-focus-scopes");
+    const approvalScope = screen
+      .getAllByTestId("history-focus-scope")
+      .find((item) => item.getAttribute("data-focus-scope") === "approval_audit");
+
+    expect(focusScopes).toHaveAttribute("data-effective-focus", "approval_audit");
+    expect(approvalScope).toHaveAttribute("aria-current", "true");
+    expect(focusScopes).toHaveTextContent("Focus is a display hint only");
+    expect(focusScopes).toHaveTextContent("no approval controls are attached");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
+    expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L2");
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
+  });
+
+  it("accepts the history audit focus hint without creating write authority", () => {
+    window.history.pushState({}, "", "/search?tab=history&focus=history_audit");
+
+    render(<App />);
+
+    const focusScopes = screen.getByTestId("history-focus-scopes");
+    const historyScope = screen
+      .getAllByTestId("history-focus-scope")
+      .find((item) => item.getAttribute("data-focus-scope") === "history_audit");
+
+    expect(focusScopes).toHaveAttribute("data-effective-focus", "history_audit");
+    expect(historyScope).toHaveAttribute("aria-current", "true");
+    expect(screen.getByTestId("history-write-guard")).toHaveTextContent(
+      "Read-only history surface. No write actions are attached."
+    );
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
   });
 
   it("navigates to the bounded history guard from the primary navigation", async () => {

@@ -19,8 +19,8 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 13 | Repo implementation or no-code reconciliation is already accepted. |
-| Running | 1 | In the active runner queue. |
+| Done | 14 | Repo implementation or no-code reconciliation is already accepted. |
+| Running | 0 | In the active runner queue. |
 | Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 7 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 4 | Authorized for readiness/checklist only; no implementation GO. |
@@ -47,12 +47,13 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `EP-T04` | Sprint 1 | No-code reconciliation and Jira-synced. |
 | `EP-T05` | Sprint 1 | Implemented, gated, reviewed, Jira-synced. |
 | `SH-T03` | Sprint 3A | Patch-isolated implementation, gate PASS, Jira-synced. |
+| `SH-T05` | Sprint 3A | Implemented, gated, reviewed, Jira-synced. |
 
 ## 4. Running
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| `SH-T05` | Sprint 3A | Active RQ-04 queue: reconcile first, implement only if checklist remains `GO`. |
+| _None_ | _N/A_ | RQ-04 immediate implementation work is complete; next action is SH-T07 launch-only. |
 
 ## 5. Auto-Ready
 
@@ -139,8 +140,8 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 13 / 54
-Running: 1
+Done: 14 / 54
+Running: 0
 Auto-ready: 1
 Skeleton-ready: 7
 Checklist-only: 4

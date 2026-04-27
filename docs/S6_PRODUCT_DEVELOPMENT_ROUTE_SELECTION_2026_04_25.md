@@ -2437,3 +2437,33 @@ Next route:
 ```text
 OPEN_SH_T05_READONLY_FOCUS_SCOPE_RECONCILIATION_OR_IMPLEMENTATION
 ```
+
+## 67. Update 2026-04-27: SH-T05 Readonly Focus Scope Closeout
+
+Closeout record:
+
+```text
+docs/S6_SH_T05_READONLY_FOCUS_SCOPE_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+SH_T05_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `/search?tab=history` now exposes exactly three governed read-only focus scopes: `summary`, `approval_audit`, and `history_audit`.
+- Unsupported focus query values downgrade to `summary`.
+- Focus remains a hint/filter only and does not change role, coverage, case state, ActionMode, route authority, or write authority.
+- No approve / reject / delay / observe / close CTA is attached on the history surface.
+- Gates passed: frontend tests 63, frontend build, backend guard 42, and `git diff --check`.
+- Claude Code focused follow-up review returned `VERDICT: PASS`.
+- Jira cloud is synchronized as `SCRUM-34 [SH-T05] readonly focus scopes`, status `已完成`, parent `SCRUM-31`.
+
+Next route:
+
+```text
+OPEN_SH_T07_WRITE_CTA_ABSENCE_LAUNCH_CHECKLIST
+```
