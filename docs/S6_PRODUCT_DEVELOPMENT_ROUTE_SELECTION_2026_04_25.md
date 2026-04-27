@@ -1678,3 +1678,59 @@ Next route:
 ```text
 OPEN_P1_CD_D_DIALOGUE_DOCK_SOURCE_BOUNDARY_IMPLEMENTATION
 ```
+
+## 43. Update 2026-04-27: P1-CD-D Implementation Closeout
+
+Closed ticket:
+
+```text
+P1-CD-D - Dialogue Dock source boundary
+```
+
+Closeout state:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
+```
+
+Implementation commit:
+
+```text
+eacebfe Implement P1-CD-D dialogue dock source boundary
+```
+
+Jira cloud state:
+
+```text
+SCRUM-24 [P1-CD-D] Dialogue Dock source boundary - 已完成
+```
+
+Implemented scope:
+
+- added a source/context strip to the existing Dialogue Dock;
+- exposed current case and active evidence frame as local context;
+- added a non-interactive runtime / `ui_messages` placeholder for future suggested follow-ups;
+- preserved submit-clears-input behavior without transcript, route, context, fixture, adapter, validator, backend/runtime/API/schema, Storybook, or Playwright changes;
+- preserved P1-CD-C Action Request modal behavior and P1/P2 authority boundaries.
+
+Blocked / not implemented:
+
+- live chat, LLM calls, streaming, transcript persistence, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, or external pilot;
+- frontend-hardcoded recommendation chips or business prompt generation;
+- P2/P3 implementation, route handoff, cross-surface propagation, P2 approval controls, or ActionMode choices.
+
+Gate evidence:
+
+```text
+frontend unit/component tests: PASS, 55 tests
+frontend build: PASS
+backend guard: PASS, 42 tests
+git diff --check: PASS with Windows line-ending warnings only
+Claude Code focused review: PASS
+```
+
+Next route:
+
+```text
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_SELECTION
+```

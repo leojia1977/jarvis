@@ -7,7 +7,7 @@
 | Title | S6 P1-CD-D Dialogue Dock Source Boundary Ticket Prep 2026-04-27 |
 | Ticket | `P1-CD-D` |
 | Scope | Dialogue Dock source boundary |
-| Status | READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -210,11 +210,64 @@ HOLD if:
 Decision:
 
 ```text
-READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
 ```
 
-Authorized next technical action:
+Implemented commits:
 
 ```text
-Implement P1-CD-D inside the exact allowed file scope, then run required gates and Claude Code focused review.
+8927037 Prepare P1-CD-D dialogue dock source boundary ticket
+eacebfe Implement P1-CD-D dialogue dock source boundary
+```
+
+Jira cloud state:
+
+```text
+SCRUM-24 [P1-CD-D] Dialogue Dock source boundary - 已完成
+```
+
+Implemented files:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+```
+
+Implemented behavior:
+
+- Dialogue Dock now has an accessible `Case dialogue dock` landmark on Case Detail;
+- the dock renders a source/context strip with current case and active evidence frame;
+- the dock renders a non-interactive runtime suggestions placeholder marked with `data-suggestion-source="ui_messages"` and `data-suggestion-state="unavailable"`;
+- no frontend-hardcoded recommended follow-up chips or business prompt text are rendered;
+- submit remains local mock-only and clears the input without transcript, route, context, fixture, adapter, validator, backend/runtime/API/schema, Storybook, or Playwright behavior;
+- active evidence frame changes update the dock source/context strip without generating suggestions;
+- P1-CD-C Action Request modal behavior remains covered.
+
+Gate evidence:
+
+```text
+cd frontend; npm run test -- --run
+PASS: 5 files, 55 tests
+
+cd frontend; npm run build
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS with Windows line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS
+```
+
+External review:
+
+```text
+Claude Web not required: P1-CD-D did not change architecture/governance authority, E0 root context or validator semantics, P2/P3 authority, backend/runtime/API/schema, route handoff, cross-surface propagation, live chat/LLM behavior, real-data, secrets, deploy, public endpoint, or external pilot behavior.
 ```
