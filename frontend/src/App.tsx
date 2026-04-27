@@ -758,10 +758,20 @@ function CaseDetail({
         <span>Inbox</span>
       </button>
 
-      <div className="case-header">
+      <div className="case-header" data-testid="case-header">
         <div>
-          <p>{activeCase.id}</p>
+          <p data-testid="case-header-case-id">{activeCase.id}</p>
           <h1 id="case-title">{activeCase.title}</h1>
+          <dl className="case-header-facts" aria-label="Case header facts">
+            <div>
+              <dt>Verdict</dt>
+              <dd data-testid="case-header-verdict">{activeCase.verdict}</dd>
+            </div>
+            <div>
+              <dt>Coverage</dt>
+              <dd data-testid="case-header-coverage">{activeCase.coverage}</dd>
+            </div>
+          </dl>
         </div>
         <span className="state-pill" data-testid="case-state-pill">
           {CASE_STATE_LABELS[activeCase.state]}

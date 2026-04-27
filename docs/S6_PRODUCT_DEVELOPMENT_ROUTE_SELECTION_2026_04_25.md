@@ -1980,19 +1980,20 @@ docs/S6_CD_T01_CASE_HEADER_RECONCILIATION_CHECKLIST_2026_04_27.md
 Decision:
 
 ```text
-RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Interpretation:
 
-- Current repo behavior covers caseId and case_state in the case header, but coverage and verdict are distributed across the topbar, rail, and summary panel.
-- Do not mark `CD-T01` Done from current evidence.
-- A later implementation GO may add exact header-level coverage/verdict treatment if Jarvis wants to close this row.
+- Current repo behavior now covers `caseId / verdict / coverage / case_state` in the case header.
+- Existing summary panel and Case Lifecycle rail are preserved.
+- Jira cloud is synchronized as `SCRUM-29 [CD-T01] Case header caseId / verdict / coverage / case_state`, parent `SCRUM-8`, status `已完成`.
+- Gates passed: frontend tests 58, frontend build, backend guard 42, `git diff --check`, and Claude Code focused re-review `PASS`.
 
 Next route:
 
 ```text
-OPEN_CD_T02_SUMMARY_LAYER_RECONCILIATION_CHECKLIST
+OPEN_CD_T02_SUMMARY_LAYER_IMPLEMENTATION
 ```
 
 ## 52. Update 2026-04-27: CD-T02 Summary Layer Reconciliation Checklist

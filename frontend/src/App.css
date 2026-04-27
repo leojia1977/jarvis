@@ -383,6 +383,37 @@ button {
   padding-bottom: 16px;
 }
 
+.case-header-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 0;
+}
+
+.case-header-facts > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #d7e2dc;
+  border-radius: 7px;
+  background: #f6faf7;
+  padding: 6px 8px;
+}
+
+.case-header-facts dt {
+  color: #5f6b6f;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.case-header-facts dd {
+  margin: 0;
+  color: #16313c;
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .state-pill {
   border: 1px solid #c5d0cc;
   border-radius: 999px;

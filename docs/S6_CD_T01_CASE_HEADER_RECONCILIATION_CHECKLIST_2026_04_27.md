@@ -7,7 +7,7 @@
 | Title | S6 CD-T01 Case Header Reconciliation Checklist 2026-04-27 |
 | Ticket | `CD-T01` |
 | Scope | Case header with `caseId / verdict / coverage / case_state` |
-| Status | RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -20,23 +20,23 @@
 | External review | not required unless later implementation triggers Go/NoGo Section 9 |
 | SWE | disabled |
 
-This checklist evaluates whether current repo behavior is sufficient to close Backlog Tracker v0.4 row `CD-T01`.
+This checklist evaluates and records closeout for Backlog Tracker v0.4 row `CD-T01`.
 
-It does not authorize code implementation, Jira Done transition, backend/runtime/API/schema changes, real data, secrets, deployment, public endpoint work, or external pilot execution.
+Implementation was authorized by Jarvis as part of the bounded Sprint 1 burn-down queue.
 
 ## 2. Decision
 
 Decision:
 
 ```text
-RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Meaning:
 
-- Current repo behavior partially covers the row.
-- It is not sufficient to close `CD-T01` without a focused implementation or visual/semantic reconciliation decision.
-- The ticket must stop before implementation GO.
+- Current repo behavior now covers the row.
+- The case header explicitly contains `caseId / verdict / coverage / case_state`.
+- Jira cloud is synchronized to Done.
 
 ## 3. Current Repo Evidence
 
@@ -53,20 +53,19 @@ Current coverage:
 | --- | --- | --- |
 | `caseId` | Case header | Covered |
 | `case_state` | Case header pill and Case Lifecycle rail | Covered |
-| `coverage` | Topbar badge and Case Lifecycle rail, not the header | Partial |
-| `verdict` | Summary panel, not the header | Partial |
+| `coverage` | Case header facts, topbar badge, and Case Lifecycle rail | Covered |
+| `verdict` | Case header facts and summary panel | Covered |
 
-The tracker row asks for a case header containing `caseId / verdict / coverage / case_state`. Current repo behavior distributes verdict and coverage outside the header. That may be acceptable after product/design ratification, but it should not be silently closed as `CD-T01`.
+The tracker row asks for a case header containing `caseId / verdict / coverage / case_state`. Current repo behavior now satisfies this requirement without changing route, context, fixture, adapter, validator, backend/runtime/API/schema, or P2/P3 authority.
 
 ## 5. Required Next Step
 
-Open a separate exact implementation or reconciliation decision if Jarvis wants to close `CD-T01`.
+Authorized implementation:
 
-Candidate bounded implementation, if later authorized:
-
-- allowed files: `frontend/src/App.tsx`, `frontend/src/App.css`, `frontend/src/App.test.tsx`, route/handoff, and this checklist;
-- add header-level coverage and verdict treatment without changing route, context, fixture, adapter, validator, backend/runtime/API/schema, or P2/P3 authority;
-- preserve existing summary panel and Case Lifecycle rail.
+- added `case-header` test target;
+- added header-level facts for verdict and coverage;
+- preserved title, case id, and case_state pill;
+- preserved existing summary panel and Case Lifecycle rail.
 
 ## 6. HOLD Conditions
 
@@ -79,19 +78,46 @@ HOLD if:
 
 ## 7. Jira Sync
 
-Jira cloud mutation:
+Jira cloud sync:
 
 ```text
-NOT_SYNCED_NOT_DONE
+SCRUM-29 [CD-T01] Case header caseId / verdict / coverage / case_state
+Parent: SCRUM-8
+Status: 已完成
 ```
 
-Reason: `CD-T01` is not closeout-ready. Do not mark Done from current evidence.
+## 8. Implementation Closeout
 
-## 8. Next Safe Action
+Implemented files:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+```
+
+Gate evidence:
+
+```text
+frontend tests: PASS, 58 tests
+frontend build: PASS
+backend guard: PASS, 42 tests
+git diff --check: PASS with Windows line-ending warnings only
+Claude Code focused re-review: PASS
+```
+
+External review:
+
+```text
+NOT_REQUIRED
+```
+
+Reason: CD-T01 did not change architecture/governance authority, P1/P2/P3 authority, route handoff, fixture/adapter/validator behavior, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot behavior.
+
+## 9. Next Safe Action
 
 Next safe automation action:
 
 ```text
-OPEN_CD_T02_SUMMARY_LAYER_RECONCILIATION_CHECKLIST
+OPEN_CD_T02_SUMMARY_LAYER_IMPLEMENTATION
 ```
-
