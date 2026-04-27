@@ -1295,3 +1295,48 @@ OPEN_EXACT_APP_REDLINE_RENDERABILITY_TICKET_OR_KEEP_E0_04B_PARKED
 ```
 
 No E0-04B implementation is authorized by this relaunch/readiness check.
+
+## 36. Update 2026-04-27: E0-04C App Redline Renderability Launch Checklist
+
+New checklist:
+
+```text
+docs/S6_E0_04C_APP_REDLINE_RENDERABILITY_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Ticket:
+
+```text
+E0-04C - App Redline Renderability Hooks
+```
+
+Decision:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+Allowed interpretation:
+
+- create static, read-only, mock-only app renderability for selected existing E0-02B boundary and resolver-degradation fixture IDs;
+- add focused component tests in `frontend/src/App.test.tsx`;
+- expose DOM markers later Playwright can assert, including `missing-signal-notice`, `concurrency-inline-warning`, `resolver-degradation-notice`, and `manager-summary`;
+- use only existing validated fixtures through default `mockFixtureAdapter.getFixture(id)` behavior.
+
+Blocked:
+
+- Playwright implementation;
+- Storybook changes;
+- new fixtures, fixture registry changes, adapter changes, validator changes, dependency changes;
+- `validate=false`;
+- poison-pill rendering;
+- P2 concurrency workflow, observation-window timer/state migration, backend `STATE_SYNC`, route handoff, cross-surface propagation;
+- backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot.
+
+Next route:
+
+```text
+OPEN_E0_04C_APP_REDLINE_RENDERABILITY_IMPLEMENTATION_ONLY_IF_ALLOWED_FILES_REMAIN_EXACT
+```
+
+`E0-04B` remains HOLD until E0-04C closes and a separate relaunch proves exact Playwright assertions.
