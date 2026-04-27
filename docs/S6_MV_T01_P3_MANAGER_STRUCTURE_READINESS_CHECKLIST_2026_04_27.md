@@ -7,7 +7,7 @@
 | Title | S6 MV-T01 P3 Manager Structure Readiness Checklist 2026-04-27 |
 | Ticket | `MV-T01` |
 | Scope | `/manager page structure and KPI cards readiness only` |
-| Status | READINESS_CHECKLIST_PASS_IMPLEMENTATION_REQUIRES_G0_05_AND_SEPARATE_GO |
+| Status | READINESS_CHECKLIST_PASS_G0_05_SIGNED_IMPLEMENTATION_CANDIDATE |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -32,7 +32,7 @@ This checklist is readiness-only. It does not implement `/manager`, does not mar
 Decision:
 
 ```text
-READINESS_CHECKLIST_PASS_IMPLEMENTATION_REQUIRES_G0_05_AND_SEPARATE_GO
+READINESS_CHECKLIST_PASS_G0_05_SIGNED_IMPLEMENTATION_CANDIDATE
 ```
 
 Interpretation:
@@ -40,10 +40,8 @@ Interpretation:
 - `MV-T01` authority questions have been externally reviewed by Claude Web.
 - Claude Web returned `PASS_WITH_NOTE`.
 - The note can be converted into a concrete future implementation guard.
-- Implementation remains unauthorized until:
-  - `G0-05 P3 Contract full ratification` is repo-locally confirmed for first P3-MV implementation;
-  - a separate explicit `MV-T01 implementation GO` is granted;
-  - exact files and tests remain limited to the narrow scope below.
+- `G0-05 P3 Contract full ratification` is now repo-locally confirmed by `docs\S6_G0_05_P3_CONTRACT_FULL_RATIFICATION_SIGNOFF_2026_04_27.md`.
+- `MV-T01` is therefore a valid implementation candidate if the current Jarvis batch GO is applied and exact files/tests remain limited to the narrow scope below.
 
 ## 3. Authority Evidence
 
@@ -161,7 +159,6 @@ Claude Code focused review is required for any implementation diff.
 
 HOLD implementation if:
 
-- `G0-05 P3 Contract full ratification` is not repo-locally confirmed;
 - implementation needs files outside the exact list;
 - implementation needs P0/P2 Manager placeholders, conditional branches, or variants;
 - implementation needs approval audit summary, deep-link handoff, or cross-page summary output;
@@ -175,8 +172,8 @@ HOLD implementation if:
 
 ## 11. Next Safe Action
 
-Next safe action:
+Next safe action after G0-05 repo-local signoff:
 
 ```text
-OPEN_SH_T07_RECONCILIATION_OR_GS_T05_REGRESSION_CHECKLIST_OR_CREATE_G0_05_REPO_LOCAL_SIGNOFF_RECORD
+OPEN_MV_T01_IMPLEMENTATION
 ```

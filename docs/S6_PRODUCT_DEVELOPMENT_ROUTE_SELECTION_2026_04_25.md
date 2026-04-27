@@ -2860,3 +2860,150 @@ Next route:
 ```text
 OPEN_SH_T07_RECONCILIATION_OR_GS_T05_REGRESSION_CHECKLIST_OR_CREATE_G0_05_REPO_LOCAL_SIGNOFF_RECORD
 ```
+
+## 81. Update 2026-04-27: SH-T07 Write CTA Absence Reconciliation Closeout
+
+Closeout record:
+
+```text
+docs/S6_SH_T07_WRITE_CTA_ABSENCE_RECONCILIATION_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+SH_T07_RECONCILED_GATE_PASS_NO_CODE
+```
+
+Interpretation:
+
+- `SH-T07` is closed as no-code reconciliation.
+- Existing `/search?tab=history` behavior already proves read-only focus scopes with no approve/reject/delay/observe/close CTA.
+- URL and storage remain non-authoritative; `ResolvedSurfaceContext` remains the authority.
+- No P2 approval surface, P3 host evidence, route handoff, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates refreshed in the same batch: frontend tests 74, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Jira cloud is synchronized as `SCRUM-44 [SH-T07] history write CTA absence`, parent `SCRUM-31`, status `已完成`.
+
+Next route:
+
+```text
+OPEN_GS_T05_REGRESSION_CHECKLIST_OR_APPLY_AP_T10_AP_T01_IMPLEMENTATION_CLOSEOUTS
+```
+
+## 82. Update 2026-04-27: GS-T05 Expert Mode Regression Checklist
+
+Checklist record:
+
+```text
+docs/S6_GS_T05_EXPERT_MODE_REGRESSION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+REGRESSION_CHECKLIST_PASS_READY_FOR_NO_CODE_REGRESSION_CLOSEOUT
+```
+
+Interpretation:
+
+- `GS-T05` is ready for a later no-code regression closeout or regression evidence refresh.
+- `GS-T04` plus `VF-03 v0.2` reconciliation already provide the expert-mode selector anchors.
+- The later closeout may only verify existing behavior: P1 restricted, P0/P2 skeleton-only, P3 hidden, and no route/permission/coverage/OFF-field/action expansion.
+- No final VF-03 visual PASS, interactive expert-mode switching, coverage escalation, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change is authorized.
+
+Next route:
+
+```text
+WAIT_FOR_GS_T05_NO_CODE_REGRESSION_CLOSEOUT_OR_CONTINUE_AP_IMPLEMENTATION_BATCH
+```
+
+## 83. Update 2026-04-27: G0-05 P3 Contract Full Ratification Signoff
+
+Signoff record:
+
+```text
+docs/S6_G0_05_P3_CONTRACT_FULL_RATIFICATION_SIGNOFF_2026_04_27.md
+```
+
+Decision:
+
+```text
+G0_05_P3_CONTRACT_FULL_RATIFICATION_SIGNED_OFF_YES
+```
+
+Interpretation:
+
+- Jarvis explicitly confirmed that `P3 Contract full ratification` may be recorded as `YES`.
+- Repo-local governed state is now `G0-05 signed-off confirmed: YES`.
+- This clears the G0-05 evidence gap for `MV-T01` and the G0-05 part of `CD-T05`.
+- `CD-T05` still needs an exact source-field map before implementation.
+- `MV-T01` becomes the safer next P3 implementation candidate, provided it preserves the Claude Web note: no P0/P2 placeholders, conditional branches, or variants.
+- This record does not authorize broad P3 implementation, P2 approval behavior, approval audit chain, route handoff, backend/runtime/API/schema, fixture/adapter/validator, real data, secrets, deploy/public endpoint, or external pilot.
+
+Next route:
+
+```text
+OPEN_MV_T01_IMPLEMENTATION_OR_CD_T05_FIELD_MAP_CHECKLIST
+```
+
+## 84. Update 2026-04-27: AP-T10 Display Mapping Closeout
+
+Closeout record:
+
+```text
+docs/S6_AP_T10_DISPLAY_MAPPING_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+AP_T10_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `AP-T10` is implemented as a display-only AR status badge / pill mapping.
+- `PENDING_APPROVAL` may carry `data-action-authority="p2-only"` for P2; all other AR statuses are display-only.
+- Mapping records `data-mapping-source="D-02"` and `data-state-migration="none"`.
+- No approve/reject/delay/observe controls, state transition, confirmation modal, approval audit, `ActionMode`, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates passed: frontend tests 74, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused re-review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-46 [AP-T10] AR status badge/pill display mapping`, parent `SCRUM-43`, status `已完成`.
+
+Next route:
+
+```text
+CONTINUE_AP_T01_CLOSEOUT_AND_UPDATE_PROGRESS_BOARD
+```
+
+## 85. Update 2026-04-27: AP-T01 Approval Route Shell Guard Closeout
+
+Closeout record:
+
+```text
+docs/S6_AP_T01_APPROVAL_ROUTE_SHELL_GUARD_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+AP_T01_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `/approval` route now exists as shell / guard only.
+- P2 can enter the shell-only approval container.
+- P0 direct access is represented as read-only if a P0 context is ever supplied.
+- P1 hard-redirects to `/inbox`.
+- P3 hard-redirects the URL to `/manager` while AP-T01 renders only a route guard; no Manager View content is implemented.
+- Role and AR authority come from `ResolvedSurfaceContext`, not URL/query/storage.
+- Gates passed: frontend tests 74, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused re-review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-47 [AP-T01] approval route shell / guard only`, parent `SCRUM-43`, status `已完成`.
+
+Next route:
+
+```text
+OPEN_MV_T01_IMPLEMENTATION_OR_GS_T05_NO_CODE_REGRESSION_CLOSEOUT
+```

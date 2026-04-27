@@ -706,6 +706,78 @@ button {
   gap: 18px;
 }
 
+.approval-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.approval-shell-header,
+.approval-route-guard,
+.approval-shell-card {
+  border: 1px solid #d7ded4;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(28, 41, 51, 0.06);
+}
+
+.approval-shell-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.approval-shell-header h1,
+.approval-route-guard h1 {
+  margin: 0;
+  color: #18202b;
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+.approval-shell-header p,
+.approval-route-guard p,
+.approval-safe-empty {
+  margin: 8px 0 0;
+  color: #5d6875;
+  line-height: 1.5;
+}
+
+.approval-route-guard,
+.approval-shell-card {
+  padding: 20px;
+}
+
+.approval-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.approval-facts > div {
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 7px;
+  background: #f8fbf6;
+  padding: 12px;
+}
+
+.approval-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.approval-facts dd {
+  margin: 4px 0 0;
+  color: #243140;
+  font-weight: 800;
+}
+
 .coverage-health-summary,
 .coverage-health-guard {
   display: grid;
@@ -850,6 +922,67 @@ button {
   font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
+}
+
+.ar-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.ar-status-pill {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 30px;
+  border: 1px solid #c9d5ce;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #f5f8f2;
+  color: #26333e;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.ar-status-pill.pending {
+  border-color: #d7c27b;
+  background: #fff8dc;
+  color: #6c5411;
+}
+
+.ar-status-pill.approved {
+  border-color: #9fd0bb;
+  background: #edf9f2;
+  color: #13613d;
+}
+
+.ar-status-pill.observing {
+  border-color: #a9c7db;
+  background: #edf7fc;
+  color: #175174;
+}
+
+.ar-status-pill.rejected,
+.ar-status-pill.locked {
+  border-color: #d6b4b1;
+  background: #fff2f0;
+  color: #7c2d2a;
+}
+
+.ar-status-pill.none {
+  border-color: #d8ded4;
+  background: #f7f8f5;
+  color: #64707d;
+}
+
+.ar-status-source {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
 }
 
 .case-workspace {
@@ -1587,11 +1720,13 @@ button {
 
   .history-guard-panel,
   .historical-case-list-item,
+  .approval-shell-header,
   .coverage-health-summary {
     grid-template-columns: 1fr;
   }
 
   .history-focus-scope-panel ul,
+  .approval-facts,
   .coverage-health-facts,
   .coverage-health-slot-grid {
     grid-template-columns: 1fr;

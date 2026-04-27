@@ -21,6 +21,7 @@ import {
 } from "./secupilot/surface/fixtures/coreSurfaceFixtureAdapter";
 import { mockFixtureAdapter } from "./secupilot/surface/fixtures/mockFixtureAdapter";
 import {
+  ARStatus,
   CaseState,
   CoverageLevel,
   ResolvedSurfaceContext,
@@ -28,7 +29,7 @@ import {
   SwitchState
 } from "./secupilot/surface/context/types";
 
-type Route = "inbox" | "case" | "search" | "coverage_health";
+type Route = "inbox" | "case" | "search" | "coverage_health" | "approval";
 type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
@@ -40,6 +41,9 @@ type SubordinatePanel = "evidence" | "timeline" | "blast_radius";
 type NarrativeKey = "WHAT" | "WHY" | "INTENT" | "HONESTY" | "DECISION";
 type SearchFocusScope = "summary" | "approval_audit" | "history_audit";
 type ExpertModeEntryState = "entry_skeleton" | "p1_restricted" | "not_applicable";
+type ARStatusTone = "pending" | "approved" | "observing" | "rejected" | "locked" | "none";
+type ARInteractionClass = "non-terminal" | "terminal" | "locked" | "none";
+type ARActionAuthority = "p2-only" | "display-only";
 
 interface NavItem {
   label: string;
@@ -63,7 +67,7 @@ interface WorkbenchCase {
   redlineFixtureId?: RedlineFixtureId;
   resolvedSurface: string;
   resolvedRole: Role;
-  arStatus: string | null;
+  arStatus: ARStatus | null;
   triggerSource: string;
   freshness: string;
   actionRequest: string;
@@ -163,6 +167,75 @@ const CASE_STATE_LABELS: Record<CaseState, string> = {
   APPROVED_PENDING_EXECUTION: "Approved pending execution",
   CLOSED: "Closed"
 };
+
+const AR_STATUS_DISPLAY: Record<
+  ARStatus,
+  {
+    label: string;
+    tone: Exclude<ARStatusTone, "none">;
+    interactionClass: Exclude<ARInteractionClass, "none">;
+  }
+> = {
+  PENDING_APPROVAL: {
+    label: "Pending approval",
+    tone: "pending",
+    interactionClass: "non-terminal"
+  },
+  APPROVED_PENDING_EXECUTION: {
+    label: "Approved pending execution",
+    tone: "approved",
+    interactionClass: "terminal"
+  },
+  OBSERVATION_WINDOW: {
+    label: "Observation window",
+    tone: "observing",
+    interactionClass: "locked"
+  },
+  REJECTED: {
+    label: "Rejected",
+    tone: "rejected",
+    interactionClass: "terminal"
+  },
+  WITHDRAWN: {
+    label: "Withdrawn",
+    tone: "locked",
+    interactionClass: "locked"
+  },
+  CANCELLED: {
+    label: "Cancelled",
+    tone: "locked",
+    interactionClass: "locked"
+  }
+};
+
+function getARStatusDisplay(
+  arStatus: ARStatus | null,
+  role: Role
+): {
+  actionAuthority: ARActionAuthority;
+  interactionClass: ARInteractionClass;
+  label: string;
+  stateMigration: "none";
+  tone: ARStatusTone;
+} {
+  if (!arStatus) {
+    return {
+      actionAuthority: "display-only",
+      interactionClass: "none",
+      label: "No AR submitted",
+      stateMigration: "none",
+      tone: "none"
+    };
+  }
+
+  const display = AR_STATUS_DISPLAY[arStatus];
+  return {
+    ...display,
+    actionAuthority:
+      arStatus === "PENDING_APPROVAL" && role === "P2" ? "p2-only" : "display-only",
+    stateMigration: "none"
+  };
+}
 
 function toRisk(value: string): "High" | "Critical" {
   return value.toUpperCase() === "CRITICAL" ? "Critical" : "High";
@@ -344,10 +417,10 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Approval Queue",
-    routeKey: "approval_queue",
+    routeKey: "approval",
     roles: ["P2"],
     icon: ShieldCheck,
-    activeInSlice: false
+    activeInSlice: true
   },
   {
     label: "Coverage & Health",
@@ -373,6 +446,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   }
   if (path === "/search") {
     return { route: "search", caseId: null };
+  }
+  if (path === "/approval") {
+    return { route: "approval", caseId: null };
   }
   if (path === "/coverage-health") {
     return { route: "coverage_health", caseId: null };
@@ -507,6 +583,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
     const path =
       nextRoute === "case" && nextCaseId
         ? `/case/${nextCaseId}`
+        : nextRoute === "approval"
+          ? "/approval"
         : nextRoute === "search"
           ? "/search?tab=history"
           : nextRoute === "coverage_health"
@@ -515,6 +593,17 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
     window.history.pushState({}, "", path);
     setLocation({ route: nextRoute, caseId: nextCaseId ?? null });
   }
+
+  useEffect(() => {
+    if (route === "approval" && role === "P1") {
+      navigate("inbox");
+      return;
+    }
+
+    if (route === "approval" && role === "P3" && window.location.pathname !== "/manager") {
+      window.history.replaceState({}, "", "/manager");
+    }
+  }, [role, route]);
 
   function submitGlobalQuery(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -560,16 +649,20 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
             const Icon = item.icon;
             const isSearchRoute = item.routeKey === "search_history";
             const isCoverageHealthRoute = item.routeKey === "coverage_health";
+            const isApprovalRoute = item.routeKey === "approval";
             const isActive =
               item.routeKey === route ||
               (item.routeKey === "inbox" && route === "case") ||
               (isSearchRoute && route === "search") ||
-              (isCoverageHealthRoute && route === "coverage_health");
+              (isCoverageHealthRoute && route === "coverage_health") ||
+              (isApprovalRoute && route === "approval");
             const navRoute: Route = isSearchRoute
               ? "search"
               : isCoverageHealthRoute
                 ? "coverage_health"
-                : "inbox";
+                : isApprovalRoute
+                  ? "approval"
+                  : "inbox";
             return (
               <button
                 aria-disabled={!item.activeInSlice}
@@ -633,6 +726,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
             onFollowUpChange={setFollowUp}
             onFollowUpSubmit={submitFollowUp}
           />
+        ) : route === "approval" ? (
+          <ApprovalRouteShell activeCase={activeCase} activeContext={activeContext} />
         ) : route === "search" ? (
           <SearchHistoryView activeCase={activeCase} activeContext={activeContext} />
         ) : route === "coverage_health" ? (
@@ -737,6 +832,116 @@ function ExpertModeEntrySlot({
           L1 OFF fields stay absent: no card, no placeholder, no DOM.
         </p>
       </section>
+    </section>
+  );
+}
+
+function ApprovalRouteShell({
+  activeCase,
+  activeContext
+}: {
+  activeCase: WorkbenchCase;
+  activeContext: ResolvedSurfaceContext;
+}) {
+  const role = activeContext.session.role;
+  const actionRequest = activeContext.action_request;
+  const arStatusDisplay = getARStatusDisplay(actionRequest?.ar_status ?? null, role);
+  const isReadOnlyApprovalShell = role === "P0";
+
+  if (role === "P1" || role === "P3") {
+    const redirectTarget = role === "P1" ? "/inbox" : "/manager";
+    return (
+      <section
+        aria-labelledby="approval-title"
+        className="page-region approval-surface"
+        data-approval-scope="route-shell-guard-only"
+        data-authority-source="resolved-surface-context"
+        data-role={role}
+        data-route-authority="resolved-surface-context"
+        data-testid="approval-surface"
+      >
+        <article
+          className="approval-route-guard"
+          data-redirect-target={redirectTarget}
+          data-route-guard="redirect-hard"
+          data-testid="approval-route-guard"
+        >
+          <p className="section-kicker">Approval route guard</p>
+          <h1 id="approval-title">Approval shell unavailable for {role}</h1>
+          <p>
+            Role authority is resolved from fixture context. This route does not infer P2
+            approval authority from URL or storage.
+          </p>
+        </article>
+      </section>
+    );
+  }
+
+  return (
+    <section
+      aria-labelledby="approval-title"
+      className="page-region approval-surface"
+      data-approval-scope="route-shell-guard-only"
+      data-approval-mode={isReadOnlyApprovalShell ? "readonly-container" : "primary-p2-shell"}
+      data-authority-source="resolved-surface-context"
+      data-role={role}
+      data-route-authority="resolved-surface-context"
+      data-testid="approval-surface"
+    >
+      <div className="approval-shell-header">
+        <div>
+          <p className="section-kicker">
+            {isReadOnlyApprovalShell ? "P0 readonly approval container" : "P2 approval shell"}
+          </p>
+          <h1 id="approval-title">Approval Queue</h1>
+          <p>
+            {isReadOnlyApprovalShell
+              ? "Read-only container only. Approval controls are outside AP-T01."
+              : "Shell and guard only. Approval controls, transitions, and timers are outside AP-T01."}
+          </p>
+        </div>
+        <span
+          className={`ar-status-pill ${arStatusDisplay.tone}`}
+          data-action-authority={arStatusDisplay.actionAuthority}
+          data-ar-status={actionRequest?.ar_status ?? "NONE"}
+          data-interaction-class={arStatusDisplay.interactionClass}
+          data-mapping-source="D-02"
+          data-state-migration={arStatusDisplay.stateMigration}
+          data-testid="approval-ar-status-pill"
+        >
+          {arStatusDisplay.label}
+        </span>
+      </div>
+
+      <article className="approval-shell-card" data-testid="approval-shell-card">
+        <dl className="approval-facts">
+          <div>
+            <dt>Case</dt>
+            <dd>{activeCase.id}</dd>
+          </div>
+          <div>
+            <dt>Role</dt>
+            <dd>{role}</dd>
+          </div>
+          <div>
+            <dt>AR context</dt>
+            <dd>{actionRequest ? actionRequest.ar_id : "Unavailable"}</dd>
+          </div>
+          <div>
+            <dt>Control state</dt>
+            <dd>No approve, reject, delay, or observe controls attached</dd>
+          </div>
+        </dl>
+        {!actionRequest ? (
+          <p
+            className="approval-safe-empty"
+            data-rendering-state="data-unavailable"
+            data-testid="approval-safe-empty"
+          >
+            Action request context is unavailable. The shell remains read-only.
+          </p>
+        ) : null}
+      </article>
     </section>
   );
 }
@@ -1214,6 +1419,7 @@ function CaseDetail({
     activeCase.resolvedRole === "P1" &&
     activeCase.arStatus === null &&
     !hasLocalActionRequestSubmission;
+  const arStatusDisplay = getARStatusDisplay(activeCase.arStatus, activeCase.resolvedRole);
   const canRenderBlastRadiusPanel = activeCase.coverage !== "L1";
   const honestyLayerContentId = `${activeCase.id}-honesty-layer-content`;
   const unsupportedClaimSet = useMemo(
@@ -1371,6 +1577,24 @@ function CaseDetail({
           >
             <p className="section-kicker">Region B3</p>
             <h2 id="action-request-title">Action Request</h2>
+            <div
+              aria-label="Action request status mapping"
+              className="ar-status-row"
+              data-state-migration="none"
+            >
+              <span
+                className={`ar-status-pill ${arStatusDisplay.tone}`}
+                data-action-authority={arStatusDisplay.actionAuthority}
+                data-ar-status={activeCase.arStatus ?? "NONE"}
+                data-interaction-class={arStatusDisplay.interactionClass}
+                data-mapping-source="D-02"
+                data-state-migration={arStatusDisplay.stateMigration}
+                data-testid="ar-status-pill"
+              >
+                {arStatusDisplay.label}
+              </span>
+              <span className="ar-status-source">D-02 display mapping only</span>
+            </div>
             <p>{activeCase.actionRequest}</p>
             {canSubmitP1ActionRequest ? (
               <div

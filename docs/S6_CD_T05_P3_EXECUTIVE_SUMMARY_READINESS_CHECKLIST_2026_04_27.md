@@ -7,7 +7,7 @@
 | Title | S6 CD-T05 P3 Executive Summary Readiness Checklist 2026-04-27 |
 | Ticket | `CD-T05` |
 | Scope | `P3 independent executive summary component readiness only` |
-| Status | READINESS_CHECKLIST_HOLD_PENDING_G0_05_REPO_LOCAL_SIGNOFF_AND_FIELD_MAP |
+| Status | READINESS_CHECKLIST_HOLD_PENDING_FIELD_MAP_AFTER_G0_05_SIGNOFF |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -21,7 +21,7 @@
 | Workspace surface | VS Code / local repo |
 | Reviewer | Claude Code focused review if implementation diff exists |
 | Review surface | claude-cmd |
-| External review | Claude Web returned `PASS_WITH_NOTE`; note remains unresolved for implementation |
+| External review | Claude Web returned `PASS_WITH_NOTE`; G0-05 portion now repo-locally resolved |
 | SWE | disabled |
 
 This checklist is readiness-only. It does not implement `CD-T05`, does not mark `CD-T05` Done, and does not authorize P3 executive summary implementation.
@@ -31,16 +31,16 @@ This checklist is readiness-only. It does not implement `CD-T05`, does not mark 
 Decision:
 
 ```text
-READINESS_CHECKLIST_HOLD_PENDING_G0_05_REPO_LOCAL_SIGNOFF_AND_FIELD_MAP
+READINESS_CHECKLIST_HOLD_PENDING_FIELD_MAP_AFTER_G0_05_SIGNOFF
 ```
 
 Interpretation:
 
 - `CD-T05` authority questions have been externally reviewed by Claude Web.
 - Claude Web returned `PASS_WITH_NOTE`, not unconditional `PASS`.
-- The implementation-start note is not yet repo-locally closed.
+- The `G0-05 signed-off confirmed: YES` part of the implementation-start note is now repo-locally closed by `docs\S6_G0_05_P3_CONTRACT_FULL_RATIFICATION_SIGNOFF_2026_04_27.md`.
 - Implementation remains HOLD until:
-  - `G0-05 signed-off confirmed: YES` is recorded in a repo-local governed record; and
+  - no later P3 summary field-set revision is confirmed; and
   - the exact allowed source-field map for the P3 independent executive summary is written into the ticket or closeout route.
 
 ## 3. Authority Evidence
@@ -62,7 +62,7 @@ Before implementation starts, confirm G0-05 sign-off is complete and no later P3
 
 ## 4. Repo-Local Evidence Check
 
-Current repo-local G0 record says:
+Earlier repo-local G0 record said:
 
 ```text
 G0-05 = YES_SCHEDULED_NON_BLOCKING
@@ -75,7 +75,14 @@ External visual-negative handoff material contains a broad statement:
 G0-04/G0-05/G0-06 Governance Ratification: PASS + sign-off
 ```
 
-However, related visual-negative dependency notes also state that `NV-06` / `NV-07` replacement language must be confirmed after `G0-05` ratification. Because the repo-local governed record still says scheduled rather than signed off, this checklist does not treat `G0-05 signed-off confirmed: YES` as closed for implementation.
+Follow-up repo-local signoff now records:
+
+```text
+docs\S6_G0_05_P3_CONTRACT_FULL_RATIFICATION_SIGNOFF_2026_04_27.md
+G0-05 signed-off confirmed: YES
+```
+
+Therefore the G0-05 blocker is closed. `CD-T05` remains HOLD because the exact allowed source-field map and no-later-field-set-revision confirmation are still required.
 
 ## 5. Required Before Implementation GO
 
@@ -173,7 +180,6 @@ Claude Code focused review is required for any implementation diff.
 
 HOLD remains active if:
 
-- `G0-05 signed-off confirmed: YES` is not repo-locally recorded;
 - a later P3 summary field-set revision exists or is ambiguous;
 - exact source fields are not written;
 - implementation needs files outside the exact list;
@@ -187,8 +193,8 @@ HOLD remains active if:
 
 ## 11. Next Safe Action
 
-Next safe action:
+Next safe action after G0-05 repo-local signoff:
 
 ```text
-OPEN_MV_T01_P2P3_READINESS_CHECKLIST_OR_CREATE_G0_05_REPO_LOCAL_SIGNOFF_RECORD
+OPEN_CD_T05_FIELD_MAP_CHECKLIST_BEFORE_IMPLEMENTATION
 ```

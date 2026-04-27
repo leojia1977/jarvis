@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
 import App from "./App";
@@ -54,6 +54,60 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByRole("button", { name: /Approval Queue/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Coverage & Health/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
+  });
+
+  it("opens the P2 approval shell as guard-only without approval controls", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={2} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    const surface = screen.getByTestId("approval-surface");
+    const shell = screen.getByTestId("approval-shell-card");
+    const statusPill = screen.getByTestId("approval-ar-status-pill");
+
+    expect(window.location.pathname).toBe("/approval");
+    expect(surface).toHaveAttribute("data-role", "P2");
+    expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(surface).toHaveAttribute("data-approval-scope", "route-shell-guard-only");
+    expect(statusPill).toHaveAttribute("data-ar-status", "PENDING_APPROVAL");
+    expect(statusPill).toHaveAttribute("data-action-authority", "p2-only");
+    expect(statusPill).toHaveAttribute("data-mapping-source", "D-02");
+    expect(statusPill).toHaveAttribute("data-state-migration", "none");
+    expect(within(shell).queryByRole("button")).not.toBeInTheDocument();
+    expect(
+      within(surface).queryByRole("button", { name: /approve|reject|delay|observe/i })
+    ).not.toBeInTheDocument();
+  });
+
+  it("hard redirects non-P2 approval route access without URL or storage authority", async () => {
+    window.history.pushState({}, "", "/approval?role=P2&action_mode=IMMEDIATE");
+    window.localStorage.setItem("role", "P2");
+    window.sessionStorage.setItem("action_mode", "IMMEDIATE");
+
+    render(<App />);
+
+    await waitFor(() => expect(window.location.pathname).toBe("/inbox"));
+    expect(screen.queryByTestId("approval-surface")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Approval Queue/i })).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
+  });
+
+  it("redirects P3 approval route access to manager path without manager content", async () => {
+    window.history.pushState({}, "", "/approval");
+    render(<App initialPhaseNumber={6} />);
+
+    await waitFor(() => expect(window.location.pathname).toBe("/manager"));
+
+    const surface = screen.getByTestId("approval-surface");
+    const guard = screen.getByTestId("approval-route-guard");
+
+    expect(surface).toHaveAttribute("data-role", "P3");
+    expect(surface).toHaveAttribute("data-approval-scope", "route-shell-guard-only");
+    expect(guard).toHaveAttribute("data-route-guard", "redirect-hard");
+    expect(guard).toHaveAttribute("data-redirect-target", "/manager");
+    expect(within(surface).queryByRole("button")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("manager-view-surface")).not.toBeInTheDocument();
   });
 
   it("opens the P2 Coverage & Health skeleton without live health behavior", async () => {
@@ -344,6 +398,58 @@ describe("SecuPilot first-batch workbench slice", () => {
         name: /approve|reject|delay|observe|close/i
       })
     ).not.toBeInTheDocument();
+  });
+
+  it("maps case AR status through D-02 display semantics without state migration", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={2} />);
+
+    const actionPanel = screen.getByTestId("action-request-panel");
+    const statusPill = screen.getByTestId("ar-status-pill");
+
+    expect(statusPill).toHaveAttribute("data-ar-status", "PENDING_APPROVAL");
+    expect(statusPill).toHaveAttribute("data-action-authority", "p2-only");
+    expect(statusPill).toHaveAttribute("data-interaction-class", "non-terminal");
+    expect(statusPill).toHaveAttribute("data-mapping-source", "D-02");
+    expect(statusPill).toHaveAttribute("data-state-migration", "none");
+    expect(within(actionPanel).queryByRole("button", { name: /approve|reject|delay|observe/i }))
+      .not.toBeInTheDocument();
+  });
+
+  it("keeps non-pending AR statuses display-only in case detail", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={5} />);
+
+    const actionPanel = screen.getByTestId("action-request-panel");
+    const statusPill = screen.getByTestId("ar-status-pill");
+
+    expect(statusPill).toHaveAttribute("data-ar-status", "APPROVED_PENDING_EXECUTION");
+    expect(statusPill).toHaveAttribute("data-action-authority", "display-only");
+    expect(statusPill).toHaveAttribute("data-interaction-class", "terminal");
+    expect(statusPill).toHaveAttribute("data-state-migration", "none");
+    expect(within(actionPanel).queryByRole("button", { name: /approve|reject|delay|observe/i }))
+      .not.toBeInTheDocument();
+  });
+
+  it("ignores URL and storage attempts to inject AR status or action mode", () => {
+    window.history.pushState(
+      {},
+      "",
+      "/case/CASE-2847?ar_status=PENDING_APPROVAL&action_mode=IMMEDIATE"
+    );
+    window.localStorage.setItem("ar_status", "PENDING_APPROVAL");
+    window.sessionStorage.setItem("action_mode", "IMMEDIATE");
+
+    render(<App />);
+
+    const statusPill = screen.getByTestId("ar-status-pill");
+
+    expect(statusPill).toHaveAttribute("data-ar-status", "NONE");
+    expect(statusPill).toHaveAttribute("data-action-authority", "display-only");
+    expect(statusPill).toHaveAttribute("data-state-migration", "none");
+    expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
   });
 
   it("renders the P1 Case Detail layout regions and narrative spine", async () => {
