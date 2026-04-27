@@ -1340,3 +1340,72 @@ OPEN_E0_04C_APP_REDLINE_RENDERABILITY_IMPLEMENTATION_ONLY_IF_ALLOWED_FILES_REMAI
 ```
 
 `E0-04B` remains HOLD until E0-04C closes and a separate relaunch proves exact Playwright assertions.
+
+## 37. Update 2026-04-27: E0-04C App Redline Renderability Implementation Gate
+
+E0-04C implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+```
+
+Implemented:
+
+- mock-only `Mock redline fixture` selector in the Vite app;
+- closed allowlist for selected existing boundary and resolver-degradation fixtures;
+- static app DOM markers for `missing-signal-notice`, `concurrency-inline-warning`, `resolver-degradation-notice`, `blast-radius-redline`, and `manager-summary`;
+- focused component tests for missing-signal source, stale approve inline warning, L1 blast radius OFF, cautious P3 manager summary, and poison-pill option exclusion.
+
+Implemented files:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.test.tsx
+```
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 5 test files, 52 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS: chunk-size warning only
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warning only
+```
+
+Claude Code focused review:
+
+```text
+PASS
+```
+
+Still not implemented:
+
+- Playwright tests;
+- Storybook changes;
+- fixture registry, fixture adapter, validator, or dependency changes;
+- `validate=false` or poison-pill rendering;
+- P2 concurrency workflow, observation-window timer/state migration, backend `STATE_SYNC`;
+- route handoff, cross-surface propagation;
+- backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot.
+
+Closeout decision:
+
+```text
+READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+```
+
+Next route:
+
+```text
+OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_RELAUNCH_AFTER_E0_04C_CLOSEOUT
+```

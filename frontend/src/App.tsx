@@ -18,11 +18,13 @@ import {
   CORE_SURFACE_FIXTURE_PHASES,
   CoreSurfaceFixturePhase
 } from "./secupilot/surface/fixtures/coreSurfaceFixtureAdapter";
+import { mockFixtureAdapter } from "./secupilot/surface/fixtures/mockFixtureAdapter";
 import {
   CaseState,
   CoverageLevel,
   ResolvedSurfaceContext,
-  Role
+  Role,
+  SwitchState
 } from "./secupilot/surface/context/types";
 
 type Route = "inbox" | "case";
@@ -53,6 +55,7 @@ interface WorkbenchCase {
   state: CaseState;
   phaseNumber: number;
   phaseName: string;
+  redlineFixtureId?: RedlineFixtureId;
   resolvedSurface: string;
   resolvedRole: Role;
   arStatus: string | null;
@@ -77,6 +80,11 @@ interface WorkbenchCase {
     provenance: string;
     summary: string;
   }>;
+  redline: {
+    uiMessages: ResolvedSurfaceContext["ui_messages"];
+    visibilityFields: Record<string, SwitchState>;
+    unsupportedClaims: string[];
+  };
 }
 
 interface FixtureSentence {
@@ -100,12 +108,26 @@ interface FixtureEvidencePanel {
 
 const FIXTURE = CORE_SURFACE_FIXTURE;
 const FIXTURE_PHASES = CORE_SURFACE_FIXTURE_PHASES;
+const E0_04C_REDLINE_FIXTURE_IDS = [
+  "boundary-p3-audit-summary-unavailable",
+  "boundary-p2-cmdb-tags-unavailable",
+  "boundary-dirty-update-during-observation-window",
+  "boundary-concurrency-stale-approve-rejected",
+  "resolver-l1-blast-radius-payload",
+  "resolver-p3-technical-detail-redaction"
+] as const;
+const P3_MANAGER_SUMMARY_REDLINE_FIXTURE_IDS = new Set<string>([
+  "boundary-p3-audit-summary-unavailable",
+  "resolver-p3-technical-detail-redaction"
+]);
 const EVIDENCE_FRAME_IDS: EvidenceFrameId[] = [
   "process_evidence",
   "lateral_topology",
   "event_timeline",
   "attack_lineage"
 ];
+type RedlineFixtureId = (typeof E0_04C_REDLINE_FIXTURE_IDS)[number];
+type RenderableMockPhase = Pick<CoreSurfaceFixturePhase, "phase" | "name" | "expected_ui">;
 
 const CASE_STATE_LABELS: Record<CaseState, string> = {
   UNDER_INVESTIGATION: "Under investigation",
@@ -139,7 +161,7 @@ function getFixtureSectionEvidence(sectionKey: NarrativeKey, fallback: EvidenceF
 }
 
 function buildActionRequestSummary(
-  phase: CoreSurfaceFixturePhase,
+  phase: RenderableMockPhase,
   context: ResolvedSurfaceContext
 ): string {
   const arId = FIXTURE.ids.action_request_id;
@@ -152,7 +174,7 @@ function buildActionRequestSummary(
   return `${arId} - ${context.action_request.ar_status} - resolved from mock phase ${phase.phase}.`;
 }
 
-function buildTrace(phase: CoreSurfaceFixturePhase): WorkbenchCase["trace"] {
+function buildTrace(phase: RenderableMockPhase): WorkbenchCase["trace"] {
   const auditEvents = FIXTURE.audit_trail.slice(0, Math.max(0, Math.min(phase.phase, FIXTURE.audit_trail.length)));
   if (auditEvents.length === 0) {
     return [
@@ -190,8 +212,9 @@ function buildEvidenceFrames(role: Role): WorkbenchCase["evidenceFrames"] {
 }
 
 function buildWorkbenchCase(
-  phase: CoreSurfaceFixturePhase,
-  context: ResolvedSurfaceContext
+  phase: RenderableMockPhase,
+  context: ResolvedSurfaceContext,
+  redlineFixtureId?: RedlineFixtureId
 ): WorkbenchCase {
   const role = context.session.role;
   return {
@@ -208,6 +231,7 @@ function buildWorkbenchCase(
     state: context.case.case_state,
     phaseNumber: phase.phase,
     phaseName: phase.name,
+    redlineFixtureId,
     resolvedSurface: context.surface,
     resolvedRole: role,
     arStatus: context.action_request?.ar_status ?? null,
@@ -231,7 +255,30 @@ function buildWorkbenchCase(
         "P1 still cannot choose ActionMode; P2 remains the approval authority in later phases."
       ]
     },
-    evidenceFrames: buildEvidenceFrames(role)
+    evidenceFrames: buildEvidenceFrames(role),
+    redline: {
+      uiMessages: context.ui_messages,
+      visibilityFields: context.resolved_visibility.fields,
+      unsupportedClaims: context.honesty.unsupported_claims
+    }
+  };
+}
+
+function isRedlineFixtureId(value: string): value is RedlineFixtureId {
+  return E0_04C_REDLINE_FIXTURE_IDS.includes(value as RedlineFixtureId);
+}
+
+function redlineFixturePhase(
+  fixtureId: RedlineFixtureId,
+  context: ResolvedSurfaceContext
+): RenderableMockPhase {
+  const expectedUi = context.ui_messages.expected_ui;
+  return {
+    phase: 100 + E0_04C_REDLINE_FIXTURE_IDS.indexOf(fixtureId),
+    name: `Redline ${fixtureId}`,
+    expected_ui: Array.isArray(expectedUi)
+      ? expectedUi
+      : [`Mock-only redline fixture ${fixtureId}`]
   };
 }
 
@@ -289,16 +336,36 @@ interface AppProps {
 function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = {}) {
   const [{ route, caseId }, setLocation] = useState(initialRoute);
   const [activePhaseNumber, setActivePhaseNumber] = useState(initialPhaseNumber);
+  const [activeRedlineFixtureId, setActiveRedlineFixtureId] = useState<RedlineFixtureId | "">("");
   const [globalQuery, setGlobalQuery] = useState("");
   const [followUp, setFollowUp] = useState("");
 
   const activePhase =
     FIXTURE_PHASES.find((phase) => phase.phase === activePhaseNumber) ?? FIXTURE_PHASES[0];
-  const activeContext = useMemo(() => adaptCoreSurfaceFixturePhase(activePhase), [activePhase]);
+  const activeContext = useMemo(
+    () =>
+      activeRedlineFixtureId
+        ? mockFixtureAdapter.getFixture(activeRedlineFixtureId)
+        : adaptCoreSurfaceFixturePhase(activePhase),
+    [activePhase, activeRedlineFixtureId]
+  );
+  const activeRenderPhase = useMemo(
+    () =>
+      activeRedlineFixtureId
+        ? redlineFixturePhase(activeRedlineFixtureId, activeContext)
+        : activePhase,
+    [activeContext, activePhase, activeRedlineFixtureId]
+  );
   const role = activeContext.session.role;
   const cases = useMemo(
-    () => [buildWorkbenchCase(activePhase, activeContext)],
-    [activeContext, activePhase]
+    () => [
+      buildWorkbenchCase(
+        activeRenderPhase,
+        activeContext,
+        activeRedlineFixtureId || undefined
+      )
+    ],
+    [activeContext, activeRenderPhase, activeRedlineFixtureId]
   );
   const activeCase = useMemo(
     () => cases.find((item) => item.id === caseId) ?? cases[0],
@@ -309,7 +376,19 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
   function selectRole(nextRole: Role) {
     const nextPhase = FIXTURE_PHASES.find((phase) => phase.role === nextRole);
     if (nextPhase) {
+      setActiveRedlineFixtureId("");
       setActivePhaseNumber(nextPhase.phase);
+    }
+  }
+
+  function selectPhase(nextPhase: number) {
+    setActiveRedlineFixtureId("");
+    setActivePhaseNumber(nextPhase);
+  }
+
+  function selectRedlineFixture(fixtureId: string) {
+    if (fixtureId === "" || isRedlineFixtureId(fixtureId)) {
+      setActiveRedlineFixtureId(fixtureId);
     }
   }
 
@@ -404,7 +483,9 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
           <MockContextSelector
             activeContext={activeContext}
             activePhase={activePhase}
-            onPhaseChange={setActivePhaseNumber}
+            activeRedlineFixtureId={activeRedlineFixtureId}
+            onPhaseChange={selectPhase}
+            onRedlineFixtureChange={selectRedlineFixture}
           />
         </header>
 
@@ -428,11 +509,15 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
 function MockContextSelector({
   activeContext,
   activePhase,
-  onPhaseChange
+  activeRedlineFixtureId,
+  onPhaseChange,
+  onRedlineFixtureChange
 }: {
   activeContext: ResolvedSurfaceContext;
   activePhase: CoreSurfaceFixturePhase;
+  activeRedlineFixtureId: RedlineFixtureId | "";
   onPhaseChange: (phase: number) => void;
+  onRedlineFixtureChange: (fixtureId: string) => void;
 }) {
   return (
     <div
@@ -458,6 +543,19 @@ function MockContextSelector({
         <span>{activeContext.case.case_state}</span>
         <span>{activeContext.action_request?.ar_status ?? "AR none"}</span>
       </div>
+      <label htmlFor="mock-redline-selector">Mock redline fixture</label>
+      <select
+        id="mock-redline-selector"
+        onChange={(event) => onRedlineFixtureChange(event.target.value)}
+        value={activeRedlineFixtureId}
+      >
+        <option value="">Phase fixture baseline</option>
+        {E0_04C_REDLINE_FIXTURE_IDS.map((fixtureId) => (
+          <option key={fixtureId} value={fixtureId}>
+            {fixtureId}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -639,6 +737,8 @@ function CaseDetail({
             <p>{activeCase.summary}</p>
           </div>
 
+          <RedlineRenderabilityPanel activeCase={activeCase} />
+
           <div className="spine-sections">
             {narrativeSections.map((section) => (
               <article className="spine-section" key={section.key}>
@@ -743,6 +843,74 @@ function CaseDetail({
           <Send aria-hidden="true" size={18} />
         </button>
       </form>
+    </section>
+  );
+}
+
+function RedlineRenderabilityPanel({ activeCase }: { activeCase: WorkbenchCase }) {
+  if (!activeCase.redlineFixtureId) {
+    return null;
+  }
+
+  const {
+    inline_warning: inlineWarning,
+    missing_signal_notice: missingSignalNotice,
+    resolver_degradation: resolverDegradation,
+    concurrency_state: concurrencyState
+  } = activeCase.redline.uiMessages;
+  const blastRadiusState = activeCase.redline.visibilityFields.blast_radius;
+  const shouldRenderManagerSummary =
+    activeCase.resolvedRole === "P3" ||
+    P3_MANAGER_SUMMARY_REDLINE_FIXTURE_IDS.has(activeCase.redlineFixtureId);
+
+  return (
+    <section
+      aria-label="Mock redline renderability"
+      className="summary-panel"
+      data-testid="app-redline-renderability"
+    >
+      <div className="summary-kicker">Mock-only redline</div>
+      <h3>{activeCase.redlineFixtureId}</h3>
+      <p>
+        Static, read-only renderability for existing validated fixture registry states. This
+        panel is not a production route authority.
+      </p>
+
+      {missingSignalNotice ? (
+        <p data-message-source="ui_messages" data-testid="missing-signal-notice">
+          {missingSignalNotice}
+        </p>
+      ) : null}
+
+      {inlineWarning || concurrencyState ? (
+        <p
+          aria-disabled="true"
+          data-concurrency-state={String(concurrencyState ?? "inline-warning")}
+          data-testid="concurrency-inline-warning"
+        >
+          {String(inlineWarning ?? concurrencyState)}
+        </p>
+      ) : null}
+
+      {resolverDegradation ? (
+        <p data-testid="resolver-degradation-notice">{resolverDegradation}</p>
+      ) : null}
+
+      {blastRadiusState === "OFF" ? (
+        <p data-testid="blast-radius-redline" data-visibility-state="OFF">
+          Blast radius remains OFF under the current coverage ceiling.
+        </p>
+      ) : null}
+
+      {shouldRenderManagerSummary ? (
+        <section data-testid="manager-summary">
+          <h4>Manager summary</h4>
+          <p>Manager summary stays cautious and read-only for this mock fixture.</p>
+          {activeCase.redline.unsupportedClaims.length > 0 ? (
+            <p>{`Unsupported claims remain: ${activeCase.redline.unsupportedClaims.join(" / ")}`}</p>
+          ) : null}
+        </section>
+      ) : null}
     </section>
   );
 }

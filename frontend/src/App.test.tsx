@@ -188,4 +188,84 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();
   });
+
+  it("renders missing-signal redline notices from ui_messages only", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(
+      screen.getByLabelText("Mock redline fixture"),
+      "boundary-p2-cmdb-tags-unavailable"
+    );
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const notice = screen.getByTestId("missing-signal-notice");
+    expect(notice).toHaveAttribute("data-message-source", "ui_messages");
+    expect(notice).toHaveTextContent("CMDB tags unavailable in mock fixture.");
+    expect(screen.getByTestId("app-redline-renderability")).toHaveTextContent(
+      "Static, read-only renderability"
+    );
+  });
+
+  it("renders stale approve rejection as a disabled inline warning without workflow controls", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(
+      screen.getByLabelText("Mock redline fixture"),
+      "boundary-concurrency-stale-approve-rejected"
+    );
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const warning = screen.getByTestId("concurrency-inline-warning");
+    expect(warning).toHaveAttribute("aria-disabled", "true");
+    expect(warning).toHaveAttribute("data-concurrency-state", "stale-approve-rejected");
+    expect(warning).toHaveTextContent("Stale approve was rejected");
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe/i })).not.toBeInTheDocument();
+  });
+
+  it("renders resolver degradation without unlocking L1 blast radius", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(
+      screen.getByLabelText("Mock redline fixture"),
+      "resolver-l1-blast-radius-payload"
+    );
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L1");
+    expect(screen.getByTestId("resolver-degradation-notice")).toHaveTextContent(
+      "coverage L1 keeps blast_radius OFF"
+    );
+    expect(screen.getByTestId("blast-radius-redline")).toHaveAttribute(
+      "data-visibility-state",
+      "OFF"
+    );
+  });
+
+  it("renders a cautious P3 manager summary without host raw evidence or over-certainty", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(
+      screen.getByLabelText("Mock redline fixture"),
+      "resolver-p3-technical-detail-redaction"
+    );
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const managerSummary = screen.getByTestId("manager-summary");
+    expect(managerSummary).toHaveTextContent("Manager summary stays cautious");
+    expect(managerSummary).not.toHaveTextContent(/完全受控|已彻底消除/i);
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+  });
+
+  it("does not expose poison-pill fixtures as app renderability options", () => {
+    render(<App />);
+
+    const redlineSelector = screen.getByLabelText("Mock redline fixture") as HTMLSelectElement;
+    const optionValues = Array.from(redlineSelector.options).map((option) => option.value);
+
+    expect(optionValues.some((value) => value.startsWith("poison-"))).toBe(false);
+  });
 });

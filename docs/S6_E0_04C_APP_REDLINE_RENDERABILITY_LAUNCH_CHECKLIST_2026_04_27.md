@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-04C App Redline Renderability Launch Checklist 2026-04-27 |
 | Ticket | `E0-04C` |
-| Status | READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -221,3 +221,109 @@ Implement E0-04C only if changes remain limited to App static redline renderabil
 ```
 
 E0-04B Playwright implementation remains HOLD until E0-04C closes and a separate E0-04B relaunch proves exact Playwright assertions.
+
+## 14. Implementation Closeout Evidence
+
+Implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+```
+
+Implemented files:
+
+- `frontend/src/App.tsx`
+- `frontend/src/App.test.tsx`
+
+Implemented behavior:
+
+- added a mock-only `Mock redline fixture` selector that accepts only the closed E0-04C allowlist;
+- renders selected existing E0-02B boundary and resolver-degradation fixtures through `mockFixtureAdapter.getFixture(id)` with default validation;
+- added static, read-only app DOM markers for later Playwright assertions:
+  - `data-testid="missing-signal-notice"` with `data-message-source="ui_messages"`;
+  - `data-testid="concurrency-inline-warning"` with disabled/read-only semantics;
+  - `data-testid="resolver-degradation-notice"`;
+  - `data-testid="blast-radius-redline"` with `data-visibility-state="OFF"`;
+  - `data-testid="manager-summary"` with cautious P3 copy.
+- redline mode clears when selecting a normal phase or role, preventing stale redline authority from leaking into baseline phase navigation.
+
+Focused tests added:
+
+- missing-signal notice renders from `ui_messages`;
+- stale approve rejection renders as disabled inline warning without workflow controls;
+- L1 resolver degradation does not unlock blast radius;
+- P3 manager summary avoids over-certain copy and keeps raw host evidence absent;
+- poison-pill fixture IDs are not exposed as app renderability options.
+
+Explicitly not implemented:
+
+- Playwright tests;
+- Storybook changes;
+- fixture registry, fixture adapter, or validator changes;
+- `validate=false`;
+- poison-pill rendering;
+- P2 concurrency workflow;
+- observation-window timer/state migration, `emitStateSync`, backend `STATE_SYNC`;
+- route handoff, cross-surface propagation;
+- backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot behavior.
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 5 test files, 52 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS: Storybook completed successfully; Vite chunk-size warning only
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warning only
+```
+
+Claude Code focused review:
+
+```text
+PASS_WITH_FINDINGS, then PASS after F2 was fixed
+```
+
+Final review result:
+
+```text
+PASS
+```
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_04C
+```
+
+Reason:
+
+- no authority semantic change;
+- no validator strictness change;
+- no fixture registry or adapter change;
+- no executable product workflow;
+- no Playwright/backend/runtime/API/schema, route handoff, cross-surface propagation, real-data, secrets, deploy, public endpoint, or external pilot behavior.
+
+## 15. Closeout Decision
+
+Decision:
+
+```text
+READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+```
+
+Next route after closeout:
+
+```text
+OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_RELAUNCH_AFTER_E0_04C_CLOSEOUT
+```
+
+The next E0-04B relaunch may evaluate static Playwright assertions for the newly renderable app DOM markers, but material observation-window migration, P2 concurrency workflow execution, backend `STATE_SYNC`, and route handoff remain out of scope unless a later exact ticket creates those capabilities.
