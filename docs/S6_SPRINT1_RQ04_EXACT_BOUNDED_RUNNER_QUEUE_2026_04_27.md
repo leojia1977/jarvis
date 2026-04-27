@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 Sprint 1 RQ-04 Exact Bounded Runner Queue 2026-04-27 |
 | Queue item | `RQ-04` |
-| Status | BOUNDED_RUNNER_QUEUE_OPEN_EP_T05_SH_T05_CLOSED |
+| Status | BOUNDED_RUNNER_QUEUE_COMPLETE_SH_T07_LAUNCH_CREATED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -99,6 +99,10 @@ Run in this order:
    - Scope must be limited to history-page write CTA absence/disablement.
    - No implementation is authorized until that checklist gives `GO`.
 
+   Status: `LAUNCH_CHECKLIST_CREATED_RECONCILIATION_OR_IMPLEMENTATION_NOT_STARTED`.
+   Checklist: `docs\S6_SH_T07_WRITE_CTA_ABSENCE_LAUNCH_CHECKLIST_2026_04_27.md`.
+   Jira: not transitioned; no PASS closeout yet.
+
 6. `JIRA-PARITY-SAFE-SYNC`
    - If no code ticket is safe, sync only already repo-closed rows identified by RQ-01 as optional Jira parity candidates.
    - Do not mark any non-ready or visually blocked ticket Done.
@@ -170,5 +174,5 @@ HOLD immediately if:
 Next safe automation action:
 
 ```text
-OPEN_SH_T07_WRITE_CTA_ABSENCE_LAUNCH_CHECKLIST
+APPLY_STAGED_ACCELERATION_AUTHORIZATION_OR_WAIT_FOR_SH_T07_RECONCILIATION_GO
 ```

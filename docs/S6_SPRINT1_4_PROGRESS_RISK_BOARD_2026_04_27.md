@@ -21,9 +21,9 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 | --- | ---: | --- |
 | Done | 14 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
-| Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
+| Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 7 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 4 | Authorized for readiness/checklist only; no implementation GO. |
+| Checklist-only | 5 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 17 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
 | HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
@@ -59,7 +59,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Unlock condition |
 | --- | --- | --- |
-| `SH-T07` | Sprint 3A | Starts only after `SH-T05` closes with `IMPLEMENTED_GATE_PASS` or `RECONCILED_GATE_PASS_NO_CODE`. |
+| _None_ | _N/A_ | RQ-04 auto-ready item has been converted into a launch checklist. |
 
 ## 6. Skeleton-Ready
 
@@ -85,6 +85,7 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 | `AP-T01` | Sprint 2 | Patch-isolated approval route guard readiness. | `PASS` | Shell/guard only; no approval controls. |
 | `CD-T05` | Sprint 1 | P3 executive summary authority readiness. | `PASS_WITH_NOTE` | Confirm `G0-05 signed-off confirmed: YES` and no later field-set revision. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure/KPI authority readiness. | `PASS_WITH_NOTE` | No P0/P2 placeholder or conditional branch in `MV-T01`; defer variants to `MV-T02`. |
+| `SH-T07` | Sprint 3A | History write CTA absence readiness. | `NOT_REQUIRED` | Reconciliation/implementation not started; separate GO required before closeout or code. |
 
 ## 8. Needs Authority Review
 
@@ -142,16 +143,16 @@ Current readout:
 ```text
 Done: 14 / 54
 Running: 0
-Auto-ready: 1
+Auto-ready: 0
 Skeleton-ready: 7
-Checklist-only: 4
+Checklist-only: 5
 Blocked/HOLD/design/authority: 28
 ```
 
 Best next automation burn-down path:
 
 ```text
-SH-T05 -> SH-T07 -> GS-T04 skeleton -> IN-T02 skeleton -> IN-T04 skeleton -> EP-T02 skeleton -> EP-T03 skeleton -> SH-T01 skeleton -> CH-T01 skeleton
+SH-T07 reconciliation decision -> GS-T04 skeleton -> IN-T02 skeleton -> IN-T04 skeleton -> EP-T02 skeleton -> EP-T03 skeleton -> SH-T01 skeleton -> CH-T01 skeleton
 ```
 
 Best next risk-reduction path:
