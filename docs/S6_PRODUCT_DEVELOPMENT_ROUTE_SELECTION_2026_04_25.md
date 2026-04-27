@@ -2771,3 +2771,34 @@ Next route:
 ```text
 WAIT_FOR_AP_T10_IMPLEMENTATION_GO_OR_OPEN_AP_T01_PATCH_ISOLATION_CHECKLIST
 ```
+
+## 78. Update 2026-04-27: AP-T01 Patch-Isolation Checklist
+
+Checklist record:
+
+```text
+docs/S6_AP_T01_PATCH_ISOLATION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+PATCH_ISOLATION_CHECKLIST_PASS_IMPLEMENTATION_REQUIRES_SEPARATE_GO
+```
+
+Interpretation:
+
+- `AP-T01` is accepted as a valid isolated candidate for later narrow implementation.
+- Claude Web authority review already returned `PASS` for `AP-T01`.
+- Future implementation must stay route shell / guard only.
+- P2 may enter `/approval` as primary work surface, P0 may enter a read-only approval container, P1 must hard-redirect to `/inbox`, and P3 must hard-redirect to `/manager`.
+- The route guard must read role and surface authority from `ResolvedSurfaceContext`, not URL, query, route params, localStorage, or sessionStorage.
+- Implementation remains unauthorized until separate explicit `AP-T01 implementation GO`.
+- No approval CTA, confirmation modal, state transition, observation-window countdown, stale-approve behavior, approval audit, Manager View content, `ActionMode` creation, dynamic `ui_messages` copy semantics, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change is authorized by this checklist.
+- No Jira Done transition was performed because this is readiness/checklist-only, not implementation closeout.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T01_IMPLEMENTATION_GO_OR_OPEN_CD_T05_P2P3_READINESS_CHECKLIST
+```

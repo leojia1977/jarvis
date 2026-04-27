@@ -60,7 +60,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | AP-T10 patch-isolation checklist is complete; next action is `AP-T01` patch-isolation checklist or explicit `AP-T10` implementation GO. |
+| _None_ | _N/A_ | AP-T10 and AP-T01 patch-isolation checklists are complete; next action is `CD-T05` P2/P3 readiness checklist or explicit AP implementation GO. |
 
 ## 5. Auto-Ready
 
@@ -83,7 +83,7 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
 | `AP-T10` | Sprint 2 | Patch-isolated state badge / pill mapping readiness. | `PASS` | Checklist complete; later implementation requires separate GO and must stay display-only. |
-| `AP-T01` | Sprint 2 | Patch-isolated approval route guard readiness. | `PASS` | Shell/guard only; no approval controls. |
+| `AP-T01` | Sprint 2 | Patch-isolated approval route guard readiness. | `PASS` | Checklist complete; later implementation requires separate GO and must stay shell/guard only. |
 | `CD-T05` | Sprint 1 | P3 executive summary authority readiness. | `PASS_WITH_NOTE` | Confirm `G0-05 signed-off confirmed: YES` and no later field-set revision. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure/KPI authority readiness. | `PASS_WITH_NOTE` | No P0/P2 placeholder or conditional branch in `MV-T01`; defer variants to `MV-T02`. |
 | `SH-T07` | Sprint 3A | History write CTA absence readiness. | `NOT_REQUIRED` | Reconciliation/implementation not started; separate GO required before closeout or code. |
@@ -158,5 +158,5 @@ SH-T07 reconciliation decision -> GS-T05 regression checklist -> AP-T10 checklis
 Best next risk-reduction path:
 
 ```text
-AP-T01 checklist -> CD-T05 checklist -> MV-T01 checklist
+CD-T05 checklist -> MV-T01 checklist
 ```
