@@ -163,6 +163,21 @@ Queue purpose:
 low-risk checklist / reconciliation / no-code / authority-pack / design-frame request / Jira parity audit only
 ```
 
+Low-risk queue output:
+
+```text
+LR-01 through LR-08 recorded; no implementation opened; no Jira transition performed
+```
+
+Recommended next checklist batch for Jarvis review:
+
+```text
+AP-T03 authority checklist
+CH-T03 patch-gate isolated checklist
+SH-T04 search/history scope checklist
+MV-T03 deep-link authority checklist
+```
+
 Best next automation burn-down path:
 
 ```text
