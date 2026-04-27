@@ -1534,3 +1534,50 @@ Next route:
 ```text
 WAIT_FOR_EXACT_NEXT_TICKET_OR_JARVIS_AUTHORIZED_P1_P2_P3_ROUTE_READINESS_SCOPE
 ```
+
+## 40. Update 2026-04-27: P1-CD-C Action Request Modal Ticket Prep
+
+Next exact bounded ticket selected:
+
+```text
+P1-CD-C - P1 Action Request modal semantics
+```
+
+Ticket-prep record:
+
+```text
+docs/S6_P1_CD_C_ACTION_REQUEST_MODAL_TICKET_PREP_2026_04_27.md
+```
+
+Decision:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+Why this is the next safe ticket:
+
+- `P1-CD-A` and `P1-CD-B` are already implemented and pushed;
+- `P1-CD-C` is P1-only and does not require P2/P3 ratification;
+- allowed files can be exact: `App.tsx`, `App.css`, `App.test.tsx`, route/handoff, and this ticket prep;
+- implementation can remain synthetic/local UI state only.
+
+Allowed implementation:
+
+- add a P1-only Action Request modal on the existing Case Detail page;
+- show only `Submit to P2` and `Cancel`;
+- render local mock-only submitted/waiting-on-P2 state after submit;
+- preserve existing evidence controls, follow-up input, route, fixture authority, and E0 redline behavior.
+
+Blocked:
+
+- P2 approval implementation, decision composer, approve/reject/delay/observe operations, strong confirm;
+- P3 Manager View;
+- route handoff, cross-surface AR propagation, material case_state/ar_status/action_mode mutation;
+- fixture/adapter/validator changes, Storybook, Playwright, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot.
+
+Next route:
+
+```text
+OPEN_P1_CD_C_ACTION_REQUEST_MODAL_IMPLEMENTATION
+```
