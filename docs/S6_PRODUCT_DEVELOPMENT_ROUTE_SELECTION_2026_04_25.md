@@ -2184,3 +2184,68 @@ Next route:
 ```text
 WAIT_FOR_JARVIS_SH_T03_IMPLEMENTATION_GO_OR_OPEN_PATCH_GATE_BATCH_ISOLATION_CHECKLIST
 ```
+
+## 59. Update 2026-04-27: RQ-03 Patch-Gate Batch Isolation
+
+RQ-03 patch-gate batch isolation checklist:
+
+```text
+docs/S6_SPRINT1_RQ03_PATCH_GATE_BATCH_ISOLATION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+PATCH_GATE_BATCH_ISOLATION_SH_T03_IMPLEMENTED_GATE_PASS
+```
+
+Interpretation:
+
+- Patch-gate filtering was relaxed only for `SH-T03`.
+- `SH-T03` was isolated from normal Sprint 1 burn-down.
+- No other patch-gate possible row is authorized by RQ-03.
+- Jarvis has separately authorized `SH-T03 implementation GO under patch-gate isolation`.
+- `SH-T03` implementation is complete, gated, Claude Code reviewed, and Jira-synced.
+
+Next route:
+
+```text
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_PATCH_GATE_BATCH_ITEM
+```
+
+## 60. Update 2026-04-27: SH-T03 Patch-Gate Isolated Implementation Closeout
+
+SH-T03 patch-gate isolated implementation record:
+
+```text
+docs/S6_SH_T03_PATCH_GATE_ISOLATED_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- A bounded `/search?tab=history` route now resolves through frontend routing, clamps requested coverage to recorded coverage, and renders a read-only history guard.
+- `ResolvedSurfaceContext` remains the role/coverage authority; URL, localStorage, and sessionStorage do not upgrade role or coverage.
+- No write CTA is attached on the history surface, and no P3 host raw evidence is rendered.
+- Scope stayed inside `frontend/src/App.tsx`, `frontend/src/App.css`, `frontend/src/App.test.tsx`, route/handoff/checklist records.
+- Gates passed: frontend tests 60, frontend build, backend guard 42, `git diff --check`, and Claude Code focused review `PASS`.
+- Jira cloud is synchronized as `SCRUM-31 [SH] Search / History` and `SCRUM-32 [SH-T03] history route resolve -> clamp -> guard -> render`, with `SCRUM-32` marked `已完成`.
+
+Automation runner:
+
+```text
+secupilot-bounded-backend-automation-runner
+```
+
+The heartbeat runner is active on a 30-minute cadence and may continue only exact bounded work from handoff/route records; it must HOLD on scope expansion, missing exact files, failed gates, backend/runtime/API/schema need, real data/secrets/deploy/external pilot, P2/P3 authority change, fixture/adapter/validator change, mandatory external review trigger, or non-ready tickets.
+
+Next route:
+
+```text
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_PATCH_GATE_BATCH_ITEM
+```

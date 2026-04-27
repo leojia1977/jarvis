@@ -52,6 +52,47 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
   });
 
+  it("resolves the history route through clamp-first guard without URL or storage authority", () => {
+    window.history.pushState({}, "", "/search?tab=history&coverage=L3&role=P3");
+    window.localStorage.setItem("role", "P3");
+    window.sessionStorage.setItem("coverage", "L3");
+
+    render(<App />);
+
+    const historySurface = screen.getByTestId("history-surface");
+    const routeGuard = screen.getByTestId("history-route-guard");
+
+    expect(screen.getByRole("heading", { name: "History guard" })).toBeInTheDocument();
+    expect(routeGuard).toHaveAttribute("data-route-order", "resolve-clamp-guard-render");
+    expect(routeGuard).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(routeGuard).toHaveAttribute("data-requested-coverage", "L3");
+    expect(routeGuard).toHaveAttribute("data-recorded-coverage", "L2");
+    expect(routeGuard).toHaveAttribute("data-effective-coverage", "L2");
+    expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L2");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
+    expect(within(historySurface).getByTestId("history-write-guard")).toHaveTextContent(
+      /No write actions are attached/i
+    );
+    expect(
+      within(historySurface).queryByRole("button", { name: /approve|reject|delay|observe|close/i })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+  });
+
+  it("navigates to the bounded history guard from the primary navigation", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /Search \/ History/i }));
+
+    expect(window.location.pathname).toBe("/search");
+    expect(window.location.search).toBe("?tab=history");
+    expect(screen.getByTestId("history-route-guard")).toHaveAttribute(
+      "data-effective-coverage",
+      "L2"
+    );
+  });
+
   it("opens a case from Inbox into the case-first detail route", async () => {
     const user = userEvent.setup();
     render(<App />);

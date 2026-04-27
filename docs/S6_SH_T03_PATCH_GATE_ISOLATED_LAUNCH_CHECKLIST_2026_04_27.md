@@ -7,38 +7,39 @@
 | Title | S6 SH-T03 Patch-Gate Isolated Launch Checklist 2026-04-27 |
 | Ticket | `SH-T03` |
 | Scope | `history route resolve -> clamp -> guard -> render` |
-| Status | PATCH_GATE_ISOLATED_CHECKLIST_CREATED_IMPLEMENTATION_NOT_AUTHORIZED |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
 | Backlog SoT | `D:\产品设计\secupilot0421\SecuPilot_Engineering_Backlog_Tracker_v0.4.xlsx` |
 | Parent queue | `docs\S6_SPRINT1_RQ01_REMAINING_STATUS_RECONCILIATION_2026_04_27.md` |
 | Visual unblock queue | `docs\S6_SPRINT1_RQ02_VISUAL_DEPENDENCY_UNBLOCK_QUEUE_2026_04_27.md` |
-| Route | `OPEN_SH_T03_PATCH_GATE_ISOLATED_LAUNCH_CHECKLIST` |
-| Primary implementor | TBD for implementation |
-| Execution surface | TBD for implementation |
-| Reviewer | Claude Code focused review required after implementation diff |
+| Route | `SH_T03_IMPLEMENTED_GATE_PASS` |
+| Primary implementor | Codex |
+| Execution surface | codex |
+| Reviewer | Claude Code focused review completed |
 | Review surface | `claude-cmd` |
 | External review | conditional |
 | SWE | disabled unless a later exact bounded sub-ticket says otherwise |
 
-This checklist creates a patch-gate isolated launch record for `SH-T03`.
+This checklist creates and closes a patch-gate isolated implementation record for `SH-T03`.
 
-It does not authorize implementation, Jira mutation, backend/runtime/API/schema changes, real data, secrets, deployment, public endpoint work, external pilot execution, or route-handoff expansion.
+It does not authorize additional implementation beyond the recorded `SH-T03` scope, Jira mutation beyond the recorded sync, backend/runtime/API/schema changes, real data, secrets, deployment, public endpoint work, external pilot execution, or route-handoff expansion.
 
 ## 2. Decision
 
 Decision:
 
 ```text
-PATCH_GATE_ISOLATED_CHECKLIST_CREATED_IMPLEMENTATION_NOT_AUTHORIZED
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Meaning:
 
 - `SH-T03` is a viable acceleration candidate only if Jarvis explicitly relaxes the patch-gate filter for this one ticket.
 - It must not be mixed into normal Sprint 1 burn-down.
-- Implementation remains HOLD until a separate explicit `SH-T03 implementation GO` is granted.
+- Jarvis granted explicit `SH-T03 implementation GO under patch-gate isolation`.
+- Implementation is complete, gated, reviewed, and Jira-synced.
 
 ## 3. Why SH-T03 Is Special
 
@@ -162,11 +163,49 @@ Return route to prior safe P1 workbench behavior.
 Current outcome:
 
 ```text
-IMPLEMENTATION_HOLD_PENDING_EXPLICIT_SH_T03_GO
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Implemented scope:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+docs/S6_SPRINT1_RQ03_PATCH_GATE_BATCH_ISOLATION_CHECKLIST_2026_04_27.md
+docs/S6_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_2026_04_25.md
+docs/HANDOFF.md
+```
+
+Implementation summary:
+
+- added a bounded `/search?tab=history` route;
+- enabled the existing Search / History nav item for the bounded route only;
+- added clamp-first history guard rendering with `data-route-order="resolve-clamp-guard-render"`;
+- clamped requested coverage to recorded coverage before render;
+- preserved `ResolvedSurfaceContext` as authority for role and coverage;
+- kept history surface read-only with no approve/reject/delay/observe/close CTA;
+- did not implement `SH-T01`, `SH-T02`, `SH-T04`, `SH-T05`, `SH-T06`, `SH-T08`, or `SH-T09`.
+
+Gate evidence:
+
+```text
+frontend tests: PASS, 60 tests
+frontend build: PASS
+backend guard: PASS, 42 tests
+git diff --check: PASS with Windows line-ending warnings only
+Claude Code focused review: PASS
+```
+
+Jira sync:
+
+```text
+SCRUM-31 [SH] Search / History - epic open
+SCRUM-32 [SH-T03] history route resolve -> clamp -> guard -> render - 已完成
 ```
 
 Next safe automation action:
 
 ```text
-WAIT_FOR_JARVIS_SH_T03_IMPLEMENTATION_GO_OR_OPEN_PATCH_GATE_BATCH_ISOLATION_CHECKLIST
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_PATCH_GATE_BATCH_ITEM
 ```

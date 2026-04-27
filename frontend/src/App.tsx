@@ -27,7 +27,7 @@ import {
   SwitchState
 } from "./secupilot/surface/context/types";
 
-type Route = "inbox" | "case";
+type Route = "inbox" | "case" | "search";
 type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
@@ -296,7 +296,7 @@ const NAV_ITEMS: NavItem[] = [
     routeKey: "search_history",
     roles: ["P0", "P1", "P2", "P3"],
     icon: History,
-    activeInSlice: false
+    activeInSlice: true
   },
   {
     label: "Approval Queue",
@@ -327,7 +327,27 @@ function initialRoute(): { route: Route; caseId: string | null } {
   if (caseMatch) {
     return { route: "case", caseId: decodeURIComponent(caseMatch[1]) };
   }
+  if (path === "/search") {
+    return { route: "search", caseId: null };
+  }
   return { route: "inbox", caseId: null };
+}
+
+function isCoverageLevel(value: string | null): value is CoverageLevel {
+  return value === "L0" || value === "L1" || value === "L2" || value === "L3";
+}
+
+function clampCoverageRequest(
+  requestedCoverage: CoverageLevel | null,
+  recordedCoverage: CoverageLevel
+): CoverageLevel {
+  if (!requestedCoverage) {
+    return recordedCoverage;
+  }
+  const ranks: Record<CoverageLevel, number> = { L0: 0, L1: 1, L2: 2, L3: 3 };
+  return ranks[requestedCoverage] > ranks[recordedCoverage]
+    ? recordedCoverage
+    : requestedCoverage;
 }
 
 interface AppProps {
@@ -394,7 +414,12 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
   }
 
   function navigate(nextRoute: Route, nextCaseId?: string) {
-    const path = nextRoute === "case" && nextCaseId ? `/case/${nextCaseId}` : "/inbox";
+    const path =
+      nextRoute === "case" && nextCaseId
+        ? `/case/${nextCaseId}`
+        : nextRoute === "search"
+          ? "/search?tab=history"
+          : "/inbox";
     window.history.pushState({}, "", path);
     setLocation({ route: nextRoute, caseId: nextCaseId ?? null });
   }
@@ -441,13 +466,17 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         <nav className="nav-list">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = item.routeKey === route || (item.routeKey === "inbox" && route === "case");
+            const isSearchRoute = item.routeKey === "search_history";
+            const isActive =
+              item.routeKey === route ||
+              (item.routeKey === "inbox" && route === "case") ||
+              (isSearchRoute && route === "search");
             return (
               <button
                 aria-disabled={!item.activeInSlice}
                 className={isActive ? "nav-item active" : "nav-item"}
                 key={item.routeKey}
-                onClick={() => item.activeInSlice && navigate("inbox")}
+                onClick={() => item.activeInSlice && navigate(isSearchRoute ? "search" : "inbox")}
                 type="button"
               >
                 <Icon aria-hidden="true" size={18} />
@@ -499,6 +528,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
             onFollowUpChange={setFollowUp}
             onFollowUpSubmit={submitFollowUp}
           />
+        ) : route === "search" ? (
+          <SearchHistoryView activeCase={activeCase} activeContext={activeContext} />
         ) : (
           <InboxView cases={cases} onOpenCase={(nextCaseId) => navigate("case", nextCaseId)} />
         )}
@@ -592,6 +623,84 @@ function InboxView({
           </article>
         ))}
       </div>
+    </section>
+  );
+}
+
+function SearchHistoryView({
+  activeCase,
+  activeContext
+}: {
+  activeCase: WorkbenchCase;
+  activeContext: ResolvedSurfaceContext;
+}) {
+  const requestedCoverageParam = new URLSearchParams(window.location.search).get("coverage");
+  const requestedCoverage = isCoverageLevel(requestedCoverageParam)
+    ? requestedCoverageParam
+    : null;
+  const recordedCoverage = activeContext.case.coverage_level;
+  const effectiveCoverage = clampCoverageRequest(requestedCoverage, recordedCoverage);
+
+  return (
+    <section
+      className="page-region history-surface"
+      aria-labelledby="history-title"
+      data-testid="history-surface"
+    >
+      <div className="page-heading">
+        <p>Search / History</p>
+        <h1 id="history-title">History guard</h1>
+      </div>
+
+      <article
+        className="history-guard-panel"
+        data-authority-source="resolved-surface-context"
+        data-effective-coverage={effectiveCoverage}
+        data-recorded-coverage={recordedCoverage}
+        data-requested-coverage={requestedCoverage ?? "none"}
+        data-route-order="resolve-clamp-guard-render"
+        data-route-source="frontend-route"
+        data-testid="history-route-guard"
+      >
+        <div>
+          <p className="section-kicker">SH-T03</p>
+          <h2>Clamp-first history route</h2>
+          <p>
+            Route input is resolved, clamped to the recorded coverage ceiling, then rendered as a
+            read-only history guard.
+          </p>
+        </div>
+        <dl className="history-guard-facts" aria-label="History route guard facts">
+          <div>
+            <dt>Recorded coverage</dt>
+            <dd>{recordedCoverage}</dd>
+          </div>
+          <div>
+            <dt>Requested coverage</dt>
+            <dd>{requestedCoverage ?? "none"}</dd>
+          </div>
+          <div>
+            <dt>Effective coverage</dt>
+            <dd>{effectiveCoverage}</dd>
+          </div>
+          <div>
+            <dt>Authority</dt>
+            <dd>ResolvedSurfaceContext</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article className="history-case-row" data-testid="history-case-row">
+        <div>
+          <span>{activeCase.id}</span>
+          <h2>{activeCase.verdict}</h2>
+        </div>
+        <p>{activeCase.summary}</p>
+      </article>
+
+      <p className="history-write-guard" data-testid="history-write-guard">
+        Read-only history surface. No write actions are attached.
+      </p>
     </section>
   );
 }
