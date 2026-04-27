@@ -2213,41 +2213,6 @@ Next route:
 WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_PATCH_GATE_BATCH_ITEM
 ```
 
-## 61. Update 2026-04-27: RQ-04 Exact Bounded Runner Queue
-
-RQ-04 exact bounded runner queue:
-
-```text
-docs/S6_SPRINT1_RQ04_EXACT_BOUNDED_RUNNER_QUEUE_2026_04_27.md
-```
-
-Immediate launch checklists:
-
-```text
-docs/S6_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_LAUNCH_CHECKLIST_2026_04_27.md
-docs/S6_SH_T05_READONLY_FOCUS_SCOPE_LAUNCH_CHECKLIST_2026_04_27.md
-```
-
-Decision:
-
-```text
-BOUNDED_RUNNER_QUEUE_OPEN_EP_T05_SH_T05_THEN_SH_T07
-```
-
-Interpretation:
-
-- The background runner has a new exact bounded queue after `SH-T03`.
-- `EP-T05` and `SH-T05` are the only immediate code-ticket candidates.
-- Each ticket must reconcile first, then implement only if its checklist remains `GO` and exact allowed files are sufficient.
-- `SH-T07` may be opened only after `SH-T05` closeout.
-- If no code ticket is safe, the runner may do bounded Jira parity sync for already repo-closed rows only.
-
-Next route:
-
-```text
-OPEN_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_LAUNCH_CHECKLIST
-```
-
 ## 60. Update 2026-04-27: SH-T03 Patch-Gate Isolated Implementation Closeout
 
 SH-T03 patch-gate isolated implementation record:
@@ -2283,4 +2248,68 @@ Next route:
 
 ```text
 WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_PATCH_GATE_BATCH_ITEM
+```
+
+## 61. Update 2026-04-27: RQ-04 Exact Bounded Runner Queue
+
+RQ-04 exact bounded runner queue:
+
+```text
+docs/S6_SPRINT1_RQ04_EXACT_BOUNDED_RUNNER_QUEUE_2026_04_27.md
+```
+
+Immediate launch checklists:
+
+```text
+docs/S6_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_LAUNCH_CHECKLIST_2026_04_27.md
+docs/S6_SH_T05_READONLY_FOCUS_SCOPE_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+BOUNDED_RUNNER_QUEUE_OPEN_EP_T05_SH_T05_THEN_SH_T07
+```
+
+Interpretation:
+
+- The background runner has a new exact bounded queue after `SH-T03`.
+- `EP-T05` and `SH-T05` are the only immediate code-ticket candidates.
+- Each ticket must reconcile first, then implement only if its checklist remains `GO` and exact allowed files are sufficient.
+- `SH-T07` may be opened only after `SH-T05` closeout.
+- If no code ticket is safe, the runner may do bounded Jira parity sync for already repo-closed rows only.
+
+Next route:
+
+```text
+OPEN_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_LAUNCH_CHECKLIST
+```
+
+## 62. Update 2026-04-27: Sprint 1-4 Automation Acceleration Matrix
+
+Sprint 1-4 automation acceleration matrix:
+
+```text
+docs/S6_SPRINT1_4_AUTOMATION_ACCELERATION_MATRIX_2026_04_27.md
+```
+
+Decision:
+
+```text
+ACCELERATION_MATRIX_ACTIVE_WITH_QUALITY_GATES
+```
+
+Interpretation:
+
+- Jarvis has authorized Sprint 1-4 automation acceleration under quality-preserving gates.
+- Normal-batch tickets may launch/reconcile/implement/gate/review/Jira-sync/stage/commit/push when exact files/tests are present and no HOLD condition fires.
+- Visual-dependent tickets may proceed only as semantic skeleton / test id / accessibility / layout-slot work until frames arrive.
+- Patch-gate tickets may create isolated checklists; implementation remains one-at-a-time and only when exact files/tests and no product/contract conflict are proven.
+- Regression follow-ups may start after each PASS implementation inside exact files and with no new product scope.
+- Jira/Tracker sync may mark PASS or no-code reconciled tickets only; blocked or non-ready rows must not be marked Done.
+
+Next route:
+
+```text
+CONTINUE_RQ04_EP_T05_SH_T05_THEN_APPLY_ACCELERATION_MATRIX
 ```
