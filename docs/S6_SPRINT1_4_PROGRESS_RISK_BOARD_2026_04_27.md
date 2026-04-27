@@ -24,9 +24,9 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
-| Needs authority review | 17 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
+| Needs authority review | 14 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
-| HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 10 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -97,8 +97,6 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | Ticket | Sprint | Primary blocker |
 | --- | --- | --- |
 | `IN-T03` | Sprint 1 | P2 shortcut approval/close entry depends on later AP CTA semantics; `AP-T10` display mapping is now available but not sufficient. |
-| `CD-T06` | Sprint 1 | State header dependency on AP state mapping is partially cleared by `AP-T10`; still needs its own isolated checklist. |
-| `AP-T02` | Sprint 2 | P0 read-only approval container depends on AP route authority. |
 | `AP-T03` | Sprint 2 | Approval CTA semantics depend on route and state mapping. |
 | `AP-T04` | Sprint 2 | Approve confirm flow depends on AP CTA semantics. |
 | `AP-T05` | Sprint 2 | Observe/delay window configuration depends on AP CTA/state semantics. |
@@ -108,7 +106,6 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
 | `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
-| `MV-T02` | Sprint 3B | Manager read-only variants depend on `MV-T01` closeout acceptance. |
 | `MV-T03` | Sprint 3B | Manager deep-link handoff depends on `MV-T01` closeout acceptance. |
 | `MV-T04` | Sprint 3B | P3 approval audit summary is patch-gate and P3-authority sensitive. |
 | `MV-T05` | Sprint 3B | Manager acceptance depends on MV implementation chain. |
@@ -131,10 +128,13 @@ These should not be started until dependencies close or a later exact checklist 
 | Ticket | Sprint | HOLD reason |
 | --- | --- | --- |
 | `IN-T06` | Sprint 1 | Depends on `IN-T03` and `IN-T04`. |
+| `CD-T06` | Sprint 1 | Checklist HOLD: missing renderable `CLOSED` fixture and `VF-11/VF-12/VF-13` state-header frames; Jira `SCRUM-53` remains not Done. |
 | `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
 | `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
+| `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
 | `CH-T03` | Sprint 4 | Patch-gate possible; requires a separate isolated checklist after `CH-T01`. |
 | `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
+| `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
 | `SH-T04` | Sprint 3A | Depends on `SH-T01`. |
 | `SH-T09` | Sprint 3A | Depends on `SH-T01`, `SH-T02`, `SH-T05`, `SH-T06`, `SH-T07`, and `SH-T08`. |
 
@@ -154,11 +154,11 @@ Blocked/HOLD/design/authority: 27
 Best next automation burn-down path:
 
 ```text
-CD-T06 isolated checklist -> next exact authority-isolated ticket -> safe Jira parity sync
+Authority input for CD-T06/AP-T02/MV-T02 -> next exact bounded ticket -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:
 
 ```text
-Keep P2/AP/CD follow-ups isolated one ticket at a time; do not start CD-T07 until both CD-T05 and CD-T06 are accepted
+Do not start CD-T07 until CD-T06 is accepted; do not implement AP-T02/MV-T02 without renderable authority contexts
 ```

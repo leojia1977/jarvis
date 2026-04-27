@@ -3126,3 +3126,87 @@ Next route:
 ```text
 OPEN_CD_T06_STATE_HEADER_ISOLATED_CHECKLIST_OR_NEXT_EXACT_AUTHORITY_TICKET
 ```
+
+## 90. Update 2026-04-27: CD-T06 State Header Isolated Checklist
+
+Checklist record:
+
+```text
+docs/S6_CD_T06_STATE_HEADER_ISOLATED_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+ISOLATED_CHECKLIST_HOLD_MISSING_CLOSED_FIXTURE_AND_VISUAL_FRAMES
+```
+
+Interpretation:
+
+- `AP-T10` has closed the D-02 display mapping dependency.
+- Existing fixture phases can exercise `OBSERVATION_WINDOW` and `APPROVED_PENDING_EXECUTION`.
+- Existing fixture phases cannot render `CLOSED`.
+- `VF-11`, `VF-12`, and `VF-13` remain missing for full state-header treatment.
+- Implementing now would either leave `CLOSED` untested or require fixture/adapter/validator/`ResolvedSurfaceContext` changes, which are outside current authorization.
+- The conditional implementation GO does not activate.
+- Jira cloud is synchronized as `SCRUM-53`, status remains not Done, with HOLD evidence comment.
+
+Next route:
+
+```text
+OPEN_AP_T02_P0_READONLY_APPROVAL_READINESS_CHECKLIST
+```
+
+## 91. Update 2026-04-27: AP-T02 P0 Readonly Approval Readiness Checklist
+
+Checklist record:
+
+```text
+docs/S6_AP_T02_P0_READONLY_APPROVAL_READINESS_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+READINESS_CHECKLIST_HOLD_PENDING_P0_RENDERABLE_APPROVAL_CONTEXT
+```
+
+Interpretation:
+
+- `AP-T01` already provides `/approval` shell/guard behavior and a code path for P0 readonly if a P0 resolved context is supplied.
+- Current fixture phases do not provide a renderable P0 approval context.
+- Completing AP-T02 would require a P0 approval context or separate approved harness path; no implementation GO activates.
+- Jira cloud is synchronized as `SCRUM-54`, status remains not Done, with HOLD evidence comment.
+
+Next route:
+
+```text
+OPEN_MV_T02_P0_P2_MANAGER_READONLY_VARIANT_READINESS_CHECKLIST
+```
+
+## 92. Update 2026-04-27: MV-T02 P0/P2 Manager Readonly Variant Readiness Checklist
+
+Checklist record:
+
+```text
+docs/S6_MV_T02_P0_P2_MANAGER_READONLY_VARIANT_READINESS_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+READINESS_CHECKLIST_HOLD_PENDING_MANAGER_VARIANT_AUTHORITY_MODEL
+```
+
+Interpretation:
+
+- `MV-T01` intentionally implemented P3-only Manager View and preserved the Claude Web guard against P0/P2 placeholders.
+- `MV-T02` is the correct ticket for P0/P2 degraded readonly variants, but current `ResolvedSurfaceContext` authority and fixture flow do not yet define safe P0/P2 Manager contexts.
+- Implementing now would risk creating a manager authority branch without a governed model; no implementation GO activates.
+- Jira cloud is synchronized as `SCRUM-55`, status remains not Done, with HOLD evidence comment.
+
+Next route:
+
+```text
+WAIT_FOR_AUTHORITY_INPUT_OR_NEXT_EXACT_BOUNDED_TICKET
+```
