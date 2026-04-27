@@ -19,8 +19,8 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 12 | Repo implementation or no-code reconciliation is already accepted. |
-| Running | 2 | In the active runner queue. |
+| Done | 13 | Repo implementation or no-code reconciliation is already accepted. |
+| Running | 1 | In the active runner queue. |
 | Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 7 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 4 | Authorized for readiness/checklist only; no implementation GO. |
@@ -45,13 +45,13 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `CD-T04` | Sprint 1 | Implemented and Jira-synced. |
 | `EP-T01` | Sprint 1 | Implemented and pushed. |
 | `EP-T04` | Sprint 1 | No-code reconciliation and Jira-synced. |
+| `EP-T05` | Sprint 1 | Implemented, gated, reviewed, Jira-synced. |
 | `SH-T03` | Sprint 3A | Patch-isolated implementation, gate PASS, Jira-synced. |
 
 ## 4. Running
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| `EP-T05` | Sprint 1 | Active RQ-04 queue: reconcile first, implement only if checklist remains `GO`. |
 | `SH-T05` | Sprint 3A | Active RQ-04 queue: reconcile first, implement only if checklist remains `GO`. |
 
 ## 5. Auto-Ready
@@ -139,8 +139,8 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 12 / 54
-Running: 2
+Done: 13 / 54
+Running: 1
 Auto-ready: 1
 Skeleton-ready: 7
 Checklist-only: 4
@@ -150,7 +150,7 @@ Blocked/HOLD/design/authority: 28
 Best next automation burn-down path:
 
 ```text
-EP-T05 -> SH-T05 -> SH-T07 -> GS-T04 skeleton -> IN-T02 skeleton -> IN-T04 skeleton -> EP-T02 skeleton -> EP-T03 skeleton -> SH-T01 skeleton -> CH-T01 skeleton
+SH-T05 -> SH-T07 -> GS-T04 skeleton -> IN-T02 skeleton -> IN-T04 skeleton -> EP-T02 skeleton -> EP-T03 skeleton -> SH-T01 skeleton -> CH-T01 skeleton
 ```
 
 Best next risk-reduction path:

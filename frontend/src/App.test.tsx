@@ -466,6 +466,28 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();
   });
 
+  it("renders a cautious P3 technical summary fallback without host detail or write controls", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByLabelText("Mock fixture phase"), "6");
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
+    await user.click(
+      within(evidencePanel).getByRole("button", { name: /Technical summary fallback/i })
+    );
+
+    const fallback = within(evidencePanel).getByTestId("p3-technical-panel-fallback");
+    expect(fallback).toHaveAttribute("data-evidence-frame-id", "technical_summary_fallback");
+    expect(fallback).toHaveTextContent("Detailed technical records are outside this P3 surface");
+    expect(fallback).toHaveTextContent("read-only fallback");
+    expect(fallback).not.toHaveTextContent(/完全受控|已彻底消除|command line|process tree/i);
+    expect(within(evidencePanel).queryByText(panelTitle("process_evidence"))).not.toBeInTheDocument();
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
+  });
+
   it("renders missing-signal redline notices from ui_messages only", async () => {
     const user = userEvent.setup();
     render(<App />);

@@ -2407,3 +2407,33 @@ Next route:
 ```text
 USE_CLAUDE_WEB_REVIEW_EVIDENCE_IN_AP_T10_AP_T01_CD_T05_MV_T01_CHECKLISTS
 ```
+
+## 66. Update 2026-04-27: EP-T05 P3 Technical Panel Fallback Closeout
+
+Closeout record:
+
+```text
+docs/S6_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+EP_T05_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `EP-T05` is implemented inside the existing Case Detail evidence frame logic.
+- P3 still omits host-level raw evidence from the DOM.
+- P3 now receives a cautious, read-only technical summary fallback when host-level technical panels are omitted.
+- Gates passed: frontend tests 61, frontend build, backend guard 42, and `git diff --check`.
+- Claude Code focused review returned `VERDICT: PASS`.
+- Jira cloud is synchronized as `SCRUM-33 [EP-T05] P3 technical panel fallback`, status `已完成`, parent `SCRUM-25`.
+- This does not authorize `EP-T02`, `EP-T03`, `EP-T06`, P2 Approval Surface, P3 Manager View, approval audit source/data rules, Search/History changes, route handoff beyond existing surfaces, fixture/adapter/validator/ResolvedSurfaceContext changes, backend/runtime/API/schema, Storybook, Playwright, real data, secrets, deploy, public endpoint, or external pilot.
+
+Next route:
+
+```text
+OPEN_SH_T05_READONLY_FOCUS_SCOPE_RECONCILIATION_OR_IMPLEMENTATION
+```

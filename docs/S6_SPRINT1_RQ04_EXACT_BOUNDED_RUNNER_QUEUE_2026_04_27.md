@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 Sprint 1 RQ-04 Exact Bounded Runner Queue 2026-04-27 |
 | Queue item | `RQ-04` |
-| Status | BOUNDED_RUNNER_QUEUE_OPEN |
+| Status | BOUNDED_RUNNER_QUEUE_OPEN_EP_T05_CLOSED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -69,9 +69,14 @@ Run in this order:
    - If no-code coverage is sufficient, close out as reconciliation and sync Jira.
    - If implementation is needed, proceed only if the checklist remains `GO` and exact allowed files are sufficient.
 
+   Status: `IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED`.
+   Closeout: `docs\S6_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_CLOSEOUT_2026_04_27.md`.
+
 2. `EP-T05-IMPLEMENT`
    - Allowed only if `EP-T05-LAUNCH` returns `GO`.
    - Must stay inside the checklist's allowed files.
+
+   Status: complete. Do not reopen duplicate EP-T05 implementation.
 
 3. `SH-T05-LAUNCH`
    - Use `docs\S6_SH_T05_READONLY_FOCUS_SCOPE_LAUNCH_CHECKLIST_2026_04_27.md`.
@@ -159,5 +164,5 @@ HOLD immediately if:
 Next safe automation action:
 
 ```text
-OPEN_EP_T05_P3_TECHNICAL_PANEL_FALLBACK_LAUNCH_CHECKLIST
+OPEN_SH_T05_READONLY_FOCUS_SCOPE_LAUNCH_CHECKLIST
 ```

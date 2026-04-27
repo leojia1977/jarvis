@@ -32,7 +32,8 @@ type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
   | "event_timeline"
-  | "attack_lineage";
+  | "attack_lineage"
+  | "technical_summary_fallback";
 type EvidenceMode = "auto" | "manual";
 type SubordinatePanel = "evidence" | "timeline" | "blast_radius";
 type NarrativeKey = "WHAT" | "WHY" | "INTENT" | "HONESTY" | "DECISION";
@@ -125,7 +126,8 @@ const EVIDENCE_FRAME_IDS: EvidenceFrameId[] = [
   "process_evidence",
   "lateral_topology",
   "event_timeline",
-  "attack_lineage"
+  "attack_lineage",
+  "technical_summary_fallback"
 ];
 type RedlineFixtureId = (typeof E0_04C_REDLINE_FIXTURE_IDS)[number];
 type RenderableMockPhase = Pick<CoreSurfaceFixturePhase, "phase" | "name" | "expected_ui">;
@@ -199,7 +201,10 @@ function buildTrace(phase: RenderableMockPhase): WorkbenchCase["trace"] {
 }
 
 function buildEvidenceFrames(role: Role): WorkbenchCase["evidenceFrames"] {
-  return FIXTURE.evidence_panels
+  const omittedTechnicalPanels = FIXTURE.evidence_panels.filter(
+    (panel) => role === "P3" && panel.contains_host_level_raw_evidence
+  );
+  const visibleFrames = FIXTURE.evidence_panels
     .filter((panel) => role !== "P3" || !panel.contains_host_level_raw_evidence)
     .map((panel) => ({
       id: toEvidenceFrameId(panel.panel_id),
@@ -210,6 +215,21 @@ function buildEvidenceFrames(role: Role): WorkbenchCase["evidenceFrames"] {
           ? panel.p3_rendering
           : `Mock fixture panel ${panel.panel_id}; provenance remains metadata only.`
     }));
+
+  if (omittedTechnicalPanels.length === 0) {
+    return visibleFrames;
+  }
+
+  return [
+    ...visibleFrames,
+    {
+      id: "technical_summary_fallback",
+      title: "Technical summary fallback",
+      provenance: "summary fallback",
+      summary:
+        "Detailed technical records are outside this P3 surface. This read-only fallback keeps the case summary cautious and does not add operational certainty."
+    }
+  ];
 }
 
 function buildWorkbenchCase(
@@ -1240,7 +1260,16 @@ function EvidenceSubordinatePanel({
       <p className="evidence-mode">
         Read-only frame summaries with Auto / Manual and Pin controls.
       </p>
-      <article className="active-evidence-frame" aria-live="polite">
+      <article
+        className="active-evidence-frame"
+        aria-live="polite"
+        data-evidence-frame-id={activeEvidenceFrame.id}
+        data-testid={
+          activeEvidenceFrame.id === "technical_summary_fallback"
+            ? "p3-technical-panel-fallback"
+            : "active-evidence-frame"
+        }
+      >
         <div>
           <h3>{activeEvidenceFrame.title}</h3>
           <span>{activeEvidenceFrame.provenance}</span>
