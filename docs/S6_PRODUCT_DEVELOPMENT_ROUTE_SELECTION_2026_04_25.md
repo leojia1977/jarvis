@@ -3210,3 +3210,30 @@ Next route:
 ```text
 WAIT_FOR_AUTHORITY_INPUT_OR_NEXT_EXACT_BOUNDED_TICKET
 ```
+
+## 93. Update 2026-04-27: 12h Low-Risk Automation Queue
+
+Queue record:
+
+```text
+docs/S6_12H_LOW_RISK_AUTOMATION_QUEUE_2026_04_27.md
+```
+
+Decision:
+
+```text
+LOW_RISK_AUTOMATION_QUEUE_AUTHORIZED_FOR_CHECKLIST_RECONCILIATION_NO_CODE_AUTHORITY_PACKS
+```
+
+Interpretation:
+
+- Jarvis authorized a new overnight low-risk queue for checklist, reconciliation, no-code, authority-pack, design-frame request, and Jira parity audit work.
+- The queue intentionally does not authorize implementation, final visual PASS, backend/runtime/API/schema changes, fixture registry/adapter/validator changes, `ResolvedSurfaceContext` changes, real data, secrets, deploy/public endpoint, or external pilot.
+- The queue should reduce tomorrow's decision load by producing exact blocker maps and unblock packs for `CD-T06`, `AP-T02`, `MV-T02`, AP authority decomposition, MV/SH audit authority, design frame requests, and Jira parity audit notes.
+- Any implementation candidate discovered by the queue must stop at `IMPLEMENTATION_GO_REQUIRED`.
+
+Next route:
+
+```text
+RUN_LR_01_THROUGH_LR_08_LOW_RISK_QUEUE_OR_HOLD_WITH_EVIDENCE
+```

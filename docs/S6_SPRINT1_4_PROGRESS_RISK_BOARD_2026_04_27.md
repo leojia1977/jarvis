@@ -151,6 +151,18 @@ Checklist-only: 0
 Blocked/HOLD/design/authority: 27
 ```
 
+Active non-tracker automation queue:
+
+```text
+docs\S6_12H_LOW_RISK_AUTOMATION_QUEUE_2026_04_27.md
+```
+
+Queue purpose:
+
+```text
+low-risk checklist / reconciliation / no-code / authority-pack / design-frame request / Jira parity audit only
+```
+
 Best next automation burn-down path:
 
 ```text
