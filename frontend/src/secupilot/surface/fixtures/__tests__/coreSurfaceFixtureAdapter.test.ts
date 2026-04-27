@@ -99,6 +99,19 @@ describe("core surface mock fixture adapter", () => {
     expect(context.action_request?.action_mode).toBe("IMMEDIATE");
   });
 
+  it("keeps observation-window audit order before Phase 5 approval", () => {
+    const context = adaptCoreSurfaceFixturePhase(5);
+    const events = context.audit_trail.map((event) => event.event);
+
+    expect(events).toEqual([
+      "AR_SUBMITTED",
+      "P2_OPENED_AR",
+      "OBSERVE_ONLY_SELECTED",
+      "OBSERVATION_WINDOW_EXPIRED",
+      "APPROVED_AFTER_WINDOW"
+    ]);
+  });
+
   it("maps Phase 6 to P3 manager review without privileged raw technical payload", () => {
     const context = adaptCoreSurfaceFixturePhase(6);
     const serialized = JSON.stringify(context);

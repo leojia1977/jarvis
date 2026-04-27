@@ -6,12 +6,12 @@
 | --- | --- |
 | Title | S6 E0-02B Fixture QA Expansion Launch Checklist 2026-04-27 |
 | Ticket | `E0-02B` |
-| Status | RECONCILIATION_READY_IMPLEMENTATION_NOT_AUTHORIZED |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_STAGE_COMMIT_PUSH |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
-| Current repo baseline | `2a71408` |
-| Primary implementor | TBD at implementation GO |
+| Current repo baseline | `dada66e` |
+| Primary implementor | Codex |
 | Execution surface | `codex` unless later changed by Jarvis |
 | Workspace surface | VS Code / local repo |
 | Reviewer | Claude Code focused review |
@@ -19,9 +19,9 @@
 | External review | conditional |
 | SWE | disabled unless a later exact sub-ticket names it |
 
-This record creates the `E0-02B` reconciliation and launch checklist only.
+This record creates the `E0-02B` reconciliation and launch checklist and records the later bounded implementation closeout evidence.
 
-It does not authorize implementation, code changes, dependency changes, Storybook changes, Playwright changes, backend/runtime/API/schema changes, real data, secrets, deploy, public endpoint work, external pilot, stage, commit, or push.
+It does not authorize dependency changes, Storybook changes, Playwright changes, backend/runtime/API/schema changes, real data, secrets, deploy, public endpoint work, external pilot, or stage/commit/push without separate Jarvis authorization.
 
 ## 2. Reconciliation Decision
 
@@ -217,23 +217,93 @@ HOLD immediately if:
 Current decision:
 
 ```text
-IMPLEMENTATION_NOT_AUTHORIZED_YET
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_STAGE_COMMIT_PUSH
 ```
 
 Automation queue registration:
 
 ```text
-AUTOMATION_CANDIDATE_PENDING_JARVIS_IMPLEMENTATION_GO
+IMPLEMENTATION_COMPLETED_PENDING_JARVIS_STAGE_COMMIT_PUSH_AUTHORIZATION
 ```
 
 Interpretation:
 
-- E0-02B is now listed as the next bounded automation candidate.
-- Autonomous implementation must not start until Jarvis explicitly authorizes E0-02B bounded implementation GO.
-- Until that GO exists, automation may only preserve this checklist, route, and handoff state.
+- Jarvis authorized E0-02B bounded implementation GO on 2026-04-27.
+- Implementation stayed inside the exact file scope in section 6.
+- E0-02B is not yet committed or pushed in this closeout record.
 
-Next required Jarvis decision:
+Next required Jarvis decision, if desired:
 
 ```text
-Authorize or hold E0-02B bounded implementation GO.
+Authorize or hold E0-02B stage/commit/push.
 ```
+
+## 12. Implementation Closeout Evidence
+
+Implemented:
+
+- `MockFixtureAdapter.getFixture(id, { validate })` with `validate=true` as the default.
+- Runtime enforcement that `validate=false` is allowed only for `poison_pill` fixtures.
+- Fixture registry groups for phase, boundary-case, poison-pill, and resolver-degradation fixtures.
+- Phase 07 `CROSS_SURFACE` fixture-only walkthrough.
+- Boundary fixtures for P3 audit unavailable, P2 CMDB tags unavailable, dirty observation-window update, and stale approve rejection.
+- Resolver-degradation fixtures for L1 blast radius, L1 lineage confidence, P3 technical redaction, and search-history current/recorded level conflicts.
+- Poison-pill fixtures that fail closed through `ContextValidator`.
+- Fixture README ownership and validation rules.
+- Temporal audit-order test for Phase 5.
+
+Implementation files:
+
+- `frontend/src/secupilot/surface/fixtures/fixtureTypes.ts`
+- `frontend/src/secupilot/surface/fixtures/fixtureRegistry.ts`
+- `frontend/src/secupilot/surface/fixtures/mockFixtureAdapter.ts`
+- `frontend/src/secupilot/surface/fixtures/README.md`
+- `frontend/src/secupilot/surface/fixtures/__tests__/mockFixtureAdapter.test.ts`
+- `frontend/src/secupilot/surface/fixtures/__tests__/coreSurfaceFixtureAdapter.test.ts`
+
+Gate evidence:
+
+```text
+npm run test -- --run
+PASS: 5 test files, 47 tests
+
+npm run build
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS: line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+PASS_WITH_NOTES, then follow-up PASS after addressing the two non-blocking notes.
+```
+
+External review:
+
+```text
+NOT_REQUIRED_FOR_E0_02B
+```
+
+External review rationale:
+
+- no E0-01 root authority semantics changed;
+- `ContextValidator` was not loosened;
+- no product workflow semantics changed;
+- no Storybook, Playwright, backend/runtime/API/schema, route handoff, or cross-surface propagation implementation changed;
+- no real-data, secrets, deploy, public endpoint, or external pilot behavior was introduced.
+
+Still not implemented:
+
+- P1/P2/P3 page UI changes;
+- Storybook story changes;
+- Playwright E2E changes;
+- P2 strong-confirm or decision workflows;
+- route handoff or runtime cross-surface propagation;
+- backend/runtime/API/schema;
+- real, anonymized, redacted, masked, sampled, or customer-derived data;
+- secrets, launch, deploy, public endpoint, or external pilot.
