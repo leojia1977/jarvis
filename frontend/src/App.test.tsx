@@ -564,7 +564,21 @@ describe("SecuPilot first-batch workbench slice", () => {
     const timelinePanel = within(evidencePanel).getByTestId("timeline-subordinate-panel");
     expect(timelinePanel).toHaveTextContent("Read-only timeline");
     expect(timelinePanel).toHaveTextContent(/Fixture loaded|moved the mock case context/i);
+    const inferredNodeSlot = within(timelinePanel).getByTestId("inferred-node-weakening-slot");
+    expect(inferredNodeSlot).toHaveAttribute("data-inferred-node", "true");
+    expect(inferredNodeSlot).toHaveAttribute("data-direct-evidence-node", "false");
+    expect(inferredNodeSlot).toHaveAttribute("data-evidence-weight", "weakened");
+    expect(inferredNodeSlot).toHaveAttribute("data-visual-state", "skeleton");
+    expect(inferredNodeSlot).toHaveAttribute("data-vf-10-state", "pending");
+    expect(within(inferredNodeSlot).getByTestId("inferred-node-weight-label")).toHaveTextContent(
+      /lower weight than direct evidence/i
+    );
+    expect(
+      within(inferredNodeSlot).getByTestId("inferred-node-source-boundary")
+    ).toHaveTextContent(/No graph, tool, node, or new fact/i);
     expect(window.location.pathname).toBe("/case/CASE-2847");
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
+    expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
 
     await user.click(within(subordinateSelector).getByRole("button", { name: "Blast Radius" }));
 

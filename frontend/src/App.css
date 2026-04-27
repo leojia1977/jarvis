@@ -1304,6 +1304,27 @@ button {
   font-weight: 900;
 }
 
+.inferred-node-weakening-slot {
+  display: grid;
+  gap: 5px;
+  margin-top: 12px;
+  border: 1px dashed #b7c7cf;
+  border-radius: 7px;
+  background: #f8faf9;
+  padding: 10px 12px;
+}
+
+.inferred-node-weakening-slot strong {
+  color: #44515f;
+  font-size: 13px;
+}
+
+.inferred-node-weakening-slot span {
+  color: #5d6a76;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .blast-radius-facts {
   display: grid;
   gap: 10px;

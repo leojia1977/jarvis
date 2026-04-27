@@ -1609,6 +1609,25 @@ function TimelineSubordinatePanel({ trace }: { trace: WorkbenchCase["trace"] }) 
           </li>
         ))}
       </ol>
+      <div
+        aria-label="Inferred timeline node weakening slot"
+        className="inferred-node-weakening-slot"
+        data-direct-evidence-node="false"
+        data-evidence-weight="weakened"
+        data-inferred-node="true"
+        data-testid="inferred-node-weakening-slot"
+        data-vf-10-state="pending"
+        data-visual-state="skeleton"
+        role="note"
+      >
+        <strong>Inferred timeline node</strong>
+        <span data-testid="inferred-node-weight-label">
+          Weakened slot only; lower weight than direct evidence.
+        </span>
+        <span data-testid="inferred-node-source-boundary">
+          No graph, tool, node, or new fact is created in this mock UI.
+        </span>
+      </div>
     </section>
   );
 }

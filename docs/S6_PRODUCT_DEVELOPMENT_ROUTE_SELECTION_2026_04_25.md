@@ -2617,3 +2617,34 @@ Next route:
 ```text
 OPEN_EP_T02_INFERRED_NODE_WEAKENING_SLOT_SKELETON_LAUNCH
 ```
+
+## 73. Update 2026-04-27: EP-T02 Inferred Node Weakening Slot Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_EP_T02_INFERRED_NODE_WEAKENING_SLOT_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+EP_T02_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- The existing Timeline subordinate panel now has an inferred-node weakening semantic slot.
+- The slot is explicitly marked lower weight than direct evidence and `VF-10` pending.
+- The slot creates no graph, tool, node, fixture, or new product fact.
+- No final `VF-10` visual PASS, `EP-T03` lineage-confidence implementation, route handoff, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates passed: frontend tests 66, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-38 [EP-T02] Inferred-node weakening slot skeleton`, status `已完成`, parent `SCRUM-25`.
+- SWE was not used for this product patch; it remains disabled until a later exact SWE-enabled ticket names exact files/tests/rollback/HOLD/reviewer.
+
+Next route:
+
+```text
+OPEN_EP_T03_L1_LINEAGE_DEGRADATION_SEMANTIC_SKELETON_LAUNCH
+```
