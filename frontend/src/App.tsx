@@ -614,6 +614,7 @@ function CaseDetail({
   const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("auto");
   const [activeSubordinatePanel, setActiveSubordinatePanel] =
     useState<SubordinatePanel>("evidence");
+  const [isHonestyExpanded, setIsHonestyExpanded] = useState(true);
   const [isEvidencePinned, setIsEvidencePinned] = useState(false);
   const [isActionRequestDialogOpen, setIsActionRequestDialogOpen] = useState(false);
   const [hasLocalActionRequestSubmission, setHasLocalActionRequestSubmission] = useState(false);
@@ -664,6 +665,11 @@ function CaseDetail({
     activeCase.arStatus === null &&
     !hasLocalActionRequestSubmission;
   const canRenderBlastRadiusPanel = activeCase.coverage !== "L1";
+  const honestyLayerContentId = `${activeCase.id}-honesty-layer-content`;
+  const unsupportedClaimSet = useMemo(
+    () => new Set(activeCase.redline.unsupportedClaims),
+    [activeCase.redline.unsupportedClaims]
+  );
 
   useEffect(() => {
     if (!canRenderBlastRadiusPanel && activeSubordinatePanel === "blast_radius") {
@@ -844,26 +850,75 @@ function CaseDetail({
           <RedlineRenderabilityPanel activeCase={activeCase} />
 
           <div className="spine-sections">
-            {narrativeSections.map((section) => (
-              <article className="spine-section" key={section.key}>
-                <div className="spine-section-header">
-                  <h3>{section.key}</h3>
-                  <button
-                    aria-label={`${section.key} evidence anchor`}
-                    aria-disabled={!canUseNarrativeEvidence}
-                    onClick={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
-                    onFocus={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
-                    onMouseEnter={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
-                    type="button"
-                  >
-                    Show evidence
-                  </button>
-                </div>
-                {section.items.map((item, index) => (
-                  <p key={`${section.key}-${index}`}>{item}</p>
-                ))}
-              </article>
-            ))}
+            {narrativeSections.map((section) => {
+              const isHonestySection = section.key === "HONESTY";
+              const persistentHonestyItems = isHonestySection
+                ? section.items.filter((item) => unsupportedClaimSet.has(item))
+                : [];
+              const visibleItems =
+                isHonestySection && !isHonestyExpanded
+                  ? persistentHonestyItems.length > 0
+                    ? persistentHonestyItems
+                    : section.items
+                  : section.items;
+              const foldedItemCount = section.items.length - visibleItems.length;
+
+              return (
+                <article
+                  className={isHonestySection ? "spine-section honesty-layer" : "spine-section"}
+                  data-expanded={isHonestySection ? String(isHonestyExpanded) : undefined}
+                  data-persistent={isHonestySection ? "true" : undefined}
+                  data-testid={isHonestySection ? "honesty-layer" : undefined}
+                  key={section.key}
+                >
+                  <div className="spine-section-header">
+                    <h3>{section.key}</h3>
+                    <div className="spine-section-actions">
+                      {isHonestySection ? (
+                        <button
+                          aria-controls={honestyLayerContentId}
+                          aria-expanded={isHonestyExpanded}
+                          onClick={() => setIsHonestyExpanded((value) => !value)}
+                          type="button"
+                        >
+                          {isHonestyExpanded ? "Fold honesty details" : "Expand honesty details"}
+                        </button>
+                      ) : null}
+                      <button
+                        aria-label={`${section.key} evidence anchor`}
+                        aria-disabled={!canUseNarrativeEvidence}
+                        onClick={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
+                        onFocus={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
+                        onMouseEnter={() => handleNarrativeEvidenceTrigger(section.evidenceFrameId)}
+                        type="button"
+                      >
+                        Show evidence
+                      </button>
+                    </div>
+                  </div>
+                  <div id={isHonestySection ? honestyLayerContentId : undefined}>
+                    {visibleItems.map((item) => (
+                      <p
+                        data-testid={
+                          isHonestySection && unsupportedClaimSet.has(item)
+                            ? "honesty-unsupported-claim"
+                            : undefined
+                        }
+                        key={`${section.key}-${item}`}
+                      >
+                        {item}
+                      </p>
+                    ))}
+                    {isHonestySection && !isHonestyExpanded && foldedItemCount > 0 ? (
+                      <p className="honesty-fold-notice" data-testid="honesty-fold-notice">
+                        Additional confidence and disproof details are folded; unsupported
+                        claims remain visible.
+                      </p>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
 

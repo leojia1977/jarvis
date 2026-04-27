@@ -2056,17 +2056,18 @@ docs/S6_CD_T04_HONESTY_LAYER_LAUNCH_CHECKLIST_2026_04_27.md
 Decision:
 
 ```text
-READY_FOR_SEPARATE_IMPLEMENTATION_GO_WITH_BOUNDS
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Interpretation:
 
-- Current repo behavior already renders the `HONESTY` section and unsupported claims.
-- `CD-T04` is not implemented or closed by this launch checklist.
-- A later implementation GO may add the exact fold/no-silent-disappearance behavior inside `frontend/src/App.tsx`, `frontend/src/App.css`, and `frontend/src/App.test.tsx` only.
+- Current repo behavior renders the `HONESTY` section and unsupported claims.
+- CD-T04 implementation is complete: the honesty layer is persistent, explicitly foldable/restorable, and unsupported claims remain visible when secondary details fold.
+- Jira cloud is synchronized as `SCRUM-27 [CD-T04] Honesty layer display / fold / no silent disappearance`, parent `SCRUM-8`, status `已完成`.
+- Gates passed: frontend tests 58, frontend build, backend guard 42, `git diff --check`, and Claude Code final focused review `PASS`.
 
 Next route:
 
 ```text
-WAIT_FOR_JARVIS_CD_T04_IMPLEMENTATION_GO_OR_NEXT_EXACT_BOUNDED_TICKET_SELECTION
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_SELECTION_OR_MULTI_TICKET_QUEUE_GO
 ```

@@ -661,6 +661,13 @@ button {
   margin-bottom: 10px;
 }
 
+.spine-section-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
 .spine-section-header button {
   min-height: 30px;
   border: 1px solid #bfd1c8;
@@ -684,6 +691,18 @@ button {
 
 .spine-section p + p {
   margin-top: 8px;
+}
+
+.honesty-layer {
+  border-left: 4px solid #8f2f40;
+}
+
+.honesty-fold-notice {
+  border-top: 1px solid #d9e2dc;
+  color: #5c6971;
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 8px;
 }
 
 .evidence-mode {

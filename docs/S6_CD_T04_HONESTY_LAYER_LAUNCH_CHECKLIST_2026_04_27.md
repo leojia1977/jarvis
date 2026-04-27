@@ -7,7 +7,7 @@
 | Title | S6 CD-T04 Honesty Layer Launch Checklist 2026-04-27 |
 | Ticket | `CD-T04` |
 | Scope | Honesty layer display / fold / no silent disappearance |
-| Status | READY_FOR_SEPARATE_IMPLEMENTATION_GO_WITH_BOUNDS |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -20,23 +20,24 @@
 | External review | not required unless Go/NoGo Section 9 or AI_COLLAB mandatory trigger fires |
 | SWE | disabled unless Jarvis creates a separate exact SWE sub-ticket |
 
-This launch checklist prepares `CD-T04 - honesty layer display/fold/no silent disappearance`.
+This launch checklist prepares and records closeout for `CD-T04 - honesty layer display/fold/no silent disappearance`.
 
-It does not authorize implementation. It defines exact bounds for a later implementation GO.
+Implementation was authorized by Jarvis after this launch checklist was created.
 
 ## 2. Decision
 
 Decision:
 
 ```text
-READY_FOR_SEPARATE_IMPLEMENTATION_GO_WITH_BOUNDS
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Meaning:
 
-- Current repo behavior already shows the `HONESTY` narrative section and unsupported claims.
-- `CD-T04` is not closed because fold/no-silent-disappearance behavior needs an exact implementation pass.
-- The next code step requires a separate Jarvis implementation GO.
+- Current repo behavior now shows the `HONESTY` narrative section and unsupported claims.
+- The honesty layer is persistent, explicitly foldable/restorable, and testable.
+- Unsupported claims remain visible when secondary confidence/disproof details are folded.
+- Jira cloud is synchronized to Done.
 
 ## 3. Current Repo Evidence
 
@@ -48,10 +49,10 @@ Current coverage:
 
 ## 4. Exact Future Scope
 
-If implementation is later authorized, it may do only the following:
+Authorized implementation did only the following:
 
 - make the honesty layer explicitly persistent and testable;
-- add a minimal fold/expand affordance if needed, without hiding unsupported claims silently;
+- add a minimal fold/expand affordance without hiding unsupported claims silently;
 - ensure unsupported claims remain visible or explicitly restorable after fold interaction;
 - add tests proving honesty content does not disappear under lower coverage or interaction.
 
@@ -115,19 +116,55 @@ HOLD if:
 
 ## 9. Jira Sync
 
-Jira cloud mutation:
+Jira cloud sync:
 
 ```text
-NOT_SYNCED_LAUNCH_ONLY
+SCRUM-27 [CD-T04] Honesty layer display / fold / no silent disappearance
+Parent: SCRUM-8
+Status: 已完成
 ```
 
-Reason: launch checklist only. Do not mark Done and do not start implementation without separate GO.
+## 10. Implementation Closeout
 
-## 10. Next Safe Action
+Implemented files:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+```
+
+Implemented behavior:
+
+- added persistent/testable attributes to the `HONESTY` narrative section;
+- added explicit `Fold honesty details` / `Expand honesty details` controls;
+- kept unsupported claims visible while folded;
+- folded only secondary confidence/disproof details;
+- restored all honesty details on expand;
+- kept the implementation P1-local and mock-only.
+
+Gate evidence:
+
+```text
+frontend tests: PASS, 58 tests
+frontend build: PASS
+backend guard: PASS, 42 tests
+git diff --check: PASS with Windows line-ending warnings only
+Claude Code final focused review: PASS
+```
+
+External review:
+
+```text
+NOT_REQUIRED
+```
+
+Reason: CD-T04 did not change architecture/governance authority, E0 root context or validator semantics, P1/P2/P3 authority, route handoff, state-sync, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, or external pilot behavior.
+
+## 11. Next Safe Action
 
 Next safe automation action:
 
 ```text
-WAIT_FOR_JARVIS_CD_T04_IMPLEMENTATION_GO_OR_NEXT_EXACT_BOUNDED_TICKET_SELECTION
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_SELECTION_OR_MULTI_TICKET_QUEUE_GO
 ```
-

@@ -76,6 +76,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByRole("heading", { name: "WHY" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "INTENT" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "HONESTY" })).toBeInTheDocument();
+    expect(screen.getByTestId("honesty-layer")).toHaveAttribute("data-persistent", "true");
     expect(screen.getByRole("heading", { name: "DECISION" })).toBeInTheDocument();
     expect(
       screen.getByText(coreSurfaceFixture.case.honesty_layer.unsupported_claims[0])
@@ -85,6 +86,36 @@ describe("SecuPilot first-batch workbench slice", () => {
     const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
     expect(within(evidencePanel).queryByRole("textbox")).not.toBeInTheDocument();
     expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+  });
+
+  it("keeps HONESTY unsupported claims visible when details are folded and restored", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const honestyLayer = screen.getByTestId("honesty-layer");
+    const unsupportedClaim = coreSurfaceFixture.case.honesty_layer.unsupported_claims[0];
+    const confidenceDetail =
+      coreSurfaceFixture.case.honesty_layer.what_would_raise_confidence[0];
+
+    expect(honestyLayer).toHaveAttribute("data-expanded", "true");
+    expect(within(honestyLayer).getByText(unsupportedClaim)).toBeInTheDocument();
+    expect(within(honestyLayer).getByText(confidenceDetail)).toBeInTheDocument();
+
+    await user.click(within(honestyLayer).getByRole("button", { name: "Fold honesty details" }));
+
+    expect(honestyLayer).toHaveAttribute("data-expanded", "false");
+    expect(within(honestyLayer).getByText(unsupportedClaim)).toBeInTheDocument();
+    expect(within(honestyLayer).queryByText(confidenceDetail)).not.toBeInTheDocument();
+    expect(within(honestyLayer).getByTestId("honesty-fold-notice")).toHaveTextContent(
+      /unsupported claims remain visible/i
+    );
+
+    await user.click(within(honestyLayer).getByRole("button", { name: "Expand honesty details" }));
+
+    expect(honestyLayer).toHaveAttribute("data-expanded", "true");
+    expect(within(honestyLayer).getByText(confidenceDetail)).toBeInTheDocument();
   });
 
   it("loads the core fixture and exposes a mock-only phase selector", async () => {
