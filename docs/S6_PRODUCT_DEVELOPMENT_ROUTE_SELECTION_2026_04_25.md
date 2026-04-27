@@ -948,3 +948,44 @@ Next automation route:
 ```text
 NO_CODE_TICKET_READY_AFTER_E0_04_UNTIL_NEXT_EXACT_LAUNCH_CHECKLIST
 ```
+
+## 29. Update 2026-04-27: E0-02B Fixture QA Expansion Reconciliation
+
+New post-closeout E0-02 source input reviewed:
+
+```text
+D:\产品设计\secupilot0421\SecuPilot_PR_Brief_E0-02_Mock_Fixture_Adapter_Phase_States_v0.1 (1).md
+```
+
+Reconciliation decision:
+
+```text
+2026-04-27 E0-02 brief v0.1 is accepted as post-closeout expansion input; it does not invalidate E0-02/E0-03/E0-04, but gates future fixture QA / cross-surface / boundary expansion.
+```
+
+New checklist:
+
+```text
+docs\S6_E0_02B_FIXTURE_QA_EXPANSION_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+E0-02B_RECONCILIATION_READY_IMPLEMENTATION_NOT_AUTHORIZED
+```
+
+Automation queue registration:
+
+```text
+AUTOMATION_CANDIDATE_PENDING_JARVIS_IMPLEMENTATION_GO
+```
+
+Implications:
+
+- closed E0-02 remains valid as the Phase 0-6 adapter baseline;
+- closed E0-03 remains valid as the static Storybook first story set;
+- closed E0-04 remains valid as the Playwright LC-P / LC-B / LC-N seed;
+- E0-02B is listed as the next bounded automation candidate, but implementation remains blocked until Jarvis explicitly authorizes E0-02B bounded implementation GO;
+- future fixture QA, Phase 07 `CROSS_SURFACE`, boundary-case registry, poison-pill registry, and resolver-degradation expansion must pass through E0-02B or a narrower exact child ticket before implementation;
+- no code, dependency, Storybook, Playwright, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, external pilot, stage, commit, or push is authorized by this reconciliation record.
