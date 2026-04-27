@@ -2313,3 +2313,30 @@ Next route:
 ```text
 CONTINUE_RQ04_EP_T05_SH_T05_THEN_APPLY_ACCELERATION_MATRIX
 ```
+
+## 63. Update 2026-04-27: Staged Acceleration Authorization
+
+Staged acceleration authorization record:
+
+```text
+docs/S6_STAGED_ACCELERATION_AUTHORIZATION_2026_04_27.md
+```
+
+Decision:
+
+```text
+STAGED_ACCELERATION_AUTHORIZED_WITH_BOUNDS
+```
+
+Interpretation:
+
+- Jarvis authorized P2/P3 checklist-only GO for `AP-T10`, `AP-T01`, `CD-T05`, and `MV-T01`.
+- Jarvis authorized Visual Skeleton GO for `GS-T04`, `IN-T02`, `IN-T04`, `EP-T02`, `EP-T03`, `SH-T01`, and `CH-T01`, only when each ticket checklist returns `GO`.
+- Jarvis authorized Patch-Isolation Checklist GO for `AP-T10` and `AP-T01`.
+- Broad P2/P3 implementation, backend/runtime/API/schema, real data, secrets, deploy/public endpoint, and external pilot remain unauthorized.
+
+Next route:
+
+```text
+CONTINUE_RQ04_THEN_APPLY_STAGED_ACCELERATION_AUTHORIZATION
+```

@@ -12,6 +12,7 @@
 | Backlog SoT | `D:\产品设计\secupilot0421\SecuPilot_Engineering_Backlog_Tracker_v0.4.xlsx` |
 | Active runner | `secupilot-bounded-backend-automation-runner` |
 | Predecessor queue | `docs\S6_SPRINT1_RQ04_EXACT_BOUNDED_RUNNER_QUEUE_2026_04_27.md` |
+| Staged authorization | `docs\S6_STAGED_ACCELERATION_AUTHORIZATION_2026_04_27.md` |
 | Route | `OPEN_SPRINT1_4_AUTOMATION_ACCELERATION_MATRIX` |
 
 This matrix records Jarvis's Sprint 1-4 batch authorization and converts it into quality-preserving automation lanes.
@@ -312,6 +313,15 @@ After RQ-04 completes or HOLDs, the runner may continue in this order:
 8. `AP-T10-PATCH-ISOLATION-CHECKLIST`.
 9. `AP-T01-PATCH-ISOLATION-CHECKLIST`.
 10. `CH-T01-SKELETON-LAUNCH`.
+
+Jarvis's staged authorization additionally allows checklist-only readiness for:
+
+```text
+CD-T05
+MV-T01
+```
+
+This is checklist-only, not implementation authorization.
 
 Each launch checklist must decide independently:
 
