@@ -960,12 +960,43 @@ function SearchHistoryView({
         </ul>
       </section>
 
-      <article className="history-case-row" data-testid="history-case-row">
-        <div>
-          <span>{activeCase.id}</span>
-          <h2>{activeCase.verdict}</h2>
+      <article
+        className="history-case-row historical-case-list-item"
+        data-current-visible={effectiveCoverage}
+        data-detail-context-authority="case-route"
+        data-effective-visibility-owned-by="case-detail"
+        data-frame-state="hf-sh-01-vf-08-pending"
+        data-handoff-state="not-implemented"
+        data-list-item-context="summary-only"
+        data-recorded-coverage={recordedCoverage}
+        data-testid="historical-case-list-item"
+        data-visual-state="skeleton"
+      >
+        <div className="history-case-row-main">
+          <span data-testid="historical-list-case-id">{activeCase.id}</span>
+          <h2 data-testid="historical-list-verdict">{activeCase.verdict}</h2>
+          <p data-testid="historical-list-snippet">{activeCase.summary}</p>
         </div>
-        <p>{activeCase.summary}</p>
+        <dl className="historical-list-meta" aria-label="Historical case list item metadata">
+          <div>
+            <dt>Timestamp</dt>
+            <dd data-testid="historical-list-timestamp" data-timestamp-state="unavailable">
+              Mock fixture timestamp unavailable
+            </dd>
+          </div>
+          <div>
+            <dt>Recorded coverage</dt>
+            <dd data-testid="historical-list-recorded-coverage">{recordedCoverage}</dd>
+          </div>
+          <div>
+            <dt>Current visible</dt>
+            <dd data-testid="historical-list-current-visible">{effectiveCoverage}</dd>
+          </div>
+        </dl>
+        <p className="historical-list-boundary" data-testid="historical-list-boundary">
+          List item is lightweight only; detail visibility resolves after a future case-route
+          handoff.
+        </p>
       </article>
 
       <p className="history-write-guard" data-testid="history-write-guard">

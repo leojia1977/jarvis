@@ -2679,3 +2679,34 @@ Next route:
 ```text
 OPEN_SH_T01_HISTORICAL_LIST_ITEM_SKELETON_LAUNCH
 ```
+
+## 75. Update 2026-04-27: SH-T01 Historical List Item Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_SH_T01_HISTORICAL_LIST_ITEM_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+SH_T01_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- The existing Search / History surface now has a historical case list item semantic skeleton.
+- The skeleton is explicitly `summary-only`, keeps detail visibility authority with the future case-detail route, and marks route handoff as not implemented.
+- Lightweight list fields are present for case id, verdict, summary snippet, timestamp availability, recorded coverage, and current visible coverage.
+- Final `HF-SH-01` / `VF-08` visual styling and visual PASS remain deferred.
+- No case-detail route handoff, detail permission decision, approval/write controls, host raw evidence, ActionMode, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates passed: frontend tests 66, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-40 [SH-T01] Historical list item skeleton`, status `已完成`, parent `SCRUM-31`.
+
+Next route:
+
+```text
+OPEN_CH_T01_COVERAGE_HEALTH_PAGE_SKELETON_LAUNCH
+```
