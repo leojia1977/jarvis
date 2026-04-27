@@ -106,6 +106,88 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getAllByText(/PENDING_APPROVAL/i).length).toBeGreaterThan(0);
   });
 
+  it("lets P1 submit a local mock-only Action Request to P2 without changing context authority", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const phaseSelector = screen.getByLabelText("Mock fixture phase") as HTMLSelectElement;
+    const resolvedContext = screen.getByLabelText("Mock fixture resolved context");
+    const actionRequestPanel = screen.getByTestId("action-request-panel");
+
+    expect(window.location.pathname).toBe("/case/CASE-2847");
+    expect(phaseSelector).toHaveValue("0");
+    expect(resolvedContext).toHaveTextContent("Role P1");
+    expect(resolvedContext).toHaveTextContent("P1_CASE_DETAIL");
+    expect(resolvedContext).toHaveTextContent("UNDER_INVESTIGATION");
+    expect(resolvedContext).toHaveTextContent("AR none");
+    const triggerButton = within(actionRequestPanel).getByRole("button", {
+      name: "Request P2 review"
+    });
+    expect(triggerButton).toBeInTheDocument();
+
+    await user.click(triggerButton);
+
+    const dialog = screen.getByRole("dialog", { name: "Submit Action Request to P2" });
+    const submitButton = within(dialog).getByRole("button", { name: "Submit to P2" });
+    const cancelButton = within(dialog).getByRole("button", { name: "Cancel" });
+    expect(submitButton).toHaveFocus();
+    await user.tab();
+    expect(cancelButton).toHaveFocus();
+    await user.tab();
+    expect(submitButton).toHaveFocus();
+    expect(dialog).toHaveTextContent(/P1 does not choose execution mode/i);
+    expect(dialog).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+    expect(within(dialog).queryByRole("button", { name: /approve|reject|delay|observe/i })).not.toBeInTheDocument();
+
+    await user.click(cancelButton);
+
+    expect(screen.queryByRole("dialog", { name: "Submit Action Request to P2" })).not.toBeInTheDocument();
+    expect(triggerButton).toHaveFocus();
+
+    await user.click(triggerButton);
+    const reopenedDialog = screen.getByRole("dialog", { name: "Submit Action Request to P2" });
+    const reopenedSubmitButton = within(reopenedDialog).getByRole("button", { name: "Submit to P2" });
+    expect(reopenedSubmitButton).toHaveFocus();
+
+    await user.click(reopenedSubmitButton);
+
+    expect(screen.queryByRole("dialog", { name: "Submit Action Request to P2" })).not.toBeInTheDocument();
+    const submittedState = screen.getByTestId("p1-action-request-submitted-state");
+    expect(submittedState).toHaveTextContent(
+      /Submitted to P2 review.*Waiting on P2/i
+    );
+    expect(submittedState).toHaveFocus();
+    expect(within(actionRequestPanel).queryByRole("button", { name: "Request P2 review" })).not.toBeInTheDocument();
+    expect(window.location.pathname).toBe("/case/CASE-2847");
+    expect(phaseSelector).toHaveValue("0");
+    expect(resolvedContext).toHaveTextContent("Role P1");
+    expect(resolvedContext).toHaveTextContent("P1_CASE_DETAIL");
+    expect(resolvedContext).toHaveTextContent("UNDER_INVESTIGATION");
+    expect(resolvedContext).toHaveTextContent("AR none");
+    expect(screen.getByTestId("case-state-pill")).toHaveTextContent("Under investigation");
+    expect(screen.queryByRole("button", { name: /Approval Queue/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("complementary", { name: "Contextual Evidence" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Case follow-up input")).toBeInTheDocument();
+  });
+
+  it("keeps existing AR phases read-only without a duplicate P1 submit CTA", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByLabelText("Mock fixture phase"), "1");
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const actionRequestPanel = screen.getByTestId("action-request-panel");
+
+    expect(actionRequestPanel).toHaveTextContent(/Waiting on P2/i);
+    expect(actionRequestPanel).toHaveTextContent(/Read-only/i);
+    expect(within(actionRequestPanel).queryByRole("button", { name: "Request P2 review" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog", { name: "Submit Action Request to P2" })).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("PENDING_APPROVAL");
+  });
+
   it("can render a governed initial phase for static Storybook stories", () => {
     render(<App initialPhaseNumber={3} />);
 

@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Unlock
 } from "lucide-react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   adaptCoreSurfaceFixturePhase,
   CORE_SURFACE_FIXTURE,
@@ -612,6 +612,12 @@ function CaseDetail({
     useState<EvidenceFrameId>(activeCase.evidenceFrames[0]?.id ?? "process_evidence");
   const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("auto");
   const [isEvidencePinned, setIsEvidencePinned] = useState(false);
+  const [isActionRequestDialogOpen, setIsActionRequestDialogOpen] = useState(false);
+  const [hasLocalActionRequestSubmission, setHasLocalActionRequestSubmission] = useState(false);
+  const actionRequestTriggerRef = useRef<HTMLButtonElement>(null);
+  const actionRequestDialogRef = useRef<HTMLDivElement>(null);
+  const actionRequestPrimaryButtonRef = useRef<HTMLButtonElement>(null);
+  const actionRequestSubmittedStateRef = useRef<HTMLParagraphElement>(null);
 
   const narrativeSections = [
     {
@@ -649,6 +655,23 @@ function CaseDetail({
     activeCase.evidenceFrames.find((frame) => frame.id === activeEvidenceFrameId) ??
     activeCase.evidenceFrames[0];
   const canUseNarrativeEvidence = evidenceMode === "auto" && !isEvidencePinned;
+  const canSubmitP1ActionRequest =
+    activeCase.resolvedSurface === "P1_CASE_DETAIL" &&
+    activeCase.resolvedRole === "P1" &&
+    activeCase.arStatus === null &&
+    !hasLocalActionRequestSubmission;
+
+  useEffect(() => {
+    if (isActionRequestDialogOpen) {
+      actionRequestPrimaryButtonRef.current?.focus();
+    }
+  }, [isActionRequestDialogOpen]);
+
+  useEffect(() => {
+    if (hasLocalActionRequestSubmission) {
+      actionRequestSubmittedStateRef.current?.focus();
+    }
+  }, [hasLocalActionRequestSubmission]);
 
   function handleNarrativeEvidenceTrigger(frameId: EvidenceFrameId) {
     if (!canUseNarrativeEvidence) {
@@ -660,6 +683,52 @@ function CaseDetail({
   function selectManualEvidenceFrame(frameId: EvidenceFrameId) {
     setActiveEvidenceFrameId(frameId);
     setEvidenceMode("manual");
+  }
+
+  function closeActionRequestDialog() {
+    setIsActionRequestDialogOpen(false);
+    window.setTimeout(() => actionRequestTriggerRef.current?.focus(), 0);
+  }
+
+  function submitLocalActionRequest() {
+    setHasLocalActionRequestSubmission(true);
+    setIsActionRequestDialogOpen(false);
+  }
+
+  function trapActionRequestDialogFocus(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Escape") {
+      closeActionRequestDialog();
+      return;
+    }
+
+    if (event.key !== "Tab") {
+      return;
+    }
+
+    const focusableItems = Array.from(
+      actionRequestDialogRef.current?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) ?? []
+    ).filter((item) => !item.hasAttribute("disabled"));
+
+    if (focusableItems.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const firstItem = focusableItems[0];
+    const lastItem = focusableItems[focusableItems.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstItem) {
+      event.preventDefault();
+      lastItem.focus();
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === lastItem) {
+      event.preventDefault();
+      firstItem.focus();
+    }
   }
 
   return (
@@ -727,6 +796,31 @@ function CaseDetail({
             <p className="section-kicker">Region B3</p>
             <h2 id="action-request-title">Action Request</h2>
             <p>{activeCase.actionRequest}</p>
+            {hasLocalActionRequestSubmission ? (
+              <p
+                className="action-request-status"
+                data-testid="p1-action-request-submitted-state"
+                ref={actionRequestSubmittedStateRef}
+                tabIndex={-1}
+              >
+                Submitted to P2 review. Waiting on P2 in this mock-only UI state.
+              </p>
+            ) : null}
+            {canSubmitP1ActionRequest ? (
+              <div className="action-request-actions">
+                <button
+                  className="secondary-action"
+                  onClick={() => setIsActionRequestDialogOpen(true)}
+                  ref={actionRequestTriggerRef}
+                  type="button"
+                >
+                  Request P2 review
+                </button>
+              </div>
+            ) : null}
+            {!canSubmitP1ActionRequest && !hasLocalActionRequestSubmission ? (
+              <p className="action-request-readonly">Read-only for this mock phase.</p>
+            ) : null}
           </section>
         </aside>
 
@@ -843,6 +937,38 @@ function CaseDetail({
           <Send aria-hidden="true" size={18} />
         </button>
       </form>
+
+      {isActionRequestDialogOpen ? (
+        <div className="action-request-dialog-backdrop" role="presentation">
+          <div
+            aria-describedby="action-request-dialog-description"
+            aria-labelledby="action-request-dialog-title"
+            aria-modal="true"
+            className="action-request-dialog"
+            onKeyDown={trapActionRequestDialogFocus}
+            ref={actionRequestDialogRef}
+            role="dialog"
+          >
+            <h2 id="action-request-dialog-title">Submit Action Request to P2</h2>
+            <p id="action-request-dialog-description">
+              This sends a mock-only request for P2 review. P1 does not choose execution mode
+              or perform the later decision step.
+            </p>
+            <div className="action-request-dialog-actions">
+              <button
+                onClick={submitLocalActionRequest}
+                ref={actionRequestPrimaryButtonRef}
+                type="button"
+              >
+                Submit to P2
+              </button>
+              <button onClick={closeActionRequestDialog} type="button">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
