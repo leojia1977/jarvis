@@ -1841,3 +1841,31 @@ OPEN_SPRINT1_BATCH1_P1_GAP_TRIAGE_CHECKLIST
 ```
 
 No next code implementation is authorized until the next selected ticket or batch has exact allowed files, test command, review path, rollback, and HOLD conditions.
+
+## 47. Update 2026-04-27: Sprint 1 Batch-1 P1 Gap Triage Checklist
+
+Sprint 1 Batch-1 P1 gap triage checklist:
+
+```text
+docs/S6_SPRINT1_BATCH1_P1_GAP_TRIAGE_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+READY_FOR_EP_T01_EXACT_LAUNCH_CHECKLIST
+```
+
+Interpretation:
+
+- Batch-0 reconciled tickets must not be reopened.
+- Several remaining `GS / IN / CD / EP` tracker tasks are visual-frame dependent, P2/P3 ratification dependent, acceptance-only, patch-gate possible, or only partially covered by current repo behavior.
+- The next clean exact implementation candidate is `EP-T01 - subordinate panels framework`.
+
+Recommended next route:
+
+```text
+OPEN_EP_T01_SUBORDINATE_PANEL_FRAMEWORK_LAUNCH_CHECKLIST
+```
+
+No implementation is authorized by this triage checklist.
