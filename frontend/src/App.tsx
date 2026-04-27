@@ -851,10 +851,23 @@ function CaseDetail({
         </aside>
 
         <section className="narrative-spine" aria-labelledby="narrative-title">
-          <div className="summary-panel" aria-label="Case summary">
+          <div
+            className="summary-panel"
+            aria-label="Case summary"
+            data-summary-layer="summary_layer"
+            data-testid="summary-layer"
+          >
             <div className="summary-kicker">Narrative spine</div>
-            <h2 id="narrative-title">{activeCase.verdict}</h2>
-            <p>{activeCase.summary}</p>
+            <h2
+              data-summary-field="summary_layer.verdict"
+              data-testid="summary-layer-verdict"
+              id="narrative-title"
+            >
+              {activeCase.verdict}
+            </h2>
+            <p data-summary-field="summary_layer.summary" data-testid="summary-layer-summary">
+              {activeCase.summary}
+            </p>
           </div>
 
           <RedlineRenderabilityPanel activeCase={activeCase} />

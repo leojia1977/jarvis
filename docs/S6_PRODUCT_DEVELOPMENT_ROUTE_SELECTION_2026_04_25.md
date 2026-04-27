@@ -2007,18 +2007,20 @@ docs/S6_CD_T02_SUMMARY_LAYER_RECONCILIATION_CHECKLIST_2026_04_27.md
 Decision:
 
 ```text
-RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
 ```
 
 Interpretation:
 
-- Current repo behavior provides a first-screen narrative summary, but it does not explicitly prove exact `summary_layer.*` field semantics.
-- Do not mark `CD-T02` Done from generic narrative-spine evidence alone.
+- Current repo behavior provides a first-screen narrative summary with exact `summary_layer.*` semantic/test mapping.
+- The change adds contract markers only and does not redesign the page or add new user-visible claims.
+- Jira cloud is synchronized as `SCRUM-30 [CD-T02] summary_layer first-screen semantic mapping`, parent `SCRUM-8`, status `已完成`.
+- Gates passed: frontend tests 58, frontend build, backend guard 42, `git diff --check`, and Claude Code focused review `PASS`.
 
 Next route:
 
 ```text
-OPEN_IN_T01_INBOX_BASE_STRUCTURE_RECONCILIATION_CHECKLIST
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_SELECTION_OR_MULTI_TICKET_QUEUE_GO
 ```
 
 ## 53. Update 2026-04-27: IN-T01 Inbox Base Structure Reconciliation Checklist

@@ -82,6 +82,16 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByRole("heading", { name: "HONESTY" })).toBeInTheDocument();
     expect(screen.getByTestId("honesty-layer")).toHaveAttribute("data-persistent", "true");
     expect(screen.getByRole("heading", { name: "DECISION" })).toBeInTheDocument();
+    const summaryLayer = screen.getByTestId("summary-layer");
+    expect(summaryLayer).toHaveAttribute("data-summary-layer", "summary_layer");
+    expect(within(summaryLayer).getByTestId("summary-layer-verdict")).toHaveAttribute(
+      "data-summary-field",
+      "summary_layer.verdict"
+    );
+    expect(within(summaryLayer).getByTestId("summary-layer-summary")).toHaveAttribute(
+      "data-summary-field",
+      "summary_layer.summary"
+    );
     const caseHeader = screen.getByTestId("case-header");
     expect(within(caseHeader).getByTestId("case-header-case-id")).toHaveTextContent("CASE-2847");
     expect(within(caseHeader).getByTestId("case-header-verdict")).toHaveTextContent(
