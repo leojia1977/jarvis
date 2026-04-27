@@ -76,14 +76,14 @@ These tickets may proceed as semantic skeleton work only. Final visual styling a
 
 ## 7. Checklist-Only
 
-These tickets are authorized for launch/readiness checklist only. Implementation requires a later narrow GO after authority/external-review conditions are clear.
+These tickets are authorized for launch/readiness checklist only. Claude Web authority review has completed for this set, but implementation still requires a later exact checklist result, narrow GO, exact files/tests, and all non-blocking notes closed.
 
-| Ticket | Sprint | Checklist purpose |
-| --- | --- | --- |
-| `AP-T10` | Sprint 2 | Patch-isolated state badge / pill mapping readiness. |
-| `AP-T01` | Sprint 2 | Patch-isolated approval route guard readiness. |
-| `CD-T05` | Sprint 1 | P3 executive summary authority readiness. |
-| `MV-T01` | Sprint 3B | P3 Manager View structure/KPI authority readiness. |
+| Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
+| --- | --- | --- | --- | --- |
+| `AP-T10` | Sprint 2 | Patch-isolated state badge / pill mapping readiness. | `PASS` | D-02-derived display mapping only; no state migration. |
+| `AP-T01` | Sprint 2 | Patch-isolated approval route guard readiness. | `PASS` | Shell/guard only; no approval controls. |
+| `CD-T05` | Sprint 1 | P3 executive summary authority readiness. | `PASS_WITH_NOTE` | Confirm `G0-05 signed-off confirmed: YES` and no later field-set revision. |
+| `MV-T01` | Sprint 3B | P3 Manager View structure/KPI authority readiness. | `PASS_WITH_NOTE` | No P0/P2 placeholder or conditional branch in `MV-T01`; defer variants to `MV-T02`. |
 
 ## 8. Needs Authority Review
 

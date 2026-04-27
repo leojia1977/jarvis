@@ -2379,3 +2379,31 @@ Next route:
 ```text
 CONTINUE_AUTOMATION_WITH_PROGRESS_BOARD_VISIBILITY
 ```
+
+## 65. Update 2026-04-27: P2/P3 Authority Claude Web Review Evidence
+
+Claude Web authority review record:
+
+```text
+docs/S6_P2_P3_AUTHORITY_CLAUDE_WEB_REVIEW_2026_04_27.md
+```
+
+Decision:
+
+```text
+P2_P3_AUTHORITY_REVIEW_PASS_WITH_2_NON_BLOCKING_NOTES
+```
+
+Interpretation:
+
+- `AP-T10` review result is `PASS`; it may proceed to an exact patch-isolated launch checklist, with implementation still requiring exact files/tests and no product/contract conflict.
+- `AP-T01` review result is `PASS`; it may proceed to an exact patch-isolated launch checklist, with implementation limited to shell/guard only.
+- `CD-T05` review result is `PASS_WITH_NOTE`; its launch checklist must confirm `G0-05 signed-off confirmed: YES` and no later P3 summary field-set revision.
+- `MV-T01` review result is `PASS_WITH_NOTE`; its launch checklist must forbid P0/P2 placeholders or conditional branches in `MV-T01`.
+- This review evidence reduces authority uncertainty for the four checklist-only tickets, but it does not authorize broad P2/P3 implementation, backend/runtime/API/schema changes, real data, secrets, deploy/public endpoint, external pilot, or any implementation outside a later exact bounded ticket.
+
+Next route:
+
+```text
+USE_CLAUDE_WEB_REVIEW_EVIDENCE_IN_AP_T10_AP_T01_CD_T05_MV_T01_CHECKLISTS
+```
