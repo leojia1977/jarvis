@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-04C App Redline Renderability Launch Checklist 2026-04-27 |
 | Ticket | `E0-04C` |
-| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -227,7 +227,7 @@ E0-04B Playwright implementation remains HOLD until E0-04C closes and a separate
 Implementation result:
 
 ```text
-IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
 ```
 
 Implemented files:
@@ -317,7 +317,7 @@ Reason:
 Decision:
 
 ```text
-READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+COMMITTED_PUSHED_37362e0
 ```
 
 Next route after closeout:
@@ -327,3 +327,11 @@ OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_RELAUNCH_AFTER_E0_04C_CLOSEOUT
 ```
 
 The next E0-04B relaunch may evaluate static Playwright assertions for the newly renderable app DOM markers, but material observation-window migration, P2 concurrency workflow execution, backend `STATE_SYNC`, and route handoff remain out of scope unless a later exact ticket creates those capabilities.
+
+Jira cloud sync:
+
+```text
+SCRUM-21 [E0-04C] App redline renderability hooks
+Status: 已完成
+Parent: SCRUM-14
+```
