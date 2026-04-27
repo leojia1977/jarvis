@@ -2131,3 +2131,56 @@ Next route:
 ```text
 OPEN_VISUAL_DEPENDENCY_UNBLOCK_QUEUE
 ```
+
+## 57. Update 2026-04-27: RQ-02 Visual Dependency Unblock Queue
+
+RQ-02 visual dependency unblock queue:
+
+```text
+docs/S6_SPRINT1_RQ02_VISUAL_DEPENDENCY_UNBLOCK_QUEUE_2026_04_27.md
+```
+
+Decision:
+
+```text
+VISUAL_UNBLOCK_QUEUE_OPEN_NO_IMPLEMENTATION_GO
+```
+
+Interpretation:
+
+- Visual Kickoff v0.3 still marks the relevant implementation frames as `未开始`.
+- Remaining visual-dependent tickets stay HOLD until their frames are available and an exact launch checklist is created.
+- Future frame delivery unlocks checklist creation only; it does not automatically authorize implementation.
+- The highest-leverage P1-adjacent frame order is `VF-03`, `VF-02`, `VF-10`, then `VF-13`.
+
+Next route:
+
+```text
+OPEN_PATCH_GATE_BATCH_ISOLATION_CHECKLIST_OR_WAIT_FOR_VISUAL_FRAME_DELIVERY
+```
+
+## 58. Update 2026-04-27: SH-T03 Patch-Gate Isolated Launch Checklist
+
+SH-T03 patch-gate isolated launch checklist:
+
+```text
+docs/S6_SH_T03_PATCH_GATE_ISOLATED_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+PATCH_GATE_ISOLATED_CHECKLIST_CREATED_IMPLEMENTATION_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- `SH-T03 - history route resolve -> clamp -> guard -> render` is documented as a possible acceleration candidate only because Jarvis explicitly authorized checklist creation while not authorizing implementation.
+- `SH-T03` has `Patch Gate Impact = possible`, so it must not be mixed into normal Sprint 1 burn-down.
+- Future implementation requires a separate explicit `SH-T03 implementation GO`, exact files, exact tests, Claude Code focused review, and HOLD/external-review handling for GoNoGo Section 9 triggers.
+
+Next route:
+
+```text
+WAIT_FOR_JARVIS_SH_T03_IMPLEMENTATION_GO_OR_OPEN_PATCH_GATE_BATCH_ISOLATION_CHECKLIST
+```
