@@ -6,11 +6,11 @@
 | --- | --- |
 | Title | S6 E0-04B Playwright LC-B LC-N Redline Expansion Launch Checklist 2026-04-27 |
 | Ticket | `E0-04B` |
-| Status | RELAUNCH_READINESS_CHECKED_IMPLEMENTATION_HOLD |
+| Status | RELAUNCH_READY_FOR_STATIC_REDLINE_PLAYWRIGHT_GO_WITH_BOUNDS |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
-| Baseline commit | `f6d0fed` |
+| Baseline commit | `d944887` |
 | Primary implementor | Codex |
 | Execution surface | `codex` |
 | Workspace surface | VS Code / local repo |
@@ -23,9 +23,9 @@ This checklist evaluates the exact follow-up ticket `E0-04B` only.
 
 ## 2. Purpose
 
-`E0-04B` is intended to expand Playwright LC-B / LC-N redline coverage after the completed `E0-04` seed.
+`E0-04B` is intended to expand Playwright LC-B / LC-N redline coverage after the completed `E0-04` seed and `E0-04C` app redline renderability hooks.
 
-The current launch decision is intentionally conservative because several requested redlines need a renderable UI or explicit state-sync harness that does not yet exist in the current app.
+The current launch decision is narrowed to static app redline assertions only. Material observation-window migration, P2 workflow behavior, and backend state-sync behavior remain out of scope.
 
 ## 3. Source Authority
 
@@ -52,31 +52,35 @@ Authority notes:
 Decision:
 
 ```text
-HOLD_FOR_IMPLEMENTATION_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
+GO_FOR_STATIC_APP_REDLINE_PLAYWRIGHT_ASSERTIONS_ONLY
 ```
 
 Reason:
 
-- E0-03B is now implemented and closed, so the Storybook/fixture inspection surface for negative and boundary cases is available.
-- `missing-signal-notice`, `concurrency-inline-warning`, stale approve rejection, and observation-window timer migration need exact renderable DOM or state-sync harness entry points before Playwright can assert them safely.
-- The current Playwright config runs the Vite app, not Storybook, and the current app has E0-04 seed coverage for LC-P and selected LC-B/LC-N guards, but it does not implement P2 concurrency workflow, backend `STATE_SYNC`, or `emitStateSync` material migration.
+- E0-03B is implemented and closed, so the Storybook/fixture inspection surface for negative and boundary cases exists.
+- E0-04C is implemented and closed, so the Vite app now exposes exact static DOM markers for selected existing boundary and resolver-degradation fixtures.
+- `missing-signal-notice`, `concurrency-inline-warning`, `resolver-degradation-notice`, `blast-radius-redline`, and `manager-summary` are now renderable through governed mock-only fixture IDs.
+- Playwright can safely assert these static markers without inventing P2 workflow behavior, backend `STATE_SYNC`, `emitStateSync`, or material observation-window migration.
 
-## 5. Future Exact Allowed Files
+## 5. Exact Allowed Files
 
-If this ticket is later reopened after E0-03B closeout and exact renderable scope exists, candidate allowed files must be narrowed again. The current candidate set is:
+Implementation files:
 
 - `docs/S6_E0_04B_PLAYWRIGHT_LCB_LCN_REDLINE_EXPANSION_LAUNCH_CHECKLIST_2026_04_27.md`
 - `docs/S6_PRODUCT_DEVELOPMENT_ROUTE_SELECTION_2026_04_25.md`
 - `docs/HANDOFF.md`
-- `frontend/tests/e2e/core-surface.logic-collision.spec.ts`
-- `frontend/tests/e2e/core-surface.permission-guards.spec.ts`
-- `frontend/tests/e2e/core-surface.p3-dom-isolation.spec.ts`
-
-Optional new file only if explicitly selected during relaunch:
-
 - `frontend/tests/e2e/core-surface.redline-expansion.spec.ts`
 
 Read-only references:
+
+- `frontend/src/App.tsx`
+- `frontend/tests/e2e/core-surface.logic-collision.spec.ts`
+- `frontend/tests/e2e/core-surface.permission-guards.spec.ts`
+- `frontend/tests/e2e/core-surface.p3-dom-isolation.spec.ts`
+- `frontend/playwright.config.ts`
+- `frontend/package.json`
+
+Not allowed for edits in this ticket:
 
 - `frontend/src/App.tsx`
 - `frontend/src/secupilot/surface/storybook/CoreSurfaceStories.stories.tsx`
@@ -86,24 +90,37 @@ Read-only references:
 - `frontend/playwright.config.ts`
 - `frontend/package.json`
 
-No implementation may begin from this candidate scope until the HOLD is lifted by a later exact launch decision.
+If any assertion requires changing a not-allowed file, this ticket must HOLD and a separate exact ticket must be created.
 
-## 6. Future Candidate Scope
+## 6. Exact Implementation Scope
 
-Candidate redlines for a later GO:
+Allowed static Playwright assertions:
 
-1. Existing LC-N hardening:
-   - P3 raw host evidence remains `not.toBeAttached()` / absent from DOM;
-   - approval operations remain absent outside P2 authority;
-   - URL/localStorage/sessionStorage role and coverage injection remain ignored or rejected.
-2. Missing-signal visibility once a renderable boundary story or app route exists:
-   - `missing-signal-notice` must carry `data-message-source="ui_messages"`;
-   - missing signals must not unlock hidden fields.
-3. P3 summary caution once `unsupported_claims` is renderable:
-   - `expect(summaryText).not.toMatch(/完全受控|已彻底消除/i)`.
-4. Observation-window timer behavior only if an explicit state-sync harness exists:
-   - `await page.clock.fastForward()` may verify read-only timer display only;
-   - material state migration must be driven by explicit `emitStateSync` / resolved context input immediately after the clock step.
+1. `boundary-p2-cmdb-tags-unavailable`
+   - selecting the mock redline fixture renders `missing-signal-notice`;
+   - `missing-signal-notice` carries `data-message-source="ui_messages"`;
+   - hidden or unavailable fields remain unavailable and do not unlock UI behavior.
+2. `boundary-concurrency-stale-approve-rejected`
+   - selecting the mock redline fixture renders `concurrency-inline-warning`;
+   - the warning is static and read-only;
+   - approve/reject/delay/observe operation buttons remain absent.
+3. `resolver-l1-blast-radius-payload`
+   - selecting the mock redline fixture keeps coverage at L1;
+   - `resolver-degradation-notice` is rendered;
+   - `blast-radius-redline` is rendered with `data-visibility-state="OFF"`;
+   - blast radius content remains unavailable under L1.
+4. `resolver-p3-technical-detail-redaction`
+   - selecting the mock redline fixture renders `manager-summary`;
+   - `manager-summary` avoids over-certain wording, including `expect(summaryText).not.toMatch(/完全受控|已彻底消除/i)`;
+   - host raw evidence remains absent from the DOM.
+5. Poison-pill fixtures remain unavailable through the app redline selector.
+
+Allowed implementation pattern:
+
+- create one focused Playwright spec file for static redline assertions;
+- use the existing Vite app served by the current Playwright config;
+- use the existing `Mock redline fixture` selector and existing test IDs from E0-04C;
+- do not add, rename, or reinterpret product behavior.
 
 ## 7. Non-Goals
 
@@ -116,20 +133,22 @@ This ticket must not implement:
 - Storybook changes;
 - fixture registry or adapter changes;
 - dependency or Playwright config changes;
+- `emitStateSync` or material observation-window state migration;
+- `page.clock.fastForward()` timer behavior;
 - real data, anonymized real data, credentials, tokens, secrets, deploy, public endpoint, or external pilot.
 
-## 8. Required Semantics For Any Later GO
+## 8. Required Semantics
 
 Required:
 
 - Playwright tests may only assert already-renderable governed mock-only states;
 - `page.clock.fastForward()` may never be used as material state authority;
-- material observation-window migration requires `emitStateSync` / resolved context input;
+- material observation-window migration remains out of scope for this ticket and requires a later exact ticket with `emitStateSync` / resolved context input;
 - P3 raw evidence must be absent from DOM, not merely hidden by CSS;
 - P3 manager summary must avoid over-certain copy when unsupported claims exist;
 - LC-N redlines must remain fail-closed and must not be relaxed to make tests pass.
 
-## 9. Required Tests And Commands For Any Later GO
+## 9. Required Tests And Commands
 
 Frontend:
 
@@ -163,19 +182,22 @@ Claude Web/external review is conditional and required if implementation touches
 
 ## 10. HOLD Conditions
 
-HOLD remains active while any of the following are true:
+HOLD if any of the following become true:
 
-- exact renderable DOM/test IDs for the selected redlines are not present;
-- `emitStateSync` / resolved context input is not available for material observation-window migration;
+- any selected redline assertion requires changing App, fixture, adapter, validator, Storybook, Playwright config, dependency, backend, runtime, API, or schema files;
+- exact renderable DOM/test IDs for the selected static redlines are missing or insufficient;
 - Playwright tests require app UI, component, route, Storybook, fixture, adapter, validator, backend/runtime/API/schema, dependency, or config changes;
 - tests would need to assert product behavior not already implemented;
+- observation-window material migration, `emitStateSync`, backend `STATE_SYNC`, or P2 concurrency workflow behavior is needed;
 - real data, secrets, deploy, public endpoint, external pilot, or launch behavior is needed.
 
 ## 11. Rollback
 
-No implementation is authorized in the current state, so no code rollback path is opened.
+Rollback must revert only:
 
-If a later relaunch lifts HOLD, rollback must revert only the exact Playwright spec/checklist/route/handoff changes from that relaunch.
+- `frontend/tests/e2e/core-surface.redline-expansion.spec.ts`
+- this checklist closeout edits;
+- route/handoff closeout edits.
 
 ## 12. SWE Agent Use
 
@@ -185,22 +207,22 @@ SWE agent use: not authorized for this ticket.
 
 Reason:
 
-- implementation is currently on HOLD;
-- no exact file/test scope has been proven implementable;
-- no separate SWE exact sub-ticket has been created.
+- Playwright redline assertions are narrow but security-sensitive;
+- no separate SWE exact sub-ticket has been created;
+- if SWE is later used, it must receive an exact sub-ticket with the single Playwright spec file, exact test commands, rollback path, HOLD conditions, and reviewer assigned.
 
 ## 13. Implementation Decision
 
 Decision:
 
 ```text
-IMPLEMENTATION_HOLD
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
 ```
 
-Allowed next action:
+Allowed implementation:
 
 ```text
-Create a narrower exact ticket for app-level renderable redline hooks, or keep E0-04B parked until such scope exists.
+Implement static Playwright assertions only in frontend/tests/e2e/core-surface.redline-expansion.spec.ts.
 ```
 
 ## 14. Relaunch Readiness Check 2026-04-27
@@ -209,30 +231,31 @@ Relaunch input:
 
 ```text
 E0-03B is closed as COMMITTED_PUSHED_f6d0fed.
+E0-04C is closed as COMMITTED_PUSHED_37362e0.
 ```
 
 Readiness reassessment:
 
 ```text
-IMPLEMENTATION_HOLD_CONFIRMED
+STATIC_REDLINE_PLAYWRIGHT_GO
 ```
 
 What changed since the first launch checklist:
 
 - E0-03B now provides Storybook registry views for validated phase, boundary-case, resolver-degradation, and non-renderable poison-pill inventory inspection.
-- E0-03B did not change App, fixtures, adapter, validator, Playwright config, or Playwright tests.
+- E0-04C now provides Vite-app renderability for selected existing boundary and resolver-degradation fixture IDs.
+- E0-04C exposes exact static DOM markers that Playwright can assert without changing App, fixture, adapter, validator, Storybook, dependency, or Playwright config.
 
-Why HOLD remains correct:
+Why the old HOLD is lifted narrowly:
 
-- current Playwright config serves the Vite app at `http://127.0.0.1:4174`, not Storybook;
-- the app still does not expose exact renderable DOM/test IDs for `missing-signal-notice`, `concurrency-inline-warning`, stale approve rejection, or unsupported-claims manager summary copy;
-- the app still has no `emitStateSync` / resolved context input harness for material observation-window state migration;
-- implementing E0-04B now would require App/component/route/harness changes or Storybook-serving Playwright config changes, which are outside this checklist and would invent scope.
+- current Playwright config serves the Vite app, and E0-04C made the selected redlines renderable in that app;
+- static LC-B/LC-N marker assertions can now be implemented without scope invention;
+- material observation-window migration, real stale-state workflow execution, and backend `STATE_SYNC` remain HOLD for a later exact ticket.
 
 Allowed next route:
 
 ```text
-OPEN_EXACT_APP_REDLINE_RENDERABILITY_TICKET_OR_KEEP_E0_04B_PARKED
+OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_IMPLEMENTATION
 ```
 
-No implementation, code, test, config, dependency, Storybook, App, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, or external pilot change is authorized by this readiness check.
+No config, dependency, Storybook, App, fixture, adapter, validator, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, external pilot, material observation-window migration, or P2 workflow change is authorized by this readiness check.

@@ -1415,3 +1415,42 @@ Next route:
 ```text
 OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_RELAUNCH_AFTER_E0_04C_CLOSEOUT
 ```
+
+## 38. Update 2026-04-27: E0-04B Static Redline Playwright Relaunch Checklist
+
+Relaunch checklist:
+
+```text
+docs/S6_E0_04B_PLAYWRIGHT_LCB_LCN_REDLINE_EXPANSION_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Ticket:
+
+```text
+E0-04B - Playwright LC-B LC-N Static Redline Expansion
+```
+
+Decision:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+Allowed implementation:
+
+- add one focused Playwright spec file at `frontend/tests/e2e/core-surface.redline-expansion.spec.ts`;
+- use the existing Vite app and existing `Mock redline fixture` selector;
+- assert only static, read-only E0-04C DOM markers for existing boundary and resolver-degradation fixtures;
+- cover `missing-signal-notice`, `concurrency-inline-warning`, `resolver-degradation-notice`, `blast-radius-redline`, `manager-summary`, and poison-pill option exclusion.
+
+Blocked:
+
+- App, component, route, fixture, adapter, validator, Storybook, dependency, or Playwright config changes;
+- P2 concurrency workflow, approve/reject/delay/observe composer, material observation-window migration, `emitStateSync`, backend `STATE_SYNC`;
+- backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or launch behavior.
+
+Next route:
+
+```text
+OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_IMPLEMENTATION
+```
