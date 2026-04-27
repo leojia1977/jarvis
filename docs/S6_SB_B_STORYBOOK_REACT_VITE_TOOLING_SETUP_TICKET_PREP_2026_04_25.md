@@ -7,7 +7,7 @@
 | Title | S6-SB-B Storybook React Vite Tooling Setup Ticket Prep 2026-04-25 |
 | Ticket | `S6-SB-B` |
 | Scope | Storybook React Vite dependency installation and minimal config |
-| Status | READY_FOR_EXACT_TOOLING_IMPLEMENTATION |
+| Status | IMPLEMENTED_GATE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -268,7 +268,7 @@ This warning is acceptable for S6-SB-B because product stories are explicitly ou
 Current closeout state:
 
 ```text
-PENDING_STAGE_COMMIT_PUSH
+COMMITTED_PUSHED_1e06550
 ```
 
-Do not stage unrelated untracked files during S6-SB-B closeout.
+S6-SB-B was committed and pushed in `1e06550 Install Storybook React Vite tooling`.

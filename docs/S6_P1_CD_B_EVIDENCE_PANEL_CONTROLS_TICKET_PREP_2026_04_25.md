@@ -7,7 +7,7 @@
 | Title | S6 P1-CD-B Evidence Panel Controls Ticket Prep 2026-04-25 |
 | Ticket | `P1-CD-B` |
 | Scope | Right contextual evidence panel controls |
-| Status | IMPLEMENTED_GATE_PASS_PENDING_STAGE_COMMIT_PUSH |
+| Status | IMPLEMENTED_GATE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -265,5 +265,5 @@ Result: PASS, 42 tests passed
 Commit state:
 
 ```text
-Not staged, not committed, not pushed in this closeout.
+Committed and pushed in 66b45c8 Implement P1 evidence panel controls.
 ```

@@ -7,7 +7,7 @@
 | Title | S6-MF-A Core Surface Mock Fixture Integration Ticket Prep 2026-04-25 |
 | Ticket | `S6-MF-A` |
 | Scope | Core Surface mock fixture integration |
-| Status | IMPLEMENTED_GATE_PASS_PENDING_STAGE_COMMIT_PUSH |
+| Status | IMPLEMENTED_GATE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -281,5 +281,5 @@ Result: PASS, 42 tests passed
 Commit state:
 
 ```text
-Not staged, not committed, not pushed in this closeout.
+Committed and pushed in a8b08ef Integrate core surface mock fixture.
 ```

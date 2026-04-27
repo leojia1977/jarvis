@@ -7,7 +7,7 @@
 | Title | S6 P1-CD-A Case Detail Layout Ticket Prep 2026-04-25 |
 | Ticket | `P1-CD-A` |
 | Scope | Case Detail layout regions and narrative spine |
-| Status | IMPLEMENTED_GATE_PASS_PENDING_STAGE_COMMIT_PUSH |
+| Status | IMPLEMENTED_GATE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-25 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -256,5 +256,5 @@ http://127.0.0.1:5173/case/CASE-001
 Commit state:
 
 ```text
-Not staged, not committed, not pushed in this closeout.
+Committed and pushed in 40929a2 Implement P1 case detail layout spine.
 ```
