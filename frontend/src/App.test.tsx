@@ -375,6 +375,37 @@ describe("SecuPilot first-batch workbench slice", () => {
       name: "Request P2 review"
     });
     expect(triggerButton).toBeInTheDocument();
+    const requestEntrySkeleton = within(actionRequestPanel).getByTestId(
+      "p1-escalation-close-request-skeleton"
+    );
+    expect(requestEntrySkeleton).toHaveAttribute(
+      "data-authority-source",
+      "resolved-surface-context"
+    );
+    expect(requestEntrySkeleton).toHaveAttribute("data-visual-state", "skeleton");
+    expect(requestEntrySkeleton).toHaveAttribute("data-action-mode", "not-selected-by-p1");
+    expect(requestEntrySkeleton).toHaveAttribute("data-close-execution", "not-implemented");
+    expect(
+      within(requestEntrySkeleton).getByText("Escalation entry").closest("[data-entry-type]")
+    ).toHaveAttribute("data-entry-type", "escalation_to_p2");
+    expect(within(requestEntrySkeleton).getByTestId("p1-escalation-reason-field")).toHaveTextContent(
+      /required/i
+    );
+    expect(
+      within(requestEntrySkeleton).getByTestId("p1-recommended-action-field")
+    ).toHaveTextContent(/P2 reference only/i);
+    expect(within(requestEntrySkeleton).getByTestId("p1-urgency-text-field")).toHaveTextContent(
+      /not ActionMode/i
+    );
+    expect(within(requestEntrySkeleton).getByTestId("p1-close-request-entry")).toHaveAttribute(
+      "data-entry-state",
+      "skeleton-only"
+    );
+    expect(
+      within(actionRequestPanel).queryByRole("button", {
+        name: /approve|reject|delay|observe|close/i
+      })
+    ).not.toBeInTheDocument();
 
     await user.click(triggerButton);
 
@@ -387,8 +418,21 @@ describe("SecuPilot first-batch workbench slice", () => {
     await user.tab();
     expect(submitButton).toHaveFocus();
     expect(dialog).toHaveTextContent(/P1 does not choose execution mode/i);
+    expect(within(dialog).getByTestId("p1-action-request-modal-fields")).toHaveAttribute(
+      "data-action-mode",
+      "not-selected-by-p1"
+    );
+    expect(within(dialog).getByTestId("p1-modal-escalation-reason")).toHaveTextContent(
+      /required/i
+    );
+    expect(within(dialog).getByTestId("p1-modal-recommended-action")).toHaveTextContent(
+      /P2 reference only/i
+    );
+    expect(within(dialog).getByTestId("p1-modal-urgency-text")).toHaveTextContent(
+      /not ActionMode/i
+    );
     expect(dialog).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
-    expect(within(dialog).queryByRole("button", { name: /approve|reject|delay|observe/i })).not.toBeInTheDocument();
+    expect(within(dialog).queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
 
     await user.click(cancelButton);
 
@@ -433,6 +477,9 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(actionRequestPanel).toHaveTextContent(/Waiting on P2/i);
     expect(actionRequestPanel).toHaveTextContent(/Read-only/i);
     expect(within(actionRequestPanel).queryByRole("button", { name: "Request P2 review" })).not.toBeInTheDocument();
+    expect(
+      within(actionRequestPanel).queryByTestId("p1-escalation-close-request-skeleton")
+    ).not.toBeInTheDocument();
     expect(screen.queryByRole("dialog", { name: "Submit Action Request to P2" })).not.toBeInTheDocument();
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("PENDING_APPROVAL");
   });

@@ -2587,3 +2587,33 @@ Next route:
 ```text
 OPEN_IN_T04_P1_ESCALATION_CLOSE_REQUEST_ENTRY_SKELETON_LAUNCH
 ```
+
+## 72. Update 2026-04-27: IN-T04 P1 Escalation / Close-Request Entry Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_IN_T04_P1_ESCALATION_CLOSE_REQUEST_ENTRY_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+IN_T04_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- The existing Case Detail Action Request region now has a P1-only escalation / close-request entry skeleton.
+- The skeleton exposes governed anchors for escalation reason, recommended action as P2 reference only, urgency text as not `ActionMode`, and close-request entry as skeleton-only.
+- No real close execution, approval execution, persisted status mutation, P2 approval controls, `ActionMode`, `IMMEDIATE`, `DELAYED`, or `OBSERVE_ONLY` was introduced.
+- Final `VF-02` visual styling and visual PASS remain deferred.
+- Gates passed: frontend tests 66, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-37 [IN-T04] P1 escalation / close-request entry skeleton`, status `已完成`, parent `SCRUM-7`.
+
+Next route:
+
+```text
+OPEN_EP_T02_INFERRED_NODE_WEAKENING_SLOT_SKELETON_LAUNCH
+```

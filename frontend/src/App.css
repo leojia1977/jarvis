@@ -857,6 +857,34 @@ button {
   margin-top: 12px;
 }
 
+.p1-request-entry-skeleton {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  border: 1px solid #d4ded8;
+  border-radius: 8px;
+  background: #fbfcf9;
+  padding: 12px;
+}
+
+.p1-request-entry {
+  display: grid;
+  gap: 5px;
+  border-left: 3px solid #7b935b;
+  padding-left: 10px;
+}
+
+.p1-request-entry strong {
+  color: #263528;
+  font-size: 13px;
+}
+
+.p1-request-entry span {
+  color: #4b5968;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .secondary-action {
   min-height: 36px;
   border: 1px solid #bfd1c8;
@@ -904,6 +932,18 @@ button {
 .action-request-dialog p {
   color: #4b5968;
   line-height: 1.55;
+}
+
+.action-request-field-grid {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #d4ded8;
+  border-radius: 8px;
+  background: #fbfcf9;
+  padding: 12px;
+  color: #4b5968;
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .action-request-dialog-actions {

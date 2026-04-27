@@ -1201,6 +1201,39 @@ function CaseDetail({
             <p className="section-kicker">Region B3</p>
             <h2 id="action-request-title">Action Request</h2>
             <p>{activeCase.actionRequest}</p>
+            {canSubmitP1ActionRequest ? (
+              <div
+                aria-label="P1 escalation and close request entries"
+                className="p1-request-entry-skeleton"
+                data-action-mode="not-selected-by-p1"
+                data-authority-source="resolved-surface-context"
+                data-close-execution="not-implemented"
+                data-testid="p1-escalation-close-request-skeleton"
+                data-visual-state="skeleton"
+                role="group"
+              >
+                <div className="p1-request-entry" data-entry-type="escalation_to_p2">
+                  <strong>Escalation entry</strong>
+                  <span data-testid="p1-escalation-reason-field">
+                    Escalation reason: required before P2 review.
+                  </span>
+                  <span data-testid="p1-recommended-action-field">
+                    Recommended action: optional P2 reference only.
+                  </span>
+                  <span data-testid="p1-urgency-text-field">
+                    Urgency text: controlled copy, not ActionMode.
+                  </span>
+                </div>
+                <div
+                  className="p1-request-entry"
+                  data-entry-state="skeleton-only"
+                  data-testid="p1-close-request-entry"
+                >
+                  <strong>Close-request entry</strong>
+                  <span>Skeleton only; no close execution is attached.</span>
+                </div>
+              </div>
+            ) : null}
             {hasLocalActionRequestSubmission ? (
               <p
                 className="action-request-status"
@@ -1432,6 +1465,19 @@ function CaseDetail({
               This sends a mock-only request for P2 review. P1 does not choose execution mode
               or perform the later decision step.
             </p>
+            <div
+              className="action-request-field-grid"
+              data-action-mode="not-selected-by-p1"
+              data-testid="p1-action-request-modal-fields"
+            >
+              <div data-testid="p1-modal-escalation-reason">Escalation reason: required</div>
+              <div data-testid="p1-modal-recommended-action">
+                Recommended action: optional P2 reference only
+              </div>
+              <div data-testid="p1-modal-urgency-text">
+                Urgency text: controlled copy, not ActionMode
+              </div>
+            </div>
             <div className="action-request-dialog-actions">
               <button
                 onClick={submitLocalActionRequest}
