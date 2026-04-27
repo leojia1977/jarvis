@@ -156,6 +156,7 @@ Unit tests must cover:
 - Phase 4 returns to pending approval without browser timer authority;
 - Phase 5 has `IMMEDIATE` only under P2;
 - Phase 6 has P3 role and `P3_MANAGER` surface without privileged raw technical payload;
+- missing or unsupported `surface` remains an E0-01 `ContextValidator` SH-08 case and must not receive fallback rendering;
 - URL/localStorage/sessionStorage authority injection is not used by the adapter.
 
 Component tests, if `App.tsx` is touched, must also cover:

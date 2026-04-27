@@ -1097,3 +1097,39 @@ Required before more code:
 ```text
 Open or select one exact bounded ticket with allowed files, tests, review path, HOLD conditions, and stage/commit/push authorization.
 ```
+
+## 32. Update 2026-04-27: Visual Negative Handoff Correction Review
+
+Source directory reviewed:
+
+```text
+D:\产品设计\secupilot0421\visual negative
+```
+
+Files reviewed:
+
+- `SecuPilot_Automation_Team_Handoff_and_E0-02_Launch_Pack_v0.1.md`;
+- `SecuPilot_E0-01_Closeout_Record_v0.1.md`;
+- `SecuPilot_Visual_Negative_Frames_Brief_v0.1.md`;
+- `SecuPilot_Automation_Team_E0-02_Launch_Pack_v0.1.zip`, including governance, frontend-rule, surface-contract, logic/QA/design, PR brief, tracker, and manifest contents.
+
+Corrections applied:
+
+- Gap-01: the source handoff now explicitly references `AI_COLLAB Amendment v0.2` as the Sprint 0 execution-governance authority for execution surface, reviewer floor, single-writer lock, and SWE HOLD-on-expansion behavior.
+- Gap-02: the source handoff E0-02 review checklist now includes `Missing or unsupported surface value triggers SH-08 (E01-N01)`.
+- E0-01 closeout disposition now confirms E01-N01 is implemented: missing `surface` returns `SH-08_INVALID_CONTEXT_SHAPE`, unsupported `surface` returns `SH-08_UNSUPPORTED_ENUM`, and surface/role mismatch returns `SH-08_SURFACE_ROLE_MISMATCH`.
+- The repo E0-01 and E0-02 checklist records now carry the same E01-N01 surface-validation correction.
+
+Execution details carried forward:
+
+- `validate=false` is restricted to unit tests that deliberately load poison-pill fixtures; production-like, Storybook, Playwright, and `ResolvedSurfaceContextProvider` fixture paths must not accept or forward it.
+- Playwright observation-window tests may use `await page.clock.fastForward()` only for read-only timer display checks; material state migration must immediately be driven by explicit `emitStateSync` / resolved context input, not by frontend `setTimeout` authority.
+- P3 manager summary assertions should exclude over-certain copy when `unsupported_claims` exist, including `expect(summaryText).not.toMatch(/完全受控|已彻底消除/i)`.
+
+Route implication:
+
+```text
+E0-03_AND_E0-04_ALREADY_IMPLEMENTED_AND_PUSHED_DO_NOT_REOPEN_FROM_OLDER_HANDOFF
+```
+
+Any new Storybook or Playwright work based on this visual-negative correction requires a new exact bounded follow-up ticket.

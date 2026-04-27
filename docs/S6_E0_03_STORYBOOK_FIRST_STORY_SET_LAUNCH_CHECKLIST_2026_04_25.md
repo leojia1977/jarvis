@@ -140,6 +140,7 @@ Required:
 
 - stories must use `App` and/or E0-02 adapter outputs;
 - role, surface, coverage level, case state, AR status, and action mode must come from validated `ResolvedSurfaceContext`;
+- Storybook rendering must use validated fixtures only; it must not accept or forward `validate=false`;
 - URL/localStorage/sessionStorage must not become authority sources;
 - P1 stories must not expose `IMMEDIATE`, `DELAYED`, or `OBSERVE_ONLY`;
 - P3 story must keep host-level raw evidence DOM absent;

@@ -127,6 +127,23 @@ Implement only:
    - LC-N seed: P1 no ActionMode DOM, P3 host raw evidence DOM absent, approved pending execution has no withdraw CTA, invalid deep links do not expose approval operations.
 4. Minimal `data-testid` attributes only for stable LC assertions.
 
+Future observation-window E2E expansion constraint:
+
+```text
+Use `await page.clock.fastForward()` only for read-only timer display checks.
+Material OBSERVATION_WINDOW state migration must be driven by explicit
+`emitStateSync` / resolved context input after the clock step, not by frontend
+`setTimeout` authority.
+```
+
+Future P3 summary assertion constraint:
+
+```ts
+expect(summaryText).not.toMatch(/完全受控|已彻底消除/i);
+```
+
+When `unsupported_claims` exist, P3 manager-summary assertions must reject over-certain management copy.
+
 ## 8. Non-Goals
 
 This ticket must not implement:

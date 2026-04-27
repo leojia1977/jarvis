@@ -266,6 +266,14 @@ Scope confirmation:
 - no real data, sanitized real data, secrets, deploy, launch, or external pilot work;
 - no SWE execution.
 
+E01-N01 surface validation disposition:
+
+- `surface` is a required root `ResolvedSurfaceContext` field;
+- missing `surface` fails closed with `SH-08_INVALID_CONTEXT_SHAPE`;
+- unsupported `surface` fails closed with `SH-08_UNSUPPORTED_ENUM`;
+- surface/role mismatch fails closed with `SH-08_SURFACE_ROLE_MISMATCH`;
+- downstream fixture adapters must not introduce fallback rendering for missing or unsupported `surface`.
+
 ## 14. Gate Evidence 2026-04-25
 
 Gate evidence:
