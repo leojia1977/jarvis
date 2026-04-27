@@ -8,6 +8,7 @@ import {
   Search,
   Send,
   ShieldCheck,
+  Activity,
   Unlock
 } from "lucide-react";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -27,7 +28,7 @@ import {
   SwitchState
 } from "./secupilot/surface/context/types";
 
-type Route = "inbox" | "case" | "search";
+type Route = "inbox" | "case" | "search" | "coverage_health";
 type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
@@ -352,8 +353,8 @@ const NAV_ITEMS: NavItem[] = [
     label: "Coverage & Health",
     routeKey: "coverage_health",
     roles: ["P0", "P2"],
-    icon: ShieldCheck,
-    activeInSlice: false
+    icon: Activity,
+    activeInSlice: true
   },
   {
     label: "Manager View",
@@ -372,6 +373,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   }
   if (path === "/search") {
     return { route: "search", caseId: null };
+  }
+  if (path === "/coverage-health") {
+    return { route: "coverage_health", caseId: null };
   }
   return { route: "inbox", caseId: null };
 }
@@ -505,7 +509,9 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         ? `/case/${nextCaseId}`
         : nextRoute === "search"
           ? "/search?tab=history"
-          : "/inbox";
+          : nextRoute === "coverage_health"
+            ? "/coverage-health"
+            : "/inbox";
     window.history.pushState({}, "", path);
     setLocation({ route: nextRoute, caseId: nextCaseId ?? null });
   }
@@ -553,16 +559,23 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
           {navItems.map((item) => {
             const Icon = item.icon;
             const isSearchRoute = item.routeKey === "search_history";
+            const isCoverageHealthRoute = item.routeKey === "coverage_health";
             const isActive =
               item.routeKey === route ||
               (item.routeKey === "inbox" && route === "case") ||
-              (isSearchRoute && route === "search");
+              (isSearchRoute && route === "search") ||
+              (isCoverageHealthRoute && route === "coverage_health");
+            const navRoute: Route = isSearchRoute
+              ? "search"
+              : isCoverageHealthRoute
+                ? "coverage_health"
+                : "inbox";
             return (
               <button
                 aria-disabled={!item.activeInSlice}
                 className={isActive ? "nav-item active" : "nav-item"}
                 key={item.routeKey}
-                onClick={() => item.activeInSlice && navigate(isSearchRoute ? "search" : "inbox")}
+                onClick={() => item.activeInSlice && navigate(navRoute)}
                 type="button"
               >
                 <Icon aria-hidden="true" size={18} />
@@ -622,6 +635,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
           />
         ) : route === "search" ? (
           <SearchHistoryView activeCase={activeCase} activeContext={activeContext} />
+        ) : route === "coverage_health" ? (
+          <CoverageHealthView activeCase={activeCase} activeContext={activeContext} />
         ) : (
           <InboxView
             cases={cases}
@@ -1002,6 +1017,131 @@ function SearchHistoryView({
       <p className="history-write-guard" data-testid="history-write-guard">
         Read-only history surface. No write actions are attached.
       </p>
+    </section>
+  );
+}
+
+function CoverageHealthView({
+  activeCase,
+  activeContext
+}: {
+  activeCase: WorkbenchCase;
+  activeContext: ResolvedSurfaceContext;
+}) {
+  const role = activeContext.session.role;
+  const isAllowedRole = role === "P0" || role === "P2";
+  const coverage = activeContext.case.coverage_level;
+  const effectiveVisibility = activeContext.resolved_visibility.effective_visibility_level;
+  const uiMessageSlotCount = Object.keys(activeContext.ui_messages).length;
+
+  return (
+    <section
+      className="page-region coverage-health-surface"
+      aria-labelledby="coverage-health-title"
+      data-authority-source="resolved-surface-context"
+      data-live-health-source="none"
+      data-role={role}
+      data-route-authority="role-filtered-nav"
+      data-testid="coverage-health-surface"
+      data-vf-01-state="pending"
+      data-visual-state="skeleton"
+    >
+      <div className="page-heading">
+        <p>Coverage & Health</p>
+        <h1 id="coverage-health-title">Coverage health skeleton</h1>
+      </div>
+
+      {!isAllowedRole ? (
+        <article
+          className="coverage-health-guard"
+          data-route-guard="role-not-eligible"
+          data-testid="coverage-health-route-guard"
+        >
+          <h2>Surface unavailable</h2>
+          <p>
+            Coverage & Health is not exposed for this role. Navigation must crop this entry rather
+            than render a disabled operational surface.
+          </p>
+        </article>
+      ) : (
+        <>
+          <article
+            className="coverage-health-summary"
+            data-testid="coverage-health-context-summary"
+          >
+            <div>
+              <p className="section-kicker">CH-T01</p>
+              <h2>Resolved context health</h2>
+              <p>
+                Skeleton-only health slots derived from the current mock context. No runtime
+                health endpoint or external source is queried.
+              </p>
+            </div>
+            <dl className="coverage-health-facts" aria-label="Coverage health facts">
+              <div>
+                <dt>Coverage ceiling</dt>
+                <dd data-testid="coverage-health-ceiling-value">{coverage}</dd>
+              </div>
+              <div>
+                <dt>Effective visible</dt>
+                <dd data-testid="coverage-health-effective-value">{effectiveVisibility}</dd>
+              </div>
+              <div>
+                <dt>Case state</dt>
+                <dd data-testid="coverage-health-case-state">{CASE_STATE_LABELS[activeCase.state]}</dd>
+              </div>
+              <div>
+                <dt>Fixture freshness</dt>
+                <dd data-testid="coverage-health-fixture-freshness">{activeCase.freshness}</dd>
+              </div>
+            </dl>
+          </article>
+
+          <section
+            aria-label="Coverage health skeleton slots"
+            className="coverage-health-slot-grid"
+            data-testid="coverage-health-slot-grid"
+          >
+            <article
+              data-field="case.coverage_level"
+              data-health-slot="coverage-ceiling"
+              data-testid="coverage-health-ceiling-slot"
+            >
+              <span>Coverage ceiling</span>
+              <strong>{coverage}</strong>
+              <p>Coverage level remains the hard ceiling. This slot does not unlock OFF fields.</p>
+            </article>
+            <article
+              data-health-slot="ui-message-deferred"
+              data-message-source="ui_messages"
+              data-rendering-state="deferred-to-ch-t03"
+              data-testid="coverage-health-ui-message-slot"
+            >
+              <span>Signal message slot</span>
+              <strong>{uiMessageSlotCount} mock slots</strong>
+              <p>Hard-constraint ui_messages copy is deferred to CH-T03 patch-gate work.</p>
+            </article>
+            <article
+              data-health-slot="source-health"
+              data-live-source-health="not-implemented"
+              data-testid="coverage-health-source-slot"
+            >
+              <span>Source health</span>
+              <strong>Mock-only</strong>
+              <p>No sensor health, endpoint health, backend readiness, or live telemetry is read.</p>
+            </article>
+            <article
+              data-cross-surface-hardening="deferred"
+              data-health-slot="regression"
+              data-testid="coverage-health-regression-slot"
+            >
+              <span>Regression lane</span>
+              <strong>Deferred</strong>
+              <p>Cross-surface hardening remains a later Sprint 4 regression lane.</p>
+            </article>
+          </section>
+        </>
+      )}
     </section>
   );
 }

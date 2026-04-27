@@ -2710,3 +2710,34 @@ Next route:
 ```text
 OPEN_CH_T01_COVERAGE_HEALTH_PAGE_SKELETON_LAUNCH
 ```
+
+## 76. Update 2026-04-27: CH-T01 Coverage & Health Page Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_CH_T01_COVERAGE_HEALTH_PAGE_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+CH_T01_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- The existing role-filtered nav now opens a bounded `/coverage-health` skeleton for eligible `P0` / `P2` roles.
+- The surface is explicitly skeleton-only, `VF-01` pending, and derived from `ResolvedSurfaceContext`.
+- Lightweight slots exist for coverage ceiling, effective visible level, case state, fixture freshness, deferred `ui_messages`, source health, and regression lane.
+- `P1` and `P3` do not expose the Coverage & Health nav entry; manual non-eligible route access renders a guard.
+- No final `VF-01` visual styling, `CH-T02`, `CH-T03`, `CH-T04`, real `/health` or `/ready`, runtime readiness, backend telemetry, live source health, coverage escalation, route handoff, approval/write controls, ActionMode, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates passed: frontend tests 68, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-42 [CH-T01] Coverage & Health page skeleton`, status `已完成`, parent `SCRUM-41`.
+
+Next route:
+
+```text
+OPEN_AP_T10_PATCH_ISOLATION_CHECKLIST
+```

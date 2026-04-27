@@ -56,6 +56,47 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
   });
 
+  it("opens the P2 Coverage & Health skeleton without live health behavior", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={3} />);
+
+    await user.click(screen.getByRole("button", { name: /Coverage & Health/i }));
+
+    const surface = screen.getByTestId("coverage-health-surface");
+    const contextSummary = screen.getByTestId("coverage-health-context-summary");
+    const ceilingSlot = screen.getByTestId("coverage-health-ceiling-slot");
+    const uiMessageSlot = screen.getByTestId("coverage-health-ui-message-slot");
+    const sourceSlot = screen.getByTestId("coverage-health-source-slot");
+    const regressionSlot = screen.getByTestId("coverage-health-regression-slot");
+
+    expect(window.location.pathname).toBe("/coverage-health");
+    expect(surface).toHaveAttribute("data-role", "P2");
+    expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(surface).toHaveAttribute("data-route-authority", "role-filtered-nav");
+    expect(surface).toHaveAttribute("data-vf-01-state", "pending");
+    expect(surface).toHaveAttribute("data-visual-state", "skeleton");
+    expect(surface).toHaveAttribute("data-live-health-source", "none");
+    expect(contextSummary).toHaveTextContent("No runtime health endpoint or external source is queried");
+    expect(screen.getByTestId("coverage-health-ceiling-value")).toHaveTextContent("L2");
+    expect(screen.getByTestId("coverage-health-effective-value")).toHaveTextContent("L2");
+    expect(screen.getByTestId("coverage-health-case-state")).toHaveTextContent(
+      "Observation window"
+    );
+    expect(screen.getByTestId("coverage-health-fixture-freshness")).toHaveTextContent(
+      "Mock fixture"
+    );
+    expect(ceilingSlot).toHaveAttribute("data-field", "case.coverage_level");
+    expect(ceilingSlot).toHaveTextContent("does not unlock OFF fields");
+    expect(uiMessageSlot).toHaveAttribute("data-rendering-state", "deferred-to-ch-t03");
+    expect(uiMessageSlot).toHaveAttribute("data-message-source", "ui_messages");
+    expect(sourceSlot).toHaveAttribute("data-live-source-health", "not-implemented");
+    expect(regressionSlot).toHaveAttribute("data-cross-surface-hardening", "deferred");
+    expect(within(surface).queryByRole("button")).not.toBeInTheDocument();
+    expect(
+      within(surface).queryByRole("button", { name: /approve|reject|delay|observe|close/i })
+    ).not.toBeInTheDocument();
+  });
+
   it("renders P1 expert mode as an inert restricted skeleton", () => {
     render(<App />);
 
@@ -117,6 +158,23 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByTestId("expert-mode-entry")).not.toBeInTheDocument();
     expect(screen.queryByTestId("expert-mode-toggle")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P3");
+    expect(screen.queryByRole("button", { name: /Coverage & Health/i })).not.toBeInTheDocument();
+  });
+
+  it("guards manual Coverage & Health route access for P3 without rendering operations", () => {
+    window.history.pushState({}, "", "/coverage-health");
+
+    render(<App initialPhaseNumber={6} />);
+
+    const surface = screen.getByTestId("coverage-health-surface");
+    const guard = screen.getByTestId("coverage-health-route-guard");
+
+    expect(surface).toHaveAttribute("data-role", "P3");
+    expect(surface).toHaveAttribute("data-visual-state", "skeleton");
+    expect(guard).toHaveAttribute("data-route-guard", "role-not-eligible");
+    expect(guard).toHaveTextContent("not exposed for this role");
+    expect(within(surface).queryByRole("button")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Coverage & Health/i })).not.toBeInTheDocument();
   });
 
   it("resolves the history route through clamp-first guard without URL or storage authority", () => {
