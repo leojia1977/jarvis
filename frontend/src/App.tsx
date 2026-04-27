@@ -922,20 +922,38 @@ function CaseDetail({
         </aside>
       </div>
 
-      <form className="follow-up-input dialogue-dock" onSubmit={onFollowUpSubmit}>
-        <MessageSquareText aria-hidden="true" size={20} />
-        <label className="sr-only" htmlFor="case-follow-up">
-          Case follow-up input
-        </label>
-        <input
-          id="case-follow-up"
-          onChange={(event) => onFollowUpChange(event.target.value)}
-          placeholder="Ask a follow-up in this case context"
-          value={followUp}
-        />
-        <button aria-label="Submit case follow-up" type="submit">
-          <Send aria-hidden="true" size={18} />
-        </button>
+      <form
+        aria-label="Case dialogue dock"
+        className="follow-up-input dialogue-dock"
+        data-testid="dialogue-dock"
+        onSubmit={onFollowUpSubmit}
+      >
+        <div className="dialogue-source-strip" data-testid="dialogue-source-boundary">
+          <span>{`Case ${activeCase.id}`}</span>
+          <span>{`Evidence ${activeEvidenceFrame.title}`}</span>
+          <span
+            data-suggestion-source="ui_messages"
+            data-suggestion-state="unavailable"
+            data-testid="dialogue-runtime-placeholder"
+          >
+            Runtime suggestions unavailable
+          </span>
+        </div>
+        <div className="dialogue-input-row">
+          <MessageSquareText aria-hidden="true" size={20} />
+          <label className="sr-only" htmlFor="case-follow-up">
+            Case follow-up input
+          </label>
+          <input
+            id="case-follow-up"
+            onChange={(event) => onFollowUpChange(event.target.value)}
+            placeholder="Ask a follow-up in this case context"
+            value={followUp}
+          />
+          <button aria-label="Submit case follow-up" type="submit">
+            <Send aria-hidden="true" size={18} />
+          </button>
+        </div>
       </form>
 
       {isActionRequestDialogOpen ? (

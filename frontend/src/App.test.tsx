@@ -246,6 +246,49 @@ describe("SecuPilot first-batch workbench slice", () => {
     ).toBeInTheDocument();
   });
 
+  it("keeps the Dialogue Dock source-boundary local without hardcoded recommendation chips", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const dock = screen.getByTestId("dialogue-dock");
+    const sourceBoundary = within(dock).getByTestId("dialogue-source-boundary");
+    const runtimePlaceholder = within(dock).getByTestId("dialogue-runtime-placeholder");
+    const followUpInput = within(dock).getByLabelText("Case follow-up input");
+
+    expect(dock).toHaveAccessibleName("Case dialogue dock");
+    expect(sourceBoundary).toHaveTextContent("Case CASE-2847");
+    expect(sourceBoundary).toHaveTextContent(panelTitle("process_evidence"));
+    expect(runtimePlaceholder).toHaveAttribute("data-suggestion-source", "ui_messages");
+    expect(runtimePlaceholder).toHaveAttribute("data-suggestion-state", "unavailable");
+    expect(runtimePlaceholder).not.toHaveAttribute("role", "button");
+    expect(within(dock).getAllByRole("button")).toHaveLength(1);
+    expect(within(dock).queryByTestId("dialogue-suggestion-chip")).not.toBeInTheDocument();
+    expect(dock).not.toHaveTextContent(
+      /CMDB|blast radius|ROI|queue window|remediation|approve|reject|delay|observe|IMMEDIATE|DELAYED|OBSERVE_ONLY/i
+    );
+
+    await user.type(followUpInput, "What evidence changed?");
+    await user.click(within(dock).getByRole("button", { name: "Submit case follow-up" }));
+
+    expect(followUpInput).toHaveValue("");
+    expect(window.location.pathname).toBe("/case/CASE-2847");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent(
+      "P1_CASE_DETAIL"
+    );
+    expect(within(dock).queryByTestId("dialogue-suggestion-chip")).not.toBeInTheDocument();
+
+    const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
+    await user.click(
+      within(evidencePanel).getByRole("button", { name: new RegExp(panelTitle("event_timeline")) })
+    );
+
+    expect(sourceBoundary).toHaveTextContent(panelTitle("event_timeline"));
+    expect(within(dock).queryByTestId("dialogue-suggestion-chip")).not.toBeInTheDocument();
+  });
+
   it("keeps fixture authority over URL and storage role or coverage injection", () => {
     window.history.pushState({}, "", "/case/CASE-2847?coverage=L3");
     window.localStorage.setItem("role", "P3");
