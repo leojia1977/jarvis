@@ -1631,3 +1631,50 @@ Next route:
 ```text
 WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_OPEN_P1_CD_D_READINESS_CHECKLIST
 ```
+
+## 42. Update 2026-04-27: P1-CD-D Dialogue Dock Source Boundary Ticket Prep
+
+Next exact bounded ticket selected:
+
+```text
+P1-CD-D - Dialogue Dock source boundary
+```
+
+Ticket-prep record:
+
+```text
+docs/S6_P1_CD_D_DIALOGUE_DOCK_SOURCE_BOUNDARY_TICKET_PREP_2026_04_27.md
+```
+
+Decision:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+Why this is the next safe ticket:
+
+- `P1-CD-A`, `P1-CD-B`, and `P1-CD-C` are already implemented and pushed;
+- `P1-CD-D` is P1-only and does not require P2/P3 ratification;
+- allowed files can be exact: `App.tsx`, `App.css`, `App.test.tsx`, route/handoff, and this ticket prep;
+- implementation can remain synthetic/local UI state only;
+- product sources explicitly require Dialogue Dock to remain visible while forbidding frontend-hardcoded recommendation chips as runtime source.
+
+Allowed implementation:
+
+- add a source/context strip to the existing Dialogue Dock;
+- show current case and active evidence frame as local context;
+- render a non-interactive runtime / `ui_messages` placeholder for future suggested follow-ups;
+- preserve submit-clears-input behavior without transcript, route, context, fixture, adapter, validator, backend/runtime/API/schema, Storybook, or Playwright changes.
+
+Blocked:
+
+- live chat, LLM calls, streaming, transcript persistence, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, or external pilot;
+- hardcoded business follow-up chips, unlock prompts, remediation prompts, ROI, queue windows, or CMDB business tags;
+- P2/P3 implementation, route handoff, cross-surface propagation, P2 approval controls, or ActionMode choices.
+
+Next route:
+
+```text
+OPEN_P1_CD_D_DIALOGUE_DOCK_SOURCE_BOUNDARY_IMPLEMENTATION
+```
