@@ -34,6 +34,7 @@ type EvidenceFrameId =
   | "event_timeline"
   | "attack_lineage";
 type EvidenceMode = "auto" | "manual";
+type SubordinatePanel = "evidence" | "timeline" | "blast_radius";
 type NarrativeKey = "WHAT" | "WHY" | "INTENT" | "HONESTY" | "DECISION";
 
 interface NavItem {
@@ -611,6 +612,8 @@ function CaseDetail({
   const [activeEvidenceFrameId, setActiveEvidenceFrameId] =
     useState<EvidenceFrameId>(activeCase.evidenceFrames[0]?.id ?? "process_evidence");
   const [evidenceMode, setEvidenceMode] = useState<EvidenceMode>("auto");
+  const [activeSubordinatePanel, setActiveSubordinatePanel] =
+    useState<SubordinatePanel>("evidence");
   const [isEvidencePinned, setIsEvidencePinned] = useState(false);
   const [isActionRequestDialogOpen, setIsActionRequestDialogOpen] = useState(false);
   const [hasLocalActionRequestSubmission, setHasLocalActionRequestSubmission] = useState(false);
@@ -660,6 +663,13 @@ function CaseDetail({
     activeCase.resolvedRole === "P1" &&
     activeCase.arStatus === null &&
     !hasLocalActionRequestSubmission;
+  const canRenderBlastRadiusPanel = activeCase.coverage !== "L1";
+
+  useEffect(() => {
+    if (!canRenderBlastRadiusPanel && activeSubordinatePanel === "blast_radius") {
+      setActiveSubordinatePanel("evidence");
+    }
+  }, [activeSubordinatePanel, canRenderBlastRadiusPanel]);
 
   useEffect(() => {
     if (isActionRequestDialogOpen) {
@@ -864,61 +874,54 @@ function CaseDetail({
         >
           <p className="section-kicker">Region D</p>
           <h2 id="evidence-panel-title">Contextual Evidence</h2>
-          <div className="evidence-toolbar" aria-label="Evidence panel controls">
-            <div className="evidence-mode-toggle" aria-label="Evidence mode" role="group">
-              <button
-                aria-pressed={evidenceMode === "auto"}
-                onClick={() => setEvidenceMode("auto")}
-                type="button"
-              >
-                Auto
-              </button>
-              <button
-                aria-pressed={evidenceMode === "manual"}
-                onClick={() => setEvidenceMode("manual")}
-                type="button"
-              >
-                Manual
-              </button>
-            </div>
+          <div
+            aria-label="Subordinate panel selector"
+            className="subordinate-panel-toggle"
+            data-testid="subordinate-panel-selector"
+            role="group"
+          >
             <button
-              aria-pressed={isEvidencePinned}
-              className="pin-button"
-              onClick={() => setIsEvidencePinned((current) => !current)}
+              aria-pressed={activeSubordinatePanel === "evidence"}
+              onClick={() => setActiveSubordinatePanel("evidence")}
               type="button"
             >
-              {isEvidencePinned ? (
-                <Unlock aria-hidden="true" size={15} />
-              ) : (
-                <Lock aria-hidden="true" size={15} />
-              )}
-              <span>{isEvidencePinned ? "Unpin" : "Pin"}</span>
+              Evidence
             </button>
-          </div>
-          <p className="evidence-mode">
-            Read-only frame summaries with Auto / Manual and Pin controls.
-          </p>
-          <article className="active-evidence-frame" aria-live="polite">
-            <div>
-              <h3>{activeEvidenceFrame.title}</h3>
-              <span>{activeEvidenceFrame.provenance}</span>
-            </div>
-            <p>{activeEvidenceFrame.summary}</p>
-            {isEvidencePinned ? <small>Pinned evidence frame</small> : null}
-          </article>
-          <div className="evidence-frame-switcher" aria-label="Evidence frame switcher">
-            {activeCase.evidenceFrames.map((frame) => (
+            <button
+              aria-pressed={activeSubordinatePanel === "timeline"}
+              onClick={() => setActiveSubordinatePanel("timeline")}
+              type="button"
+            >
+              Timeline
+            </button>
+            {canRenderBlastRadiusPanel ? (
               <button
-                aria-pressed={frame.id === activeEvidenceFrameId}
-                key={frame.id}
-                onClick={() => selectManualEvidenceFrame(frame.id)}
+                aria-pressed={activeSubordinatePanel === "blast_radius"}
+                onClick={() => setActiveSubordinatePanel("blast_radius")}
                 type="button"
               >
-                <span>{frame.title}</span>
-                <small>{frame.provenance}</small>
+                Blast Radius
               </button>
-            ))}
+            ) : null}
           </div>
+          {activeSubordinatePanel === "evidence" ? (
+            <EvidenceSubordinatePanel
+              activeEvidenceFrame={activeEvidenceFrame}
+              activeEvidenceFrameId={activeEvidenceFrameId}
+              evidenceFrames={activeCase.evidenceFrames}
+              evidenceMode={evidenceMode}
+              isEvidencePinned={isEvidencePinned}
+              onEvidenceModeChange={setEvidenceMode}
+              onFrameSelect={selectManualEvidenceFrame}
+              onPinnedChange={setIsEvidencePinned}
+            />
+          ) : null}
+          {activeSubordinatePanel === "timeline" ? (
+            <TimelineSubordinatePanel trace={activeCase.trace} />
+          ) : null}
+          {activeSubordinatePanel === "blast_radius" && canRenderBlastRadiusPanel ? (
+            <BlastRadiusSubordinatePanel activeCase={activeCase} />
+          ) : null}
         </aside>
       </div>
 
@@ -987,6 +990,141 @@ function CaseDetail({
           </div>
         </div>
       ) : null}
+    </section>
+  );
+}
+
+function EvidenceSubordinatePanel({
+  activeEvidenceFrame,
+  activeEvidenceFrameId,
+  evidenceFrames,
+  evidenceMode,
+  isEvidencePinned,
+  onEvidenceModeChange,
+  onFrameSelect,
+  onPinnedChange
+}: {
+  activeEvidenceFrame: WorkbenchCase["evidenceFrames"][number];
+  activeEvidenceFrameId: EvidenceFrameId;
+  evidenceFrames: WorkbenchCase["evidenceFrames"];
+  evidenceMode: EvidenceMode;
+  isEvidencePinned: boolean;
+  onEvidenceModeChange: (mode: EvidenceMode) => void;
+  onFrameSelect: (frameId: EvidenceFrameId) => void;
+  onPinnedChange: (value: (current: boolean) => boolean) => void;
+}) {
+  return (
+    <section
+      aria-label="Evidence subordinate panel"
+      className="subordinate-panel-body"
+      data-testid="evidence-subordinate-panel"
+    >
+      <div className="evidence-toolbar" aria-label="Evidence panel controls">
+        <div className="evidence-mode-toggle" aria-label="Evidence mode" role="group">
+          <button
+            aria-pressed={evidenceMode === "auto"}
+            onClick={() => onEvidenceModeChange("auto")}
+            type="button"
+          >
+            Auto
+          </button>
+          <button
+            aria-pressed={evidenceMode === "manual"}
+            onClick={() => onEvidenceModeChange("manual")}
+            type="button"
+          >
+            Manual
+          </button>
+        </div>
+        <button
+          aria-pressed={isEvidencePinned}
+          className="pin-button"
+          onClick={() => onPinnedChange((current) => !current)}
+          type="button"
+        >
+          {isEvidencePinned ? (
+            <Unlock aria-hidden="true" size={15} />
+          ) : (
+            <Lock aria-hidden="true" size={15} />
+          )}
+          <span>{isEvidencePinned ? "Unpin" : "Pin"}</span>
+        </button>
+      </div>
+      <p className="evidence-mode">
+        Read-only frame summaries with Auto / Manual and Pin controls.
+      </p>
+      <article className="active-evidence-frame" aria-live="polite">
+        <div>
+          <h3>{activeEvidenceFrame.title}</h3>
+          <span>{activeEvidenceFrame.provenance}</span>
+        </div>
+        <p>{activeEvidenceFrame.summary}</p>
+        {isEvidencePinned ? <small>Pinned evidence frame</small> : null}
+      </article>
+      <div className="evidence-frame-switcher" aria-label="Evidence frame switcher">
+        {evidenceFrames.map((frame) => (
+          <button
+            aria-pressed={frame.id === activeEvidenceFrameId}
+            key={frame.id}
+            onClick={() => onFrameSelect(frame.id)}
+            type="button"
+          >
+            <span>{frame.title}</span>
+            <small>{frame.provenance}</small>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function TimelineSubordinatePanel({ trace }: { trace: WorkbenchCase["trace"] }) {
+  return (
+    <section
+      aria-label="Timeline subordinate panel"
+      className="subordinate-panel-body timeline-subordinate-panel"
+      data-testid="timeline-subordinate-panel"
+    >
+      <p className="evidence-mode">
+        Read-only timeline assembled from existing mock trace and audit metadata.
+      </p>
+      <ol className="subordinate-timeline">
+        {trace.map((item) => (
+          <li key={`${item.provenance}-${item.label}`}>
+            <span>{item.label}</span>
+            <p>{item.detail}</p>
+            <small>{item.provenance}</small>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function BlastRadiusSubordinatePanel({ activeCase }: { activeCase: WorkbenchCase }) {
+  return (
+    <section
+      aria-label="Blast Radius subordinate panel"
+      className="subordinate-panel-body blast-radius-subordinate-panel"
+      data-testid="blast-radius-subordinate-panel"
+    >
+      <p className="evidence-mode">
+        Mock-safe blast radius summary. Coverage remains the hard ceiling for visible detail.
+      </p>
+      <dl className="blast-radius-facts">
+        <div>
+          <dt>Coverage</dt>
+          <dd>{activeCase.coverage}</dd>
+        </div>
+        <div>
+          <dt>Visible detail</dt>
+          <dd>Fixture-level topology summary only</dd>
+        </div>
+        <div>
+          <dt>Authority</dt>
+          <dd>Resolved surface context, not URL or storage</dd>
+        </div>
+      </dl>
     </section>
   );
 }

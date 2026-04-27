@@ -1869,3 +1869,75 @@ OPEN_EP_T01_SUBORDINATE_PANEL_FRAMEWORK_LAUNCH_CHECKLIST
 ```
 
 No implementation is authorized by this triage checklist.
+
+## 48. Update 2026-04-27: EP-T01 Subordinate Panel Framework Launch Checklist
+
+EP-T01 launch checklist:
+
+```text
+docs/S6_EP_T01_SUBORDINATE_PANEL_FRAMEWORK_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+Interpretation:
+
+- `EP-T01 - subordinate panels framework` is ready for implementation only after Jarvis explicitly authorizes implementation GO.
+- Allowed files are limited to the EP-T01 checklist, route/handoff records, `frontend/src/App.tsx`, `frontend/src/App.css`, and `frontend/src/App.test.tsx`.
+- Scope is P1-local and mock-only: subordinate choices for Evidence, Timeline, and Blast Radius inside the existing Case Detail / evidence area.
+- No new route, top-level page, Storybook, Playwright, fixture registry, adapter, validator, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or Jira cloud mutation is authorized.
+
+Next route:
+
+```text
+WAIT_FOR_JARVIS_EP_T01_IMPLEMENTATION_GO
+```
+
+## 49. Update 2026-04-27: EP-T01 Implementation Closeout
+
+EP-T01 implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
+```
+
+Implemented:
+
+- P1-local subordinate panel selector inside the existing Case Detail contextual evidence area;
+- `Evidence`, `Timeline`, and `Blast Radius` subordinate choices without a new route, top-level page, or navigation item;
+- preserved Evidence panel Auto / Manual / Pin / frame-switcher behavior;
+- read-only Timeline subordinate panel from existing mock trace/audit metadata;
+- mock-safe Blast Radius subordinate panel when coverage is not `L1`;
+- L1 hard-ceiling guard: Blast Radius selector and subordinate panel are not attached under `coverage_level = L1`;
+- P1 authority and P3 raw-evidence DOM boundaries remain preserved.
+
+Implemented files:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+```
+
+Gate evidence:
+
+```text
+frontend tests: PASS, 57 tests
+frontend build: PASS
+backend guard: PASS, 42 tests
+git diff --check: PASS with Windows line-ending warnings only
+Claude Code focused review: PASS
+Claude Web / external review: NOT_REQUIRED
+```
+
+Next route:
+
+```text
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_SELECTION
+```
+
+No follow-up code ticket is opened from EP-T01 closeout without a separate exact launch checklist.

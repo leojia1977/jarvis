@@ -246,6 +246,63 @@ describe("SecuPilot first-batch workbench slice", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders EP-T01 subordinate Evidence, Timeline, and Blast Radius panels without new routes", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
+    const subordinateSelector = within(evidencePanel).getByTestId("subordinate-panel-selector");
+
+    expect(within(subordinateSelector).getByRole("button", { name: "Evidence" })).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    expect(within(subordinateSelector).getByRole("button", { name: "Timeline" })).toBeInTheDocument();
+    expect(within(subordinateSelector).getByRole("button", { name: "Blast Radius" })).toBeInTheDocument();
+    expect(within(evidencePanel).getByTestId("evidence-subordinate-panel")).toBeInTheDocument();
+
+    await user.click(within(subordinateSelector).getByRole("button", { name: "Timeline" }));
+
+    const timelinePanel = within(evidencePanel).getByTestId("timeline-subordinate-panel");
+    expect(timelinePanel).toHaveTextContent("Read-only timeline");
+    expect(timelinePanel).toHaveTextContent(/Fixture loaded|moved the mock case context/i);
+    expect(window.location.pathname).toBe("/case/CASE-2847");
+
+    await user.click(within(subordinateSelector).getByRole("button", { name: "Blast Radius" }));
+
+    const blastRadiusPanel = within(evidencePanel).getByTestId("blast-radius-subordinate-panel");
+    expect(blastRadiusPanel).toHaveTextContent("Mock-safe blast radius summary");
+    expect(blastRadiusPanel).toHaveTextContent("Coverage");
+    expect(blastRadiusPanel).toHaveTextContent("L2");
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe/i })).not.toBeInTheDocument();
+    expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+    expect(screen.getByTestId("dialogue-dock")).toBeInTheDocument();
+  });
+
+  it("does not attach Blast Radius subordinate detail when coverage is L1", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(
+      screen.getByLabelText("Mock redline fixture"),
+      "resolver-l1-blast-radius-payload"
+    );
+    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+
+    const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
+    const subordinateSelector = within(evidencePanel).getByTestId("subordinate-panel-selector");
+
+    expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L1");
+    expect(within(subordinateSelector).queryByRole("button", { name: "Blast Radius" })).not.toBeInTheDocument();
+    expect(within(evidencePanel).queryByTestId("blast-radius-subordinate-panel")).not.toBeInTheDocument();
+    expect(screen.getByTestId("blast-radius-redline")).toHaveAttribute(
+      "data-visibility-state",
+      "OFF"
+    );
+  });
+
   it("keeps the Dialogue Dock source-boundary local without hardcoded recommendation chips", async () => {
     const user = userEvent.setup();
     render(<App />);
