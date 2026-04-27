@@ -778,6 +778,171 @@ button {
   font-weight: 800;
 }
 
+.manager-view-surface {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.manager-topline,
+.manager-scope-rail,
+.manager-brief-narrative,
+.manager-context-summary,
+.manager-dialogue-dock {
+  border: 1px solid #d7ded4;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(28, 41, 51, 0.06);
+}
+
+.manager-topline,
+.manager-dialogue-dock {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.manager-topline h1,
+.manager-scope-rail h2,
+.manager-brief-narrative h2,
+.manager-context-summary h2,
+.manager-dialogue-dock h2 {
+  margin: 0;
+  color: #18202b;
+  letter-spacing: 0;
+}
+
+.manager-topline h1 {
+  font-size: 28px;
+}
+
+.manager-topline p,
+.manager-brief-narrative p,
+.manager-kpi-card p,
+.manager-dialogue-dock p,
+.manager-view-surface > p {
+  margin: 8px 0 0;
+  color: #5d6875;
+  line-height: 1.5;
+}
+
+.manager-readonly-badge {
+  border: 1px solid #a9c7db;
+  border-radius: 999px;
+  background: #edf7fc;
+  color: #175174;
+  padding: 7px 11px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.manager-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.78fr) minmax(360px, 1.25fr) minmax(280px, 0.95fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.manager-scope-rail,
+.manager-brief-narrative,
+.manager-context-summary {
+  min-width: 0;
+  padding: 18px;
+}
+
+.manager-facts {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.manager-facts > div,
+.manager-kpi-card {
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 7px;
+  background: #f8fbf6;
+  padding: 12px;
+}
+
+.manager-facts dt,
+.manager-kpi-card span {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manager-facts dd {
+  margin: 4px 0 0;
+  color: #243140;
+  font-weight: 900;
+}
+
+.manager-boundary-note,
+.manager-audit-boundary {
+  border: 1px solid #d8ded4;
+  border-radius: 7px;
+  background: #f7f8f5;
+  color: #51606c;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.manager-brief-narrative {
+  display: grid;
+  gap: 14px;
+}
+
+.manager-brief-narrative h3 {
+  margin: 0;
+  color: #13547a;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.manager-kpi-grid {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.manager-kpi-card strong {
+  display: block;
+  margin-top: 4px;
+  color: #243140;
+  font-size: 22px;
+}
+
+.manager-dialogue-form {
+  display: flex;
+  min-width: min(420px, 100%);
+  gap: 8px;
+}
+
+.manager-dialogue-form input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid #d5ddd0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #f8faf5;
+  color: #243140;
+}
+
+.manager-dialogue-form button {
+  border: 0;
+  border-radius: 8px;
+  background: #13547a;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-weight: 900;
+}
+
 .coverage-health-summary,
 .coverage-health-guard {
   display: grid;
@@ -1721,8 +1886,20 @@ button {
   .history-guard-panel,
   .historical-case-list-item,
   .approval-shell-header,
+  .manager-topline,
+  .manager-layout,
+  .manager-dialogue-dock,
   .coverage-health-summary {
     grid-template-columns: 1fr;
+  }
+
+  .manager-topline,
+  .manager-dialogue-dock {
+    flex-direction: column;
+  }
+
+  .manager-dialogue-form {
+    width: 100%;
   }
 
   .history-focus-scope-panel ul,

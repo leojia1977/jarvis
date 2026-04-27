@@ -400,6 +400,81 @@ describe("SecuPilot first-batch workbench slice", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("opens the P3 Manager View as an independent read-only structure", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={6} />);
+
+    await user.click(screen.getByRole("button", { name: /Manager View/i }));
+
+    const surface = screen.getByTestId("manager-view-surface");
+    const scopeRail = screen.getByTestId("manager-scope-rail");
+    const narrative = screen.getByTestId("manager-brief-narrative");
+    const summary = screen.getByTestId("manager-context-summary");
+    const dialogueDock = screen.getByTestId("manager-dialogue-dock");
+
+    expect(window.location.pathname).toBe("/manager");
+    expect(surface).toHaveAttribute("data-role", "P3");
+    expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(surface).toHaveAttribute("data-manager-scope", "mv-t01-structure-only");
+    expect(surface).toHaveAttribute("data-p0-p2-placeholders", "absent");
+    expect(scopeRail).toHaveTextContent("Manager Scope");
+    expect(narrative).toHaveTextContent("WHAT");
+    expect(narrative).toHaveTextContent("HONESTY");
+    expect(summary).toHaveTextContent("Context Summary");
+    expect(dialogueDock).toHaveAttribute("data-chip-source", "runtime-only");
+    expect(screen.getByTestId("manager-readonly-badge")).toHaveAttribute(
+      "data-workflow-authority",
+      "none"
+    );
+    expect(screen.getByTestId("manager-audit-boundary")).toHaveAttribute(
+      "data-approval-audit-summary",
+      "not-implemented"
+    );
+    expect(within(surface).queryByRole("button", { name: /approve|reject|delay|observe/i }))
+      .not.toBeInTheDocument();
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
+  });
+
+  it("renders Manager KPI shells without frontend-inferred metric values", () => {
+    window.history.pushState({}, "", "/manager");
+
+    render(<App initialPhaseNumber={6} />);
+
+    expect(screen.getByTestId("manager-kpi-card-coverage")).toHaveAttribute(
+      "data-kpi-source",
+      "resolved-surface-context"
+    );
+    expect(screen.getByTestId("manager-kpi-card-coverage")).toHaveTextContent("L2");
+
+    for (const testId of [
+      "manager-kpi-card-mtta",
+      "manager-kpi-card-noise-compression",
+      "manager-kpi-card-approval-throughput"
+    ]) {
+      const card = screen.getByTestId(testId);
+      expect(card).toHaveAttribute("data-kpi-source", "data-unavailable");
+      expect(card).toHaveTextContent("—");
+    }
+
+    expect(document.body).not.toHaveTextContent(/MTTR|ROI 10|queue count|完全受控|已彻底消除/i);
+  });
+
+  it("does not let URL or storage create Manager View authority", () => {
+    window.history.pushState({}, "", "/manager?role=P3");
+    window.localStorage.setItem("role", "P3");
+    window.sessionStorage.setItem("surface", "P3_MANAGER");
+
+    render(<App />);
+
+    const guard = screen.getByTestId("manager-route-guard");
+
+    expect(guard).toHaveAttribute("data-route-guard", "role-not-eligible");
+    expect(guard).toHaveAttribute("data-role", "P1");
+    expect(screen.queryByTestId("manager-view-surface")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
+  });
+
   it("maps case AR status through D-02 display semantics without state migration", () => {
     window.history.pushState({}, "", "/case/CASE-2847");
 

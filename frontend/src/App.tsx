@@ -29,7 +29,7 @@ import {
   SwitchState
 } from "./secupilot/surface/context/types";
 
-type Route = "inbox" | "case" | "search" | "coverage_health" | "approval";
+type Route = "inbox" | "case" | "search" | "coverage_health" | "approval" | "manager";
 type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
@@ -434,7 +434,7 @@ const NAV_ITEMS: NavItem[] = [
     routeKey: "manager_view",
     roles: ["P3"],
     icon: ShieldCheck,
-    activeInSlice: false
+    activeInSlice: true
   }
 ];
 
@@ -449,6 +449,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   }
   if (path === "/approval") {
     return { route: "approval", caseId: null };
+  }
+  if (path === "/manager") {
+    return { route: "manager", caseId: null };
   }
   if (path === "/coverage-health") {
     return { route: "coverage_health", caseId: null };
@@ -585,6 +588,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         ? `/case/${nextCaseId}`
         : nextRoute === "approval"
           ? "/approval"
+          : nextRoute === "manager"
+            ? "/manager"
         : nextRoute === "search"
           ? "/search?tab=history"
           : nextRoute === "coverage_health"
@@ -650,19 +655,23 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
             const isSearchRoute = item.routeKey === "search_history";
             const isCoverageHealthRoute = item.routeKey === "coverage_health";
             const isApprovalRoute = item.routeKey === "approval";
+            const isManagerRoute = item.routeKey === "manager_view";
             const isActive =
               item.routeKey === route ||
               (item.routeKey === "inbox" && route === "case") ||
               (isSearchRoute && route === "search") ||
               (isCoverageHealthRoute && route === "coverage_health") ||
-              (isApprovalRoute && route === "approval");
+              (isApprovalRoute && route === "approval") ||
+              (isManagerRoute && route === "manager");
             const navRoute: Route = isSearchRoute
               ? "search"
               : isCoverageHealthRoute
                 ? "coverage_health"
                 : isApprovalRoute
                   ? "approval"
-                  : "inbox";
+                  : isManagerRoute
+                    ? "manager"
+                    : "inbox";
             return (
               <button
                 aria-disabled={!item.activeInSlice}
@@ -728,6 +737,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
           />
         ) : route === "approval" ? (
           <ApprovalRouteShell activeCase={activeCase} activeContext={activeContext} />
+        ) : route === "manager" ? (
+          <ManagerView activeCase={activeCase} activeContext={activeContext} />
         ) : route === "search" ? (
           <SearchHistoryView activeCase={activeCase} activeContext={activeContext} />
         ) : route === "coverage_health" ? (
@@ -942,6 +953,207 @@ function ApprovalRouteShell({
           </p>
         ) : null}
       </article>
+    </section>
+  );
+}
+
+function ManagerView({
+  activeCase,
+  activeContext
+}: {
+  activeCase: WorkbenchCase;
+  activeContext: ResolvedSurfaceContext;
+}) {
+  const role = activeContext.session.role;
+
+  if (role !== "P3") {
+    return (
+      <section
+        aria-labelledby="manager-route-guard-title"
+        className="page-region manager-view-surface"
+        data-authority-source="resolved-surface-context"
+        data-role={role}
+        data-route-guard="role-not-eligible"
+        data-testid="manager-route-guard"
+      >
+        <p className="section-kicker">Manager route guard</p>
+        <h1 id="manager-route-guard-title">Manager View unavailable</h1>
+        <p>
+          This route requires a resolved P3 manager context. URL and storage values cannot
+          create manager authority.
+        </p>
+      </section>
+    );
+  }
+
+  const kpiCards = [
+    {
+      id: "coverage",
+      label: "Coverage baseline",
+      value: activeCase.coverage,
+      source: "resolved-surface-context",
+      note: "Organization-visible coverage summary, not a field unlock."
+    },
+    {
+      id: "mtta",
+      label: "MTTA",
+      value: "—",
+      source: "data-unavailable",
+      note: "No runtime metric source is attached in MV-T01."
+    },
+    {
+      id: "noise-compression",
+      label: "Noise compression",
+      value: "—",
+      source: "data-unavailable",
+      note: "No frontend inference or static ROI number."
+    },
+    {
+      id: "approval-throughput",
+      label: "Approval throughput",
+      value: "—",
+      source: "data-unavailable",
+      note: "Approval audit summary remains later MV-T04 scope."
+    }
+  ];
+
+  return (
+    <section
+      aria-labelledby="manager-view-title"
+      className="page-region manager-view-surface"
+      data-authority-source="resolved-surface-context"
+      data-manager-scope="mv-t01-structure-only"
+      data-p0-p2-placeholders="absent"
+      data-role={role}
+      data-testid="manager-view-surface"
+    >
+      <div className="manager-topline">
+        <div>
+          <p className="section-kicker">Manager View</p>
+          <h1 id="manager-view-title">Manager Summary</h1>
+          <p>
+            P3 read-only management posture, derived from mock fixture context and bounded
+            to MV-T01 page structure.
+          </p>
+        </div>
+        <span
+          className="manager-readonly-badge"
+          data-testid="manager-readonly-badge"
+          data-workflow-authority="none"
+        >
+          Read-only
+        </span>
+      </div>
+
+      <div className="manager-layout" aria-label="Manager view regions">
+        <aside
+          aria-labelledby="manager-scope-title"
+          className="manager-scope-rail"
+          data-testid="manager-scope-rail"
+        >
+          <h2 id="manager-scope-title">Manager Scope</h2>
+          <dl className="manager-facts">
+            <div>
+              <dt>Role</dt>
+              <dd>{role}</dd>
+            </div>
+            <div>
+              <dt>Coverage</dt>
+              <dd>{activeCase.coverage}</dd>
+            </div>
+            <div>
+              <dt>Case state</dt>
+              <dd>{CASE_STATE_LABELS[activeCase.state]}</dd>
+            </div>
+          </dl>
+          <div
+            className="manager-boundary-note"
+            data-approval-workflow="not-implemented"
+            data-testid="manager-readonly-boundary"
+          >
+            No approval queue, action controls, host raw evidence, or deep-link handoff.
+          </div>
+        </aside>
+
+        <article
+          aria-labelledby="manager-brief-title"
+          className="manager-brief-narrative"
+          data-testid="manager-brief-narrative"
+        >
+          <h2 id="manager-brief-title">Manager Brief</h2>
+          <section data-brief-section="what">
+            <h3>WHAT</h3>
+            <p>{activeCase.summary}</p>
+          </section>
+          <section data-brief-section="why">
+            <h3>WHY</h3>
+            <p>Coverage and AR status are shown as management context only.</p>
+          </section>
+          <section data-brief-section="honesty">
+            <h3>HONESTY</h3>
+            <p>
+              KPI values without a governed source render as unavailable rather than inferred.
+            </p>
+          </section>
+          <section data-brief-section="decision">
+            <h3>DECISION</h3>
+            <p>P3 may ask management follow-up questions; individual approval actions are absent.</p>
+          </section>
+        </article>
+
+        <aside
+          aria-labelledby="manager-summary-title"
+          className="manager-context-summary"
+          data-testid="manager-context-summary"
+        >
+          <h2 id="manager-summary-title">Context Summary</h2>
+          <div className="manager-kpi-grid" data-testid="manager-kpi-grid">
+            {kpiCards.map((card) => (
+              <article
+                className="manager-kpi-card"
+                data-kpi-id={card.id}
+                data-kpi-source={card.source}
+                data-testid={`manager-kpi-card-${card.id}`}
+                key={card.id}
+              >
+                <span>{card.label}</span>
+                <strong>{card.value}</strong>
+                <p>{card.note}</p>
+              </article>
+            ))}
+          </div>
+          <div
+            className="manager-audit-boundary"
+            data-approval-audit-summary="not-implemented"
+            data-testid="manager-audit-boundary"
+          >
+            Approval audit summary is not mounted in MV-T01.
+          </div>
+        </aside>
+      </div>
+
+      <section
+        aria-labelledby="manager-dialogue-title"
+        className="manager-dialogue-dock"
+        data-chip-source="runtime-only"
+        data-testid="manager-dialogue-dock"
+      >
+        <div>
+          <h2 id="manager-dialogue-title">Dialogue Dock</h2>
+          <p>Recommended chips are hidden until a governed runtime source supplies them.</p>
+        </div>
+        <form className="manager-dialogue-form">
+          <label className="sr-only" htmlFor="manager-dialogue-input">
+            Manager follow-up input
+          </label>
+          <input
+            id="manager-dialogue-input"
+            placeholder="Ask about management posture"
+            readOnly
+          />
+          <button type="button">Send</button>
+        </form>
+      </section>
     </section>
   );
 }

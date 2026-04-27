@@ -3007,3 +3007,92 @@ Next route:
 ```text
 OPEN_MV_T01_IMPLEMENTATION_OR_GS_T05_NO_CODE_REGRESSION_CLOSEOUT
 ```
+
+## 86. Update 2026-04-27: MV-T01 P3 Manager Structure Closeout
+
+Closeout record:
+
+```text
+docs/S6_MV_T01_P3_MANAGER_STRUCTURE_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+MV_T01_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `/manager` is now implemented as a narrow P3-only Manager View structure.
+- The page exposes Manager Scope, Manager Brief, Context Summary, and Dialogue Dock regions.
+- KPI cards render only governed mock/resolved values, or unavailable semantics when no governed metric source exists.
+- URL/storage values cannot create Manager authority; role authority remains `ResolvedSurfaceContext`.
+- The Claude Web note is preserved: no P0/P2 Manager placeholder, conditional branch, or variant is reserved in `MV-T01`.
+- No approval controls, approval audit summary, deep-link handoff, host raw evidence, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates passed: frontend tests 77, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-49 [MV-T01] P3 Manager View structure and KPI shells`, parent `SCRUM-48 [MV] Manager View`, status `已完成`.
+
+Next route:
+
+```text
+OPEN_GS_T05_NO_CODE_REGRESSION_CLOSEOUT_AND_CD_T05_SOURCE_FIELD_MAP_CHECKLIST
+```
+
+## 87. Update 2026-04-27: GS-T05 Expert Mode Regression No-Code Closeout
+
+Closeout record:
+
+```text
+docs/S6_GS_T05_EXPERT_MODE_REGRESSION_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+GS_T05_NO_CODE_REGRESSION_CLOSEOUT_GATE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `GS-T05` is closed as no-code regression evidence.
+- Existing `GS-T04` plus `VF-03 v0.2` reconciliation already provide the expert-mode regression anchors.
+- The closeout only verifies existing behavior: P1 restricted, P0/P2 skeleton-only, P3 hidden, and no OFF-field/action/coverage/route expansion.
+- No final VF-03 visual PASS, interactive expert-mode switching, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates were refreshed in the same batch and passed: frontend tests 77, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Jira cloud is synchronized as `SCRUM-50 [GS-T05] Expert mode regression no-code closeout`, parent `SCRUM-6`, status `已完成`.
+
+Next route:
+
+```text
+OPEN_CD_T05_SOURCE_FIELD_MAP_CHECKLIST_OR_NEXT_AUTHORITY_ISOLATED_TICKET
+```
+
+## 88. Update 2026-04-27: CD-T05 Source Field Map Checklist
+
+Checklist record:
+
+```text
+docs/S6_CD_T05_SOURCE_FIELD_MAP_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+SOURCE_FIELD_MAP_CHECKLIST_PASS_IMPLEMENTATION_REQUIRES_SEPARATE_GO
+```
+
+Interpretation:
+
+- `CD-T05` G0-05 signoff blocker is closed and the exact allowed source-field map is now recorded.
+- Allowed source categories are limited to summary, honesty, and unsupported-claims projections.
+- Forbidden categories include evidence layer, blast radius, lineage confidence, host/process raw evidence, technical panels, approval/action controls, approval audit summary, Manager View handoff/output, inferred KPIs, and over-certain management copy.
+- `CD-T05` remains `NOT_STARTED`; implementation still requires a separate explicit `CD-T05 implementation GO`.
+- Jira cloud is synchronized for the checklist-only issue as `SCRUM-51 [CD-T05-FM] P3 executive summary source-field map checklist`, parent `SCRUM-8`, status `已完成`.
+
+Next route:
+
+```text
+WAIT_FOR_CD_T05_IMPLEMENTATION_GO_OR_CONTINUE_NEXT_EXACT_BOUNDED_TICKET
+```

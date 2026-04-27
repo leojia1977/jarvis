@@ -19,14 +19,14 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 24 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 26 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 1 | Authorized for readiness/checklist only; no implementation GO. |
+| Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 17 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
-| HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -38,6 +38,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `GS-T02` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `GS-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `GS-T04` | Sprint 1 | Visual skeleton implemented, gated, reviewed, Jira-synced; VF-03 v0.2 anchor reconciliation completed. |
+| `GS-T05` | Sprint 1 | Expert-mode regression no-code closeout, Jira-synced as `SCRUM-50`. |
 | `IN-T01` | Sprint 1 | Implemented and Jira-synced. |
 | `IN-T02` | Sprint 1 | P3 readonly Inbox skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-36`. |
 | `IN-T04` | Sprint 1 | P1 escalation / close-request entry skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-37`. |
@@ -58,18 +59,19 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `SH-T07` | Sprint 3A | No-code reconciliation closeout; Jira-synced as `SCRUM-44`. |
 | `AP-T10` | Sprint 2 | Display-only AR status badge/pill mapping implemented, gated, reviewed, Jira-synced as `SCRUM-46`. |
 | `AP-T01` | Sprint 2 | `/approval` route shell/guard implemented, gated, reviewed, Jira-synced as `SCRUM-47`. |
+| `MV-T01` | Sprint 3B | P3 Manager View structure implemented, gated, reviewed, Jira-synced as `SCRUM-49`. |
 
 ## 4. Running
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through SH-T07 reconciliation, GS-T05 checklist, G0-05 signoff, AP-T10 implementation, and AP-T01 implementation. Next safest implementation candidate is `MV-T01`; next no-code burn-down candidate is `GS-T05`. |
+| _None_ | _N/A_ | Current batch completed through MV-T01 implementation, GS-T05 no-code closeout, and CD-T05 source-field map checklist. |
 
 ## 5. Auto-Ready
 
 | Ticket | Sprint | Unlock condition |
 | --- | --- | --- |
-| `MV-T01` | Sprint 3B | G0-05 signoff is now repo-local YES; Claude Web note is clear. Implementation may proceed only as exact P3-only Manager structure with no P0/P2 placeholders or conditional branches. |
+| `CD-T05` | Sprint 1 | G0-05 signoff is repo-local YES and source-field map checklist is complete as `SCRUM-51`; implementation still requires separate GO and no later P3 field-set revision confirmation at launch. |
 
 ## 6. Skeleton-Ready
 
@@ -85,7 +87,7 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
-| `GS-T05` | Sprint 1 | Expert-mode regression / acceptance lane. | `NOT_REQUIRED` | Checklist complete; later no-code regression closeout may verify existing GS-T04/VF-03 behavior only. |
+| _None_ | _N/A_ | Current checklist-only lane is exhausted. | _N/A_ | _N/A_ |
 
 ## 8. Needs Authority Review
 
@@ -105,8 +107,8 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
 | `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
-| `MV-T02` | Sprint 3B | Manager read-only variants depend on `MV-T01`. |
-| `MV-T03` | Sprint 3B | Manager deep-link handoff depends on `MV-T01` authority. |
+| `MV-T02` | Sprint 3B | Manager read-only variants depend on `MV-T01` closeout acceptance. |
+| `MV-T03` | Sprint 3B | Manager deep-link handoff depends on `MV-T01` closeout acceptance. |
 | `MV-T04` | Sprint 3B | P3 approval audit summary is patch-gate and P3-authority sensitive. |
 | `MV-T05` | Sprint 3B | Manager acceptance depends on MV implementation chain. |
 | `SH-T08` | Sprint 3A | P3 approval-audit source/data availability depends on `SH-T05` and `AP-T08`. |
@@ -128,7 +130,6 @@ These should not be started until dependencies close or a later exact checklist 
 | Ticket | Sprint | HOLD reason |
 | --- | --- | --- |
 | `IN-T06` | Sprint 1 | Depends on `IN-T03` and `IN-T04`. |
-| `CD-T05` | Sprint 1 | G0-05 signoff is now YES; implementation HOLD remains pending no later P3 summary field-set revision and exact source-field map. |
 | `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
 | `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
 | `CH-T03` | Sprint 4 | Patch-gate possible; requires a separate isolated checklist after `CH-T01`. |
@@ -141,22 +142,22 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 24 / 54
+Done: 26 / 54
 Running: 0
 Auto-ready: 1
 Skeleton-ready: 0
-Checklist-only: 1
-Blocked/HOLD/design/authority: 28
+Checklist-only: 0
+Blocked/HOLD/design/authority: 27
 ```
 
 Best next automation burn-down path:
 
 ```text
-MV-T01 implementation candidate -> GS-T05 no-code regression closeout -> CD-T05 field-map checklist
+CD-T05 implementation if separately authorized -> next exact authority-isolated checklist -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:
 
 ```text
-Keep P2/AP follow-ups isolated one ticket at a time; keep CD-T05 HOLD until exact source-field map exists
+Keep P2/AP follow-ups isolated one ticket at a time; CD-T05 now has source-field map but still needs explicit implementation GO
 ```
