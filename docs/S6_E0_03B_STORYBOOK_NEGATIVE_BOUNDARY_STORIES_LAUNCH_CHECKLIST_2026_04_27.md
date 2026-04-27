@@ -6,7 +6,7 @@
 | --- | --- |
 | Title | S6 E0-03B Storybook Negative Boundary Stories Launch Checklist 2026-04-27 |
 | Ticket | `E0-03B` |
-| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -224,7 +224,7 @@ Any need to change `App`, components, fixture registry, fixture adapter, validat
 Implementation result:
 
 ```text
-IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
 ```
 
 Implemented file:
@@ -294,11 +294,19 @@ Reason:
 Decision:
 
 ```text
-READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+COMMITTED_PUSHED_f6d0fed
 ```
 
 Next route after closeout:
 
 ```text
 E0_04B_REMAINS_HOLD_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
+```
+
+Jira cloud sync:
+
+```text
+SCRUM-20 [E0-03B] Storybook negative/boundary registry stories
+Status: 已完成
+Parent: SCRUM-14
 ```

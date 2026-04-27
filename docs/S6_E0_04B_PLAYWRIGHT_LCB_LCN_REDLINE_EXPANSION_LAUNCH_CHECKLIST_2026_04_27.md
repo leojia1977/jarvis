@@ -6,11 +6,11 @@
 | --- | --- |
 | Title | S6 E0-04B Playwright LC-B LC-N Redline Expansion Launch Checklist 2026-04-27 |
 | Ticket | `E0-04B` |
-| Status | HOLD_FOR_IMPLEMENTATION_PENDING_RENDERABLE_REDLINE_SCOPE |
+| Status | RELAUNCH_READINESS_CHECKED_IMPLEMENTATION_HOLD |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
-| Baseline commit | `4afc584` |
+| Baseline commit | `f6d0fed` |
 | Primary implementor | Codex |
 | Execution surface | `codex` |
 | Workspace surface | VS Code / local repo |
@@ -52,14 +52,14 @@ Authority notes:
 Decision:
 
 ```text
-HOLD_FOR_IMPLEMENTATION_PENDING_E0_03B_CLOSEOUT_AND_EXACT_RENDERABLE_REDLINE_SCOPE
+HOLD_FOR_IMPLEMENTATION_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
 ```
 
 Reason:
 
-- E0-03B has not yet been implemented or closed, so the final Storybook/fixture inspection surface for negative and boundary cases is not available.
+- E0-03B is now implemented and closed, so the Storybook/fixture inspection surface for negative and boundary cases is available.
 - `missing-signal-notice`, `concurrency-inline-warning`, stale approve rejection, and observation-window timer migration need exact renderable DOM or state-sync harness entry points before Playwright can assert them safely.
-- The current app has E0-04 seed coverage for LC-P and selected LC-B/LC-N guards, but it does not implement P2 concurrency workflow, backend `STATE_SYNC`, or `emitStateSync` material migration.
+- The current Playwright config runs the Vite app, not Storybook, and the current app has E0-04 seed coverage for LC-P and selected LC-B/LC-N guards, but it does not implement P2 concurrency workflow, backend `STATE_SYNC`, or `emitStateSync` material migration.
 
 ## 5. Future Exact Allowed Files
 
@@ -165,7 +165,6 @@ Claude Web/external review is conditional and required if implementation touches
 
 HOLD remains active while any of the following are true:
 
-- E0-03B is not implemented and closed;
 - exact renderable DOM/test IDs for the selected redlines are not present;
 - `emitStateSync` / resolved context input is not available for material observation-window migration;
 - Playwright tests require app UI, component, route, Storybook, fixture, adapter, validator, backend/runtime/API/schema, dependency, or config changes;
@@ -201,5 +200,39 @@ IMPLEMENTATION_HOLD
 Allowed next action:
 
 ```text
-Close out E0-03B first, then relaunch E0-04B with exact renderable redline scope.
+Create a narrower exact ticket for app-level renderable redline hooks, or keep E0-04B parked until such scope exists.
 ```
+
+## 14. Relaunch Readiness Check 2026-04-27
+
+Relaunch input:
+
+```text
+E0-03B is closed as COMMITTED_PUSHED_f6d0fed.
+```
+
+Readiness reassessment:
+
+```text
+IMPLEMENTATION_HOLD_CONFIRMED
+```
+
+What changed since the first launch checklist:
+
+- E0-03B now provides Storybook registry views for validated phase, boundary-case, resolver-degradation, and non-renderable poison-pill inventory inspection.
+- E0-03B did not change App, fixtures, adapter, validator, Playwright config, or Playwright tests.
+
+Why HOLD remains correct:
+
+- current Playwright config serves the Vite app at `http://127.0.0.1:4174`, not Storybook;
+- the app still does not expose exact renderable DOM/test IDs for `missing-signal-notice`, `concurrency-inline-warning`, stale approve rejection, or unsupported-claims manager summary copy;
+- the app still has no `emitStateSync` / resolved context input harness for material observation-window state migration;
+- implementing E0-04B now would require App/component/route/harness changes or Storybook-serving Playwright config changes, which are outside this checklist and would invent scope.
+
+Allowed next route:
+
+```text
+OPEN_EXACT_APP_REDLINE_RENDERABILITY_TICKET_OR_KEEP_E0_04B_PARKED
+```
+
+No implementation, code, test, config, dependency, Storybook, App, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, or external pilot change is authorized by this readiness check.

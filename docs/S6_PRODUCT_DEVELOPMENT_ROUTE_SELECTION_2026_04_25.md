@@ -1188,7 +1188,7 @@ OPEN_E0_03B_STORYBOOK_NEGATIVE_BOUNDARY_IMPLEMENTATION_ONLY_IF_ALLOWED_FILES_REM
 E0-03B implementation result:
 
 ```text
-IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_PENDING_CLOSEOUT_AUTHORIZATION
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
 ```
 
 Implemented:
@@ -1246,7 +1246,7 @@ Still not implemented:
 Closeout decision:
 
 ```text
-READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
+COMMITTED_PUSHED_f6d0fed
 ```
 
 `E0-04B` remains:
@@ -1254,3 +1254,44 @@ READY_FOR_AUTHORIZED_STAGE_COMMIT_PUSH
 ```text
 HOLD_FOR_IMPLEMENTATION_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
 ```
+
+## 35. Update 2026-04-27: E0-03B State Sync And E0-04B Relaunch Readiness Check
+
+E0-03B state sync:
+
+```text
+COMMITTED_PUSHED_f6d0fed
+```
+
+E0-03B Jira sync:
+
+```text
+SCRUM-20_STATUS_DONE
+```
+
+E0-04B relaunch/readiness check:
+
+```text
+IMPLEMENTATION_HOLD_CONFIRMED
+```
+
+Readiness rationale:
+
+- E0-03B is closed and now provides Storybook registry views for validated phase, boundary-case, resolver-degradation, and non-renderable poison-pill inventory inspection.
+- E0-03B did not create app-level redline DOM, `emitStateSync`, P2 concurrency behavior, or material observation-window migration hooks.
+- Current Playwright config serves the Vite app, not Storybook.
+- The current app still lacks exact renderable DOM/test IDs for `missing-signal-notice`, `concurrency-inline-warning`, stale approve rejection, unsupported-claims manager-summary copy, and material observation-window state migration.
+
+Decision:
+
+```text
+E0_04B_REMAINS_HOLD_PENDING_EXACT_RENDERABLE_REDLINE_SCOPE
+```
+
+Recommended next route:
+
+```text
+OPEN_EXACT_APP_REDLINE_RENDERABILITY_TICKET_OR_KEEP_E0_04B_PARKED
+```
+
+No E0-04B implementation is authorized by this relaunch/readiness check.
