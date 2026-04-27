@@ -1581,3 +1581,53 @@ Next route:
 ```text
 OPEN_P1_CD_C_ACTION_REQUEST_MODAL_IMPLEMENTATION
 ```
+
+## 41. Update 2026-04-27: P1-CD-C Implementation Closeout
+
+Closed ticket:
+
+```text
+P1-CD-C - P1 Action Request modal semantics
+```
+
+Closeout state:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
+```
+
+Implementation commit:
+
+```text
+36f2bc2 Implement P1-CD-C action request modal
+```
+
+Jira cloud state:
+
+```text
+SCRUM-23 [P1-CD-C] Action Request modal semantics - 已完成
+```
+
+Implemented scope:
+
+- added a P1-only `Request P2 review` CTA to the existing Case Detail Action Request rail section when the current resolved context has no Action Request;
+- added an accessible local modal with only `Submit to P2` and `Cancel`;
+- added local mock-only submitted/waiting-on-P2 state after submit;
+- preserved P1/P2 authority boundary: no ActionMode selection and no approve/reject/delay/observe controls;
+- preserved route, resolved context, case_state, ar_status, action_mode, fixtures, adapter, validator, backend/runtime/API/schema, Storybook, Playwright, real-data, secrets, deploy, public endpoint, and external pilot boundaries.
+
+Gate evidence:
+
+```text
+frontend unit/component tests: PASS, 54 tests
+frontend build: PASS
+backend guard: PASS, 42 tests
+git diff --check: PASS with Windows line-ending warnings only
+Claude Code focused review: PASS after accessibility remediation
+```
+
+Next route:
+
+```text
+WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_OR_OPEN_P1_CD_D_READINESS_CHECKLIST
+```

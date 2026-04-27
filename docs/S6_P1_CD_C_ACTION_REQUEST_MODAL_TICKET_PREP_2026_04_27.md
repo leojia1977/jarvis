@@ -7,7 +7,7 @@
 | Title | S6 P1-CD-C Action Request Modal Ticket Prep 2026-04-27 |
 | Ticket | `P1-CD-C` |
 | Scope | P1 Action Request modal semantics |
-| Status | READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS |
+| Status | IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED |
 | Date | 2026-04-27 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
@@ -210,11 +210,76 @@ HOLD if:
 Decision:
 
 ```text
-READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
 ```
 
-Authorized next technical action:
+Implemented commits:
 
 ```text
-Implement P1-CD-C inside the exact allowed file scope, then run required gates and Claude Code focused review.
+8548e75 Prepare P1-CD-C action request modal ticket
+36f2bc2 Implement P1-CD-C action request modal
+```
+
+Jira cloud state:
+
+```text
+SCRUM-23 [P1-CD-C] Action Request modal semantics - 已完成
+```
+
+Implemented files:
+
+```text
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+```
+
+Implemented behavior:
+
+- P1 Case Detail now renders a P1-only `Request P2 review` CTA when the current resolved context is `P1_CASE_DETAIL`, role is `P1`, and no Action Request is present;
+- the CTA opens an accessible dialog with only `Submit to P2` and `Cancel`;
+- the dialog states that P1 does not choose execution mode;
+- `Submit to P2` closes the dialog and renders local mock-only `Submitted to P2 review` / `Waiting on P2` state;
+- the submission does not mutate route, phase, resolved context, case_state, ar_status, action_mode, fixtures, adapter, validator, backend/runtime/API/schema, Storybook, or Playwright;
+- existing AR phases remain read-only and do not render a duplicate submit CTA;
+- dialog focus management, Tab cycling, Cancel focus return, and submitted-state focus are covered by component tests.
+
+Gate evidence:
+
+```text
+cd frontend; npm run test -- --run
+PASS: 5 files, 54 tests
+
+cd frontend; npm run build
+PASS
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS with Windows line-ending warnings only
+```
+
+Claude Code focused review:
+
+```text
+Initial review: PASS_WITH_FINDINGS
+Finding: MEDIUM dialog focus management plus LOW dialog semantics/describedby notes.
+
+Remediation:
+- focus dialog primary action on open;
+- trap Tab within the dialog;
+- Escape and Cancel close the dialog;
+- Cancel returns focus to the trigger;
+- Submit focuses the local submitted state;
+- dialog uses div role="dialog";
+- aria-describedby is wired to dialog copy.
+
+Focused re-review: PASS
+```
+
+External review:
+
+```text
+Claude Web not required: P1-CD-C did not change architecture/governance authority, E0 root context or validator semantics, P2/P3 authority, backend/runtime/API/schema, route handoff, cross-surface propagation, real-data, secrets, deploy, public endpoint, or external pilot behavior.
 ```
