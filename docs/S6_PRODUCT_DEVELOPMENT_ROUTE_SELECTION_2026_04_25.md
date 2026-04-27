@@ -1763,3 +1763,36 @@ OPEN_SPRINT1_BATCH0_P1_LAUNCH_CHECKLIST
 ```
 
 No Sprint 1 code implementation is authorized until the selected Batch-0 tickets have exact allowed files, test commands, review path, rollback, and HOLD conditions.
+
+## 45. Update 2026-04-27: Sprint 1 Batch-0 P1 Launch Checklist
+
+Sprint 1 Batch-0 P1 launch checklist:
+
+```text
+docs/S6_SPRINT1_BATCH0_P1_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Candidate tickets:
+
+```text
+GS-T01 / GS-T02 / GS-T03 / IN-T05 / CD-T03
+```
+
+Decision:
+
+```text
+READY_FOR_BATCH0_RECONCILIATION_CLOSEOUT_NO_NEW_CODE
+```
+
+Interpretation:
+
+- The candidate tickets are valid Sprint 1 Batch-0 P1 tickets.
+- Current repo implementation and tests already cover their baseline behavior through the existing P1 workbench, P1-CD-A/B/C/D, and related tests.
+- The next safe action is reconciliation closeout, not duplicate UI implementation.
+- Jira cloud mutation is not authorized by this checklist unless Jarvis gives explicit Jira sync authorization.
+
+Next route:
+
+```text
+OPEN_SPRINT1_BATCH0_P1_RECONCILIATION_CLOSEOUT
+```
