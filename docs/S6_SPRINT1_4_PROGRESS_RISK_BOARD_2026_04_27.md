@@ -23,10 +23,10 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 4 | Authorized for readiness/checklist only; no implementation GO. |
+| Checklist-only | 3 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 17 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
-| HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 9 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -60,7 +60,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | AP-T10 and AP-T01 patch-isolation checklists are complete; CD-T05 readiness is HOLD pending G0-05 repo-local signoff and field map; next action is `MV-T01` readiness checklist or a G0-05 signoff record. |
+| _None_ | _N/A_ | AP-T10 and AP-T01 patch-isolation checklists are complete; CD-T05 and MV-T01 readiness checklists are complete but implementation-HOLD pending G0-05 / exact GO conditions. Next action is `SH-T07` reconciliation, `GS-T05` regression checklist, or a G0-05 signoff record. |
 
 ## 5. Auto-Ready
 
@@ -84,7 +84,6 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 | --- | --- | --- | --- | --- |
 | `AP-T10` | Sprint 2 | Patch-isolated state badge / pill mapping readiness. | `PASS` | Checklist complete; later implementation requires separate GO and must stay display-only. |
 | `AP-T01` | Sprint 2 | Patch-isolated approval route guard readiness. | `PASS` | Checklist complete; later implementation requires separate GO and must stay shell/guard only. |
-| `MV-T01` | Sprint 3B | P3 Manager View structure/KPI authority readiness. | `PASS_WITH_NOTE` | No P0/P2 placeholder or conditional branch in `MV-T01`; defer variants to `MV-T02`. |
 | `SH-T07` | Sprint 3A | History write CTA absence readiness. | `NOT_REQUIRED` | Reconciliation/implementation not started; separate GO required before closeout or code. |
 
 ## 8. Needs Authority Review
@@ -133,6 +132,7 @@ These should not be started until dependencies close or a later exact checklist 
 | `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
 | `CH-T03` | Sprint 4 | Patch-gate possible; requires a separate isolated checklist after `CH-T01`. |
 | `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
+| `MV-T01` | Sprint 3B | Readiness checklist complete; implementation HOLD pending repo-local `G0-05 P3 Contract full ratification`, explicit implementation GO, and guard forbidding P0/P2 placeholders or conditional branches. |
 | `SH-T04` | Sprint 3A | Depends on `SH-T01`. |
 | `SH-T09` | Sprint 3A | Depends on `SH-T01`, `SH-T02`, `SH-T05`, `SH-T06`, `SH-T07`, and `SH-T08`. |
 
@@ -145,18 +145,18 @@ Done: 21 / 54
 Running: 0
 Auto-ready: 1
 Skeleton-ready: 0
-Checklist-only: 4
-Blocked/HOLD/design/authority: 28
+Checklist-only: 3
+Blocked/HOLD/design/authority: 29
 ```
 
 Best next automation burn-down path:
 
 ```text
-MV-T01 checklist -> SH-T07 reconciliation decision -> GS-T05 regression checklist
+SH-T07 reconciliation decision -> GS-T05 regression checklist -> G0-05 repo-local signoff record
 ```
 
 Best next risk-reduction path:
 
 ```text
-MV-T01 checklist -> G0-05 repo-local signoff record if Jarvis wants CD-T05 unblocked
+G0-05 repo-local signoff record -> AP-T10/AP-T01 implementation GO decision -> SH-T07/GS-T05 burn-down
 ```
