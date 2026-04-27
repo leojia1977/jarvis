@@ -1941,3 +1941,132 @@ WAIT_FOR_NEXT_EXACT_BOUNDED_TICKET_SELECTION
 ```
 
 No follow-up code ticket is opened from EP-T01 closeout without a separate exact launch checklist.
+
+## 50. Update 2026-04-27: EP-T04 Blast Radius L1 OFF Reconciliation Closeout
+
+EP-T04 reconciliation closeout:
+
+```text
+docs/S6_EP_T04_BLAST_RADIUS_L1_OFF_RECONCILIATION_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+RECONCILED_GATE_PASS_NO_CODE
+```
+
+Interpretation:
+
+- `EP-T04 - blast_radius @ L1 = OFF` is accepted as covered by the existing E0-04C / E0-04B / EP-T01 implementation chain.
+- The repo already proves that under `coverage_level = L1`, the Blast Radius selector and subordinate panel are not attached, and the static redline marker records `data-visibility-state="OFF"`.
+- No duplicate implementation ticket should be opened for EP-T04.
+- Jira cloud is synchronized as `SCRUM-26 [EP-T04] blast_radius @ L1 = OFF`, parent `SCRUM-25`, status `已完成`.
+
+Next route:
+
+```text
+OPEN_CD_T01_CASE_HEADER_RECONCILIATION_CHECKLIST
+```
+
+## 51. Update 2026-04-27: CD-T01 Case Header Reconciliation Checklist
+
+CD-T01 reconciliation checklist:
+
+```text
+docs/S6_CD_T01_CASE_HEADER_RECONCILIATION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+```
+
+Interpretation:
+
+- Current repo behavior covers caseId and case_state in the case header, but coverage and verdict are distributed across the topbar, rail, and summary panel.
+- Do not mark `CD-T01` Done from current evidence.
+- A later implementation GO may add exact header-level coverage/verdict treatment if Jarvis wants to close this row.
+
+Next route:
+
+```text
+OPEN_CD_T02_SUMMARY_LAYER_RECONCILIATION_CHECKLIST
+```
+
+## 52. Update 2026-04-27: CD-T02 Summary Layer Reconciliation Checklist
+
+CD-T02 reconciliation checklist:
+
+```text
+docs/S6_CD_T02_SUMMARY_LAYER_RECONCILIATION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+```
+
+Interpretation:
+
+- Current repo behavior provides a first-screen narrative summary, but it does not explicitly prove exact `summary_layer.*` field semantics.
+- Do not mark `CD-T02` Done from generic narrative-spine evidence alone.
+
+Next route:
+
+```text
+OPEN_IN_T01_INBOX_BASE_STRUCTURE_RECONCILIATION_CHECKLIST
+```
+
+## 53. Update 2026-04-27: IN-T01 Inbox Base Structure Reconciliation Checklist
+
+IN-T01 reconciliation checklist:
+
+```text
+docs/S6_IN_T01_INBOX_BASE_STRUCTURE_RECONCILIATION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+RECONCILIATION_HOLD_PENDING_EXACT_IMPLEMENTATION_GO
+```
+
+Interpretation:
+
+- Current repo behavior covers an Inbox skeleton, minimal fields, and the case-first open path.
+- `IN-T01` is not closeout-ready because current copy still includes queue-oriented language while the tracker note says not to expose work-queue affordance.
+
+Next route:
+
+```text
+OPEN_CD_T04_HONESTY_LAYER_LAUNCH_CHECKLIST
+```
+
+## 54. Update 2026-04-27: CD-T04 Honesty Layer Launch Checklist
+
+CD-T04 launch checklist:
+
+```text
+docs/S6_CD_T04_HONESTY_LAYER_LAUNCH_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+READY_FOR_SEPARATE_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+Interpretation:
+
+- Current repo behavior already renders the `HONESTY` section and unsupported claims.
+- `CD-T04` is not implemented or closed by this launch checklist.
+- A later implementation GO may add the exact fold/no-silent-disappearance behavior inside `frontend/src/App.tsx`, `frontend/src/App.css`, and `frontend/src/App.test.tsx` only.
+
+Next route:
+
+```text
+WAIT_FOR_JARVIS_CD_T04_IMPLEMENTATION_GO_OR_NEXT_EXACT_BOUNDED_TICKET_SELECTION
+```
