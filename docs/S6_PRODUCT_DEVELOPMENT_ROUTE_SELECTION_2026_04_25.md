@@ -2741,3 +2741,33 @@ Next route:
 ```text
 OPEN_AP_T10_PATCH_ISOLATION_CHECKLIST
 ```
+
+## 77. Update 2026-04-27: AP-T10 Patch-Isolation Checklist
+
+Checklist record:
+
+```text
+docs/S6_AP_T10_PATCH_ISOLATION_CHECKLIST_2026_04_27.md
+```
+
+Decision:
+
+```text
+PATCH_ISOLATION_CHECKLIST_PASS_IMPLEMENTATION_REQUIRES_SEPARATE_GO
+```
+
+Interpretation:
+
+- `AP-T10` is accepted as a valid isolated candidate for later narrow implementation.
+- Claude Web authority review already returned `PASS` for `AP-T10`.
+- Future implementation must be display-only AR status badge / pill mapping derived from D-02.
+- `PENDING_APPROVAL` may be represented as actionable only for P2; all other AR statuses are display-only for this ticket.
+- Implementation remains unauthorized until separate explicit `AP-T10 implementation GO`.
+- No AP route, approval CTA, confirmation modal, state transition, observation-window countdown, approval audit, `ActionMode` creation, dynamic `ui_messages` copy semantics, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change is authorized by this checklist.
+- No Jira Done transition was performed because this is readiness/checklist-only, not implementation closeout.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T10_IMPLEMENTATION_GO_OR_OPEN_AP_T01_PATCH_ISOLATION_CHECKLIST
+```
