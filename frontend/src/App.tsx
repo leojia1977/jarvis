@@ -1398,13 +1398,14 @@ function CaseDetail({
             <EvidenceSubordinatePanel
               activeEvidenceFrame={activeEvidenceFrame}
               activeEvidenceFrameId={activeEvidenceFrameId}
-              evidenceFrames={activeCase.evidenceFrames}
-              evidenceMode={evidenceMode}
-              isEvidencePinned={isEvidencePinned}
-              onEvidenceModeChange={setEvidenceMode}
-              onFrameSelect={selectManualEvidenceFrame}
-              onPinnedChange={setIsEvidencePinned}
-            />
+            evidenceFrames={activeCase.evidenceFrames}
+            evidenceMode={evidenceMode}
+            isEvidencePinned={isEvidencePinned}
+            coverage={activeCase.coverage}
+            onEvidenceModeChange={setEvidenceMode}
+            onFrameSelect={selectManualEvidenceFrame}
+            onPinnedChange={setIsEvidencePinned}
+          />
           ) : null}
           {activeSubordinatePanel === "timeline" ? (
             <TimelineSubordinatePanel trace={activeCase.trace} />
@@ -1500,6 +1501,7 @@ function CaseDetail({
 function EvidenceSubordinatePanel({
   activeEvidenceFrame,
   activeEvidenceFrameId,
+  coverage,
   evidenceFrames,
   evidenceMode,
   isEvidencePinned,
@@ -1509,6 +1511,7 @@ function EvidenceSubordinatePanel({
 }: {
   activeEvidenceFrame: WorkbenchCase["evidenceFrames"][number];
   activeEvidenceFrameId: EvidenceFrameId;
+  coverage: CoverageLevel;
   evidenceFrames: WorkbenchCase["evidenceFrames"];
   evidenceMode: EvidenceMode;
   isEvidencePinned: boolean;
@@ -1556,6 +1559,25 @@ function EvidenceSubordinatePanel({
       <p className="evidence-mode">
         Read-only frame summaries with Auto / Manual and Pin controls.
       </p>
+      {coverage === "L1" ? (
+        <div
+          aria-label="L1 lineage confidence degraded summary"
+          className="lineage-degradation-summary"
+          data-coverage-level="L1"
+          data-field="evidence_layer.lineage_confidence"
+          data-lineage-card="simplified-summary"
+          data-switch-state="DEGRADED"
+          data-testid="l1-lineage-degradation-summary"
+          data-vf-10-state="pending"
+          role="note"
+        >
+          <strong>Lineage confidence</strong>
+          <span data-testid="lineage-degradation-state">DEGRADED at coverage L1</span>
+          <span data-testid="lineage-degradation-boundary">
+            Simplified summary only; no full lineage card, graph, tool, node, or new fact.
+          </span>
+        </div>
+      ) : null}
       <article
         className="active-evidence-frame"
         aria-live="polite"

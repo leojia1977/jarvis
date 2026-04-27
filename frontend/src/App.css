@@ -1325,6 +1325,27 @@ button {
   line-height: 1.45;
 }
 
+.lineage-degradation-summary {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 12px;
+  border: 1px dashed #d2a64c;
+  border-radius: 7px;
+  background: #fffaf0;
+  padding: 10px 12px;
+}
+
+.lineage-degradation-summary strong {
+  color: #533f11;
+  font-size: 13px;
+}
+
+.lineage-degradation-summary span {
+  color: #6b5a35;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .blast-radius-facts {
   display: grid;
   gap: 10px;

@@ -605,8 +605,21 @@ describe("SecuPilot first-batch workbench slice", () => {
     const subordinateSelector = within(evidencePanel).getByTestId("subordinate-panel-selector");
 
     expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L1");
+    const lineageSummary = within(evidencePanel).getByTestId("l1-lineage-degradation-summary");
+    expect(lineageSummary).toHaveAttribute("data-field", "evidence_layer.lineage_confidence");
+    expect(lineageSummary).toHaveAttribute("data-switch-state", "DEGRADED");
+    expect(lineageSummary).toHaveAttribute("data-coverage-level", "L1");
+    expect(lineageSummary).toHaveAttribute("data-lineage-card", "simplified-summary");
+    expect(lineageSummary).toHaveAttribute("data-vf-10-state", "pending");
+    expect(within(lineageSummary).getByTestId("lineage-degradation-state")).toHaveTextContent(
+      /DEGRADED at coverage L1/i
+    );
+    expect(within(lineageSummary).getByTestId("lineage-degradation-boundary")).toHaveTextContent(
+      /no full lineage card, graph, tool, node, or new fact/i
+    );
     expect(within(subordinateSelector).queryByRole("button", { name: "Blast Radius" })).not.toBeInTheDocument();
     expect(within(evidencePanel).queryByTestId("blast-radius-subordinate-panel")).not.toBeInTheDocument();
+    expect(within(evidencePanel).queryByTestId("full-lineage-card")).not.toBeInTheDocument();
     expect(screen.getByTestId("blast-radius-redline")).toHaveAttribute(
       "data-visibility-state",
       "OFF"
@@ -744,6 +757,10 @@ describe("SecuPilot first-batch workbench slice", () => {
     await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
 
     expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L1");
+    expect(screen.getByTestId("l1-lineage-degradation-summary")).toHaveAttribute(
+      "data-switch-state",
+      "DEGRADED"
+    );
     expect(screen.getByTestId("resolver-degradation-notice")).toHaveTextContent(
       "coverage L1 keeps blast_radius OFF"
     );

@@ -2648,3 +2648,34 @@ Next route:
 ```text
 OPEN_EP_T03_L1_LINEAGE_DEGRADATION_SEMANTIC_SKELETON_LAUNCH
 ```
+
+## 74. Update 2026-04-27: EP-T03 L1 Lineage Degradation Semantic Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_EP_T03_L1_LINEAGE_DEGRADATION_SEMANTIC_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+EP_T03_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- The existing Evidence subordinate panel now has an L1 `lineage_confidence` degraded summary slot.
+- The slot is explicitly marked `DEGRADED`, coverage `L1`, simplified summary only, and `VF-10` pending.
+- No full lineage card, graph, tool, node, new lineage fact, feature-flag merge change, resolver change, fixture/adapter/validator change, backend/runtime/API/schema change, route handoff, or `ResolvedSurfaceContext` change was introduced.
+- Final `VF-10` visual styling and visual PASS remain deferred.
+- Gates passed: frontend tests 66, frontend build, backend guard 42, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `PASS_WITH_FINDINGS` with no blocking findings.
+- Jira cloud is synchronized as `SCRUM-39 [EP-T03] L1 lineage_confidence degradation semantic skeleton`, status `已完成`, parent `SCRUM-25`.
+- SWE was not used for this product patch; it remains disabled until a later exact SWE-enabled ticket names exact files/tests/rollback/HOLD/reviewer.
+
+Next route:
+
+```text
+OPEN_SH_T01_HISTORICAL_LIST_ITEM_SKELETON_LAUNCH
+```
