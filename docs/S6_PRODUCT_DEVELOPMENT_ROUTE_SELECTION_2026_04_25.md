@@ -2525,3 +2525,34 @@ Next route:
 ```text
 OPEN_IN_T02_P3_READONLY_INBOX_VARIANT_SKELETON_LAUNCH
 ```
+
+## 70. Update 2026-04-27: GS-T04 VF-03 Reconciliation
+
+Reconciliation records:
+
+```text
+docs/S6_GS_T04_VF03_RECONCILIATION_LAUNCH_CHECKLIST_2026_04_27.md
+docs/S6_GS_T04_VF03_RECONCILIATION_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+GS_T04_VF03_RECONCILIATION_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_SYNCED
+```
+
+Interpretation:
+
+- `VF-03 v0.2` is accepted as the implementation-anchor source for `GS-T04` reconciliation.
+- The current Global Shell expert-mode skeleton now exposes the required frame, toggle, ON-example, DEGRADED, and forbidden-OFF selector anchors.
+- The static HTML prototype was not copied into production code.
+- This does not claim final `VF-03` visual PASS and does not implement interactive switching.
+- Gates passed: frontend tests 65, frontend build, backend guard 42, and `git diff --check`.
+- Claude Code focused review returned `VERDICT: PASS`.
+- Jira cloud issue `SCRUM-35` was updated with VF-03 reconciliation evidence.
+
+Next route:
+
+```text
+OPEN_IN_T02_P3_READONLY_INBOX_VARIANT_SKELETON_LAUNCH
+```

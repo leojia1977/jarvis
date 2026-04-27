@@ -143,7 +143,7 @@ button {
   cursor: default;
 }
 
-.expert-mode-entry {
+.expert-mode-frame {
   display: grid;
   gap: 8px;
   border: 1px solid #d3dbd1;
@@ -152,16 +152,55 @@ button {
   padding: 12px;
 }
 
+.expert-mode-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
 .expert-mode-entry-title {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
   color: #243140;
   font-size: 13px;
   font-weight: 900;
 }
 
-.expert-mode-entry p {
+.expert-mode-entry-badge {
+  border: 1px solid #d2a64c;
+  border-radius: 4px;
+  background: #fff6dc;
+  color: #7d5b10;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.expert-mode-toggle {
+  position: relative;
+  width: 38px;
+  height: 20px;
+  border: 1px solid #b8c4b5;
+  border-radius: 999px;
+  background: #e6ece2;
+  padding: 0;
+  cursor: default;
+}
+
+.expert-mode-toggle span {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #748174;
+}
+
+.expert-mode-frame p {
   margin: 0;
   color: #5d6875;
   font-size: 12px;
@@ -171,6 +210,62 @@ button {
 .expert-mode-entry-note {
   color: #6a7380;
   font-size: 11px;
+  font-weight: 700;
+}
+
+.expert-mode-degraded-field,
+.expert-mode-field-grid div {
+  border: 1px dashed #d2a64c;
+  border-radius: 6px;
+  background: #fffaf0;
+  color: #5f6470;
+  padding: 7px;
+  font-size: 11px;
+}
+
+.expert-mode-degraded-field {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.expert-mode-degraded-field strong {
+  color: #7d5b10;
+  font-size: 10px;
+}
+
+.expert-mode-on-example {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid #dbe4d7;
+  padding-top: 8px;
+}
+
+.expert-mode-active-banner {
+  border: 1px solid #d2a64c;
+  border-radius: 6px;
+  background: #fff6dc;
+  color: #7d5b10;
+  padding: 7px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.expert-mode-field-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.expert-mode-field-grid div[data-switch-state="ON"] {
+  border-style: solid;
+  border-color: #c7d5cf;
+  background: #ffffff;
+  color: #243140;
+}
+
+.expert-mode-off-annotation {
+  color: #6a7380;
   font-weight: 700;
 }
 

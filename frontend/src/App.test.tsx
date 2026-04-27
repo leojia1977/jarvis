@@ -55,30 +55,63 @@ describe("SecuPilot first-batch workbench slice", () => {
   it("renders P1 expert mode as an inert restricted skeleton", () => {
     render(<App />);
 
+    const expertFrame = screen.getByTestId("vf-03-expert-mode-frame");
     const expertEntry = screen.getByTestId("expert-mode-entry");
+    const expertToggle = screen.getByTestId("expert-mode-toggle");
+    const onExample = screen.getByTestId("expert-mode-on-example");
 
-    expect(expertEntry).toHaveAttribute("data-expert-mode-state", "p1_restricted");
-    expect(expertEntry).toHaveAttribute("data-authority-source", "resolved-surface-context");
-    expect(expertEntry).toHaveAttribute("data-action-state", "not-implemented");
-    expect(expertEntry).toHaveAttribute("data-visual-state", "skeleton");
-    expect(expertEntry).toHaveTextContent("P1 remains limited to the current L2 field set");
-    expect(expertEntry).toHaveTextContent("No route, toggle, field expansion, or action binding.");
-    expect(screen.queryByRole("button", { name: /expert mode/i })).not.toBeInTheDocument();
+    expect(expertFrame).toHaveAttribute("data-testid", "vf-03-expert-mode-frame");
+    expect(expertFrame).toHaveAttribute("data-expert-mode", "false");
+    expect(expertFrame).toHaveAttribute("data-case-state", "UNDER_INVESTIGATION");
+    expect(expertFrame).toHaveAttribute("data-coverage-level", "L2");
+    expect(expertFrame).toHaveAttribute("data-role", "P1");
+    expect(expertFrame).toHaveAttribute("data-expert-mode-state", "p1_restricted");
+    expect(expertFrame).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(expertFrame).toHaveAttribute("data-action-state", "not-implemented");
+    expect(expertFrame).toHaveAttribute("data-visual-state", "skeleton");
+    expect(expertEntry).toHaveAttribute("data-expert-mode", "false");
+    expect(expertToggle).toHaveAttribute("aria-pressed", "false");
+    expect(expertToggle).toHaveAttribute("data-role-variant", "P1_RESTRICTED");
+    expect(expertToggle).toHaveAttribute("data-action-state", "inert");
+    expect(expertFrame).toHaveTextContent("P1 remains limited to the current L2 field set");
+    expect(expertFrame).toHaveTextContent("No route, permission upgrade, coverage bypass");
+    expect(screen.getByTestId("lineage-confidence")).toHaveAttribute(
+      "data-switch-state",
+      "DEGRADED"
+    );
+    expect(onExample).toHaveAttribute("data-expert-mode", "true");
+    expect(screen.getByTestId("expert-mode-active-banner")).toBeInTheDocument();
+    expect(screen.getByTestId("expert-field-confidence-breakdown")).toHaveAttribute(
+      "data-switch-state",
+      "ON"
+    );
+    expect(screen.getByTestId("lineage-confidence-expert")).toHaveAttribute(
+      "data-switch-state",
+      "DEGRADED"
+    );
+    expect(screen.queryByTestId("expert-mode-unlock-off-field")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-upgrade-prompt")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("blast-radius-expert-unlock")).not.toBeInTheDocument();
   });
 
   it("keeps the P2 expert mode entry as skeleton-only and omits it for P3", () => {
     const { unmount } = render(<App initialPhaseNumber={3} />);
 
+    const p2ExpertFrame = screen.getByTestId("vf-03-expert-mode-frame");
     const p2ExpertEntry = screen.getByTestId("expert-mode-entry");
-    expect(p2ExpertEntry).toHaveAttribute("data-expert-mode-state", "entry_skeleton");
-    expect(p2ExpertEntry).toHaveTextContent("Semantic skeleton for P0/P2 only");
-    expect(p2ExpertEntry).toHaveTextContent("VF-03 final behavior remains pending");
-    expect(screen.queryByRole("button", { name: /expert mode/i })).not.toBeInTheDocument();
+    const p2ExpertToggle = screen.getByTestId("expert-mode-toggle");
+    expect(p2ExpertFrame).toHaveAttribute("data-role", "P2");
+    expect(p2ExpertFrame).toHaveAttribute("data-expert-mode", "false");
+    expect(p2ExpertFrame).toHaveAttribute("data-expert-mode-state", "entry_skeleton");
+    expect(p2ExpertToggle).toHaveAttribute("data-role-variant", "P2_TOGGLEABLE");
+    expect(p2ExpertEntry).toHaveTextContent("P2 skeleton");
 
     unmount();
     render(<App initialPhaseNumber={6} />);
 
+    expect(screen.queryByTestId("vf-03-expert-mode-frame")).not.toBeInTheDocument();
     expect(screen.queryByTestId("expert-mode-entry")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("expert-mode-toggle")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P3");
   });
 

@@ -37,7 +37,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `GS-T01` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `GS-T02` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `GS-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
-| `GS-T04` | Sprint 1 | Visual skeleton implemented, gated, reviewed, Jira-synced. |
+| `GS-T04` | Sprint 1 | Visual skeleton implemented, gated, reviewed, Jira-synced; VF-03 v0.2 anchor reconciliation completed. |
 | `IN-T01` | Sprint 1 | Implemented and Jira-synced. |
 | `IN-T05` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `CD-T01` | Sprint 1 | Implemented and Jira-synced. |

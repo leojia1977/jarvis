@@ -402,12 +402,16 @@ function resolveExpertModeEntry(
   coverage: CoverageLevel
 ): {
   state: ExpertModeEntryState;
+  roleVariant: "P0_TOGGLEABLE" | "P1_RESTRICTED" | "P2_TOGGLEABLE" | "P3_HIDDEN";
+  badge: string;
   title: string;
   description: string;
 } {
   if (role === "P3") {
     return {
       state: "not_applicable",
+      roleVariant: "P3_HIDDEN",
+      badge: "P3 hidden",
       title: "Expert mode unavailable",
       description: "P3 uses manager-readonly surfaces and does not receive this Global Shell entry."
     };
@@ -416,15 +420,19 @@ function resolveExpertModeEntry(
   if (role === "P1") {
     return {
       state: "p1_restricted",
-      title: "Expert mode restricted",
-      description: `P1 remains limited to the current ${coverage} field set; no extra fields or actions are exposed.`
+      roleVariant: "P1_RESTRICTED",
+      badge: "P1 limited",
+      title: "Expert Mode",
+      description: `Expand current fields only. P1 remains limited to the current ${coverage} field set.`
     };
   }
 
   return {
     state: "entry_skeleton",
-    title: "Expert mode entry",
-    description: "Semantic skeleton for P0/P2 only; VF-03 final behavior remains pending."
+    roleVariant: role === "P0" ? "P0_TOGGLEABLE" : "P2_TOGGLEABLE",
+    badge: `${role} skeleton`,
+    title: "Expert Mode",
+    description: `Expand current fields only. ${role} toggleable behavior remains a VF-03 skeleton.`
   };
 }
 
@@ -564,7 +572,11 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
           })}
         </nav>
 
-        <ExpertModeEntrySlot coverage={activeCase.coverage} role={role} />
+        <ExpertModeEntrySlot
+          caseState={activeCase.state}
+          coverage={activeCase.coverage}
+          role={role}
+        />
       </aside>
 
       <section className="content-shell">
@@ -619,9 +631,11 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
 }
 
 function ExpertModeEntrySlot({
+  caseState,
   coverage,
   role
 }: {
+  caseState: CaseState;
   coverage: CoverageLevel;
   role: Role;
 }) {
@@ -634,19 +648,76 @@ function ExpertModeEntrySlot({
   return (
     <section
       aria-labelledby="expert-mode-entry-title"
-      className="expert-mode-entry"
+      className="expert-mode-frame"
       data-action-state="not-implemented"
       data-authority-source="resolved-surface-context"
+      data-case-state={caseState}
+      data-coverage-level={coverage}
+      data-expert-mode="false"
       data-expert-mode-state={entry.state}
-      data-testid="expert-mode-entry"
+      data-role={role}
+      data-testid="vf-03-expert-mode-frame"
       data-visual-state="skeleton"
     >
-      <div className="expert-mode-entry-title">
-        <Lock aria-hidden="true" size={16} />
-        <span id="expert-mode-entry-title">{entry.title}</span>
+      <div className="expert-mode-entry" data-expert-mode="false" data-testid="expert-mode-entry">
+        <div className="expert-mode-entry-title">
+          <Lock aria-hidden="true" size={16} />
+          <span id="expert-mode-entry-title">{entry.title}</span>
+          <span className="expert-mode-entry-badge">{entry.badge}</span>
+        </div>
+        <button
+          aria-label="Expert Mode"
+          aria-pressed="false"
+          className="expert-mode-toggle"
+          data-action-state="inert"
+          data-role-variant={entry.roleVariant}
+          data-switch-state="OFF"
+          data-testid="expert-mode-toggle"
+          type="button"
+        >
+          <span aria-hidden="true" />
+        </button>
       </div>
       <p>{entry.description}</p>
-      <span className="expert-mode-entry-note">No route, toggle, field expansion, or action binding.</span>
+      <span className="expert-mode-entry-note">
+        No route, permission upgrade, coverage bypass, OFF-field mount, or action binding.
+      </span>
+      <div
+        className="expert-mode-degraded-field"
+        data-switch-state="DEGRADED"
+        data-testid="lineage-confidence"
+      >
+        <span>Lineage Confidence</span>
+        <strong>DEGRADED</strong>
+      </div>
+      <section
+        aria-label="Expert mode ON selector baseline"
+        className="expert-mode-on-example"
+        data-expert-mode="true"
+        data-role-variant={entry.roleVariant}
+        data-testid="expert-mode-on-example"
+      >
+        <div className="expert-mode-active-banner" data-testid="expert-mode-active-banner">
+          Expert Mode ON example: current fields only; no coverage upgrade or new information.
+        </div>
+        <div className="expert-mode-field-grid">
+          <div data-switch-state="ON" data-testid="expert-field-confidence-breakdown">
+            Confidence Breakdown
+          </div>
+          <div data-switch-state="ON" data-testid="expert-field-inferred-node-count">
+            Inferred Node Count
+          </div>
+          <div data-switch-state="ON" data-testid="expert-field-signal-quality">
+            Signal Quality
+          </div>
+          <div data-switch-state="DEGRADED" data-testid="lineage-confidence-expert">
+            Lineage Confidence remains DEGRADED
+          </div>
+        </div>
+        <p className="expert-mode-off-annotation">
+          L1 OFF fields stay absent: no card, no placeholder, no DOM.
+        </p>
+      </section>
     </section>
   );
 }

@@ -97,3 +97,13 @@ OPEN_IN_T02_P3_READONLY_INBOX_VARIANT_SKELETON_LAUNCH
 ```
 
 `GS-T05` is now dependency-unblocked, but the active staged queue continues to `IN-T02` before regression-lane selection unless a later route reprioritizes it.
+
+## 8. VF-03 v0.2 Reconciliation
+
+Follow-up reconciliation record:
+
+```text
+docs\S6_GS_T04_VF03_RECONCILIATION_CLOSEOUT_2026_04_27.md
+```
+
+`VF-03 v0.2` arrived after the initial skeleton closeout and has been applied as a bounded anchor/test reconciliation. Final `VF-03` visual PASS remains pending.
