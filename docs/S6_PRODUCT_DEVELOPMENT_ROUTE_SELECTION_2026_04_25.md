@@ -1133,3 +1133,52 @@ E0-03_AND_E0-04_ALREADY_IMPLEMENTED_AND_PUSHED_DO_NOT_REOPEN_FROM_OLDER_HANDOFF
 ```
 
 Any new Storybook or Playwright work based on this visual-negative correction requires a new exact bounded follow-up ticket.
+
+## 33. Update 2026-04-27: E0-03B And E0-04B Launch Checklist Split
+
+Jarvis authorized launch checklist creation for two exact follow-up tickets after the visual-negative handoff correction:
+
+```text
+E0-03B - Storybook negative/boundary stories expansion
+E0-04B - Playwright LC-B / LC-N redline expansion
+```
+
+New checklist records:
+
+- `docs/S6_E0_03B_STORYBOOK_NEGATIVE_BOUNDARY_STORIES_LAUNCH_CHECKLIST_2026_04_27.md`
+- `docs/S6_E0_04B_PLAYWRIGHT_LCB_LCN_REDLINE_EXPANSION_LAUNCH_CHECKLIST_2026_04_27.md`
+
+E0-03B decision:
+
+```text
+READY_FOR_AUTONOMOUS_IMPLEMENTATION_GO_WITH_BOUNDS
+```
+
+E0-03B allowed interpretation:
+
+- Storybook may expose existing E0-02B fixture registry entries for validated phase, boundary-case, and resolver-degradation states.
+- Poison-pill fixtures may be listed only as fail-closed, non-renderable documentation entries.
+- Implementation must remain limited to `frontend/src/secupilot/surface/storybook/CoreSurfaceStories.stories.tsx` plus closeout records.
+- `validate=false` must not be accepted or forwarded by Storybook.
+- Any need to change App, components, fixture registry, fixture adapter, validator, Playwright, dependency, backend/runtime/API/schema, route handoff, real-data behavior, secrets, deploy, public endpoint, or external pilot triggers HOLD.
+
+E0-04B decision:
+
+```text
+HOLD_FOR_IMPLEMENTATION_PENDING_E0_03B_CLOSEOUT_AND_EXACT_RENDERABLE_REDLINE_SCOPE
+```
+
+E0-04B HOLD reason:
+
+- E0-03B is not yet implemented/closed.
+- Current E0-04 Playwright tests cover LC-P and selected LC-B/LC-N seeds, but the app does not yet expose exact renderable DOM/state-sync entry points for the requested deeper redlines.
+- Observation-window expiration tests require `await page.clock.fastForward()` only for read-only timer display and explicit `emitStateSync` / resolved context input for material state migration; that exact harness is not present yet.
+- Concurrency stale approve rejection and inline warning tests require already-renderable P2 concurrency behavior; Playwright must not invent that behavior.
+
+Automation route:
+
+```text
+OPEN_E0_03B_STORYBOOK_NEGATIVE_BOUNDARY_IMPLEMENTATION_ONLY_IF_ALLOWED_FILES_REMAIN_EXACT
+```
+
+`E0-04B` remains parked until `E0-03B` closes and a relaunch proves exact renderable redline scope.
