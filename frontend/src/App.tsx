@@ -623,7 +623,11 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         ) : route === "search" ? (
           <SearchHistoryView activeCase={activeCase} activeContext={activeContext} />
         ) : (
-          <InboxView cases={cases} onOpenCase={(nextCaseId) => navigate("case", nextCaseId)} />
+          <InboxView
+            cases={cases}
+            onOpenCase={(nextCaseId) => navigate("case", nextCaseId)}
+            role={role}
+          />
         )}
       </section>
     </main>
@@ -778,32 +782,80 @@ function MockContextSelector({
 
 function InboxView({
   cases,
-  onOpenCase
+  onOpenCase,
+  role
 }: {
   cases: WorkbenchCase[];
   onOpenCase: (caseId: string) => void;
+  role: Role;
 }) {
+  const isP3Readonly = role === "P3";
+
   return (
-    <section className="page-region" aria-labelledby="inbox-title">
+    <section
+      className="page-region"
+      aria-labelledby="inbox-title"
+      data-inbox-mode={isP3Readonly ? "readonly" : "case-first"}
+      data-role={role}
+      data-testid="inbox-surface"
+    >
       <div className="page-heading">
         <p>Case Inbox</p>
         <h1 id="inbox-title">Case-first intake</h1>
       </div>
 
-      <div className="case-grid" data-testid="case-first-inbox-list">
+      <div
+        className="case-grid"
+        data-testid={isP3Readonly ? "p3-readonly-inbox-variant" : "case-first-inbox-list"}
+      >
         {cases.map((item) => (
-          <article className="case-card" key={item.id}>
+          <article
+            className={isP3Readonly ? "case-card readonly-case-card" : "case-card"}
+            data-authority-source={isP3Readonly ? "resolved-surface-context" : undefined}
+            data-testid={isP3Readonly ? `p3-readonly-inbox-card-${item.id}` : undefined}
+            data-visual-state={isP3Readonly ? "skeleton" : undefined}
+            data-work-queue-affordance={isP3Readonly ? "absent" : undefined}
+            key={item.id}
+          >
             <div className="case-card-topline">
               <span className={`risk ${item.risk.toLowerCase()}`}>{item.risk}</span>
               <span>{item.coverage}</span>
             </div>
             <h2>{item.title}</h2>
             <p>{item.verdict}</p>
+            {isP3Readonly ? (
+              <dl className="readonly-case-facts" aria-label="Inbox case facts">
+                <div>
+                  <dt>Case</dt>
+                  <dd data-testid={`p3-readonly-inbox-case-id-${item.id}`}>{item.id}</dd>
+                </div>
+                <div>
+                  <dt>Coverage</dt>
+                  <dd data-testid={`p3-readonly-inbox-coverage-${item.id}`}>{item.coverage}</dd>
+                </div>
+                <div>
+                  <dt>State</dt>
+                  <dd data-testid={`p3-readonly-inbox-case-state-${item.id}`}>
+                    {CASE_STATE_LABELS[item.state]}
+                  </dd>
+                </div>
+              </dl>
+            ) : null}
             <div className="next-step">{item.nextStep}</div>
-            <button onClick={() => onOpenCase(item.id)} type="button">
-              <span>Open case</span>
-              <ChevronRight aria-hidden="true" size={18} />
-            </button>
+            {isP3Readonly ? (
+              <div
+                className="readonly-inbox-notice"
+                data-testid={`p3-readonly-inbox-notice-${item.id}`}
+                role="note"
+              >
+                P3 readonly skeleton: summary fields only, with no case operation attached.
+              </div>
+            ) : (
+              <button onClick={() => onOpenCase(item.id)} type="button">
+                <span>Open case</span>
+                <ChevronRight aria-hidden="true" size={18} />
+              </button>
+            )}
           </article>
         ))}
       </div>

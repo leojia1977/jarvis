@@ -24,6 +24,10 @@ describe("SecuPilot first-batch workbench slice", () => {
     window.sessionStorage.clear();
   });
 
+  afterEach(() => {
+    window.history.pushState({}, "", "/inbox");
+  });
+
   it("renders the global conversation input and coverage badge", () => {
     render(<App />);
 
@@ -215,7 +219,10 @@ describe("SecuPilot first-batch workbench slice", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: "Case-first intake" })).toBeInTheDocument();
+    expect(screen.getByTestId("inbox-surface")).toHaveAttribute("data-role", "P1");
+    expect(screen.getByTestId("inbox-surface")).toHaveAttribute("data-inbox-mode", "case-first");
     expect(screen.getByTestId("case-first-inbox-list")).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: /Open case/i })).toHaveLength(1);
     expect(document.body).not.toHaveTextContent(/work queue|current case queue|approval queue/i);
 
     await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
@@ -223,6 +230,36 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(window.location.pathname).toBe("/case/CASE-2847");
     expect(screen.getByText("CASE-2847")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /HIGH mock case/i })).toBeInTheDocument();
+  });
+
+  it("renders the P3 inbox as a read-only skeleton without operation affordance", () => {
+    render(<App initialPhaseNumber={6} />);
+
+    const inboxSurface = screen.getByTestId("inbox-surface");
+    const readonlyVariant = screen.getByTestId("p3-readonly-inbox-variant");
+    const readonlyCard = screen.getByTestId("p3-readonly-inbox-card-CASE-2847");
+    const readonlyNotice = screen.getByTestId("p3-readonly-inbox-notice-CASE-2847");
+
+    expect(inboxSurface).toHaveAttribute("data-role", "P3");
+    expect(inboxSurface).toHaveAttribute("data-inbox-mode", "readonly");
+    expect(readonlyCard).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(readonlyCard).toHaveAttribute("data-visual-state", "skeleton");
+    expect(readonlyCard).toHaveAttribute("data-work-queue-affordance", "absent");
+    expect(screen.getByTestId("p3-readonly-inbox-case-id-CASE-2847")).toHaveTextContent(
+      "CASE-2847"
+    );
+    expect(screen.getByTestId("p3-readonly-inbox-coverage-CASE-2847")).toHaveTextContent("L2");
+    expect(screen.getByTestId("p3-readonly-inbox-case-state-CASE-2847")).toHaveTextContent(
+      "Approved pending execution"
+    );
+    expect(readonlyNotice).toHaveTextContent(/P3 readonly skeleton/i);
+    expect(within(readonlyVariant).queryByRole("button")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Open case/i })).not.toBeInTheDocument();
+    expect(
+      within(readonlyVariant).queryByRole("button", {
+        name: /approve|reject|delay|observe|close/i
+      })
+    ).not.toBeInTheDocument();
   });
 
   it("renders the P1 Case Detail layout regions and narrative spine", async () => {
@@ -570,11 +607,8 @@ describe("SecuPilot first-batch workbench slice", () => {
   });
 
   it("keeps P3 host-level raw evidence DOM absent in the Phase 6 resolved context", async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.selectOptions(screen.getByLabelText("Mock fixture phase"), "6");
-    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+    window.history.pushState({}, "", "/case/CASE-2847");
+    render(<App initialPhaseNumber={6} />);
 
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P3");
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("P3_MANAGER");
@@ -585,10 +619,8 @@ describe("SecuPilot first-batch workbench slice", () => {
 
   it("renders a cautious P3 technical summary fallback without host detail or write controls", async () => {
     const user = userEvent.setup();
-    render(<App />);
-
-    await user.selectOptions(screen.getByLabelText("Mock fixture phase"), "6");
-    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
+    window.history.pushState({}, "", "/case/CASE-2847");
+    render(<App initialPhaseNumber={6} />);
 
     const evidencePanel = screen.getByRole("complementary", { name: "Contextual Evidence" });
     await user.click(
@@ -662,13 +694,13 @@ describe("SecuPilot first-batch workbench slice", () => {
 
   it("renders a cautious P3 manager summary without host raw evidence or over-certainty", async () => {
     const user = userEvent.setup();
-    render(<App />);
+    window.history.pushState({}, "", "/case/CASE-2847");
+    render(<App initialPhaseNumber={6} />);
 
     await user.selectOptions(
       screen.getByLabelText("Mock redline fixture"),
       "resolver-p3-technical-detail-redaction"
     );
-    await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
 
     const managerSummary = screen.getByTestId("manager-summary");
     expect(managerSummary).toHaveTextContent("Manager summary stays cautious");

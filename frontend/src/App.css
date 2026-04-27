@@ -446,6 +446,11 @@ button {
   line-height: 1.5;
 }
 
+.readonly-case-card {
+  border-style: dashed;
+  background: #fbfcf8;
+}
+
 .case-card-topline {
   display: flex;
   justify-content: space-between;
@@ -469,6 +474,45 @@ button {
   padding: 10px 12px;
   color: #604015;
   font-size: 14px;
+}
+
+.readonly-case-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.readonly-case-facts > div {
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 8px;
+}
+
+.readonly-case-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.readonly-case-facts dd {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+  color: #243140;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.readonly-inbox-notice {
+  border-left: 3px solid #6b8a99;
+  background: #f2f6f8;
+  color: #365261;
+  padding: 9px 10px;
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .case-card button,

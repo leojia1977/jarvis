@@ -2556,3 +2556,34 @@ Next route:
 ```text
 OPEN_IN_T02_P3_READONLY_INBOX_VARIANT_SKELETON_LAUNCH
 ```
+
+## 71. Update 2026-04-27: IN-T02 P3 Readonly Inbox Variant Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_IN_T02_P3_READONLY_INBOX_VARIANT_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+IN_T02_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_NON_BLOCKING_NOTES_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- The Inbox route now has a P3-only readonly skeleton variant.
+- P3 readonly cards expose case id, coverage, case state, verdict, next-step summary, and resolved-context authority anchors.
+- P3 Inbox does not attach `Open case` or approve / reject / delay / observe / close CTA affordances.
+- P1 case-first Inbox still exposes the `Open case` path and remains operational.
+- Final `VF-02` visual styling and visual PASS remain deferred.
+- Gates passed: frontend tests 66, frontend build, backend guard 42, and `git diff --check`.
+- Claude Code focused review returned `PASS_WITH_FINDINGS` with no blocking findings.
+- Jira cloud is synchronized as `SCRUM-36 [IN-T02] P3 readonly inbox variant skeleton`, status `已完成`, parent `SCRUM-7`.
+
+Next route:
+
+```text
+OPEN_IN_T04_P1_ESCALATION_CLOSE_REQUEST_ENTRY_SKELETON_LAUNCH
+```
