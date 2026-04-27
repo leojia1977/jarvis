@@ -2340,3 +2340,42 @@ Next route:
 ```text
 CONTINUE_RQ04_THEN_APPLY_STAGED_ACCELERATION_AUTHORIZATION
 ```
+
+## 64. Update 2026-04-27: Sprint 1-4 Progress / Risk Board And Review Packs
+
+Progress board:
+
+```text
+docs/S6_SPRINT1_4_PROGRESS_RISK_BOARD_2026_04_27.md
+```
+
+P2/P3 authority review pack:
+
+```text
+docs/S6_P2_P3_AUTHORITY_REVIEW_PACK_2026_04_27.md
+```
+
+Design unblock priority brief:
+
+```text
+docs/S6_DESIGN_UNBLOCK_FRAME_PRIORITY_2026_04_27.md
+```
+
+Decision:
+
+```text
+PROGRESS_RISK_BOARD_AND_REVIEW_PACKS_ACTIVE
+```
+
+Interpretation:
+
+- Sprint 1-4 tracker tasks are now bucketed into `Done`, `Running`, `Auto-ready`, `Skeleton-ready`, `Checklist-only`, `Needs authority review`, `Needs design`, and `HOLD`.
+- P2/P3 authority questions are pre-framed for `AP-T10`, `AP-T01`, `CD-T05`, and `MV-T01`.
+- Design unblock order is `VF-03`, `VF-02`, `VF-10`, `HF-SH-01`, `VF-01`, `VF-06`.
+- These records do not authorize real data, secrets, deploy/public endpoint, external pilot, backend/runtime/API/schema, broad P2/P3 implementation, or final visual PASS.
+
+Next route:
+
+```text
+CONTINUE_AUTOMATION_WITH_PROGRESS_BOARD_VISIBILITY
+```
