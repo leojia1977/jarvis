@@ -52,6 +52,36 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
   });
 
+  it("renders P1 expert mode as an inert restricted skeleton", () => {
+    render(<App />);
+
+    const expertEntry = screen.getByTestId("expert-mode-entry");
+
+    expect(expertEntry).toHaveAttribute("data-expert-mode-state", "p1_restricted");
+    expect(expertEntry).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(expertEntry).toHaveAttribute("data-action-state", "not-implemented");
+    expect(expertEntry).toHaveAttribute("data-visual-state", "skeleton");
+    expect(expertEntry).toHaveTextContent("P1 remains limited to the current L2 field set");
+    expect(expertEntry).toHaveTextContent("No route, toggle, field expansion, or action binding.");
+    expect(screen.queryByRole("button", { name: /expert mode/i })).not.toBeInTheDocument();
+  });
+
+  it("keeps the P2 expert mode entry as skeleton-only and omits it for P3", () => {
+    const { unmount } = render(<App initialPhaseNumber={3} />);
+
+    const p2ExpertEntry = screen.getByTestId("expert-mode-entry");
+    expect(p2ExpertEntry).toHaveAttribute("data-expert-mode-state", "entry_skeleton");
+    expect(p2ExpertEntry).toHaveTextContent("Semantic skeleton for P0/P2 only");
+    expect(p2ExpertEntry).toHaveTextContent("VF-03 final behavior remains pending");
+    expect(screen.queryByRole("button", { name: /expert mode/i })).not.toBeInTheDocument();
+
+    unmount();
+    render(<App initialPhaseNumber={6} />);
+
+    expect(screen.queryByTestId("expert-mode-entry")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P3");
+  });
+
   it("resolves the history route through clamp-first guard without URL or storage authority", () => {
     window.history.pushState({}, "", "/search?tab=history&coverage=L3&role=P3&focus=raw_technical");
     window.localStorage.setItem("role", "P3");

@@ -143,6 +143,37 @@ button {
   cursor: default;
 }
 
+.expert-mode-entry {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #d3dbd1;
+  border-radius: 7px;
+  background: #f6f9f4;
+  padding: 12px;
+}
+
+.expert-mode-entry-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #243140;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.expert-mode-entry p {
+  margin: 0;
+  color: #5d6875;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.expert-mode-entry-note {
+  color: #6a7380;
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .content-shell {
   display: flex;
   min-width: 0;

@@ -19,14 +19,14 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 14 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 15 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
-| Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
-| Skeleton-ready | 7 | Authorized for semantic skeleton only if each checklist returns `GO`. |
+| Auto-ready | 1 | Can start automatically after an immediate dependency closes. |
+| Skeleton-ready | 6 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 5 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 17 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
-| HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -37,6 +37,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `GS-T01` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `GS-T02` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `GS-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
+| `GS-T04` | Sprint 1 | Visual skeleton implemented, gated, reviewed, Jira-synced. |
 | `IN-T01` | Sprint 1 | Implemented and Jira-synced. |
 | `IN-T05` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
 | `CD-T01` | Sprint 1 | Implemented and Jira-synced. |
@@ -59,7 +60,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Unlock condition |
 | --- | --- | --- |
-| _None_ | _N/A_ | RQ-04 auto-ready item has been converted into a launch checklist. |
+| `GS-T05` | Sprint 1 | Dependency-unblocked by `GS-T04`; regression/acceptance selection still needs exact checklist. |
 
 ## 6. Skeleton-Ready
 
@@ -67,7 +68,6 @@ These tickets may proceed as semantic skeleton work only. Final visual styling a
 
 | Ticket | Sprint | Frame / constraint | Skeleton scope |
 | --- | --- | --- | --- |
-| `GS-T04` | Sprint 1 | `VF-03` | Expert-mode entry skeleton / disabled affordance semantics. |
 | `IN-T02` | Sprint 1 | `VF-02` | P3 read-only inbox variant skeleton only. |
 | `IN-T04` | Sprint 1 | `VF-02` | P1 escalation/close-request entry skeleton only. |
 | `EP-T02` | Sprint 1 | `VF-10` | Inferred-node weakening slot/test ids only. |
@@ -127,7 +127,6 @@ These should not be started until dependencies close or a later exact checklist 
 
 | Ticket | Sprint | HOLD reason |
 | --- | --- | --- |
-| `GS-T05` | Sprint 1 | Depends on `GS-T04`. |
 | `IN-T06` | Sprint 1 | Depends on `IN-T03` and `IN-T04`. |
 | `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
 | `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
@@ -141,18 +140,18 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 14 / 54
+Done: 15 / 54
 Running: 0
-Auto-ready: 0
-Skeleton-ready: 7
+Auto-ready: 1
+Skeleton-ready: 6
 Checklist-only: 5
-Blocked/HOLD/design/authority: 28
+Blocked/HOLD/design/authority: 27
 ```
 
 Best next automation burn-down path:
 
 ```text
-SH-T07 reconciliation decision -> GS-T04 skeleton -> IN-T02 skeleton -> IN-T04 skeleton -> EP-T02 skeleton -> EP-T03 skeleton -> SH-T01 skeleton -> CH-T01 skeleton
+SH-T07 reconciliation decision -> IN-T02 skeleton -> IN-T04 skeleton -> EP-T02 skeleton -> EP-T03 skeleton -> SH-T01 skeleton -> CH-T01 skeleton -> GS-T05 regression checklist
 ```
 
 Best next risk-reduction path:

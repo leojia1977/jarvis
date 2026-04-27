@@ -2494,3 +2494,34 @@ Next route:
 ```text
 WAIT_FOR_SH_T07_RECONCILIATION_OR_IMPLEMENTATION_GO_OR_APPLY_STAGED_ACCELERATION_AUTHORIZATION
 ```
+
+## 69. Update 2026-04-27: GS-T04 Expert Mode Entry Skeleton Closeout
+
+Closeout record:
+
+```text
+docs/S6_GS_T04_EXPERT_MODE_ENTRY_SKELETON_CLOSEOUT_2026_04_27.md
+```
+
+Decision:
+
+```text
+GS_T04_VISUAL_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- Global Shell now has an inert expert-mode semantic skeleton slot.
+- `P1` renders restricted semantics and remains limited to the current coverage/field set.
+- `P0/P2` semantics are represented as skeleton-only entry behavior, with no route, toggle, modal, field expansion, or action binding.
+- `P3` does not receive the Global Shell expert-mode entry.
+- Final `VF-03` visual styling and visual PASS remain pending.
+- Gates passed: frontend tests 65, frontend build, backend guard 42, and `git diff --check`.
+- Claude Code focused review returned `VERDICT: PASS`.
+- Jira cloud is synchronized as `SCRUM-35 [GS-T04] expert mode entry skeleton`, status `已完成`, parent `SCRUM-14`.
+
+Next route:
+
+```text
+OPEN_IN_T02_P3_READONLY_INBOX_VARIANT_SKELETON_LAUNCH
+```

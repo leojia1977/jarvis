@@ -38,6 +38,7 @@ type EvidenceMode = "auto" | "manual";
 type SubordinatePanel = "evidence" | "timeline" | "blast_radius";
 type NarrativeKey = "WHAT" | "WHY" | "INTENT" | "HONESTY" | "DECISION";
 type SearchFocusScope = "summary" | "approval_audit" | "history_audit";
+type ExpertModeEntryState = "entry_skeleton" | "p1_restricted" | "not_applicable";
 
 interface NavItem {
   label: string;
@@ -396,6 +397,37 @@ function clampCoverageRequest(
     : requestedCoverage;
 }
 
+function resolveExpertModeEntry(
+  role: Role,
+  coverage: CoverageLevel
+): {
+  state: ExpertModeEntryState;
+  title: string;
+  description: string;
+} {
+  if (role === "P3") {
+    return {
+      state: "not_applicable",
+      title: "Expert mode unavailable",
+      description: "P3 uses manager-readonly surfaces and does not receive this Global Shell entry."
+    };
+  }
+
+  if (role === "P1") {
+    return {
+      state: "p1_restricted",
+      title: "Expert mode restricted",
+      description: `P1 remains limited to the current ${coverage} field set; no extra fields or actions are exposed.`
+    };
+  }
+
+  return {
+    state: "entry_skeleton",
+    title: "Expert mode entry",
+    description: "Semantic skeleton for P0/P2 only; VF-03 final behavior remains pending."
+  };
+}
+
 interface AppProps {
   initialPhaseNumber?: number;
 }
@@ -531,6 +563,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
             );
           })}
         </nav>
+
+        <ExpertModeEntrySlot coverage={activeCase.coverage} role={role} />
       </aside>
 
       <section className="content-shell">
@@ -581,6 +615,39 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         )}
       </section>
     </main>
+  );
+}
+
+function ExpertModeEntrySlot({
+  coverage,
+  role
+}: {
+  coverage: CoverageLevel;
+  role: Role;
+}) {
+  const entry = resolveExpertModeEntry(role, coverage);
+
+  if (entry.state === "not_applicable") {
+    return null;
+  }
+
+  return (
+    <section
+      aria-labelledby="expert-mode-entry-title"
+      className="expert-mode-entry"
+      data-action-state="not-implemented"
+      data-authority-source="resolved-surface-context"
+      data-expert-mode-state={entry.state}
+      data-testid="expert-mode-entry"
+      data-visual-state="skeleton"
+    >
+      <div className="expert-mode-entry-title">
+        <Lock aria-hidden="true" size={16} />
+        <span id="expert-mode-entry-title">{entry.title}</span>
+      </div>
+      <p>{entry.description}</p>
+      <span className="expert-mode-entry-note">No route, toggle, field expansion, or action binding.</span>
+    </section>
   );
 }
 
