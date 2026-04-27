@@ -1454,3 +1454,83 @@ Next route:
 ```text
 OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_IMPLEMENTATION
 ```
+
+## 39. Update 2026-04-27: E0-04B Implementation Closeout And E0-04D Readiness Check
+
+E0-04B implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
+```
+
+Implementation commit:
+
+```text
+f026905 Implement E0-04B static redline Playwright assertions
+```
+
+Implemented:
+
+- one focused Playwright spec at `frontend/tests/e2e/core-surface.redline-expansion.spec.ts`;
+- static assertions for `missing-signal-notice`, `concurrency-inline-warning`, `resolver-degradation-notice`, `blast-radius-redline`, `manager-summary`, and poison-pill selector exclusion.
+
+Gate evidence:
+
+```text
+npm run test:e2e -- core-surface.redline-expansion.spec.ts
+PASS: 5 tests
+
+npm run test -- --run
+PASS: 5 test files, 52 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS: chunk-size warning only
+
+npm run test:e2e
+PASS: 10 tests
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS
+```
+
+Claude Code focused review:
+
+```text
+PASS
+```
+
+Jira cloud state:
+
+```text
+SCRUM-22_STATUS_DONE
+```
+
+E0-04D readiness checklist:
+
+```text
+docs/S6_E0_04D_OBSERVATION_WINDOW_STATE_SYNC_PLAYWRIGHT_READINESS_CHECKLIST_2026_04_27.md
+```
+
+E0-04D decision:
+
+```text
+IMPLEMENTATION_HOLD_PENDING_EXACT_STATE_SYNC_HARNESS
+```
+
+Reason:
+
+- remaining observation-window/state-sync assertions need an exact `emitStateSync` / resolved-context harness;
+- current authorization is launch/readiness only, not implementation GO;
+- app/harness/backend/runtime/API/schema or product semantics changes are not authorized by this queue item.
+
+Next route:
+
+```text
+WAIT_FOR_EXACT_NEXT_TICKET_OR_JARVIS_AUTHORIZED_P1_P2_P3_ROUTE_READINESS_SCOPE
+```

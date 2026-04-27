@@ -259,3 +259,88 @@ OPEN_E0_04B_STATIC_REDLINE_PLAYWRIGHT_IMPLEMENTATION
 ```
 
 No config, dependency, Storybook, App, fixture, adapter, validator, backend/runtime/API/schema, real-data, secrets, deploy, public endpoint, external pilot, material observation-window migration, or P2 workflow change is authorized by this readiness check.
+
+## 15. Implementation Closeout 2026-04-27
+
+Implementation result:
+
+```text
+IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_COMMITTED_PUSHED
+```
+
+Implementation commit:
+
+```text
+f026905 Implement E0-04B static redline Playwright assertions
+```
+
+Implemented file:
+
+```text
+frontend/tests/e2e/core-surface.redline-expansion.spec.ts
+```
+
+Implemented assertions:
+
+- `boundary-p2-cmdb-tags-unavailable` renders `missing-signal-notice` with `data-message-source="ui_messages"`, without exposing host raw evidence or approval operation buttons.
+- `boundary-concurrency-stale-approve-rejected` renders a static read-only `concurrency-inline-warning` with `data-concurrency-state="stale-approve-rejected"` and no approve/reject/delay/observe operation buttons.
+- `resolver-l1-blast-radius-payload` keeps coverage at L1, renders `resolver-degradation-notice`, and renders `blast-radius-redline` with `data-visibility-state="OFF"`.
+- `resolver-p3-technical-detail-redaction` renders cautious `manager-summary` copy without over-certain wording and keeps `host-raw-evidence` absent.
+- Poison-pill fixtures remain unavailable through the app redline selector.
+
+Gate evidence:
+
+```text
+npm run test:e2e -- core-surface.redline-expansion.spec.ts
+PASS: 5 tests
+
+npm run test -- --run
+PASS: 5 test files, 52 tests
+
+npm run build
+PASS
+
+npm run build-storybook
+PASS: chunk-size warning only
+
+npm run test:e2e
+PASS: 10 tests
+
+py -3 -m unittest -q backend.tests.test_runtime_service backend.tests.test_case_view
+PASS: 42 tests
+
+git diff --check
+PASS
+```
+
+Claude Code focused review:
+
+```text
+PASS_WITH_FINDINGS first pass, then PASS on focused re-review.
+```
+
+Review note disposition:
+
+- `M1` fixed by asserting the redline selector is visible and has options before poison-pill exclusion assertions.
+- `L1` fixed by narrowing `data-concurrency-state` to `stale-approve-rejected`.
+- `I1` fixed by scoping blast-radius payload text absence to `blast-radius-redline`.
+
+Jira cloud sync:
+
+```text
+SCRUM-22 [E0-04B] Static redline Playwright assertions
+Parent: SCRUM-14
+Status: 已完成
+```
+
+Still not implemented:
+
+- App, component, route, fixture, adapter, validator, Storybook, dependency, or Playwright config changes;
+- P2 concurrency workflow, approve/reject/delay/observe composer, material observation-window migration, `emitStateSync`, backend `STATE_SYNC`;
+- backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or launch behavior.
+
+Next route:
+
+```text
+OPEN_E0_04D_OBSERVATION_WINDOW_STATE_SYNC_PLAYWRIGHT_READINESS_CHECKLIST_ONLY
+```
