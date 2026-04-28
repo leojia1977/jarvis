@@ -4045,3 +4045,33 @@ Next route:
 ```text
 OPEN_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST
 ```
+
+## 119. Update 2026-04-28: MV-T04 Source-Order Follow-Up
+
+Source-order follow-up record:
+
+```text
+docs/S6_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST_2026_04_28.md
+```
+
+Decision:
+
+```text
+MV_T04_SOURCE_ORDER_FOLLOW_UP_PASS
+MV_T04_IMPLEMENTATION_REQUIRES_SEPARATE_GO
+```
+
+Interpretation:
+
+- `AP-T08` display-only approval audit source boundary is implemented and Jira Done.
+- `SH-T08` P3 Search / History approval-audit source boundary is implemented with source-order evidence.
+- Claude Web recorded `PASS_WITH_NOTES` for the `MV-T04` authority boundary.
+- The prior source-order blocker is closed, but `MV-T04` implementation is not authorized by this docs-only checklist.
+- A later implementation may only render a P3-only read-only Manager approval audit summary from existing `activeContext.audit_trail`, with fixed enum derived-status mapping and no raw evidence DOM, approval controls, route/storage authority, P0/P2 Manager variants, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` changes.
+- `MV-T05` remains HOLD until `MV-T04` and `MV-T02` are resolved or explicitly rescoped.
+
+Next route:
+
+```text
+OPEN_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH
+```

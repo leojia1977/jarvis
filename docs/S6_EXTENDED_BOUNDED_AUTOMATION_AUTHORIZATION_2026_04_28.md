@@ -129,6 +129,8 @@ HOLD immediately on:
 
 `MV-T05` has since been checked and remains HOLD because `MV-T04` approval audit summary is not implemented and `MV-T02` P0/P2 Manager variants remain authority-gated. The runner must not mark `MV-T05` Done.
 
+`MV-T04` source-order follow-up has since passed. The source-order blocker is closed, but implementation remains unauthorized until a separate implementation GO. The runner must not mark `MV-T04` Done from the source-order checklist.
+
 Idle fallback is governed by:
 
 ```text
@@ -149,5 +151,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-OPEN_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST
+OPEN_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH
 ```

@@ -23,8 +23,8 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 1 | Authorized for readiness/checklist only; no implementation GO. |
-| Needs authority review | 6 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
+| Checklist-only | 2 | Authorized for readiness/checklist only; no implementation GO. |
+| Needs authority review | 5 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 1 | Missing visual frame is the primary blocker. |
 | HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
 
@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through MV-T05 Manager acceptance readiness; next route is MV-T04 source-order follow-up. |
+| _None_ | _N/A_ | Current batch completed through MV-T04 source-order follow-up; next route is AP-T09 audit empty/unavailable blocker refresh. |
 
 ## 5. Auto-Ready
 
@@ -101,6 +101,7 @@ These tickets are authorized for launch/readiness checklist only. Implementation
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
 | `SH-T09` | Sprint 3A | Search / History acceptance reconciliation. | Not required yet | Dependencies now closed; acceptance checklist still required before Done. |
+| `MV-T04` | Sprint 3B | P3 Manager approval audit summary source-order follow-up. | `PASS_WITH_NOTES` already recorded | Source-order follow-up PASS; implementation still requires explicit GO. |
 
 ## 8. Needs Authority Review
 
@@ -113,7 +114,6 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | Full ticket HOLD; 2026-04-28 decomposition identified a possible later `AP-T11A` static no-mutation split only. |
 | `AP-T12` | Sprint 2 | Full ticket HOLD; AP acceptance suite still depends on full `AP-T06` and `AP-T09`. |
-| `MV-T04` | Sprint 3B | Claude Web `PASS_WITH_NOTES`; AP-T08 and SH-T08 are now implemented, but MV-T04 still needs source-order follow-up before implementation. |
 
 ## 9. Needs Design
 
@@ -146,8 +146,8 @@ Done: 39 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
-Checklist-only: 1
-Blocked/HOLD/design/authority: 14
+Checklist-only: 2
+Blocked/HOLD/design/authority: 13
 ```
 
 Active non-tracker automation queue:
@@ -169,6 +169,7 @@ docs\S6_EP_T06_EP_NEGATIVE_TEST_SUITE_RECONCILIATION_CLOSEOUT_2026_04_28.md
 docs\S6_IN_T06_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
 docs\S6_CD_T07_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
 docs\S6_AP_T11_T12_READINESS_DECOMPOSITION_2026_04_28.md
+docs\S6_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST_2026_04_28.md
 ```
 
 Queue purpose:
@@ -223,6 +224,7 @@ IN-T06 dependency readiness checked; HOLD remains
 CD-T07 dependency readiness checked; HOLD remains
 AP-T11/AP-T12 decomposition recorded; no implementation authorized
 MV-T05 readiness checked; remains HOLD until MV-T04 and MV-T02 are resolved or explicitly rescoped
+MV-T04 source-order follow-up PASS; implementation still requires separate GO
 ```
 
 Next human selection options:
@@ -241,7 +243,7 @@ SH-T08 completed; SH-T09 acceptance checklist is now unblocked but not Done
 CD-T06A completed; full CD-T06 remains HOLD pending renderable CLOSED context
 CD-T06 visual blocker partially closed, full HOLD pending renderable CLOSED context
 AP-T09 HOLD pending AP-T08 and VF-15; Jira `SCRUM-67`
-MV-T04 HOLD pending source-order follow-up after AP-T08 / SH-T08; external authority review is recorded; Jira `SCRUM-68`
+MV-T04 source-order follow-up PASS; implementation still requires separate GO; Jira `SCRUM-68` remains not Done
 MV-T05 HOLD pending MV-T04 and MV-T02 resolution
 ```
 
@@ -274,13 +276,13 @@ AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 Best next automation burn-down path:
 
 ```text
-MV-T04 source-order follow-up -> SH-T09 acceptance checklist -> AP-T09/AP-T06 blocker refresh -> safe Jira parity sync
+AP-T09 blocker refresh -> AP-T06 blocker refresh -> SH-T09 acceptance checklist -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-MV-T04 source-order follow-up checklist OR SH-T09 acceptance checklist
+AP-T09 audit empty/unavailable blocker refresh OR SH-T09 acceptance checklist
 ```
 
 Idle fallback:
@@ -296,7 +298,7 @@ Current authority review pack:
 docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_2026_04_28.md
 docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_VERDICT_2026_04_28.md
 Status: PASS_WITH_NOTES_RECORDED
-AP-T08 and SH-T08 are implemented; MV-T04 now needs source-order follow-up before any implementation GO.
+AP-T08 and SH-T08 are implemented; MV-T04 source-order follow-up PASS is recorded; implementation still requires separate GO.
 ```
 
 Latest idle-fallback update:
@@ -312,6 +314,7 @@ IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.
 MV-T05 was checked and remains HOLD because MV-T04 is not implemented and MV-T02 remains authority-gated.
+MV-T04 source-order follow-up PASS was recorded; do not mark MV-T04 Done or implement without separate GO.
 ```
 
 Best next risk-reduction path:
