@@ -158,6 +158,10 @@ chain evidence is ready for a later reconciliation pass, but `SH-T09`
 reconciliation, Jira Done transition, or implementation still requires a
 separate exact GO.
 
+Safe Jira parity sync has since transitioned `SCRUM-63` for `SH-T08` to
+`已完成` with repo closeout evidence. The runner must not repeat `SH-T08` Jira
+sync and must not mark HOLD or non-ready tickets Done.
+
 Idle fallback is governed by:
 
 ```text
@@ -178,5 +182,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_SAFE_JIRA_PARITY_SYNC
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_NEXT_IDLE_FALLBACK
 ```

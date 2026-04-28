@@ -61,7 +61,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `SH-T05` | Sprint 3A | Implemented, gated, reviewed, Jira-synced. |
 | `SH-T06` | Sprint 3A | Structural/degraded empty-state semantics implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
 | `SH-T07` | Sprint 3A | No-code reconciliation closeout; Jira-synced as `SCRUM-44`. |
-| `SH-T08` | Sprint 3A | P3 approval-audit source boundary implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
+| `SH-T08` | Sprint 3A | P3 approval-audit source boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-63`. |
 | `AP-T10` | Sprint 2 | Display-only AR status badge/pill mapping implemented, gated, reviewed, Jira-synced as `SCRUM-46`. |
 | `AP-T01` | Sprint 2 | `/approval` route shell/guard implemented, gated, reviewed, Jira-synced as `SCRUM-47`. |
 | `AP-T03` | Sprint 2 | Approval CTA boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-56`. |
@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through SH-T09 acceptance checklist preparation; next route is SH-T09 reconciliation GO or safe Jira parity sync. |
+| _None_ | _N/A_ | Current batch completed through SH-T08 Jira parity sync; next route is SH-T09 reconciliation GO or next idle fallback. |
 
 ## 5. Auto-Ready
 
@@ -175,6 +175,7 @@ docs\S6_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH_2026_04_28.md
 docs\S6_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH_2026_04_29.md
 docs\S6_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH_2026_04_29.md
 docs\S6_SH_T09_ACCEPTANCE_CHECKLIST_2026_04_29.md
+docs\S6_JIRA_PARITY_SYNC_SH_T08_2026_04_29.md
 ```
 
 Queue purpose:
@@ -186,12 +187,12 @@ AP-T04/AP-T05/AP-T07 bounded implementation plus AP-T08/SH-T08 source proof and 
 Latest queue output:
 
 ```text
-AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08 implemented and Jira-synced; SH-T08 implemented with Jira parity pending env visibility; AP-T06A implemented as `SCRUM-65`; full AP-T06 countdown/state-sync HOLD
+AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08 implemented and Jira-synced; SH-T08 implemented and Jira-synced as `SCRUM-63`; AP-T06A implemented as `SCRUM-65`; full AP-T06 countdown/state-sync HOLD
 MV-T03 implemented and Jira-synced as `SCRUM-66`
 SH-T02 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 SH-T06 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 CD-T06A implemented and gate/Claude Code PASS; parent CD-T06 remains HOLD and Jira sync pending env visibility
-SH-T08 implemented and gate/Claude Code PASS; Jira sync pending env visibility
+SH-T08 implemented and gate/Claude Code PASS; Jira synced as `SCRUM-63`
 EP-T06 no-code reconciliation PASS; Jira sync pending env visibility
 IN-T06 readiness checked; remains HOLD until IN-T03 authority is resolved
 CD-T07 readiness checked; remains HOLD until full CD-T06 is resolved
@@ -279,7 +280,7 @@ AP-T03/CH-T03/SH-T04 Jira parity corrected
 AP-T04/AP-T05/AP-T07 Jira Done
 AP-T06A Jira Done as `SCRUM-65`; AP-T06 parent readiness remains open as `SCRUM-64`
 AP-T08 Jira Done as `SCRUM-62`
-SH-T08 Jira parity pending env visibility
+SH-T08 Jira Done as `SCRUM-63`
 MV-T03 Jira Done as `SCRUM-66`
 AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
@@ -288,13 +289,13 @@ AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
 Best next automation burn-down path:
 
 ```text
-SH-T09 reconciliation GO -> safe Jira parity sync
+SH-T09 reconciliation GO -> next idle fallback
 ```
 
 Updated next burn-down path:
 
 ```text
-SH-T09 reconciliation GO OR safe Jira parity sync
+SH-T09 reconciliation GO OR next idle fallback
 ```
 
 Idle fallback:
@@ -324,6 +325,7 @@ SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after 
 EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
 CH-T02 / CH-T04 blocker refresh is now recorded; runner must not mark either ticket Done and should continue to SH-T09 acceptance checklist or safe Jira parity sync.
 SH-T09 acceptance checklist is now prepared; runner must not mark SH-T09 Done without separate reconciliation GO and gate evidence.
+SH-T08 Jira parity is now synced as `SCRUM-63`; runner must not repeat SH-T08 Jira sync or mark any HOLD/non-ready issue Done.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.

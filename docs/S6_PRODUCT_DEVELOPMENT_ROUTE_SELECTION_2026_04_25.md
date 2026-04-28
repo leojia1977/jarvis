@@ -4217,3 +4217,30 @@ Next route:
 ```text
 WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_SAFE_JIRA_PARITY_SYNC
 ```
+
+## 125. Update 2026-04-29: SH-T08 Jira Parity Sync
+
+Jira parity sync record:
+
+```text
+docs/S6_JIRA_PARITY_SYNC_SH_T08_2026_04_29.md
+```
+
+Decision:
+
+```text
+SH_T08_JIRA_PARITY_SYNCED_DONE_AS_SCRUM_63
+```
+
+Interpretation:
+
+- Jira issue `SCRUM-63 [SH-T08] P3 approval audit source boundary checklist` was synchronized with repo closeout evidence.
+- `SCRUM-63` received a repo parity comment and was transitioned to `已完成`.
+- No Jira Done transition was performed for HOLD or non-ready tickets.
+- `SH-T09` remains checklist-prepared only and still requires separate reconciliation GO before closeout.
+
+Next route:
+
+```text
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_NEXT_IDLE_FALLBACK
+```
