@@ -121,6 +121,8 @@ HOLD immediately on:
 
 `EP-T06` has since closed as a no-code dependency reconciliation with gate PASS. Jira sync remains pending because Jira environment variables were not visible to the runner. The runner must not repeat `EP-T06`.
 
+`IN-T06` has since been checked and remains HOLD because `IN-T03` is not authority-resolved. The runner must not mark `IN-T06` Done.
+
 Idle fallback is governed by:
 
 ```text
@@ -141,5 +143,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_EP_T06_CLOSEOUT
+CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_IN_T06_HOLD_CHECK
 ```

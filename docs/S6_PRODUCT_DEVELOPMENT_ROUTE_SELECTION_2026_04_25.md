@@ -3932,3 +3932,30 @@ Next route:
 ```text
 OPEN_IN_T06_DEPENDENCY_READINESS_RECONCILIATION
 ```
+
+## 115. Update 2026-04-28: IN-T06 Dependency Readiness Reconciliation
+
+Readiness record:
+
+```text
+docs/S6_IN_T06_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
+```
+
+Decision:
+
+```text
+HOLD_DEPENDENCY_NOT_READY
+```
+
+Interpretation:
+
+- `IN-T06` cannot be no-code reconciled yet.
+- `IN-T04` is closed, but `IN-T03` remains authority-gated by P2 shortcut approval / close entry and later AP CTA semantics.
+- `AP-T10` display mapping exists but does not by itself close `IN-T03`.
+- Do not mark `IN-T06` Done until `IN-T03` is explicitly resolved and implemented/reconciled.
+
+Next route:
+
+```text
+OPEN_CD_T07_DEPENDENCY_READINESS_RECONCILIATION
+```
