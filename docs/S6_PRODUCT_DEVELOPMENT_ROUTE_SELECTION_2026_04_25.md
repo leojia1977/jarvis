@@ -4160,3 +4160,32 @@ Next route:
 ```text
 OPEN_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH
 ```
+
+## 123. Update 2026-04-29: CH-T02 / CH-T04 Design Runtime Blocker Refresh
+
+Blocker refresh record:
+
+```text
+docs/S6_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH_2026_04_29.md
+```
+
+Decision:
+
+```text
+CH_T02_HOLD_CONFIRMED_PENDING_VF01_VISUAL_BASELINE
+CH_T04_HOLD_CONFIRMED_PENDING_CH_T02_AND_RUNTIME_SCOPE_DECISION
+```
+
+Interpretation:
+
+- `CH-T01` and `CH-T03` are closed and must not be repeated.
+- `CH-T02` remains HOLD because `VF-01` final or approved semantic frame anchors are not present in the checked visual-negative source directory.
+- `CH-T04` remains HOLD because it depends on `CH-T02` and still lacks an exact governed runtime/source-health authority scope.
+- The current Coverage & Health surface remains skeleton/bounded-copy only with `data-live-health-source="none"` and `data-vf-01-state="pending"`.
+- Do not mark `CH-T02` or `CH-T04` Done, and do not infer final visual/runtime semantics from the current skeleton.
+
+Next route:
+
+```text
+OPEN_SH_T09_ACCEPTANCE_CHECKLIST_OR_SAFE_JIRA_PARITY_SYNC
+```

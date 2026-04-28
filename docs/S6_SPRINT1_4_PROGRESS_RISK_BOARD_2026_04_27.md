@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through AP-T02 / MV-T02 renderable authority-context blocker refresh; next route is CH-T02 / CH-T04 design/runtime blocker refresh. |
+| _None_ | _N/A_ | Current batch completed through CH-T02 / CH-T04 design/runtime blocker refresh; next route is SH-T09 acceptance checklist or safe Jira parity sync. |
 
 ## 5. Auto-Ready
 
@@ -121,7 +121,7 @@ Primary blocker is visual-frame availability. These are not currently approved f
 | Ticket | Sprint | Missing frame / dependency |
 | --- | --- | --- |
 | `AP-T09` | Sprint 2 | AP-T08 blocker closed; still missing `VF-15` or equivalent governed audit empty/unavailable visual/source and exact copy rules. |
-| `CH-T02` | Sprint 4 | Depends on `CH-T01` and `VF-01`. |
+| `CH-T02` | Sprint 4 | Depends on `CH-T01` and missing `VF-01`; 2026-04-29 blocker refresh reconfirmed HOLD. |
 
 ## 10. HOLD
 
@@ -133,7 +133,7 @@ These should not be started until dependencies close or a later exact checklist 
 | `CD-T06` | Sprint 1 | Checklist HOLD: `VF-11/VF-12/VF-13` visual blocker removed, but renderable `CLOSED` Case Detail context is still missing; Jira `SCRUM-53` remains not Done. |
 | `CD-T07` | Sprint 1 | Readiness checked 2026-04-28; still depends on full `CD-T06`, which remains HOLD. |
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
-| `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
+| `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`; 2026-04-29 blocker refresh reconfirmed HOLD pending `CH-T02` and governed runtime/source-health scope. |
 | `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
 | `MV-T05` | Sprint 3B | Readiness checked 2026-04-28; Manager acceptance cannot close until `MV-T04` and `MV-T02` are resolved or explicitly rescoped. |
 
@@ -173,6 +173,7 @@ docs\S6_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST_2026_04_28.md
 docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH_2026_04_28.md
 docs\S6_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH_2026_04_28.md
 docs\S6_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH_2026_04_29.md
+docs\S6_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH_2026_04_29.md
 ```
 
 Queue purpose:
@@ -232,6 +233,7 @@ MV-T05 readiness checked; remains HOLD until MV-T04 and MV-T02 are resolved or e
 MV-T04 source-order follow-up PASS; implementation still requires separate GO
 AP-T09 blocker refresh recorded; AP-T08 dependency closed, VF-15/exact source still missing
 AP-T02/MV-T02 blocker refresh recorded; both remain HOLD pending exact authority contexts
+CH-T02/CH-T04 blocker refresh recorded; CH-T02 remains HOLD pending VF-01 and CH-T04 remains HOLD pending CH-T02 plus governed runtime/source-health scope
 ```
 
 Next human selection options:
@@ -284,13 +286,13 @@ AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
 Best next automation burn-down path:
 
 ```text
-CH-T02/CH-T04 blocker refresh -> SH-T09 acceptance checklist -> safe Jira parity sync
+SH-T09 acceptance checklist -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-AP-T06 full countdown/state-sync blocker refresh OR SH-T09 acceptance checklist
+SH-T09 acceptance checklist OR safe Jira parity sync
 ```
 
 Idle fallback:
@@ -318,6 +320,7 @@ SH-T06 is now implemented and gate/Claude Code PASS; runner must continue after 
 CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after CD-T06A and must not mark parent CD-T06 Done.
 SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after SH-T08 and may sync Jira later only when credentials are visible.
 EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
+CH-T02 / CH-T04 blocker refresh is now recorded; runner must not mark either ticket Done and should continue to SH-T09 acceptance checklist or safe Jira parity sync.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.

@@ -147,6 +147,12 @@ model and renderable context. The runner must not mark `SCRUM-54` or `SCRUM-55`
 Done and must not infer either context from URL, storage, route params, or the
 existing P2/P3 audit-source work.
 
+`CH-T02` / `CH-T04` design/runtime blocker refresh has since reconfirmed HOLD.
+`CH-T02` still lacks `VF-01` final or approved semantic frame anchors. `CH-T04`
+still depends on `CH-T02` plus an exact governed runtime/source-health scope.
+The runner must not mark either ticket Done and must not infer final Coverage &
+Health visual or runtime semantics from the current skeleton.
+
 Idle fallback is governed by:
 
 ```text
@@ -167,5 +173,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-OPEN_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH
+OPEN_SH_T09_ACCEPTANCE_CHECKLIST_OR_SAFE_JIRA_PARITY_SYNC
 ```
