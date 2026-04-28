@@ -162,6 +162,12 @@ Safe Jira parity sync has since transitioned `SCRUM-63` for `SH-T08` to
 `已完成` with repo closeout evidence. The runner must not repeat `SH-T08` Jira
 sync and must not mark HOLD or non-ready tickets Done.
 
+Remaining PASS-row Jira parity audit has since confirmed no additional safe
+Jira transitions are available without explicit issue mapping. Repo PASS rows
+`SH-T02`, `SH-T06`, and `EP-T06` have closeout evidence, but no dedicated cloud
+issue key was exposed in the current project search. The runner must not create
+or infer Jira issues for them without a later exact mapping decision.
+
 Idle fallback is governed by:
 
 ```text

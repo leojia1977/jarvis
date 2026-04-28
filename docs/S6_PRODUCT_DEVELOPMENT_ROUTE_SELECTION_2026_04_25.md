@@ -4244,3 +4244,31 @@ Next route:
 ```text
 WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 126. Update 2026-04-29: Remaining PASS-Row Jira Parity Audit
+
+Jira parity audit record:
+
+```text
+docs/S6_JIRA_PARITY_AUDIT_REMAINING_PASS_ROWS_2026_04_29.md
+```
+
+Decision:
+
+```text
+JIRA_PARITY_AUDIT_PASS_NO_SAFE_ADDITIONAL_TRANSITIONS
+```
+
+Interpretation:
+
+- Jira read-back confirms `SCRUM-62`, `SCRUM-63`, `SCRUM-65`, and `SCRUM-66` are Done.
+- Repo PASS rows `SH-T02`, `SH-T06`, and `EP-T06` have closeout evidence but no dedicated cloud issue key exposed in the current Jira project search.
+- No Jira issue was created or inferred.
+- No HOLD / blocked / checklist-only / non-ready ticket was marked Done.
+- `SH-T09` remains checklist-prepared only and still requires separate reconciliation GO before closeout.
+
+Next route:
+
+```text
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_NEXT_IDLE_FALLBACK
+```

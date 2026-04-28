@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through SH-T08 Jira parity sync; next route is SH-T09 reconciliation GO or next idle fallback. |
+| _None_ | _N/A_ | Current batch completed through remaining PASS-row Jira parity audit; next route is SH-T09 reconciliation GO or next idle fallback. |
 
 ## 5. Auto-Ready
 
@@ -176,6 +176,7 @@ docs\S6_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH_2026_04_29.md
 docs\S6_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH_2026_04_29.md
 docs\S6_SH_T09_ACCEPTANCE_CHECKLIST_2026_04_29.md
 docs\S6_JIRA_PARITY_SYNC_SH_T08_2026_04_29.md
+docs\S6_JIRA_PARITY_AUDIT_REMAINING_PASS_ROWS_2026_04_29.md
 ```
 
 Queue purpose:
@@ -199,6 +200,7 @@ CD-T07 readiness checked; remains HOLD until full CD-T06 is resolved
 AP-T11/AP-T12 readiness decomposed; full tickets remain HOLD, possible AP-T11A split requires separate checklist
 AP-T06 full countdown/state-sync blocker refresh reconfirmed HOLD; AP-T06A remains the only closed safe split under current authority
 AP-T02/MV-T02 renderable authority-context blocker refresh reconfirmed HOLD; no governed P0 approval context or P0/P2 Manager authority model exists
+Remaining PASS-row Jira parity audit recorded; SH-T02/SH-T06/EP-T06 have repo closeout evidence but no dedicated cloud issue key exposed by current Jira search
 ```
 
 Latest implementation batch:
@@ -326,6 +328,7 @@ EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and 
 CH-T02 / CH-T04 blocker refresh is now recorded; runner must not mark either ticket Done and should continue to SH-T09 acceptance checklist or safe Jira parity sync.
 SH-T09 acceptance checklist is now prepared; runner must not mark SH-T09 Done without separate reconciliation GO and gate evidence.
 SH-T08 Jira parity is now synced as `SCRUM-63`; runner must not repeat SH-T08 Jira sync or mark any HOLD/non-ready issue Done.
+Remaining PASS-row Jira parity audit found no additional safe Jira Done transitions without explicit issue mapping.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.
