@@ -4410,3 +4410,31 @@ Next route:
 ```text
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 132. Update 2026-04-29: AP-T11A Static No-Mutation Assertion Prep
+
+Prep record:
+
+```text
+docs/S6_AP_T11A_STATIC_NO_MUTATION_ASSERTION_PREP_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T11A_STATIC_NO_MUTATION_ASSERTION_PREP_READY_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- Full `AP-T11` and full `AP-T12` remain HOLD because full `AP-T06` countdown/state-sync and `AP-T09` audit empty/unavailable behavior remain unresolved.
+- The former `AP-T11A` split candidate is now an exact future GO envelope for test/assertion-only coverage over existing AP static boundaries.
+- Future `AP-T11A` may assert only no-mutation behavior over AP-T03/AP-T04/AP-T05/AP-T06A/AP-T07/AP-T08.
+- If future work requires runtime selector changes, AP state transition behavior, countdown/state-sync, audit empty/unavailable rendering, or any fixture/adapter/validator/`ResolvedSurfaceContext` change, it must HOLD.
+- This prep does not implement, mutate Jira, close AP-T11/AP-T12, or authorize AP state transitions.
+
+Next route:
+
+```text
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```

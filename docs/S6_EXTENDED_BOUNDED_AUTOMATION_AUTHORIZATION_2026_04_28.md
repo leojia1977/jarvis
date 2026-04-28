@@ -125,7 +125,7 @@ HOLD immediately on:
 
 `CD-T07` has since been checked and remains HOLD because full `CD-T06` is not resolved. The runner must not mark `CD-T07` Done.
 
-`AP-T11` / `AP-T12` have since been decomposed. Full AP-T11/AP-T12 remain HOLD; a later narrow `AP-T11A` static no-mutation assertion split is only a candidate and requires a separate exact checklist.
+`AP-T11` / `AP-T12` have since been decomposed. Full AP-T11/AP-T12 remain HOLD. `AP-T11A` static no-mutation assertion prep has since been recorded in `docs/S6_AP_T11A_STATIC_NO_MUTATION_ASSERTION_PREP_2026_04_29.md`, but it remains no-implementation prep only. The runner must not start `AP-T11A`, create Jira issues, or mark AP-T11/AP-T12 Done without a later exact `AP-T11A static no-mutation assertion implementation GO`.
 
 `MV-T05` has since been checked and remains HOLD because `MV-T04` approval audit summary is not implemented and `MV-T02` P0/P2 Manager variants remain authority-gated. The runner must not mark `MV-T05` Done.
 
@@ -213,5 +213,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```

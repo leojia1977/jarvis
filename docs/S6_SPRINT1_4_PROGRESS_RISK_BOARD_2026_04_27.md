@@ -211,6 +211,7 @@ SH-T09 reconciliation closeout prep prepared; no closeout, no Jira mutation, no 
 MV-T04 implementation GO prep prepared; no implementation or Jira mutation without explicit GO
 AP-T09 VF-15 design source request prepared; no implementation or Jira mutation without source delivery
 AP-T06 state-sync harness source request prepared; no full AP-T06 implementation without source delivery
+AP-T11A static no-mutation assertion prep prepared; no implementation, Jira mutation, or full AP-T11/AP-T12 closeout without exact GO
 ```
 
 Latest implementation batch:
@@ -256,6 +257,7 @@ Next human selection options:
 ```text
 SH-T09 reconciliation GO
 MV-T04 implementation GO
+AP-T11A static no-mutation assertion GO
 AP-T06 state-sync source delivery
 AP-T09 VF-15 source delivery
 Jira mapping GO for SH-T02 / SH-T06 / EP-T06
@@ -272,6 +274,7 @@ CD-T06A completed; full CD-T06 remains HOLD pending renderable CLOSED context
 CD-T06 visual blocker partially closed, full HOLD pending renderable CLOSED context
 AP-T09 partial unblock: AP-T08 closed; HOLD pending VF-15 / exact audit empty-unavailable source; Jira `SCRUM-67`
 MV-T04 source-order follow-up PASS; implementation still requires separate GO; Jira `SCRUM-68` remains not Done
+AP-T11A prep exists as a future static assertion split; full AP-T11/AP-T12 remain HOLD
 MV-T05 HOLD pending MV-T04 and MV-T02 resolution
 ```
 
@@ -305,13 +308,13 @@ AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
 Best next automation burn-down path:
 
 ```text
-MV-T04 implementation GO -> AP-T06 state-sync source delivery -> AP-T09 VF-15 source delivery -> SH-T09 reconciliation GO -> Jira mapping GO if Jira burn-down parity matters -> next idle fallback
+MV-T04 implementation GO -> AP-T11A static assertion GO -> AP-T06 state-sync source delivery -> AP-T09 VF-15 source delivery -> SH-T09 reconciliation GO -> Jira mapping GO if Jira burn-down parity matters -> next idle fallback
 ```
 
 Updated next burn-down path:
 
 ```text
-MV-T04 implementation GO OR AP-T06 state-sync source delivery OR AP-T09 VF-15 source delivery OR SH-T09 reconciliation GO OR Jira mapping GO OR next idle fallback
+MV-T04 implementation GO OR AP-T11A static assertion GO OR AP-T06 state-sync source delivery OR AP-T09 VF-15 source delivery OR SH-T09 reconciliation GO OR Jira mapping GO OR next idle fallback
 ```
 
 Idle fallback:
@@ -348,9 +351,10 @@ SH-T09 reconciliation closeout prep is prepared; runner must not close SH-T09 wi
 MV-T04 implementation GO prep is prepared; runner must not implement MV-T04 without exact implementation GO.
 AP-T09 VF-15 design source request is prepared; runner must not implement AP-T09 without governed source delivery and exact checklist.
 AP-T06 state-sync harness source request is prepared; runner must not implement full AP-T06 without governed state-sync source delivery and exact checklist.
+AP-T11A static no-mutation assertion prep is prepared; runner must not implement AP-T11A, mutate Jira, or close full AP-T11/AP-T12 without exact GO.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
-AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.
+AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is now prep-ready but still requires exact implementation GO.
 MV-T05 was checked and remains HOLD because MV-T04 is not implemented and MV-T02 remains authority-gated.
 MV-T04 source-order follow-up PASS was recorded; do not mark MV-T04 Done or implement without separate GO.
 AP-T09 blocker refresh recorded; do not mark AP-T09 Done or implement until VF-15/equivalent source and exact copy rules exist.
