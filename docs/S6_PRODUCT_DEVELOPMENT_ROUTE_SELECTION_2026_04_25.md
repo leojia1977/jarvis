@@ -3599,3 +3599,39 @@ Next route:
 ```text
 WAIT_FOR_CLAUDE_WEB_AP_T08_MV_T04_AUTHORITY_VERDICT
 ```
+
+## 105. Update 2026-04-28: HF-SH-01/02 + VF-14 Visual Baseline And CD-T06 Closed Context Check
+
+Visual baseline record:
+
+```text
+docs/S6_VISUAL_BASELINE_HF_SH_01_02_VF14_RECONCILIATION_2026_04_28.md
+```
+
+CD-T06 checklist:
+
+```text
+docs/S6_CD_T06_CLOSED_CONTEXT_UNBLOCK_CHECKLIST_2026_04_28.md
+```
+
+Decision:
+
+```text
+SEARCH_HISTORY_CLAMP_VISUAL_BASELINE_READY_FOR_AUTOMATION
+CD_T06_FULL_IMPLEMENTATION_HOLD_SPLIT_RECOMMENDED
+```
+
+Interpretation:
+
+- `HF-SH-01`, `HF-SH-02`, and `VF-14` v0.2 are accepted as Search / History visual implementation references.
+- `SH-T02` and `SH-T06` can move out of `Needs design` and into checklist-only automation. They are not implementation-started and are not Jira Done candidates.
+- `CD-T06` visual blocker is partially removed by `VF-11` / `VF-12` / `VF-13`, but full `CD-T06` remains HOLD because the repo still lacks a renderable `CLOSED` Case Detail context without fixture/context expansion.
+- A split is recommended: `CD-T06A` can later target existing-state header skeletons only, while `CD-T06B` remains HOLD until a governed CLOSED context exists.
+- Jira cloud was updated with a non-transition comment on `SCRUM-53` only; no Done transition was performed.
+- No backend/runtime/API/schema, fixture registry, fixture adapter, `ContextValidator`, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, or external pilot work is authorized by this reconciliation.
+
+Next route:
+
+```text
+OPEN_SH_T02_SH_T06_VISUAL_BASELINE_LAUNCH_CHECKLIST_OR_OPEN_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CHECKLIST
+```

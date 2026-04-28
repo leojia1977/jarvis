@@ -23,9 +23,9 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 2 | Authorized for readiness/checklist only; no implementation GO. |
+| Checklist-only | 4 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 7 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
-| Needs design | 3 | Missing visual frame is the primary blocker. |
+| Needs design | 1 | Missing visual frame is the primary blocker. |
 | HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
@@ -91,12 +91,14 @@ These tickets may proceed as semantic skeleton work only. Final visual styling a
 
 ## 7. Checklist-Only
 
-These tickets are authorized for launch/readiness checklist only. Claude Web authority review has completed for this set, but implementation still requires a later exact checklist result, narrow GO, exact files/tests, and all non-blocking notes closed.
+These tickets are authorized for launch/readiness checklist only. Implementation still requires a later exact checklist result, narrow GO, exact files/tests, and all non-blocking notes closed.
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
 | `AP-T08` | Sprint 2 | Approval audit authority source path. | Source proof PASS | Checklist-only recorded as `SCRUM-62`; narrow implementation checklist still required. |
 | `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | Source proof PASS | Checklist-only recorded as `SCRUM-63`; narrow implementation checklist still required. |
+| `SH-T02` | Sprint 3A | Dual coverage and clamp semantics. | `HF-SH-01` / `HF-SH-02` / `VF-14` v0.2 PASS | Visual blocker closed; launch checklist required before implementation. |
+| `SH-T06` | Sprint 3A | Structural empty versus degraded empty semantics. | `HF-SH-02` v0.2 PASS | Visual blocker closed; launch checklist required before implementation. |
 
 ## 8. Needs Authority Review
 
@@ -119,8 +121,6 @@ Primary blocker is visual-frame availability. These are not currently approved f
 | Ticket | Sprint | Missing frame / dependency |
 | --- | --- | --- |
 | `CH-T02` | Sprint 4 | Depends on `CH-T01` and `VF-01`. |
-| `SH-T02` | Sprint 3A | Depends on `SH-T01` and `HF-SH-01` / `HF-SH-02` / `VF-14`; `VF-08` is pending confirmation / likely deprecated. |
-| `SH-T06` | Sprint 3A | Depends on `SH-T01` and `HF-SH-02`. |
 
 ## 10. HOLD
 
@@ -129,7 +129,7 @@ These should not be started until dependencies close or a later exact checklist 
 | Ticket | Sprint | HOLD reason |
 | --- | --- | --- |
 | `IN-T06` | Sprint 1 | Depends on `IN-T03` and `IN-T04`. |
-| `CD-T06` | Sprint 1 | Checklist HOLD: missing renderable `CLOSED` fixture and `VF-11/VF-12/VF-13` state-header frames; Jira `SCRUM-53` remains not Done. |
+| `CD-T06` | Sprint 1 | Checklist HOLD: `VF-11/VF-12/VF-13` visual blocker removed, but renderable `CLOSED` Case Detail context is still missing; Jira `SCRUM-53` remains not Done. |
 | `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
 | `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
@@ -146,8 +146,8 @@ Done: 34 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
-Checklist-only: 2
-Blocked/HOLD/design/authority: 18
+Checklist-only: 4
+Blocked/HOLD/design/authority: 16
 ```
 
 Active non-tracker automation queue:
@@ -158,6 +158,8 @@ docs\S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
 docs\S6_AP_T06_OBSERVATION_WINDOW_READINESS_CHECKLIST_2026_04_28.md
 docs\S6_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_CLOSEOUT_2026_04_28.md
 docs\S6_CONTINUOUS_BOUNDED_BURN_POOL_2026_04_28.md
+docs\S6_VISUAL_BASELINE_HF_SH_01_02_VF14_RECONCILIATION_2026_04_28.md
+docs\S6_CD_T06_CLOSED_CONTEXT_UNBLOCK_CHECKLIST_2026_04_28.md
 ```
 
 Queue purpose:
@@ -204,7 +206,8 @@ Current continuous burn pool:
 ```text
 AP-T08 HOLD pending external authority review
 SH-T08 HOLD pending AP-T08 and exact approval-audit source frame/semantic skeleton
-CD-T06 PARTIAL_UNBLOCK, full HOLD pending renderable CLOSED context
+SH-T02 / SH-T06 visual dependencies closed; checklist-only route available
+CD-T06 visual blocker partially closed, full HOLD pending renderable CLOSED context
 AP-T09 HOLD pending AP-T08 and VF-15; Jira `SCRUM-67`
 MV-T04 HOLD pending AP-T08, SH-T08, and external authority review; Jira `SCRUM-68`
 ```
@@ -243,7 +246,7 @@ AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> sa
 Updated next burn-down path:
 
 ```text
-AP-T08/MV-T04 Claude Web authority review pack OR CD-T06 CLOSED context unblock checklist
+SH-T02/SH-T06 visual-baseline launch checklist OR CD-T06A existing-state header skeleton checklist
 ```
 
 Current authority review pack:
