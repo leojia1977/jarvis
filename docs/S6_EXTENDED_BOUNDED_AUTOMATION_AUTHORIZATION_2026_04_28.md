@@ -183,6 +183,11 @@ exact future implementation candidate after explicit GO, but it does not
 implement, mutate Jira, close `MV-T04`, or close `MV-T05`. The runner must not
 start MV-T04 implementation without later explicit GO.
 
+`AP-T09` VF-15 design source request has since been prepared. It does not
+implement AP-T09 or mutate Jira; it only defines the missing governed
+empty/unavailable audit source needed before AP-T09 can return to a launch
+checklist.
+
 Idle fallback is governed by:
 
 ```text
@@ -203,5 +208,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```

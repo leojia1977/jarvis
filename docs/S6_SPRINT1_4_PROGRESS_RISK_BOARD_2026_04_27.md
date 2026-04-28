@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through MV-T04 implementation GO prep; next route is MV-T04 implementation GO, SH-T09 reconciliation GO, Jira mapping GO, or next idle fallback. |
+| _None_ | _N/A_ | Current batch completed through AP-T09 VF-15 design source request; next route is MV-T04 implementation GO, AP-T09 VF-15 source delivery, SH-T09 reconciliation GO, Jira mapping GO, or next idle fallback. |
 
 ## 5. Auto-Ready
 
@@ -180,6 +180,7 @@ docs\S6_JIRA_PARITY_AUDIT_REMAINING_PASS_ROWS_2026_04_29.md
 docs\S6_JIRA_MAPPING_PROPOSAL_SH_T02_SH_T06_EP_T06_2026_04_29.md
 docs\S6_SH_T09_RECONCILIATION_CLOSEOUT_PREP_2026_04_29.md
 docs\S6_MV_T04_IMPLEMENTATION_GO_PREP_2026_04_29.md
+docs\S6_AP_T09_VF15_DESIGN_SOURCE_REQUEST_2026_04_29.md
 ```
 
 Queue purpose:
@@ -207,6 +208,7 @@ Remaining PASS-row Jira parity audit recorded; SH-T02/SH-T06/EP-T06 have repo cl
 Jira mapping proposal prepared for SH-T02/SH-T06/EP-T06; no cloud mutation without explicit mapping GO
 SH-T09 reconciliation closeout prep prepared; no closeout, no Jira mutation, no implementation without explicit GO
 MV-T04 implementation GO prep prepared; no implementation or Jira mutation without explicit GO
+AP-T09 VF-15 design source request prepared; no implementation or Jira mutation without source delivery
 ```
 
 Latest implementation batch:
@@ -252,6 +254,7 @@ Next human selection options:
 ```text
 SH-T09 reconciliation GO
 MV-T04 implementation GO
+AP-T09 VF-15 source delivery
 Jira mapping GO for SH-T02 / SH-T06 / EP-T06
 MV-T04 source-order follow-up checklist
 next low-risk reconciliation/no-code/authority-pack burn-down pool
@@ -299,13 +302,13 @@ AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
 Best next automation burn-down path:
 
 ```text
-MV-T04 implementation GO -> SH-T09 reconciliation GO -> Jira mapping GO if Jira burn-down parity matters -> next idle fallback
+MV-T04 implementation GO -> AP-T09 VF-15 source delivery -> SH-T09 reconciliation GO -> Jira mapping GO if Jira burn-down parity matters -> next idle fallback
 ```
 
 Updated next burn-down path:
 
 ```text
-MV-T04 implementation GO OR SH-T09 reconciliation GO OR Jira mapping GO OR next idle fallback
+MV-T04 implementation GO OR AP-T09 VF-15 source delivery OR SH-T09 reconciliation GO OR Jira mapping GO OR next idle fallback
 ```
 
 Idle fallback:
@@ -340,6 +343,7 @@ Remaining PASS-row Jira parity audit found no additional safe Jira Done transiti
 Jira mapping proposal for SH-T02/SH-T06/EP-T06 is prepared; runner must not mutate Jira without exact mapping GO.
 SH-T09 reconciliation closeout prep is prepared; runner must not close SH-T09 without exact reconciliation GO and gates.
 MV-T04 implementation GO prep is prepared; runner must not implement MV-T04 without exact implementation GO.
+AP-T09 VF-15 design source request is prepared; runner must not implement AP-T09 without governed source delivery and exact checklist.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.

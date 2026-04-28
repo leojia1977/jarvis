@@ -4356,3 +4356,30 @@ Next route:
 ```text
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 130. Update 2026-04-29: AP-T09 VF-15 Design Source Request
+
+Design/source request record:
+
+```text
+docs/S6_AP_T09_VF15_DESIGN_SOURCE_REQUEST_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T09_VF15_DESIGN_SOURCE_REQUEST_READY_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- `AP-T09` remains HOLD because `VF-15` or an equivalent governed audit empty/unavailable source is still missing.
+- The request defines the minimum distinctions, copy-source decisions, and test anchors needed before `AP-T09` can return to launch checklist.
+- Existing `UNAVAILABLE` enum fallback is not enough to implement `AP-T09`.
+- This request does not implement, mutate Jira, authorize visual PASS, or create frontend product copy.
+
+Next route:
+
+```text
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```
