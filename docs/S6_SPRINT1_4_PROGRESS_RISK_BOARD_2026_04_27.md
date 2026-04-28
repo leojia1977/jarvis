@@ -178,6 +178,21 @@ SH-T04 search/history scope checklist
 MV-T03 deep-link authority checklist
 ```
 
+Latest checklist batch:
+
+```text
+AP-T03 / CH-T03 / SH-T04 / MV-T03 checklist-only records created; implementation remains unauthorized
+```
+
+Next human selection options:
+
+```text
+AP-T03 external/human authority review
+CH-T03 exact ui_messages implementation GO review
+SH-T04 no-code reconciliation review
+MV-T03 dependency path after AP-T08/SH-T08 proof
+```
+
 Best next automation burn-down path:
 
 ```text

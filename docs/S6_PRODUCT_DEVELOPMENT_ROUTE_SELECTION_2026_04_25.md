@@ -3272,3 +3272,35 @@ Next route:
 ```text
 WAIT_FOR_JARVIS_REVIEW_LOW_RISK_QUEUE_OUTPUT_OR_AUTHORIZE_NEXT_CHECKLIST_BATCH
 ```
+
+## 95. Update 2026-04-28: Next Checklist Batch AP-T03 / CH-T03 / SH-T04 / MV-T03
+
+Checklist records:
+
+```text
+docs/S6_AP_T03_AUTHORITY_CHECKLIST_2026_04_28.md
+docs/S6_CH_T03_PATCH_GATE_ISOLATED_CHECKLIST_2026_04_28.md
+docs/S6_SH_T04_SEARCH_HISTORY_SCOPE_CHECKLIST_2026_04_28.md
+docs/S6_MV_T03_DEEP_LINK_AUTHORITY_CHECKLIST_2026_04_28.md
+```
+
+Decision:
+
+```text
+CHECKLIST_BATCH_RECORDED_IMPLEMENTATION_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- Jarvis authorized a docs-only/checklist-only batch for `AP-T03`, `CH-T03`, `SH-T04`, and `MV-T03`.
+- No implementation was opened or started.
+- `AP-T03` returns checklist PASS but requires Claude Web or human authority review plus separate implementation GO before code.
+- `CH-T03` returns patch-gate isolated checklist PASS but requires exact `ui_messages` keys, patch-gate conflict check, and separate implementation GO.
+- `SH-T04` returns reconciliation/implementation fork checklist PASS; it needs a no-code reconciliation review or a separate exact implementation GO if a gap exists.
+- `MV-T03` returns authority checklist PASS but implementation remains deferred until dependency proof for `AP-T08` / `SH-T08` or explicit authority review PASS.
+
+Next route:
+
+```text
+WAIT_FOR_JARVIS_TO_SELECT_AP_T03_REVIEW_CH_T03_IMPLEMENTATION_SH_T04_RECONCILIATION_OR_MV_T03_DEPENDENCY_PATH
+```
