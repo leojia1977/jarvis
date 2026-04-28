@@ -492,40 +492,51 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByTestId("historical-field-upgrade-banner")).not.toBeInTheDocument();
   });
 
-  it("accepts only governed read-only history focus hints without changing authority", () => {
+  it("downgrades P1 approval audit focus to summary without creating authority", () => {
     window.history.pushState({}, "", "/search?tab=history&focus=approval_audit");
 
     render(<App />);
 
     const focusScopes = screen.getByTestId("history-focus-scopes");
-    const approvalScope = screen
+    const summaryScope = screen
       .getAllByTestId("history-focus-scope")
-      .find((item) => item.getAttribute("data-focus-scope") === "approval_audit");
+      .find((item) => item.getAttribute("data-focus-scope") === "summary");
+    const downgrade = screen.getByTestId("history-focus-downgrade");
 
-    expect(focusScopes).toHaveAttribute("data-effective-focus", "approval_audit");
-    expect(approvalScope).toHaveAttribute("aria-current", "true");
+    expect(focusScopes).toHaveAttribute("data-requested-focus", "approval_audit");
+    expect(focusScopes).toHaveAttribute("data-effective-focus", "summary");
+    expect(summaryScope).toHaveAttribute("aria-current", "true");
+    expect(downgrade).toHaveAttribute("data-requested-focus", "approval_audit");
+    expect(downgrade).toHaveAttribute("data-effective-focus", "summary");
     expect(focusScopes).toHaveTextContent("Focus is a display hint only");
     expect(focusScopes).toHaveTextContent("no approval controls are attached");
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
     expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L2");
+    expect(screen.queryByTestId("search-history-approval-audit-boundary")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
   });
 
-  it("accepts the history audit focus hint without creating write authority", () => {
+  it("downgrades P1 history audit focus without creating write authority", () => {
     window.history.pushState({}, "", "/search?tab=history&focus=history_audit");
 
     render(<App />);
 
     const focusScopes = screen.getByTestId("history-focus-scopes");
-    const historyScope = screen
+    const summaryScope = screen
       .getAllByTestId("history-focus-scope")
-      .find((item) => item.getAttribute("data-focus-scope") === "history_audit");
+      .find((item) => item.getAttribute("data-focus-scope") === "summary");
 
-    expect(focusScopes).toHaveAttribute("data-effective-focus", "history_audit");
-    expect(historyScope).toHaveAttribute("aria-current", "true");
+    expect(focusScopes).toHaveAttribute("data-requested-focus", "history_audit");
+    expect(focusScopes).toHaveAttribute("data-effective-focus", "summary");
+    expect(summaryScope).toHaveAttribute("aria-current", "true");
+    expect(screen.getByTestId("history-focus-downgrade")).toHaveAttribute(
+      "data-requested-focus",
+      "history_audit"
+    );
     expect(screen.getByTestId("history-write-guard")).toHaveTextContent(
       "Read-only history surface. No write actions are attached."
     );
+    expect(screen.queryByTestId("search-history-approval-audit-boundary")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
   });
 
@@ -536,7 +547,30 @@ describe("SecuPilot first-batch workbench slice", () => {
     render(<App initialPhaseNumber={6} />);
 
     const handoff = screen.getByTestId("manager-deep-link-handoff");
+    const auditBoundary = screen.getByTestId("search-history-approval-audit-boundary");
 
+    expect(auditBoundary).toHaveAttribute("data-role", "P3");
+    expect(auditBoundary).toHaveAttribute("data-source", "activeContext.audit_trail");
+    expect(auditBoundary).toHaveAttribute("data-source-surface", "history");
+    expect(auditBoundary).toHaveAttribute("data-source-order", "AP-T08-before-SH-T08");
+    expect(auditBoundary).toHaveAttribute("data-display-mode", "read-only-summary");
+    expect(auditBoundary).toHaveAttribute("data-full-audit-chain", "not-rendered");
+    expect(auditBoundary).toHaveAttribute("data-state-mutation", "none");
+    expect(screen.getByTestId("history-approval-audit-latest-id")).toHaveTextContent("AUD-005");
+    expect(screen.getByTestId("history-approval-audit-latest-event")).toHaveTextContent(
+      "APPROVED_AFTER_WINDOW"
+    );
+    expect(screen.getByTestId("history-approval-audit-actor-role")).toHaveTextContent("P2");
+    expect(screen.getByTestId("history-approval-audit-derived-status")).toHaveAttribute(
+      "data-derived-status",
+      "APPROVED"
+    );
+    expect(screen.getByTestId("history-approval-audit-observation-presence")).toHaveTextContent(
+      "Present"
+    );
+    expect(screen.getByTestId("history-approval-audit-terminal-close")).toHaveTextContent(
+      "Unavailable"
+    );
     expect(handoff).toHaveAttribute("data-authority-source", "resolved-surface-context");
     expect(handoff).toHaveAttribute("data-source-surface", "P3_SEARCH_HISTORY");
     expect(handoff).toHaveAttribute("data-source-focus", "approval_audit");

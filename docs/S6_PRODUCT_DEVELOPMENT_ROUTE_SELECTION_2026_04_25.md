@@ -3868,3 +3868,39 @@ Next route:
 ```text
 OPEN_SH_T08_APPROVAL_AUDIT_SOURCE_ORDER_CHECKLIST
 ```
+
+## 113. Update 2026-04-28: SH-T08 Approval Audit Source Boundary Closeout
+
+Checklist:
+
+```text
+docs/S6_SH_T08_APPROVAL_AUDIT_SOURCE_ORDER_CHECKLIST_2026_04_28.md
+```
+
+Closeout:
+
+```text
+docs/S6_SH_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+SH_T08_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `SH-T08` now renders a P3-only Search / History approval-audit source boundary from existing `activeContext.audit_trail`.
+- P1/P2 audit-focus requests downgrade to summary and do not render approval-audit output.
+- The boundary is read-only summary only, with fixed enum derived-status mapping and `data-full-audit-chain="not-rendered"`.
+- No full audit chain in `/search`, Manager View approval-audit summary, route handoff payload, AP mutation, `ActionMode`, write controls, backend/runtime/API/schema, fixture registry/adapter/validator/`ResolvedSurfaceContext`, raw evidence DOM, real data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+- Gates passed: frontend tests 86, frontend build, pilot preflight/release verification with backend guard 164, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused re-review returned `VERDICT: PASS`.
+- Jira sync remains pending because Jira environment variables were not visible in the runner process.
+
+Next route:
+
+```text
+OPEN_EP_T06_DEPENDENCY_RECONCILIATION
+```

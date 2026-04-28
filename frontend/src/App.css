@@ -546,6 +546,7 @@ button {
 .history-guard-panel,
 .history-focus-scope-panel,
 .history-empty-state-split,
+.history-approval-audit-boundary,
 .history-manager-handoff,
 .history-case-row {
   display: grid;
@@ -597,9 +598,26 @@ button {
   background: #f6fafb;
 }
 
+.history-focus-downgrade {
+  margin: 0;
+  border: 1px solid #d7ded4;
+  border-radius: 8px;
+  background: #f8fbf6;
+  color: #40505c;
+  padding: 12px 14px;
+  font-weight: 800;
+}
+
+.history-approval-audit-boundary {
+  grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1fr);
+  border-color: #cad9db;
+  background: #f7faf9;
+}
+
 .history-guard-panel h2,
 .history-focus-scope-panel h2,
 .history-empty-state h2,
+.history-approval-audit-boundary h2,
 .history-manager-handoff h2,
 .history-case-row h2 {
   margin: 0;
@@ -611,6 +629,7 @@ button {
 .history-guard-panel p,
 .history-focus-scope-panel p,
 .history-empty-state p,
+.history-approval-audit-boundary p,
 .history-manager-handoff p,
 .history-case-row p {
   margin: 8px 0 0;
@@ -630,6 +649,13 @@ button {
 }
 
 .history-guard-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.history-approval-audit-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
@@ -674,7 +700,8 @@ button {
   color: #16466f;
 }
 
-.history-guard-facts > div {
+.history-guard-facts > div,
+.history-approval-audit-facts > div {
   min-width: 0;
   border: 1px solid #e3e8df;
   border-radius: 7px;
@@ -682,14 +709,16 @@ button {
   padding: 10px;
 }
 
-.history-guard-facts dt {
+.history-guard-facts dt,
+.history-approval-audit-facts dt {
   color: #667085;
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
 }
 
-.history-guard-facts dd {
+.history-guard-facts dd,
+.history-approval-audit-facts dd {
   margin: 4px 0 0;
   color: #243140;
   font-weight: 800;
@@ -2406,6 +2435,7 @@ button {
 
   .history-guard-panel,
   .history-empty-state-split,
+  .history-approval-audit-boundary,
   .history-manager-handoff,
   .historical-case-list-item,
   .approval-shell-header,
@@ -2429,6 +2459,7 @@ button {
   }
 
   .history-focus-scope-panel ul,
+  .history-approval-audit-facts,
   .approval-facts,
   .approval-observation-facts,
   .approval-disabled-controls,

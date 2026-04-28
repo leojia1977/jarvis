@@ -1872,7 +1872,11 @@ function SearchHistoryView({
     ? requestedCoverageParam
     : null;
   const requestedFocusParam = queryParams.get("focus");
-  const effectiveFocus = isSearchFocusScope(requestedFocusParam) ? requestedFocusParam : "summary";
+  const requestedFocus = isSearchFocusScope(requestedFocusParam) ? requestedFocusParam : "summary";
+  const isAuditFocusRequested =
+    requestedFocus === "approval_audit" || requestedFocus === "history_audit";
+  const isAuditFocusDowngraded = activeContext.session.role !== "P3" && isAuditFocusRequested;
+  const effectiveFocus = isAuditFocusDowngraded ? "summary" : requestedFocus;
   const recordedCoverage = activeContext.case.coverage_level;
   const currentCoverage = requestedCoverage ?? recordedCoverage;
   const effectiveCoverage = clampCoverageRequest(requestedCoverage, recordedCoverage);
@@ -1886,6 +1890,25 @@ function SearchHistoryView({
   const canRenderManagerHandoff =
     activeContext.session.role === "P3" &&
     (effectiveFocus === "approval_audit" || effectiveFocus === "history_audit");
+  const canRenderHistoryApprovalAudit =
+    activeContext.session.role === "P3" &&
+    (effectiveFocus === "approval_audit" || effectiveFocus === "history_audit");
+  const latestHistoryAuditEvent =
+    activeContext.audit_trail.length > 0
+      ? activeContext.audit_trail[activeContext.audit_trail.length - 1]
+      : undefined;
+  const historyAuditDerivedStatus = getApprovalAuditDerivedStatus(latestHistoryAuditEvent);
+  const historyAuditStatusDisplay = APPROVAL_AUDIT_STATUS_DISPLAY[historyAuditDerivedStatus];
+  const historyAuditId = auditRecordString(latestHistoryAuditEvent, "audit_id") ?? "Unavailable";
+  const historyAuditEventName =
+    auditRecordString(latestHistoryAuditEvent, "event") ?? "Unavailable";
+  const historyAuditActorRole =
+    auditRecordString(latestHistoryAuditEvent, "actor_role") ?? "Unavailable";
+  const historyAuditCaseState =
+    auditRecordString(latestHistoryAuditEvent, "case_state_after") ?? "Unavailable";
+  const historyHasObservationWindowAudit = activeContext.audit_trail.some(
+    (event) => auditRecordString(event, "event") === "OBSERVE_ONLY_SELECTED"
+  );
 
   return (
     <section
@@ -2001,6 +2024,17 @@ function SearchHistoryView({
         </ul>
       </section>
 
+      {isAuditFocusDowngraded ? (
+        <p
+          className="history-focus-downgrade"
+          data-effective-focus={effectiveFocus}
+          data-requested-focus={requestedFocus}
+          data-testid="history-focus-downgrade"
+        >
+          Audit focus is unavailable for this role; summary remains active.
+        </p>
+      ) : null}
+
       <section
         aria-label="History empty-state split"
         className="history-empty-state-split"
@@ -2038,6 +2072,78 @@ function SearchHistoryView({
           </p>
         </article>
       </section>
+
+      {canRenderHistoryApprovalAudit ? (
+        <section
+          aria-labelledby="search-history-approval-audit-title"
+          className="history-approval-audit-boundary"
+          data-audit-count={activeContext.audit_trail.length}
+          data-derived-status={historyAuditDerivedStatus}
+          data-derived-status-source="fixed-enum-mapping"
+          data-display-mode="read-only-summary"
+          data-full-audit-chain="not-rendered"
+          data-role="P3"
+          data-source="activeContext.audit_trail"
+          data-source-order="AP-T08-before-SH-T08"
+          data-source-surface="history"
+          data-state-mutation="none"
+          data-testid="search-history-approval-audit-boundary"
+        >
+          <div>
+            <p className="section-kicker">SH-T08</p>
+            <h2 id="search-history-approval-audit-title">History approval audit boundary</h2>
+            <p>
+              Read-only audit summary sourced from resolved context. The full audit chain and
+              approval controls are not rendered in Search / History.
+            </p>
+          </div>
+          <dl className="history-approval-audit-facts">
+            <div>
+              <dt>Latest audit</dt>
+              <dd data-testid="history-approval-audit-latest-id">{historyAuditId}</dd>
+            </div>
+            <div>
+              <dt>Event</dt>
+              <dd data-testid="history-approval-audit-latest-event">
+                {historyAuditEventName}
+              </dd>
+            </div>
+            <div>
+              <dt>Actor role</dt>
+              <dd data-testid="history-approval-audit-actor-role">{historyAuditActorRole}</dd>
+            </div>
+            <div>
+              <dt>Derived status</dt>
+              <dd>
+                <span
+                  className={`ar-status-pill ${historyAuditStatusDisplay.tone}`}
+                  data-derived-status={historyAuditDerivedStatus}
+                  data-derived-status-source="fixed-enum-mapping"
+                  data-testid="history-approval-audit-derived-status"
+                >
+                  {historyAuditStatusDisplay.label}
+                </span>
+              </dd>
+            </div>
+            <div>
+              <dt>Case state after</dt>
+              <dd data-testid="history-approval-audit-case-state-after">
+                {historyAuditCaseState}
+              </dd>
+            </div>
+            <div>
+              <dt>Observation audit</dt>
+              <dd data-testid="history-approval-audit-observation-presence">
+                {historyHasObservationWindowAudit ? "Present" : "Not present"}
+              </dd>
+            </div>
+            <div>
+              <dt>Terminal close</dt>
+              <dd data-testid="history-approval-audit-terminal-close">Unavailable</dd>
+            </div>
+          </dl>
+        </section>
+      ) : null}
 
       {canRenderManagerHandoff ? (
         <article

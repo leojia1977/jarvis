@@ -19,14 +19,14 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 37 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 38 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 1 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 7 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 1 | Missing visual frame is the primary blocker. |
-| HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -60,6 +60,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `SH-T05` | Sprint 3A | Implemented, gated, reviewed, Jira-synced. |
 | `SH-T06` | Sprint 3A | Structural/degraded empty-state semantics implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
 | `SH-T07` | Sprint 3A | No-code reconciliation closeout; Jira-synced as `SCRUM-44`. |
+| `SH-T08` | Sprint 3A | P3 approval-audit source boundary implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
 | `AP-T10` | Sprint 2 | Display-only AR status badge/pill mapping implemented, gated, reviewed, Jira-synced as `SCRUM-46`. |
 | `AP-T01` | Sprint 2 | `/approval` route shell/guard implemented, gated, reviewed, Jira-synced as `SCRUM-47`. |
 | `AP-T03` | Sprint 2 | Approval CTA boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-56`. |
@@ -98,7 +99,7 @@ These tickets are authorized for launch/readiness checklist only. Implementation
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
-| `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | Source proof PASS | Checklist-only recorded as `SCRUM-63`; narrow implementation checklist still required. |
+| `SH-T09` | Sprint 3A | Search / History acceptance reconciliation. | Not required yet | Dependencies now closed; acceptance checklist still required before Done. |
 
 ## 8. Needs Authority Review
 
@@ -135,19 +136,18 @@ These should not be started until dependencies close or a later exact checklist 
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
 | `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
 | `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
-| `SH-T09` | Sprint 3A | Depends on `SH-T01`, `SH-T02`, `SH-T05`, `SH-T06`, `SH-T07`, and `SH-T08`. |
 
 ## 11. Daily Readout
 
 Current readout:
 
 ```text
-Done: 37 / 54
+Done: 38 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
 Checklist-only: 1
-Blocked/HOLD/design/authority: 16
+Blocked/HOLD/design/authority: 15
 ```
 
 Active non-tracker automation queue:
@@ -164,6 +164,7 @@ docs\S6_30M_RUNNER_IDLE_FALLBACK_2026_04_28.md
 docs\S6_SH_T02_DUAL_COVERAGE_CLAMP_CLOSEOUT_2026_04_28.md
 docs\S6_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CLOSEOUT_2026_04_28.md
 docs\S6_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CLOSEOUT_2026_04_28.md
+docs\S6_SH_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_CLOSEOUT_2026_04_28.md
 ```
 
 Queue purpose:
@@ -175,11 +176,12 @@ AP-T04/AP-T05/AP-T07 bounded implementation plus AP-T08/SH-T08 source proof and 
 Latest queue output:
 
 ```text
-AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 source proof PASS but not Done; AP-T06A implemented as `SCRUM-65`; full AP-T06 countdown/state-sync HOLD
+AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08 implemented and Jira-synced; SH-T08 implemented with Jira parity pending env visibility; AP-T06A implemented as `SCRUM-65`; full AP-T06 countdown/state-sync HOLD
 MV-T03 implemented and Jira-synced as `SCRUM-66`
 SH-T02 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 SH-T06 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 CD-T06A implemented and gate/Claude Code PASS; parent CD-T06 remains HOLD and Jira sync pending env visibility
+SH-T08 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 ```
 
 Latest implementation batch:
@@ -193,6 +195,7 @@ MV-T03 P3 Search/History route-only Manager handoff
 SH-T02 Search/History dual coverage clamp semantics
 SH-T06 Search/History structural/degraded empty-state split
 CD-T06A Case Detail existing-state header skeleton
+SH-T08 Search/History P3 approval-audit source boundary
 ```
 
 Checklist-only path:
@@ -205,12 +208,13 @@ MV-T03 source-proof path closed and implemented
 SH-T02 dual coverage clamp closeout PASS
 SH-T06 structural/degraded empty-state closeout PASS
 CD-T06A existing-state header skeleton closeout PASS; full CD-T06 remains HOLD
+SH-T08 approval-audit source boundary closeout PASS
 ```
 
 Next human selection options:
 
 ```text
-SH-T08 narrow implementation checklist after source/order proof
+SH-T09 acceptance checklist
 EP-T06 dependency reconciliation/no-code closeout check
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
@@ -219,11 +223,11 @@ Current continuous burn pool:
 
 ```text
 AP-T08 completed and Jira Done
-SH-T08 next ordered checklist: exact Search/History approval-audit source/order proof after AP-T08, SH-T02, and SH-T06 closeouts
+SH-T08 completed; SH-T09 acceptance checklist is now unblocked but not Done
 CD-T06A completed; full CD-T06 remains HOLD pending renderable CLOSED context
 CD-T06 visual blocker partially closed, full HOLD pending renderable CLOSED context
 AP-T09 HOLD pending AP-T08 and VF-15; Jira `SCRUM-67`
-MV-T04 HOLD pending AP-T08, SH-T08, and external authority review; Jira `SCRUM-68`
+MV-T04 HOLD pending source-order follow-up after AP-T08 / SH-T08 and external authority review; Jira `SCRUM-68`
 ```
 
 Latest relaunch checklist:
@@ -246,8 +250,8 @@ Closeout result:
 AP-T03/CH-T03/SH-T04 Jira parity corrected
 AP-T04/AP-T05/AP-T07 Jira Done
 AP-T06A Jira Done as `SCRUM-65`; AP-T06 parent readiness remains open as `SCRUM-64`
-AP-T08/SH-T08 Jira To Do with checklist-only notes
 AP-T08 Jira Done as `SCRUM-62`
+SH-T08 Jira parity pending env visibility
 MV-T03 Jira Done as `SCRUM-66`
 AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 ```
@@ -255,13 +259,13 @@ AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 Best next automation burn-down path:
 
 ```text
-SH-T08 source-order checklist after AP-T08, SH-T02, SH-T06, and CD-T06A closeouts -> safe Jira parity sync
+EP-T06 dependency reconciliation -> IN-T06 / CD-T07 readiness -> SH-T09 acceptance checklist -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-SH-T08 source-order checklist OR EP-T06 no-code dependency reconciliation
+EP-T06 no-code dependency reconciliation OR SH-T09 acceptance checklist
 ```
 
 Idle fallback:
@@ -287,6 +291,7 @@ AP-T08 is now implemented and Jira-synced; runner must continue after AP-T08 and
 SH-T02 is now implemented and gate/Claude Code PASS; runner must continue after SH-T02 and may sync Jira later only when credentials are visible.
 SH-T06 is now implemented and gate/Claude Code PASS; runner must continue after SH-T06 and may sync Jira later only when credentials are visible.
 CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after CD-T06A and must not mark parent CD-T06 Done.
+SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after SH-T08 and may sync Jira later only when credentials are visible.
 ```
 
 Best next risk-reduction path:
