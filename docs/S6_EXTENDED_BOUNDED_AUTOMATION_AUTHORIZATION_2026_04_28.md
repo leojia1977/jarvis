@@ -188,6 +188,11 @@ implement AP-T09 or mutate Jira; it only defines the missing governed
 empty/unavailable audit source needed before AP-T09 can return to a launch
 checklist.
 
+`AP-T06` state-sync harness source request has since been prepared. It does not
+implement full AP-T06 or mutate Jira; it only defines the missing state-sync
+input authority, display-vs-authority rule, and test-harness source needed
+before full AP-T06 can return to a launch checklist.
+
 Idle fallback is governed by:
 
 ```text
@@ -208,5 +213,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```

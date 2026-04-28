@@ -4383,3 +4383,30 @@ Next route:
 ```text
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 131. Update 2026-04-29: AP-T06 State-Sync Harness Source Request
+
+Source request record:
+
+```text
+docs/S6_AP_T06_STATE_SYNC_HARNESS_SOURCE_REQUEST_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T06_STATE_SYNC_HARNESS_SOURCE_REQUEST_READY_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- Full `AP-T06` remains HOLD because exact state-sync input authority, display-vs-authority rule, and test-only harness semantics are still missing.
+- `AP-T06A` remains the closed static readonly split and must not be reinterpreted as full countdown/state-sync behavior.
+- The request defines the minimum source and harness decisions needed before full `AP-T06` can return to launch checklist.
+- This request does not implement, mutate Jira, authorize backend `STATE_SYNC`, or turn client-clock display into state authority.
+
+Next route:
+
+```text
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```
