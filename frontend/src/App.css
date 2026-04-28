@@ -609,6 +609,44 @@ button {
   margin: 0;
 }
 
+.dual-coverage-label-block {
+  display: grid;
+  gap: 8px;
+  border: 1px solid #d8e3d6;
+  border-radius: 7px;
+  background: #f8fbf6;
+  padding: 10px;
+}
+
+.dual-coverage-label-block span {
+  color: #243140;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.dual-coverage-label-block p {
+  margin: 0;
+  color: #5d6875;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dual-coverage-label-block .missing-signal-notice,
+.dual-coverage-label-block .historical-upgrade-blocked-notice {
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.dual-coverage-label-block .missing-signal-notice {
+  background: #fff7e6;
+  color: #7a4a00;
+}
+
+.dual-coverage-label-block .historical-upgrade-blocked-notice {
+  background: #eef6ff;
+  color: #16466f;
+}
+
 .history-guard-facts > div {
   min-width: 0;
   border: 1px solid #e3e8df;
@@ -709,6 +747,18 @@ button {
   color: #5d6875;
   font-size: 13px;
   font-weight: 700;
+}
+
+.view-approval-audit {
+  grid-column: 1 / -1;
+  justify-self: start;
+  min-height: 38px;
+  border: 1px solid #b8c9cb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #13547a;
+  font-weight: 900;
+  padding: 0 14px;
 }
 
 .history-write-guard {

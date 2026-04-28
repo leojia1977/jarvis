@@ -3759,3 +3759,39 @@ Next route:
 ```text
 CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_AP_T08_CLOSEOUT
 ```
+
+## 110. Update 2026-04-28: SH-T02 Dual Coverage Clamp Closeout
+
+Checklist:
+
+```text
+docs/S6_SH_T02_DUAL_COVERAGE_CLAMP_CHECKLIST_2026_04_28.md
+```
+
+Closeout:
+
+```text
+docs/S6_SH_T02_DUAL_COVERAGE_CLAMP_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+SH_T02_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `SH-T02` now renders the Search / History dual coverage and clamp semantics required by `HF-SH-01`, `HF-SH-02`, and `VF-14` v0.2.
+- The Search / History guard exposes `dual-coverage-label-block`, `recorded-coverage-label`, `current-coverage-label`, `effective-visibility-label`, `clamp-reason`, `missing-signal-notice[data-message-source="ui_messages"]`, and `historical-upgrade-blocked-notice`.
+- The historical list item now exposes `view-approval-audit[data-source="history"][data-guard="role-source-data"]` as a read-only history source anchor only.
+- No Search / History write actions, approval controls, AP mutation, `ActionMode`, P3 Manager approval-audit summary, route handoff payload, backend/runtime/API/schema, fixture/adapter/validator/`ResolvedSurfaceContext`, raw evidence DOM, real-data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+- Gates passed: frontend tests 84, frontend build, pilot preflight/release verification with backend guard 164, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `VERDICT: PASS` after one timeout retry was handled under the review-only runbook.
+- Jira sync remains pending because Jira environment variables were not visible in the runner process; no Jira transition was attempted.
+
+Next route:
+
+```text
+OPEN_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CHECKLIST
+```

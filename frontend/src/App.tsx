@@ -530,6 +530,10 @@ function isSearchFocusScope(value: string | null): value is SearchFocusScope {
   return value === "summary" || value === "approval_audit" || value === "history_audit";
 }
 
+function coverageRank(level: CoverageLevel): number {
+  return { L0: 0, L1: 1, L2: 2, L3: 3 }[level];
+}
+
 function clampCoverageRequest(
   requestedCoverage: CoverageLevel | null,
   recordedCoverage: CoverageLevel
@@ -537,10 +541,17 @@ function clampCoverageRequest(
   if (!requestedCoverage) {
     return recordedCoverage;
   }
-  const ranks: Record<CoverageLevel, number> = { L0: 0, L1: 1, L2: 2, L3: 3 };
-  return ranks[requestedCoverage] > ranks[recordedCoverage]
+  return coverageRank(requestedCoverage) > coverageRank(recordedCoverage)
     ? recordedCoverage
     : requestedCoverage;
+}
+
+function formatCoverageClampReason(
+  recordedCoverage: CoverageLevel,
+  currentCoverage: CoverageLevel,
+  effectiveCoverage: CoverageLevel
+): string {
+  return `recorded = ${recordedCoverage} · current = ${currentCoverage} · effective = ${effectiveCoverage}`;
 }
 
 function auditRecordNumber(
@@ -1836,7 +1847,15 @@ function SearchHistoryView({
   const requestedFocusParam = queryParams.get("focus");
   const effectiveFocus = isSearchFocusScope(requestedFocusParam) ? requestedFocusParam : "summary";
   const recordedCoverage = activeContext.case.coverage_level;
+  const currentCoverage = requestedCoverage ?? recordedCoverage;
   const effectiveCoverage = clampCoverageRequest(requestedCoverage, recordedCoverage);
+  const clampReason = formatCoverageClampReason(
+    recordedCoverage,
+    currentCoverage,
+    effectiveCoverage
+  );
+  const isClamped = currentCoverage !== effectiveCoverage || recordedCoverage !== effectiveCoverage;
+  const isHistoricalUpgradeBlocked = coverageRank(currentCoverage) > coverageRank(recordedCoverage);
   const canRenderManagerHandoff =
     activeContext.session.role === "P3" &&
     (effectiveFocus === "approval_audit" || effectiveFocus === "history_audit");
@@ -1855,6 +1874,7 @@ function SearchHistoryView({
       <article
         className="history-guard-panel"
         data-authority-source="resolved-surface-context"
+        data-current-coverage={currentCoverage}
         data-effective-coverage={effectiveCoverage}
         data-recorded-coverage={recordedCoverage}
         data-requested-coverage={requestedCoverage ?? "none"}
@@ -1869,6 +1889,39 @@ function SearchHistoryView({
             Route input is resolved, clamped to the recorded coverage ceiling, then rendered as a
             read-only history guard.
           </p>
+        </div>
+        <div
+          aria-label="Dual coverage clamp labels"
+          className="dual-coverage-label-block"
+          data-current-coverage={currentCoverage}
+          data-effective-visibility={effectiveCoverage}
+          data-recorded-coverage={recordedCoverage}
+          data-testid="dual-coverage-label-block"
+        >
+          <span data-testid="recorded-coverage-label">Recorded: {recordedCoverage}</span>
+          <span data-testid="current-coverage-label">Current: {currentCoverage}</span>
+          <span data-testid="effective-visibility-label">
+            Effective: {effectiveCoverage}
+          </span>
+          <p data-testid="clamp-reason">{clampReason}</p>
+          {isClamped ? (
+            <p
+              className="missing-signal-notice"
+              data-message-source="ui_messages"
+              data-testid="missing-signal-notice"
+            >
+              Some historical signals are unavailable at the effective visibility level.
+            </p>
+          ) : null}
+          {isHistoricalUpgradeBlocked ? (
+            <p
+              className="historical-upgrade-blocked-notice"
+              data-testid="historical-upgrade-blocked-notice"
+            >
+              This is history integrity protection, not a current coverage shortage.
+              Higher current coverage does not unlock data that was not recorded.
+            </p>
+          ) : null}
         </div>
         <dl className="history-guard-facts" aria-label="History route guard facts">
           <div>
@@ -1954,10 +2007,12 @@ function SearchHistoryView({
 
       <article
         className="history-case-row historical-case-list-item"
+        data-current-coverage={currentCoverage}
         data-current-visible={effectiveCoverage}
         data-detail-context-authority="case-route"
         data-effective-visibility-owned-by="case-detail"
-        data-frame-state="hf-sh-01-vf-08-pending"
+        data-effective-visibility={effectiveCoverage}
+        data-frame-state="hf-sh-01-02-vf14-v0-2-pass"
         data-handoff-state="not-implemented"
         data-list-item-context="summary-only"
         data-recorded-coverage={recordedCoverage}
@@ -1985,6 +2040,16 @@ function SearchHistoryView({
             <dd data-testid="historical-list-current-visible">{effectiveCoverage}</dd>
           </div>
         </dl>
+        <button
+          className="view-approval-audit"
+          data-guard="role-source-data"
+          data-source="history"
+          data-state-mutation="none"
+          data-testid="view-approval-audit"
+          type="button"
+        >
+          View approval audit
+        </button>
         <p className="historical-list-boundary" data-testid="historical-list-boundary">
           List item is lightweight only; detail visibility resolves after a future case-route
           handoff.

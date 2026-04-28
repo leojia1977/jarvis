@@ -389,13 +389,32 @@ describe("SecuPilot first-batch workbench slice", () => {
     const focusScopes = screen.getByTestId("history-focus-scopes");
     const scopeItems = screen.getAllByTestId("history-focus-scope");
     const historicalListItem = within(historySurface).getByTestId("historical-case-list-item");
+    const coverageLabels = screen.getByTestId("dual-coverage-label-block");
+    const approvalAuditAnchor = screen.getByTestId("view-approval-audit");
 
     expect(screen.getByRole("heading", { name: "History guard" })).toBeInTheDocument();
     expect(routeGuard).toHaveAttribute("data-route-order", "resolve-clamp-guard-render");
     expect(routeGuard).toHaveAttribute("data-authority-source", "resolved-surface-context");
     expect(routeGuard).toHaveAttribute("data-requested-coverage", "L3");
+    expect(routeGuard).toHaveAttribute("data-current-coverage", "L3");
     expect(routeGuard).toHaveAttribute("data-recorded-coverage", "L2");
     expect(routeGuard).toHaveAttribute("data-effective-coverage", "L2");
+    expect(coverageLabels).toHaveAttribute("data-recorded-coverage", "L2");
+    expect(coverageLabels).toHaveAttribute("data-current-coverage", "L3");
+    expect(coverageLabels).toHaveAttribute("data-effective-visibility", "L2");
+    expect(screen.getByTestId("recorded-coverage-label")).toHaveTextContent("Recorded: L2");
+    expect(screen.getByTestId("current-coverage-label")).toHaveTextContent("Current: L3");
+    expect(screen.getByTestId("effective-visibility-label")).toHaveTextContent("Effective: L2");
+    expect(screen.getByTestId("clamp-reason")).toHaveTextContent(
+      "recorded = L2 · current = L3 · effective = L2"
+    );
+    expect(screen.getByTestId("missing-signal-notice")).toHaveAttribute(
+      "data-message-source",
+      "ui_messages"
+    );
+    expect(screen.getByTestId("historical-upgrade-blocked-notice")).toHaveTextContent(
+      /history integrity protection/i
+    );
     expect(focusScopes).toHaveAttribute("data-focus-authority", "hint-only");
     expect(focusScopes).toHaveAttribute("data-requested-focus", "raw_technical");
     expect(focusScopes).toHaveAttribute("data-effective-focus", "summary");
@@ -414,9 +433,14 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(historicalListItem).toHaveAttribute("data-list-item-context", "summary-only");
     expect(historicalListItem).toHaveAttribute("data-detail-context-authority", "case-route");
     expect(historicalListItem).toHaveAttribute("data-effective-visibility-owned-by", "case-detail");
+    expect(historicalListItem).toHaveAttribute("data-current-coverage", "L3");
+    expect(historicalListItem).toHaveAttribute("data-effective-visibility", "L2");
     expect(historicalListItem).toHaveAttribute("data-handoff-state", "not-implemented");
     expect(historicalListItem).toHaveAttribute("data-visual-state", "skeleton");
-    expect(historicalListItem).toHaveAttribute("data-frame-state", "hf-sh-01-vf-08-pending");
+    expect(historicalListItem).toHaveAttribute(
+      "data-frame-state",
+      "hf-sh-01-02-vf14-v0-2-pass"
+    );
     expect(historicalListItem).toHaveAttribute("data-recorded-coverage", "L2");
     expect(historicalListItem).toHaveAttribute("data-current-visible", "L2");
     expect(within(historicalListItem).getByTestId("historical-list-case-id")).toHaveTextContent("CASE-2847");
@@ -435,7 +459,9 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(within(historicalListItem).getByTestId("historical-list-boundary")).toHaveTextContent(
       /detail visibility resolves after a future case-route handoff/i
     );
-    expect(within(historicalListItem).queryByRole("button")).not.toBeInTheDocument();
+    expect(approvalAuditAnchor).toHaveAttribute("data-source", "history");
+    expect(approvalAuditAnchor).toHaveAttribute("data-guard", "role-source-data");
+    expect(approvalAuditAnchor).toHaveAttribute("data-state-mutation", "none");
     expect(screen.getByLabelText("Coverage level")).toHaveTextContent("Coverage L2");
     expect(screen.getByLabelText("Mock fixture resolved context")).toHaveTextContent("Role P1");
     expect(within(historySurface).getByTestId("history-write-guard")).toHaveTextContent(
@@ -445,6 +471,8 @@ describe("SecuPilot first-batch workbench slice", () => {
       within(historySurface).queryByRole("button", { name: /approve|reject|delay|observe|close/i })
     ).not.toBeInTheDocument();
     expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-upgrade-unlock")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("historical-field-upgrade-banner")).not.toBeInTheDocument();
   });
 
   it("accepts only governed read-only history focus hints without changing authority", () => {
