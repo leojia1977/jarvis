@@ -3363,3 +3363,41 @@ Next route:
 ```text
 OPEN_AP_T04_OR_AP_T05_CHECKLIST_OR_OPEN_AP_T08_SH_T08_AUTHORITY_PATH
 ```
+
+## 98. Update 2026-04-28: AP-T04 / AP-T05 / AP-T07 Bounded Queue Closeout
+
+Records:
+
+```text
+docs/S6_AP_T04_T05_T07_BOUNDED_AUTOMATION_QUEUE_2026_04_28.md
+docs/S6_AP_T04_STRONG_CONFIRM_CHECKLIST_2026_04_28.md
+docs/S6_AP_T05_DELAY_OBSERVE_CONFIG_CHECKLIST_2026_04_28.md
+docs/S6_AP_T07_APPROVED_PENDING_LOCK_CHECKLIST_2026_04_28.md
+docs/S6_AP_T08_APPROVAL_AUDIT_AUTHORITY_CHECKLIST_2026_04_28.md
+docs/S6_SH_T08_P3_APPROVAL_AUDIT_SOURCE_CHECKLIST_2026_04_28.md
+docs/S6_AP_T04_T05_T07_IMPLEMENTATION_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T04_AP_T05_AP_T07_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_SYNCED
+AP_T08_SH_T08_CHECKLIST_ONLY_RECORDED_NOT_DONE
+```
+
+Interpretation:
+
+- Jarvis authorized Jira parity sync, design frame request pack update, AP-T04/AP-T05/AP-T07 bounded automation, and AP-T08/SH-T08 checklist-only.
+- `AP-T04` implements a shell-only Strong Confirm modal with confirm disabled.
+- `AP-T05` implements shell-only Delay / Observe configuration with no frontend timer authority.
+- `AP-T07` implements `APPROVED_PENDING_EXECUTION` locked-state semantic skeleton only; final `VF-12` visual PASS remains pending.
+- `AP-T08` and `SH-T08` remain checklist-only and are not Done in Jira.
+- Jira parity sync created/completed `SCRUM-56` through `SCRUM-61` for repo-closed AP/CH/SH items and created `SCRUM-62` / `SCRUM-63` as pending checklist-only authority items.
+- Gates passed: frontend tests 80, frontend build PASS, backend unittest guard 164, backend selfcheck/root checks PASS, `git diff --check` PASS with Windows line-ending warnings only, and Claude Code focused re-review PASS.
+- No `ActionMode`, AR state mutation, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+
+Next route:
+
+```text
+OPEN_AP_T06_OR_AP_T08_SH_T08_AUTHORITY_SOURCE_PATH_OR_NEXT_SAFE_P2_P3_CHECKLIST
+```

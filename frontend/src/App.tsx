@@ -45,6 +45,7 @@ type ARStatusTone = "pending" | "approved" | "observing" | "rejected" | "locked"
 type ARInteractionClass = "non-terminal" | "terminal" | "locked" | "none";
 type ARActionAuthority = "p2-only" | "display-only";
 type ApprovalCtaId = "approve_action" | "reject_action" | "delay_action" | "observe_only_action";
+type ApprovalDraftAction = "approve" | "reject" | "delay" | "observe";
 
 interface NavItem {
   label: string;
@@ -213,11 +214,16 @@ const AR_STATUS_DISPLAY: Record<
     interactionClass: "locked"
   }
 };
-const APPROVAL_CTA_LABELS: Array<{ id: ApprovalCtaId; label: string }> = [
-  { id: "approve_action", label: "Approve" },
-  { id: "reject_action", label: "Reject" },
-  { id: "delay_action", label: "Delay" },
-  { id: "observe_only_action", label: "Observe" }
+const APPROVAL_CTA_LABELS: Array<{
+  action: ApprovalDraftAction;
+  id: ApprovalCtaId;
+  label: string;
+  shell: "strong-confirm" | "configuration";
+}> = [
+  { action: "approve", id: "approve_action", label: "Approve", shell: "strong-confirm" },
+  { action: "reject", id: "reject_action", label: "Reject", shell: "strong-confirm" },
+  { action: "delay", id: "delay_action", label: "Delay", shell: "configuration" },
+  { action: "observe", id: "observe_only_action", label: "Observe", shell: "configuration" }
 ];
 const COVERAGE_HEALTH_UI_MESSAGE_KEYS = [
   "fixture_status",
@@ -886,6 +892,10 @@ function ApprovalRouteShell({
 }) {
   const role = activeContext.session.role;
   const actionRequest = activeContext.action_request;
+  const [activeApprovalDraft, setActiveApprovalDraft] = useState<ApprovalDraftAction | null>(null);
+  const approvalDraftDialogRef = useRef<HTMLDivElement>(null);
+  const approvalDraftCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const approvalDraftTriggerRef = useRef<HTMLButtonElement | null>(null);
   const arStatusDisplay = getARStatusDisplay(actionRequest?.ar_status ?? null, role);
   const isReadOnlyApprovalShell = role === "P0";
   const canRenderApprovalCtas =
@@ -893,6 +903,76 @@ function ApprovalRouteShell({
     activeContext.surface === "P2_APPROVAL" &&
     actionRequest?.ar_status === "PENDING_APPROVAL" &&
     arStatusDisplay.actionAuthority === "p2-only";
+  const canRenderApprovedPendingLock =
+    role === "P2" &&
+    activeContext.surface === "P2_APPROVAL" &&
+    actionRequest?.ar_status === "APPROVED_PENDING_EXECUTION";
+
+  useEffect(() => {
+    if (!canRenderApprovalCtas) {
+      setActiveApprovalDraft(null);
+    }
+  }, [canRenderApprovalCtas]);
+
+  useEffect(() => {
+    if (activeApprovalDraft) {
+      approvalDraftCloseButtonRef.current?.focus();
+    }
+  }, [activeApprovalDraft]);
+
+  function openApprovalDraft(
+    action: ApprovalDraftAction,
+    trigger: HTMLButtonElement
+  ) {
+    approvalDraftTriggerRef.current = trigger;
+    setActiveApprovalDraft(action);
+  }
+
+  function closeApprovalDraft() {
+    setActiveApprovalDraft(null);
+    window.setTimeout(() => approvalDraftTriggerRef.current?.focus(), 0);
+  }
+
+  function trapApprovalDraftDialogFocus(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key === "Escape") {
+      closeApprovalDraft();
+      return;
+    }
+
+    if (event.key !== "Tab") {
+      return;
+    }
+
+    const focusableItems = Array.from(
+      approvalDraftDialogRef.current?.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) ?? []
+    ).filter((item) => !item.hasAttribute("disabled"));
+
+    if (focusableItems.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const firstItem = focusableItems[0];
+    const lastItem = focusableItems[focusableItems.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstItem) {
+      event.preventDefault();
+      lastItem.focus();
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === lastItem) {
+      event.preventDefault();
+      firstItem.focus();
+    }
+  }
+
+  const activeApprovalCta = APPROVAL_CTA_LABELS.find(
+    (cta) => cta.action === activeApprovalDraft
+  );
+  const isConfigurationDraft = activeApprovalCta?.shell === "configuration";
 
   if (role === "P1" || role === "P3") {
     const redirectTarget = role === "P1" ? "/inbox" : "/manager";
@@ -977,8 +1057,10 @@ function ApprovalRouteShell({
             <dt>Control state</dt>
             <dd>
               {canRenderApprovalCtas
-                ? "AP-T03 CTA boundary attached; action wiring is not implemented"
-                : "No approve, reject, delay, or observe controls attached"}
+                ? "AP-T04/AP-T05 shell-only action boundary attached; state mutation is disabled"
+                : canRenderApprovedPendingLock
+                  ? "AP-T07 locked state skeleton attached; VF-12 visual PASS pending"
+                  : "No approve, reject, delay, or observe controls attached"}
             </dd>
           </div>
         </dl>
@@ -986,17 +1068,17 @@ function ApprovalRouteShell({
           <div
             className="approval-cta-boundary"
             data-action-authority="p2-only"
-            data-action-wiring="not-implemented"
-            data-ar-status={actionRequest.ar_status}
+            data-action-wiring="modal-only"
+            data-ar-status={actionRequest?.ar_status ?? "NONE"}
             data-state-mutation="none"
             data-testid="approval-cta-boundary"
           >
             <div>
-              <p className="section-kicker">AP-T03</p>
+              <p className="section-kicker">AP-T04 / AP-T05</p>
               <h2>Approval action boundary</h2>
               <p>
-                P2 may see bounded CTA labels for a pending request. Buttons are inert and do not
-                create ActionMode or state transition.
+                P2 may open bounded shell-only decision panels. They do not create ActionMode,
+                call an API, or mutate AR state.
               </p>
             </div>
             <div className="approval-cta-grid" aria-label="Approval action boundary">
@@ -1005,16 +1087,126 @@ function ApprovalRouteShell({
                   className="approval-cta"
                   data-action-id={cta.id}
                   data-action-permission={activeContext.action_permissions[cta.id] ?? "HIDDEN"}
-                  data-action-wiring="not-implemented"
+                  data-action-wiring={cta.shell === "configuration" ? "config-shell-only" : "modal-only"}
                   data-state-mutation="none"
                   data-testid={`approval-cta-${cta.id}`}
-                  disabled
                   key={cta.id}
+                  onClick={(event) => openApprovalDraft(cta.action, event.currentTarget)}
                   type="button"
                 >
                   {cta.label}
                 </button>
               ))}
+            </div>
+          </div>
+        ) : null}
+        {canRenderApprovedPendingLock ? (
+          <div
+            className="approval-lock-boundary"
+            data-action-controls="absent"
+            data-ar-status={actionRequest.ar_status}
+            data-state-migration="none"
+            data-testid="approval-lock-boundary"
+            data-vf-12-state="pending"
+            data-visual-state="skeleton"
+          >
+            <p className="section-kicker">AP-T07</p>
+            <h2>Approved pending execution</h2>
+            <p>
+              This request is locked and read-only in the frontend. Execution status, reopen,
+              revoke, and withdraw behavior are outside this bounded slice.
+            </p>
+          </div>
+        ) : null}
+        {activeApprovalDraft && activeApprovalCta && actionRequest ? (
+          <div className="approval-draft-dialog-backdrop" role="presentation">
+            <div
+              aria-labelledby="approval-draft-dialog-title"
+              aria-modal="true"
+              className="approval-draft-dialog"
+              data-draft-action={activeApprovalDraft}
+              data-state-mutation="none"
+              data-testid={
+                isConfigurationDraft
+                  ? "approval-configuration-dialog"
+                  : "approval-strong-confirm-dialog"
+              }
+              onKeyDown={trapApprovalDraftDialogFocus}
+              ref={approvalDraftDialogRef}
+              role="dialog"
+            >
+              <div>
+                <p className="section-kicker">
+                  {isConfigurationDraft ? "AP-T05 configuration shell" : "AP-T04 strong confirm"}
+                </p>
+                <h2 id="approval-draft-dialog-title">
+                  {isConfigurationDraft
+                    ? `${activeApprovalCta.label} configuration`
+                    : `${activeApprovalCta.label} strong confirm`}
+                </h2>
+                <p>
+                  This panel is a bounded frontend shell. It does not submit, schedule, or change
+                  the action request.
+                </p>
+              </div>
+              <dl className="approval-draft-facts">
+                <div>
+                  <dt>Case</dt>
+                  <dd>{activeCase.id}</dd>
+                </div>
+                <div>
+                  <dt>AR status</dt>
+                  <dd>{actionRequest.ar_status}</dd>
+                </div>
+                <div>
+                  <dt>Selected shell</dt>
+                  <dd>{activeApprovalCta.label}</dd>
+                </div>
+                <div>
+                  <dt>State change</dt>
+                  <dd>None</dd>
+                </div>
+              </dl>
+              {isConfigurationDraft ? (
+                <div
+                  className="approval-config-shell"
+                  data-state-mutation="none"
+                  data-testid="approval-delay-observe-config-shell"
+                  data-timer-authority="none"
+                >
+                  <p>
+                    Delay and observe values are not submitted here. Observation timing remains
+                    STATE_SYNC-driven and cannot be advanced by the frontend.
+                  </p>
+                </div>
+              ) : (
+                <div
+                  className="approval-strong-confirm-facts"
+                  data-testid="approval-strong-confirm-facts"
+                >
+                  <p>
+                    Strong confirmation facts are displayed before any future approval action can
+                    be wired. Confirm is intentionally unavailable in this ticket.
+                  </p>
+                </div>
+              )}
+              <div className="approval-draft-dialog-actions">
+                <button
+                  data-testid="approval-draft-confirm"
+                  data-state-mutation="none"
+                  disabled
+                  type="button"
+                >
+                  Confirm unavailable
+                </button>
+                <button
+                  onClick={closeApprovalDraft}
+                  ref={approvalDraftCloseButtonRef}
+                  type="button"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         ) : null}

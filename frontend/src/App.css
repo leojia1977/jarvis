@@ -822,6 +822,123 @@ button {
   opacity: 0.72;
 }
 
+.approval-lock-boundary {
+  margin-top: 16px;
+  border: 1px solid #ccd7d8;
+  border-radius: 8px;
+  background: #f6f9f8;
+  padding: 16px;
+}
+
+.approval-lock-boundary h2,
+.approval-lock-boundary p {
+  margin: 0;
+}
+
+.approval-lock-boundary h2 {
+  color: #18202b;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.approval-lock-boundary p:not(.section-kicker) {
+  margin-top: 8px;
+  color: #53606d;
+  line-height: 1.5;
+}
+
+.approval-draft-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  display: grid;
+  place-items: center;
+  background: rgba(18, 29, 39, 0.42);
+  padding: 20px;
+}
+
+.approval-draft-dialog {
+  display: grid;
+  width: min(520px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  gap: 14px;
+  border: 1px solid #c7d5cf;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(18, 29, 39, 0.25);
+  padding: 20px;
+}
+
+.approval-draft-dialog h2,
+.approval-draft-dialog p {
+  margin: 0;
+}
+
+.approval-draft-dialog h2 {
+  color: #243140;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.approval-draft-dialog p {
+  color: #4b5968;
+  line-height: 1.55;
+}
+
+.approval-draft-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.approval-draft-facts > div,
+.approval-config-shell,
+.approval-strong-confirm-facts {
+  border: 1px solid #d4ded8;
+  border-radius: 8px;
+  background: #fbfcf9;
+  padding: 10px;
+}
+
+.approval-draft-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.approval-draft-facts dd {
+  margin: 4px 0 0;
+  color: #243140;
+  font-weight: 800;
+}
+
+.approval-draft-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.approval-draft-dialog-actions button {
+  min-height: 38px;
+  border: 1px solid #bfd1c8;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #13547a;
+  font-weight: 800;
+  padding: 0 14px;
+}
+
+.approval-draft-dialog-actions button:disabled {
+  color: #667085;
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
 .manager-view-surface {
   display: flex;
   flex-direction: column;
@@ -2054,6 +2171,7 @@ button {
 
   .history-focus-scope-panel ul,
   .approval-facts,
+  .approval-draft-facts,
   .coverage-health-facts,
   .coverage-health-slot-grid {
     grid-template-columns: 1fr;

@@ -3,6 +3,8 @@ import userEvent from "@testing-library/user-event";
 import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
 import App from "./App";
 
+const APPROVED_PENDING_EXECUTION_PHASE = 5;
+
 function panelTitle(panelId: string) {
   return (
     coreSurfaceFixture.evidence_panels.find((panel) => panel.panel_id === panelId)
@@ -56,7 +58,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
   });
 
-  it("opens the P2 approval shell with an inert AP-T03 CTA boundary", async () => {
+  it("opens P2 shell-only approval decision panels without state mutation", async () => {
     const user = userEvent.setup();
     render(<App initialPhaseNumber={2} />);
 
@@ -76,16 +78,74 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(statusPill).toHaveAttribute("data-mapping-source", "D-02");
     expect(statusPill).toHaveAttribute("data-state-migration", "none");
     expect(ctaBoundary).toHaveAttribute("data-action-authority", "p2-only");
-    expect(ctaBoundary).toHaveAttribute("data-action-wiring", "not-implemented");
+    expect(ctaBoundary).toHaveAttribute("data-action-wiring", "modal-only");
     expect(ctaBoundary).toHaveAttribute("data-state-mutation", "none");
-    expect(within(shell).getByRole("button", { name: "Approve" })).toBeDisabled();
-    expect(within(shell).getByRole("button", { name: "Reject" })).toBeDisabled();
-    expect(within(shell).getByRole("button", { name: "Delay" })).toBeDisabled();
-    expect(within(shell).getByRole("button", { name: "Observe" })).toBeDisabled();
+    expect(within(shell).getByRole("button", { name: "Approve" })).toBeEnabled();
+    expect(within(shell).getByRole("button", { name: "Reject" })).toBeEnabled();
+    expect(within(shell).getByRole("button", { name: "Delay" })).toBeEnabled();
+    expect(within(shell).getByRole("button", { name: "Observe" })).toBeEnabled();
     for (const button of within(ctaBoundary).getAllByRole("button")) {
-      expect(button).toHaveAttribute("data-action-wiring", "not-implemented");
       expect(button).toHaveAttribute("data-state-mutation", "none");
+      expect(button).toHaveAttribute(
+        "data-action-wiring",
+        /delay|observe/i.test(button.textContent ?? "") ? "config-shell-only" : "modal-only"
+      );
     }
+
+    await user.click(within(shell).getByRole("button", { name: "Approve" }));
+
+    const confirmDialog = screen.getByRole("dialog", { name: "Approve strong confirm" });
+    expect(confirmDialog).toHaveAttribute("data-draft-action", "approve");
+    expect(confirmDialog).toHaveAttribute("data-state-mutation", "none");
+    expect(within(confirmDialog).getByTestId("approval-strong-confirm-facts")).toHaveTextContent(
+      /Confirm is intentionally unavailable/i
+    );
+    expect(within(confirmDialog).getByTestId("approval-draft-confirm")).toBeDisabled();
+    expect(confirmDialog).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+    expect(within(confirmDialog).getByRole("button", { name: "Close" })).toHaveFocus();
+
+    await user.click(within(confirmDialog).getByRole("button", { name: "Close" }));
+
+    expect(screen.queryByRole("dialog", { name: "Approve strong confirm" }))
+      .not.toBeInTheDocument();
+    expect(within(shell).getByRole("button", { name: "Approve" })).toHaveFocus();
+
+    await user.click(within(shell).getByRole("button", { name: "Observe" }));
+
+    const configDialog = screen.getByRole("dialog", { name: "Observe configuration" });
+    expect(configDialog).toHaveAttribute("data-draft-action", "observe");
+    expect(configDialog).toHaveAttribute("data-state-mutation", "none");
+    expect(within(configDialog).getByTestId("approval-delay-observe-config-shell"))
+      .toHaveAttribute("data-timer-authority", "none");
+    expect(within(configDialog).getByTestId("approval-draft-confirm")).toBeDisabled();
+    expect(configDialog).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+
+    await user.keyboard("{Escape}");
+
+    expect(screen.queryByRole("dialog", { name: "Observe configuration" }))
+      .not.toBeInTheDocument();
+  });
+
+  it("renders AP-T07 approved-pending execution as a locked semantic skeleton", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={APPROVED_PENDING_EXECUTION_PHASE} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    const surface = screen.getByTestId("approval-surface");
+    const statusPill = screen.getByTestId("approval-ar-status-pill");
+    const lockBoundary = screen.getByTestId("approval-lock-boundary");
+
+    expect(surface).toHaveAttribute("data-role", "P2");
+    expect(statusPill).toHaveAttribute("data-ar-status", "APPROVED_PENDING_EXECUTION");
+    expect(lockBoundary).toHaveAttribute("data-ar-status", "APPROVED_PENDING_EXECUTION");
+    expect(lockBoundary).toHaveAttribute("data-visual-state", "skeleton");
+    expect(lockBoundary).toHaveAttribute("data-vf-12-state", "pending");
+    expect(lockBoundary).toHaveAttribute("data-action-controls", "absent");
+    expect(screen.queryByTestId("approval-cta-boundary")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /approve|reject|delay|observe|revoke|withdraw|reopen/i })
+    ).not.toBeInTheDocument();
   });
 
   it("hard redirects non-P2 approval route access without URL or storage authority", async () => {
