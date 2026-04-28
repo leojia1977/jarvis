@@ -3666,3 +3666,32 @@ Next route:
 ```text
 OPEN_AP_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_IMPLEMENTATION_CHECKLIST
 ```
+
+## 107. Update 2026-04-28: Extended 30m Bounded Burn Runner Authorization
+
+Authorization record:
+
+```text
+docs/S6_EXTENDED_BOUNDED_AUTOMATION_AUTHORIZATION_2026_04_28.md
+```
+
+Decision:
+
+```text
+ACTIVE_30M_RUNNER_EXTENDED_QUEUE_AUTHORIZED
+```
+
+Interpretation:
+
+- The `secupilot-30m-bounded-burn-runner` heartbeat is authorized to continue with an expanded Sprint 1-4 bounded queue.
+- Batch A may implement only if each ticket's checklist returns GO: `AP-T08`, `SH-T02`, `SH-T06`, `CD-T06A`, then `SH-T08` after `AP-T08` closeout/source-order confirmation.
+- Batch B may perform dependency reconciliation / no-code closeout / readiness decomposition for `EP-T06`, `IN-T06`, `CD-T07`, `AP-T11` / `AP-T12`, and `MV-T05`.
+- Batch C may refresh authority/blocker packs for `MV-T04`, `AP-T09`, `AP-T06`, `AP-T02` / `MV-T02`, and `CH-T02` / `CH-T04`.
+- Batch D may sync Jira/tracker only for PASS or no-code reconciled tickets and must not mark blocked or non-ready tickets Done.
+- Global HOLD rules remain in force for scope expansion, missing exact files, failed gates, authority ambiguity, backend/runtime/API/schema, fixture/adapter/validator/`ResolvedSurfaceContext`, raw evidence DOM, real data, secrets, deploy, public endpoint, external pilot, mandatory external review, or non-ready tickets.
+
+Next route:
+
+```text
+RUNNER_CONTINUES_WITH_AP_T08_THEN_EXTENDED_QUEUE
+```
