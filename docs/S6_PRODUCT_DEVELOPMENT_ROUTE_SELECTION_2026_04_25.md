@@ -4439,6 +4439,33 @@ Next route:
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
 
+## 134. Update 2026-04-29: 30m Runner Unlock Watchlist
+
+Watchlist:
+
+```text
+docs/S6_30M_RUNNER_UNLOCK_WATCHLIST_2026_04_29.md
+```
+
+Decision:
+
+```text
+UNLOCK_WATCHLIST_READY_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- The current route has been converted into copy-ready future authorization phrases.
+- The watchlist covers `MV-T04`, `AP-T11A`, `SH-T09`, and Jira mapping.
+- It also records source-delivery requirements for full `AP-T06` and `AP-T09`.
+- The watchlist is not self-authorizing and does not implement, mutate Jira, close tickets, or authorize source invention.
+
+Next route:
+
+```text
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```
+
 ## 133. Update 2026-04-29: 30m Runner Idle Report 001
 
 Idle report:

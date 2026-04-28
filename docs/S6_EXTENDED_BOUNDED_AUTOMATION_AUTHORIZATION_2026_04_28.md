@@ -199,6 +199,12 @@ one of the explicit unlock events in the current route. The runner remains
 active, but subsequent heartbeats must continue as docs-only idle fallback until
 new GO/source/mapping evidence arrives.
 
+The 30m runner unlock watchlist
+`docs/S6_30M_RUNNER_UNLOCK_WATCHLIST_2026_04_29.md` has since been recorded.
+It provides copy-ready future authorization phrases, but it is not
+self-authorizing. The runner must still wait for an explicit GO/source delivery
+or mapping GO before starting implementation or mutating Jira.
+
 Idle fallback is governed by:
 
 ```text
