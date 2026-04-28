@@ -19,14 +19,14 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 38 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 39 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 1 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 7 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 1 | Missing visual frame is the primary blocker. |
-| HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 6 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -54,6 +54,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `EP-T03` | Sprint 1 | L1 lineage degradation semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-39`. |
 | `EP-T04` | Sprint 1 | No-code reconciliation and Jira-synced. |
 | `EP-T05` | Sprint 1 | Implemented, gated, reviewed, Jira-synced. |
+| `EP-T06` | Sprint 1 | EP negative-test suite no-code reconciliation; Jira sync pending env visibility. |
 | `SH-T01` | Sprint 3A | Historical list item skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-40`. |
 | `SH-T02` | Sprint 3A | Dual coverage clamp semantics implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
 | `SH-T03` | Sprint 3A | Patch-isolated implementation, gate PASS, Jira-synced. |
@@ -132,7 +133,6 @@ These should not be started until dependencies close or a later exact checklist 
 | `IN-T06` | Sprint 1 | Depends on `IN-T03` and `IN-T04`. |
 | `CD-T06` | Sprint 1 | Checklist HOLD: `VF-11/VF-12/VF-13` visual blocker removed, but renderable `CLOSED` Case Detail context is still missing; Jira `SCRUM-53` remains not Done. |
 | `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
-| `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
 | `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
 | `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
@@ -142,12 +142,12 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 38 / 54
+Done: 39 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
 Checklist-only: 1
-Blocked/HOLD/design/authority: 15
+Blocked/HOLD/design/authority: 14
 ```
 
 Active non-tracker automation queue:
@@ -165,6 +165,7 @@ docs\S6_SH_T02_DUAL_COVERAGE_CLAMP_CLOSEOUT_2026_04_28.md
 docs\S6_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CLOSEOUT_2026_04_28.md
 docs\S6_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CLOSEOUT_2026_04_28.md
 docs\S6_SH_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_CLOSEOUT_2026_04_28.md
+docs\S6_EP_T06_EP_NEGATIVE_TEST_SUITE_RECONCILIATION_CLOSEOUT_2026_04_28.md
 ```
 
 Queue purpose:
@@ -182,6 +183,7 @@ SH-T02 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 SH-T06 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 CD-T06A implemented and gate/Claude Code PASS; parent CD-T06 remains HOLD and Jira sync pending env visibility
 SH-T08 implemented and gate/Claude Code PASS; Jira sync pending env visibility
+EP-T06 no-code reconciliation PASS; Jira sync pending env visibility
 ```
 
 Latest implementation batch:
@@ -196,6 +198,7 @@ SH-T02 Search/History dual coverage clamp semantics
 SH-T06 Search/History structural/degraded empty-state split
 CD-T06A Case Detail existing-state header skeleton
 SH-T08 Search/History P3 approval-audit source boundary
+EP-T06 EP negative-test suite no-code reconciliation
 ```
 
 Checklist-only path:
@@ -209,13 +212,14 @@ SH-T02 dual coverage clamp closeout PASS
 SH-T06 structural/degraded empty-state closeout PASS
 CD-T06A existing-state header skeleton closeout PASS; full CD-T06 remains HOLD
 SH-T08 approval-audit source boundary closeout PASS
+EP-T06 EP negative-test suite reconciliation PASS
 ```
 
 Next human selection options:
 
 ```text
 SH-T09 acceptance checklist
-EP-T06 dependency reconciliation/no-code closeout check
+IN-T06 dependency readiness/no-code reconciliation
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
@@ -259,13 +263,13 @@ AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 Best next automation burn-down path:
 
 ```text
-EP-T06 dependency reconciliation -> IN-T06 / CD-T07 readiness -> SH-T09 acceptance checklist -> safe Jira parity sync
+IN-T06 dependency readiness -> CD-T07 readiness -> SH-T09 acceptance checklist -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-EP-T06 no-code dependency reconciliation OR SH-T09 acceptance checklist
+IN-T06 no-code dependency readiness OR SH-T09 acceptance checklist
 ```
 
 Idle fallback:
@@ -292,6 +296,7 @@ SH-T02 is now implemented and gate/Claude Code PASS; runner must continue after 
 SH-T06 is now implemented and gate/Claude Code PASS; runner must continue after SH-T06 and may sync Jira later only when credentials are visible.
 CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after CD-T06A and must not mark parent CD-T06 Done.
 SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after SH-T08 and may sync Jira later only when credentials are visible.
+EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
 ```
 
 Best next risk-reduction path:

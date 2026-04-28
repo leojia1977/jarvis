@@ -10,11 +10,11 @@
     "sprint": "Sprint 5",
     "stage": "s5-prd-intake-automation-trigger",
     "created_at": "2026-04-22T15:29:38+08:00",
-    "updated_at": "2026-04-28T20:22:54.774776+08:00"
+    "updated_at": "2026-04-28T20:30:43.289959+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001.zip",
-    "current_release_sha256": "c9e030cba4f94a1e7722df46b5094a88f6db51d2249105cdee0c3e388eddbce5",
+    "current_release_sha256": "9b64e3d953a0b6581b77674e0e47e31831cb2bba6eb518bdf6b1add7023c04d2",
     "baseline_release_sha256": "4f65a779f30803bb042031399d16ab2aa52b3b900e95c809e607caccee441448"
   },
   "key_files": [
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "ac9e2be9750c54e76c93d1593eab80bddbf8d4853a674ee46ffc8b9c9d2dc9c9"
+      "sha256": "88f7149bf13ecfef448e46a7a738222c00639dbbc33c92c5e17e540ecec5e67b"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -1327,7 +1327,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-28T20:23:00.653787+08:00",
+    "last_verified_at": "2026-04-28T20:30:49.491318+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",
