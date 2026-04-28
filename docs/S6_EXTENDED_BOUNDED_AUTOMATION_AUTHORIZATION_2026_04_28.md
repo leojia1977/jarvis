@@ -153,6 +153,11 @@ still depends on `CH-T02` plus an exact governed runtime/source-health scope.
 The runner must not mark either ticket Done and must not infer final Coverage &
 Health visual or runtime semantics from the current skeleton.
 
+`SH-T09` acceptance checklist has since been prepared. The Search / History
+chain evidence is ready for a later reconciliation pass, but `SH-T09`
+reconciliation, Jira Done transition, or implementation still requires a
+separate exact GO.
+
 Idle fallback is governed by:
 
 ```text
@@ -173,5 +178,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-OPEN_SH_T09_ACCEPTANCE_CHECKLIST_OR_SAFE_JIRA_PARITY_SYNC
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_SAFE_JIRA_PARITY_SYNC
 ```

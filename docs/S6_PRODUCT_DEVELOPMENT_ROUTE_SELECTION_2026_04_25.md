@@ -4189,3 +4189,31 @@ Next route:
 ```text
 OPEN_SH_T09_ACCEPTANCE_CHECKLIST_OR_SAFE_JIRA_PARITY_SYNC
 ```
+
+## 124. Update 2026-04-29: SH-T09 Acceptance Checklist
+
+Acceptance checklist record:
+
+```text
+docs/S6_SH_T09_ACCEPTANCE_CHECKLIST_2026_04_29.md
+```
+
+Decision:
+
+```text
+SH_T09_ACCEPTANCE_CHAIN_EVIDENCE_READY
+SH_T09_RECONCILIATION_REQUIRES_SEPARATE_GO
+```
+
+Interpretation:
+
+- The Search / History chain evidence is now ready across `SH-T01`, `SH-T02`, `SH-T03`, `SH-T04`, `SH-T05`, `SH-T06`, `SH-T07`, `SH-T08`, and the accepted `HF-SH-01` / `HF-SH-02` / `VF-14` visual baseline.
+- This is checklist preparation only.
+- It does not close `SH-T09`, transition Jira, authorize new frontend work, or authorize backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` changes.
+- A later `SH-T09` reconciliation closeout needs separate GO and gate evidence.
+
+Next route:
+
+```text
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_SAFE_JIRA_PARITY_SYNC
+```

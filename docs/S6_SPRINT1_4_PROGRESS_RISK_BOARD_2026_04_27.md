@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through CH-T02 / CH-T04 design/runtime blocker refresh; next route is SH-T09 acceptance checklist or safe Jira parity sync. |
+| _None_ | _N/A_ | Current batch completed through SH-T09 acceptance checklist preparation; next route is SH-T09 reconciliation GO or safe Jira parity sync. |
 
 ## 5. Auto-Ready
 
@@ -100,7 +100,7 @@ These tickets are authorized for launch/readiness checklist only. Implementation
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
-| `SH-T09` | Sprint 3A | Search / History acceptance reconciliation. | Not required yet | Dependencies now closed; acceptance checklist still required before Done. |
+| `SH-T09` | Sprint 3A | Search / History acceptance reconciliation. | Not required yet | Acceptance checklist prepared; closeout still requires separate reconciliation GO. |
 | `MV-T04` | Sprint 3B | P3 Manager approval audit summary source-order follow-up. | `PASS_WITH_NOTES` already recorded | Source-order follow-up PASS; implementation still requires explicit GO. |
 
 ## 8. Needs Authority Review
@@ -174,6 +174,7 @@ docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH_2026_04_28.md
 docs\S6_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH_2026_04_28.md
 docs\S6_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH_2026_04_29.md
 docs\S6_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH_2026_04_29.md
+docs\S6_SH_T09_ACCEPTANCE_CHECKLIST_2026_04_29.md
 ```
 
 Queue purpose:
@@ -234,12 +235,13 @@ MV-T04 source-order follow-up PASS; implementation still requires separate GO
 AP-T09 blocker refresh recorded; AP-T08 dependency closed, VF-15/exact source still missing
 AP-T02/MV-T02 blocker refresh recorded; both remain HOLD pending exact authority contexts
 CH-T02/CH-T04 blocker refresh recorded; CH-T02 remains HOLD pending VF-01 and CH-T04 remains HOLD pending CH-T02 plus governed runtime/source-health scope
+SH-T09 acceptance checklist prepared; reconciliation closeout still requires separate GO
 ```
 
 Next human selection options:
 
 ```text
-SH-T09 acceptance checklist
+SH-T09 reconciliation GO
 MV-T04 source-order follow-up checklist
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
@@ -286,13 +288,13 @@ AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
 Best next automation burn-down path:
 
 ```text
-SH-T09 acceptance checklist -> safe Jira parity sync
+SH-T09 reconciliation GO -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-SH-T09 acceptance checklist OR safe Jira parity sync
+SH-T09 reconciliation GO OR safe Jira parity sync
 ```
 
 Idle fallback:
@@ -321,6 +323,7 @@ CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after
 SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after SH-T08 and may sync Jira later only when credentials are visible.
 EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
 CH-T02 / CH-T04 blocker refresh is now recorded; runner must not mark either ticket Done and should continue to SH-T09 acceptance checklist or safe Jira parity sync.
+SH-T09 acceptance checklist is now prepared; runner must not mark SH-T09 Done without separate reconciliation GO and gate evidence.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.
