@@ -3401,3 +3401,37 @@ Next route:
 ```text
 OPEN_AP_T06_OR_AP_T08_SH_T08_AUTHORITY_SOURCE_PATH_OR_NEXT_SAFE_P2_P3_CHECKLIST
 ```
+
+## 99. Update 2026-04-28: AP-T08 / SH-T08 Source Proof + AP-T06 Readiness Split
+
+Records:
+
+```text
+docs/S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
+docs/S6_AP_T06_OBSERVATION_WINDOW_READINESS_CHECKLIST_2026_04_28.md
+docs/S6_AP_T08_APPROVAL_AUDIT_AUTHORITY_CHECKLIST_2026_04_28.md
+docs/S6_SH_T08_P3_APPROVAL_AUDIT_SOURCE_CHECKLIST_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_PASS_IMPLEMENTATION_NOT_AUTHORIZED
+AP_T06A_STATIC_SKELETON_CANDIDATE_READY_FOR_LATER_GO
+AP_T06_FULL_COUNTDOWN_STATE_SYNC_HOLD
+```
+
+Interpretation:
+
+- `AP-T08` and `SH-T08` now have governed source proof for approval-audit legality.
+- Jira `SCRUM-62` and `SCRUM-63` remain `待办` with source-proof comments; Jira `SCRUM-64` is created for `AP-T06` readiness and remains `待办`.
+- The source path is restricted to read-only summary behavior derived from existing governed product docs and existing mock `audit_trail` context.
+- P3 approval-audit visibility remains governed by `role + source + data availability`, not coverage unlock.
+- This removes the specific source-proof blocker for future `MV-T03` and `MV-T04` relaunch checklists, but does not authorize implementation.
+- `AP-T06` is split: a static read-only observation-window skeleton may be a future bounded implementation candidate; full countdown / state-sync remains HOLD pending exact state-sync input, test hook, and `VF-11`.
+
+Next route:
+
+```text
+OPEN_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_IMPLEMENTATION_GO_OR_OPEN_MV_T03_RELAUNCH_CHECKLIST
+```

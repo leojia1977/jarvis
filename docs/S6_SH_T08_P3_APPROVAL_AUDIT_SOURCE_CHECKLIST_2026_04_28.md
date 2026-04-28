@@ -6,12 +6,18 @@
 | --- | --- |
 | Ticket | `SH-T08` |
 | Title | Search/History P3 approval audit source boundary checklist |
-| Status | `CHECKLIST_ONLY_IMPLEMENTATION_NOT_AUTHORIZED` |
+| Status | `AUTHORITY_SOURCE_PROOF_PASS_IMPLEMENTATION_NOT_AUTHORIZED` |
 | Date | 2026-04-28 |
 
 ## 2. Checklist Result
 
-`SH-T08` remains checklist-only. It may proceed to implementation only after an exact source path proves:
+`SH-T08` remains checklist-only, but source legality is now proven by:
+
+```text
+docs\S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
+```
+
+It may proceed to a future narrow implementation checklist only after that checklist proves:
 
 - approval-audit display fields are governed and mock-only;
 - Search/History does not create or mutate approval audit data;
@@ -21,8 +27,7 @@
 ## 3. Current Decision
 
 ```text
-SH_T08_CHECKLIST_ONLY_PENDING_APPROVAL_AUDIT_SOURCE_PROOF
+SH_T08_AUTHORITY_SOURCE_PROOF_PASS_NARROW_IMPLEMENTATION_CHECKLIST_REQUIRED
 ```
 
 Implementation is not authorized.
-

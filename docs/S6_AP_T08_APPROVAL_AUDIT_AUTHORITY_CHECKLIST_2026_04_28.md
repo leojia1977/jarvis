@@ -6,12 +6,18 @@
 | --- | --- |
 | Ticket | `AP-T08` |
 | Title | Approval audit authority path checklist |
-| Status | `CHECKLIST_ONLY_IMPLEMENTATION_NOT_AUTHORIZED` |
+| Status | `AUTHORITY_SOURCE_PROOF_PASS_IMPLEMENTATION_NOT_AUTHORIZED` |
 | Date | 2026-04-28 |
 
 ## 2. Checklist Result
 
-`AP-T08` remains checklist-only. It may proceed to implementation only after an exact source path proves:
+`AP-T08` remains checklist-only, but source legality is now proven by:
+
+```text
+docs\S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
+```
+
+It may proceed to a future narrow implementation checklist only after that checklist proves:
 
 - approval audit fields already exist in governed mock fixtures or a governed source document;
 - no fixture adapter / validator / `ResolvedSurfaceContext` change is required;
@@ -21,8 +27,7 @@
 ## 3. Current Decision
 
 ```text
-AP_T08_CHECKLIST_ONLY_PENDING_AUTHORITY_SOURCE_PATH
+AP_T08_AUTHORITY_SOURCE_PROOF_PASS_NARROW_IMPLEMENTATION_CHECKLIST_REQUIRED
 ```
 
 Implementation is not authorized.
-

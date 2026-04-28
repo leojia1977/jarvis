@@ -94,8 +94,8 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
-| `AP-T08` | Sprint 2 | Approval audit authority source path. | _N/A_ | Checklist-only recorded as `SCRUM-62`; implementation not authorized. |
-| `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | _N/A_ | Checklist-only recorded as `SCRUM-63`; implementation not authorized. |
+| `AP-T08` | Sprint 2 | Approval audit authority source path. | Source proof PASS | Checklist-only recorded as `SCRUM-62`; narrow implementation checklist still required. |
+| `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | Source proof PASS | Checklist-only recorded as `SCRUM-63`; narrow implementation checklist still required. |
 
 ## 8. Needs Authority Review
 
@@ -104,7 +104,7 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | Ticket | Sprint | Primary blocker |
 | --- | --- | --- |
 | `IN-T03` | Sprint 1 | P2 shortcut approval/close entry depends on later AP CTA semantics; `AP-T10` display mapping is now available but not sufficient. |
-| `AP-T06` | Sprint 2 | Observation-window countdown depends on AP window configuration and state sync. |
+| `AP-T06` | Sprint 2 | Static read-only skeleton candidate identified; full countdown/state-sync remains HOLD pending exact state-sync input, test hook, and `VF-11`; Jira `SCRUM-64`. |
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
 | `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
@@ -154,18 +154,20 @@ Active non-tracker automation queue:
 
 ```text
 docs\S6_AP_T04_T05_T07_BOUNDED_AUTOMATION_QUEUE_2026_04_28.md
+docs\S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
+docs\S6_AP_T06_OBSERVATION_WINDOW_READINESS_CHECKLIST_2026_04_28.md
 ```
 
 Queue purpose:
 
 ```text
-AP-T04/AP-T05/AP-T07 bounded implementation plus AP-T08/SH-T08 checklist-only authority path
+AP-T04/AP-T05/AP-T07 bounded implementation plus AP-T08/SH-T08 source proof and AP-T06 readiness split
 ```
 
 Latest queue output:
 
 ```text
-AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 checklist-only and not Done
+AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 source proof PASS but not Done; AP-T06 full countdown HOLD
 ```
 
 Latest implementation batch:
@@ -179,15 +181,16 @@ AP-T07 approved-pending lock skeleton
 Checklist-only path:
 
 ```text
-AP-T08 approval audit authority path checklist
-SH-T08 P3 approval-audit source boundary checklist
+AP-T08 approval audit authority source proof PASS
+SH-T08 P3 approval-audit source proof PASS
+AP-T06 readiness split recorded
 ```
 
 Next human selection options:
 
 ```text
-AP-T06 observation-window countdown readiness
-AP-T08/SH-T08 authority source proof
+AP-T06A static observation-window skeleton implementation GO
+AP-T08/SH-T08 narrow implementation checklist
 MV-T03 dependency path after AP-T08/SH-T08 proof
 ```
 
@@ -210,7 +213,7 @@ AP-T08/SH-T08 Jira To Do with checklist-only notes
 Best next automation burn-down path:
 
 ```text
-AP-T06 or AP-T08/SH-T08 authority source path -> next exact bounded ticket -> safe Jira parity sync
+AP-T06A static skeleton or MV-T03 relaunch checklist -> next exact bounded ticket -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:
