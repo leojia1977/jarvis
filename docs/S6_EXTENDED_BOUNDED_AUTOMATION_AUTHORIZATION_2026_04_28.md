@@ -123,6 +123,8 @@ HOLD immediately on:
 
 `IN-T06` has since been checked and remains HOLD because `IN-T03` is not authority-resolved. The runner must not mark `IN-T06` Done.
 
+`CD-T07` has since been checked and remains HOLD because full `CD-T06` is not resolved. The runner must not mark `CD-T07` Done.
+
 Idle fallback is governed by:
 
 ```text
@@ -143,5 +145,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_IN_T06_HOLD_CHECK
+CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_CD_T07_HOLD_CHECK
 ```

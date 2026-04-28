@@ -132,7 +132,7 @@ These should not be started until dependencies close or a later exact checklist 
 | --- | --- | --- |
 | `IN-T06` | Sprint 1 | Readiness checked 2026-04-28; still depends on unresolved `IN-T03` authority. |
 | `CD-T06` | Sprint 1 | Checklist HOLD: `VF-11/VF-12/VF-13` visual blocker removed, but renderable `CLOSED` Case Detail context is still missing; Jira `SCRUM-53` remains not Done. |
-| `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
+| `CD-T07` | Sprint 1 | Readiness checked 2026-04-28; still depends on full `CD-T06`, which remains HOLD. |
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
 | `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
 | `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
@@ -167,6 +167,7 @@ docs\S6_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CLOSEOUT_2026_04_28.md
 docs\S6_SH_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_CLOSEOUT_2026_04_28.md
 docs\S6_EP_T06_EP_NEGATIVE_TEST_SUITE_RECONCILIATION_CLOSEOUT_2026_04_28.md
 docs\S6_IN_T06_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
+docs\S6_CD_T07_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
 ```
 
 Queue purpose:
@@ -186,6 +187,7 @@ CD-T06A implemented and gate/Claude Code PASS; parent CD-T06 remains HOLD and Ji
 SH-T08 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 EP-T06 no-code reconciliation PASS; Jira sync pending env visibility
 IN-T06 readiness checked; remains HOLD until IN-T03 authority is resolved
+CD-T07 readiness checked; remains HOLD until full CD-T06 is resolved
 ```
 
 Latest implementation batch:
@@ -216,13 +218,14 @@ CD-T06A existing-state header skeleton closeout PASS; full CD-T06 remains HOLD
 SH-T08 approval-audit source boundary closeout PASS
 EP-T06 EP negative-test suite reconciliation PASS
 IN-T06 dependency readiness checked; HOLD remains
+CD-T07 dependency readiness checked; HOLD remains
 ```
 
 Next human selection options:
 
 ```text
 SH-T09 acceptance checklist
-CD-T07 dependency readiness/no-code reconciliation
+AP-T11/AP-T12 readiness decomposition
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
@@ -266,13 +269,13 @@ AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 Best next automation burn-down path:
 
 ```text
-CD-T07 readiness -> SH-T09 acceptance checklist -> AP-T11/AP-T12 readiness -> safe Jira parity sync
+AP-T11/AP-T12 readiness -> MV-T05 readiness -> SH-T09 acceptance checklist -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-CD-T07 dependency readiness OR SH-T09 acceptance checklist
+AP-T11/AP-T12 readiness decomposition OR SH-T09 acceptance checklist
 ```
 
 Idle fallback:
@@ -301,6 +304,7 @@ CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after
 SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after SH-T08 and may sync Jira later only when credentials are visible.
 EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
+CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 ```
 
 Best next risk-reduction path:

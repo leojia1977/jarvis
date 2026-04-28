@@ -3959,3 +3959,30 @@ Next route:
 ```text
 OPEN_CD_T07_DEPENDENCY_READINESS_RECONCILIATION
 ```
+
+## 116. Update 2026-04-28: CD-T07 Dependency Readiness Reconciliation
+
+Readiness record:
+
+```text
+docs/S6_CD_T07_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
+```
+
+Decision:
+
+```text
+HOLD_DEPENDENCY_NOT_READY
+```
+
+Interpretation:
+
+- `CD-T07` cannot be no-code reconciled yet.
+- `CD-T05` is closed and `CD-T06A` is closed as a split ticket, but full `CD-T06` remains HOLD.
+- Full `CD-T06` still lacks a governed renderable `CLOSED` Case Detail context without fixture/context expansion.
+- Do not mark `CD-T07` Done until full `CD-T06` is explicitly resolved and implemented/reconciled.
+
+Next route:
+
+```text
+OPEN_AP_T11_AP_T12_READINESS_DECOMPOSITION
+```
