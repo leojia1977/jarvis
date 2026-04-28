@@ -765,6 +765,48 @@ describe("SecuPilot first-batch workbench slice", () => {
       .not.toBeInTheDocument();
   });
 
+  it("renders CD-T06A observation-window state header skeleton without CLOSED claim", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={3} />);
+
+    const statePill = screen.getByTestId("case-state-pill");
+    const stateHeader = screen.getByTestId("case-state-header-skeleton");
+
+    expect(statePill).toHaveAttribute("data-case-state", "OBSERVATION_WINDOW");
+    expect(statePill).toHaveAttribute("data-closed-behavior", "not-claimed");
+    expect(stateHeader).toHaveAttribute("data-case-state", "OBSERVATION_WINDOW");
+    expect(stateHeader).toHaveAttribute("data-ar-status", "OBSERVATION_WINDOW");
+    expect(stateHeader).toHaveAttribute("data-visual-frame", "VF-11");
+    expect(stateHeader).toHaveAttribute("data-lock-state", "readonly-observation");
+    expect(stateHeader).toHaveAttribute("data-state-mutation", "none");
+    expect(stateHeader).toHaveAttribute("data-closed-behavior", "not-claimed");
+    expect(stateHeader).toHaveTextContent("Observation window readonly");
+    expect(stateHeader).not.toHaveTextContent("Closed");
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|execute/i }))
+      .not.toBeInTheDocument();
+  });
+
+  it("renders CD-T06A approved-pending state header skeleton as display lock only", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={5} />);
+
+    const stateHeader = screen.getByTestId("case-state-header-skeleton");
+
+    expect(stateHeader).toHaveAttribute("data-case-state", "APPROVED_PENDING_EXECUTION");
+    expect(stateHeader).toHaveAttribute("data-ar-status", "APPROVED_PENDING_EXECUTION");
+    expect(stateHeader).toHaveAttribute("data-visual-frame", "VF-12");
+    expect(stateHeader).toHaveAttribute("data-lock-state", "terminal-display-lock");
+    expect(stateHeader).toHaveAttribute("data-state-mutation", "none");
+    expect(stateHeader).toHaveAttribute("data-closed-behavior", "not-claimed");
+    expect(stateHeader).toHaveTextContent("Approved pending execution locked");
+    expect(stateHeader).toHaveTextContent(/execution is not started here/i);
+    expect(stateHeader).not.toHaveTextContent("Closed");
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|execute/i }))
+      .not.toBeInTheDocument();
+  });
+
   it("ignores URL and storage attempts to inject AR status or action mode", () => {
     window.history.pushState(
       {},

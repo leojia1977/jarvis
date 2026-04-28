@@ -115,6 +115,8 @@ HOLD immediately on:
 
 `SH-T06` has since closed as implemented with gate PASS and Claude Code PASS. Jira sync remains pending because Jira environment variables were not visible to the runner. The runner must not repeat `SH-T06`.
 
+`CD-T06A` has since closed as implemented with gate PASS and Claude Code PASS. Jira sync remains pending because Jira environment variables were not visible to the runner. The runner must not repeat `CD-T06A`, and must not treat `CD-T06A` as full `CD-T06` closeout.
+
 Idle fallback is governed by:
 
 ```text
@@ -135,5 +137,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_SH_T06_CLOSEOUT
+CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_CD_T06A_CLOSEOUT
 ```

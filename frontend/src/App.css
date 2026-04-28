@@ -1496,6 +1496,34 @@ button {
   white-space: nowrap;
 }
 
+.case-state-header-block {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.case-state-header-skeleton {
+  display: grid;
+  gap: 4px;
+  border: 1px solid #d7e2dc;
+  border-radius: 8px;
+  background: #fbfcf8;
+  padding: 10px 12px;
+  text-align: right;
+}
+
+.case-state-header-skeleton strong {
+  color: #18202b;
+  font-size: 13px;
+}
+
+.case-state-header-skeleton span {
+  color: #5d6875;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .ar-status-row {
   display: flex;
   flex-wrap: wrap;
@@ -2412,6 +2440,15 @@ button {
 
   .case-header {
     flex-direction: column;
+  }
+
+  .case-state-header-block {
+    justify-items: start;
+    max-width: none;
+  }
+
+  .case-state-header-skeleton {
+    text-align: left;
   }
 
   .case-workspace {

@@ -76,7 +76,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through AP-T06A static skeleton and MV-T03 route-only handoff implementation. |
+| _None_ | _N/A_ | Current batch completed through CD-T06A existing-state header skeleton implementation. |
 
 ## 5. Auto-Ready
 
@@ -163,6 +163,7 @@ docs\S6_CD_T06_CLOSED_CONTEXT_UNBLOCK_CHECKLIST_2026_04_28.md
 docs\S6_30M_RUNNER_IDLE_FALLBACK_2026_04_28.md
 docs\S6_SH_T02_DUAL_COVERAGE_CLAMP_CLOSEOUT_2026_04_28.md
 docs\S6_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CLOSEOUT_2026_04_28.md
+docs\S6_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CLOSEOUT_2026_04_28.md
 ```
 
 Queue purpose:
@@ -178,6 +179,7 @@ AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 source proof PAS
 MV-T03 implemented and Jira-synced as `SCRUM-66`
 SH-T02 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 SH-T06 implemented and gate/Claude Code PASS; Jira sync pending env visibility
+CD-T06A implemented and gate/Claude Code PASS; parent CD-T06 remains HOLD and Jira sync pending env visibility
 ```
 
 Latest implementation batch:
@@ -190,6 +192,7 @@ AP-T06A static observation-window readonly skeleton
 MV-T03 P3 Search/History route-only Manager handoff
 SH-T02 Search/History dual coverage clamp semantics
 SH-T06 Search/History structural/degraded empty-state split
+CD-T06A Case Detail existing-state header skeleton
 ```
 
 Checklist-only path:
@@ -201,13 +204,14 @@ AP-T06A static skeleton complete; full AP-T06 countdown/state-sync remains HOLD
 MV-T03 source-proof path closed and implemented
 SH-T02 dual coverage clamp closeout PASS
 SH-T06 structural/degraded empty-state closeout PASS
+CD-T06A existing-state header skeleton closeout PASS; full CD-T06 remains HOLD
 ```
 
 Next human selection options:
 
 ```text
-CD-T06A existing-state header skeleton checklist
 SH-T08 narrow implementation checklist after source/order proof
+EP-T06 dependency reconciliation/no-code closeout check
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
@@ -215,8 +219,8 @@ Current continuous burn pool:
 
 ```text
 AP-T08 completed and Jira Done
-SH-T08 HOLD pending exact Search/History approval-audit source/order checklist after AP-T08 and SH-T02 closeouts
-SH-T06 completed; next ordered code candidate is CD-T06A existing-state header skeleton checklist
+SH-T08 next ordered checklist: exact Search/History approval-audit source/order proof after AP-T08, SH-T02, and SH-T06 closeouts
+CD-T06A completed; full CD-T06 remains HOLD pending renderable CLOSED context
 CD-T06 visual blocker partially closed, full HOLD pending renderable CLOSED context
 AP-T09 HOLD pending AP-T08 and VF-15; Jira `SCRUM-67`
 MV-T04 HOLD pending AP-T08, SH-T08, and external authority review; Jira `SCRUM-68`
@@ -251,13 +255,13 @@ AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 Best next automation burn-down path:
 
 ```text
-CD-T06A existing-state header skeleton checklist -> SH-T08 source-order checklist after AP-T08, SH-T02, and SH-T06 closeouts -> safe Jira parity sync
+SH-T08 source-order checklist after AP-T08, SH-T02, SH-T06, and CD-T06A closeouts -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-CD-T06A existing-state header skeleton checklist OR SH-T08 source-order checklist
+SH-T08 source-order checklist OR EP-T06 no-code dependency reconciliation
 ```
 
 Idle fallback:
@@ -282,6 +286,7 @@ Latest idle-fallback update:
 AP-T08 is now implemented and Jira-synced; runner must continue after AP-T08 and may use idle fallback only when the remaining queue is blocked or unsafe.
 SH-T02 is now implemented and gate/Claude Code PASS; runner must continue after SH-T02 and may sync Jira later only when credentials are visible.
 SH-T06 is now implemented and gate/Claude Code PASS; runner must continue after SH-T06 and may sync Jira later only when credentials are visible.
+CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after CD-T06A and must not mark parent CD-T06 Done.
 ```
 
 Best next risk-reduction path:

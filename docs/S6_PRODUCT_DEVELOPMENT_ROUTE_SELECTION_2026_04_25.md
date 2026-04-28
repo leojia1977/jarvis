@@ -3831,3 +3831,40 @@ Next route:
 ```text
 OPEN_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CHECKLIST
 ```
+
+## 112. Update 2026-04-28: CD-T06A Existing-State Header Skeleton Closeout
+
+Checklist:
+
+```text
+docs/S6_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CHECKLIST_2026_04_28.md
+```
+
+Closeout:
+
+```text
+docs/S6_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+CD_T06A_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `CD-T06A` implements the narrow Case Detail state-header semantic skeleton for existing renderable non-CLOSED states only.
+- `OBSERVATION_WINDOW` is mapped to `VF-11`; `APPROVED_PENDING_EXECUTION` is mapped to `VF-12`.
+- The header skeleton exposes `data-state-mutation="none"` and `data-closed-behavior="not-claimed"`.
+- Full `CD-T06` remains HOLD because no governed renderable `CLOSED` Case Detail context exists without fixture/context expansion.
+- No fixture registry, fixture adapter, `ContextValidator`, `ResolvedSurfaceContext`, AP mutation, action controls, state transition, observation-window countdown/state-sync, stale-approve behavior, audit summary, backend/runtime/API/schema, route handoff, raw evidence DOM, real data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+- Gates passed: frontend tests 86, frontend build, pilot preflight/release verification with backend guard 164, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `VERDICT: PASS`.
+- Jira sync remains pending because Jira environment variables were not visible in the runner process; parent `CD-T06` / `SCRUM-53` must not be marked Done by this split ticket.
+
+Next route:
+
+```text
+OPEN_SH_T08_APPROVAL_AUDIT_SOURCE_ORDER_CHECKLIST
+```

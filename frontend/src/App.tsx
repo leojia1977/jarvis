@@ -183,6 +183,33 @@ const CASE_STATE_LABELS: Record<CaseState, string> = {
   CLOSED: "Closed"
 };
 
+const CASE_STATE_HEADER_SKELETON: Partial<
+  Record<
+    CaseState,
+    {
+      title: string;
+      description: string;
+      visualFrame: string;
+      lockState: string;
+    }
+  >
+> = {
+  OBSERVATION_WINDOW: {
+    title: "Observation window readonly",
+    description:
+      "Case Detail reflects an active observation window without approving, rejecting, delaying, or executing.",
+    visualFrame: "VF-11",
+    lockState: "readonly-observation"
+  },
+  APPROVED_PENDING_EXECUTION: {
+    title: "Approved pending execution locked",
+    description:
+      "Case Detail reflects approved-pending-execution as a locked display state; execution is not started here.",
+    visualFrame: "VF-12",
+    lockState: "terminal-display-lock"
+  }
+};
+
 const AR_STATUS_DISPLAY: Record<
   ARStatus,
   {
@@ -2323,6 +2350,7 @@ function CaseDetail({
     activeCase.arStatus === null &&
     !hasLocalActionRequestSubmission;
   const arStatusDisplay = getARStatusDisplay(activeCase.arStatus, activeCase.resolvedRole);
+  const caseStateHeaderSkeleton = CASE_STATE_HEADER_SKELETON[activeCase.state] ?? null;
   const canRenderBlastRadiusPanel = activeCase.coverage !== "L1";
   const honestyLayerContentId = `${activeCase.id}-honesty-layer-content`;
   const unsupportedClaimSet = useMemo(
@@ -2432,9 +2460,34 @@ function CaseDetail({
             </div>
           </dl>
         </div>
-        <span className="state-pill" data-testid="case-state-pill">
-          {CASE_STATE_LABELS[activeCase.state]}
-        </span>
+        <div className="case-state-header-block">
+          <span
+            className="state-pill"
+            data-case-state={activeCase.state}
+            data-closed-behavior="not-claimed"
+            data-testid="case-state-pill"
+          >
+            {CASE_STATE_LABELS[activeCase.state]}
+          </span>
+          {caseStateHeaderSkeleton ? (
+            <aside
+              aria-label="Case state header skeleton"
+              className="case-state-header-skeleton"
+              data-ar-status={activeCase.arStatus ?? "NONE"}
+              data-authority-source="resolved-surface-context"
+              data-case-state={activeCase.state}
+              data-closed-behavior="not-claimed"
+              data-lock-state={caseStateHeaderSkeleton.lockState}
+              data-state-mutation="none"
+              data-testid="case-state-header-skeleton"
+              data-visual-frame={caseStateHeaderSkeleton.visualFrame}
+              data-visual-state="semantic-skeleton"
+            >
+              <strong>{caseStateHeaderSkeleton.title}</strong>
+              <span>{caseStateHeaderSkeleton.description}</span>
+            </aside>
+          ) : null}
+        </div>
       </div>
 
       <div className="case-workspace" aria-label="Case detail workspace">
