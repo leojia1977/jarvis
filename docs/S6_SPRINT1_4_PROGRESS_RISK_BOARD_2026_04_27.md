@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through AP-T09 blocker refresh; next route is AP-T06 full countdown/state-sync blocker refresh. |
+| _None_ | _N/A_ | Current batch completed through AP-T06 full countdown/state-sync blocker refresh; next route is AP-T02 / MV-T02 renderable authority-context blocker refresh. |
 
 ## 5. Auto-Ready
 
@@ -171,6 +171,7 @@ docs\S6_CD_T07_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
 docs\S6_AP_T11_T12_READINESS_DECOMPOSITION_2026_04_28.md
 docs\S6_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST_2026_04_28.md
 docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH_2026_04_28.md
+docs\S6_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH_2026_04_28.md
 ```
 
 Queue purpose:
@@ -192,6 +193,7 @@ EP-T06 no-code reconciliation PASS; Jira sync pending env visibility
 IN-T06 readiness checked; remains HOLD until IN-T03 authority is resolved
 CD-T07 readiness checked; remains HOLD until full CD-T06 is resolved
 AP-T11/AP-T12 readiness decomposed; full tickets remain HOLD, possible AP-T11A split requires separate checklist
+AP-T06 full countdown/state-sync blocker refresh reconfirmed HOLD; AP-T06A remains the only closed safe split under current authority
 ```
 
 Latest implementation batch:

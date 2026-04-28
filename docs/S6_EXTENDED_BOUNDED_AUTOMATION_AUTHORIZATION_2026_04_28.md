@@ -133,6 +133,13 @@ HOLD immediately on:
 
 `AP-T09` blocker refresh has since partially unblocked the ticket by closing the AP-T08 dependency. `AP-T09` remains HOLD pending `VF-15` or equivalent governed audit empty/unavailable source and exact copy rules. The runner must not mark `AP-T09` Done or implement it from the generic `UNAVAILABLE` enum fallback alone.
 
+`AP-T06` full countdown/state-sync blocker refresh has since reconfirmed that
+the already closed `AP-T06A` static slice is the maximum safe split under the
+current governed evidence. Full `AP-T06` remains HOLD pending exact state-sync
+input authority, exact test hook, and an explicit display-vs-authority rule for
+the timer. The runner must not mark `AP-T06` / `SCRUM-64` Done or implement the
+countdown/state-sync path from the current static readonly surface.
+
 Idle fallback is governed by:
 
 ```text
@@ -153,5 +160,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-OPEN_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH
+OPEN_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH
 ```
