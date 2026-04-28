@@ -5,12 +5,25 @@
 | Field | Value |
 | --- | --- |
 | Title | S6 AP-T08 / MV-T04 Claude Web Authority Review Pack 2026-04-28 |
-| Status | `EXTERNAL_AUTHORITY_REVIEW_PACK_READY` |
+| Status | `EXTERNAL_AUTHORITY_REVIEW_PASS_WITH_NOTES_RECORDED` |
 | Date | 2026-04-28 |
 | Scope | AP-T08 approval audit source boundary + MV-T04 P3 approval audit summary authority review |
 | Review surface | Claude Web architecture/governance review |
-| Implementation authorization | Not authorized by this pack |
+| Implementation authorization | AP-T08 may proceed to narrow implementation checklist only; MV-T04 remains order-gated |
 | Jira | `SCRUM-62` / `SCRUM-68` remain `待办` |
+
+Verdict record:
+
+```text
+docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_VERDICT_2026_04_28.md
+```
+
+Verdict summary:
+
+```text
+AP-T08: PASS_WITH_NOTES; narrow implementation checklist allowed.
+MV-T04: PASS_WITH_NOTES; implementation remains gated by AP-T08 and SH-T08 source/order confirmation.
+```
 
 ## 2. Why This Review Exists
 

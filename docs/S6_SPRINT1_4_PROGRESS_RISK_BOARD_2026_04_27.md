@@ -95,7 +95,7 @@ These tickets are authorized for launch/readiness checklist only. Implementation
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
-| `AP-T08` | Sprint 2 | Approval audit authority source path. | Source proof PASS | Checklist-only recorded as `SCRUM-62`; narrow implementation checklist still required. |
+| `AP-T08` | Sprint 2 | Approval audit authority source path. | Claude Web `PASS_WITH_NOTES` | Narrow implementation checklist may open; display-only `activeContext.audit_trail` boundary and fixed enum derived-status mapping only. |
 | `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | Source proof PASS | Checklist-only recorded as `SCRUM-63`; narrow implementation checklist still required. |
 | `SH-T02` | Sprint 3A | Dual coverage and clamp semantics. | `HF-SH-01` / `HF-SH-02` / `VF-14` v0.2 PASS | Visual blocker closed; launch checklist required before implementation. |
 | `SH-T06` | Sprint 3A | Structural empty versus degraded empty semantics. | `HF-SH-02` v0.2 PASS | Visual blocker closed; launch checklist required before implementation. |
@@ -111,7 +111,7 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
 | `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
-| `MV-T04` | Sprint 3B | P3 approval audit summary is patch-gate and P3-authority sensitive. |
+| `MV-T04` | Sprint 3B | Claude Web `PASS_WITH_NOTES`; implementation remains gated by AP-T08 and SH-T08 source/order confirmation. |
 | `MV-T05` | Sprint 3B | Manager acceptance depends on MV implementation chain. |
 
 ## 9. Needs Design
@@ -253,8 +253,9 @@ Current authority review pack:
 
 ```text
 docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_2026_04_28.md
-Status: READY_FOR_CLAUDE_WEB_REVIEW
-AP-T08 / MV-T04 remain HOLD until review verdict is recorded.
+docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_VERDICT_2026_04_28.md
+Status: PASS_WITH_NOTES_RECORDED
+AP-T08 may open narrow implementation checklist; MV-T04 remains order-gated behind AP-T08 and SH-T08.
 ```
 
 Best next risk-reduction path:

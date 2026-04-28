@@ -3635,3 +3635,34 @@ Next route:
 ```text
 OPEN_SH_T02_SH_T06_VISUAL_BASELINE_LAUNCH_CHECKLIST_OR_OPEN_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CHECKLIST
 ```
+
+## 106. Update 2026-04-28: AP-T08 / MV-T04 Claude Web Verdict Recorded
+
+Verdict record:
+
+```text
+docs/S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_VERDICT_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T08_EXTERNAL_REVIEW_PASS_WITH_NOTES_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
+MV_T04_EXTERNAL_REVIEW_PASS_WITH_NOTES_HOLD_PENDING_AP_T08_AND_SH_T08_ORDER_CONFIRMATION
+```
+
+Interpretation:
+
+- `AP-T08` may enter a narrow implementation checklist.
+- The only allowed AP-T08 direction is display-only `activeContext.audit_trail` source boundary.
+- Any derived status must use a fixed enum mapping.
+- `MV-T04` authority boundary is acceptable, but implementation remains blocked until `AP-T08` and `SH-T08` source/order confirmation close.
+- `MV-T04` must use an independent P3 read-only manager summary and must not reuse P2 technical components or mount raw evidence DOM.
+- Jira cloud was updated with non-transition comments on `SCRUM-62` and `SCRUM-68`; no Done transition was performed.
+- No implementation, Jira Done transition, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, or external pilot is authorized by the verdict alone.
+
+Next route:
+
+```text
+OPEN_AP_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_IMPLEMENTATION_CHECKLIST
+```
