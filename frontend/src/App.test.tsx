@@ -81,6 +81,32 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(ctaBoundary).toHaveAttribute("data-action-authority", "p2-only");
     expect(ctaBoundary).toHaveAttribute("data-action-wiring", "modal-only");
     expect(ctaBoundary).toHaveAttribute("data-state-mutation", "none");
+    const auditBoundary = screen.getByTestId("approval-audit-source-boundary");
+    const auditDerivedStatus = screen.getByTestId("approval-audit-derived-status");
+    expect(auditBoundary).toHaveAttribute("data-source", "activeContext.audit_trail");
+    expect(auditBoundary).toHaveAttribute("data-display-mode", "display-only");
+    expect(auditBoundary).toHaveAttribute("data-state-mutation", "none");
+    expect(auditBoundary).toHaveAttribute("data-derived-status-source", "fixed-enum-mapping");
+    expect(auditBoundary).toHaveAttribute("data-derived-status", "OPENED");
+    expect(auditBoundary).toHaveAttribute(
+      "data-source-fields",
+      "audit_id,event,actor_role,case_state_after,ar_status_after"
+    );
+    expect(auditDerivedStatus).toHaveAttribute("data-derived-status", "OPENED");
+    expect(auditDerivedStatus).toHaveTextContent("Opened by P2");
+    expect(screen.getByTestId("approval-audit-latest-id")).toHaveTextContent("AUD-002");
+    expect(screen.getByTestId("approval-audit-latest-event")).toHaveTextContent("P2_OPENED_AR");
+    expect(screen.getByTestId("approval-audit-actor-role")).toHaveTextContent("P2");
+    expect(screen.getByTestId("approval-audit-ar-status-after")).toHaveTextContent(
+      "PENDING_APPROVAL"
+    );
+    expect(screen.getByTestId("approval-audit-case-state-after")).toHaveTextContent(
+      "PENDING_APPROVAL"
+    );
+    expect(screen.getByTestId("approval-audit-observation-presence")).toHaveTextContent(
+      "Not present"
+    );
+    expect(screen.queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
     expect(within(shell).getByRole("button", { name: "Approve" })).toBeEnabled();
     expect(within(shell).getByRole("button", { name: "Reject" })).toBeEnabled();
     expect(within(shell).getByRole("button", { name: "Delay" })).toBeEnabled();
@@ -165,6 +191,13 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(observationBoundary).toHaveAttribute("data-state-sync", "not-implemented");
     expect(observationBoundary).toHaveAttribute("data-state-migration", "none");
     expect(observationBoundary).toHaveAttribute("data-vf-11-state", "pass-input-skeleton-only");
+    expect(screen.getByTestId("approval-audit-source-boundary"))
+      .toHaveAttribute("data-derived-status", "OBSERVING");
+    expect(screen.getByTestId("approval-audit-derived-status"))
+      .toHaveAttribute("data-derived-status-source", "fixed-enum-mapping");
+    expect(screen.getByTestId("approval-audit-observation-presence")).toHaveTextContent(
+      "Present"
+    );
     expect(screen.getByTestId("observation-window-total")).toHaveTextContent("60 min");
     expect(screen.getByTestId("observation-window-remaining")).toHaveTextContent("60 min");
     expect(screen.getByTestId("observation-expiry-action")).toHaveTextContent(

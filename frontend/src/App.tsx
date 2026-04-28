@@ -44,6 +44,14 @@ type ExpertModeEntryState = "entry_skeleton" | "p1_restricted" | "not_applicable
 type ARStatusTone = "pending" | "approved" | "observing" | "rejected" | "locked" | "none";
 type ARInteractionClass = "non-terminal" | "terminal" | "locked" | "none";
 type ARActionAuthority = "p2-only" | "display-only";
+type ApprovalAuditDerivedStatus =
+  | "SUBMITTED"
+  | "OPENED"
+  | "OBSERVING"
+  | "WINDOW_EXPIRED"
+  | "APPROVED"
+  | "UNAVAILABLE"
+  | "UNSUPPORTED";
 type ApprovalCtaId = "approve_action" | "reject_action" | "delay_action" | "observe_only_action";
 type ApprovalDraftAction = "approve" | "reject" | "delay" | "observe";
 
@@ -225,6 +233,25 @@ const APPROVAL_CTA_LABELS: Array<{
   { action: "delay", id: "delay_action", label: "Delay", shell: "configuration" },
   { action: "observe", id: "observe_only_action", label: "Observe", shell: "configuration" }
 ];
+const APPROVAL_AUDIT_EVENT_STATUS_MAP: Record<string, ApprovalAuditDerivedStatus> = {
+  APPROVED_AFTER_WINDOW: "APPROVED",
+  AR_SUBMITTED: "SUBMITTED",
+  OBSERVATION_WINDOW_EXPIRED: "WINDOW_EXPIRED",
+  OBSERVE_ONLY_SELECTED: "OBSERVING",
+  P2_OPENED_AR: "OPENED"
+};
+const APPROVAL_AUDIT_STATUS_DISPLAY: Record<
+  ApprovalAuditDerivedStatus,
+  { label: string; tone: ARStatusTone }
+> = {
+  SUBMITTED: { label: "AR submitted", tone: "pending" },
+  OPENED: { label: "Opened by P2", tone: "pending" },
+  OBSERVING: { label: "Observation selected", tone: "observing" },
+  WINDOW_EXPIRED: { label: "Observation expired", tone: "pending" },
+  APPROVED: { label: "Approved after window", tone: "approved" },
+  UNAVAILABLE: { label: "Audit unavailable", tone: "none" },
+  UNSUPPORTED: { label: "Unsupported audit event", tone: "locked" }
+};
 const COVERAGE_HEALTH_UI_MESSAGE_KEYS = [
   "fixture_status",
   "phase_name",
@@ -530,6 +557,19 @@ function auditRecordString(
 ): string | null {
   const value = event?.[key];
   return typeof value === "string" ? value : null;
+}
+
+function getApprovalAuditDerivedStatus(
+  event: Record<string, unknown> | undefined
+): ApprovalAuditDerivedStatus {
+  if (!event) {
+    return "UNAVAILABLE";
+  }
+  const eventName = auditRecordString(event, "event");
+  if (!eventName) {
+    return "UNSUPPORTED";
+  }
+  return APPROVAL_AUDIT_EVENT_STATUS_MAP[eventName] ?? "UNSUPPORTED";
 }
 
 function resolveExpertModeEntry(
@@ -943,6 +983,27 @@ function ApprovalRouteShell({
     actionRequest?.observation_expiry_action ??
     auditRecordString(observationWindowEvent, "observation_expiry_action") ??
     auditRecordString(observationWindowEvent, "expiry_action");
+  const latestApprovalAuditEvent =
+    activeContext.audit_trail.length > 0
+      ? activeContext.audit_trail[activeContext.audit_trail.length - 1]
+      : undefined;
+  const approvalAuditDerivedStatus =
+    getApprovalAuditDerivedStatus(latestApprovalAuditEvent);
+  const approvalAuditStatusDisplay =
+    APPROVAL_AUDIT_STATUS_DISPLAY[approvalAuditDerivedStatus];
+  const approvalAuditEventName =
+    auditRecordString(latestApprovalAuditEvent, "event") ?? "Unavailable";
+  const approvalAuditActorRole =
+    auditRecordString(latestApprovalAuditEvent, "actor_role") ?? "Unavailable";
+  const approvalAuditArStatus =
+    auditRecordString(latestApprovalAuditEvent, "ar_status_after") ?? "Unavailable";
+  const approvalAuditCaseState =
+    auditRecordString(latestApprovalAuditEvent, "case_state_after") ?? "Unavailable";
+  const approvalAuditId =
+    auditRecordString(latestApprovalAuditEvent, "audit_id") ?? "Unavailable";
+  const hasObservationWindowAudit = activeContext.audit_trail.some(
+    (event) => auditRecordString(event, "event") === "OBSERVE_ONLY_SELECTED"
+  );
 
   useEffect(() => {
     if (!canRenderApprovalCtas) {
@@ -1102,6 +1163,68 @@ function ApprovalRouteShell({
             </dd>
           </div>
         </dl>
+        <section
+          aria-labelledby="approval-audit-source-title"
+          className="approval-audit-source-boundary"
+          data-audit-count={activeContext.audit_trail.length}
+          data-derived-status={approvalAuditDerivedStatus}
+          data-derived-status-source="fixed-enum-mapping"
+          data-display-mode="display-only"
+          data-source="activeContext.audit_trail"
+          data-source-fields="audit_id,event,actor_role,case_state_after,ar_status_after"
+          data-state-mutation="none"
+          data-testid="approval-audit-source-boundary"
+        >
+          <div>
+            <p className="section-kicker">AP-T08</p>
+            <h2 id="approval-audit-source-title">Approval audit source boundary</h2>
+            <p>
+              Display-only audit facts are read from the resolved context. This boundary does not
+              create approval state, Search / History output, or Manager summary output.
+            </p>
+          </div>
+          <dl className="approval-audit-facts">
+            <div>
+              <dt>Latest audit</dt>
+              <dd data-testid="approval-audit-latest-id">{approvalAuditId}</dd>
+            </div>
+            <div>
+              <dt>Event</dt>
+              <dd data-testid="approval-audit-latest-event">{approvalAuditEventName}</dd>
+            </div>
+            <div>
+              <dt>Actor role</dt>
+              <dd data-testid="approval-audit-actor-role">{approvalAuditActorRole}</dd>
+            </div>
+            <div>
+              <dt>Derived status</dt>
+              <dd>
+                <span
+                  className={`ar-status-pill ${approvalAuditStatusDisplay.tone}`}
+                  data-derived-status={approvalAuditDerivedStatus}
+                  data-derived-status-source="fixed-enum-mapping"
+                  data-testid="approval-audit-derived-status"
+                >
+                  {approvalAuditStatusDisplay.label}
+                </span>
+              </dd>
+            </div>
+            <div>
+              <dt>AR after event</dt>
+              <dd data-testid="approval-audit-ar-status-after">{approvalAuditArStatus}</dd>
+            </div>
+            <div>
+              <dt>Case state after</dt>
+              <dd data-testid="approval-audit-case-state-after">{approvalAuditCaseState}</dd>
+            </div>
+            <div>
+              <dt>Observation audit</dt>
+              <dd data-testid="approval-audit-observation-presence">
+                {hasObservationWindowAudit ? "Present" : "Not present"}
+              </dd>
+            </div>
+          </dl>
+        </section>
         {canRenderApprovalCtas ? (
           <div
             className="approval-cta-boundary"

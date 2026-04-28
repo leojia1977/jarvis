@@ -843,6 +843,62 @@ button {
   opacity: 0.72;
 }
 
+.approval-audit-source-boundary {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.2fr);
+  gap: 14px;
+  margin-top: 16px;
+  border: 1px solid #d7ddcd;
+  border-radius: 8px;
+  background: #fbfcf7;
+  padding: 14px;
+}
+
+.approval-audit-source-boundary h2,
+.approval-audit-source-boundary p {
+  margin: 0;
+}
+
+.approval-audit-source-boundary h2 {
+  color: #18202b;
+  font-size: 20px;
+  letter-spacing: 0;
+}
+
+.approval-audit-source-boundary p:not(.section-kicker) {
+  margin-top: 8px;
+  color: #53606d;
+  line-height: 1.5;
+}
+
+.approval-audit-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.approval-audit-facts > div {
+  min-width: 0;
+  border: 1px solid #e2e7dc;
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 10px;
+}
+
+.approval-audit-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.approval-audit-facts dd {
+  margin: 4px 0 0;
+  color: #243140;
+  font-weight: 800;
+}
+
 .approval-lock-boundary {
   margin-top: 16px;
   border: 1px solid #ccd7d8;

@@ -3695,3 +3695,33 @@ Next route:
 ```text
 RUNNER_CONTINUES_WITH_AP_T08_THEN_EXTENDED_QUEUE
 ```
+
+## 108. Update 2026-04-28: AP-T08 Approval Audit Source Boundary Closeout
+
+Closeout record:
+
+```text
+docs/S6_AP_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T08_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `AP-T08` now renders a narrow display-only approval audit source boundary inside `/approval`.
+- The boundary reads only `activeContext.audit_trail`.
+- Derived status uses a fixed enum mapping only.
+- No AP state mutation, `ActionMode` creation, P3 Manager output, Search / History output, audit source invention, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, raw evidence DOM, real-data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+- Gates passed: frontend tests 84, frontend build, backend guard 164, and `git diff --check`.
+- Claude Code focused review returned a valid `VERDICT: PASS` after a prior malformed-wrapper attempt was rejected under the review contract.
+- Jira cloud is synchronized as `SCRUM-62`, status `已完成`, with closeout comment `10035`.
+
+Next route:
+
+```text
+OPEN_SH_T02_VISUAL_BASELINE_LAUNCH_CHECKLIST_OR_OPEN_SH_T08_AFTER_AP_T08_SOURCE_ORDER_CONFIRMATION
+```
