@@ -3502,3 +3502,33 @@ Next route:
 ```text
 WAIT_FOR_MV_T03_IMPLEMENTATION_GO_OR_OPEN_AP_T08_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST
 ```
+
+## 102. Update 2026-04-28: MV-T03 Deep-Link Handoff Closeout
+
+Closeout record:
+
+```text
+docs/S6_MV_T03_DEEP_LINK_HANDOFF_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+MV_T03_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- Jarvis granted `MV-T03 implementation GO`.
+- `MV-T03` now implements route-only P3 Search / History audit-focus handoff to the existing `/manager` route.
+- The source guard is P3 plus `approval_audit` or `history_audit` focus only.
+- The target keeps using existing `ResolvedSurfaceContext`; no serialized handoff payload, URL query payload, localStorage/sessionStorage payload, approval audit summary, `MV-T04`, P0/P2 Manager variant, host raw evidence, approval control, AP state transition, backend/runtime/API/schema, fixture/adapter/validator, or `ResolvedSurfaceContext` change was introduced.
+- Gates passed: frontend tests 84, frontend build, Playwright E2E 10, pilot preflight/backend guard 164, and `git diff --check` with line-ending warnings only.
+- Claude Code focused re-review returned `PASS`.
+- Jira cloud is synchronized as `SCRUM-66 [MV-T03] Manager deep-link handoff`, status `完成`.
+
+Next route:
+
+```text
+OPEN_AP_T08_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST_OR_NEXT_BOUNDED_BURN_DOWN_QUEUE
+```

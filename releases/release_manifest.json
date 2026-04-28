@@ -10,11 +10,11 @@
     "sprint": "Sprint 5",
     "stage": "s5-prd-intake-automation-trigger",
     "created_at": "2026-04-22T15:29:38+08:00",
-    "updated_at": "2026-04-22T15:37:23.840102+08:00"
+    "updated_at": "2026-04-28T15:25:13.711264+08:00"
   },
   "artifacts": {
     "current_release_zip": "releases\\secupilot-S5-PRD-INTAKE-AUTOMATION-TRIGGER-2026-04-22-001.zip",
-    "current_release_sha256": "1cd77a9224b94a2d09a2f50938fd33b9f26db32175d06279d547caa5c649bcb2",
+    "current_release_sha256": "32a026da7e44ee420a0cde5d7377c598489b7ceff5f0db821d94d98cd0bce232",
     "baseline_release_sha256": "4f65a779f30803bb042031399d16ab2aa52b3b900e95c809e607caccee441448"
   },
   "key_files": [
@@ -321,7 +321,7 @@
     {
       "path": "docs\\HANDOFF.md",
       "role": "handoff",
-      "sha256": "83aa674cb0e08489a7ba1d79c135c5fcfd716f3ddf8791ff7231a6f4b2882fb3"
+      "sha256": "a30044165958b8e4286591d19eff91c3decb8f2a5fa27d5759fdc56039beba80"
     },
     {
       "path": "docs\\RELEASE_PROCESS.md",
@@ -331,7 +331,7 @@
     {
       "path": "docs\\PROJECT_STRUCTURE.md",
       "role": "project-structure-doc",
-      "sha256": "1cf0a0620b2a881aefaade5d8bd670a1fdc98acff3f547aa77de8486c2e7bdfb"
+      "sha256": "050bf4f3d8c43cac39c6efd197a0a9e1423f5b3e5aa5bbd23d4cbec31f78458f"
     },
     {
       "path": "docs\\CLAUDE_WEB_UPLOAD_CHECKLIST.md",
@@ -921,7 +921,7 @@
     {
       "path": ".gitignore",
       "role": "git-ignore",
-      "sha256": "9b7dd268153339502a7f3a7a2386cbfc790b8296aab9f9eda4028dea1ea54b09"
+      "sha256": "ca7bfd6eeb7ccb642872faf1214410f6d1c9276a7481fb8db474474a4afb03e6"
     },
     {
       "path": ".gitattributes",
@@ -1236,7 +1236,7 @@
     {
       "path": "docs\\LIVE_PRD_INTAKE_METRICS_RECORD.md",
       "role": "live-prd-intake-metrics-record",
-      "sha256": "98a852a597734f16d0d1c25892e8ba4b124b24660916ee4e4e3eb610566a6f84"
+      "sha256": "fc3b40d0b928a1e5c89f9586ce46762f0022378813d551d46a860cf0cff66870"
     },
     {
       "path": "docs\\LIVE_PRD_INTAKE_RUNBOOK_METRICS_CLOSEOUT.md",
@@ -1327,7 +1327,7 @@
     ]
   },
   "verification": {
-    "last_verified_at": "2026-04-22T15:37:25.213724+08:00",
+    "last_verified_at": "2026-04-28T15:25:26.724096+08:00",
     "key_files": "PASS",
     "release_zip": "PASS",
     "review_pack": "PASS",

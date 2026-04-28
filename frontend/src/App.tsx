@@ -792,7 +792,11 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         ) : route === "manager" ? (
           <ManagerView activeCase={activeCase} activeContext={activeContext} />
         ) : route === "search" ? (
-          <SearchHistoryView activeCase={activeCase} activeContext={activeContext} />
+          <SearchHistoryView
+            activeCase={activeCase}
+            activeContext={activeContext}
+            onNavigateToManager={() => navigate("manager")}
+          />
         ) : route === "coverage_health" ? (
           <CoverageHealthView activeCase={activeCase} activeContext={activeContext} />
         ) : (
@@ -1417,6 +1421,7 @@ function ManagerView({
       aria-labelledby="manager-view-title"
       className="page-region manager-view-surface"
       data-authority-source="resolved-surface-context"
+      data-handoff-payload="none"
       data-manager-scope="mv-t01-structure-only"
       data-p0-p2-placeholders="absent"
       data-role={role}
@@ -1464,9 +1469,10 @@ function ManagerView({
           <div
             className="manager-boundary-note"
             data-approval-workflow="not-implemented"
+            data-deep-link-handoff="route-only"
             data-testid="manager-readonly-boundary"
           >
-            No approval queue, action controls, host raw evidence, or deep-link handoff.
+            No approval queue, action controls, host raw evidence, or serialized handoff payload.
           </div>
         </aside>
 
@@ -1692,10 +1698,12 @@ function InboxView({
 
 function SearchHistoryView({
   activeCase,
-  activeContext
+  activeContext,
+  onNavigateToManager
 }: {
   activeCase: WorkbenchCase;
   activeContext: ResolvedSurfaceContext;
+  onNavigateToManager: () => void;
 }) {
   const queryParams = new URLSearchParams(window.location.search);
   const requestedCoverageParam = queryParams.get("coverage");
@@ -1706,6 +1714,9 @@ function SearchHistoryView({
   const effectiveFocus = isSearchFocusScope(requestedFocusParam) ? requestedFocusParam : "summary";
   const recordedCoverage = activeContext.case.coverage_level;
   const effectiveCoverage = clampCoverageRequest(requestedCoverage, recordedCoverage);
+  const canRenderManagerHandoff =
+    activeContext.session.role === "P3" &&
+    (effectiveFocus === "approval_audit" || effectiveFocus === "history_audit");
 
   return (
     <section
@@ -1786,6 +1797,37 @@ function SearchHistoryView({
           ))}
         </ul>
       </section>
+
+      {canRenderManagerHandoff ? (
+        <article
+          className="history-manager-handoff"
+          data-authority-source="resolved-surface-context"
+          data-handoff-payload="none"
+          data-source-focus={effectiveFocus}
+          data-source-surface="P3_SEARCH_HISTORY"
+          data-storage-authority="none"
+          data-target-route="/manager"
+          data-testid="manager-deep-link-handoff"
+          data-url-authority="none"
+        >
+          <div>
+            <p className="section-kicker">MV-T03</p>
+            <h2>Manager handoff</h2>
+            <p>
+              Route-only navigation to the existing P3 Manager View. The target keeps using
+              resolved context; no audit payload is serialized through URL or storage.
+            </p>
+          </div>
+          <button
+            data-testid="manager-deep-link-button"
+            data-state-mutation="none"
+            onClick={onNavigateToManager}
+            type="button"
+          >
+            Open Manager View
+          </button>
+        </article>
+      ) : null}
 
       <article
         className="history-case-row historical-case-list-item"

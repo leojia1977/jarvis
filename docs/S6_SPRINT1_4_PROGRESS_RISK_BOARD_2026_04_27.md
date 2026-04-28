@@ -19,11 +19,11 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 33 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 34 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 3 | Authorized for readiness/checklist only; no implementation GO. |
+| Checklist-only | 2 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 7 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
 | HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
@@ -66,13 +66,14 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `AP-T07` | Sprint 2 | Approved-pending locked-state semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-61`; `VF-12` v0.2 visual PASS now recorded as input. |
 | `CH-T03` | Sprint 4 | Bounded Coverage & Health `ui_messages` rendering implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-57`. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure implemented, gated, reviewed, Jira-synced as `SCRUM-49`. |
+| `MV-T03` | Sprint 3B | Manager deep-link handoff implemented as route-only P3 Search/History audit focus, gated, reviewed, Jira-synced as `SCRUM-66`. |
 | `SH-T04` | Sprint 3A | Search/History scope no-code reconciliation accepted, Jira-synced as `SCRUM-58`. |
 
 ## 4. Running
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through MV-T01 implementation, GS-T05 no-code closeout, CD-T05 source-field map checklist, and CD-T05 implementation. |
+| _None_ | _N/A_ | Current batch completed through AP-T06A static skeleton and MV-T03 route-only handoff implementation. |
 
 ## 5. Auto-Ready
 
@@ -96,7 +97,6 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 | --- | --- | --- | --- | --- |
 | `AP-T08` | Sprint 2 | Approval audit authority source path. | Source proof PASS | Checklist-only recorded as `SCRUM-62`; narrow implementation checklist still required. |
 | `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | Source proof PASS | Checklist-only recorded as `SCRUM-63`; narrow implementation checklist still required. |
-| `MV-T03` | Sprint 3B | Manager deep-link handoff. | Relaunch checklist PASS | Narrow route-only implementation candidate; separate implementation GO required. |
 
 ## 8. Needs Authority Review
 
@@ -142,11 +142,11 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 33 / 54
+Done: 34 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
-Checklist-only: 3
+Checklist-only: 2
 Blocked/HOLD/design/authority: 18
 ```
 
@@ -169,6 +169,7 @@ Latest queue output:
 
 ```text
 AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 source proof PASS but not Done; AP-T06A implemented as `SCRUM-65`; full AP-T06 countdown/state-sync HOLD
+MV-T03 implemented and Jira-synced as `SCRUM-66`
 ```
 
 Latest implementation batch:
@@ -178,6 +179,7 @@ AP-T04 strong confirm shell
 AP-T05 delay/observe config shell
 AP-T07 approved-pending lock skeleton
 AP-T06A static observation-window readonly skeleton
+MV-T03 P3 Search/History route-only Manager handoff
 ```
 
 Checklist-only path:
@@ -186,19 +188,20 @@ Checklist-only path:
 AP-T08 approval audit authority source proof PASS
 SH-T08 P3 approval-audit source proof PASS
 AP-T06A static skeleton complete; full AP-T06 countdown/state-sync remains HOLD
+MV-T03 source-proof path closed and implemented
 ```
 
 Next human selection options:
 
 ```text
 AP-T08/SH-T08 narrow implementation checklist
-MV-T03 dependency path after AP-T08/SH-T08 proof
+next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
 Latest relaunch checklist:
 
 ```text
-MV-T03 relaunch checklist PASS; source-proof absence blocker closed; implementation GO still required
+MV-T03 relaunch checklist PASS; source-proof absence blocker closed; implementation GO granted and closeout PASS
 ```
 
 Implementation GO batch result:
@@ -216,12 +219,13 @@ AP-T03/CH-T03/SH-T04 Jira parity corrected
 AP-T04/AP-T05/AP-T07 Jira Done
 AP-T06A Jira Done as `SCRUM-65`; AP-T06 parent readiness remains open as `SCRUM-64`
 AP-T08/SH-T08 Jira To Do with checklist-only notes
+MV-T03 Jira Done as `SCRUM-66`
 ```
 
 Best next automation burn-down path:
 
 ```text
-MV-T03 implementation GO or AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> safe Jira parity sync
+AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:

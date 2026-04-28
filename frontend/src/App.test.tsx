@@ -451,6 +451,72 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i })).not.toBeInTheDocument();
   });
 
+  it("routes P3 audit focus to Manager View without serialized handoff authority", async () => {
+    const user = userEvent.setup();
+    window.history.pushState({}, "", "/search?tab=history&focus=approval_audit");
+
+    render(<App initialPhaseNumber={6} />);
+
+    const handoff = screen.getByTestId("manager-deep-link-handoff");
+
+    expect(handoff).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(handoff).toHaveAttribute("data-source-surface", "P3_SEARCH_HISTORY");
+    expect(handoff).toHaveAttribute("data-source-focus", "approval_audit");
+    expect(handoff).toHaveAttribute("data-target-route", "/manager");
+    expect(handoff).toHaveAttribute("data-handoff-payload", "none");
+    expect(handoff).toHaveAttribute("data-url-authority", "none");
+    expect(handoff).toHaveAttribute("data-storage-authority", "none");
+    expect(screen.queryByTestId("manager-view-surface")).not.toBeInTheDocument();
+
+    await user.click(screen.getByTestId("manager-deep-link-button"));
+
+    const managerSurface = screen.getByTestId("manager-view-surface");
+
+    expect(window.location.pathname).toBe("/manager");
+    expect(window.location.search).toBe("");
+    expect(managerSurface).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(managerSurface).toHaveAttribute("data-handoff-payload", "none");
+    expect(screen.getByTestId("manager-readonly-boundary")).toHaveAttribute(
+      "data-deep-link-handoff",
+      "route-only"
+    );
+    expect(screen.getByTestId("manager-audit-boundary")).toHaveAttribute(
+      "data-approval-audit-summary",
+      "not-implemented"
+    );
+    expect(screen.queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("full-audit-trail")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i }))
+      .not.toBeInTheDocument();
+  });
+
+  it("exposes the same route-only Manager handoff for P3 history audit focus", () => {
+    window.history.pushState({}, "", "/search?tab=history&focus=history_audit");
+
+    render(<App initialPhaseNumber={6} />);
+
+    const handoff = screen.getByTestId("manager-deep-link-handoff");
+
+    expect(handoff).toHaveAttribute("data-source-focus", "history_audit");
+    expect(handoff).toHaveAttribute("data-target-route", "/manager");
+    expect(handoff).toHaveAttribute("data-handoff-payload", "none");
+    expect(handoff).toHaveAttribute("data-url-authority", "none");
+    expect(handoff).toHaveAttribute("data-storage-authority", "none");
+  });
+
+  it("does not expose Manager handoff outside P3 audit focus", () => {
+    window.history.pushState({}, "", "/search?tab=history&focus=summary");
+
+    render(<App initialPhaseNumber={6} />);
+
+    expect(screen.getByTestId("history-focus-scopes")).toHaveAttribute(
+      "data-effective-focus",
+      "summary"
+    );
+    expect(screen.queryByTestId("manager-deep-link-handoff")).not.toBeInTheDocument();
+  });
+
   it("navigates to the bounded history guard from the primary navigation", async () => {
     const user = userEvent.setup();
     render(<App />);

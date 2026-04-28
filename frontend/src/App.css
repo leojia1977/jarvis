@@ -545,6 +545,7 @@ button {
 
 .history-guard-panel,
 .history-focus-scope-panel,
+.history-manager-handoff,
 .history-case-row {
   display: grid;
   gap: 16px;
@@ -564,8 +565,16 @@ button {
   grid-template-columns: minmax(0, 1fr) minmax(260px, 0.68fr);
 }
 
+.history-manager-handoff {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  border-color: #cad9db;
+  background: #f7faf9;
+}
+
 .history-guard-panel h2,
 .history-focus-scope-panel h2,
+.history-manager-handoff h2,
 .history-case-row h2 {
   margin: 0;
   color: #18202b;
@@ -575,10 +584,22 @@ button {
 
 .history-guard-panel p,
 .history-focus-scope-panel p,
+.history-manager-handoff p,
 .history-case-row p {
   margin: 8px 0 0;
   color: #5d6875;
   line-height: 1.5;
+}
+
+.history-manager-handoff button {
+  min-height: 40px;
+  border: 1px solid #b8c9cb;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #13547a;
+  font-weight: 900;
+  padding: 0 14px;
+  white-space: nowrap;
 }
 
 .history-guard-facts {
@@ -2223,6 +2244,7 @@ button {
   }
 
   .history-guard-panel,
+  .history-manager-handoff,
   .historical-case-list-item,
   .approval-shell-header,
   .manager-topline,
