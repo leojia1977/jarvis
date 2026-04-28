@@ -127,6 +127,8 @@ HOLD immediately on:
 
 `AP-T11` / `AP-T12` have since been decomposed. Full AP-T11/AP-T12 remain HOLD; a later narrow `AP-T11A` static no-mutation assertion split is only a candidate and requires a separate exact checklist.
 
+`MV-T05` has since been checked and remains HOLD because `MV-T04` approval audit summary is not implemented and `MV-T02` P0/P2 Manager variants remain authority-gated. The runner must not mark `MV-T05` Done.
+
 Idle fallback is governed by:
 
 ```text
@@ -147,5 +149,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_AP_T11_T12_DECOMPOSITION
+OPEN_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST
 ```
