@@ -212,6 +212,7 @@ MV-T04 implementation GO prep prepared; no implementation or Jira mutation witho
 AP-T09 VF-15 design source request prepared; no implementation or Jira mutation without source delivery
 AP-T06 state-sync harness source request prepared; no full AP-T06 implementation without source delivery
 AP-T11A static no-mutation assertion prep prepared; no implementation, Jira mutation, or full AP-T11/AP-T12 closeout without exact GO
+30m runner idle report recorded; no implementation safe without explicit GO/source delivery/mapping GO
 ```
 
 Latest implementation batch:
@@ -352,6 +353,7 @@ MV-T04 implementation GO prep is prepared; runner must not implement MV-T04 with
 AP-T09 VF-15 design source request is prepared; runner must not implement AP-T09 without governed source delivery and exact checklist.
 AP-T06 state-sync harness source request is prepared; runner must not implement full AP-T06 without governed state-sync source delivery and exact checklist.
 AP-T11A static no-mutation assertion prep is prepared; runner must not implement AP-T11A, mutate Jira, or close full AP-T11/AP-T12 without exact GO.
+30m runner idle report is recorded; runner remains active but must continue docs-only fallback until an explicit unlock event arrives.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
 AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is now prep-ready but still requires exact implementation GO.

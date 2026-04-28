@@ -193,6 +193,12 @@ implement full AP-T06 or mutate Jira; it only defines the missing state-sync
 input authority, display-vs-authority rule, and test-harness source needed
 before full AP-T06 can return to a launch checklist.
 
+The 30m runner idle report `docs/S6_30M_RUNNER_IDLE_REPORT_2026_04_29_001.md`
+has since been recorded. It confirms no implementation ticket is safe without
+one of the explicit unlock events in the current route. The runner remains
+active, but subsequent heartbeats must continue as docs-only idle fallback until
+new GO/source/mapping evidence arrives.
+
 Idle fallback is governed by:
 
 ```text
