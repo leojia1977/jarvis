@@ -19,14 +19,14 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 27 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 30 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
-| Needs authority review | 14 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
+| Needs authority review | 13 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
-| HOLD | 10 | Waiting on upstream dependencies or acceptance prerequisites. |
+| HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
 
@@ -60,7 +60,10 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `SH-T07` | Sprint 3A | No-code reconciliation closeout; Jira-synced as `SCRUM-44`. |
 | `AP-T10` | Sprint 2 | Display-only AR status badge/pill mapping implemented, gated, reviewed, Jira-synced as `SCRUM-46`. |
 | `AP-T01` | Sprint 2 | `/approval` route shell/guard implemented, gated, reviewed, Jira-synced as `SCRUM-47`. |
+| `AP-T03` | Sprint 2 | Inert P2-only approval CTA boundary implemented, gated, Claude Code reviewed; Jira not synced because env missing. |
+| `CH-T03` | Sprint 4 | Bounded Coverage & Health `ui_messages` rendering implemented, gated, Claude Code reviewed; Jira not synced because env missing. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure implemented, gated, reviewed, Jira-synced as `SCRUM-49`. |
+| `SH-T04` | Sprint 3A | Search/History scope no-code reconciliation accepted; Jira not synced because env missing. |
 
 ## 4. Running
 
@@ -97,7 +100,6 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | Ticket | Sprint | Primary blocker |
 | --- | --- | --- |
 | `IN-T03` | Sprint 1 | P2 shortcut approval/close entry depends on later AP CTA semantics; `AP-T10` display mapping is now available but not sufficient. |
-| `AP-T03` | Sprint 2 | Approval CTA semantics depend on route and state mapping. |
 | `AP-T04` | Sprint 2 | Approve confirm flow depends on AP CTA semantics. |
 | `AP-T05` | Sprint 2 | Observe/delay window configuration depends on AP CTA/state semantics. |
 | `AP-T06` | Sprint 2 | Observation-window countdown depends on AP window configuration and state sync. |
@@ -132,10 +134,8 @@ These should not be started until dependencies close or a later exact checklist 
 | `CD-T07` | Sprint 1 | Depends on `CD-T05` and `CD-T06`. |
 | `EP-T06` | Sprint 1 | Depends on `EP-T02`, `EP-T03`, and `EP-T05`. |
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
-| `CH-T03` | Sprint 4 | Patch-gate possible; requires a separate isolated checklist after `CH-T01`. |
 | `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`. |
 | `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
-| `SH-T04` | Sprint 3A | Depends on `SH-T01`. |
 | `SH-T09` | Sprint 3A | Depends on `SH-T01`, `SH-T02`, `SH-T05`, `SH-T06`, `SH-T07`, and `SH-T08`. |
 
 ## 11. Daily Readout
@@ -143,12 +143,12 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 27 / 54
+Done: 30 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
 Checklist-only: 0
-Blocked/HOLD/design/authority: 27
+Blocked/HOLD/design/authority: 24
 ```
 
 Active non-tracker automation queue:
@@ -191,6 +191,24 @@ AP-T03 external/human authority review
 CH-T03 exact ui_messages implementation GO review
 SH-T04 no-code reconciliation review
 MV-T03 dependency path after AP-T08/SH-T08 proof
+```
+
+Implementation GO batch result:
+
+```text
+AP-T03 implemented pending closeout
+CH-T03 implemented pending closeout
+SH-T04 reconciled pending closeout
+MV-T03 HOLD pending AP-T08/SH-T08 dependency proof or authority review PASS
+```
+
+Closeout result:
+
+```text
+AP-T03 implemented and closeout-authorized
+CH-T03 implemented and closeout-authorized
+SH-T04 reconciled and closeout-authorized
+MV-T03 HOLD recorded
 ```
 
 Best next automation burn-down path:

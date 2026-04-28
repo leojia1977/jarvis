@@ -56,7 +56,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
   });
 
-  it("opens the P2 approval shell as guard-only without approval controls", async () => {
+  it("opens the P2 approval shell with an inert AP-T03 CTA boundary", async () => {
     const user = userEvent.setup();
     render(<App initialPhaseNumber={2} />);
 
@@ -65,6 +65,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const surface = screen.getByTestId("approval-surface");
     const shell = screen.getByTestId("approval-shell-card");
     const statusPill = screen.getByTestId("approval-ar-status-pill");
+    const ctaBoundary = screen.getByTestId("approval-cta-boundary");
 
     expect(window.location.pathname).toBe("/approval");
     expect(surface).toHaveAttribute("data-role", "P2");
@@ -74,10 +75,17 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(statusPill).toHaveAttribute("data-action-authority", "p2-only");
     expect(statusPill).toHaveAttribute("data-mapping-source", "D-02");
     expect(statusPill).toHaveAttribute("data-state-migration", "none");
-    expect(within(shell).queryByRole("button")).not.toBeInTheDocument();
-    expect(
-      within(surface).queryByRole("button", { name: /approve|reject|delay|observe/i })
-    ).not.toBeInTheDocument();
+    expect(ctaBoundary).toHaveAttribute("data-action-authority", "p2-only");
+    expect(ctaBoundary).toHaveAttribute("data-action-wiring", "not-implemented");
+    expect(ctaBoundary).toHaveAttribute("data-state-mutation", "none");
+    expect(within(shell).getByRole("button", { name: "Approve" })).toBeDisabled();
+    expect(within(shell).getByRole("button", { name: "Reject" })).toBeDisabled();
+    expect(within(shell).getByRole("button", { name: "Delay" })).toBeDisabled();
+    expect(within(shell).getByRole("button", { name: "Observe" })).toBeDisabled();
+    for (const button of within(ctaBoundary).getAllByRole("button")) {
+      expect(button).toHaveAttribute("data-action-wiring", "not-implemented");
+      expect(button).toHaveAttribute("data-state-mutation", "none");
+    }
   });
 
   it("hard redirects non-P2 approval route access without URL or storage authority", async () => {
@@ -141,8 +149,14 @@ describe("SecuPilot first-batch workbench slice", () => {
     );
     expect(ceilingSlot).toHaveAttribute("data-field", "case.coverage_level");
     expect(ceilingSlot).toHaveTextContent("does not unlock OFF fields");
-    expect(uiMessageSlot).toHaveAttribute("data-rendering-state", "deferred-to-ch-t03");
+    expect(uiMessageSlot).toHaveAttribute("data-rendering-state", "bounded-rendered");
     expect(uiMessageSlot).toHaveAttribute("data-message-source", "ui_messages");
+    expect(uiMessageSlot).toHaveAttribute("data-message-count", "4");
+    expect(screen.getAllByTestId("coverage-health-ui-message")).toHaveLength(4);
+    expect(
+      screen.getByText("Resolved from fully artificial mock fixture; no URL, storage, real data, or deployment authority.")
+    ).toBeInTheDocument();
+    expect(uiMessageSlot).not.toHaveTextContent("recommended_action");
     expect(sourceSlot).toHaveAttribute("data-live-source-health", "not-implemented");
     expect(regressionSlot).toHaveAttribute("data-cross-surface-hardening", "deferred");
     expect(within(surface).queryByRole("button")).not.toBeInTheDocument();

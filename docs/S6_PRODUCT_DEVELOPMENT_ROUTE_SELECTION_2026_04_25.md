@@ -3304,3 +3304,62 @@ Next route:
 ```text
 WAIT_FOR_JARVIS_TO_SELECT_AP_T03_REVIEW_CH_T03_IMPLEMENTATION_SH_T04_RECONCILIATION_OR_MV_T03_DEPENDENCY_PATH
 ```
+
+## 96. Update 2026-04-28: Implementation GO Batch Partial Activation
+
+Records:
+
+```text
+docs/S6_AP_T03_APPROVAL_CTA_BOUNDARY_IMPLEMENTATION_CLOSEOUT_2026_04_28.md
+docs/S6_CH_T03_UI_MESSAGES_RENDERING_IMPLEMENTATION_CLOSEOUT_2026_04_28.md
+docs/S6_SH_T04_SEARCH_HISTORY_SCOPE_RECONCILIATION_CLOSEOUT_2026_04_28.md
+docs/S6_MV_T03_DEEP_LINK_AUTHORITY_IMPLEMENTATION_HOLD_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T03_CH_T03_IMPLEMENTED_SH_T04_RECONCILED_MV_T03_HOLD_PENDING_CLOSEOUT_AUTHORIZATION
+```
+
+Interpretation:
+
+- Jarvis authorized implementation GO for the checklist batch.
+- `AP-T03` implementation activated and is bounded to inert P2-only CTA boundary behavior.
+- `CH-T03` implementation activated and is bounded to exact `ui_messages` keys inside Coverage & Health.
+- `SH-T04` closes as no-code reconciliation candidate; no implementation is required.
+- `MV-T03` remains HOLD because `AP-T08` / `SH-T08` dependency proof or explicit cross-surface authority review PASS is still missing.
+- Gates passed: frontend tests 79, frontend build PASS, backend guard 42.
+- Jira cloud sync was not attempted because Jira environment variables are not visible in the current process.
+- Final closeout still requires Claude Code focused review for implementation diffs and Jarvis stage/commit/push authorization.
+
+Next route:
+
+```text
+WAIT_FOR_CLOSEOUT_REVIEW_AND_STAGE_COMMIT_PUSH_AUTHORIZATION_OR_OPEN_AP_T08_SH_T08_AUTHORITY_PATH
+```
+
+## 97. Update 2026-04-28: AP-T03 / CH-T03 / SH-T04 Closeout Authorization
+
+Decision:
+
+```text
+AP_T03_CH_T03_SH_T04_CLOSEOUT_AUTHORIZED_MV_T03_HOLD_RECORDED
+```
+
+Interpretation:
+
+- Jarvis authorized closeout stage/commit/push for `AP-T03`, `CH-T03`, and `SH-T04`, with `MV-T03` HOLD recorded in the same commit.
+- Claude Code focused review returned `PASS_WITH_FINDINGS` with no blocking findings for the implementation diff.
+- The only AP-T03 note was to confirm `action_permissions` was pre-existing; confirmed in `ResolvedSurfaceContext` type and fixture adapter.
+- `AP-T03` is accepted as implemented.
+- `CH-T03` is accepted as implemented.
+- `SH-T04` is accepted as no-code reconciled.
+- `MV-T03` remains HOLD pending `AP-T08` / `SH-T08` dependency proof or explicit authority review PASS.
+- Jira sync was not performed because Jira environment variables are not visible in the current process.
+
+Next route:
+
+```text
+OPEN_AP_T04_OR_AP_T05_CHECKLIST_OR_OPEN_AP_T08_SH_T08_AUTHORITY_PATH
+```

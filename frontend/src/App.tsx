@@ -44,6 +44,7 @@ type ExpertModeEntryState = "entry_skeleton" | "p1_restricted" | "not_applicable
 type ARStatusTone = "pending" | "approved" | "observing" | "rejected" | "locked" | "none";
 type ARInteractionClass = "non-terminal" | "terminal" | "locked" | "none";
 type ARActionAuthority = "p2-only" | "display-only";
+type ApprovalCtaId = "approve_action" | "reject_action" | "delay_action" | "observe_only_action";
 
 interface NavItem {
   label: string;
@@ -212,6 +213,18 @@ const AR_STATUS_DISPLAY: Record<
     interactionClass: "locked"
   }
 };
+const APPROVAL_CTA_LABELS: Array<{ id: ApprovalCtaId; label: string }> = [
+  { id: "approve_action", label: "Approve" },
+  { id: "reject_action", label: "Reject" },
+  { id: "delay_action", label: "Delay" },
+  { id: "observe_only_action", label: "Observe" }
+];
+const COVERAGE_HEALTH_UI_MESSAGE_KEYS = [
+  "fixture_status",
+  "phase_name",
+  "expected_ui",
+  "mock_only_notice"
+] as const;
 
 function getARStatusDisplay(
   arStatus: ARStatus | null,
@@ -240,6 +253,13 @@ function getARStatusDisplay(
       arStatus === "PENDING_APPROVAL" && role === "P2" ? "p2-only" : "display-only",
     stateMigration: "none"
   };
+}
+
+function formatUiMessageValue(value: string | string[] | null): string {
+  if (Array.isArray(value)) {
+    return value.join(" / ");
+  }
+  return value ?? "Unavailable";
 }
 
 function toRisk(value: string): "High" | "Critical" {
@@ -868,6 +888,11 @@ function ApprovalRouteShell({
   const actionRequest = activeContext.action_request;
   const arStatusDisplay = getARStatusDisplay(actionRequest?.ar_status ?? null, role);
   const isReadOnlyApprovalShell = role === "P0";
+  const canRenderApprovalCtas =
+    role === "P2" &&
+    activeContext.surface === "P2_APPROVAL" &&
+    actionRequest?.ar_status === "PENDING_APPROVAL" &&
+    arStatusDisplay.actionAuthority === "p2-only";
 
   if (role === "P1" || role === "P3") {
     const redirectTarget = role === "P1" ? "/inbox" : "/manager";
@@ -950,9 +975,49 @@ function ApprovalRouteShell({
           </div>
           <div>
             <dt>Control state</dt>
-            <dd>No approve, reject, delay, or observe controls attached</dd>
+            <dd>
+              {canRenderApprovalCtas
+                ? "AP-T03 CTA boundary attached; action wiring is not implemented"
+                : "No approve, reject, delay, or observe controls attached"}
+            </dd>
           </div>
         </dl>
+        {canRenderApprovalCtas ? (
+          <div
+            className="approval-cta-boundary"
+            data-action-authority="p2-only"
+            data-action-wiring="not-implemented"
+            data-ar-status={actionRequest.ar_status}
+            data-state-mutation="none"
+            data-testid="approval-cta-boundary"
+          >
+            <div>
+              <p className="section-kicker">AP-T03</p>
+              <h2>Approval action boundary</h2>
+              <p>
+                P2 may see bounded CTA labels for a pending request. Buttons are inert and do not
+                create ActionMode or state transition.
+              </p>
+            </div>
+            <div className="approval-cta-grid" aria-label="Approval action boundary">
+              {APPROVAL_CTA_LABELS.map((cta) => (
+                <button
+                  className="approval-cta"
+                  data-action-id={cta.id}
+                  data-action-permission={activeContext.action_permissions[cta.id] ?? "HIDDEN"}
+                  data-action-wiring="not-implemented"
+                  data-state-mutation="none"
+                  data-testid={`approval-cta-${cta.id}`}
+                  disabled
+                  key={cta.id}
+                  type="button"
+                >
+                  {cta.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
         {!actionRequest ? (
           <p
             className="approval-safe-empty"
@@ -1459,7 +1524,10 @@ function CoverageHealthView({
   const isAllowedRole = role === "P0" || role === "P2";
   const coverage = activeContext.case.coverage_level;
   const effectiveVisibility = activeContext.resolved_visibility.effective_visibility_level;
-  const uiMessageSlotCount = Object.keys(activeContext.ui_messages).length;
+  const availableCoverageHealthMessages = COVERAGE_HEALTH_UI_MESSAGE_KEYS.map((key) => ({
+    key,
+    value: activeContext.ui_messages[key]
+  })).filter((message) => message.value !== undefined);
 
   return (
     <section
@@ -1539,14 +1607,39 @@ function CoverageHealthView({
               <p>Coverage level remains the hard ceiling. This slot does not unlock OFF fields.</p>
             </article>
             <article
-              data-health-slot="ui-message-deferred"
+              data-health-slot="ui-messages"
+              data-message-count={availableCoverageHealthMessages.length}
               data-message-source="ui_messages"
-              data-rendering-state="deferred-to-ch-t03"
+              data-rendering-state={
+                availableCoverageHealthMessages.length > 0 ? "bounded-rendered" : "unavailable"
+              }
               data-testid="coverage-health-ui-message-slot"
             >
               <span>Signal message slot</span>
-              <strong>{uiMessageSlotCount} mock slots</strong>
-              <p>Hard-constraint ui_messages copy is deferred to CH-T03 patch-gate work.</p>
+              <strong>{availableCoverageHealthMessages.length} governed slots</strong>
+              {availableCoverageHealthMessages.length > 0 ? (
+                <ul className="coverage-health-ui-messages" aria-label="Coverage health messages">
+                  {availableCoverageHealthMessages.map((message) => (
+                    <li
+                      data-message-source="ui_messages"
+                      data-testid="coverage-health-ui-message"
+                      data-ui-message-key={message.key}
+                      key={message.key}
+                    >
+                      <span>{message.key}</span>
+                      <p>{formatUiMessageValue(message.value ?? null)}</p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p
+                  data-message-source="ui_messages"
+                  data-rendering-state="unavailable"
+                  data-testid="coverage-health-ui-message-unavailable"
+                >
+                  No governed ui_messages are available in the current mock context.
+                </p>
+              )}
             </article>
             <article
               data-health-slot="source-health"
