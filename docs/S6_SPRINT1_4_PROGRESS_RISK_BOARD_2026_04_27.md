@@ -157,6 +157,7 @@ docs\S6_AP_T04_T05_T07_BOUNDED_AUTOMATION_QUEUE_2026_04_28.md
 docs\S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
 docs\S6_AP_T06_OBSERVATION_WINDOW_READINESS_CHECKLIST_2026_04_28.md
 docs\S6_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_CLOSEOUT_2026_04_28.md
+docs\S6_CONTINUOUS_BOUNDED_BURN_POOL_2026_04_28.md
 ```
 
 Queue purpose:
@@ -198,6 +199,16 @@ AP-T08/SH-T08 narrow implementation checklist
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
+Current continuous burn pool:
+
+```text
+AP-T08 HOLD pending external authority review
+SH-T08 HOLD pending AP-T08 and exact approval-audit source frame/semantic skeleton
+CD-T06 PARTIAL_UNBLOCK, full HOLD pending renderable CLOSED context
+AP-T09 HOLD pending AP-T08 and VF-15; Jira `SCRUM-67`
+MV-T04 HOLD pending AP-T08, SH-T08, and external authority review; Jira `SCRUM-68`
+```
+
 Latest relaunch checklist:
 
 ```text
@@ -220,12 +231,19 @@ AP-T04/AP-T05/AP-T07 Jira Done
 AP-T06A Jira Done as `SCRUM-65`; AP-T06 parent readiness remains open as `SCRUM-64`
 AP-T08/SH-T08 Jira To Do with checklist-only notes
 MV-T03 Jira Done as `SCRUM-66`
+AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 ```
 
 Best next automation burn-down path:
 
 ```text
 AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> safe Jira parity sync
+```
+
+Updated next burn-down path:
+
+```text
+AP-T08/MV-T04 Claude Web authority review pack OR CD-T06 CLOSED context unblock checklist
 ```
 
 Best next risk-reduction path:

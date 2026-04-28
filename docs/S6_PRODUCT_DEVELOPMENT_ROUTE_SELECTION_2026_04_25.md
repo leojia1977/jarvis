@@ -3532,3 +3532,43 @@ Next route:
 ```text
 OPEN_AP_T08_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST_OR_NEXT_BOUNDED_BURN_DOWN_QUEUE
 ```
+
+## 103. Update 2026-04-28: Continuous Bounded Burn Pool
+
+Burn pool record:
+
+```text
+docs/S6_CONTINUOUS_BOUNDED_BURN_POOL_2026_04_28.md
+```
+
+Checklist records:
+
+```text
+docs/S6_AP_T08_NARROW_IMPLEMENTATION_CHECKLIST_2026_04_28.md
+docs/S6_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST_2026_04_28.md
+docs/S6_CD_T06_RELAUNCH_AFTER_VF11_VF12_VF13_PASS_2026_04_28.md
+docs/S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_CHECKLIST_2026_04_28.md
+docs/S6_MV_T04_APPROVAL_AUDIT_SUMMARY_AUTHORITY_CHECKLIST_2026_04_28.md
+```
+
+Decision:
+
+```text
+BURN_POOL_RECORDED_CHECKLISTS_EXECUTED_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- `AP-T08` source legality is proven, but implementation remains HOLD pending external architecture/governance review because it defines the approval audit chain boundary.
+- `SH-T08` remains HOLD pending AP-T08 and an exact Search/History approval-audit source visual/frame or approved semantic skeleton.
+- `CD-T06` is partially unblocked because `VF-11`, `VF-12`, and `VF-13` v0.2 are PASS, but full CD-T06 remains HOLD because no renderable `CLOSED` Case Detail context exists without fixture/context expansion.
+- `AP-T09` remains HOLD pending AP-T08 and `VF-15` audit empty/unavailable state input.
+- `MV-T04` remains HOLD pending AP-T08, SH-T08, and external architecture/governance review.
+- Jira cloud is synchronized without Done transitions: comments were added to `SCRUM-62`, `SCRUM-63`, and `SCRUM-53`; `SCRUM-67 [AP-T09]` and `SCRUM-68 [MV-T04]` were created as `待办`.
+- No code, frontend, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, external pilot, or Jira Done transition is authorized by this burn-pool pass.
+
+Next route:
+
+```text
+OPEN_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_OR_OPEN_CD_T06_CLOSED_CONTEXT_UNBLOCK_CHECKLIST
+```
