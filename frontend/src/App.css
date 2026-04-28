@@ -545,6 +545,7 @@ button {
 
 .history-guard-panel,
 .history-focus-scope-panel,
+.history-empty-state-split,
 .history-manager-handoff,
 .history-case-row {
   display: grid;
@@ -572,8 +573,33 @@ button {
   background: #f7faf9;
 }
 
+.history-empty-state-split {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-color: #d9e0dc;
+  background: #fbfcf8;
+}
+
+.history-empty-state {
+  min-width: 0;
+  border: 1px solid #e1e8e2;
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.history-empty-state[data-empty-state-kind="degraded"][data-empty-state-status="active"] {
+  border-color: #d7b46a;
+  background: #fff9e8;
+}
+
+.history-empty-state[data-empty-state-kind="structural"] {
+  border-color: #cbd8dd;
+  background: #f6fafb;
+}
+
 .history-guard-panel h2,
 .history-focus-scope-panel h2,
+.history-empty-state h2,
 .history-manager-handoff h2,
 .history-case-row h2 {
   margin: 0;
@@ -584,6 +610,7 @@ button {
 
 .history-guard-panel p,
 .history-focus-scope-panel p,
+.history-empty-state p,
 .history-manager-handoff p,
 .history-case-row p {
   margin: 8px 0 0;
@@ -2350,6 +2377,7 @@ button {
   }
 
   .history-guard-panel,
+  .history-empty-state-split,
   .history-manager-handoff,
   .historical-case-list-item,
   .approval-shell-header,

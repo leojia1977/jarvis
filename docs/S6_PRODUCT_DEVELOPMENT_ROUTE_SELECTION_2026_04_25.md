@@ -3795,3 +3795,39 @@ Next route:
 ```text
 OPEN_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CHECKLIST
 ```
+
+## 111. Update 2026-04-28: SH-T06 Structural / Degraded Empty State Closeout
+
+Checklist:
+
+```text
+docs/S6_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CHECKLIST_2026_04_28.md
+```
+
+Closeout:
+
+```text
+docs/S6_SH_T06_STRUCTURAL_DEGRADED_EMPTY_STATE_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+SH_T06_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS
+```
+
+Interpretation:
+
+- `SH-T06` now renders distinct Search / History semantic anchors for `structural-empty-state` and `degraded-empty-state`.
+- The degraded empty state is active when coverage clamp leaves historical fields unavailable; the structural empty state is marked `not-current-result` so downstream tests have a stable anchor without claiming the current mock fixture returned an empty query result.
+- Both empty-state anchors preserve `data-message-source="ui_messages"` and tests prove they do not collapse into a generic `No data` state.
+- No Search / History write actions, approval controls, AP mutation, `ActionMode`, P3 Manager output, route handoff payload, backend/runtime/API/schema, fixture registry/adapter/validator/`ResolvedSurfaceContext`, raw evidence DOM, real-data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+- Gates passed: frontend tests 84, frontend build, pilot preflight/release verification with backend guard 164, and `git diff --check` with Windows line-ending warnings only.
+- Claude Code focused review returned `VERDICT: PASS` after the real diff was supplied directly.
+- Jira sync remains pending because Jira environment variables were not visible in the runner process.
+
+Next route:
+
+```text
+OPEN_CD_T06A_EXISTING_STATE_HEADER_SKELETON_CHECKLIST
+```

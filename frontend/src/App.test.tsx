@@ -390,6 +390,8 @@ describe("SecuPilot first-batch workbench slice", () => {
     const scopeItems = screen.getAllByTestId("history-focus-scope");
     const historicalListItem = within(historySurface).getByTestId("historical-case-list-item");
     const coverageLabels = screen.getByTestId("dual-coverage-label-block");
+    const structuralEmptyState = screen.getByTestId("structural-empty-state");
+    const degradedEmptyState = screen.getByTestId("degraded-empty-state");
     const approvalAuditAnchor = screen.getByTestId("view-approval-audit");
 
     expect(screen.getByRole("heading", { name: "History guard" })).toBeInTheDocument();
@@ -415,6 +417,21 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("historical-upgrade-blocked-notice")).toHaveTextContent(
       /history integrity protection/i
     );
+    expect(structuralEmptyState).toHaveAttribute("data-empty-state-kind", "structural");
+    expect(structuralEmptyState).toHaveAttribute(
+      "data-empty-state-status",
+      "not-current-result"
+    );
+    expect(structuralEmptyState).toHaveAttribute("data-message-source", "ui_messages");
+    expect(structuralEmptyState).toHaveTextContent(/No matching historical case/i);
+    expect(structuralEmptyState).not.toHaveTextContent(/^No data$/i);
+    expect(degradedEmptyState).toHaveAttribute("data-empty-state-kind", "degraded");
+    expect(degradedEmptyState).toHaveAttribute("data-empty-state-status", "active");
+    expect(degradedEmptyState).toHaveAttribute("data-message-source", "ui_messages");
+    expect(degradedEmptyState).toHaveAttribute("data-effective-visibility", "L2");
+    expect(degradedEmptyState).toHaveTextContent(/coverage clamp/i);
+    expect(degradedEmptyState).not.toHaveTextContent(/^No data$/i);
+    expect(degradedEmptyState).not.toHaveTextContent(/No matching historical case/i);
     expect(focusScopes).toHaveAttribute("data-focus-authority", "hint-only");
     expect(focusScopes).toHaveAttribute("data-requested-focus", "raw_technical");
     expect(focusScopes).toHaveAttribute("data-effective-focus", "summary");

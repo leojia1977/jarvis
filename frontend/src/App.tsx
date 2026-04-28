@@ -1974,6 +1974,44 @@ function SearchHistoryView({
         </ul>
       </section>
 
+      <section
+        aria-label="History empty-state split"
+        className="history-empty-state-split"
+        data-frame-state="hf-sh-02-v0-2-pass"
+        data-testid="history-empty-state-split"
+      >
+        <article
+          className="history-empty-state"
+          data-empty-state-kind="structural"
+          data-empty-state-status="not-current-result"
+          data-message-source="ui_messages"
+          data-testid="structural-empty-state"
+        >
+          <p className="section-kicker">SH-T06</p>
+          <h2>Structural empty</h2>
+          <p>
+            No matching historical case is available under the current visibility scope.
+          </p>
+        </article>
+        <article
+          className="history-empty-state"
+          data-effective-visibility={effectiveCoverage}
+          data-empty-state-kind="degraded"
+          data-empty-state-status={isClamped ? "active" : "not-active"}
+          data-message-source="ui_messages"
+          data-recorded-coverage={recordedCoverage}
+          data-testid="degraded-empty-state"
+        >
+          <p className="section-kicker">SH-T06</p>
+          <h2>Degraded empty</h2>
+          <p>
+            {isClamped
+              ? "Some historical fields are unavailable after coverage clamp; no field is reconstructed."
+              : "No historical fields are omitted by coverage clamp for this route."}
+          </p>
+        </article>
+      </section>
+
       {canRenderManagerHandoff ? (
         <article
           className="history-manager-handoff"
