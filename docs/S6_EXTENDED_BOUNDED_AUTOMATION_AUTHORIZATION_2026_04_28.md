@@ -173,6 +173,11 @@ Jira mapping proposal has since been prepared for `SH-T02`, `SH-T06`, and
 The runner must not create dedicated Jira issues, attach parent comments, or
 transition any additional Jira issues Done without a later exact mapping GO.
 
+`SH-T09` reconciliation closeout prep has since been prepared. It makes the
+future no-code closeout executable after explicit GO, but it does not close
+`SH-T09`, mutate Jira, or authorize implementation. The runner must not mark
+`SH-T09` Done without later reconciliation GO and gate evidence.
+
 Idle fallback is governed by:
 
 ```text

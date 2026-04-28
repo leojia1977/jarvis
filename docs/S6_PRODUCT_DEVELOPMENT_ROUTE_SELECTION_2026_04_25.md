@@ -4300,3 +4300,31 @@ Next route:
 ```text
 WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 128. Update 2026-04-29: SH-T09 Reconciliation Closeout Prep
+
+Prep record:
+
+```text
+docs/S6_SH_T09_RECONCILIATION_CLOSEOUT_PREP_2026_04_29.md
+```
+
+Decision:
+
+```text
+SH_T09_RECONCILIATION_CLOSEOUT_PREP_READY_NO_CLOSEOUT
+```
+
+Interpretation:
+
+- The future `SH-T09` no-code reconciliation closeout now has a fixed authorization phrase, dependency evidence list, docs-only allowed files, gate commands, and HOLD conditions.
+- This prep does not close `SH-T09`.
+- It does not transition Jira, create Jira issues, or authorize implementation.
+- If the future closeout discovers that code is needed, it must HOLD and create a new exact bounded implementation checklist.
+- The Jira mapping proposal for `SH-T02`, `SH-T06`, and `EP-T06` remains separate and requires its own exact mapping GO before any cloud mutation.
+
+Next route:
+
+```text
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```
