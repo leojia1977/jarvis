@@ -178,6 +178,11 @@ future no-code closeout executable after explicit GO, but it does not close
 `SH-T09`, mutate Jira, or authorize implementation. The runner must not mark
 `SH-T09` Done without later reconciliation GO and gate evidence.
 
+`MV-T04` implementation GO prep has since been prepared. It makes `MV-T04` an
+exact future implementation candidate after explicit GO, but it does not
+implement, mutate Jira, close `MV-T04`, or close `MV-T05`. The runner must not
+start MV-T04 implementation without later explicit GO.
+
 Idle fallback is governed by:
 
 ```text
@@ -198,5 +203,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```

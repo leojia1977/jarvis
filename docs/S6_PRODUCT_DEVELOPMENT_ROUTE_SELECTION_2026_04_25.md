@@ -4328,3 +4328,31 @@ Next route:
 ```text
 WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 129. Update 2026-04-29: MV-T04 Implementation GO Prep
+
+Prep record:
+
+```text
+docs/S6_MV_T04_IMPLEMENTATION_GO_PREP_2026_04_29.md
+```
+
+Decision:
+
+```text
+MV_T04_IMPLEMENTATION_GO_PREP_READY_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- `MV-T04` now has a fixed future implementation GO envelope after `AP-T08`, `SH-T08`, Claude Web `PASS_WITH_NOTES`, source-order PASS, `MV-T01`, and `MV-T03` evidence.
+- Future implementation is limited to a P3-only read-only Manager approval audit summary sourced only from existing `activeContext.audit_trail`.
+- The future implementation must use the fixed AP-T08/SH-T08 derived-status mapping.
+- This prep does not implement, mutate Jira, transition `SCRUM-68`, close `MV-T04`, or close `MV-T05`.
+- The runner must not start `MV-T04` implementation without later explicit implementation GO.
+
+Next route:
+
+```text
+WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```
