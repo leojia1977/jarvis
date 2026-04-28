@@ -246,6 +246,14 @@ Updated next burn-down path:
 AP-T08/MV-T04 Claude Web authority review pack OR CD-T06 CLOSED context unblock checklist
 ```
 
+Current authority review pack:
+
+```text
+docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_2026_04_28.md
+Status: READY_FOR_CLAUDE_WEB_REVIEW
+AP-T08 / MV-T04 remain HOLD until review verdict is recorded.
+```
+
 Best next risk-reduction path:
 
 ```text

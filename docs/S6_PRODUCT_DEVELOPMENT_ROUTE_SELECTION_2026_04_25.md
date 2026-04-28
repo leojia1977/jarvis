@@ -3572,3 +3572,30 @@ Next route:
 ```text
 OPEN_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_OR_OPEN_CD_T06_CLOSED_CONTEXT_UNBLOCK_CHECKLIST
 ```
+
+## 104. Update 2026-04-28: AP-T08 / MV-T04 Claude Web Authority Review Pack
+
+Review pack:
+
+```text
+docs/S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_READY
+```
+
+Interpretation:
+
+- The pack is ready for Claude Web architecture/governance review.
+- The review scope is AP-T08 approval audit source boundary and MV-T04 P3 approval audit summary authority.
+- This pack asks Claude Web to decide whether AP-T08 can proceed to a narrow implementation checklist using only existing `activeContext.audit_trail`, and whether MV-T04 can later render a P3-only read-only approval audit summary without raw evidence, controls, route/storage authority, backend/runtime/API/schema, or fixture/context changes.
+- No implementation, Jira Done transition, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, external pilot, stage, commit, or push is authorized by the review pack itself.
+
+Next route:
+
+```text
+WAIT_FOR_CLAUDE_WEB_AP_T08_MV_T04_AUTHORITY_VERDICT
+```
