@@ -3435,3 +3435,38 @@ Next route:
 ```text
 OPEN_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_IMPLEMENTATION_GO_OR_OPEN_MV_T03_RELAUNCH_CHECKLIST
 ```
+
+## 100. Update 2026-04-28: Visual Baseline PASS + AP-T06A Static Skeleton Closeout
+
+Records:
+
+```text
+docs/S6_VISUAL_BASELINE_VF03_VF11_VF12_VF13_RECONCILIATION_2026_04_28.md
+docs/S6_AP_T06_OBSERVATION_WINDOW_READINESS_CHECKLIST_2026_04_28.md
+docs/S6_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_CLOSEOUT_2026_04_28.md
+```
+
+Decision:
+
+```text
+VISUAL_BASELINE_READY_FOR_STORYBOOK_PLAYWRIGHT_SPRINT_IMPLEMENTATION
+AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+AP_T06_FULL_COUNTDOWN_STATE_SYNC_REMAINS_HOLD
+```
+
+Interpretation:
+
+- `VF-03`, `VF-11`, `VF-12`, and `VF-13` v0.2 visual-negative inputs are accepted as PASS references.
+- The older recommendation to reopen E0-02B / E0-03 / E0-04 / Sprint 0 Exit Review is stale for the current repo state; those items are already closed and Sprint 1-4 bounded implementation is active.
+- AP-T06A implements only the static `OBSERVATION_WINDOW` readonly skeleton using existing fixture data.
+- Per `VF-11`, observation-window controls are mounted but disabled and `aria-disabled="true"`, including `view-details-button`.
+- The active AP-T03 CTA boundary is not mounted in observation-window state.
+- Gates passed: frontend tests 81, frontend build PASS, Playwright 10 PASS, pilot preflight/backend 164 PASS, `git diff --check` PASS with line-ending warnings only, and Claude Code focused review PASS.
+- Jira `SCRUM-65` is created and completed for AP-T06A. Jira `SCRUM-64` remains open because full AP-T06 countdown/state-sync is still HOLD.
+- No backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, or external pilot scope was introduced.
+
+Next route:
+
+```text
+OPEN_MV_T03_RELAUNCH_CHECKLIST_OR_AP_T08_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST
+```

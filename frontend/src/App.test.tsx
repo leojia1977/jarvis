@@ -4,6 +4,7 @@ import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.
 import App from "./App";
 
 const APPROVED_PENDING_EXECUTION_PHASE = 5;
+const OBSERVATION_WINDOW_PHASE = 3;
 
 function panelTitle(panelId: string) {
   return (
@@ -146,6 +147,44 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(
       screen.queryByRole("button", { name: /approve|reject|delay|observe|revoke|withdraw|reopen/i })
     ).not.toBeInTheDocument();
+  });
+
+  it("renders AP-T06A observation window as a read-only static skeleton", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={OBSERVATION_WINDOW_PHASE} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    const statusPill = screen.getByTestId("approval-ar-status-pill");
+    const observationBoundary = screen.getByTestId("approval-observation-window-skeleton");
+
+    expect(statusPill).toHaveAttribute("data-ar-status", "OBSERVATION_WINDOW");
+    expect(observationBoundary).toHaveAttribute("data-ar-status", "OBSERVATION_WINDOW");
+    expect(observationBoundary).toHaveAttribute("data-observation-window-readonly", "true");
+    expect(observationBoundary).toHaveAttribute("data-timer-authority", "none");
+    expect(observationBoundary).toHaveAttribute("data-state-sync", "not-implemented");
+    expect(observationBoundary).toHaveAttribute("data-state-migration", "none");
+    expect(observationBoundary).toHaveAttribute("data-vf-11-state", "pass-input-skeleton-only");
+    expect(screen.getByTestId("observation-window-total")).toHaveTextContent("60 min");
+    expect(screen.getByTestId("observation-window-remaining")).toHaveTextContent("60 min");
+    expect(screen.getByTestId("observation-expiry-action")).toHaveTextContent(
+      "RETURN_TO_PENDING_APPROVAL"
+    );
+    expect(screen.queryByTestId("approval-cta-boundary")).not.toBeInTheDocument();
+    for (const id of [
+      "approve-mode-button",
+      "reject-mode-button",
+      "delay-decision-button",
+      "observe-only-button",
+      "view-details-button"
+    ]) {
+      expect(screen.getByTestId(id)).toBeDisabled();
+      expect(screen.getByTestId(id)).toHaveAttribute("aria-disabled", "true");
+    }
+    expect(screen.getByTestId("view-details-button")).toHaveAttribute(
+      "data-disabled-reason",
+      "active-observation-window"
+    );
   });
 
   it("hard redirects non-P2 approval route access without URL or storage authority", async () => {

@@ -516,6 +516,22 @@ function clampCoverageRequest(
     : requestedCoverage;
 }
 
+function auditRecordNumber(
+  event: Record<string, unknown> | undefined,
+  key: string
+): number | null {
+  const value = event?.[key];
+  return typeof value === "number" ? value : null;
+}
+
+function auditRecordString(
+  event: Record<string, unknown> | undefined,
+  key: string
+): string | null {
+  const value = event?.[key];
+  return typeof value === "string" ? value : null;
+}
+
 function resolveExpertModeEntry(
   role: Role,
   coverage: CoverageLevel
@@ -907,6 +923,22 @@ function ApprovalRouteShell({
     role === "P2" &&
     activeContext.surface === "P2_APPROVAL" &&
     actionRequest?.ar_status === "APPROVED_PENDING_EXECUTION";
+  const canRenderObservationWindowSkeleton =
+    role === "P2" &&
+    activeContext.surface === "P2_APPROVAL" &&
+    actionRequest?.ar_status === "OBSERVATION_WINDOW";
+  const observationWindowEvent = canRenderObservationWindowSkeleton
+    ? activeContext.audit_trail.find((event) => event.event === "OBSERVE_ONLY_SELECTED")
+    : undefined;
+  const observationWindowMinutes =
+    actionRequest?.observation_window_minutes ??
+    auditRecordNumber(observationWindowEvent, "observation_window_minutes");
+  const observationRemainingMinutes =
+    actionRequest?.observation_window_remaining_minutes ?? observationWindowMinutes;
+  const observationExpiryAction =
+    actionRequest?.observation_expiry_action ??
+    auditRecordString(observationWindowEvent, "observation_expiry_action") ??
+    auditRecordString(observationWindowEvent, "expiry_action");
 
   useEffect(() => {
     if (!canRenderApprovalCtas) {
@@ -1059,8 +1091,10 @@ function ApprovalRouteShell({
               {canRenderApprovalCtas
                 ? "AP-T04/AP-T05 shell-only action boundary attached; state mutation is disabled"
                 : canRenderApprovedPendingLock
-                  ? "AP-T07 locked state skeleton attached; VF-12 visual PASS pending"
-                  : "No approve, reject, delay, or observe controls attached"}
+                  ? "AP-T07 locked state skeleton attached; VF-12 visual PASS recorded"
+                  : canRenderObservationWindowSkeleton
+                    ? "AP-T06A observation-window readonly skeleton attached; controls disabled"
+                    : "No approve, reject, delay, or observe controls attached"}
             </dd>
           </div>
         </dl>
@@ -1116,6 +1150,100 @@ function ApprovalRouteShell({
               This request is locked and read-only in the frontend. Execution status, reopen,
               revoke, and withdraw behavior are outside this bounded slice.
             </p>
+          </div>
+        ) : null}
+        {canRenderObservationWindowSkeleton ? (
+          <div
+            className="approval-observation-boundary"
+            data-ar-status={actionRequest.ar_status}
+            data-observation-window-readonly="true"
+            data-state-migration="none"
+            data-state-sync="not-implemented"
+            data-testid="approval-observation-window-skeleton"
+            data-timer-authority="none"
+            data-vf-11-state="pass-input-skeleton-only"
+            data-visual-state="skeleton"
+          >
+            <div>
+              <p className="section-kicker">AP-T06A / VF-11</p>
+              <h2>Observation window active</h2>
+              <p>
+                This is a static readonly observation-window skeleton. Remaining time is display
+                evidence only; material state migration still requires governed state sync.
+              </p>
+            </div>
+            <dl className="approval-observation-facts">
+              <div>
+                <dt>Total window</dt>
+                <dd data-testid="observation-window-total">
+                  {observationWindowMinutes === null ? "Unavailable" : `${observationWindowMinutes} min`}
+                </dd>
+              </div>
+              <div>
+                <dt>Remaining</dt>
+                <dd data-testid="observation-window-remaining">
+                  {observationRemainingMinutes === null
+                    ? "Unavailable"
+                    : `${observationRemainingMinutes} min`}
+                </dd>
+              </div>
+              <div>
+                <dt>Expiry action</dt>
+                <dd data-testid="observation-expiry-action">
+                  {observationExpiryAction ?? "Unavailable"}
+                </dd>
+              </div>
+            </dl>
+            <div
+              aria-label="Readonly observation controls"
+              className="approval-disabled-controls"
+              data-action-wiring="none"
+              data-state-mutation="none"
+            >
+              <button
+                aria-disabled="true"
+                data-testid="approve-mode-button"
+                disabled
+                type="button"
+              >
+                Approve
+              </button>
+              <button
+                aria-disabled="true"
+                data-testid="reject-mode-button"
+                disabled
+                type="button"
+              >
+                Reject
+              </button>
+              <button
+                aria-disabled="true"
+                data-testid="delay-decision-button"
+                disabled
+                type="button"
+              >
+                Delay
+              </button>
+              <button
+                aria-disabled="true"
+                data-testid="observe-only-button"
+                disabled
+                type="button"
+              >
+                Observe
+              </button>
+              {/* view-details-button: secondary case navigation, disabled during active observation window. */}
+              <button
+                aria-disabled="true"
+                data-action-type="secondary-case-navigation"
+                data-disabled-reason="active-observation-window"
+                data-testid="view-details-button"
+                disabled
+                type="button"
+              >
+                View details
+              </button>
+            </div>
           </div>
         ) : null}
         {activeApprovalDraft && activeApprovalCta && actionRequest ? (

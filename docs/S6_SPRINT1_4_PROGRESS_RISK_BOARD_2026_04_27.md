@@ -63,7 +63,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `AP-T03` | Sprint 2 | Approval CTA boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-56`. |
 | `AP-T04` | Sprint 2 | Strong Confirm modal semantic shell implemented, gated, reviewed, Jira-synced as `SCRUM-59`. |
 | `AP-T05` | Sprint 2 | Delay / observe configuration semantic shell implemented, gated, reviewed, Jira-synced as `SCRUM-60`. |
-| `AP-T07` | Sprint 2 | Approved-pending locked-state semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-61`; final `VF-12` visual PASS pending. |
+| `AP-T07` | Sprint 2 | Approved-pending locked-state semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-61`; `VF-12` v0.2 visual PASS now recorded as input. |
 | `CH-T03` | Sprint 4 | Bounded Coverage & Health `ui_messages` rendering implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-57`. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure implemented, gated, reviewed, Jira-synced as `SCRUM-49`. |
 | `SH-T04` | Sprint 3A | Search/History scope no-code reconciliation accepted, Jira-synced as `SCRUM-58`. |
@@ -104,7 +104,7 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | Ticket | Sprint | Primary blocker |
 | --- | --- | --- |
 | `IN-T03` | Sprint 1 | P2 shortcut approval/close entry depends on later AP CTA semantics; `AP-T10` display mapping is now available but not sufficient. |
-| `AP-T06` | Sprint 2 | Static read-only skeleton candidate identified; full countdown/state-sync remains HOLD pending exact state-sync input, test hook, and `VF-11`; Jira `SCRUM-64`. |
+| `AP-T06` | Sprint 2 | AP-T06A static read-only skeleton implemented as `SCRUM-65`; full countdown/state-sync remains HOLD pending exact state-sync input and test hook; parent readiness Jira `SCRUM-64` remains not Done. |
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
 | `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
@@ -156,18 +156,19 @@ Active non-tracker automation queue:
 docs\S6_AP_T04_T05_T07_BOUNDED_AUTOMATION_QUEUE_2026_04_28.md
 docs\S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md
 docs\S6_AP_T06_OBSERVATION_WINDOW_READINESS_CHECKLIST_2026_04_28.md
+docs\S6_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_CLOSEOUT_2026_04_28.md
 ```
 
 Queue purpose:
 
 ```text
-AP-T04/AP-T05/AP-T07 bounded implementation plus AP-T08/SH-T08 source proof and AP-T06 readiness split
+AP-T04/AP-T05/AP-T07 bounded implementation plus AP-T08/SH-T08 source proof and AP-T06A static skeleton split
 ```
 
 Latest queue output:
 
 ```text
-AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 source proof PASS but not Done; AP-T06 full countdown HOLD
+AP-T04/AP-T05/AP-T07 implemented and Jira-synced; AP-T08/SH-T08 source proof PASS but not Done; AP-T06A implemented as `SCRUM-65`; full AP-T06 countdown/state-sync HOLD
 ```
 
 Latest implementation batch:
@@ -176,6 +177,7 @@ Latest implementation batch:
 AP-T04 strong confirm shell
 AP-T05 delay/observe config shell
 AP-T07 approved-pending lock skeleton
+AP-T06A static observation-window readonly skeleton
 ```
 
 Checklist-only path:
@@ -183,13 +185,12 @@ Checklist-only path:
 ```text
 AP-T08 approval audit authority source proof PASS
 SH-T08 P3 approval-audit source proof PASS
-AP-T06 readiness split recorded
+AP-T06A static skeleton complete; full AP-T06 countdown/state-sync remains HOLD
 ```
 
 Next human selection options:
 
 ```text
-AP-T06A static observation-window skeleton implementation GO
 AP-T08/SH-T08 narrow implementation checklist
 MV-T03 dependency path after AP-T08/SH-T08 proof
 ```
@@ -207,13 +208,14 @@ Closeout result:
 ```text
 AP-T03/CH-T03/SH-T04 Jira parity corrected
 AP-T04/AP-T05/AP-T07 Jira Done
+AP-T06A Jira Done as `SCRUM-65`; AP-T06 parent readiness remains open as `SCRUM-64`
 AP-T08/SH-T08 Jira To Do with checklist-only notes
 ```
 
 Best next automation burn-down path:
 
 ```text
-AP-T06A static skeleton or MV-T03 relaunch checklist -> next exact bounded ticket -> safe Jira parity sync
+MV-T03 relaunch checklist or AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:
