@@ -78,7 +78,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through AP-T06 full countdown/state-sync blocker refresh; next route is AP-T02 / MV-T02 renderable authority-context blocker refresh. |
+| _None_ | _N/A_ | Current batch completed through AP-T02 / MV-T02 renderable authority-context blocker refresh; next route is CH-T02 / CH-T04 design/runtime blocker refresh. |
 
 ## 5. Auto-Ready
 
@@ -172,6 +172,7 @@ docs\S6_AP_T11_T12_READINESS_DECOMPOSITION_2026_04_28.md
 docs\S6_MV_T04_SOURCE_ORDER_FOLLOW_UP_CHECKLIST_2026_04_28.md
 docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH_2026_04_28.md
 docs\S6_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH_2026_04_28.md
+docs\S6_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH_2026_04_29.md
 ```
 
 Queue purpose:
@@ -194,6 +195,7 @@ IN-T06 readiness checked; remains HOLD until IN-T03 authority is resolved
 CD-T07 readiness checked; remains HOLD until full CD-T06 is resolved
 AP-T11/AP-T12 readiness decomposed; full tickets remain HOLD, possible AP-T11A split requires separate checklist
 AP-T06 full countdown/state-sync blocker refresh reconfirmed HOLD; AP-T06A remains the only closed safe split under current authority
+AP-T02/MV-T02 renderable authority-context blocker refresh reconfirmed HOLD; no governed P0 approval context or P0/P2 Manager authority model exists
 ```
 
 Latest implementation batch:
@@ -229,6 +231,7 @@ AP-T11/AP-T12 decomposition recorded; no implementation authorized
 MV-T05 readiness checked; remains HOLD until MV-T04 and MV-T02 are resolved or explicitly rescoped
 MV-T04 source-order follow-up PASS; implementation still requires separate GO
 AP-T09 blocker refresh recorded; AP-T08 dependency closed, VF-15/exact source still missing
+AP-T02/MV-T02 blocker refresh recorded; both remain HOLD pending exact authority contexts
 ```
 
 Next human selection options:
@@ -275,12 +278,13 @@ AP-T08 Jira Done as `SCRUM-62`
 SH-T08 Jira parity pending env visibility
 MV-T03 Jira Done as `SCRUM-66`
 AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
+AP-T02 / MV-T02 remain not Done as `SCRUM-54` / `SCRUM-55`
 ```
 
 Best next automation burn-down path:
 
 ```text
-AP-T06 blocker refresh -> AP-T02/MV-T02 blocker refresh -> SH-T09 acceptance checklist -> safe Jira parity sync
+CH-T02/CH-T04 blocker refresh -> SH-T09 acceptance checklist -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
@@ -320,10 +324,11 @@ AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a la
 MV-T05 was checked and remains HOLD because MV-T04 is not implemented and MV-T02 remains authority-gated.
 MV-T04 source-order follow-up PASS was recorded; do not mark MV-T04 Done or implement without separate GO.
 AP-T09 blocker refresh recorded; do not mark AP-T09 Done or implement until VF-15/equivalent source and exact copy rules exist.
+AP-T02/MV-T02 blocker refresh recorded; do not mark SCRUM-54/SCRUM-55 Done or implement without governed renderable authority contexts.
 ```
 
 Best next risk-reduction path:
 
 ```text
-Do not start CD-T07 until CD-T06 is accepted; do not implement AP-T02/MV-T02 without renderable authority contexts
+Do not start CD-T07 until CD-T06 is accepted; do not implement AP-T02/MV-T02 without governed renderable authority contexts
 ```

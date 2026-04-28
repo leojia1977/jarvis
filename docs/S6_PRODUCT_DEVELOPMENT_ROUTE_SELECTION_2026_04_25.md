@@ -4104,3 +4104,59 @@ Next route:
 ```text
 OPEN_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH
 ```
+
+## 121. Update 2026-04-28: AP-T06 Full Countdown / State-Sync Blocker Refresh
+
+Blocker refresh record:
+
+```text
+docs/S6_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T06_BLOCKER_REFRESH_STATIC_SLICE_CLOSED
+AP_T06_FULL_COUNTDOWN_STATE_SYNC_HOLD_CONFIRMED
+```
+
+Interpretation:
+
+- `AP-T06A` remains the closed safe static observation-window slice.
+- Full `AP-T06` still lacks an exact state-sync input contract, exact test hook, and explicit display-vs-authority rule for the timer.
+- Do not mark `SCRUM-64` Done or implement countdown/state-sync behavior from the current static readonly surface.
+
+Next route:
+
+```text
+OPEN_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH
+```
+
+## 122. Update 2026-04-29: AP-T02 / MV-T02 Renderable Authority-Context Blocker Refresh
+
+Blocker refresh record:
+
+```text
+docs/S6_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T02_HOLD_CONFIRMED_NO_P0_RENDERABLE_APPROVAL_CONTEXT
+MV_T02_HOLD_CONFIRMED_NO_P0_P2_MANAGER_AUTHORITY_MODEL
+```
+
+Interpretation:
+
+- `AP-T02` remains HOLD because no governed P0 readonly approval context or approved harness exists.
+- `MV-T02` remains HOLD because no governed P0/P2 Manager authority model or renderable context exists.
+- AP-T08 / SH-T08 / MV-T03 / MV-T04 source-order work did not create either missing authority context.
+- Do not mark `SCRUM-54` or `SCRUM-55` Done.
+- Do not infer either route from URL, storage, route params, generic guard branches, or existing P2/P3 audit-source work.
+
+Next route:
+
+```text
+OPEN_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH
+```

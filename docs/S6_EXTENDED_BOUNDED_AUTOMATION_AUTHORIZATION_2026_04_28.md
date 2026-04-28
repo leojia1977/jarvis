@@ -140,6 +140,13 @@ input authority, exact test hook, and an explicit display-vs-authority rule for
 the timer. The runner must not mark `AP-T06` / `SCRUM-64` Done or implement the
 countdown/state-sync path from the current static readonly surface.
 
+`AP-T02` / `MV-T02` renderable authority-context blocker refresh has since
+reconfirmed HOLD. `AP-T02` still lacks a governed P0 readonly approval context
+or approved harness. `MV-T02` still lacks a governed P0/P2 Manager authority
+model and renderable context. The runner must not mark `SCRUM-54` or `SCRUM-55`
+Done and must not infer either context from URL, storage, route params, or the
+existing P2/P3 audit-source work.
+
 Idle fallback is governed by:
 
 ```text
@@ -160,5 +167,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-OPEN_AP_T02_MV_T02_RENDERABLE_AUTHORITY_CONTEXT_BLOCKER_REFRESH
+OPEN_CH_T02_CH_T04_DESIGN_RUNTIME_BLOCKER_REFRESH
 ```
