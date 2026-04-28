@@ -168,6 +168,11 @@ Jira transitions are available without explicit issue mapping. Repo PASS rows
 issue key was exposed in the current project search. The runner must not create
 or infer Jira issues for them without a later exact mapping decision.
 
+Jira mapping proposal has since been prepared for `SH-T02`, `SH-T06`, and
+`EP-T06`. It records explicit mapping options but performs no cloud mutation.
+The runner must not create dedicated Jira issues, attach parent comments, or
+transition any additional Jira issues Done without a later exact mapping GO.
+
 Idle fallback is governed by:
 
 ```text
@@ -188,5 +193,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_NEXT_IDLE_FALLBACK
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```

@@ -4272,3 +4272,31 @@ Next route:
 ```text
 WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 127. Update 2026-04-29: Jira Mapping Proposal For Repo PASS Rows
+
+Jira mapping proposal record:
+
+```text
+docs/S6_JIRA_MAPPING_PROPOSAL_SH_T02_SH_T06_EP_T06_2026_04_29.md
+```
+
+Decision:
+
+```text
+JIRA_MAPPING_PROPOSAL_READY_NO_CLOUD_MUTATION
+```
+
+Interpretation:
+
+- Repo PASS rows `SH-T02`, `SH-T06`, and `EP-T06` have accepted closeout evidence but no dedicated Jira issue key exposed in the current project search.
+- The proposal defines three explicit choices: create dedicated Jira child issues later, attach evidence to parent Jira issues only later, or keep repo-only PASS.
+- No Jira cloud mutation was performed by this proposal.
+- The runner must not create Jira issues, attach parent comments, or transition additional Jira issues Done without a later exact mapping GO.
+- `SH-T09` remains checklist-prepared only and still requires separate reconciliation GO before closeout.
+
+Next route:
+
+```text
+WAIT_FOR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
+```
