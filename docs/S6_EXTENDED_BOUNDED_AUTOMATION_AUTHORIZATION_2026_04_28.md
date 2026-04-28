@@ -131,6 +131,8 @@ HOLD immediately on:
 
 `MV-T04` source-order follow-up has since passed. The source-order blocker is closed, but implementation remains unauthorized until a separate implementation GO. The runner must not mark `MV-T04` Done from the source-order checklist.
 
+`AP-T09` blocker refresh has since partially unblocked the ticket by closing the AP-T08 dependency. `AP-T09` remains HOLD pending `VF-15` or equivalent governed audit empty/unavailable source and exact copy rules. The runner must not mark `AP-T09` Done or implement it from the generic `UNAVAILABLE` enum fallback alone.
+
 Idle fallback is governed by:
 
 ```text
@@ -151,5 +153,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-OPEN_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH
+OPEN_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH
 ```

@@ -4075,3 +4075,32 @@ Next route:
 ```text
 OPEN_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH
 ```
+
+## 120. Update 2026-04-28: AP-T09 Audit Empty / Unavailable Blocker Refresh
+
+Blocker refresh record:
+
+```text
+docs/S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_BLOCKER_REFRESH_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T09_BLOCKER_REFRESH_PARTIAL_UNBLOCK_AP_T08_CLOSED
+AP_T09_HOLD_PENDING_VF15_AND_EXACT_EMPTY_UNAVAILABLE_SOURCE
+```
+
+Interpretation:
+
+- `AP-T08` is implemented and no longer blocks `AP-T09`.
+- Current frontend code includes a generic missing-event `UNAVAILABLE` enum fallback, but this is not enough to implement AP-T09.
+- No `VF-15` / AP-T09 audit empty-unavailable visual or source file exists in `D:\产品设计\secupilot0421\visual negative`.
+- Exact empty-state versus unavailable-state copy/source rules are not yet governed.
+- `AP-T09` must not be marked Done or implemented until a later checklist proves `VF-15` or an equivalent governed source, exact copy, exact files, and exact tests.
+
+Next route:
+
+```text
+OPEN_AP_T06_FULL_COUNTDOWN_STATE_SYNC_BLOCKER_REFRESH
+```
