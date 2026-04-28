@@ -111,8 +111,8 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `IN-T03` | Sprint 1 | P2 shortcut approval/close entry depends on later AP CTA semantics; `AP-T10` display mapping is now available but not sufficient. |
 | `AP-T06` | Sprint 2 | AP-T06A static read-only skeleton implemented as `SCRUM-65`; full countdown/state-sync remains HOLD pending exact state-sync input and test hook; parent readiness Jira `SCRUM-64` remains not Done. |
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
-| `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
-| `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
+| `AP-T11` | Sprint 2 | Full ticket HOLD; 2026-04-28 decomposition identified a possible later `AP-T11A` static no-mutation split only. |
+| `AP-T12` | Sprint 2 | Full ticket HOLD; AP acceptance suite still depends on full `AP-T06` and `AP-T09`. |
 | `MV-T04` | Sprint 3B | Claude Web `PASS_WITH_NOTES`; implementation remains gated by AP-T08 and SH-T08 source/order confirmation. |
 | `MV-T05` | Sprint 3B | Manager acceptance depends on MV implementation chain. |
 
@@ -168,6 +168,7 @@ docs\S6_SH_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_CLOSEOUT_2026_04_28.md
 docs\S6_EP_T06_EP_NEGATIVE_TEST_SUITE_RECONCILIATION_CLOSEOUT_2026_04_28.md
 docs\S6_IN_T06_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
 docs\S6_CD_T07_DEPENDENCY_READINESS_RECONCILIATION_2026_04_28.md
+docs\S6_AP_T11_T12_READINESS_DECOMPOSITION_2026_04_28.md
 ```
 
 Queue purpose:
@@ -188,6 +189,7 @@ SH-T08 implemented and gate/Claude Code PASS; Jira sync pending env visibility
 EP-T06 no-code reconciliation PASS; Jira sync pending env visibility
 IN-T06 readiness checked; remains HOLD until IN-T03 authority is resolved
 CD-T07 readiness checked; remains HOLD until full CD-T06 is resolved
+AP-T11/AP-T12 readiness decomposed; full tickets remain HOLD, possible AP-T11A split requires separate checklist
 ```
 
 Latest implementation batch:
@@ -219,13 +221,14 @@ SH-T08 approval-audit source boundary closeout PASS
 EP-T06 EP negative-test suite reconciliation PASS
 IN-T06 dependency readiness checked; HOLD remains
 CD-T07 dependency readiness checked; HOLD remains
+AP-T11/AP-T12 decomposition recorded; no implementation authorized
 ```
 
 Next human selection options:
 
 ```text
 SH-T09 acceptance checklist
-AP-T11/AP-T12 readiness decomposition
+MV-T05 readiness checklist
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
@@ -269,13 +272,13 @@ AP-T09 / MV-T04 Jira To Do created as `SCRUM-67` / `SCRUM-68`
 Best next automation burn-down path:
 
 ```text
-AP-T11/AP-T12 readiness -> MV-T05 readiness -> SH-T09 acceptance checklist -> safe Jira parity sync
+MV-T05 readiness -> SH-T09 acceptance checklist -> AP-T09/AP-T06 blocker refresh -> safe Jira parity sync
 ```
 
 Updated next burn-down path:
 
 ```text
-AP-T11/AP-T12 readiness decomposition OR SH-T09 acceptance checklist
+MV-T05 readiness checklist OR SH-T09 acceptance checklist
 ```
 
 Idle fallback:
@@ -305,6 +308,7 @@ SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after 
 EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
 IN-T06 was checked and remains HOLD because IN-T03 is not authority-resolved.
 CD-T07 was checked and remains HOLD because full CD-T06 is not resolved.
+AP-T11/AP-T12 were decomposed; full tickets remain HOLD and AP-T11A is only a later split candidate.
 ```
 
 Best next risk-reduction path:

@@ -3986,3 +3986,33 @@ Next route:
 ```text
 OPEN_AP_T11_AP_T12_READINESS_DECOMPOSITION
 ```
+
+## 117. Update 2026-04-28: AP-T11 / AP-T12 Readiness Decomposition
+
+Readiness record:
+
+```text
+docs/S6_AP_T11_T12_READINESS_DECOMPOSITION_2026_04_28.md
+```
+
+Decision:
+
+```text
+AP_T11_FULL_HOLD_DEPENDENCY_NOT_READY
+AP_T12_FULL_HOLD_DEPENDENCY_NOT_READY
+AP_T11A_STATIC_NO_MUTATION_ASSERTION_SPLIT_CANDIDATE
+```
+
+Interpretation:
+
+- Full `AP-T11` cannot start because full AP state-transition behavior is not implemented.
+- Full `AP-T12` cannot start because AP acceptance depends on route, CTA, audit, state, observation-window, and audit-empty/unavailable behavior.
+- Full `AP-T06` countdown/state-sync remains HOLD.
+- `AP-T09` audit empty/unavailable remains HOLD.
+- A later `AP-T11A` split may be considered for static no-mutation assertions only, but this record does not open or authorize that split.
+
+Next route:
+
+```text
+OPEN_MV_T05_READINESS_CHECKLIST
+```

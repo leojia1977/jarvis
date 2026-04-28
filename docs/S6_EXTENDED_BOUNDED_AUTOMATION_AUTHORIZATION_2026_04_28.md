@@ -125,6 +125,8 @@ HOLD immediately on:
 
 `CD-T07` has since been checked and remains HOLD because full `CD-T06` is not resolved. The runner must not mark `CD-T07` Done.
 
+`AP-T11` / `AP-T12` have since been decomposed. Full AP-T11/AP-T12 remain HOLD; a later narrow `AP-T11A` static no-mutation assertion split is only a candidate and requires a separate exact checklist.
+
 Idle fallback is governed by:
 
 ```text
@@ -145,5 +147,5 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ## 9. Current Runner Route
 
 ```text
-CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_CD_T07_HOLD_CHECK
+CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_AP_T11_T12_DECOMPOSITION
 ```
