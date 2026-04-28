@@ -3470,3 +3470,35 @@ Next route:
 ```text
 OPEN_MV_T03_RELAUNCH_CHECKLIST_OR_AP_T08_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST
 ```
+
+## 101. Update 2026-04-28: MV-T03 Deep-Link Relaunch Checklist
+
+Records:
+
+```text
+docs/S6_MV_T03_DEEP_LINK_RELAUNCH_CHECKLIST_2026_04_28.md
+docs/S6_MV_T03_DEEP_LINK_AUTHORITY_IMPLEMENTATION_HOLD_2026_04_28.md
+```
+
+Decision:
+
+```text
+MV_T03_RELAUNCH_CHECKLIST_PASS
+AP_T08_SH_T08_DEPENDENCY_PROOF_RESOLVED
+NARROW_ROUTE_ONLY_IMPLEMENTATION_CANDIDATE_READY_FOR_SEPARATE_GO
+```
+
+Interpretation:
+
+- The prior `MV-T03` HOLD was correct at the time because `AP-T08` / `SH-T08` source proof was missing.
+- The source-proof absence blocker is now closed by `docs/S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md`.
+- `MV-T03` is now a narrow implementation candidate only for P3 Search / History readonly deep-link navigation to existing `/manager`.
+- The allowed future path is route-only and must not serialize payload into URL/storage.
+- `MV-T03` must not implement approval audit summary, `MV-T04`, P0/P2 Manager variants, host raw evidence, full audit trail DOM, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext` changes, real data, secrets, deploy, public endpoint, or external pilot.
+- Implementation is not started and requires separate Jarvis implementation GO.
+
+Next route:
+
+```text
+WAIT_FOR_MV_T03_IMPLEMENTATION_GO_OR_OPEN_AP_T08_SH_T08_NARROW_IMPLEMENTATION_CHECKLIST
+```

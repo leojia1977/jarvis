@@ -6,14 +6,25 @@
 | --- | --- |
 | Ticket | `MV-T03` |
 | Title | Manager deep-link handoff |
-| Status | IMPLEMENTATION_HOLD_DEPENDENCY_PROOF_MISSING |
+| Status | SUPERSEDED_BY_RELAUNCH_CHECKLIST |
 | Date | 2026-04-28 |
 | Primary implementor | Codex for HOLD assessment |
 | Execution surface | codex |
 | Workspace | VS Code / local repo |
 | Source checklist | `docs\S6_MV_T03_DEEP_LINK_AUTHORITY_CHECKLIST_2026_04_28.md` |
 
-Jarvis authorized implementation GO for the checklist batch, but `MV-T03` implementation does not activate because the ticket-local dependency proof is still missing.
+Jarvis authorized implementation GO for the earlier checklist batch, but `MV-T03` implementation
+did not activate because ticket-local dependency proof was missing at that time.
+
+Supersession note:
+
+```text
+2026-04-28: docs/S6_AP_T08_SH_T08_AUTHORITY_SOURCE_PROOF_2026_04_28.md closes the
+specific source-proof absence blocker. See docs/S6_MV_T03_DEEP_LINK_RELAUNCH_CHECKLIST_2026_04_28.md.
+```
+
+This historical HOLD remains useful as evidence of why MV-T03 was not implemented in
+the AP-T03 / CH-T03 / SH-T04 batch. It is no longer the active route decision.
 
 ## 2. Decision
 
@@ -59,4 +70,3 @@ This HOLD does not authorize:
 ```text
 OPEN_AP_T08_SH_T08_AUTHORITY_PATH_OR_REQUEST_MV_T03_EXTERNAL_AUTHORITY_REVIEW
 ```
-

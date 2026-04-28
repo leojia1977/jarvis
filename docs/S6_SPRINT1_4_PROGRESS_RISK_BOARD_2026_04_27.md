@@ -23,8 +23,8 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 2 | Authorized for readiness/checklist only; no implementation GO. |
-| Needs authority review | 8 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
+| Checklist-only | 3 | Authorized for readiness/checklist only; no implementation GO. |
+| Needs authority review | 7 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 3 | Missing visual frame is the primary blocker. |
 | HOLD | 8 | Waiting on upstream dependencies or acceptance prerequisites. |
 
@@ -96,6 +96,7 @@ These tickets are authorized for launch/readiness checklist only. Claude Web aut
 | --- | --- | --- | --- | --- |
 | `AP-T08` | Sprint 2 | Approval audit authority source path. | Source proof PASS | Checklist-only recorded as `SCRUM-62`; narrow implementation checklist still required. |
 | `SH-T08` | Sprint 3A | P3 approval-audit source boundary. | Source proof PASS | Checklist-only recorded as `SCRUM-63`; narrow implementation checklist still required. |
+| `MV-T03` | Sprint 3B | Manager deep-link handoff. | Relaunch checklist PASS | Narrow route-only implementation candidate; separate implementation GO required. |
 
 ## 8. Needs Authority Review
 
@@ -108,7 +109,6 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `AP-T09` | Sprint 2 | Audit empty/unavailable states depend on AP audit chain. |
 | `AP-T11` | Sprint 2 | State transition assertions depend on AP implementation tickets. |
 | `AP-T12` | Sprint 2 | AP acceptance suite depends on AP route/CTA/audit/state implementation. |
-| `MV-T03` | Sprint 3B | Manager deep-link handoff depends on `MV-T01` closeout acceptance. |
 | `MV-T04` | Sprint 3B | P3 approval audit summary is patch-gate and P3-authority sensitive. |
 | `MV-T05` | Sprint 3B | Manager acceptance depends on MV implementation chain. |
 
@@ -146,8 +146,8 @@ Done: 33 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
-Checklist-only: 2
-Blocked/HOLD/design/authority: 19
+Checklist-only: 3
+Blocked/HOLD/design/authority: 18
 ```
 
 Active non-tracker automation queue:
@@ -195,6 +195,12 @@ AP-T08/SH-T08 narrow implementation checklist
 MV-T03 dependency path after AP-T08/SH-T08 proof
 ```
 
+Latest relaunch checklist:
+
+```text
+MV-T03 relaunch checklist PASS; source-proof absence blocker closed; implementation GO still required
+```
+
 Implementation GO batch result:
 
 ```text
@@ -215,7 +221,7 @@ AP-T08/SH-T08 Jira To Do with checklist-only notes
 Best next automation burn-down path:
 
 ```text
-MV-T03 relaunch checklist or AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> safe Jira parity sync
+MV-T03 implementation GO or AP-T08/SH-T08 narrow implementation checklist -> next exact bounded ticket -> safe Jira parity sync
 ```
 
 Best next risk-reduction path:
