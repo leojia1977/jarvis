@@ -3725,3 +3725,37 @@ Next route:
 ```text
 OPEN_SH_T02_VISUAL_BASELINE_LAUNCH_CHECKLIST_OR_OPEN_SH_T08_AFTER_AP_T08_SOURCE_ORDER_CONFIRMATION
 ```
+
+## 109. Update 2026-04-28: 30m Runner Idle Fallback
+
+Idle fallback record:
+
+```text
+docs/S6_30M_RUNNER_IDLE_FALLBACK_2026_04_28.md
+```
+
+Extended authorization update:
+
+```text
+docs/S6_EXTENDED_BOUNDED_AUTOMATION_AUTHORIZATION_2026_04_28.md
+```
+
+Decision:
+
+```text
+IDLE_FALLBACK_ACTIVE_FOR_30M_BOUNDED_BURN_RUNNER
+```
+
+Interpretation:
+
+- The active `secupilot-30m-bounded-burn-runner` may keep working when no exact implementation ticket is safe to start.
+- Idle fallback is limited to one safe docs/Jira hygiene action per heartbeat: Progress / Risk Board refresh, Jira parity audit for already PASS/no-code tickets, next exact checklist prep, blocker/authority pack refresh, design-frame request refresh, or idle report.
+- Idle fallback is not implementation GO and must not create product scope, infer authority behavior, change frontend/backend/fixture/script/config/dependency files, or mark blocked/non-ready Jira tickets Done.
+- `AP-T08` is already implemented and Jira-synced; the runner must continue after `AP-T08` rather than repeat it.
+- Global HOLD rules remain in force for scope expansion, missing exact files, failed gates, visual or authority ambiguity, backend/runtime/API/schema, fixture/adapter/validator/`ResolvedSurfaceContext`, raw evidence DOM, real data, secrets, deploy, public endpoint, external pilot, mandatory external review, or non-ready tickets.
+
+Next route:
+
+```text
+CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_AP_T08_CLOSEOUT
+```

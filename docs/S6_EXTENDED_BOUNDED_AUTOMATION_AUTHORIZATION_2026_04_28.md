@@ -5,13 +5,15 @@
 | Field | Value |
 | --- | --- |
 | Title | S6 Extended Bounded Automation Authorization 2026-04-28 |
-| Status | ACTIVE_30M_RUNNER_EXTENDED_QUEUE_AUTHORIZED |
+| Status | ACTIVE_30M_RUNNER_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AUTHORIZED |
 | Date | 2026-04-28 |
 | Automation | `secupilot-30m-bounded-burn-runner` |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
 
 Jarvis authorized the 30-minute bounded burn runner to execute a longer Sprint 1-4 automation queue so it does not exhaust after a short checklist pass.
+
+Jarvis also authorized an idle fallback on 2026-04-28 so the runner can keep producing bounded docs/Jira hygiene work when no exact implementation ticket is safe to start.
 
 ## 2. Batch A - Implementation If Checklist GO
 
@@ -107,6 +109,27 @@ HOLD immediately on:
 
 ## 8. Next Runner Route
 
+`AP-T08` has since closed as implemented and Jira-synced. The runner must not repeat `AP-T08`.
+
+Idle fallback is governed by:
+
 ```text
-OPEN_AP_T08_APPROVAL_AUDIT_SOURCE_BOUNDARY_IMPLEMENTATION_CHECKLIST
+docs/S6_30M_RUNNER_IDLE_FALLBACK_2026_04_28.md
+```
+
+If the remaining queue cannot safely start implementation, the runner may perform one idle fallback action per heartbeat:
+
+- Progress / Risk Board refresh;
+- Jira parity audit for already PASS or no-code reconciled tickets;
+- next exact checklist preparation;
+- blocker / authority pack refresh;
+- design-frame request refresh;
+- idle report.
+
+Idle fallback is docs-only unless a separate exact implementation checklist gives a narrow GO.
+
+## 9. Current Runner Route
+
+```text
+CONTINUE_EXTENDED_QUEUE_WITH_IDLE_FALLBACK_AFTER_AP_T08_CLOSEOUT
 ```

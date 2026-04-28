@@ -160,6 +160,7 @@ docs\S6_AP_T06A_STATIC_OBSERVATION_WINDOW_SKELETON_CLOSEOUT_2026_04_28.md
 docs\S6_CONTINUOUS_BOUNDED_BURN_POOL_2026_04_28.md
 docs\S6_VISUAL_BASELINE_HF_SH_01_02_VF14_RECONCILIATION_2026_04_28.md
 docs\S6_CD_T06_CLOSED_CONTEXT_UNBLOCK_CHECKLIST_2026_04_28.md
+docs\S6_30M_RUNNER_IDLE_FALLBACK_2026_04_28.md
 ```
 
 Queue purpose:
@@ -250,6 +251,13 @@ Updated next burn-down path:
 SH-T02/SH-T06 visual-baseline launch checklist OR CD-T06A existing-state header skeleton checklist
 ```
 
+Idle fallback:
+
+```text
+ACTIVE: If no exact implementation ticket remains safe, the runner may perform one bounded docs/Jira hygiene action per heartbeat.
+Allowed fallback actions: progress/risk refresh, Jira parity audit for already PASS/no-code tickets, exact checklist prep, blocker/authority pack refresh, design-frame request refresh, or idle report.
+```
+
 Current authority review pack:
 
 ```text
@@ -257,6 +265,12 @@ docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_REVIEW_PACK_2026_04_28.md
 docs\S6_AP_T08_MV_T04_CLAUDE_WEB_AUTHORITY_VERDICT_2026_04_28.md
 Status: PASS_WITH_NOTES_RECORDED
 AP-T08 may open narrow implementation checklist; MV-T04 remains order-gated behind AP-T08 and SH-T08.
+```
+
+Latest idle-fallback update:
+
+```text
+AP-T08 is now implemented and Jira-synced; runner must continue after AP-T08 and may use idle fallback only when the remaining queue is blocked or unsafe.
 ```
 
 Best next risk-reduction path:
