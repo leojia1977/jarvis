@@ -4688,3 +4688,41 @@ Next route:
 ```text
 OPEN_REMAINING_SCOPE_TRIAGE_BATCH_R1_CHECKLISTS
 ```
+
+## 141. Update 2026-04-29: Remaining Scope Triage Batch R1 Checklists
+
+Records:
+
+```text
+docs/S6_R1_AP_T06_STATE_SYNC_INPUT_TEST_HOOK_CHECKLIST_2026_04_29.md
+docs/S6_R1_AP_T09_VF15_AUDIT_EMPTY_UNAVAILABLE_SOURCE_CHECKLIST_2026_04_29.md
+docs/S6_R1_CD_T06_CLOSED_CONTEXT_CHECKLIST_2026_04_29.md
+docs/S6_R1_CH_T04_RUNTIME_SOURCE_HEALTH_AUTHORITY_REVIEW_2026_04_29.md
+docs/S6_R1_IN_T03_P2_SHORTCUT_AUTHORITY_REVIEW_2026_04_29.md
+docs/S6_R1_MV_T02_P0_P2_MANAGER_AUTHORITY_REVIEW_2026_04_29.md
+docs/S6_REMAINING_SCOPE_TRIAGE_BATCH_R1_CHECKLISTS_CLOSEOUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+R1_CHECKLISTS_RECORDED_NO_IMPLEMENTATION
+IMPLEMENTATION_GO_REQUIRED_FOR_ANY_CODE_CHANGE
+```
+
+Interpretation:
+
+- `AP-T06` remains HOLD pending governed state-sync input and a test hook.
+- `AP-T09` remains HOLD pending `VF-15` or equivalent governed audit empty/unavailable source.
+- `CD-T06` remains HOLD pending a renderable CLOSED Case Detail context.
+- `CH-T04` requires a runtime/source-health scope authority decision.
+- `IN-T03` requires a P2 shortcut approval / close-entry authority decision.
+- `MV-T02` requires a P0/P2 Manager authority model.
+- No lane may enter implementation from this docs-only batch.
+- No Jira Done transition is authorized for these HOLD / authority-gated rows.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CD_T06_CLOSED_CONTEXT_SOURCE_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_IN_T03_P2_AUTHORITY_DECISION_OR_MV_T02_MANAGER_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

@@ -194,6 +194,13 @@ docs\S6_JIRA_PARITY_REPAIR_CH_T02_AND_DONE_DIFF_2026_04_29.md
 docs\S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md
 docs\S6_SPRINT0_EXIT_REVIEW_REFRESH_AND_REMAINING_SCOPE_TRIAGE_2026_04_29.md
 docs\S6_REMAINING_SCOPE_TRIAGE_AND_BATCH_LAUNCH_PLAN_2026_04_29.md
+docs\S6_R1_AP_T06_STATE_SYNC_INPUT_TEST_HOOK_CHECKLIST_2026_04_29.md
+docs\S6_R1_AP_T09_VF15_AUDIT_EMPTY_UNAVAILABLE_SOURCE_CHECKLIST_2026_04_29.md
+docs\S6_R1_CD_T06_CLOSED_CONTEXT_CHECKLIST_2026_04_29.md
+docs\S6_R1_CH_T04_RUNTIME_SOURCE_HEALTH_AUTHORITY_REVIEW_2026_04_29.md
+docs\S6_R1_IN_T03_P2_SHORTCUT_AUTHORITY_REVIEW_2026_04_29.md
+docs\S6_R1_MV_T02_P0_P2_MANAGER_AUTHORITY_REVIEW_2026_04_29.md
+docs\S6_REMAINING_SCOPE_TRIAGE_BATCH_R1_CHECKLISTS_CLOSEOUT_2026_04_29.md
 ```
 
 Queue purpose:
@@ -234,6 +241,7 @@ VF-01 Coverage & Health baseline reconciled; CH-T02 semantic P0 frame implemente
 Batch-0 P1 Jira parity synced: GS-T01/SCRUM-9, GS-T02/SCRUM-10, GS-T03/SCRUM-11, IN-T05/SCRUM-12, and CD-T03/SCRUM-13 are now verified `已完成`
 Sprint 0 exit review refresh recorded: Sprint 0 foundation and Batch 0 are closed; E0-02B is closed with no further action unless explicitly reopened; AP-T08/SH-T08/MV-T04 are Done evidence only; next route is OPEN_REMAINING_SCOPE_TRIAGE_AND_BATCH_LAUNCH_PLAN
 Remaining scope triage batch plan opened: Batch R1 splits AP-T06, AP-T09, CD-T06, CH-T04, IN-T03, and MV-T02 into docs-only checklist/source/authority lanes; implementation remains not authorized for every lane
+Remaining scope triage Batch R1 checklists closed docs-only: AP-T06 HOLD pending state-sync source; AP-T09 HOLD pending VF-15/equivalent source; CD-T06 HOLD pending renderable CLOSED context; CH-T04 authority review required for runtime/source-health scope; IN-T03 authority review required for P2 shortcut close-entry; MV-T02 authority review required for P0/P2 Manager model
 ```
 
 Latest implementation batch:
