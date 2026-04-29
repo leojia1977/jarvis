@@ -26,6 +26,9 @@ DOCS_ONLY_REFRESH_ALLOWED
 | Prompt-injection verdicts | S0 safety decision | UAT-20 and injection verdicts | Evaluator/reviewer |
 | GPU metrics | Runtime evaluation | Latency and memory metrics | Cloud Qwen runtime/operator |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
+| S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Gate-specific evidence board remains incomplete | Data owner/security/governance/cloud runtime |
+| MAP-T01 / MAP-T02 / MAP-T03 implementation GO | Pre-shadow safety tooling implementation | Exact implementation authorization, allowed files, and test command | Jarvis / TL |
+| Customer UAT externalization approval | Customer-visible observer testing | S0 decision, customer boundary, access control, and reviewed demo pack | Jarvis / PM / Governance |
 | Build-ready approval | Build-ready transition | Explicit review request and decision | Jarvis/governance |
 
 ## 4. Safe Automation While Held
@@ -38,6 +41,9 @@ Allowed:
 - scoring checklists;
 - HOLD reports;
 - build-ready reviewer briefs.
+- S1 G-01 through G-09 evidence-board refresh;
+- offline synthetic mapping-tooling checklist refinement;
+- internal customer UAT demo-pack drafting.
 
 Forbidden:
 
@@ -57,11 +63,11 @@ Recommended order:
 2. Run S0 synthetic-only Qwen evaluation outside repo with no secrets in artifacts.
 3. Import and score outputs under explicit import GO.
 4. Decide S0.
-5. Only then consider real-data shadow precheck review.
+5. Collect S1 G-01 through G-09 evidence.
+6. Only then consider real-data shadow Go/No-Go review.
 
 ## 6. Next Route
 
 ```text
-WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_BUILD_READY_REVIEW_REQUEST
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
 ```
-

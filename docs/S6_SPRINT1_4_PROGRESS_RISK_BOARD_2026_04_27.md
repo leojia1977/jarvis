@@ -972,3 +972,30 @@ Recommended next board lane:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_BUILD_READY_REVIEW_REQUEST
 ```
+
+## 2026-04-29 12h Synthetic Evaluation / Closed-Shadow Readiness Queue
+
+Status update:
+
+```text
+Product state: synthetic evaluation + closed-shadow readiness
+S1 G01-G09 evidence board: created / incomplete
+MAP-T01/T02/T03: ticket prep created / implementation GO required
+Customer UAT demo pack: internal draft created
+S0 Qwen handoff refresh: waiting for cloud-team non-secret fields
+```
+
+Board impact:
+
+- The previous Jira burn-down and current S6 tracker parity remain complete.
+- Automation now has a new docs-only readiness queue while cloud Qwen information is unavailable.
+- S1 is not authorized; the evidence board only tracks missing Go/No-Go inputs.
+- MAP offline tooling may become the next implementation lane only after exact implementation GO.
+- Customer UAT material remains an internal draft and must not be sent externally without a separate governed authorization.
+- No Qwen execution, real/masked-real data, backend/runtime/API/schema, Jira mutation, deploy, external pilot, or launch is authorized.
+
+Recommended next board lane:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
+```

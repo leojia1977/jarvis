@@ -5798,3 +5798,41 @@ Next route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_BUILD_READY_REVIEW_REQUEST
 ```
+
+## 175. Update 2026-04-29: 12h Synthetic Evaluation And Closed-Shadow Readiness Queue
+
+Records:
+
+```text
+docs/S6_12H_SYNTHETIC_EVAL_CLOSED_SHADOW_READINESS_QUEUE_2026_04_29.md
+docs/S6_12H_SYNTHETIC_EVAL_CLOSED_SHADOW_READINESS_HEARTBEAT_2026_04_29.md
+docs/S6_S1_CLOSED_SHADOW_G01_G09_EVIDENCE_BOARD_2026_04_29.md
+docs/S6_OFFLINE_SYNTHETIC_MAPPING_TOOLING_TICKETS_2026_04_29.md
+docs/S6_CUSTOMER_UAT_DEMO_PACK_2026_04_29.md
+docs/S6_S0_QWEN_CLOUD_HANDOFF_REFRESH_PACKET_2026_04_29.md
+```
+
+Decision:
+
+```text
+OPEN_12H_SYNTHETIC_EVAL_CLOSED_SHADOW_READINESS_QUEUE
+OPEN_S1_CLOSED_SHADOW_G01_G09_EVIDENCE_PREP
+OPEN_OFFLINE_SYNTHETIC_MAPPING_TOOLING_TICKETS
+OPEN_CUSTOMER_UAT_DEMO_PACK
+REFRESH_S0_QWEN_CLOUD_HANDOFF_PACKET
+```
+
+Interpretation:
+
+- SecuPilot is now formally described as being in synthetic evaluation plus closed-shadow readiness.
+- The frontend core workbench is broadly acceptance-ready, but real data, customer-visible staging, external pilot, and production launch remain unauthorized.
+- S1 G-01 through G-09 evidence is now tracked in a dedicated evidence board and remains incomplete.
+- MAP-T01 / MAP-T02 / MAP-T03 are opened as pre-shadow synthetic safety tooling tickets, but code implementation still requires exact GO.
+- The Customer UAT Demo Pack is an internal draft only and is not approved for customer delivery.
+- S0 Qwen execution remains HOLD until the cloud team supplies non-secret handoff fields and later output artifacts.
+
+Next route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
+```
