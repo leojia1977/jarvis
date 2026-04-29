@@ -5470,3 +5470,125 @@ Next route:
 ```text
 OPEN_NEXT_STAGE_PLANNING_AND_BUILD_READY_GAP_REVIEW
 ```
+
+## 165. Update 2026-04-29: Next Stage Planning and Build-Ready Gap Review
+
+Record:
+
+```text
+docs/S6_NEXT_STAGE_PLANNING_AND_BUILD_READY_GAP_REVIEW_2026_04_29.md
+```
+
+Decision:
+
+```text
+NEXT_STAGE_PLANNING_AND_BUILD_READY_GAP_REVIEW_OPENED
+CURRENT_JIRA_TRACKING_SET_CLOSED
+BUILD_READY_DECISION_NOT_YET_GRANTED
+REAL_DATA_STAGING_PILOT_DEPLOY_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- The current Jira burn-down and parity loop is complete, but build-ready, staging-ready, real-data-ready, pilot-ready, deploy-ready, and production-ready decisions remain ungranted.
+- The next stage must begin with source intake and evidence planning, not opportunistic implementation.
+- The expected incoming source pack is tracked but not yet ingested as repo source-of-truth: Real Data Shadow Evaluation Go/No-Go, Qwen Runtime Evaluation Protocol, SOC UAT Scenario Pack, and Real Data to CaseView Mapping Spec.
+- Real-data shadow evaluation remains `HOLD_PENDING_REQUIRED_PRECHECK_EVIDENCE`.
+
+Next route:
+
+```text
+OPEN_REAL_DATA_RUNTIME_UAT_SOURCE_INTAKE
+```
+
+## 166. Update 2026-04-29: Real Data / Runtime / UAT Source Intake and S0 Synthetic Dry Run Attempt
+
+Records:
+
+```text
+docs/S6_REAL_DATA_RUNTIME_UAT_SOURCE_INTAKE_2026_04_29.md
+docs/S6_S0_SYNTHETIC_DRY_RUN_LAUNCH_CHECKLIST_2026_04_29.md
+docs/S6_S0_SYNTHETIC_DRY_RUN_EXECUTION_REPORT_2026_04_29.md
+```
+
+Decision:
+
+```text
+SOURCE_PACK_INTAKE_COMPLETE
+S0_LAUNCH_CHECKLIST_PASS_FOR_SYNTHETIC_ONLY_EXECUTION_ATTEMPT
+S0_DECISION = HOLD_WITH_FAILURES
+```
+
+Interpretation:
+
+- The four source zip files in `D:\产品设计\secupilot0421\Real Data to CaseView Mapping` are present and readable.
+- S0 synthetic-only execution was allowed by checklist, but the execution attempt cannot complete because cloud Qwen runtime handoff evidence is not yet connected to the repo runner and no governed UAT-01 through UAT-20 synthetic fixture / `QwenFactBundle` manifest exists yet.
+- This is an execution readiness HOLD, not a product or governance rejection.
+- Real data, masked real data, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain forbidden.
+
+Next route:
+
+```text
+OPEN_S0_FIXTURE_MANIFEST_AND_QWEN_RUNTIME_PRECHECK
+```
+
+## 167. Update 2026-04-29: S0 Fixture Manifest and Qwen Cloud Runtime Precheck
+
+Records:
+
+```text
+docs/S6_S0_UAT_SYNTHETIC_FIXTURE_MANIFEST_2026_04_29.md
+docs/S6_S0_QWEN_CLOUD_RUNTIME_PRECHECK_2026_04_29.md
+```
+
+Decision:
+
+```text
+QWEN_RUNTIME_LOCATION_CORRECTED_TO_CLOUD_GPU_TEST_SERVER
+S0_UAT_SYNTHETIC_FIXTURE_MANIFEST_CREATED
+CLOUD_RUNTIME_HANDOFF_REQUIRED_BEFORE_S0_RERUN
+```
+
+Interpretation:
+
+- Jarvis clarified that Qwen runs in the cloud GPU test-server environment, not on the local workstation.
+- Local Qwen installation is not required for S0; what remains missing is cloud runtime handoff evidence: model id/version, invocation method, synthetic-only input transfer, output artifact path, GPU metric capture, prompt version, and credentials handled outside repo.
+- UAT-01 through UAT-20 now have a governed synthetic fixture manifest with CaseView fixture ids, Qwen fact bundle ids, roles/surfaces, coverage, case state, injection profile, and primary assertions.
+- S0 remains HOLD until the cloud Qwen runtime handoff is supplied and no credentials are written into repo.
+
+Next route:
+
+```text
+WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_OPEN_S0_SYNTHETIC_PAYLOAD_GENERATION
+```
+
+## 168. Update 2026-04-29: Qwen Independent HOLD and Non-Qwen Build-Ready Evidence Queue
+
+Record:
+
+```text
+docs/S6_QWEN_HOLD_AND_NON_QWEN_BUILD_READY_QUEUE_2026_04_29.md
+```
+
+Decision:
+
+```text
+QWEN_CLOUD_RUNTIME_HANDOFF_HOLD_INDEPENDENT
+NON_QWEN_BUILD_READY_EVIDENCE_MAY_CONTINUE
+OLD_JIRA_BURN_DOWN_QUEUE_COMPLETE
+AUTOMATION_MUST_SWITCH_TO_NEXT_STAGE_QUEUE
+```
+
+Interpretation:
+
+- Jira project `SCRUM` has all 80 issues Done, so the old Jira burn-down automation queue has no remaining work and would idle if left unchanged.
+- Qwen cloud runtime handoff is an independent HOLD while the latest Qwen version is being debugged.
+- This HOLD blocks actual Qwen offline evaluation, Qwen model-output scoring, prompt-injection model-output verdicts, GPU model metrics, and S1 closed-shadow readiness.
+- This HOLD does not block non-Qwen work: synthetic payload generation, build-ready evidence matrix, frontend regression hardening, Storybook/Playwright evidence review, source intake, docs planning, and automation maintenance.
+- Real data, masked real data, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain forbidden.
+
+Next route:
+
+```text
+OPEN_NON_QWEN_REMAINING_DEV_AND_BUILD_READY_EVIDENCE_QUEUE
+```
