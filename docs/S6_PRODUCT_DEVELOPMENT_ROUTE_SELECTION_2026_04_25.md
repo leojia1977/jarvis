@@ -4976,3 +4976,34 @@ Next route:
 ```text
 OPEN_CH_T04_IN_T03_MV_T02_EXACT_IMPLEMENTATION_CHECKLISTS
 ```
+
+## 150. Update 2026-04-29: CH-T04 / IN-T03 / MV-T02 Exact Implementation Checklists
+
+Records:
+
+```text
+docs/S6_CH_T04_SOURCE_HEALTH_SEMANTIC_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs/S6_IN_T03_NAVIGATION_ONLY_APPROVAL_ENTRY_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs/S6_MV_T02_P0_P2_MANAGER_HARD_REDIRECT_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+```
+
+Decision:
+
+```text
+CH_T04_EXACT_IMPLEMENTATION_CHECKLIST_READY_IMPLEMENTATION_GO_REQUIRED
+IN_T03_EXACT_IMPLEMENTATION_CHECKLIST_READY_IMPLEMENTATION_GO_REQUIRED
+MV_T02_EXACT_IMPLEMENTATION_CHECKLIST_READY_IMPLEMENTATION_GO_REQUIRED
+```
+
+Interpretation:
+
+- `CH-T04` has an exact future implementation envelope limited to frontend-only `ui_messages` source-health semantic display.
+- `IN-T03` has an exact future implementation envelope limited to navigation-only entry from Inbox to governed `/approval`.
+- `MV-T02` has an exact future implementation envelope limited to P0/P2 hard redirect or explicit no Manager entry.
+- All three lanes remain stopped at `IMPLEMENTATION_GO_REQUIRED`; no code is authorized by these checklists.
+
+Next route:
+
+```text
+WAIT_FOR_CH_T04_OR_IN_T03_OR_MV_T02_IMPLEMENTATION_GO_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

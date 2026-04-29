@@ -487,3 +487,25 @@ Next safe route:
 ```text
 OPEN_CH_T04_IN_T03_MV_T02_EXACT_IMPLEMENTATION_CHECKLISTS
 ```
+
+## 2026-04-29 CH-T04 / IN-T03 / MV-T02 Exact Checklists
+
+Status update:
+
+```text
+CH-T04: checklist ready / implementation GO required
+IN-T03: checklist ready / implementation GO required
+MV-T02: checklist ready / implementation GO required
+```
+
+Progress impact:
+
+- Automation is no longer blocked on authority input for these three lanes.
+- The next constraint is explicit implementation authorization.
+- `IN-T06`, `MV-T05`, and `CH-T04` acceptance closure remain HOLD until parent implementation closeout.
+
+Next safe route:
+
+```text
+WAIT_FOR_CH_T04_OR_IN_T03_OR_MV_T02_IMPLEMENTATION_GO_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
