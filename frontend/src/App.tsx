@@ -1031,7 +1031,11 @@ function App({
         ) : route === "approval" ? (
           <ApprovalRouteShell activeCase={renderActiveCase} activeContext={activeContext} />
         ) : route === "manager" ? (
-          <ManagerView activeCase={renderActiveCase} activeContext={activeContext} />
+          <ManagerView
+            activeCase={renderActiveCase}
+            activeContext={activeContext}
+            onRouteRedirect={(targetRoute) => navigate(targetRoute)}
+          />
         ) : route === "search" ? (
           <SearchHistoryView
             activeCase={renderActiveCase}
@@ -1043,6 +1047,7 @@ function App({
         ) : (
           <InboxView
             cases={cases}
+            onNavigateToApproval={() => navigate("approval")}
             onOpenCase={(nextCaseId) => navigate("case", nextCaseId)}
             role={role}
           />
@@ -1767,14 +1772,24 @@ export function ApprovalRouteShell({
   );
 }
 
-function ManagerView({
+export function ManagerView({
   activeCase,
-  activeContext
+  activeContext,
+  onRouteRedirect
 }: {
   activeCase: WorkbenchCase;
   activeContext: ResolvedSurfaceContext;
+  onRouteRedirect?: (targetRoute: Route) => void;
 }) {
   const role = activeContext.session.role;
+  const redirectRoute: Route = role === "P2" ? "approval" : "inbox";
+  const redirectTarget = redirectRoute === "approval" ? "/approval" : "/inbox";
+
+  useEffect(() => {
+    if (role !== "P3") {
+      onRouteRedirect?.(redirectRoute);
+    }
+  }, [onRouteRedirect, redirectRoute, role]);
 
   if (role !== "P3") {
     return (
@@ -1782,7 +1797,12 @@ function ManagerView({
         aria-labelledby="manager-route-guard-title"
         className="page-region manager-view-surface"
         data-authority-source="resolved-surface-context"
+        data-manager-entry="denied"
+        data-manager-state-transfer="none"
+        data-p0-p2-placeholders="absent"
+        data-redirect-target={redirectTarget}
         data-role={role}
+        data-route-action="no-entry-guard"
         data-route-guard="role-not-eligible"
         data-testid="manager-route-guard"
       >
@@ -2116,19 +2136,23 @@ function MockContextSelector({
 
 function InboxView({
   cases,
+  onNavigateToApproval,
   onOpenCase,
   role
 }: {
   cases: WorkbenchCase[];
+  onNavigateToApproval: () => void;
   onOpenCase: (caseId: string) => void;
   role: Role;
 }) {
   const isP3Readonly = role === "P3";
+  const canRenderApprovalNavigation = role === "P2";
 
   return (
     <section
       className="page-region"
       aria-labelledby="inbox-title"
+      data-action-authority="none"
       data-inbox-mode={isP3Readonly ? "readonly" : "case-first"}
       data-role={role}
       data-testid="inbox-surface"
@@ -2157,6 +2181,37 @@ function InboxView({
             </div>
             <h2>{item.title}</h2>
             <p>{item.verdict}</p>
+            {canRenderApprovalNavigation ? (
+              <aside
+                aria-label="Approval navigation hint"
+                className="inbox-approval-entry"
+                data-action-mode="none"
+                data-approval-authority-transfer="none"
+                data-ar-hint-mode="display-only"
+                data-ar-status-display={
+                  item.arStatus ? AR_STATUS_DISPLAY[item.arStatus].label : "No AR"
+                }
+                data-route-authority="resolved-surface-context"
+                data-state-mutation="none"
+                data-target-route="/approval"
+                data-testid={`inbox-approval-navigation-entry-${item.id}`}
+              >
+                <span>Approval context</span>
+                <p>
+                  {item.arStatus
+                    ? `AR status: ${AR_STATUS_DISPLAY[item.arStatus].label}. Navigation only.`
+                    : "No action request is active. Navigation only."}
+                </p>
+                <button
+                  data-authority-payload="none"
+                  data-testid={`inbox-approval-navigation-button-${item.id}`}
+                  onClick={onNavigateToApproval}
+                  type="button"
+                >
+                  Open approval context
+                </button>
+              </aside>
+            ) : null}
             {isP3Readonly ? (
               <dl className="readonly-case-facts" aria-label="Inbox case facts">
                 <div>
@@ -2597,6 +2652,20 @@ export function CoverageHealthView({
     key,
     value: activeContext.ui_messages[key]
   })).filter((message) => message.value !== undefined);
+  const sourceHealthMessages = [
+    {
+      key: "fixture_status",
+      label: "Source availability",
+      displayState: "degraded-placeholder",
+      value: activeContext.ui_messages.fixture_status
+    },
+    {
+      key: "mock_only_notice",
+      label: "Source boundary",
+      displayState: "unavailable-placeholder",
+      value: activeContext.ui_messages.mock_only_notice
+    }
+  ].filter((message) => message.value !== undefined);
   const vf01NoticeCards = COVERAGE_HEALTH_NOTICE_ANCHORS.map((anchor) => ({
     ...anchor,
     value: activeContext.ui_messages[anchor.key]
@@ -2803,12 +2872,48 @@ export function CoverageHealthView({
             </article>
             <article
               data-health-slot="source-health"
+              data-live-health-source="none"
               data-live-source-health="not-implemented"
+              data-message-source="ui_messages"
+              data-source-health-mode="ui_messages_semantic"
+              data-source-health-display-state={
+                sourceHealthMessages.length > 0 ? "semantic-placeholders" : "unavailable"
+              }
               data-testid="coverage-health-source-slot"
             >
               <span>Source health</span>
-              <strong>Mock-only</strong>
-              <p>No sensor health, endpoint health, backend readiness, or live telemetry is read.</p>
+              <strong>Governed semantic display</strong>
+              {sourceHealthMessages.length > 0 ? (
+                <ul
+                  className="coverage-health-source-messages"
+                  data-testid="coverage-health-source-message-list"
+                >
+                  {sourceHealthMessages.map((message) => (
+                    <li
+                      data-message-source="ui_messages"
+                      data-source-health-display="semantic-placeholder"
+                      data-source-health-display-state={message.displayState}
+                      data-testid="coverage-health-source-message"
+                      data-ui-message-key={message.key}
+                      key={message.key}
+                    >
+                      <span>{message.label}</span>
+                      <p>{formatUiMessageValue(message.value ?? null)}</p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p
+                  data-message-source="ui_messages"
+                  data-source-health-display-state="unavailable"
+                  data-testid="coverage-health-source-message-unavailable"
+                >
+                  Source-health display is unavailable because no governed ui_messages are present.
+                </p>
+              )}
+              <p data-testid="coverage-health-source-boundary-note">
+                Semantic display only. No sensor, endpoint, or external source is read.
+              </p>
             </article>
             <article
               data-cross-surface-hardening="deferred"

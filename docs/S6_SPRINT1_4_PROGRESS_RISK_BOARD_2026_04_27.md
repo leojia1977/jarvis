@@ -509,3 +509,27 @@ Next safe route:
 ```text
 WAIT_FOR_CH_T04_OR_IN_T03_OR_MV_T02_IMPLEMENTATION_GO_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 2026-04-29 CH-T04 / IN-T03 / MV-T02 Implementation Closeout
+
+Status update:
+
+```text
+CH-T04: implemented / gate PASS / Claude Code PASS_WITH_FINDINGS / no exact Jira issue found
+IN-T03: implemented / gate PASS / Claude Code PASS_WITH_FINDINGS / no exact Jira issue found
+MV-T02: implemented / gate PASS / Claude Code PASS_WITH_FINDINGS / Jira SCRUM-55 Done
+```
+
+Progress impact:
+
+- `CH-T04` moves from checklist-ready to repo implemented as frontend-only `ui_messages` source-health semantic display.
+- `IN-T03` moves from checklist-ready to repo implemented as navigation-only Inbox to `/approval`.
+- `MV-T02` moves from checklist-ready to repo implemented as hard redirect / no Manager entry; `MV-T05` remains HOLD because `MV-T02 = OPTION_A` does not create a P0/P2 Manager variant.
+- `IN-T06` may now move to a future acceptance/reconciliation checklist, but is not automatically Done.
+- `CH-T04` acceptance closure may now move to a future acceptance/reconciliation checklist, but is not automatically Done.
+
+Next safe route:
+
+```text
+OPEN_DEPENDENT_ACCEPTANCE_RECONCILIATION_POOL_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

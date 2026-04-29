@@ -5007,3 +5007,36 @@ Next route:
 ```text
 WAIT_FOR_CH_T04_OR_IN_T03_OR_MV_T02_IMPLEMENTATION_GO_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 151. Update 2026-04-29: CH-T04 / IN-T03 / MV-T02 Implementation Closeout
+
+Records:
+
+```text
+docs/S6_CH_T04_SOURCE_HEALTH_SEMANTIC_IMPLEMENTATION_CLOSEOUT_2026_04_29.md
+docs/S6_IN_T03_NAVIGATION_ONLY_APPROVAL_ENTRY_IMPLEMENTATION_CLOSEOUT_2026_04_29.md
+docs/S6_MV_T02_P0_P2_MANAGER_HARD_REDIRECT_IMPLEMENTATION_CLOSEOUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+CH_T04_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_FINDINGS_NO_EXACT_JIRA_ISSUE
+IN_T03_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_FINDINGS_NO_EXACT_JIRA_ISSUE
+MV_T02_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_WITH_FINDINGS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `CH-T04` is implemented as a frontend-only `ui_messages` source-health semantic slice on Coverage & Health. It declares no live health source, no runtime truth, no polling/websocket/API/schema, and no backend behavior.
+- `IN-T03` is implemented as a P2-only Inbox navigation entry to the existing governed `/approval` route. It does not create `ActionMode`, mutate approval state, carry authority through URL/storage, or expose P1 to `IMMEDIATE`, `DELAYED`, or `OBSERVE_ONLY`.
+- `MV-T02` is implemented as hard redirect / no Manager entry for non-P3 Manager access. P2 manual `/manager` access redirects to `/approval`; P0/non-P3 guard targets `/inbox`; no P0/P2 Manager degraded variant or placeholder branch is added.
+- Gates passed: frontend tests, frontend build, `git diff --check`, and pilot preflight.
+- Claude Code focused review returned `PASS_WITH_FINDINGS`; all findings are non-blocking and no hard constraint violation remains.
+- Jira sync is complete for exact issue `SCRUM-55` / `MV-T02`, now `已完成`. No exact cloud issues were found for `IN-T03` or `CH-T04`, so no Jira Done transition was performed for those rows.
+
+Next route:
+
+```text
+OPEN_DEPENDENT_ACCEPTANCE_RECONCILIATION_POOL_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

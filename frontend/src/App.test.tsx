@@ -1,7 +1,8 @@
 import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
-import App, { ApprovalRouteShell, CoverageHealthView } from "./App";
+import App, { ApprovalRouteShell, CoverageHealthView, ManagerView } from "./App";
 import { validateResolvedSurfaceContext } from "./secupilot/surface/context/validateResolvedSurfaceContext";
 import { adaptCoreSurfaceFixturePhase } from "./secupilot/surface/fixtures/coreSurfaceFixtureAdapter";
 import type { ResolvedSurfaceContext } from "./secupilot/surface/context/types";
@@ -548,10 +549,19 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(uiMessageSlot).toHaveAttribute("data-message-count", "4");
     expect(screen.getAllByTestId("coverage-health-ui-message")).toHaveLength(4);
     expect(
-      screen.getByText("Resolved from fully artificial mock fixture; no URL, storage, real data, or deployment authority.")
-    ).toBeInTheDocument();
+      screen.getAllByText(
+        "Resolved from fully artificial mock fixture; no URL, storage, real data, or deployment authority."
+      )
+    ).toHaveLength(2);
     expect(uiMessageSlot).not.toHaveTextContent("recommended_action");
+    expect(sourceSlot).toHaveAttribute("data-source-health-mode", "ui_messages_semantic");
+    expect(sourceSlot).toHaveAttribute("data-message-source", "ui_messages");
+    expect(sourceSlot).toHaveAttribute("data-live-health-source", "none");
     expect(sourceSlot).toHaveAttribute("data-live-source-health", "not-implemented");
+    expect(screen.getAllByTestId("coverage-health-source-message")).toHaveLength(2);
+    expect(screen.getByTestId("coverage-health-source-boundary-note")).toHaveTextContent(
+      "Semantic display only"
+    );
     expect(regressionSlot).toHaveAttribute("data-cross-surface-hardening", "deferred");
     expect(within(surface).queryByRole("button")).not.toBeInTheDocument();
     expect(
@@ -574,6 +584,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const missingSignalNotice = screen.getByTestId("missing-signal-notice");
     const confidenceNotice = screen.getByTestId("confidence-notice");
     const escalationHint = screen.getByTestId("escalation-hint");
+    const sourceSlot = screen.getByTestId("coverage-health-source-slot");
 
     expect(surface).toHaveAttribute("data-role", "P0");
     expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
@@ -600,6 +611,14 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(confidenceNotice).toHaveAttribute("data-ui-message-key", "fixture_status");
     expect(escalationHint).toHaveAttribute("data-message-source", "ui_messages");
     expect(escalationHint).toHaveAttribute("data-ui-message-key", "expected_ui");
+    expect(sourceSlot).toHaveAttribute("data-health-slot", "source-health");
+    expect(sourceSlot).toHaveAttribute("data-source-health-mode", "ui_messages_semantic");
+    expect(sourceSlot).toHaveAttribute("data-message-source", "ui_messages");
+    expect(sourceSlot).toHaveAttribute("data-live-health-source", "none");
+    expect(sourceSlot).toHaveTextContent("Governed semantic display");
+    expect(sourceSlot).not.toHaveTextContent(
+      /current connection normal|realtime source health|live telemetry|runtime readiness|backend health truth/i
+    );
     expect(screen.queryByTestId("hardcoded-unlock-copy")).not.toBeInTheDocument();
     expect(screen.queryByTestId("frontend-generated-upgrade-copy")).not.toBeInTheDocument();
     expect(screen.queryByTestId("coverage-upgrade-prompt")).not.toBeInTheDocument();
@@ -993,12 +1012,42 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("case-first-inbox-list")).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /Open case/i })).toHaveLength(1);
     expect(document.body).not.toHaveTextContent(/work queue|current case queue|approval queue/i);
+    expect(screen.queryByTestId("inbox-approval-navigation-entry-CASE-2847"))
+      .not.toBeInTheDocument();
 
     await user.click(screen.getAllByRole("button", { name: /Open case/i })[0]);
 
     expect(window.location.pathname).toBe("/case/CASE-2847");
     expect(screen.getByText("CASE-2847")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /HIGH mock case/i })).toBeInTheDocument();
+  });
+
+  it("offers P2 Inbox approval navigation without carrying approval authority", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={2} />);
+
+    const inboxSurface = screen.getByTestId("inbox-surface");
+    const entry = screen.getByTestId("inbox-approval-navigation-entry-CASE-2847");
+    const button = screen.getByTestId("inbox-approval-navigation-button-CASE-2847");
+
+    expect(inboxSurface).toHaveAttribute("data-role", "P2");
+    expect(inboxSurface).toHaveAttribute("data-action-authority", "none");
+    expect(entry).toHaveAttribute("data-ar-hint-mode", "display-only");
+    expect(entry).toHaveAttribute("data-ar-status-display", "Pending approval");
+    expect(entry).toHaveAttribute("data-action-mode", "none");
+    expect(entry).toHaveAttribute("data-state-mutation", "none");
+    expect(entry).toHaveAttribute("data-approval-authority-transfer", "none");
+    expect(entry).toHaveAttribute("data-target-route", "/approval");
+    expect(button).toHaveAttribute("data-authority-payload", "none");
+    expect(entry).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
+
+    await user.click(button);
+
+    expect(window.location.pathname).toBe("/approval");
+    expect(window.location.search).toBe("");
+    expect(window.localStorage.getItem("role")).toBeNull();
+    expect(window.sessionStorage.getItem("action_mode")).toBeNull();
+    expect(screen.getByTestId("approval-surface")).toBeInTheDocument();
   });
 
   it("renders the P3 inbox as a read-only skeleton without operation affordance", () => {
@@ -1098,19 +1147,55 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(document.body).not.toHaveTextContent(/MTTR|ROI 10|queue count|完全受控|已彻底消除/i);
   });
 
-  it("does not let URL or storage create Manager View authority", () => {
+  it("does not let URL or storage create Manager View authority", async () => {
     window.history.pushState({}, "", "/manager?role=P3");
     window.localStorage.setItem("role", "P3");
     window.sessionStorage.setItem("surface", "P3_MANAGER");
 
     render(<App />);
 
-    const guard = screen.getByTestId("manager-route-guard");
+    await waitFor(() => expect(window.location.pathname).toBe("/inbox"));
 
-    expect(guard).toHaveAttribute("data-route-guard", "role-not-eligible");
-    expect(guard).toHaveAttribute("data-role", "P1");
+    expect(screen.getByTestId("inbox-surface")).toHaveAttribute("data-role", "P1");
+    expect(screen.queryByTestId("manager-route-guard")).not.toBeInTheDocument();
     expect(screen.queryByTestId("manager-view-surface")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
+  });
+
+  it("keeps P0/P2 Manager entry denied without degraded Manager variants", async () => {
+    window.history.pushState({}, "", "/manager?role=P3");
+    window.localStorage.setItem("manager_state", "P3_MANAGER");
+    window.sessionStorage.setItem("manager_handoff", "approval_audit");
+
+    render(<App initialPhaseNumber={2} />);
+
+    await waitFor(() => expect(window.location.pathname).toBe("/approval"));
+
+    expect(screen.getByTestId("approval-surface")).toBeInTheDocument();
+    expect(screen.queryByTestId("manager-view-surface")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(document.body).not.toHaveTextContent(/P0 readonly manager|P2 readonly manager/i);
+
+    const p0Context = buildP0CoverageHealthContext();
+    const p0Case = buildApprovalRouteCase(p0Context);
+    const onRouteRedirect = vi.fn();
+
+    render(
+      <ManagerView
+        activeCase={p0Case}
+        activeContext={p0Context}
+        onRouteRedirect={onRouteRedirect}
+      />
+    );
+
+    const p0Guard = screen.getAllByTestId("manager-route-guard").at(-1);
+    expect(p0Guard).toHaveAttribute("data-role", "P0");
+    expect(p0Guard).toHaveAttribute("data-manager-entry", "denied");
+    expect(p0Guard).toHaveAttribute("data-redirect-target", "/inbox");
+    expect(p0Guard).toHaveAttribute("data-manager-state-transfer", "none");
+    expect(p0Guard).toHaveAttribute("data-p0-p2-placeholders", "absent");
+    await waitFor(() => expect(onRouteRedirect).toHaveBeenCalledWith("inbox"));
   });
 
   it("maps case AR status through D-02 display semantics without state migration", () => {
