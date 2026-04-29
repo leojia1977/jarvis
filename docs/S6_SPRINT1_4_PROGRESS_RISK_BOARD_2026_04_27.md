@@ -592,3 +592,30 @@ Next safe route:
 ```text
 OPEN_R3_LOW_RISK_BURN_POOL_RUNNER_OR_WAIT_FOR_EXACT_IMPLEMENTATION_GO
 ```
+
+## 2026-04-29 R3 Low-Risk Burn Pool Closeout
+
+Status update:
+
+```text
+AP-T12A: acceptance evidence index recorded / AP-T12 remains HOLD
+MV-T05A: P3-only Manager acceptance reconciliation PASS repo-side / Jira Done requires separate GO
+AP-T02: HOLD confirmed / P0 readonly approval context source required
+Parent epic closure board: recorded / no Jira mutation
+Jira stale seed cleanup proposal: recorded / no Jira mutation
+Next implementation candidate board: recorded / no implementation safe without exact GO
+```
+
+Progress impact:
+
+- Automation has completed the current R3 docs-only burn pool.
+- `AP-T02` is now the clearest blocker for full AP acceptance.
+- `AP-T12` remains a full-suite HOLD, but `AP-T12A` provides a stable evidence index for future acceptance planning.
+- `MV-T05` can be closed only if Jarvis accepts the P3-only rescope and authorizes Jira Done; otherwise it remains HOLD.
+- Parent epics and stale seed issues are now mapped for future Jira hygiene, with no mutation performed.
+
+Next safe route:
+
+```text
+WAIT_FOR_AP_T02_SOURCE_INPUT_OR_AP_T12C_ACCEPTANCE_LANE_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
+```

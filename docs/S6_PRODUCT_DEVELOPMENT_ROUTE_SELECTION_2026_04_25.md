@@ -5120,3 +5120,43 @@ Next route:
 ```text
 OPEN_R3_LOW_RISK_BURN_POOL_RUNNER_OR_WAIT_FOR_EXACT_IMPLEMENTATION_GO
 ```
+
+## 154. Update 2026-04-29: R3 Low-Risk Burn Pool Closeout
+
+Records:
+
+```text
+docs/S6_AP_T12A_ACCEPTANCE_EVIDENCE_INDEX_CHECKLIST_2026_04_29.md
+docs/S6_MV_T05A_P3_ONLY_MANAGER_ACCEPTANCE_RECONCILIATION_2026_04_29.md
+docs/S6_AP_T02_P0_READONLY_APPROVAL_BLOCKER_REFRESH_2026_04_29.md
+docs/S6_PARENT_EPIC_CLOSURE_READINESS_BOARD_2026_04_29.md
+docs/S6_JIRA_STALE_SEED_CLEANUP_PROPOSAL_2026_04_29.md
+docs/S6_NEXT_IMPLEMENTATION_CANDIDATE_BOARD_2026_04_29.md
+```
+
+Decision:
+
+```text
+R3_LOW_RISK_BURN_POOL_RECORDED_NO_IMPLEMENTATION
+AP_T12A_ACCEPTANCE_EVIDENCE_INDEX_RECORDED_AP_T12_REMAINS_HOLD
+MV_T05A_P3_ONLY_MANAGER_ACCEPTANCE_RECONCILIATION_PASS_NO_CODE_JIRA_DONE_REQUIRES_SEPARATE_GO
+AP_T02_HOLD_CONFIRMED_P0_APPROVAL_CONTEXT_SOURCE_REQUIRED
+PARENT_EPIC_CLOSURE_READINESS_RECORDED_NO_JIRA_MUTATION
+JIRA_STALE_SEED_CLEANUP_PROPOSAL_RECORDED_NO_MUTATION
+NEXT_IMPLEMENTATION_CANDIDATE_BOARD_RECORDED_IMPLEMENTATION_GO_REQUIRED
+```
+
+Interpretation:
+
+- `AP-T12A` indexes the current bounded AP acceptance evidence but keeps full `AP-T12` / `SCRUM-74` on HOLD.
+- `MV-T05A` confirms the P3-only Manager acceptance evidence is sufficient repo-side, but `SCRUM-75` requires a separate Jira Done GO because this excludes P0/P2 Manager variants.
+- `AP-T02` remains the primary full-AP blocker and needs a governed P0 readonly approval context source or approved test harness before implementation.
+- Parent epic readiness is mapped, but no parent epic transition is authorized.
+- Jira stale seed cleanup is only proposed; no Jira mutation was performed.
+- No new code implementation is safe without a later exact `IMPLEMENTATION_GO`.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T02_SOURCE_INPUT_OR_AP_T12C_ACCEPTANCE_LANE_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
+```
