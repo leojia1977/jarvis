@@ -464,3 +464,26 @@ Next safe route:
 ```text
 WAIT_FOR_CH_T04_SCOPE_DECISION_OR_IN_T03_AUTHORITY_DECISION_OR_MV_T02_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 2026-04-29 CH-T04 / IN-T03 / MV-T02 Authority Verdict
+
+Status update:
+
+```text
+CH-T04: authority verdict OPTION_A / exact implementation checklist required
+IN-T03: authority verdict OPTION_B / exact implementation checklist required
+MV-T02: authority verdict OPTION_A / exact implementation checklist required
+```
+
+Progress impact:
+
+- `CH-T04` moves from authority-gated to checklist-ready, limited to frontend-only `ui_messages` source-health semantic display.
+- `IN-T03` moves from authority-gated to checklist-ready, limited to navigation-only entry to governed `/approval`.
+- `MV-T02` moves from authority-gated to checklist-ready, limited to P0/P2 hard redirect or no Manager entry.
+- `IN-T06`, `MV-T05`, and `CH-T04` acceptance closure remain HOLD until parent implementation/checklist closeout.
+
+Next safe route:
+
+```text
+OPEN_CH_T04_IN_T03_MV_T02_EXACT_IMPLEMENTATION_CHECKLISTS
+```

@@ -4944,3 +4944,35 @@ Next route:
 ```text
 WAIT_FOR_CH_T04_SCOPE_DECISION_OR_IN_T03_AUTHORITY_DECISION_OR_MV_T02_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 149. Update 2026-04-29: CH-T04 / IN-T03 / MV-T02 Authority Verdict
+
+Record:
+
+```text
+docs/S6_CH_T04_IN_T03_MV_T02_AUTHORITY_VERDICT_2026_04_29.md
+```
+
+Decision:
+
+```text
+CH_T04_AUTHORITY_VERDICT_OPTION_A_FRONTEND_ONLY_UI_MESSAGES_SOURCE_HEALTH_SEMANTIC_SLICE
+IN_T03_AUTHORITY_VERDICT_OPTION_B_NAVIGATION_ONLY_ENTRY_TO_EXISTING_APPROVAL_CONTEXT
+MV_T02_AUTHORITY_VERDICT_OPTION_A_P0_P2_HARD_REDIRECT_OR_NO_MANAGER_ENTRY
+IMPLEMENTATION_NOT_AUTHORIZED
+EXACT_IMPLEMENTATION_CHECKLIST_REQUIRED_BEFORE_CODE
+```
+
+Interpretation:
+
+- `CH-T04` is authority-approved only as a frontend-only `ui_messages` source-health semantic slice with unavailable/degraded placeholders and no live runtime health claim.
+- `IN-T03` is authority-approved only as a navigation-only entry to the existing governed `/approval` context; no Inbox AP mutation, `ActionMode` creation, URL/storage authority, or action-capable shortcut is authorized.
+- `MV-T02` is authority-approved only as P0/P2 hard redirect or no Manager entry; no P0/P2 Manager readonly degraded variant is authorized.
+- Each lane must now create an exact implementation checklist before code.
+- This record does not authorize implementation, frontend source changes, Storybook, Playwright, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, launch, or Jira Done transitions.
+
+Next route:
+
+```text
+OPEN_CH_T04_IN_T03_MV_T02_EXACT_IMPLEMENTATION_CHECKLISTS
+```
