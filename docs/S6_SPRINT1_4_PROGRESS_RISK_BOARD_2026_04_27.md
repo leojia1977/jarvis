@@ -619,3 +619,25 @@ Next safe route:
 ```text
 WAIT_FOR_AP_T02_SOURCE_INPUT_OR_AP_T12C_ACCEPTANCE_LANE_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
 ```
+
+## 2026-04-29 MV-T05A Closeout + AP-T02 Source Checklist
+
+Status update:
+
+```text
+MV-T05A: P3-only Manager acceptance closed / Jira SCRUM-75 Done
+AP-T02: context source checklist HOLD / governed P0 approval context missing
+```
+
+Progress impact:
+
+- Manager View P3-only acceptance path is now closed under the explicit rescope.
+- `MV` parent closure may be considered only under the same P3-only scope; it still must not claim P0/P2 Manager variants.
+- Full AP acceptance remains blocked primarily by `AP-T02`.
+- AP-T02 can advance only if Product/Governance provides a governed P0 readonly approval context source or explicitly approves a test harness.
+
+Next safe route:
+
+```text
+WAIT_FOR_AP_T02_GOVERNED_P0_CONTEXT_SOURCE_OR_APPROVED_TEST_HARNESS
+```

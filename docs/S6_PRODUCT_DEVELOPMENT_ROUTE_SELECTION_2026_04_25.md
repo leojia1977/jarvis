@@ -5160,3 +5160,33 @@ Next route:
 ```text
 WAIT_FOR_AP_T02_SOURCE_INPUT_OR_AP_T12C_ACCEPTANCE_LANE_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
 ```
+
+## 155. Update 2026-04-29: MV-T05A Closeout + AP-T02 Source Checklist
+
+Records:
+
+```text
+docs/S6_MV_T05A_P3_ONLY_MANAGER_ACCEPTANCE_CLOSEOUT_2026_04_29.md
+docs/S6_AP_T02_P0_READONLY_APPROVAL_CONTEXT_SOURCE_CHECKLIST_2026_04_29.md
+```
+
+Decision:
+
+```text
+MV_T05A_P3_ONLY_MANAGER_ACCEPTANCE_CLOSED_JIRA_DONE_SYNCED
+AP_T02_CONTEXT_SOURCE_CHECKLIST_HOLD_GOVERNED_P0_APPROVAL_CONTEXT_MISSING
+IMPLEMENTATION_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- Jarvis accepted `MV-T05A` as P3-only Manager acceptance; Jira `SCRUM-75` is now `已完成`.
+- This does not claim P0/P2 Manager degraded variants or cross-role Manager acceptance.
+- `AP-T02` remains HOLD. The repo has a P0 readonly branch if a P0 context is supplied, but no governed renderable P0 approval context source or approved test harness exists yet.
+- Future `AP-T02` implementation requires either a governed P0 approval context source or an explicitly approved test harness, with exact allowed files/tests and no URL/storage authority.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T02_GOVERNED_P0_CONTEXT_SOURCE_OR_APPROVED_TEST_HARNESS
+```
