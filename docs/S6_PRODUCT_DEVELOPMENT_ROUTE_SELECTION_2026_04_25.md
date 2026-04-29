@@ -5731,3 +5731,32 @@ Next route:
 ```text
 RUN_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_GATES_OR_WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF
 ```
+
+## 173. Update 2026-04-29: Non-Qwen Evidence Runner Batch 3 Plan
+
+Record:
+
+```text
+docs/S6_NON_QWEN_EVIDENCE_RUNNER_BATCH3_PLAN_2026_04_29.md
+```
+
+Decision:
+
+```text
+NON_QWEN_EVIDENCE_RUNNER_BATCH3_PLAN_CREATED
+S0_SYNTHETIC_INPUTS_READY
+QWEN_CLOUD_RUNTIME_HANDOFF_STILL_REQUIRED
+NO_IMPLEMENTATION_SELF_AUTHORIZED
+```
+
+Interpretation:
+
+- S0 synthetic inputs are ready after commit `547bd4f`.
+- The next useful non-Qwen work is docs-only preparation for Qwen handoff evidence, output import/scoring, real-data shadow precheck, build-ready reviewer brief, and idle fallback reporting.
+- This plan does not authorize Qwen execution, output fabrication, real or masked-real data, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, launch, or code changes.
+
+Next route:
+
+```text
+WAIT_FOR_BATCH3_DOCS_ONLY_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
+```

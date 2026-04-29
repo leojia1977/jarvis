@@ -767,3 +767,25 @@ Next safe route:
 ```text
 RUN_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_GATES_OR_WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF
 ```
+
+## 2026-04-29 Non-Qwen Evidence Runner Batch 3 Plan
+
+Status update:
+
+```text
+Batch 3 plan: created
+S0 synthetic inputs: ready
+Qwen cloud runtime handoff: still HOLD
+```
+
+Progress impact:
+
+- Batch 3 plan is recorded in `docs\S6_NON_QWEN_EVIDENCE_RUNNER_BATCH3_PLAN_2026_04_29.md`.
+- The plan proposes only docs-only outputs: Qwen handoff evidence template, Qwen output import/scoring checklist, real-data shadow precheck checklist, build-ready reviewer brief, and idle fallback report.
+- No Qwen execution, model-output fabrication, real data, masked real data, code, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, or launch is authorized by this plan.
+
+Next safe route:
+
+```text
+WAIT_FOR_BATCH3_DOCS_ONLY_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
+```

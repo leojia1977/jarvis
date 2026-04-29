@@ -927,3 +927,25 @@ Recommended next board lane:
 ```text
 RUN_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_GATES_OR_WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF
 ```
+
+## 2026-04-29 Non-Qwen Evidence Runner Batch 3 Plan
+
+Status update:
+
+```text
+S0 synthetic inputs: committed and pushed
+Batch 3 docs-only runner plan: ready
+Qwen cloud runtime handoff: HOLD
+```
+
+Board impact:
+
+- The automation runner has a next docs-only queue available and should not return to Jira burn-down.
+- Batch 3 is explicitly limited to handoff templates, scoring checklists, real-data precheck planning, reviewer brief, and idle reporting.
+- No product implementation, Qwen run, real-data shadow, backend/runtime/API/schema, Jira mutation, deploy, external pilot, or launch is authorized.
+
+Recommended next board lane:
+
+```text
+WAIT_FOR_BATCH3_DOCS_ONLY_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
+```
