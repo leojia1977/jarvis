@@ -5082,3 +5082,41 @@ Next route:
 ```text
 OPEN_AP_T12_ACCEPTANCE_SCOPE_DECISION_OR_OPEN_MV_T05_RESCOPE_DECISION_OR_WAIT_FOR_JIRA_CREATION_GO_FOR_MISSING_DEPENDENT_TICKETS_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 153. Update 2026-04-29: Jira Missing Child Sync + AP-T12 / MV-T05 Decisions + R3 Pool
+
+Records:
+
+```text
+docs/S6_JIRA_MISSING_CHILD_ISSUE_CREATION_SYNC_2026_04_29.md
+docs/S6_AP_T12_ACCEPTANCE_SCOPE_DECISION_2026_04_29.md
+docs/S6_MV_T05_RESCOPE_DECISION_2026_04_29.md
+docs/S6_R3_EXACT_LOW_RISK_BURN_POOL_2026_04_29.md
+docs/S6_R3_LOW_RISK_BURN_POOL_HEARTBEAT_PROMPT_2026_04_29.md
+```
+
+Decision:
+
+```text
+JIRA_MISSING_CHILD_ISSUES_CREATED_AND_SAFE_ROWS_SYNCED
+AP_T12_SCOPE_DECISION_HOLD_FULL_SUITE_SPLIT_CANDIDATES_READY
+MV_T05_RESCOPE_DECISION_OPTION_A_P3_ONLY_ACCEPTANCE_CANDIDATE
+R3_EXACT_LOW_RISK_BURN_POOL_OPEN
+STOP_AT_IMPLEMENTATION_GO_REQUIRED
+```
+
+Interpretation:
+
+- Missing child Jira issues were created for `IN-T03`, `IN-T06`, `CH-T04`, `CD-T07`, `AP-T11`, `AP-T12`, and `MV-T05`.
+- Safe repo PASS rows were synced to Jira Done: `SCRUM-69` (`IN-T03`), `SCRUM-70` (`IN-T06`), `SCRUM-71` (`CH-T04`), `SCRUM-72` (`CD-T07`), and `SCRUM-73` (`AP-T11` static/state-sync boundary only).
+- `SCRUM-74` (`AP-T12`) remains `待办` because full AP acceptance suite still needs explicit scope and cannot be inferred from `AP-T06` / `AP-T09`.
+- `SCRUM-75` (`MV-T05`) remains `待办` because `MV-T02 = OPTION_A` does not create a P0/P2 Manager variant.
+- `AP-T12` is scoped as full-suite HOLD with split candidates `AP-T12A`, `AP-T12B`, and `AP-T12C`.
+- `MV-T05` is rescoped only as a future P3-only Manager acceptance candidate; P0/P2 Manager degraded variants remain explicitly excluded.
+- R3 low-risk burn pool is open for docs-only/checklist-only work and must stop before code at `IMPLEMENTATION_GO_REQUIRED`.
+
+Next route:
+
+```text
+OPEN_R3_LOW_RISK_BURN_POOL_RUNNER_OR_WAIT_FOR_EXACT_IMPLEMENTATION_GO
+```

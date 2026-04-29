@@ -562,3 +562,33 @@ Next safe route:
 ```text
 OPEN_AP_T12_ACCEPTANCE_SCOPE_DECISION_OR_OPEN_MV_T05_RESCOPE_DECISION_OR_WAIT_FOR_JIRA_CREATION_GO_FOR_MISSING_DEPENDENT_TICKETS_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 2026-04-29 Jira Child Sync + AP-T12 / MV-T05 Decisions + R3 Pool
+
+Status update:
+
+```text
+IN-T03: Jira SCRUM-69 Done
+IN-T06: Jira SCRUM-70 Done
+CH-T04: Jira SCRUM-71 Done
+CD-T07: Jira SCRUM-72 Done
+AP-T11: Jira SCRUM-73 Done for static/state-sync boundary only
+AP-T12: Jira SCRUM-74 To Do / full-suite HOLD
+MV-T05: Jira SCRUM-75 To Do / P3-only rescope candidate
+R3 low-risk burn pool: open docs-only / checklist-only
+```
+
+Progress impact:
+
+- Jira cloud now has dedicated child rows for previously missing dependent tickets.
+- Done count increased only for repo PASS/no-code rows.
+- `AP-T12` and `MV-T05` are visible in Jira without being falsely completed.
+- `AP-T12` is split into future checklist candidates and remains blocked for full-suite Done.
+- `MV-T05` can proceed only through a future P3-only acceptance reconciliation checklist; P0/P2 Manager variants are not in scope.
+- R3 gives the automation runner a safe non-code queue while waiting for exact implementation GO.
+
+Next safe route:
+
+```text
+OPEN_R3_LOW_RISK_BURN_POOL_RUNNER_OR_WAIT_FOR_EXACT_IMPLEMENTATION_GO
+```
