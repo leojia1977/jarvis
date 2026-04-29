@@ -1546,6 +1546,27 @@ function ManagerView({
     );
   }
 
+  // Fixture audit trails are append-ordered; the latest event is the final item.
+  const latestManagerAuditEvent =
+    activeContext.audit_trail.length > 0
+      ? activeContext.audit_trail[activeContext.audit_trail.length - 1]
+      : undefined;
+  const managerAuditDerivedStatus = getApprovalAuditDerivedStatus(latestManagerAuditEvent);
+  const managerAuditStatusDisplay = APPROVAL_AUDIT_STATUS_DISPLAY[managerAuditDerivedStatus];
+  const managerAuditId =
+    auditRecordString(latestManagerAuditEvent, "audit_id") ?? "No audit record";
+  const managerAuditEvent =
+    auditRecordString(latestManagerAuditEvent, "event") ?? "No audit event";
+  const managerAuditActorRole =
+    auditRecordString(latestManagerAuditEvent, "actor_role") ?? "Unavailable";
+  const managerAuditArStatusAfter =
+    auditRecordString(latestManagerAuditEvent, "ar_status_after") ?? "Unavailable";
+  const managerAuditCaseStateAfter =
+    auditRecordString(latestManagerAuditEvent, "case_state_after") ?? "Unavailable";
+  const managerHasObservationAudit = activeContext.audit_trail.some(
+    (event) => auditRecordString(event, "event") === "OBSERVE_ONLY_SELECTED"
+  );
+
   const kpiCards = [
     {
       id: "coverage",
@@ -1573,7 +1594,7 @@ function ManagerView({
       label: "Approval throughput",
       value: "—",
       source: "data-unavailable",
-      note: "Approval audit summary remains later MV-T04 scope."
+      note: "No frontend-derived throughput; approval audit summary remains read-only."
     }
   ];
 
@@ -1583,7 +1604,7 @@ function ManagerView({
       className="page-region manager-view-surface"
       data-authority-source="resolved-surface-context"
       data-handoff-payload="none"
-      data-manager-scope="mv-t01-structure-only"
+      data-manager-scope="mv-t01-mv-t04-readonly-summary"
       data-p0-p2-placeholders="absent"
       data-role={role}
       data-testid="manager-view-surface"
@@ -1594,7 +1615,7 @@ function ManagerView({
           <h1 id="manager-view-title">Manager Summary</h1>
           <p>
             P3 read-only management posture, derived from mock fixture context and bounded
-            to MV-T01 page structure.
+            to MV-T01 page structure plus MV-T04 audit summary.
           </p>
         </div>
         <span
@@ -1686,10 +1707,79 @@ function ManagerView({
           </div>
           <div
             className="manager-audit-boundary"
-            data-approval-audit-summary="not-implemented"
+            data-approval-audit-summary="implemented"
+            data-source="activeContext.audit_trail"
+            data-state-mutation="none"
             data-testid="manager-audit-boundary"
           >
-            Approval audit summary is not mounted in MV-T01.
+            <section
+              aria-labelledby="manager-approval-audit-title"
+              className="manager-approval-audit-summary"
+              data-audit-count={activeContext.audit_trail.length}
+              data-derived-status={managerAuditDerivedStatus}
+              data-derived-status-source="fixed-enum-mapping"
+              data-display-mode="read-only-summary"
+              data-full-audit-chain="not-rendered"
+              data-p0-p2-placeholders="absent"
+              data-role={role}
+              data-source="activeContext.audit_trail"
+              data-source-fields="audit_id,event,actor_role,case_state_after,ar_status_after"
+              data-source-order="AP-T08-before-SH-T08-before-MV-T04"
+              data-source-surface="manager"
+              data-state-mutation="none"
+              data-testid="manager-approval-audit-summary"
+            >
+              <div>
+                <h3 id="manager-approval-audit-title">Approval Audit Summary</h3>
+                <p>
+                  P3 read-only summary sourced from the existing approval audit trail.
+                </p>
+              </div>
+              <dl className="manager-approval-audit-facts">
+                <div>
+                  <dt>Audit record</dt>
+                  <dd data-testid="manager-approval-audit-latest-id">{managerAuditId}</dd>
+                </div>
+                <div>
+                  <dt>Event</dt>
+                  <dd data-testid="manager-approval-audit-latest-event">{managerAuditEvent}</dd>
+                </div>
+                <div>
+                  <dt>Actor role</dt>
+                  <dd data-testid="manager-approval-audit-actor-role">
+                    {managerAuditActorRole}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Derived status</dt>
+                  <dd
+                    data-derived-status={managerAuditDerivedStatus}
+                    data-derived-status-source="fixed-enum-mapping"
+                    data-testid="manager-approval-audit-derived-status"
+                  >
+                    {managerAuditStatusDisplay.label}
+                  </dd>
+                </div>
+                <div>
+                  <dt>AR status after</dt>
+                  <dd data-testid="manager-approval-audit-ar-status-after">
+                    {managerAuditArStatusAfter}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Case state after</dt>
+                  <dd data-testid="manager-approval-audit-case-state-after">
+                    {managerAuditCaseStateAfter}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Observation audit</dt>
+                  <dd data-testid="manager-approval-audit-observation-presence">
+                    {managerHasObservationAudit ? "Present" : "Not present"}
+                  </dd>
+                </div>
+              </dl>
+            </section>
           </div>
         </aside>
       </div>

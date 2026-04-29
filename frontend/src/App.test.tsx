@@ -220,6 +220,80 @@ describe("SecuPilot first-batch workbench slice", () => {
     );
   });
 
+  it("keeps AP static boundaries non-mutating for AP-T11A", async () => {
+    const user = userEvent.setup();
+    const pendingRender = render(<App initialPhaseNumber={2} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    const ctaBoundary = screen.getByTestId("approval-cta-boundary");
+    const auditBoundary = screen.getByTestId("approval-audit-source-boundary");
+
+    expect(ctaBoundary).toHaveAttribute("data-state-mutation", "none");
+    expect(auditBoundary).toHaveAttribute("data-display-mode", "display-only");
+    expect(auditBoundary).toHaveAttribute("data-state-mutation", "none");
+    const ctaButtons = within(ctaBoundary).queryAllByRole("button");
+    expect(ctaButtons.length).toBeGreaterThan(0);
+    for (const button of ctaButtons) {
+      expect(button).toHaveAttribute("data-state-mutation", "none");
+    }
+
+    await user.click(screen.getByRole("button", { name: "Approve" }));
+
+    const confirmDialog = screen.getByRole("dialog", { name: "Approve strong confirm" });
+    expect(confirmDialog).toHaveAttribute("data-state-mutation", "none");
+    expect(within(confirmDialog).getByTestId("approval-draft-confirm")).toBeDisabled();
+
+    await user.click(within(confirmDialog).getByRole("button", { name: "Close" }));
+    await user.click(screen.getByRole("button", { name: "Delay" }));
+
+    const configDialog = screen.getByRole("dialog", { name: "Delay configuration" });
+    expect(configDialog).toHaveAttribute("data-state-mutation", "none");
+    expect(within(configDialog).getByTestId("approval-delay-observe-config-shell"))
+      .toHaveAttribute("data-timer-authority", "none");
+    expect(within(configDialog).getByTestId("approval-draft-confirm")).toBeDisabled();
+
+    pendingRender.unmount();
+    window.history.pushState({}, "", "/inbox");
+
+    const observationRender = render(<App initialPhaseNumber={OBSERVATION_WINDOW_PHASE} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    const observationBoundary = screen.getByTestId("approval-observation-window-skeleton");
+    expect(observationBoundary).toHaveAttribute("data-state-sync", "not-implemented");
+    expect(observationBoundary).toHaveAttribute("data-state-migration", "none");
+    expect(observationBoundary).toHaveAttribute("data-timer-authority", "none");
+    expect(screen.queryByTestId("approval-cta-boundary")).not.toBeInTheDocument();
+    expect(screen.getByTestId("approval-audit-source-boundary"))
+      .toHaveAttribute("data-state-mutation", "none");
+    for (const id of [
+      "approve-mode-button",
+      "reject-mode-button",
+      "delay-decision-button",
+      "observe-only-button",
+      "view-details-button"
+    ]) {
+      expect(screen.getByTestId(id)).toBeDisabled();
+    }
+
+    observationRender.unmount();
+    window.history.pushState({}, "", "/inbox");
+
+    render(<App initialPhaseNumber={APPROVED_PENDING_EXECUTION_PHASE} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    expect(screen.getByTestId("approval-lock-boundary")).toHaveAttribute(
+      "data-action-controls",
+      "absent"
+    );
+    expect(screen.queryByTestId("approval-cta-boundary")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /approve|reject|delay|observe|revoke|withdraw|reopen/i })
+    ).not.toBeInTheDocument();
+  });
+
   it("hard redirects non-P2 approval route access without URL or storage authority", async () => {
     window.history.pushState({}, "", "/approval?role=P2&action_mode=IMMEDIATE");
     window.localStorage.setItem("role", "P2");
@@ -594,9 +668,38 @@ describe("SecuPilot first-batch workbench slice", () => {
     );
     expect(screen.getByTestId("manager-audit-boundary")).toHaveAttribute(
       "data-approval-audit-summary",
-      "not-implemented"
+      "implemented"
     );
-    expect(screen.queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
+    const managerAuditSummary = screen.getByTestId("manager-approval-audit-summary");
+    expect(managerAuditSummary).toHaveAttribute("data-role", "P3");
+    expect(managerAuditSummary).toHaveAttribute("data-source", "activeContext.audit_trail");
+    expect(managerAuditSummary).toHaveAttribute("data-display-mode", "read-only-summary");
+    expect(managerAuditSummary).toHaveAttribute("data-state-mutation", "none");
+    expect(managerAuditSummary).toHaveAttribute(
+      "data-derived-status-source",
+      "fixed-enum-mapping"
+    );
+    expect(managerAuditSummary).toHaveAttribute("data-derived-status", "APPROVED");
+    expect(managerAuditSummary).toHaveAttribute("data-full-audit-chain", "not-rendered");
+    expect(managerAuditSummary).toHaveAttribute("data-p0-p2-placeholders", "absent");
+    expect(screen.getByTestId("manager-approval-audit-latest-id")).toHaveTextContent("AUD-005");
+    expect(screen.getByTestId("manager-approval-audit-latest-event")).toHaveTextContent(
+      "APPROVED_AFTER_WINDOW"
+    );
+    expect(screen.getByTestId("manager-approval-audit-actor-role")).toHaveTextContent("P2");
+    expect(screen.getByTestId("manager-approval-audit-derived-status")).toHaveAttribute(
+      "data-derived-status",
+      "APPROVED"
+    );
+    expect(screen.getByTestId("manager-approval-audit-ar-status-after")).toHaveTextContent(
+      "APPROVED_PENDING_EXECUTION"
+    );
+    expect(screen.getByTestId("manager-approval-audit-case-state-after")).toHaveTextContent(
+      "APPROVED_PENDING_EXECUTION"
+    );
+    expect(screen.getByTestId("manager-approval-audit-observation-presence")).toHaveTextContent(
+      "Present"
+    );
     expect(screen.queryByTestId("full-audit-trail")).not.toBeInTheDocument();
     expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i }))
@@ -706,7 +809,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(window.location.pathname).toBe("/manager");
     expect(surface).toHaveAttribute("data-role", "P3");
     expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
-    expect(surface).toHaveAttribute("data-manager-scope", "mv-t01-structure-only");
+    expect(surface).toHaveAttribute("data-manager-scope", "mv-t01-mv-t04-readonly-summary");
     expect(surface).toHaveAttribute("data-p0-p2-placeholders", "absent");
     expect(scopeRail).toHaveTextContent("Manager Scope");
     expect(narrative).toHaveTextContent("WHAT");
@@ -719,12 +822,19 @@ describe("SecuPilot first-batch workbench slice", () => {
     );
     expect(screen.getByTestId("manager-audit-boundary")).toHaveAttribute(
       "data-approval-audit-summary",
-      "not-implemented"
+      "implemented"
+    );
+    expect(screen.getByTestId("manager-approval-audit-summary")).toHaveAttribute(
+      "data-source",
+      "activeContext.audit_trail"
+    );
+    expect(screen.getByTestId("manager-approval-audit-summary")).toHaveAttribute(
+      "data-state-mutation",
+      "none"
     );
     expect(within(surface).queryByRole("button", { name: /approve|reject|delay|observe/i }))
       .not.toBeInTheDocument();
     expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
-    expect(screen.queryByTestId("manager-approval-audit-summary")).not.toBeInTheDocument();
   });
 
   it("renders Manager KPI shells without frontend-inferred metric values", () => {

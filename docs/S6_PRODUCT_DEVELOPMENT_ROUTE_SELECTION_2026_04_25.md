@@ -4439,6 +4439,45 @@ Next route:
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
 
+## 135. Update 2026-04-29: MV-T04 / AP-T11A / SH-T09 / Jira Mapping Closeout Batch
+
+Closeout records:
+
+```text
+docs/S6_MV_T04_APPROVAL_AUDIT_SUMMARY_IMPLEMENTATION_CLOSEOUT_2026_04_29.md
+docs/S6_AP_T11A_STATIC_NO_MUTATION_ASSERTION_CLOSEOUT_2026_04_29.md
+docs/S6_SH_T09_ACCEPTANCE_RECONCILIATION_CLOSEOUT_2026_04_29.md
+docs/S6_JIRA_MAPPING_SYNC_SH_T02_SH_T06_EP_T06_2026_04_29.md
+```
+
+Decision:
+
+```text
+MV_T04_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+AP_T11A_STATIC_ASSERTIONS_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_NO_JIRA_DONE
+SH_T09_RECONCILED_GATE_PASS_NO_CODE_REPO_ONLY_NO_EXACT_JIRA_ISSUE
+JIRA_MAPPING_PARENT_EVIDENCE_SYNCED_NO_CHILD_ISSUES_NO_DONE_TRANSITIONS
+```
+
+Interpretation:
+
+- `MV-T04` is implemented as a P3-only read-only Manager approval-audit summary
+  sourced only from existing `activeContext.audit_trail`; Jira `SCRUM-68` is
+  synced Done.
+- `AP-T11A` is implemented as a static no-mutation assertion split only; full
+  `AP-T11` and full `AP-T12` remain HOLD.
+- `SH-T09` is reconciled repo-side as no-code PASS; no exact cloud Jira issue
+  was found, so no Jira Done transition was inferred.
+- Jira mapping for `SH-T02` / `SH-T06` / `EP-T06` used parent evidence comments
+  only on `SCRUM-31` and `SCRUM-25`; no child issues were created and no Done
+  count was increased.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
+
 ## 134. Update 2026-04-29: 30m Runner Unlock Watchlist
 
 Watchlist:

@@ -227,3 +227,32 @@ Idle fallback is docs-only unless a separate exact implementation checklist give
 ```text
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 10. Update 2026-04-29: Authorized Closeout Batch Completed
+
+Jarvis later authorized:
+
+```text
+MV-T04 implementation GO
+AP-T11A static no-mutation assertion GO
+SH-T09 reconciliation GO
+Jira mapping GO
+```
+
+Results:
+
+- `MV-T04` implemented, gated, Claude Code reviewed as `VERDICT: PASS`, and
+  Jira-synced Done as `SCRUM-68`.
+- `AP-T11A` implemented as a test-only static no-mutation assertion split.
+  Full `AP-T11` and full `AP-T12` remain HOLD.
+- `SH-T09` reconciled repo-side as no-code PASS. No exact Jira issue was found,
+  so no Jira Done transition was inferred.
+- Jira mapping for `SH-T02`, `SH-T06`, and `EP-T06` used parent evidence
+  comments only on `SCRUM-31` and `SCRUM-25`; no child issues were created and
+  no Done count was increased.
+
+Current route:
+
+```text
+WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

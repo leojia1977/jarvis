@@ -19,11 +19,11 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 39 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 41 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
-| Checklist-only | 2 | Authorized for readiness/checklist only; no implementation GO. |
+| Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 4 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
 | Needs design | 2 | Missing visual frame is the primary blocker. |
 | HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
@@ -54,14 +54,15 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `EP-T03` | Sprint 1 | L1 lineage degradation semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-39`. |
 | `EP-T04` | Sprint 1 | No-code reconciliation and Jira-synced. |
 | `EP-T05` | Sprint 1 | Implemented, gated, reviewed, Jira-synced. |
-| `EP-T06` | Sprint 1 | EP negative-test suite no-code reconciliation; Jira sync pending env visibility. |
+| `EP-T06` | Sprint 1 | EP negative-test suite no-code reconciliation; parent evidence comment synced to `SCRUM-25`, no dedicated Done transition. |
 | `SH-T01` | Sprint 3A | Historical list item skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-40`. |
-| `SH-T02` | Sprint 3A | Dual coverage clamp semantics implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
+| `SH-T02` | Sprint 3A | Dual coverage clamp semantics implemented, gated, Claude Code reviewed; parent evidence comment synced to `SCRUM-31`, no dedicated Done transition. |
 | `SH-T03` | Sprint 3A | Patch-isolated implementation, gate PASS, Jira-synced. |
 | `SH-T05` | Sprint 3A | Implemented, gated, reviewed, Jira-synced. |
-| `SH-T06` | Sprint 3A | Structural/degraded empty-state semantics implemented, gated, Claude Code reviewed; Jira sync pending env visibility. |
+| `SH-T06` | Sprint 3A | Structural/degraded empty-state semantics implemented, gated, Claude Code reviewed; parent evidence comment synced to `SCRUM-31`, no dedicated Done transition. |
 | `SH-T07` | Sprint 3A | No-code reconciliation closeout; Jira-synced as `SCRUM-44`. |
 | `SH-T08` | Sprint 3A | P3 approval-audit source boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-63`. |
+| `SH-T09` | Sprint 3A | Acceptance reconciliation no-code PASS; exact Jira cloud issue not found, repo closeout is authoritative. |
 | `AP-T10` | Sprint 2 | Display-only AR status badge/pill mapping implemented, gated, reviewed, Jira-synced as `SCRUM-46`. |
 | `AP-T01` | Sprint 2 | `/approval` route shell/guard implemented, gated, reviewed, Jira-synced as `SCRUM-47`. |
 | `AP-T03` | Sprint 2 | Approval CTA boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-56`. |
@@ -72,13 +73,14 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `CH-T03` | Sprint 4 | Bounded Coverage & Health `ui_messages` rendering implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-57`. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure implemented, gated, reviewed, Jira-synced as `SCRUM-49`. |
 | `MV-T03` | Sprint 3B | Manager deep-link handoff implemented as route-only P3 Search/History audit focus, gated, reviewed, Jira-synced as `SCRUM-66`. |
+| `MV-T04` | Sprint 3B | P3 Manager approval-audit summary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-68`. |
 | `SH-T04` | Sprint 3A | Search/History scope no-code reconciliation accepted, Jira-synced as `SCRUM-58`. |
 
 ## 4. Running
 
 | Ticket | Sprint | Current automation action |
 | --- | --- | --- |
-| _None_ | _N/A_ | Current batch completed through AP-T06 state-sync harness source request; next route is MV-T04 implementation GO, AP-T06 state-sync source delivery, AP-T09 VF-15 source delivery, SH-T09 reconciliation GO, Jira mapping GO, or next idle fallback. |
+| _None_ | _N/A_ | Current batch completed through MV-T04 implementation, AP-T11A split assertions, SH-T09 reconciliation, and Jira mapping parent evidence sync. |
 
 ## 5. Auto-Ready
 
@@ -100,8 +102,7 @@ These tickets are authorized for launch/readiness checklist only. Implementation
 
 | Ticket | Sprint | Checklist purpose | Claude Web result | Added launch condition |
 | --- | --- | --- | --- | --- |
-| `SH-T09` | Sprint 3A | Search / History acceptance reconciliation. | Not required yet | Acceptance checklist prepared; closeout still requires separate reconciliation GO. |
-| `MV-T04` | Sprint 3B | P3 Manager approval audit summary source-order follow-up. | `PASS_WITH_NOTES` already recorded | Source-order follow-up PASS; implementation still requires explicit GO. |
+| _None_ | _N/A_ | No checklist-only ticket is currently authorized for implementation without new source delivery or exact GO. | _N/A_ | _N/A_ |
 
 ## 8. Needs Authority Review
 
@@ -142,11 +143,11 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 39 / 54
+Done: 41 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
-Checklist-only: 2
+Checklist-only: 0
 Blocked/HOLD/design/authority: 13
 ```
 
@@ -182,6 +183,10 @@ docs\S6_SH_T09_RECONCILIATION_CLOSEOUT_PREP_2026_04_29.md
 docs\S6_MV_T04_IMPLEMENTATION_GO_PREP_2026_04_29.md
 docs\S6_AP_T09_VF15_DESIGN_SOURCE_REQUEST_2026_04_29.md
 docs\S6_AP_T06_STATE_SYNC_HARNESS_SOURCE_REQUEST_2026_04_29.md
+docs\S6_MV_T04_APPROVAL_AUDIT_SUMMARY_IMPLEMENTATION_CLOSEOUT_2026_04_29.md
+docs\S6_AP_T11A_STATIC_NO_MUTATION_ASSERTION_CLOSEOUT_2026_04_29.md
+docs\S6_SH_T09_ACCEPTANCE_RECONCILIATION_CLOSEOUT_2026_04_29.md
+docs\S6_JIRA_MAPPING_SYNC_SH_T02_SH_T06_EP_T06_2026_04_29.md
 ```
 
 Queue purpose:
@@ -214,6 +219,10 @@ AP-T06 state-sync harness source request prepared; no full AP-T06 implementation
 AP-T11A static no-mutation assertion prep prepared; no implementation, Jira mutation, or full AP-T11/AP-T12 closeout without exact GO
 30m runner idle report recorded; no implementation safe without explicit GO/source delivery/mapping GO
 30m runner unlock watchlist prepared with copy-ready GO phrases; no implementation or Jira mutation authorized
+MV-T04 implemented as P3-only read-only Manager approval audit summary, gate PASS, Claude Code PASS, Jira synced as `SCRUM-68`
+AP-T11A static no-mutation assertion split implemented, gate PASS, Claude Code PASS; full AP-T11/AP-T12 remain HOLD and no Jira Done transition was made
+SH-T09 acceptance reconciliation closed no-code PASS; no exact Jira issue was found, so repo closeout remains authoritative
+Jira mapping parent evidence sync completed for SH-T02/SH-T06 on `SCRUM-31` and EP-T06 on `SCRUM-25`; no child issues created and no Done count increased
 ```
 
 Latest implementation batch:
@@ -229,6 +238,8 @@ SH-T06 Search/History structural/degraded empty-state split
 CD-T06A Case Detail existing-state header skeleton
 SH-T08 Search/History P3 approval-audit source boundary
 EP-T06 EP negative-test suite no-code reconciliation
+MV-T04 P3 Manager approval-audit read-only summary
+AP-T11A static AP no-mutation assertion suite
 ```
 
 Checklist-only path:
@@ -252,18 +263,18 @@ AP-T09 blocker refresh recorded; AP-T08 dependency closed, VF-15/exact source st
 AP-T02/MV-T02 blocker refresh recorded; both remain HOLD pending exact authority contexts
 CH-T02/CH-T04 blocker refresh recorded; CH-T02 remains HOLD pending VF-01 and CH-T04 remains HOLD pending CH-T02 plus governed runtime/source-health scope
 SH-T09 acceptance checklist prepared; reconciliation closeout still requires separate GO
+SH-T09 acceptance reconciliation closeout PASS; exact Jira issue not found
+MV-T04 implementation closeout PASS and Jira Done as `SCRUM-68`
+AP-T11A static no-mutation assertion closeout PASS; full AP-T11/AP-T12 remain HOLD
+Jira mapping parent evidence sync PASS without child issue creation or Done transition
 ```
 
 Next human selection options:
 
 ```text
-SH-T09 reconciliation GO
-MV-T04 implementation GO
-AP-T11A static no-mutation assertion GO
 AP-T06 state-sync source delivery
 AP-T09 VF-15 source delivery
-Jira mapping GO for SH-T02 / SH-T06 / EP-T06
-MV-T04 source-order follow-up checklist
+exact MV-T05 readiness refresh only if MV-T02 dependency is explicitly rescoped or resolved
 next low-risk reconciliation/no-code/authority-pack burn-down pool
 ```
 
@@ -271,12 +282,12 @@ Current continuous burn pool:
 
 ```text
 AP-T08 completed and Jira Done
-SH-T08 completed; SH-T09 acceptance checklist is now unblocked but not Done
+SH-T08 completed; SH-T09 acceptance reconciliation now closed repo-side with no exact Jira issue found
 CD-T06A completed; full CD-T06 remains HOLD pending renderable CLOSED context
 CD-T06 visual blocker partially closed, full HOLD pending renderable CLOSED context
 AP-T09 partial unblock: AP-T08 closed; HOLD pending VF-15 / exact audit empty-unavailable source; Jira `SCRUM-67`
-MV-T04 source-order follow-up PASS; implementation still requires separate GO; Jira `SCRUM-68` remains not Done
-AP-T11A prep exists as a future static assertion split; full AP-T11/AP-T12 remain HOLD
+MV-T04 implemented and Jira Done as `SCRUM-68`
+AP-T11A static assertion split is closed repo-side; full AP-T11/AP-T12 remain HOLD
 MV-T05 HOLD pending MV-T04 and MV-T02 resolution
 ```
 
