@@ -4726,3 +4726,33 @@ Next route:
 ```text
 WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CD_T06_CLOSED_CONTEXT_SOURCE_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_IN_T03_P2_AUTHORITY_DECISION_OR_MV_T02_MANAGER_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 142. Update 2026-04-29: R2 Low-Risk Burn Pool
+
+Records:
+
+```text
+docs/S6_R2_LOW_RISK_BURN_POOL_2026_04_29.md
+docs/S6_R2_LOW_RISK_BURN_POOL_HEARTBEAT_PROMPT_2026_04_29.md
+```
+
+Decision:
+
+```text
+R2_LOW_RISK_BURN_POOL_OPEN
+DOCS_ONLY_NO_IMPLEMENTATION
+```
+
+Interpretation:
+
+- R2 exists to keep automation productive while R1 waits for source / authority input.
+- Allowed work is limited to docs-only parity, source request packs, authority review packs, dependent-ticket HOLD maps, sprint planning candidate boards, runner heartbeat prompts, backlog parity notes, and idle fallback reports.
+- R2 must not resolve R1 blockers by inference.
+- R2 must stop any lane at `IMPLEMENTATION_GO_REQUIRED` before code changes.
+- No frontend source, Storybook, Playwright, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, launch, Jira issue creation, or Jira Done transition is authorized.
+
+Next route:
+
+```text
+OPEN_R2_LOW_RISK_BURN_POOL_DOCS_ONLY_QUEUE
+```
