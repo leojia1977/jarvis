@@ -756,3 +756,25 @@ Next safe route:
 ```text
 OPEN_AP_PARENT_CLOSURE_REVIEW_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 2026-04-29 AP Parent Closure and LR4 Burn Pool
+
+Status update:
+
+```text
+AP parent SCRUM-43: Jira Done after parent closure review
+LR4 burn pool: open for exact parent closure / parity work
+```
+
+Progress impact:
+
+- AP parent closure review verified all 12 exposed AP child issues as `已完成`.
+- Jira `SCRUM-43 [AP]` is now `已完成`.
+- This does not authorize launch, deploy, real data, backend/runtime/API/schema, or new product behavior.
+- Automation now has an exact non-idle LR4 queue: E0 / GS / IN / CD / MV parent closure review, EP / SH / CH parent parity audits, and Sprint planning board refresh.
+
+Next safe route:
+
+```text
+RUN_LR4_PARENT_CLOSURE_AND_PARITY_BURN_POOL
+```

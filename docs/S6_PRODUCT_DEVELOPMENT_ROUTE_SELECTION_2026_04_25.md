@@ -5345,3 +5345,34 @@ Next route:
 ```text
 OPEN_AP_PARENT_CLOSURE_REVIEW_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 161. Update 2026-04-29: AP Parent Closure Review and Next Low-Risk Burn Pool
+
+Records:
+
+```text
+docs/S6_AP_PARENT_CLOSURE_REVIEW_2026_04_29.md
+docs/S6_NEXT_EXACT_LOW_RISK_BURN_POOL_2026_04_29.md
+docs/S6_NEXT_EXACT_LOW_RISK_BURN_POOL_HEARTBEAT_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_PARENT_CLOSURE_REVIEW_PASS
+AP_PARENT_JIRA_SYNCED_DONE_AS_SCRUM_43
+NEXT_EXACT_LOW_RISK_BURN_POOL_OPEN
+```
+
+Interpretation:
+
+- Jira `SCRUM-43 [AP] Approval Surface` has 12 exposed AP child rows and all are verified `已完成`.
+- `SCRUM-43` received parent closure evidence and was transitioned from `待办` to `已完成`.
+- This parent closure is Jira/governance closure only; it does not authorize product behavior changes, backend/runtime/API/schema, fixture/adapter/validator/`ResolvedSurfaceContext`, real data, secrets, deploy, public endpoint, external pilot, or launch.
+- A next exact low-risk burn pool is now open so the automation runner has non-idle docs/Jira governance work: E0, GS, IN, CD, MV parent closure review and EP/SH/CH parent parity audits.
+
+Next route:
+
+```text
+RUN_LR4_PARENT_CLOSURE_AND_PARITY_BURN_POOL
+```

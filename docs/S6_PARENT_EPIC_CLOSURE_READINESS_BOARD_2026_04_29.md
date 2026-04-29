@@ -31,7 +31,7 @@ decision. It does not transition any parent epic.
 | `SCRUM-25 [EP]` | `待办` | Needs audit | Some EP rows were repo reconciled via parent comments; exact child parity may still be incomplete. |
 | `SCRUM-31 [SH]` | `待办` | Needs audit | Search/History has many Done rows, but parent closure needs explicit SH acceptance review. |
 | `SCRUM-41 [CH]` | `待办` | Needs audit | `CH-T04` is Done; `CH-T02` repo/cloud parity and full CH acceptance need review. |
-| `SCRUM-43 [AP]` | `待办` | HOLD | `AP-T02` and full `AP-T12` remain blockers. |
+| `SCRUM-43 [AP]` | `已完成` | Closed | AP parent closure review passed after `AP-T12C` and `SCRUM-74` closeout. |
 | `SCRUM-48 [MV]` | `待办` | HOLD / rescope candidate | `MV-T05` may close only if P3-only acceptance rescope is accepted. |
 
 ## 4. Recommended Next Parent Actions
@@ -58,4 +58,3 @@ This board does not authorize:
 ```text
 OPEN_PARENT_CLOSURE_REVIEW_BATCH_A_OR_PARENT_PARITY_AUDIT_BATCH_B
 ```
-
