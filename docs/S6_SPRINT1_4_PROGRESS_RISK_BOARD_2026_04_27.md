@@ -707,3 +707,27 @@ Next safe route:
 ```text
 WAIT_FOR_AP_T12C_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
 ```
+
+## 2026-04-29 AP-T12C Full AP Acceptance Lane Checklist
+
+Status update:
+
+```text
+AP-T12C: checklist opened / unit-component AP evidence ready / Storybook-Playwright full acceptance lane requires implementation GO
+AP-T12: full-suite HOLD remains
+AP parent SCRUM-43: closure HOLD until AP-T12 resolves or is explicitly rescoped
+```
+
+Progress impact:
+
+- AP-T12C now gives the remaining AP full-suite row a concrete acceptance-lane path.
+- Current unit/component evidence is strong enough to index as ready.
+- Storybook and Playwright have AP-adjacent coverage but not a complete named AP acceptance suite.
+- The only current `IMPLEMENTATION_GO_REQUIRED -> GO` discussion candidate is AP-T12C Storybook / Playwright acceptance-lane implementation.
+- No Jira Done transition is authorized for `SCRUM-74` or `SCRUM-43` from this checklist alone.
+
+Next safe route:
+
+```text
+WAIT_FOR_AP_T12C_IMPLEMENTATION_GO_OR_AP_T12_RESCOPE_OR_PARENT_CLOSURE_REVIEW_GO
+```

@@ -5281,3 +5281,34 @@ Next route:
 ```text
 WAIT_FOR_AP_T12C_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
 ```
+
+## 159. Update 2026-04-29: AP-T12C Full AP Acceptance Lane Checklist
+
+Record:
+
+```text
+docs/S6_AP_T12C_FULL_AP_ACCEPTANCE_LANE_CHECKLIST_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T12C_ACCEPTANCE_LANE_CHECKLIST_OPENED
+UNIT_COMPONENT_AP_EVIDENCE_READY
+STORYBOOK_PLAYWRIGHT_FULL_ACCEPTANCE_LANE_IMPLEMENTATION_GO_REQUIRED
+AP_T12_PARENT_DONE_HOLD
+```
+
+Interpretation:
+
+- AP-T12C is now opened as the exact acceptance-lane checklist for the remaining AP full-suite row.
+- Existing unit/component evidence is ready across P2 shell, CTA no-mutation, AP-T02 P0 readonly test harness, AP-T06 mock state-sync, AP-T07 lock, AP-T09 audit empty/unavailable, AP-T10 display mapping, AP-T11A static no-mutation, route guards, and URL/storage rejection.
+- Existing Storybook and Playwright evidence is useful but not yet a complete named AP acceptance suite.
+- AP-T12C remains `IMPLEMENTATION_GO_REQUIRED` before any Storybook or Playwright changes.
+- AP-T12 / `SCRUM-74` and parent AP epic `SCRUM-43` must not be marked Done from this checklist alone.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T12C_IMPLEMENTATION_GO_OR_AP_T12_RESCOPE_OR_PARENT_CLOSURE_REVIEW_GO
+```
