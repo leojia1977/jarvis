@@ -192,6 +192,7 @@ docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_LAUNCH_CHECKLIST_2026_04_29.md
 docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_CLOSEOUT_2026_04_29.md
 docs\S6_JIRA_PARITY_REPAIR_CH_T02_AND_DONE_DIFF_2026_04_29.md
 docs\S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md
+docs\S6_SPRINT0_EXIT_REVIEW_REFRESH_AND_REMAINING_SCOPE_TRIAGE_2026_04_29.md
 ```
 
 Queue purpose:
@@ -230,6 +231,7 @@ SH-T09 acceptance reconciliation closed no-code PASS; no exact Jira issue was fo
 Jira mapping parent evidence sync completed for SH-T02/SH-T06 on `SCRUM-31` and EP-T06 on `SCRUM-25`; no child issues created and no Done count increased
 VF-01 Coverage & Health baseline reconciled; CH-T02 semantic P0 frame implemented, gate PASS, Claude Code PASS; Jira credentials hydrated from User env, but no exact CH-T02 cloud issue exists, so no Done transition was performed; full CH-T04 remains HOLD pending runtime/source-health authority
 Batch-0 P1 Jira parity synced: GS-T01/SCRUM-9, GS-T02/SCRUM-10, GS-T03/SCRUM-11, IN-T05/SCRUM-12, and CD-T03/SCRUM-13 are now verified `已完成`
+Sprint 0 exit review refresh recorded: Sprint 0 foundation and Batch 0 are closed; E0-02B is closed with no further action unless explicitly reopened; AP-T08/SH-T08/MV-T04 are Done evidence only; next route is OPEN_REMAINING_SCOPE_TRIAGE_AND_BATCH_LAUNCH_PLAN
 ```
 
 Latest implementation batch:

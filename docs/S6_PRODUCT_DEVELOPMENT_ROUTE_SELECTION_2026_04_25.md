@@ -4623,3 +4623,35 @@ Next route:
 ```text
 WAIT_FOR_MV_T04_IMPLEMENTATION_GO_OR_AP_T11A_STATIC_ASSERTION_GO_OR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_SH_T09_RECONCILIATION_GO_OR_JIRA_MAPPING_GO_OR_NEXT_IDLE_FALLBACK
 ```
+
+## 139. Update 2026-04-29: Sprint 0 Exit Review Refresh And Remaining Scope Triage
+
+Record:
+
+```text
+docs/S6_SPRINT0_EXIT_REVIEW_REFRESH_AND_REMAINING_SCOPE_TRIAGE_2026_04_29.md
+```
+
+Decision:
+
+```text
+SPRINT0_FOUNDATION_CLOSED_WITH_REMAINING_NARROW_SOURCE_GAPS
+BATCH0_CLOSED_JIRA_PARITY_DONE
+REMAINING_SCOPE_TRIAGE_OPENED
+```
+
+Interpretation:
+
+- Sprint 0 foundation is closed: `E0-01`, `E0-02`, `E0-03`, `E0-04`, and `E0-02B` are implemented, gate-passed, reviewed, committed, pushed, and recorded.
+- Batch 0 is closed and exact Jira parity is done for seeded issues `SCRUM-9`, `SCRUM-10`, `SCRUM-11`, `SCRUM-12`, and `SCRUM-13`.
+- `E0-02B / SCRUM-19 / 633cc73` is closed and requires no further action unless future fixture QA expansion is explicitly reopened.
+- `AP-T08`, `SH-T08`, and `MV-T04` are Done. They may be used as source/authority evidence by dependent tickets, but must not be listed as next launch candidates.
+- Design / QA / Governance baseline is closed for the current implemented baseline, with remaining narrow source gaps tracked explicitly: `AP-T09` needs `VF-15` or equivalent audit empty/unavailable source; `AP-T06` needs state-sync input and test hook; `CH-T04` needs runtime/source-health scope decision; `CD-T06` needs renderable CLOSED Case Detail context.
+- `VF-01` is accepted as semantic baseline / `CH-T02` implementation baseline only. It must not be recorded as production visual PASS.
+- This record does not authorize implementation, frontend source changes, Storybook, Playwright, fixture/validator changes, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or launch.
+
+Next route:
+
+```text
+OPEN_REMAINING_SCOPE_TRIAGE_AND_BATCH_LAUNCH_PLAN
+```
