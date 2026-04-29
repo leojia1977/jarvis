@@ -34,18 +34,18 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 
 | Ticket | Sprint | Evidence |
 | --- | --- | --- |
-| `GS-T01` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
-| `GS-T02` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
-| `GS-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
+| `GS-T01` | Sprint 1 | Batch-0 P1 no-code reconciliation; Jira-synced as `SCRUM-9`. |
+| `GS-T02` | Sprint 1 | Batch-0 P1 no-code reconciliation; Jira-synced as `SCRUM-10`. |
+| `GS-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation; Jira-synced as `SCRUM-11`. |
 | `GS-T04` | Sprint 1 | Visual skeleton implemented, gated, reviewed, Jira-synced; VF-03 v0.2 anchor reconciliation completed. |
 | `GS-T05` | Sprint 1 | Expert-mode regression no-code closeout, Jira-synced as `SCRUM-50`. |
 | `IN-T01` | Sprint 1 | Implemented and Jira-synced. |
 | `IN-T02` | Sprint 1 | P3 readonly Inbox skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-36`. |
 | `IN-T04` | Sprint 1 | P1 escalation / close-request entry skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-37`. |
-| `IN-T05` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
+| `IN-T05` | Sprint 1 | Batch-0 P1 no-code reconciliation; Jira-synced as `SCRUM-12`. |
 | `CD-T01` | Sprint 1 | Implemented and Jira-synced. |
 | `CD-T02` | Sprint 1 | Implemented and Jira-synced. |
-| `CD-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation. |
+| `CD-T03` | Sprint 1 | Batch-0 P1 no-code reconciliation; Jira-synced as `SCRUM-13`. |
 | `CD-T04` | Sprint 1 | Implemented and Jira-synced. |
 | `CD-T05` | Sprint 1 | P3 executive summary implemented, gated, reviewed, Jira-synced as `SCRUM-52`. |
 | `CH-T01` | Sprint 4 | Coverage & Health page skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-42`. |
@@ -191,6 +191,7 @@ docs\S6_VF01_COVERAGE_HEALTH_BASELINE_RECONCILIATION_2026_04_29.md
 docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_LAUNCH_CHECKLIST_2026_04_29.md
 docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_CLOSEOUT_2026_04_29.md
 docs\S6_JIRA_PARITY_REPAIR_CH_T02_AND_DONE_DIFF_2026_04_29.md
+docs\S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md
 ```
 
 Queue purpose:
@@ -228,6 +229,7 @@ AP-T11A static no-mutation assertion split implemented, gate PASS, Claude Code P
 SH-T09 acceptance reconciliation closed no-code PASS; no exact Jira issue was found, so repo closeout remains authoritative
 Jira mapping parent evidence sync completed for SH-T02/SH-T06 on `SCRUM-31` and EP-T06 on `SCRUM-25`; no child issues created and no Done count increased
 VF-01 Coverage & Health baseline reconciled; CH-T02 semantic P0 frame implemented, gate PASS, Claude Code PASS; Jira credentials hydrated from User env, but no exact CH-T02 cloud issue exists, so no Done transition was performed; full CH-T04 remains HOLD pending runtime/source-health authority
+Batch-0 P1 Jira parity synced: GS-T01/SCRUM-9, GS-T02/SCRUM-10, GS-T03/SCRUM-11, IN-T05/SCRUM-12, and CD-T03/SCRUM-13 are now verified `已完成`
 ```
 
 Latest implementation batch:

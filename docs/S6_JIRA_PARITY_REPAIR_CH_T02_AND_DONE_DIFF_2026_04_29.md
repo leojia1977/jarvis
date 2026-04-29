@@ -96,11 +96,11 @@ the current authorization targeted only exact `CH-T02` sync.
 
 | Ticket | Jira state observed | Repair status |
 | --- | --- | --- |
-| `GS-T01` | Exact seeded issue `SCRUM-9` is `待办` | Candidate for later exact parity sync after evidence re-read. |
-| `GS-T02` | Exact seeded issue `SCRUM-10` is `待办` | Candidate for later exact parity sync after evidence re-read. |
-| `GS-T03` | Exact seeded issue `SCRUM-11` is `待办` | Candidate for later exact parity sync after evidence re-read. |
-| `IN-T05` | Exact seeded issue `SCRUM-12` is `待办` | Candidate for later exact parity sync after evidence re-read. |
-| `CD-T03` | Exact seeded issue `SCRUM-13` is `待办` | Candidate for later exact parity sync after evidence re-read. |
+| `GS-T01` | Exact seeded issue `SCRUM-9` was `待办` at repair time | Superseded by `docs/S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md`; now Jira `已完成`. |
+| `GS-T02` | Exact seeded issue `SCRUM-10` was `待办` at repair time | Superseded by `docs/S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md`; now Jira `已完成`. |
+| `GS-T03` | Exact seeded issue `SCRUM-11` was `待办` at repair time | Superseded by `docs/S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md`; now Jira `已完成`. |
+| `IN-T05` | Exact seeded issue `SCRUM-12` was `待办` at repair time | Superseded by `docs/S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md`; now Jira `已完成`. |
+| `CD-T03` | Exact seeded issue `SCRUM-13` was `待办` at repair time | Superseded by `docs/S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md`; now Jira `已完成`. |
 | `CH-T02` | No exact issue found | Needs exact Jira issue creation or mapping GO before sync. |
 | `EP-T01` | No exact issue found | Needs exact Jira issue creation or mapping GO before sync. |
 

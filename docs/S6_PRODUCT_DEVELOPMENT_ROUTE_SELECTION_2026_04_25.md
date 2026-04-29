@@ -4541,6 +4541,35 @@ Next route:
 WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
 
+## 138. Update 2026-04-29: Batch-0 P1 Jira Parity Sync
+
+Record:
+
+```text
+docs/S6_JIRA_PARITY_SYNC_BATCH0_P1_2026_04_29.md
+```
+
+Decision:
+
+```text
+BATCH0_P1_JIRA_PARITY_SYNCED_DONE_FOR_EXACT_SEEDED_ISSUES
+```
+
+Interpretation:
+
+- The agreed low-risk burn pool was used for exact Jira parity only.
+- `GS-T01`, `GS-T02`, `GS-T03`, `IN-T05`, and `CD-T03` were already repo-covered by the Batch-0 no-code reconciliation closeout.
+- Jira exact matching used issue keys plus backlog labels and then transitioned `SCRUM-9`, `SCRUM-10`, `SCRUM-11`, `SCRUM-12`, and `SCRUM-13` to `已完成`.
+- Project status after sync is `已完成 48 / 待办 17 / 正在进行 2`.
+- No product code, backend/runtime/API/schema, fixture/adapter/validator, `ResolvedSurfaceContext`, real-data, secrets, deploy, public endpoint, or external pilot scope changed.
+- No HOLD, split-only, blocked, or non-ready ticket was marked Done.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
+
 ## 134. Update 2026-04-29: 30m Runner Unlock Watchlist
 
 Watchlist:
