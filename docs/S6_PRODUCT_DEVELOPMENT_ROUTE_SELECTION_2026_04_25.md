@@ -5592,3 +5592,34 @@ Next route:
 ```text
 OPEN_NON_QWEN_REMAINING_DEV_AND_BUILD_READY_EVIDENCE_QUEUE
 ```
+
+## 169. Update 2026-04-29: Non-Qwen Build-Ready Evidence Queue
+
+Records:
+
+```text
+docs/S6_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_2026_04_29.md
+docs/S6_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_HEARTBEAT_2026_04_29.md
+```
+
+Decision:
+
+```text
+NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_OPEN
+OLD_JIRA_BURN_DOWN_RUNNER_RETIRED
+QWEN_CLOUD_RUNTIME_HANDOFF_REMAINS_HOLD
+NO_IMPLEMENTATION_WITHOUT_EXACT_GO
+```
+
+Interpretation:
+
+- Old Jira burn-down automation is complete because Jira has 80 Done / 0 Non-Done.
+- New automation should run docs-only/evidence lanes: S0 synthetic payload generation checklist, build-ready evidence matrix, frontend regression evidence review, Storybook / Playwright canonical gate review, and automation maintenance runner plan.
+- Qwen execution remains held until cloud runtime handoff is supplied.
+- This queue does not authorize implementation, Jira mutation, real data, masked real data, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or customer-visible output.
+
+Next route:
+
+```text
+RUN_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE
+```

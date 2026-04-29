@@ -660,3 +660,29 @@ Next safe route:
 ```text
 OPEN_NON_QWEN_REMAINING_DEV_AND_BUILD_READY_EVIDENCE_QUEUE
 ```
+
+## 2026-04-29 Non-Qwen Build-Ready Evidence Queue
+
+Status update:
+
+```text
+Non-Qwen build-ready evidence queue: open
+Old Jira burn-down runner: retired
+Qwen cloud runtime handoff: still HOLD
+Implementation: not authorized
+```
+
+Progress impact:
+
+- Queue record: `docs\S6_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_2026_04_29.md`.
+- Heartbeat prompt: `docs\S6_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_HEARTBEAT_2026_04_29.md`.
+- The queue gives automation non-idle work after Jira 80 Done / 0 Non-Done.
+- Allowed lanes are docs-only: S0 synthetic payload generation checklist, build-ready evidence matrix, frontend regression evidence review, Storybook / Playwright canonical gate review, and automation maintenance runner plan.
+- The queue must stop before code at `IMPLEMENTATION_GO_REQUIRED`.
+- Qwen model execution, real data, masked real data, backend/runtime/API/schema, connector changes, credentials, Jira mutation, deploy, external pilot, and launch remain forbidden.
+
+Next safe route:
+
+```text
+RUN_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE
+```
