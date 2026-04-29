@@ -14,6 +14,24 @@
 R1_SOURCE_INPUT_PACKET_READY_NO_SOURCE_DELIVERED
 ```
 
+## 2026-04-29 Source Delivery Update
+
+The source packet is now partially fulfilled by:
+
+```text
+D:\产品设计\secupilot0421\visual negative\SecuPilot_Parallel_Work_Pack_VF15_APT06_CDT06_v0.1.zip
+```
+
+Updated source status:
+
+| Ticket | Source status |
+| --- | --- |
+| AP-T06 | delivered and PASS; ready for narrow implementation checklist |
+| AP-T09 | delivered and PASS through `VF-15`; ready for narrow implementation checklist |
+| CD-T06 | delivered and PASS; ready for narrow implementation checklist |
+
+This update does not authorize implementation.
+
 ## Purpose
 
 This packet converts the three R1 source-blocked lanes into copy-ready source requests for product/design/governance input. It does not declare any source delivered.
@@ -30,7 +48,7 @@ Required input:
 Current status:
 
 ```text
-HOLD_PENDING_STATE_SYNC_SOURCE_DELIVERY
+SOURCE_DELIVERED_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
 ```
 
 ## AP-T09 Source Request
@@ -46,7 +64,7 @@ Required input:
 Current status:
 
 ```text
-HOLD_PENDING_VF15_OR_EQUIVALENT_SOURCE
+SOURCE_DELIVERED_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
 ```
 
 ## CD-T06 Source Request
@@ -61,7 +79,7 @@ Required input:
 Current status:
 
 ```text
-HOLD_PENDING_RENDERABLE_CLOSED_CONTEXT
+SOURCE_DELIVERED_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
 ```
 
 ## Non-Authorization
@@ -71,5 +89,5 @@ This packet does not authorize implementation, source invention, frontend source
 ## Next Route
 
 ```text
-WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_OR_AP_T09_VF15_SOURCE_OR_CD_T06_CLOSED_CONTEXT_SOURCE
+OPEN_AP_T09_AP_T06_CD_T06_NARROW_IMPLEMENTATION_CHECKLISTS
 ```

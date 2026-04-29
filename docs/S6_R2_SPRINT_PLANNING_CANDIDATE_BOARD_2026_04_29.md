@@ -18,16 +18,16 @@ SPRINT_PLANNING_CANDIDATE_BOARD_READY_NO_IMPLEMENTATION
 
 | Group | Tickets / lanes | Automation posture |
 | --- | --- | --- |
-| Source-needed | AP-T06, AP-T09, CD-T06 | wait for source input packet response |
+| Source-closed / checklist-ready | AP-T06, AP-T09, CD-T06 | open narrow implementation checklists; do not implement yet |
 | Authority-needed | CH-T04, IN-T03, MV-T02 | wait for authority review / governance decision |
 | Dependent HOLD | AP-T11, AP-T12, CD-T07, IN-T06, MV-T05, AP-T02 | do not implement or close until parent resolves |
 | Repo Done evidence | E0-01 through E0-04, E0-02B, AP-T08, SH-T08, MV-T04, CH-T02, Batch0 P1 | may be referenced, not relaunched |
 | Low-risk docs-only | parity audits, source packs, authority packs, HOLD maps, idle reports | safe for runner while waiting |
-| Implementation candidate | none from R1 at this moment | requires later exact GO |
+| Implementation candidate | none directly from this board | AP-T06/AP-T09/CD-T06 first need narrow checklist and later exact GO |
 
 ## Planning Notes
 
-- Next implementation should come only after at least one source-needed or authority-needed lane receives governed input.
+- AP-T06, AP-T09, and CD-T06 have now received governed source input and should move to narrow checklist creation.
 - If no such input arrives, automation should continue docs-only hygiene and planning rather than invent product scope.
 - Jira Done count should not be increased from R1/R2 HOLD rows.
 
@@ -38,5 +38,5 @@ This board does not authorize implementation, Jira mutation, ticket closeout, ba
 ## Next Route
 
 ```text
-WAIT_FOR_SOURCE_OR_AUTHORITY_INPUT_OR_CONTINUE_R2_DOCS_ONLY
+OPEN_AP_T09_AP_T06_CD_T06_NARROW_IMPLEMENTATION_CHECKLISTS_OR_CONTINUE_R2_DOCS_ONLY
 ```

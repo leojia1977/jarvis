@@ -4789,3 +4789,66 @@ Next route:
 ```text
 WAIT_FOR_SOURCE_OR_AUTHORITY_INPUT_OR_CONTINUE_R2_DOCS_ONLY
 ```
+
+## 144. Update 2026-04-29: Parallel Work Pack VF15 / AP-T06 / CD-T06 Source Closure
+
+Record:
+
+```text
+docs/S6_R2_PARALLEL_WORK_PACK_VF15_APT06_CDT06_SOURCE_CLOSURE_2026_04_29.md
+```
+
+Decision:
+
+```text
+PARALLEL_WORK_PACK_VF15_APT06_CDT06_PASS_RECORDED
+AP_T09_SOURCE_GAP_CLOSED_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
+AP_T06_STATE_SYNC_TEST_HOOK_GAP_CLOSED_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
+CD_T06_RENDERABLE_CLOSED_CONTEXT_GAP_CLOSED_READY_FOR_NARROW_IMPLEMENTATION_CHECKLIST
+IMPLEMENTATION_GO_STILL_REQUIRED
+```
+
+Interpretation:
+
+- `VF-15 v0.1` is accepted as AP-T09 audit empty/unavailable visual/source baseline.
+- `AP-T06 State Sync Input + Test Hook Checklist v0.1` is accepted as state-sync/test-hook input. It does not define a real backend protocol.
+- `CD-T06 Renderable CLOSED Case Detail Context Checklist v0.1` is accepted as renderable CLOSED context input.
+- `CH-T04`, `IN-T03`, and `MV-T02` remain authority-gated.
+- AP-T09, AP-T06, and CD-T06 may now open narrow implementation checklists, but no implementation is authorized by this record.
+
+Next route:
+
+```text
+OPEN_AP_T09_AP_T06_CD_T06_NARROW_IMPLEMENTATION_CHECKLISTS_OR_CONTINUE_R2_DOCS_ONLY
+```
+
+## 145. Update 2026-04-29: AP-T09 / AP-T06 / CD-T06 Narrow Implementation Checklists
+
+Records:
+
+```text
+docs/S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_SOURCE_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs/S6_AP_T06_STATE_SYNC_TEST_HOOK_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs/S6_CD_T06_CLOSED_CONTEXT_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T09_NARROW_IMPLEMENTATION_CHECKLIST_PASS_IMPLEMENTATION_GO_REQUIRED
+AP_T06_NARROW_IMPLEMENTATION_CHECKLIST_PASS_IMPLEMENTATION_GO_REQUIRED
+CD_T06_NARROW_IMPLEMENTATION_CHECKLIST_PASS_IMPLEMENTATION_GO_REQUIRED
+```
+
+Interpretation:
+
+- Source gaps for AP-T09, AP-T06, and CD-T06 are closed.
+- Each lane has a narrow future implementation envelope with candidate files, tests, mandatory assertions, and HOLD conditions.
+- Implementation is not authorized for any of the three tickets.
+- Any code work still requires explicit Jarvis implementation GO and exact file/test confirmation at launch.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T09_OR_AP_T06_OR_CD_T06_IMPLEMENTATION_GO_OR_CONTINUE_R2_DOCS_ONLY
+```

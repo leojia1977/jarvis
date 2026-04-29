@@ -145,6 +145,32 @@ The original AP-T08 / MV-T04 Claude Web authority pack was architecture/governan
 | P2 shortcut authority gap | `IN-T03` | Needs P2 shortcut approval / close-entry authority review. | `OPEN_IN_T03_P2_SHORTCUT_AUTHORITY_REVIEW` |
 | P0/P2 Manager authority gap | `MV-T02` | Needs governed P0/P2 Manager authority model. | `OPEN_MV_T02_P0_P2_MANAGER_AUTHORITY_REVIEW` |
 
+### 2026-04-29 Source Closure Addendum
+
+The following entries in the table above are superseded by the reviewed parallel work pack:
+
+```text
+D:\产品设计\secupilot0421\visual negative\SecuPilot_Parallel_Work_Pack_VF15_APT06_CDT06_v0.1.zip
+```
+
+Updated status:
+
+| Ticket | Previous gap | Updated state |
+| --- | --- | --- |
+| `AP-T09` | `VF-15` / audit empty-unavailable source missing | source gap closed by `VF-15 v0.1 PASS`; ready for narrow implementation checklist |
+| `AP-T06` | state-sync input and test hook missing | gap closed by AP-T06 checklist PASS; ready for narrow implementation checklist |
+| `CD-T06` | renderable CLOSED Case Detail context missing | gap closed by CD-T06 checklist PASS; ready for narrow implementation checklist |
+
+Remaining unresolved lanes after this addendum:
+
+```text
+CH-T04 runtime/source-health scope decision
+IN-T03 P2 shortcut approval / close-entry authority
+MV-T02 P0/P2 Manager authority model
+```
+
+This addendum does not authorize implementation. Each unlocked lane still needs a separate narrow implementation checklist and Jarvis implementation GO.
+
 ## 10. Remaining HOLD / Pending Ticket Classification
 
 | Ticket | Current state | Dependency |
@@ -182,9 +208,9 @@ Reason:
 
 Recommended next triage sequence:
 
-1. `OPEN_AP_T06_STATE_SYNC_INPUT_AND_TEST_HOOK_CHECKLIST`
-2. `OPEN_VF_15_AUDIT_EMPTY_UNAVAILABLE_SOURCE_FRAME`
-3. `OPEN_CD_T06_CLOSED_CASE_DETAIL_CONTEXT_CHECKLIST`
+1. `OPEN_AP_T09_AUDIT_EMPTY_UNAVAILABLE_SOURCE_IMPLEMENTATION_CHECKLIST`
+2. `OPEN_AP_T06_STATE_SYNC_TEST_HOOK_IMPLEMENTATION_CHECKLIST`
+3. `OPEN_CD_T06_CLOSED_CONTEXT_IMPLEMENTATION_CHECKLIST`
 4. `OPEN_CH_T04_RUNTIME_SOURCE_HEALTH_AUTHORITY_REVIEW`
 5. `OPEN_IN_T03_P2_SHORTCUT_AUTHORITY_REVIEW`
 6. `OPEN_MV_T02_P0_P2_MANAGER_AUTHORITY_REVIEW`

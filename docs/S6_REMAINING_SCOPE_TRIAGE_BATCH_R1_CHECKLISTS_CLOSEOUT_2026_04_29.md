@@ -48,3 +48,24 @@ This closeout does not authorize implementation, frontend source changes, Storyb
 ```text
 WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CD_T06_CLOSED_CONTEXT_SOURCE_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_IN_T03_P2_AUTHORITY_DECISION_OR_MV_T02_MANAGER_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 2026-04-29 Source Closure Addendum
+
+The R1 source waits for `AP-T06`, `AP-T09`, and `CD-T06` are superseded by:
+
+```text
+D:\产品设计\secupilot0421\visual negative\SecuPilot_Parallel_Work_Pack_VF15_APT06_CDT06_v0.1.zip
+```
+
+Updated lane results:
+
+| Lane | Ticket | Updated result |
+| --- | --- | --- |
+| R1-A | AP-T06 | source gap closed; ready for narrow implementation checklist |
+| R1-B | AP-T09 | source gap closed by `VF-15`; ready for narrow implementation checklist |
+| R1-C | CD-T06 | renderable CLOSED context gap closed; ready for narrow implementation checklist |
+| R1-D | CH-T04 | unchanged: authority review required |
+| R1-E | IN-T03 | unchanged: authority review required |
+| R1-F | MV-T02 | unchanged: authority review required |
+
+Implementation remains unauthorized until a later exact checklist returns GO and Jarvis grants implementation GO.

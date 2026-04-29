@@ -55,3 +55,32 @@ This checklist does not authorize implementation, frontend source changes, Playw
 ```text
 WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY
 ```
+
+## 2026-04-29 Source Delivery Addendum
+
+Source delivered:
+
+```text
+D:\产品设计\secupilot0421\visual negative\SecuPilot_Parallel_Work_Pack_VF15_APT06_CDT06_v0.1.zip
+SecuPilot_AP-T06_State_Sync_Input_and_Test_Hook_Checklist_v0.1.md
+```
+
+Review status supplied by human / Team 1 / Team 2:
+
+```text
+PASS
+```
+
+Updated interpretation:
+
+- The AP-T06 state-sync/test-hook source gap is closed.
+- `clock fast-forward alone != state transition`.
+- `emitStateSync` / `STATE_SYNC` may drive UI migration only as Storybook / Playwright / mock-backend helper semantics.
+- This addendum does not define a real websocket, polling, backend API, runtime, or schema protocol.
+- AP-T06 is ready to open a narrow implementation checklist, but implementation remains unauthorized.
+
+Updated next route:
+
+```text
+OPEN_AP_T06_STATE_SYNC_TEST_HOOK_IMPLEMENTATION_CHECKLIST
+```

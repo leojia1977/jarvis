@@ -208,6 +208,10 @@ docs\S6_R2_R1_AUTHORITY_REVIEW_PROMPT_PACK_2026_04_29.md
 docs\S6_R2_DEPENDENT_TICKET_HOLD_MAP_2026_04_29.md
 docs\S6_R2_SPRINT_PLANNING_CANDIDATE_BOARD_2026_04_29.md
 docs\S6_R2_IDLE_FALLBACK_REPORT_2026_04_29_001.md
+docs\S6_R2_PARALLEL_WORK_PACK_VF15_APT06_CDT06_SOURCE_CLOSURE_2026_04_29.md
+docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_SOURCE_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs\S6_AP_T06_STATE_SYNC_TEST_HOOK_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs\S6_CD_T06_CLOSED_CONTEXT_IMPLEMENTATION_CHECKLIST_2026_04_29.md
 ```
 
 Queue purpose:
@@ -251,6 +255,8 @@ Remaining scope triage batch plan opened: Batch R1 splits AP-T06, AP-T09, CD-T06
 Remaining scope triage Batch R1 checklists closed docs-only: AP-T06 HOLD pending state-sync source; AP-T09 HOLD pending VF-15/equivalent source; CD-T06 HOLD pending renderable CLOSED context; CH-T04 authority review required for runtime/source-health scope; IN-T03 authority review required for P2 shortcut close-entry; MV-T02 authority review required for P0/P2 Manager model
 R2 low-risk burn pool opened docs-only: runner may continue with parity audits, source input packets, authority prompt packs, dependent-ticket HOLD maps, sprint planning candidate boards, heartbeat prompts, backlog parity notes, and idle reports while R1 waits for source/authority input; implementation and Jira Done transitions remain unauthorized
 R2 pass 001 recorded docs-only: source input packet, authority review prompt pack, dependent-ticket HOLD map, sprint planning candidate board, and idle fallback report are ready; no R1 lane is implementation-safe yet
+Parallel Work Pack VF15/AP-T06/CD-T06 source closure recorded: AP-T09, AP-T06, and CD-T06 source gaps are closed and ready for narrow implementation checklist creation; CH-T04, IN-T03, and MV-T02 remain authority-gated; no implementation GO yet
+AP-T09/AP-T06/CD-T06 narrow implementation checklists recorded: all three require explicit implementation GO before code; no Jira Done transition authorized
 ```
 
 Latest implementation batch:

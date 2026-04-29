@@ -55,3 +55,31 @@ This checklist does not authorize implementation, frontend source changes, fixtu
 ```text
 WAIT_FOR_CD_T06_RENDERABLE_CLOSED_CASE_DETAIL_CONTEXT
 ```
+
+## 2026-04-29 Source Delivery Addendum
+
+Source delivered:
+
+```text
+D:\产品设计\secupilot0421\visual negative\SecuPilot_Parallel_Work_Pack_VF15_APT06_CDT06_v0.1.zip
+SecuPilot_CD-T06_Renderable_CLOSED_Case_Detail_Context_Checklist_v0.1.md
+```
+
+Review status supplied by human / Team 1 / Team 2:
+
+```text
+PASS
+```
+
+Updated interpretation:
+
+- The CD-T06 renderable CLOSED Case Detail context gap is closed.
+- CLOSED context includes `case_state = CLOSED`, `AUD-001` through `AUD-006`, absent write controls, and Dialogue Dock visible with disabled send.
+- P3 must use independent `p3-approval-audit-summary` and must not attach `full-audit-trail`, `host-raw-evidence`, `p2-evidence-drawer`, or approval controls.
+- CD-T06 is ready to open a narrow implementation checklist, but implementation remains unauthorized.
+
+Updated next route:
+
+```text
+OPEN_CD_T06_CLOSED_CONTEXT_IMPLEMENTATION_CHECKLIST
+```
