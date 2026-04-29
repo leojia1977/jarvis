@@ -802,3 +802,33 @@ Next safe route:
 ```text
 WAIT_FOR_EP_SH_CH_PARENT_PARITY_RESCOPE_OR_CHILD_ISSUE_CREATION_GO_OR_STALE_SEED_CLEANUP_GO
 ```
+
+## 2026-04-29 LR4 Final Jira Parity Closure
+
+Status update:
+
+```text
+EP / SH / CH parents: Jira Done after exact child issue creation
+Stale seed issues SCRUM-1..SCRUM-5: Jira Done as non-governed seed cleanup
+Jira project: 80 Done / 0 Non-Done
+```
+
+Progress impact:
+
+- New exact children:
+  - `SCRUM-76 [EP-T01]`
+  - `SCRUM-77 [EP-T06]`
+  - `SCRUM-78 [SH-T02]`
+  - `SCRUM-79 [SH-T06]`
+  - `SCRUM-80 [SH-T09]`
+  - `SCRUM-81 [CH-T02]`
+- `SCRUM-25 [EP]`, `SCRUM-31 [SH]`, and `SCRUM-41 [CH]` are now `已完成`.
+- `SCRUM-1` through `SCRUM-5` are closed as stale seed cleanup, not product work.
+- All Jira issues in project `SCRUM` are now `已完成`.
+- This does not authorize implementation, real data, deploy, public endpoint, external pilot, or launch.
+
+Next safe route:
+
+```text
+OPEN_FINAL_JIRA_PARITY_AND_SPRINT_PLANNING_SUMMARY
+```

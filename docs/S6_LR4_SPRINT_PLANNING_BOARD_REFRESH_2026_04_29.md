@@ -67,3 +67,19 @@ This refresh does not authorize:
 ```text
 WAIT_FOR_EP_SH_CH_PARENT_PARITY_RESCOPE_OR_CHILD_ISSUE_CREATION_GO_OR_STALE_SEED_CLEANUP_GO
 ```
+
+## 7. Superseding Update
+
+This waiting state was superseded by:
+
+```text
+docs/S6_LR4_EP_SH_CH_CHILD_ISSUE_CREATION_AND_PARENT_CLOSURE_2026_04_29.md
+docs/S6_LR4_STALE_SEED_CLEANUP_2026_04_29.md
+```
+
+After exact child issue creation and stale seed cleanup, Jira project status is:
+
+```text
+已完成: 80
+Non-Done: 0
+```

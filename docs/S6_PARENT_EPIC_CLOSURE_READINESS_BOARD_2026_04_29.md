@@ -28,9 +28,9 @@ decision. It does not transition any parent epic.
 | `SCRUM-6 [GS]` | `已完成` | Closed | LR4 parent closure passed with 4 / 4 exposed children Done. |
 | `SCRUM-7 [IN]` | `已完成` | Closed | LR4 parent closure passed with 6 / 6 exposed children Done. |
 | `SCRUM-8 [CD]` | `已完成` | Closed | LR4 parent closure passed with 8 / 8 exposed children Done. |
-| `SCRUM-25 [EP]` | `待办` | HOLD / parity gap | Exposed children are Done, but `EP-T01` has no exact child issue and `EP-T06` is parent-evidence-only. |
-| `SCRUM-31 [SH]` | `待办` | HOLD / parity gap | Exposed children are Done, but `SH-T02`, `SH-T06`, and `SH-T09` lack exact child closure mapping. |
-| `SCRUM-41 [CH]` | `待办` | HOLD / parity gap | Exposed children are Done, but `CH-T02` is repo Done with no exact child issue. |
+| `SCRUM-25 [EP]` | `已完成` | Closed | LR4 child issue creation synced `EP-T01` and `EP-T06`; parent closure passed with 6 / 6 exposed children Done. |
+| `SCRUM-31 [SH]` | `已完成` | Closed | LR4 child issue creation synced `SH-T02`, `SH-T06`, and `SH-T09`; parent closure passed with 9 / 9 exposed children Done. |
+| `SCRUM-41 [CH]` | `已完成` | Closed | LR4 child issue creation synced `CH-T02`; parent closure passed with 4 / 4 exposed children Done. |
 | `SCRUM-43 [AP]` | `已完成` | Closed | AP parent closure review passed after `AP-T12C` and `SCRUM-74` closeout. |
 | `SCRUM-48 [MV]` | `已完成` | Closed / P3-only rescope | LR4 parent closure passed under P3-only/rescoped Manager acceptance; no P0/P2 Manager degraded variant is claimed. |
 

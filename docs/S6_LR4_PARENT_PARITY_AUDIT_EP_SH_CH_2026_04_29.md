@@ -58,3 +58,15 @@ This audit does not authorize:
 ```text
 OPEN_LR4_SPRINT_PLANNING_BOARD_REFRESH
 ```
+
+## 7. Superseding Update
+
+This HOLD was superseded by:
+
+```text
+docs/S6_LR4_EP_SH_CH_CHILD_ISSUE_CREATION_AND_PARENT_CLOSURE_2026_04_29.md
+```
+
+Jarvis later authorized exact child issue creation / rescope GO. The parity gaps
+were resolved by creating and closing exact child issues, then closing the
+`EP`, `SH`, and `CH` parents.
