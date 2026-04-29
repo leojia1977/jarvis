@@ -4852,3 +4852,32 @@ Next route:
 ```text
 WAIT_FOR_AP_T09_OR_AP_T06_OR_CD_T06_IMPLEMENTATION_GO_OR_CONTINUE_R2_DOCS_ONLY
 ```
+
+## 146. Update 2026-04-29: AP-T09 Audit Empty / Unavailable Source Closeout
+
+Record:
+
+```text
+docs/S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_SOURCE_CLOSEOUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T09_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_FINDINGS_FIXED_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `AP-T09` is implemented as a narrow audit empty / unavailable source-bound UI slice inside the existing `/approval` audit source boundary.
+- The implementation distinguishes readable-zero-record state from source/data availability failure using `activeContext.audit_trail`, `ui_messages`, and `data-source-guard="source-data-availability"`.
+- It does not add approval mutation, `ActionMode` creation, Search / History output, Manager output, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, launch, or external pilot scope.
+- Gates passed: frontend tests, frontend build, `git diff --check`, and pilot preflight / release verification.
+- Claude Code returned `PASS_WITH_FINDINGS`; the P2 findings were fixed and covered by tests. Post-fix re-review attempts returned Claude Code API 400 `tool use concurrency issues`, so no fabricated post-fix `PASS` is recorded.
+- Jira `SCRUM-67` received an evidence comment and was transitioned to `已完成`.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T06_OR_CD_T06_IMPLEMENTATION_GO_OR_CH_T04_IN_T03_MV_T02_AUTHORITY_INPUT_OR_CONTINUE_R2_DOCS_ONLY
+```

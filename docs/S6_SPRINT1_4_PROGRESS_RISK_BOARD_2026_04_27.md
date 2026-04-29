@@ -19,13 +19,13 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 42 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 43 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 4 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
-| Needs design | 1 | Missing visual frame is the primary blocker. |
+| Needs design | 0 | Missing visual frame is the primary blocker. |
 | HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
@@ -71,6 +71,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `AP-T05` | Sprint 2 | Delay / observe configuration semantic shell implemented, gated, reviewed, Jira-synced as `SCRUM-60`. |
 | `AP-T07` | Sprint 2 | Approved-pending locked-state semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-61`; `VF-12` v0.2 visual PASS now recorded as input. |
 | `AP-T08` | Sprint 2 | Approval audit source boundary implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-62`. |
+| `AP-T09` | Sprint 2 | Audit empty / unavailable source-bound UI implemented, gated, Claude Code P2 findings fixed, Jira-synced as `SCRUM-67`. |
 | `CH-T03` | Sprint 4 | Bounded Coverage & Health `ui_messages` rendering implemented, gated, Claude Code reviewed, Jira-synced as `SCRUM-57`. |
 | `MV-T01` | Sprint 3B | P3 Manager View structure implemented, gated, reviewed, Jira-synced as `SCRUM-49`. |
 | `MV-T03` | Sprint 3B | Manager deep-link handoff implemented as route-only P3 Search/History audit focus, gated, reviewed, Jira-synced as `SCRUM-66`. |
@@ -114,7 +115,7 @@ Primary blocker is P2/P3 authority, AP/D-02 state semantics, manager/audit seman
 | `IN-T03` | Sprint 1 | P2 shortcut approval/close entry depends on later AP CTA semantics; `AP-T10` display mapping is now available but not sufficient. |
 | `AP-T06` | Sprint 2 | AP-T06A static read-only skeleton implemented as `SCRUM-65`; full countdown/state-sync remains HOLD pending exact state-sync input and test hook; parent readiness Jira `SCRUM-64` remains not Done. |
 | `AP-T11` | Sprint 2 | Full ticket HOLD; 2026-04-28 decomposition identified a possible later `AP-T11A` static no-mutation split only. |
-| `AP-T12` | Sprint 2 | Full ticket HOLD; AP acceptance suite still depends on full `AP-T06` and `AP-T09`. |
+| `AP-T12` | Sprint 2 | Full ticket HOLD; AP acceptance suite still depends on full `AP-T06`; `AP-T09` source-bound empty/unavailable UI is now closed. |
 
 ## 9. Needs Design
 
@@ -122,7 +123,7 @@ Primary blocker is visual-frame availability. These are not currently approved f
 
 | Ticket | Sprint | Missing frame / dependency |
 | --- | --- | --- |
-| `AP-T09` | Sprint 2 | AP-T08 blocker closed; still missing `VF-15` or equivalent governed audit empty/unavailable visual/source and exact copy rules. |
+| _None_ | _N/A_ | `AP-T09` source gap was closed by VF-15 and implemented as `SCRUM-67`. |
 
 ## 10. HOLD
 
@@ -143,12 +144,12 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 42 / 54
+Done: 43 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
 Checklist-only: 0
-Blocked/HOLD/design/authority: 12
+Blocked/HOLD/design/authority: 11
 ```
 
 Active non-tracker automation queue:
@@ -212,6 +213,7 @@ docs\S6_R2_PARALLEL_WORK_PACK_VF15_APT06_CDT06_SOURCE_CLOSURE_2026_04_29.md
 docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_SOURCE_IMPLEMENTATION_CHECKLIST_2026_04_29.md
 docs\S6_AP_T06_STATE_SYNC_TEST_HOOK_IMPLEMENTATION_CHECKLIST_2026_04_29.md
 docs\S6_CD_T06_CLOSED_CONTEXT_IMPLEMENTATION_CHECKLIST_2026_04_29.md
+docs\S6_AP_T09_AUDIT_EMPTY_UNAVAILABLE_SOURCE_CLOSEOUT_2026_04_29.md
 ```
 
 Queue purpose:
@@ -257,6 +259,7 @@ R2 low-risk burn pool opened docs-only: runner may continue with parity audits, 
 R2 pass 001 recorded docs-only: source input packet, authority review prompt pack, dependent-ticket HOLD map, sprint planning candidate board, and idle fallback report are ready; no R1 lane is implementation-safe yet
 Parallel Work Pack VF15/AP-T06/CD-T06 source closure recorded: AP-T09, AP-T06, and CD-T06 source gaps are closed and ready for narrow implementation checklist creation; CH-T04, IN-T03, and MV-T02 remain authority-gated; no implementation GO yet
 AP-T09/AP-T06/CD-T06 narrow implementation checklists recorded: all three require explicit implementation GO before code; no Jira Done transition authorized
+AP-T09 audit empty/unavailable source-bound UI implemented, gate PASS, Claude Code P2 findings fixed, Jira synced as `SCRUM-67`; AP-T12 dependency reduced to full AP-T06 plus remaining acceptance scope
 ```
 
 Latest implementation batch:

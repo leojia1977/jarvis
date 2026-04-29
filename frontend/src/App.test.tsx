@@ -1,7 +1,7 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
-import App, { CoverageHealthView } from "./App";
+import App, { ApprovalRouteShell, CoverageHealthView } from "./App";
 import { validateResolvedSurfaceContext } from "./secupilot/surface/context/validateResolvedSurfaceContext";
 import { adaptCoreSurfaceFixturePhase } from "./secupilot/surface/fixtures/coreSurfaceFixtureAdapter";
 import type { ResolvedSurfaceContext } from "./secupilot/surface/context/types";
@@ -43,6 +43,37 @@ function buildP0CoverageHealthContext(): ResolvedSurfaceContext {
   const result = validateResolvedSurfaceContext(p0Context);
   if (!result.ok) {
     throw new Error(`P0 coverage test context failed ${result.code}: ${result.reason}`);
+  }
+  return result.context;
+}
+
+function buildApprovalRouteCase(
+  context: ResolvedSurfaceContext
+): Parameters<typeof ApprovalRouteShell>[0]["activeCase"] {
+  return {
+    id: context.case.case_id
+  } as Parameters<typeof ApprovalRouteShell>[0]["activeCase"];
+}
+
+function buildApprovalAuditSourceContext(
+  state: "empty" | "unavailable"
+): ResolvedSurfaceContext {
+  const context = adaptCoreSurfaceFixturePhase(2);
+  const nextContext: ResolvedSurfaceContext = {
+    ...context,
+    audit_trail: [],
+    ui_messages: {
+      ...context.ui_messages,
+      audit_trail_source_availability: state === "unavailable" ? "unavailable" : "available",
+      approval_audit_empty_notice:
+        "Approval audit source is readable and contains zero records.",
+      audit_source_unavailable_notice:
+        "Approval audit source is unavailable from governed ui_messages."
+    }
+  };
+  const result = validateResolvedSurfaceContext(nextContext);
+  if (!result.ok) {
+    throw new Error(`AP-T09 audit source test context failed ${result.code}: ${result.reason}`);
   }
   return result.context;
 }
@@ -178,6 +209,65 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(screen.queryByRole("dialog", { name: "Observe configuration" }))
       .not.toBeInTheDocument();
+  });
+
+  it("renders AP-T09 audit empty state without inventing audit rows or coverage upgrades", () => {
+    const context = buildApprovalAuditSourceContext("empty");
+    render(
+      <ApprovalRouteShell
+        activeCase={buildApprovalRouteCase(context)}
+        activeContext={context}
+      />
+    );
+
+    const auditBoundary = screen.getByTestId("approval-audit-source-boundary");
+    const emptyState = screen.getByTestId("approval-audit-empty-state");
+
+    expect(auditBoundary).toHaveAttribute("data-source", "activeContext.audit_trail");
+    expect(auditBoundary).toHaveAttribute("data-source-guard", "source-data-availability");
+    expect(auditBoundary).toHaveAttribute("data-source-availability", "available");
+    expect(auditBoundary).toHaveAttribute("data-audit-source-state", "empty");
+    expect(auditBoundary).toHaveAttribute("data-audit-count", "0");
+    expect(emptyState).toHaveAttribute("data-message-source", "ui_messages");
+    expect(emptyState).toHaveAttribute("data-source-state", "empty");
+    expect(emptyState).toHaveAttribute("data-audit-row-count", "0");
+    expect(emptyState).toHaveAttribute("data-coverage-upgrade", "not-suggested");
+    expect(emptyState).toHaveTextContent("Approval audit source is readable");
+    expect(emptyState).not.toHaveTextContent(/coverage|upgrade|unlock|L3/i);
+    expect(screen.queryByTestId("approval-audit-latest-id")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("approval-audit-derived-status")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-upgrade-prompt")).not.toBeInTheDocument();
+  });
+
+  it("renders AP-T09 audit unavailable state from ui_messages without latest facts", () => {
+    const context = buildApprovalAuditSourceContext("unavailable");
+    render(
+      <ApprovalRouteShell
+        activeCase={buildApprovalRouteCase(context)}
+        activeContext={context}
+      />
+    );
+
+    const auditBoundary = screen.getByTestId("approval-audit-source-boundary");
+    const unavailableState = screen.getByTestId("approval-audit-unavailable-state");
+    const unavailableNotice = screen.getByTestId("audit-source-unavailable-notice");
+
+    expect(auditBoundary).toHaveAttribute("data-source", "activeContext.audit_trail");
+    expect(auditBoundary).toHaveAttribute("data-source-guard", "source-data-availability");
+    expect(auditBoundary).toHaveAttribute("data-source-availability", "unavailable");
+    expect(auditBoundary).toHaveAttribute("data-audit-source-state", "unavailable");
+    expect(auditBoundary).toHaveAttribute("data-audit-count", "unknown");
+    expect(unavailableState).toHaveAttribute("data-message-source", "ui_messages");
+    expect(unavailableState).toHaveAttribute("data-source-state", "unavailable");
+    expect(unavailableState).toHaveAttribute("data-coverage-upgrade", "not-suggested");
+    expect(unavailableNotice).toHaveAttribute("data-message-source", "ui_messages");
+    expect(unavailableNotice).toHaveTextContent(
+      "Approval audit source is unavailable from governed ui_messages."
+    );
+    expect(unavailableState).not.toHaveTextContent(/coverage|upgrade|unlock|L3/i);
+    expect(screen.queryByTestId("approval-audit-latest-id")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("approval-audit-derived-status")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-upgrade-prompt")).not.toBeInTheDocument();
   });
 
   it("renders AP-T07 approved-pending execution as a locked semantic skeleton", async () => {

@@ -52,6 +52,7 @@ type ApprovalAuditDerivedStatus =
   | "APPROVED"
   | "UNAVAILABLE"
   | "UNSUPPORTED";
+type ApprovalAuditSourceState = "records" | "empty" | "unavailable";
 type ApprovalCtaId = "approve_action" | "reject_action" | "delay_action" | "observe_only_action";
 type ApprovalDraftAction = "approve" | "reject" | "delay" | "observe";
 
@@ -628,6 +629,15 @@ function getApprovalAuditDerivedStatus(
   return APPROVAL_AUDIT_EVENT_STATUS_MAP[eventName] ?? "UNSUPPORTED";
 }
 
+function uiMessageString(
+  messages: ResolvedSurfaceContext["ui_messages"],
+  key: string,
+  fallback: string
+): string {
+  const value = messages[key];
+  return typeof value === "string" ? value : fallback;
+}
+
 function resolveExpertModeEntry(
   role: Role,
   coverage: CoverageLevel
@@ -999,7 +1009,7 @@ function ExpertModeEntrySlot({
   );
 }
 
-function ApprovalRouteShell({
+export function ApprovalRouteShell({
   activeCase,
   activeContext
 }: {
@@ -1043,6 +1053,20 @@ function ApprovalRouteShell({
     activeContext.audit_trail.length > 0
       ? activeContext.audit_trail[activeContext.audit_trail.length - 1]
       : undefined;
+  const approvalAuditSourceAvailability =
+    activeContext.ui_messages.audit_trail_source_availability === "unavailable"
+      ? "unavailable"
+      : "available";
+  const approvalAuditSourceState: ApprovalAuditSourceState =
+    approvalAuditSourceAvailability === "unavailable"
+      ? "unavailable"
+      : latestApprovalAuditEvent
+        ? "records"
+        : "empty";
+  const approvalAuditCount =
+    approvalAuditSourceState === "unavailable"
+      ? "unknown"
+      : String(activeContext.audit_trail.length);
   const approvalAuditDerivedStatus =
     getApprovalAuditDerivedStatus(latestApprovalAuditEvent);
   const approvalAuditStatusDisplay =
@@ -1059,6 +1083,16 @@ function ApprovalRouteShell({
     auditRecordString(latestApprovalAuditEvent, "audit_id") ?? "Unavailable";
   const hasObservationWindowAudit = activeContext.audit_trail.some(
     (event) => auditRecordString(event, "event") === "OBSERVE_ONLY_SELECTED"
+  );
+  const approvalAuditEmptyNotice = uiMessageString(
+    activeContext.ui_messages,
+    "approval_audit_empty_notice",
+    "Approval audit source is available and contains zero records."
+  );
+  const approvalAuditUnavailableNotice = uiMessageString(
+    activeContext.ui_messages,
+    "audit_source_unavailable_notice",
+    "Approval audit source is unavailable from governed ui_messages."
   );
 
   useEffect(() => {
@@ -1222,12 +1256,15 @@ function ApprovalRouteShell({
         <section
           aria-labelledby="approval-audit-source-title"
           className="approval-audit-source-boundary"
-          data-audit-count={activeContext.audit_trail.length}
+          data-audit-count={approvalAuditCount}
+          data-audit-source-state={approvalAuditSourceState}
           data-derived-status={approvalAuditDerivedStatus}
           data-derived-status-source="fixed-enum-mapping"
           data-display-mode="display-only"
+          data-source-availability={approvalAuditSourceAvailability}
           data-source="activeContext.audit_trail"
           data-source-fields="audit_id,event,actor_role,case_state_after,ar_status_after"
+          data-source-guard="source-data-availability"
           data-state-mutation="none"
           data-testid="approval-audit-source-boundary"
         >
@@ -1239,47 +1276,78 @@ function ApprovalRouteShell({
               create approval state, Search / History output, or Manager summary output.
             </p>
           </div>
-          <dl className="approval-audit-facts">
-            <div>
-              <dt>Latest audit</dt>
-              <dd data-testid="approval-audit-latest-id">{approvalAuditId}</dd>
+          {approvalAuditSourceState === "records" ? (
+            <dl className="approval-audit-facts">
+              <div>
+                <dt>Latest audit</dt>
+                <dd data-testid="approval-audit-latest-id">{approvalAuditId}</dd>
+              </div>
+              <div>
+                <dt>Event</dt>
+                <dd data-testid="approval-audit-latest-event">{approvalAuditEventName}</dd>
+              </div>
+              <div>
+                <dt>Actor role</dt>
+                <dd data-testid="approval-audit-actor-role">{approvalAuditActorRole}</dd>
+              </div>
+              <div>
+                <dt>Derived status</dt>
+                <dd>
+                  <span
+                    className={`ar-status-pill ${approvalAuditStatusDisplay.tone}`}
+                    data-derived-status={approvalAuditDerivedStatus}
+                    data-derived-status-source="fixed-enum-mapping"
+                    data-testid="approval-audit-derived-status"
+                  >
+                    {approvalAuditStatusDisplay.label}
+                  </span>
+                </dd>
+              </div>
+              <div>
+                <dt>AR after event</dt>
+                <dd data-testid="approval-audit-ar-status-after">{approvalAuditArStatus}</dd>
+              </div>
+              <div>
+                <dt>Case state after</dt>
+                <dd data-testid="approval-audit-case-state-after">{approvalAuditCaseState}</dd>
+              </div>
+              <div>
+                <dt>Observation audit</dt>
+                <dd data-testid="approval-audit-observation-presence">
+                  {hasObservationWindowAudit ? "Present" : "Not present"}
+                </dd>
+              </div>
+            </dl>
+          ) : approvalAuditSourceState === "empty" ? (
+            <div
+              className="approval-audit-source-state"
+              data-audit-row-count={activeContext.audit_trail.length}
+              data-coverage-upgrade="not-suggested"
+              data-message-source="ui_messages"
+              data-source-state="empty"
+              data-testid="approval-audit-empty-state"
+            >
+              <h3>Audit source empty</h3>
+              <p>{approvalAuditEmptyNotice}</p>
             </div>
-            <div>
-              <dt>Event</dt>
-              <dd data-testid="approval-audit-latest-event">{approvalAuditEventName}</dd>
+          ) : (
+            <div
+              className="approval-audit-source-state unavailable"
+              data-audit-row-count="unknown"
+              data-coverage-upgrade="not-suggested"
+              data-message-source="ui_messages"
+              data-source-state="unavailable"
+              data-testid="approval-audit-unavailable-state"
+            >
+              <h3>Audit source unavailable</h3>
+              <p
+                data-message-source="ui_messages"
+                data-testid="audit-source-unavailable-notice"
+              >
+                {approvalAuditUnavailableNotice}
+              </p>
             </div>
-            <div>
-              <dt>Actor role</dt>
-              <dd data-testid="approval-audit-actor-role">{approvalAuditActorRole}</dd>
-            </div>
-            <div>
-              <dt>Derived status</dt>
-              <dd>
-                <span
-                  className={`ar-status-pill ${approvalAuditStatusDisplay.tone}`}
-                  data-derived-status={approvalAuditDerivedStatus}
-                  data-derived-status-source="fixed-enum-mapping"
-                  data-testid="approval-audit-derived-status"
-                >
-                  {approvalAuditStatusDisplay.label}
-                </span>
-              </dd>
-            </div>
-            <div>
-              <dt>AR after event</dt>
-              <dd data-testid="approval-audit-ar-status-after">{approvalAuditArStatus}</dd>
-            </div>
-            <div>
-              <dt>Case state after</dt>
-              <dd data-testid="approval-audit-case-state-after">{approvalAuditCaseState}</dd>
-            </div>
-            <div>
-              <dt>Observation audit</dt>
-              <dd data-testid="approval-audit-observation-presence">
-                {hasObservationWindowAudit ? "Present" : "Not present"}
-              </dd>
-            </div>
-          </dl>
+          )}
         </section>
         {canRenderApprovalCtas ? (
           <div

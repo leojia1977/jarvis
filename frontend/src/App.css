@@ -1005,6 +1005,32 @@ button {
   font-weight: 800;
 }
 
+.approval-audit-source-state {
+  min-width: 0;
+  border: 1px solid #d5dfd8;
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.approval-audit-source-state.unavailable {
+  border-color: #d8c999;
+  background: #fff8e6;
+}
+
+.approval-audit-source-state h3 {
+  margin: 0;
+  color: #243140;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.approval-audit-source-state p {
+  margin-top: 8px;
+  color: #53606d;
+  line-height: 1.5;
+}
+
 .approval-lock-boundary {
   margin-top: 16px;
   border: 1px solid #ccd7d8;
