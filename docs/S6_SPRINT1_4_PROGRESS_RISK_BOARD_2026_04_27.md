@@ -879,3 +879,28 @@ Recommended next board lane:
 ```text
 WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_CONTINUE_NON_QWEN_DOCS_ONLY_EVIDENCE_REFRESH
 ```
+
+## 2026-04-29 Non-Qwen Build-Ready Evidence Queue Batch 2
+
+Status update:
+
+```text
+Canonical gate refresh: PASS
+Build-ready review checklist: created
+S0 synthetic payload file-generation checklist: created / GO required
+Runner idle fallback: recorded
+```
+
+Board impact:
+
+- The current board remains beyond Sprint 1-4 Jira burn-down; all current governed Jira issues remain Done.
+- Batch 2 refreshes the canonical gate bundle for mock/synthetic build-ready evidence.
+- The next non-idle work item is now explicit: S0 synthetic payload file generation, but it is stopped at `IMPLEMENTATION_GO_REQUIRED`.
+- Qwen cloud runtime handoff remains the blocker for model-output evaluation and S0 final decision.
+- No code, Jira mutation, Qwen execution, real data, masked real data, deploy, external pilot, or launch is authorized by this update.
+
+Recommended next board lane:
+
+```text
+WAIT_FOR_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
+```

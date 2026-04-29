@@ -715,3 +715,29 @@ Next safe route:
 ```text
 WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_AUTHORIZE_NON_QWEN_EVIDENCE_QUEUE_CLOSEOUT
 ```
+
+## 2026-04-29 Non-Qwen Build-Ready Evidence Queue Batch 2
+
+Status update:
+
+```text
+Batch 2 docs outputs: created
+Canonical gate refresh: PASS
+Qwen cloud runtime handoff: still HOLD
+S0 synthetic payload file generation: IMPLEMENTATION_GO_REQUIRED
+```
+
+Progress impact:
+
+- Canonical gate refresh is recorded in `docs\S6_CANONICAL_GATE_REFRESH_REPORT_2026_04_29.md`.
+- Build-ready review package checklist is recorded in `docs\S6_BUILD_READY_REVIEW_PACKAGE_CHECKLIST_2026_04_29.md`.
+- S0 synthetic payload file-generation launch checklist is recorded in `docs\S6_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_LAUNCH_CHECKLIST_2026_04_29.md`.
+- Idle fallback report is recorded in `docs\S6_NON_QWEN_EVIDENCE_QUEUE_IDLE_FALLBACK_REPORT_2026_04_29_001.md`.
+- Fresh gate evidence: frontend unit/component 96 tests PASS, frontend build PASS, Storybook build PASS with non-blocking Vite chunk-size warning, and Playwright E2E 13 tests PASS.
+- This remains mock/synthetic evidence only. It does not authorize Qwen execution, real data, masked real data, closed shadow, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, or launch.
+
+Next safe route:
+
+```text
+WAIT_FOR_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
+```

@@ -5656,3 +5656,45 @@ Next route:
 ```text
 WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_AUTHORIZE_NON_QWEN_EVIDENCE_QUEUE_CLOSEOUT
 ```
+
+## 171. Update 2026-04-29: Non-Qwen Build-Ready Evidence Queue Batch 2
+
+Records:
+
+```text
+docs/S6_CANONICAL_GATE_REFRESH_REPORT_2026_04_29.md
+docs/S6_BUILD_READY_REVIEW_PACKAGE_CHECKLIST_2026_04_29.md
+docs/S6_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_LAUNCH_CHECKLIST_2026_04_29.md
+docs/S6_NON_QWEN_EVIDENCE_QUEUE_IDLE_FALLBACK_REPORT_2026_04_29_001.md
+```
+
+Decision:
+
+```text
+NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_BATCH_2_CREATED
+CANONICAL_GATE_REFRESH_PASS
+S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_STOPPED_AT_IMPLEMENTATION_GO_REQUIRED
+QWEN_CLOUD_RUNTIME_HANDOFF_REMAINS_HOLD
+```
+
+Gate evidence:
+
+```text
+frontend unit/component: PASS, 96 tests
+frontend build: PASS
+Storybook build: PASS_WITH_WARNING, non-blocking Vite chunk-size warning
+Playwright E2E: PASS, 13 tests
+```
+
+Interpretation:
+
+- The current non-Qwen mock/synthetic frontend evidence has a fresh canonical gate refresh.
+- Storybook generated build output was treated as transient gate output and not retained in repo.
+- The future S0 synthetic payload file-generation lane is now precisely framed but remains `IMPLEMENTATION_GO_REQUIRED`.
+- This batch does not authorize code edits, Storybook/Playwright edits, Qwen execution, real or masked-real data, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, or launch.
+
+Next route:
+
+```text
+WAIT_FOR_S0_SYNTHETIC_PAYLOAD_FILE_GENERATION_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
+```
