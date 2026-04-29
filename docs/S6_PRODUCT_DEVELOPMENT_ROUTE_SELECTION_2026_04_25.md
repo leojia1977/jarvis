@@ -5252,3 +5252,32 @@ Next route:
 ```text
 OPEN_AP_T12_FULL_AP_ACCEPTANCE_RECHECK_OR_PARENT_EPIC_CLOSURE_REVIEW
 ```
+
+## 158. Update 2026-04-29: AP-T12 Full Acceptance Recheck + Parent Epic Closure Review
+
+Record:
+
+```text
+docs/S6_AP_T12_FULL_ACCEPTANCE_RECHECK_AND_PARENT_EPIC_CLOSURE_REVIEW_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T12_FULL_ACCEPTANCE_RECHECK_OPENED_NO_IMPLEMENTATION
+NO_IMPLEMENTATION_GO_GRANTED_BY_THIS_RECORD
+```
+
+Interpretation:
+
+- `SCRUM-43 [AP]` has all exposed AP child rows Done except `SCRUM-74 [AP-T12]`, which remains `待办`.
+- `AP-T02` no longer blocks full AP acceptance on missing P0 readonly source; it is closed as `SCRUM-54`.
+- `AP-T12` remains HOLD because it is a full-suite acceptance row and still lacks a separately governed AP acceptance lane such as `AP-T12C`.
+- The only active implementation-adjacent candidate is `AP-T12C`, but it must first open as a docs-only exact checklist and stop at `IMPLEMENTATION_GO_REQUIRED`.
+- Parent epic closure is governance/Jira review only, not implementation. `SCRUM-43 [AP]` must not close until `AP-T12` is resolved or explicitly rescoped.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T12C_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
+```

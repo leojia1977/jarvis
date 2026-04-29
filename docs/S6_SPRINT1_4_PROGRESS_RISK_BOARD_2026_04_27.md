@@ -684,3 +684,26 @@ Next safe route:
 ```text
 OPEN_AP_T12_FULL_AP_ACCEPTANCE_RECHECK_OR_PARENT_EPIC_CLOSURE_REVIEW
 ```
+
+## 2026-04-29 AP-T12 Full Acceptance Recheck
+
+Status update:
+
+```text
+AP-T12: full-suite HOLD remains / AP-T02 blocker removed / AP-T12C checklist is next implementation-adjacent candidate
+AP parent SCRUM-43: closure HOLD until AP-T12 resolves or is explicitly rescoped
+```
+
+Progress impact:
+
+- All exposed AP child Jira rows under `SCRUM-43` are Done except `SCRUM-74 [AP-T12]`.
+- AP-T02 is no longer a blocker.
+- AP-T12 remains unresolved because full AP acceptance cannot be inferred from bounded slices alone.
+- The only current `IMPLEMENTATION_GO_REQUIRED -> GO` discussion candidate is `AP-T12C`, and only after it is opened as an exact checklist.
+- Parent epic closure review is docs/Jira governance work only, not implementation.
+
+Next safe route:
+
+```text
+WAIT_FOR_AP_T12C_CHECKLIST_GO_OR_PARENT_CLOSURE_REVIEW_GO
+```
