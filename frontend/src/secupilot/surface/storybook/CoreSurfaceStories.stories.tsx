@@ -267,6 +267,26 @@ export const P2TerminalLock: Story = {
   render: () => <StoryPhase phase={5} />
 };
 
+export const APT12CPendingReviewRoute: Story = {
+  name: "AP-T12C / Acceptance / P2 Pending Route",
+  render: () => <StoryPhase phase={2} route="/approval" />
+};
+
+export const APT12CObservationWindowRoute: Story = {
+  name: "AP-T12C / Acceptance / Observation Window Route",
+  render: () => <StoryPhase phase={3} route="/approval" />
+};
+
+export const APT12CWindowExpiredRoute: Story = {
+  name: "AP-T12C / Acceptance / Window Expired Route",
+  render: () => <StoryPhase phase={4} route="/approval" />
+};
+
+export const APT12CTerminalLockRoute: Story = {
+  name: "AP-T12C / Acceptance / Terminal Lock Route",
+  render: () => <StoryPhase phase={5} route="/approval" />
+};
+
 export const P3ReadonlyReview: Story = {
   name: "P3 / Manager / Readonly Review",
   render: () => <StoryPhase phase={6} />

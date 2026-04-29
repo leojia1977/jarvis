@@ -731,3 +731,28 @@ Next safe route:
 ```text
 WAIT_FOR_AP_T12C_IMPLEMENTATION_GO_OR_AP_T12_RESCOPE_OR_PARENT_CLOSURE_REVIEW_GO
 ```
+
+## 2026-04-29 AP-T12C Full AP Acceptance Lane Closeout
+
+Status update:
+
+```text
+AP-T12C: Storybook / Playwright acceptance lane implemented
+AP-T12: Jira SCRUM-74 Done after evidence sync/read-back
+AP parent SCRUM-43: closure review still required
+```
+
+Progress impact:
+
+- AP-T12 now has a named acceptance lane rather than relying on scattered bounded slices.
+- AP-T12C changed only Storybook / Playwright acceptance files plus governance docs.
+- AP-T02 remains test-harness-only; AP-T06 remains mock/test state-sync; AP-T09 remains source-bound audit empty/unavailable.
+- Claude Code focused review returned `PASS_WITH_FINDINGS` with no blocking findings.
+- Jira `SCRUM-74` is `已完成`.
+- AP parent closure must still be reviewed separately; `SCRUM-43` was not transitioned by this closeout.
+
+Next safe route:
+
+```text
+OPEN_AP_PARENT_CLOSURE_REVIEW_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

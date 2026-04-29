@@ -5312,3 +5312,36 @@ Next route:
 ```text
 WAIT_FOR_AP_T12C_IMPLEMENTATION_GO_OR_AP_T12_RESCOPE_OR_PARENT_CLOSURE_REVIEW_GO
 ```
+
+## 160. Update 2026-04-29: AP-T12C Full AP Acceptance Lane Closeout
+
+Record:
+
+```text
+docs/S6_AP_T12C_FULL_AP_ACCEPTANCE_LANE_CLOSEOUT_2026_04_29.md
+docs/S6_JIRA_SYNC_AP_T12_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T12C_ACCEPTANCE_LANE_IMPLEMENTED_GATE_PASS
+AP_T12_FULL_ACCEPTANCE_SCOPE_JIRA_SYNCED_DONE_AS_SCRUM_74
+AP_PARENT_CLOSURE_REVIEW_STILL_REQUIRED
+```
+
+Interpretation:
+
+- AP-T12C implemented the missing named Storybook / Playwright acceptance lane for full AP acceptance.
+- Changed implementation files are limited to Storybook and Playwright acceptance coverage.
+- No product behavior, `App.tsx`, `App.css`, fixture, adapter, validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, external pilot, or launch scope entered.
+- AP-T02 P0 readonly remains test-harness-only evidence; AP-T09 source empty/unavailable remains source-bound evidence; AP-T06 remains mock/test state-sync only.
+- Claude Code focused review returned `PASS_WITH_FINDINGS` with no blocking findings; notes were limited to fixture-coupled default role, Storybook route-story limitations, gate evidence provenance, and mock-only state-sync semantics.
+- Jira `SCRUM-74 [AP-T12]` received closeout evidence and is verified `已完成`.
+- AP parent closure remains a separate governance/Jira action; `SCRUM-43 [AP]` was not transitioned by this closeout.
+
+Next route:
+
+```text
+OPEN_AP_PARENT_CLOSURE_REVIEW_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
