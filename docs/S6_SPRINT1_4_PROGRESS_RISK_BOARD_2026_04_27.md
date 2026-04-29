@@ -533,3 +533,32 @@ Next safe route:
 ```text
 OPEN_DEPENDENT_ACCEPTANCE_RECONCILIATION_POOL_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 2026-04-29 Dependent Acceptance Burn Pool
+
+Status update:
+
+```text
+IN-T06: no-code reconciled / no exact Jira issue found
+CH-T04 acceptance closure: no-code accepted / no exact Jira issue found
+CD-T07: no-code reconciled / no exact Jira issue found
+AP-T11: no-code reconciled for static + mock state-sync assertion boundary / no exact Jira issue found
+AP-T12: HOLD pending full AP acceptance scope decision
+MV-T05: rescope checklist recorded / implementation not authorized
+```
+
+Progress impact:
+
+- `IN-T06` moves from dependent HOLD to repo reconciled.
+- `CH-T04` acceptance closure moves from dependent HOLD to repo accepted for the bounded frontend-only semantic slice.
+- `CD-T07` moves from dependent HOLD to repo reconciled.
+- `AP-T11` is reduced to the currently governed assertion boundary; it must not be interpreted as real AP mutation or backend state transition.
+- `AP-T12` remains HOLD because the full AP acceptance suite is not closed by `AP-T06` + `AP-T09` alone.
+- `MV-T05` remains HOLD/rescope-only because `MV-T02 = OPTION_A` removed P0/P2 Manager entry rather than implementing a degraded Manager variant.
+- Jira cloud parity still needs explicit creation/mapping GO for missing dependent child issues.
+
+Next safe route:
+
+```text
+OPEN_AP_T12_ACCEPTANCE_SCOPE_DECISION_OR_OPEN_MV_T05_RESCOPE_DECISION_OR_WAIT_FOR_JIRA_CREATION_GO_FOR_MISSING_DEPENDENT_TICKETS_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

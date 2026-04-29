@@ -5040,3 +5040,45 @@ Next route:
 ```text
 OPEN_DEPENDENT_ACCEPTANCE_RECONCILIATION_POOL_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
+
+## 152. Update 2026-04-29: Dependent Acceptance Burn Pool
+
+Records:
+
+```text
+docs/S6_DEPENDENT_ACCEPTANCE_BURN_POOL_2026_04_29.md
+docs/S6_IN_T06_ACCEPTANCE_RECONCILIATION_2026_04_29.md
+docs/S6_CH_T04_ACCEPTANCE_CLOSURE_CHECKLIST_2026_04_29.md
+docs/S6_CD_T07_ACCEPTANCE_RECONCILIATION_2026_04_29.md
+docs/S6_AP_T11_T12_ACCEPTANCE_RECONCILIATION_2026_04_29.md
+docs/S6_MV_T05_RESCOPE_AUTHORITY_CHECKLIST_2026_04_29.md
+docs/S6_JIRA_MAPPING_PROPOSAL_IN_T03_CH_T04_DEPENDENTS_2026_04_29.md
+```
+
+Decision:
+
+```text
+IN_T06_RECONCILED_GATE_PASS_NO_CODE_NO_EXACT_JIRA_ISSUE
+CH_T04_ACCEPTANCE_CLOSURE_GATE_PASS_NO_CODE_NO_EXACT_JIRA_ISSUE
+CD_T07_RECONCILED_GATE_PASS_NO_CODE_NO_EXACT_JIRA_ISSUE
+AP_T11_RECONCILED_GATE_PASS_NO_CODE_STATIC_AND_STATE_SYNC_EVIDENCE
+AP_T12_ACCEPTANCE_CHECKLIST_HOLD_PENDING_FULL_AP_ACCEPTANCE_SCOPE
+MV_T05_RESCOPE_AUTHORITY_CHECKLIST_RECORDED_IMPLEMENTATION_NOT_AUTHORIZED
+JIRA_MAPPING_PROPOSAL_RECORDED_NO_ISSUE_CREATION
+```
+
+Interpretation:
+
+- `IN-T06` is no-code reconciled because `IN-T03` is closed and existing tests prove P1 case-first Inbox, P2 navigation-only approval entry, and P3 readonly Inbox separation.
+- `CH-T04` acceptance closure is no-code accepted for the frontend-only `ui_messages` source-health semantic slice.
+- `CD-T07` is no-code reconciled because `CD-T05` and `CD-T06` now provide multi-role / multi-state Case Detail evidence, including CLOSED P1/P2 audit and P3 summary-only guardrails.
+- `AP-T11` is reconciled only to the current static no-mutation plus mock/test state-sync assertion boundary. It does not authorize real AP mutation or backend state transition.
+- `AP-T12` remains HOLD because it is the full AP acceptance suite, and `AP-T02` plus any governed full-suite acceptance lane remain unresolved.
+- `MV-T05` remains checklist-only. `MV-T02 = OPTION_A` does not create a P0/P2 Manager variant, so `MV-T05` requires an explicit rescope decision before any closeout.
+- Jira cloud lookup found no exact child issues for `IN-T03`, `CH-T04`, `IN-T06`, `CD-T07`, `AP-T11`, `AP-T12`, or `MV-T05`; no issue was created and no Jira Done transition was performed.
+
+Next route:
+
+```text
+OPEN_AP_T12_ACCEPTANCE_SCOPE_DECISION_OR_OPEN_MV_T05_RESCOPE_DECISION_OR_WAIT_FOR_JIRA_CREATION_GO_FOR_MISSING_DEPENDENT_TICKETS_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
