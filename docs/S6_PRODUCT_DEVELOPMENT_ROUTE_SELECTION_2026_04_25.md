@@ -4493,7 +4493,7 @@ Decision:
 ```text
 VF01_BASELINE_RECONCILED_READY_FOR_CH_T02_CHECKLIST
 CH_T02_LAUNCH_CHECKLIST_GO_FOR_BOUNDED_FRONTEND_IMPLEMENTATION
-CH_T02_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_ENV_MISSING
+CH_T02_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_PARITY_PENDING_EXACT_ISSUE_MAPPING
 ```
 
 Interpretation:
@@ -4501,10 +4501,39 @@ Interpretation:
 - `VF-01` is now accepted as the semantic Coverage & Health baseline.
 - `CH-T02` adds the P0 semantic frame anchors inside the existing frontend Coverage & Health surface and preserves current P2 reduced/skeleton behavior.
 - Gates passed: targeted frontend test 51, full frontend tests 88, build, pilot preflight/backend guard 164, `git diff --check`, and Claude Code `VERDICT: PASS`.
-- Jira sync was not performed because the current process exposes `JIRA_BASE_URL` only, without `JIRA_EMAIL` / `JIRA_API_TOKEN`.
+- Follow-up Jira parity repair hydrated credentials successfully, but no exact `CH-T02` cloud issue was found, so no Jira Done transition was performed.
 - The implementation renders `ui_messages`-sourced anchors and forbidden DOM assertions only.
 - No backend/runtime/API/schema, live `/health` or `/ready`, fixture/adapter/validator, `ResolvedSurfaceContext`, real data, secrets, deploy, public endpoint, or external pilot scope is introduced.
 - Full `CH-T04` remains HOLD until governed runtime/source-health scope is explicitly decided.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
+
+## 137. Update 2026-04-29: CH-T02 Jira Parity Repair And Done Diff
+
+Record:
+
+```text
+docs/S6_JIRA_PARITY_REPAIR_CH_T02_AND_DONE_DIFF_2026_04_29.md
+```
+
+Decision:
+
+```text
+CH_T02_JIRA_PARITY_REPAIR_NO_EXACT_ISSUE_FOUND_NO_CLOUD_DONE_TRANSITION
+REPO_DONE_VS_JIRA_DONE_DIFF_RECORDED
+```
+
+Interpretation:
+
+- Jira credentials were hydrated from User env successfully.
+- Jira project `SCRUM` returned 67 issues with status counts `已完成 43 / 待办 22 / 正在进行 2`.
+- No exact `CH-T02` cloud issue was found, so no Jira issue was created or transitioned.
+- `CH-T02` remains repo Done with closeout evidence, but Jira parity requires a later exact issue creation or mapping GO.
+- The diff table separates later repair candidates from tickets that must not be marked Done, including `AP-T06`, `AP-T09`, `CH-T04`, `CD-T06`, `AP-T02`, `MV-T02`, and other HOLD rows.
 
 Next route:
 

@@ -49,7 +49,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `CD-T04` | Sprint 1 | Implemented and Jira-synced. |
 | `CD-T05` | Sprint 1 | P3 executive summary implemented, gated, reviewed, Jira-synced as `SCRUM-52`. |
 | `CH-T01` | Sprint 4 | Coverage & Health page skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-42`. |
-| `CH-T02` | Sprint 4 | VF-01 Coverage & Health semantic frame implemented, gate PASS, Claude Code PASS; Jira sync pending env visibility. |
+| `CH-T02` | Sprint 4 | VF-01 Coverage & Health semantic frame implemented, gate PASS, Claude Code PASS; Jira credential hydration works, but no exact Jira cloud issue was found; no Done transition performed. |
 | `EP-T01` | Sprint 1 | Implemented and pushed. |
 | `EP-T02` | Sprint 1 | Inferred-node weakening slot skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-38`. |
 | `EP-T03` | Sprint 1 | L1 lineage degradation semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-39`. |
@@ -190,6 +190,7 @@ docs\S6_JIRA_MAPPING_SYNC_SH_T02_SH_T06_EP_T06_2026_04_29.md
 docs\S6_VF01_COVERAGE_HEALTH_BASELINE_RECONCILIATION_2026_04_29.md
 docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_LAUNCH_CHECKLIST_2026_04_29.md
 docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_CLOSEOUT_2026_04_29.md
+docs\S6_JIRA_PARITY_REPAIR_CH_T02_AND_DONE_DIFF_2026_04_29.md
 ```
 
 Queue purpose:
@@ -226,7 +227,7 @@ MV-T04 implemented as P3-only read-only Manager approval audit summary, gate PAS
 AP-T11A static no-mutation assertion split implemented, gate PASS, Claude Code PASS; full AP-T11/AP-T12 remain HOLD and no Jira Done transition was made
 SH-T09 acceptance reconciliation closed no-code PASS; no exact Jira issue was found, so repo closeout remains authoritative
 Jira mapping parent evidence sync completed for SH-T02/SH-T06 on `SCRUM-31` and EP-T06 on `SCRUM-25`; no child issues created and no Done count increased
-VF-01 Coverage & Health baseline reconciled; CH-T02 semantic P0 frame implemented, gate PASS, Claude Code PASS; Jira sync pending env visibility; full CH-T04 remains HOLD pending runtime/source-health authority
+VF-01 Coverage & Health baseline reconciled; CH-T02 semantic P0 frame implemented, gate PASS, Claude Code PASS; Jira credentials hydrated from User env, but no exact CH-T02 cloud issue exists, so no Done transition was performed; full CH-T04 remains HOLD pending runtime/source-health authority
 ```
 
 Latest implementation batch:
@@ -265,7 +266,7 @@ MV-T05 readiness checked; remains HOLD until MV-T04 and MV-T02 are resolved or e
 MV-T04 source-order follow-up PASS; implementation still requires separate GO
 AP-T09 blocker refresh recorded; AP-T08 dependency closed, VF-15/exact source still missing
 AP-T02/MV-T02 blocker refresh recorded; both remain HOLD pending exact authority contexts
-CH-T02/CH-T04 blocker refresh recorded; CH-T02 remains HOLD pending VF-01 and CH-T04 remains HOLD pending CH-T02 plus governed runtime/source-health scope
+CH-T02/CH-T04 blocker refresh superseded by VF-01/CH-T02 closeout; CH-T02 is repo Done but lacks exact Jira issue mapping, and CH-T04 remains HOLD pending governed runtime/source-health scope
 SH-T09 acceptance checklist prepared; reconciliation closeout still requires separate GO
 SH-T09 acceptance reconciliation closeout PASS; exact Jira issue not found
 MV-T04 implementation closeout PASS and Jira Done as `SCRUM-68`
@@ -359,7 +360,7 @@ SH-T06 is now implemented and gate/Claude Code PASS; runner must continue after 
 CD-T06A is now implemented and gate/Claude Code PASS; runner must continue after CD-T06A and must not mark parent CD-T06 Done.
 SH-T08 is now implemented and gate/Claude Code PASS; runner must continue after SH-T08 and may sync Jira later only when credentials are visible.
 EP-T06 is now reconciled as no-code PASS; runner must continue after EP-T06 and may sync Jira later only when credentials are visible.
-CH-T02 / CH-T04 blocker refresh is now recorded; runner must not mark either ticket Done and should continue to SH-T09 acceptance checklist or safe Jira parity sync.
+CH-T02 / CH-T04 blocker refresh is superseded by VF-01/CH-T02 closeout; runner must not mark CH-T04 Done and must not infer CH-T02 Jira Done without an exact cloud issue mapping.
 SH-T09 acceptance checklist is now prepared; runner must not mark SH-T09 Done without separate reconciliation GO and gate evidence.
 SH-T08 Jira parity is now synced as `SCRUM-63`; runner must not repeat SH-T08 Jira sync or mark any HOLD/non-ready issue Done.
 Remaining PASS-row Jira parity audit found no additional safe Jira Done transitions without explicit issue mapping.
