@@ -4756,3 +4756,36 @@ Next route:
 ```text
 OPEN_R2_LOW_RISK_BURN_POOL_DOCS_ONLY_QUEUE
 ```
+
+## 143. Update 2026-04-29: R2 Low-Risk Burn Pool Pass 001
+
+Records:
+
+```text
+docs/S6_R2_R1_SOURCE_INPUT_PACKET_2026_04_29.md
+docs/S6_R2_R1_AUTHORITY_REVIEW_PROMPT_PACK_2026_04_29.md
+docs/S6_R2_DEPENDENT_TICKET_HOLD_MAP_2026_04_29.md
+docs/S6_R2_SPRINT_PLANNING_CANDIDATE_BOARD_2026_04_29.md
+docs/S6_R2_IDLE_FALLBACK_REPORT_2026_04_29_001.md
+```
+
+Decision:
+
+```text
+R2_PASS_001_RECORDED_NO_IMPLEMENTATION_SAFE_YET
+```
+
+Interpretation:
+
+- Source input packet is ready for `AP-T06`, `AP-T09`, and `CD-T06`.
+- Authority review prompt pack is ready for `CH-T04`, `IN-T03`, and `MV-T02`.
+- Dependent HOLD map is ready for `AP-T11`, `AP-T12`, `CD-T07`, `IN-T06`, `MV-T05`, and `AP-T02`.
+- Sprint planning candidate board now separates source-needed, authority-needed, dependent HOLD, repo Done evidence, low-risk docs-only, and implementation candidates.
+- No R1 lane is implementation-safe yet.
+- No Jira Done transition, issue creation, frontend source, Storybook, Playwright, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or launch is authorized.
+
+Next route:
+
+```text
+WAIT_FOR_SOURCE_OR_AUTHORITY_INPUT_OR_CONTINUE_R2_DOCS_ONLY
+```
