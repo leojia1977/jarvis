@@ -55,6 +55,7 @@ type ApprovalAuditDerivedStatus =
 type ApprovalAuditSourceState = "records" | "empty" | "unavailable";
 type ApprovalCtaId = "approve_action" | "reject_action" | "delay_action" | "observe_only_action";
 type ApprovalDraftAction = "approve" | "reject" | "delay" | "observe";
+type ClosedCaseDetailRole = Extract<Role, "P1" | "P2" | "P3">;
 
 interface NavItem {
   label: string;
@@ -110,6 +111,12 @@ interface WorkbenchCase {
     confidenceSignals: string[];
     disproofSignals: string[];
   };
+}
+
+interface ClosedAuditEvent {
+  id: string;
+  label: string;
+  detail: string;
 }
 
 interface FixtureSentence {
@@ -208,8 +215,56 @@ const CASE_STATE_HEADER_SKELETON: Partial<
       "Case Detail reflects approved-pending-execution as a locked display state; execution is not started here.",
     visualFrame: "VF-12",
     lockState: "terminal-display-lock"
+  },
+  CLOSED: {
+    title: "Closed readonly",
+    description:
+      "Case Detail reflects a resolved CLOSED state with write controls physically absent.",
+    visualFrame: "VF-13",
+    lockState: "closed-readonly"
   }
 };
+
+const MOCK_STATE_SYNC_EVENT = "secupilot:mock-state-sync";
+const MOCK_STATE_SYNC_SOURCES = new Set([
+  "emitStateSync",
+  "STATE_SYNC",
+  "mock_state_sync",
+  "storybook_fixture",
+  "playwright_fixture"
+]);
+const CD_T06_CLOSED_AUDIT_EVENTS: ClosedAuditEvent[] = [
+  {
+    id: "AUD-001",
+    label: "Case Created",
+    detail: "Renderable CLOSED context source confirms the case exists before AR submission."
+  },
+  {
+    id: "AUD-002",
+    label: "AR Submitted",
+    detail: "P1 submitted the action request into the governed approval path."
+  },
+  {
+    id: "AUD-003",
+    label: "Observe Only Selected",
+    detail: "P2 selected an observation window rather than immediate execution."
+  },
+  {
+    id: "AUD-004",
+    label: "Observation Window Expired / RETURN_TO_PENDING_APPROVAL",
+    detail: "State-sync returned the request to PENDING_APPROVAL without auto-execution."
+  },
+  {
+    id: "AUD-005",
+    label: "Approved / APPROVED_PENDING_EXECUTION",
+    detail: "P2 approval reached approved-pending-execution before closeout."
+  },
+  {
+    id: "AUD-006",
+    label: "Case Closed / CLOSED / RESOLVED",
+    detail: "The case is resolved and write controls remain absent."
+  }
+];
 
 const AR_STATUS_DISPLAY: Record<
   ARStatus,
@@ -638,6 +693,51 @@ function uiMessageString(
   return typeof value === "string" ? value : fallback;
 }
 
+function isObservationWindowExpiredStateSync(detail: unknown): boolean {
+  if (!detail || typeof detail !== "object") {
+    return false;
+  }
+
+  const record = detail as Record<string, unknown>;
+  const syncSource = record.state_sync_source ?? record.source;
+  return (
+    typeof syncSource === "string" &&
+    MOCK_STATE_SYNC_SOURCES.has(syncSource) &&
+    record.case_state === "PENDING_APPROVAL" &&
+    record.ar_status === "PENDING_APPROVAL" &&
+    record.observation_expiry_action === "RETURN_TO_PENDING_APPROVAL" &&
+    (record.audit_event_id === "AUD-004" ||
+      record.audit_event_type === "OBSERVATION_WINDOW_EXPIRED")
+  );
+}
+
+function findObservationWindowExpiredPhase() {
+  return FIXTURE_PHASES.find(
+    (phase) =>
+      phase.role === "P2" &&
+      phase.case_state === "PENDING_APPROVAL" &&
+      phase.ar_status === "PENDING_APPROVAL" &&
+      phase.expected_ui.includes("no_auto_execute")
+  );
+}
+
+function buildClosedCaseDetailProjection(
+  activeCase: WorkbenchCase,
+  role: ClosedCaseDetailRole
+): WorkbenchCase {
+  return {
+    ...activeCase,
+    state: "CLOSED",
+    resolvedRole: role,
+    resolvedSurface:
+      role === "P3" ? "P3_MANAGER" : role === "P2" ? "P2_APPROVAL" : "P1_CASE_DETAIL",
+    arStatus: "APPROVED_PENDING_EXECUTION",
+    actionRequest:
+      "Closed / resolved. Dialogue remains visible and read-only; write controls are absent.",
+    phaseName: `${activeCase.phaseName} + CD-T06 CLOSED readonly projection`
+  };
+}
+
 function resolveExpertModeEntry(
   role: Role,
   coverage: CoverageLevel
@@ -679,9 +779,13 @@ function resolveExpertModeEntry(
 
 interface AppProps {
   initialPhaseNumber?: number;
+  initialClosedCaseDetailRole?: ClosedCaseDetailRole;
 }
 
-function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = {}) {
+function App({
+  initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0,
+  initialClosedCaseDetailRole
+}: AppProps = {}) {
   const [{ route, caseId }, setLocation] = useState(initialRoute);
   const [activePhaseNumber, setActivePhaseNumber] = useState(initialPhaseNumber);
   const [activeRedlineFixtureId, setActiveRedlineFixtureId] = useState<RedlineFixtureId | "">("");
@@ -718,6 +822,13 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
   const activeCase = useMemo(
     () => cases.find((item) => item.id === caseId) ?? cases[0],
     [caseId, cases]
+  );
+  const renderActiveCase = useMemo(
+    () =>
+      initialClosedCaseDetailRole
+        ? buildClosedCaseDetailProjection(activeCase, initialClosedCaseDetailRole)
+        : activeCase,
+    [activeCase, initialClosedCaseDetailRole]
   );
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(role));
 
@@ -767,6 +878,30 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
       window.history.replaceState({}, "", "/manager");
     }
   }, [role, route]);
+
+  useEffect(() => {
+    function handleMockStateSync(event: Event) {
+      const detail = event instanceof CustomEvent ? event.detail : undefined;
+      if (
+        activeRedlineFixtureId ||
+        activeContext.surface !== "P2_APPROVAL" ||
+        activeContext.case.case_state !== "OBSERVATION_WINDOW" ||
+        activeContext.action_request?.ar_status !== "OBSERVATION_WINDOW" ||
+        !isObservationWindowExpiredStateSync(detail)
+      ) {
+        return;
+      }
+
+      const nextPhase = findObservationWindowExpiredPhase();
+      if (nextPhase) {
+        setActiveRedlineFixtureId("");
+        setActivePhaseNumber(nextPhase.phase);
+      }
+    }
+
+    window.addEventListener(MOCK_STATE_SYNC_EVENT, handleMockStateSync);
+    return () => window.removeEventListener(MOCK_STATE_SYNC_EVENT, handleMockStateSync);
+  }, [activeContext, activeRedlineFixtureId]);
 
   function submitGlobalQuery(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -846,8 +981,8 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
         </nav>
 
         <ExpertModeEntrySlot
-          caseState={activeCase.state}
-          coverage={activeCase.coverage}
+          caseState={renderActiveCase.state}
+          coverage={renderActiveCase.coverage}
           role={role}
         />
       </aside>
@@ -872,7 +1007,7 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
 
           <div className="coverage-badge" aria-label="Coverage level" data-testid="coverage-badge">
             <span className="coverage-dot" />
-            <span>Coverage {activeCase.coverage}</span>
+            <span>Coverage {renderActiveCase.coverage}</span>
           </div>
 
           <MockContextSelector
@@ -886,25 +1021,25 @@ function App({ initialPhaseNumber = FIXTURE_PHASES[0]?.phase ?? 0 }: AppProps = 
 
         {route === "case" ? (
           <CaseDetail
-            activeCase={activeCase}
+            activeCase={renderActiveCase}
             followUp={followUp}
-            key={`${activeCase.id}-${activeCase.phaseNumber}`}
+            key={`${renderActiveCase.id}-${renderActiveCase.phaseNumber}-${renderActiveCase.state}-${renderActiveCase.resolvedRole}`}
             onBack={() => navigate("inbox")}
             onFollowUpChange={setFollowUp}
             onFollowUpSubmit={submitFollowUp}
           />
         ) : route === "approval" ? (
-          <ApprovalRouteShell activeCase={activeCase} activeContext={activeContext} />
+          <ApprovalRouteShell activeCase={renderActiveCase} activeContext={activeContext} />
         ) : route === "manager" ? (
-          <ManagerView activeCase={activeCase} activeContext={activeContext} />
+          <ManagerView activeCase={renderActiveCase} activeContext={activeContext} />
         ) : route === "search" ? (
           <SearchHistoryView
-            activeCase={activeCase}
+            activeCase={renderActiveCase}
             activeContext={activeContext}
             onNavigateToManager={() => navigate("manager")}
           />
         ) : route === "coverage_health" ? (
-          <CoverageHealthView activeCase={activeCase} activeContext={activeContext} />
+          <CoverageHealthView activeCase={renderActiveCase} activeContext={activeContext} />
         ) : (
           <InboxView
             cases={cases}
@@ -1084,6 +1219,8 @@ export function ApprovalRouteShell({
   const hasObservationWindowAudit = activeContext.audit_trail.some(
     (event) => auditRecordString(event, "event") === "OBSERVE_ONLY_SELECTED"
   );
+  const hasObservationWindowExpiredAudit =
+    auditRecordString(latestApprovalAuditEvent, "event") === "OBSERVATION_WINDOW_EXPIRED";
   const approvalAuditEmptyNotice = uiMessageString(
     activeContext.ui_messages,
     "approval_audit_empty_notice",
@@ -1280,7 +1417,9 @@ export function ApprovalRouteShell({
             <dl className="approval-audit-facts">
               <div>
                 <dt>Latest audit</dt>
-                <dd data-testid="approval-audit-latest-id">{approvalAuditId}</dd>
+                <dd data-testid="approval-audit-latest-id">
+                  <span data-testid={`audit-${approvalAuditId}`}>{approvalAuditId}</span>
+                </dd>
               </div>
               <div>
                 <dt>Event</dt>
@@ -1349,6 +1488,22 @@ export function ApprovalRouteShell({
             </div>
           )}
         </section>
+        {hasObservationWindowExpiredAudit ? (
+          <aside
+            aria-label="Observation window expired notice"
+            className="observation-expired-notice"
+            data-auto-execute="absent"
+            data-case-state={activeContext.case.case_state}
+            data-state-sync-source="mock_state_sync"
+            data-testid="observation-expired-notice"
+          >
+            <strong>Observation window expired</strong>
+            <span>
+              STATE_SYNC returned this action request to PENDING_APPROVAL. No approval,
+              execution, or launch path is inferred from the clock.
+            </span>
+          </aside>
+        ) : null}
         {canRenderApprovalCtas ? (
           <div
             className="approval-cta-boundary"
@@ -1407,21 +1562,30 @@ export function ApprovalRouteShell({
           <div
             className="approval-observation-boundary"
             data-ar-status={actionRequest.ar_status}
+            data-case-state={activeContext.case.case_state}
+            data-real-backend-protocol="none"
             data-observation-window-readonly="true"
             data-state-migration="none"
-            data-state-sync="not-implemented"
+            data-state-sync="mock-helper-only"
+            data-state-sync-source="emitStateSync"
             data-testid="approval-observation-window-skeleton"
             data-timer-authority="none"
             data-vf-11-state="pass-input-skeleton-only"
             data-visual-state="skeleton"
           >
-            <div>
+            <div data-testid="observation-window-banner">
               <p className="section-kicker">AP-T06A / VF-11</p>
               <h2>Observation window active</h2>
               <p>
                 This is a static readonly observation-window skeleton. Remaining time is display
                 evidence only; material state migration still requires governed state sync.
               </p>
+              <span
+                className="observation-window-lock-badge"
+                data-testid="observation-window-lock-badge"
+              >
+                Read-only until STATE_SYNC
+              </span>
             </div>
             <dl className="approval-observation-facts">
               <div>
@@ -2729,9 +2893,11 @@ function CaseDetail({
     activeCase.resolvedSurface === "P1_CASE_DETAIL" &&
     activeCase.resolvedRole === "P1" &&
     activeCase.arStatus === null &&
-    !hasLocalActionRequestSubmission;
+    !hasLocalActionRequestSubmission &&
+    activeCase.state !== "CLOSED";
   const arStatusDisplay = getARStatusDisplay(activeCase.arStatus, activeCase.resolvedRole);
   const caseStateHeaderSkeleton = CASE_STATE_HEADER_SKELETON[activeCase.state] ?? null;
+  const isClosedCase = activeCase.state === "CLOSED";
   const canRenderBlastRadiusPanel = activeCase.coverage !== "L1";
   const honestyLayerContentId = `${activeCase.id}-honesty-layer-content`;
   const unsupportedClaimSet = useMemo(
@@ -2845,7 +3011,7 @@ function CaseDetail({
           <span
             className="state-pill"
             data-case-state={activeCase.state}
-            data-closed-behavior="not-claimed"
+            data-closed-behavior={isClosedCase ? "implemented" : "not-claimed"}
             data-testid="case-state-pill"
           >
             {CASE_STATE_LABELS[activeCase.state]}
@@ -2857,7 +3023,7 @@ function CaseDetail({
               data-ar-status={activeCase.arStatus ?? "NONE"}
               data-authority-source="resolved-surface-context"
               data-case-state={activeCase.state}
-              data-closed-behavior="not-claimed"
+              data-closed-behavior={isClosedCase ? "implemented" : "not-claimed"}
               data-lock-state={caseStateHeaderSkeleton.lockState}
               data-state-mutation="none"
               data-testid="case-state-header-skeleton"
@@ -2870,6 +3036,36 @@ function CaseDetail({
           ) : null}
         </div>
       </div>
+
+      {isClosedCase ? (
+        <aside
+          aria-label="Closed case readonly banner"
+          className="closed-case-banner"
+          data-authority-source="CD-T06-renderable-context-checklist-v0.1"
+          data-case-state="CLOSED"
+          data-readonly-state="CLOSED"
+          data-testid="closed-case-banner"
+        >
+          <span
+            className="state-pill"
+            data-case-state="CLOSED"
+            data-testid="closed-state-pill"
+          >
+            Closed
+          </span>
+          <span
+            className="closed-state-badge"
+            data-close-reason="RESOLVED"
+            data-testid="closed-state-badge"
+          >
+            Resolved / read-only
+          </span>
+          <p data-testid="closed-case-readonly-notice">
+            This case is closed. Write controls are not attached; the dialogue dock remains
+            visible for readonly review only.
+          </p>
+        </aside>
+      ) : null}
 
       <div className="case-workspace" aria-label="Case detail workspace">
         <aside className="case-rail" aria-label="Case rail">
@@ -2933,6 +3129,17 @@ function CaseDetail({
               <span className="ar-status-source">D-02 display mapping only</span>
             </div>
             <p>{activeCase.actionRequest}</p>
+            {isClosedCase ? (
+              <div
+                className="closed-action-area"
+                data-readonly-state="CLOSED"
+                data-state-mutation="none"
+                data-testid="closed-action-area"
+              >
+                <strong>No write actions attached</strong>
+                <span>New AR submission, approval controls, notes, close requests, and escalation are absent.</span>
+              </div>
+            ) : null}
             {canSubmitP1ActionRequest ? (
               <div
                 aria-label="P1 escalation and close request entries"
@@ -2992,6 +3199,10 @@ function CaseDetail({
               <p className="action-request-readonly">Read-only for this mock phase.</p>
             ) : null}
           </section>
+
+          {isClosedCase && activeCase.resolvedRole !== "P3" ? (
+            <ClosedAuditTrail />
+          ) : null}
         </aside>
 
         <section className="narrative-spine" aria-labelledby="narrative-title">
@@ -3155,6 +3366,7 @@ function CaseDetail({
       <form
         aria-label="Case dialogue dock"
         className="follow-up-input dialogue-dock"
+        data-dialogue-state={isClosedCase ? "readonly" : "active"}
         data-testid="dialogue-dock"
         onSubmit={onFollowUpSubmit}
       >
@@ -3174,16 +3386,46 @@ function CaseDetail({
           <label className="sr-only" htmlFor="case-follow-up">
             Case follow-up input
           </label>
-          <input
-            id="case-follow-up"
-            onChange={(event) => onFollowUpChange(event.target.value)}
-            placeholder="Ask a follow-up in this case context"
-            value={followUp}
-          />
-          <button aria-label="Submit case follow-up" type="submit">
-            <Send aria-hidden="true" size={18} />
-          </button>
+          {isClosedCase ? (
+            <>
+              <textarea
+                data-testid="dialogue-input-readonly"
+                disabled
+                id="case-follow-up"
+                readOnly
+                value="Historical dialogue is read-only; sending is disabled."
+              />
+              <button
+                aria-label="Submit case follow-up disabled"
+                data-testid="dialogue-send-disabled"
+                disabled
+                type="submit"
+              >
+                <Send aria-hidden="true" size={18} />
+              </button>
+            </>
+          ) : (
+            <>
+              <input
+                id="case-follow-up"
+                onChange={(event) => onFollowUpChange(event.target.value)}
+                placeholder="Ask a follow-up in this case context"
+                value={followUp}
+              />
+              <button aria-label="Submit case follow-up" type="submit">
+                <Send aria-hidden="true" size={18} />
+              </button>
+            </>
+          )}
         </div>
+        {isClosedCase ? (
+          <p
+            className="closed-dialogue-notice"
+            data-testid="closed-dialogue-notice"
+          >
+            Dialogue is retained for review, but the closed case cannot accept new writes.
+          </p>
+        ) : null}
       </form>
 
       {isActionRequestDialogOpen ? (
@@ -3230,6 +3472,34 @@ function CaseDetail({
           </div>
         </div>
       ) : null}
+    </section>
+  );
+}
+
+function ClosedAuditTrail() {
+  return (
+    <section
+      aria-labelledby="closed-audit-trail-title"
+      className="closed-audit-trail"
+      data-audit-source="CD-T06-renderable-context-checklist-v0.1"
+      data-readonly-state="CLOSED"
+      data-testid="full-audit-trail"
+    >
+      <p className="section-kicker">CD-T06</p>
+      <h2 id="closed-audit-trail-title">Closed audit trail</h2>
+      <ol>
+        {CD_T06_CLOSED_AUDIT_EVENTS.map((event) => (
+          <li
+            data-audit-id={event.id}
+            data-testid={`audit-${event.id}`}
+            key={event.id}
+          >
+            <strong>{event.id}</strong>
+            <span>{event.label}</span>
+            <p>{event.detail}</p>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
@@ -3341,6 +3611,30 @@ function P3ExecutiveSummary({ activeCase }: { activeCase: WorkbenchCase }) {
         Raw technical evidence, approval controls, action controls, audit summary, and
         cross-page manager output are not mounted in CD-T05.
       </div>
+
+      {activeCase.state === "CLOSED" ? (
+        <section
+          aria-labelledby="p3-approval-audit-summary-title"
+          className="p3-approval-audit-summary"
+          data-display-mode="read-only-manager-summary"
+          data-full-audit-chain="not-rendered"
+          data-role="P3"
+          data-source="manager-history-summary"
+          data-state-mutation="none"
+          data-testid="p3-approval-audit-summary"
+        >
+          <div
+            className="manager-summary-root"
+            data-testid="manager-summary-root"
+          >
+            <h3 id="p3-approval-audit-summary-title">Closed approval audit summary</h3>
+            <p>
+              Manager review receives a cautious CLOSED summary only. The full P1/P2 audit
+              trail, host raw evidence, and approval workbench controls are not mounted.
+            </p>
+          </div>
+        </section>
+      ) : null}
     </section>
   );
 }

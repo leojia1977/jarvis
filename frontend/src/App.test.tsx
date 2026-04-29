@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
 import App, { ApprovalRouteShell, CoverageHealthView } from "./App";
@@ -8,6 +8,12 @@ import type { ResolvedSurfaceContext } from "./secupilot/surface/context/types";
 
 const APPROVED_PENDING_EXECUTION_PHASE = 5;
 const OBSERVATION_WINDOW_PHASE = 3;
+
+function emitMockStateSync(detail: Record<string, unknown>) {
+  act(() => {
+    window.dispatchEvent(new CustomEvent("secupilot:mock-state-sync", { detail }));
+  });
+}
 
 function panelTitle(panelId: string) {
   return (
@@ -303,11 +309,18 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(statusPill).toHaveAttribute("data-ar-status", "OBSERVATION_WINDOW");
     expect(observationBoundary).toHaveAttribute("data-ar-status", "OBSERVATION_WINDOW");
+    expect(observationBoundary).toHaveAttribute("data-case-state", "OBSERVATION_WINDOW");
     expect(observationBoundary).toHaveAttribute("data-observation-window-readonly", "true");
     expect(observationBoundary).toHaveAttribute("data-timer-authority", "none");
-    expect(observationBoundary).toHaveAttribute("data-state-sync", "not-implemented");
+    expect(observationBoundary).toHaveAttribute("data-state-sync", "mock-helper-only");
+    expect(observationBoundary).toHaveAttribute("data-state-sync-source", "emitStateSync");
+    expect(observationBoundary).toHaveAttribute("data-real-backend-protocol", "none");
     expect(observationBoundary).toHaveAttribute("data-state-migration", "none");
     expect(observationBoundary).toHaveAttribute("data-vf-11-state", "pass-input-skeleton-only");
+    expect(screen.getByTestId("observation-window-banner")).toBeInTheDocument();
+    expect(screen.getByTestId("observation-window-lock-badge")).toHaveTextContent(
+      "Read-only until STATE_SYNC"
+    );
     expect(screen.getByTestId("approval-audit-source-boundary"))
       .toHaveAttribute("data-derived-status", "OBSERVING");
     expect(screen.getByTestId("approval-audit-derived-status"))
@@ -335,6 +348,63 @@ describe("SecuPilot first-batch workbench slice", () => {
       "data-disabled-reason",
       "active-observation-window"
     );
+  });
+
+  it("requires mock STATE_SYNC rather than clock fast-forward to exit observation window", async () => {
+    const user = userEvent.setup();
+    render(<App initialPhaseNumber={OBSERVATION_WINDOW_PHASE} />);
+
+    await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
+
+    act(() => {
+      window.dispatchEvent(
+        new CustomEvent("secupilot:mock-clock-fast-forward", {
+          detail: { milliseconds: 60 * 60 * 1000 }
+        })
+      );
+    });
+
+    expect(screen.getByTestId("approval-observation-window-skeleton")).toHaveAttribute(
+      "data-case-state",
+      "OBSERVATION_WINDOW"
+    );
+    expect(screen.getByTestId("approval-ar-status-pill")).toHaveAttribute(
+      "data-ar-status",
+      "OBSERVATION_WINDOW"
+    );
+    expect(screen.queryByTestId("approval-lock-boundary")).not.toBeInTheDocument();
+
+    emitMockStateSync({
+      state_sync_source: "mock_state_sync",
+      case_state: "PENDING_APPROVAL",
+      ar_status: "PENDING_APPROVAL",
+      action_mode: null,
+      observation_window_remaining_minutes: 0,
+      observation_expiry_action: "RETURN_TO_PENDING_APPROVAL",
+      audit_event_id: "AUD-004",
+      audit_event_type: "OBSERVATION_WINDOW_EXPIRED"
+    });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("approval-ar-status-pill")).toHaveAttribute(
+        "data-ar-status",
+        "PENDING_APPROVAL"
+      )
+    );
+    expect(screen.queryByTestId("approval-observation-window-skeleton")).not.toBeInTheDocument();
+    expect(screen.getByTestId("approval-cta-boundary")).toBeInTheDocument();
+    expect(screen.getByTestId("observation-expired-notice")).toHaveAttribute(
+      "data-state-sync-source",
+      "mock_state_sync"
+    );
+    expect(screen.getByTestId("observation-expired-notice")).toHaveAttribute(
+      "data-auto-execute",
+      "absent"
+    );
+    expect(screen.getByTestId("audit-AUD-004")).toHaveTextContent("AUD-004");
+    expect(screen.queryByTestId("approval-lock-boundary")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("auto-execute-label")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("auto-execution-progress")).not.toBeInTheDocument();
   });
 
   it("keeps AP static boundaries non-mutating for AP-T11A", async () => {
@@ -378,7 +448,8 @@ describe("SecuPilot first-batch workbench slice", () => {
     await user.click(screen.getByRole("button", { name: /Approval Queue/i }));
 
     const observationBoundary = screen.getByTestId("approval-observation-window-skeleton");
-    expect(observationBoundary).toHaveAttribute("data-state-sync", "not-implemented");
+    expect(observationBoundary).toHaveAttribute("data-state-sync", "mock-helper-only");
+    expect(observationBoundary).toHaveAttribute("data-state-sync-source", "emitStateSync");
     expect(observationBoundary).toHaveAttribute("data-state-migration", "none");
     expect(observationBoundary).toHaveAttribute("data-timer-authority", "none");
     expect(screen.queryByTestId("approval-cta-boundary")).not.toBeInTheDocument();
@@ -1115,6 +1186,80 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(stateHeader).not.toHaveTextContent("Closed");
     expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|execute/i }))
       .not.toBeInTheDocument();
+  });
+
+  it("renders CD-T06 CLOSED Case Detail as readonly with full P1/P2 audit trail", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={5} initialClosedCaseDetailRole="P2" />);
+
+    expect(screen.getByTestId("closed-case-banner")).toHaveAttribute(
+      "data-case-state",
+      "CLOSED"
+    );
+    expect(screen.getByTestId("closed-state-pill")).toHaveAttribute(
+      "data-case-state",
+      "CLOSED"
+    );
+    expect(screen.getByTestId("closed-state-badge")).toHaveAttribute(
+      "data-close-reason",
+      "RESOLVED"
+    );
+    expect(screen.getByTestId("case-state-header-skeleton")).toHaveAttribute(
+      "data-visual-frame",
+      "VF-13"
+    );
+    expect(screen.getByTestId("case-state-header-skeleton")).toHaveAttribute(
+      "data-closed-behavior",
+      "implemented"
+    );
+    expect(screen.getByTestId("closed-action-area")).toHaveAttribute(
+      "data-readonly-state",
+      "CLOSED"
+    );
+    expect(screen.getByTestId("full-audit-trail")).toHaveAttribute(
+      "data-audit-source",
+      "CD-T06-renderable-context-checklist-v0.1"
+    );
+    for (const id of ["AUD-001", "AUD-002", "AUD-003", "AUD-004", "AUD-005", "AUD-006"]) {
+      expect(screen.getByTestId(`audit-${id}`)).toBeInTheDocument();
+    }
+    for (const forbidden of [
+      "approve-mode-button",
+      "reject-mode-button",
+      "submit-ar-button",
+      "add-note-button",
+      "close-request-button",
+      "escalate-button",
+      "withdraw-approval-btn",
+      "decision-composer-actions"
+    ]) {
+      expect(screen.queryByTestId(forbidden)).not.toBeInTheDocument();
+    }
+    expect(screen.getByTestId("closed-dialogue-notice")).toBeInTheDocument();
+    expect(screen.getByTestId("dialogue-input-readonly")).toBeDisabled();
+    expect(screen.getByTestId("dialogue-send-disabled")).toBeDisabled();
+  });
+
+  it("renders CD-T06 P3 CLOSED summary without full audit trail or technical drawers", () => {
+    window.history.pushState({}, "", "/case/CASE-2847");
+
+    render(<App initialPhaseNumber={6} initialClosedCaseDetailRole="P3" />);
+
+    expect(screen.getByTestId("closed-case-banner")).toBeInTheDocument();
+    expect(screen.getByTestId("p3-approval-audit-summary")).toHaveAttribute("data-role", "P3");
+    expect(screen.getByTestId("p3-approval-audit-summary")).toHaveAttribute(
+      "data-full-audit-chain",
+      "not-rendered"
+    );
+    expect(screen.getByTestId("manager-summary-root")).toBeInTheDocument();
+    expect(screen.queryByTestId("full-audit-trail")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("host-raw-evidence")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("p2-evidence-drawer")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /approve|reject|delay|observe|close/i }))
+      .not.toBeInTheDocument();
+    expect(screen.getByTestId("dialogue-input-readonly")).toBeDisabled();
+    expect(screen.getByTestId("dialogue-send-disabled")).toBeDisabled();
   });
 
   it("ignores URL and storage attempts to inject AR status or action mode", () => {

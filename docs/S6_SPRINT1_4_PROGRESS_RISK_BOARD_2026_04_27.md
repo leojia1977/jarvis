@@ -418,3 +418,49 @@ Best next risk-reduction path:
 ```text
 Do not start CD-T07 until CD-T06 is accepted; do not implement AP-T02/MV-T02 without governed renderable authority contexts
 ```
+
+## 2026-04-29 AP-T06 / CD-T06 Narrow Implementation Closeout
+
+Status update:
+
+```text
+AP-T06: implemented / gate PASS / Claude Code PASS / Jira SCRUM-64 Done
+CD-T06: implemented / gate PASS / Claude Code PASS / Jira SCRUM-53 Done
+```
+
+Progress impact:
+
+- `AP-T06` moves from source-gap closed / implementation-ready to repo implemented.
+- `CD-T06` moves from source-gap closed / implementation-ready to repo implemented.
+- `AP-T11` / `AP-T12` remain dependent acceptance tickets and must not be marked Done from AP-T06 alone.
+- `CD-T07` may move toward future acceptance reconciliation after CD-T06 is committed and Jira/backlog mapping is confirmed.
+- `CH-T04`, `IN-T03`, and `MV-T02` remain authority-gated.
+
+Next safe route:
+
+```text
+OPEN_CH_T04_IN_T03_MV_T02_AUTHORITY_INPUT
+```
+
+## 2026-04-29 CH-T04 / IN-T03 / MV-T02 Authority Input
+
+Status update:
+
+```text
+CH-T04: authority input ready / implementation not authorized
+IN-T03: authority input ready / implementation not authorized
+MV-T02: authority input ready / implementation not authorized
+```
+
+Progress impact:
+
+- `CH-T04` remains HOLD until the runtime/source-health scope decision selects frontend-only semantic slice, runtime/backend HOLD, or defer/remove.
+- `IN-T03` remains HOLD until the P2 shortcut / close-entry authority decision selects no shortcut, navigation-only, display-only, or action-capable HOLD.
+- `MV-T02` remains HOLD until the P0/P2 Manager authority decision selects hard redirect/no Manager entry, separate readonly degraded variants, or defer.
+- `IN-T06`, `MV-T05`, and `CH-T04` acceptance closure remain dependent HOLD items.
+
+Next safe route:
+
+```text
+WAIT_FOR_CH_T04_SCOPE_DECISION_OR_IN_T03_AUTHORITY_DECISION_OR_MV_T02_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```

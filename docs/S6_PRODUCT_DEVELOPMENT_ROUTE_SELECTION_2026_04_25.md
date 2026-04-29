@@ -4881,3 +4881,66 @@ Next route:
 ```text
 WAIT_FOR_AP_T06_OR_CD_T06_IMPLEMENTATION_GO_OR_CH_T04_IN_T03_MV_T02_AUTHORITY_INPUT_OR_CONTINUE_R2_DOCS_ONLY
 ```
+
+## 147. Update 2026-04-29: AP-T06 / CD-T06 Narrow Implementation Closeout
+
+Records:
+
+```text
+docs/S6_AP_T06_STATE_SYNC_TEST_HOOK_CLOSEOUT_2026_04_29.md
+docs/S6_CD_T06_CLOSED_CONTEXT_CLOSEOUT_2026_04_29.md
+docs/S6_JIRA_SYNC_AP_T06_CD_T06_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T06_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+CD_T06_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_DONE_SYNCED
+```
+
+Interpretation:
+
+- `AP-T06` is implemented as mock/test state-sync behavior only. Clock fast-forward alone remains non-authoritative, and only a governed mock `STATE_SYNC` / `emitStateSync`-style event moves the observation-window UI back to `PENDING_APPROVAL`.
+- `AP-T06` does not define real websocket, polling, backend API, runtime protocol, or schema behavior.
+- `CD-T06` is implemented as renderable CLOSED Case Detail behavior with CLOSED anchors, P1/P2 readonly `AUD-001` through `AUD-006`, disabled dialogue input/send, and P3 summary-only guardrail.
+- `CD-T06` does not add URL/storage authority for CLOSED state and does not modify fixture/adapter/validator or `ResolvedSurfaceContext`.
+- Gates passed: frontend tests, frontend build, `git diff --check`, and pilot preflight / backend guard.
+- Claude Code focused review returned `VERDICT: PASS`.
+- Jira sync is complete: `SCRUM-64` and `SCRUM-53` received repo evidence comments and are verified `已完成`; no dependent ticket was marked Done from these closeouts.
+
+Next route:
+
+```text
+OPEN_CH_T04_IN_T03_MV_T02_AUTHORITY_INPUT
+```
+
+## 148. Update 2026-04-29: CH-T04 / IN-T03 / MV-T02 Authority Input Pack
+
+Record:
+
+```text
+docs/S6_CH_T04_IN_T03_MV_T02_AUTHORITY_INPUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+CH_T04_IN_T03_MV_T02_AUTHORITY_INPUT_READY
+IMPLEMENTATION_NOT_AUTHORIZED
+AUTHORITY_DECISION_REQUIRED_BEFORE_CODE
+```
+
+Interpretation:
+
+- `CH-T04` now has a copy-ready authority input with three possible decisions: frontend-only `ui_messages` source-health semantic slice, runtime/backend source-health HOLD, or defer/remove from current release.
+- `IN-T03` now has a copy-ready authority input distinguishing no shortcut, navigation-only, display-only, and action-capable HOLD.
+- `MV-T02` now has a copy-ready authority input distinguishing hard redirect/no Manager entry, separate readonly degraded P0/P2 variants, and defer.
+- `IN-T06`, `MV-T05`, and `CH-T04` acceptance closure remain HOLD until the relevant authority decision is made.
+- This record does not authorize implementation, frontend source changes, Storybook, Playwright, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, launch, or Jira Done transitions.
+
+Next route:
+
+```text
+WAIT_FOR_CH_T04_SCOPE_DECISION_OR_IN_T03_AUTHORITY_DECISION_OR_MV_T02_AUTHORITY_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
