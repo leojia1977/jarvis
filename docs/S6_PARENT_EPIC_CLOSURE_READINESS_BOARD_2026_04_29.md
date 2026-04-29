@@ -24,15 +24,15 @@ decision. It does not transition any parent epic.
 
 | Parent | Current cloud status | Readiness | Reason |
 | --- | --- | --- | --- |
-| `SCRUM-14 [E0]` | `待办` | Closure candidate | E0 foundation is repo closed, but parent transition requires explicit parent closure GO. |
-| `SCRUM-6 [GS]` | `待办` | Closure candidate | Batch0/GS rows appear repo/cloud closed; needs parent closure review. |
-| `SCRUM-7 [IN]` | `待办` | Closure candidate | `IN-T03` and `IN-T06` are now cloud Done; needs parent closure review. |
-| `SCRUM-8 [CD]` | `待办` | Closure candidate | `CD-T07` is now cloud Done; needs parent closure review. |
-| `SCRUM-25 [EP]` | `待办` | Needs audit | Some EP rows were repo reconciled via parent comments; exact child parity may still be incomplete. |
-| `SCRUM-31 [SH]` | `待办` | Needs audit | Search/History has many Done rows, but parent closure needs explicit SH acceptance review. |
-| `SCRUM-41 [CH]` | `待办` | Needs audit | `CH-T04` is Done; `CH-T02` repo/cloud parity and full CH acceptance need review. |
+| `SCRUM-14 [E0]` | `已完成` | Closed | LR4 parent closure passed with 11 / 11 exposed children Done. |
+| `SCRUM-6 [GS]` | `已完成` | Closed | LR4 parent closure passed with 4 / 4 exposed children Done. |
+| `SCRUM-7 [IN]` | `已完成` | Closed | LR4 parent closure passed with 6 / 6 exposed children Done. |
+| `SCRUM-8 [CD]` | `已完成` | Closed | LR4 parent closure passed with 8 / 8 exposed children Done. |
+| `SCRUM-25 [EP]` | `待办` | HOLD / parity gap | Exposed children are Done, but `EP-T01` has no exact child issue and `EP-T06` is parent-evidence-only. |
+| `SCRUM-31 [SH]` | `待办` | HOLD / parity gap | Exposed children are Done, but `SH-T02`, `SH-T06`, and `SH-T09` lack exact child closure mapping. |
+| `SCRUM-41 [CH]` | `待办` | HOLD / parity gap | Exposed children are Done, but `CH-T02` is repo Done with no exact child issue. |
 | `SCRUM-43 [AP]` | `已完成` | Closed | AP parent closure review passed after `AP-T12C` and `SCRUM-74` closeout. |
-| `SCRUM-48 [MV]` | `待办` | HOLD / rescope candidate | `MV-T05` may close only if P3-only acceptance rescope is accepted. |
+| `SCRUM-48 [MV]` | `已完成` | Closed / P3-only rescope | LR4 parent closure passed under P3-only/rescoped Manager acceptance; no P0/P2 Manager degraded variant is claimed. |
 
 ## 4. Recommended Next Parent Actions
 

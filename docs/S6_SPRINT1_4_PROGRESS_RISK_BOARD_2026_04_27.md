@@ -778,3 +778,27 @@ Next safe route:
 ```text
 RUN_LR4_PARENT_CLOSURE_AND_PARITY_BURN_POOL
 ```
+
+## 2026-04-29 LR4 Parent Closure / Parity Batch
+
+Status update:
+
+```text
+E0 / GS / IN / CD / MV parents: Jira Done
+EP / SH / CH parents: HOLD due to unmapped repo rows
+Jira project: 66 Done / 6 To Do / 2 In Progress
+```
+
+Progress impact:
+
+- `SCRUM-14`, `SCRUM-6`, `SCRUM-7`, `SCRUM-8`, and `SCRUM-48` are now `已完成`.
+- `SCRUM-48 [MV]` closure is P3-only/rescoped and excludes P0/P2 Manager degraded variants.
+- `SCRUM-25 [EP]`, `SCRUM-31 [SH]`, and `SCRUM-41 [CH]` remain open because parent closure would hide unmapped or parent-evidence-only rows.
+- Remaining non-Done governed parents are now narrowed to EP / SH / CH parity decisions.
+- Stale seed issues `SCRUM-1` through `SCRUM-5` still need a separate cleanup decision if cloud hygiene matters.
+
+Next safe route:
+
+```text
+WAIT_FOR_EP_SH_CH_PARENT_PARITY_RESCOPE_OR_CHILD_ISSUE_CREATION_GO_OR_STALE_SEED_CLEANUP_GO
+```

@@ -5376,3 +5376,36 @@ Next route:
 ```text
 RUN_LR4_PARENT_CLOSURE_AND_PARITY_BURN_POOL
 ```
+
+## 162. Update 2026-04-29: LR4 Parent Closure Batch and Parity Audit
+
+Records:
+
+```text
+docs/S6_LR4_PARENT_CLOSURE_BATCH_A_2026_04_29.md
+docs/S6_LR4_PARENT_PARITY_AUDIT_EP_SH_CH_2026_04_29.md
+docs/S6_LR4_SPRINT_PLANNING_BOARD_REFRESH_2026_04_29.md
+```
+
+Decision:
+
+```text
+LR4_PARENT_CLOSURE_BATCH_A_PASS
+E0_GS_IN_CD_MV_PARENT_JIRA_SYNCED_DONE
+EP_SH_CH_PARENT_CLOSURE_HOLD_DUE_TO_UNMAPPED_REPO_ROWS
+PROJECT_DONE_COUNT_66_OF_74
+```
+
+Interpretation:
+
+- Jira parents `SCRUM-14 [E0]`, `SCRUM-6 [GS]`, `SCRUM-7 [IN]`, `SCRUM-8 [CD]`, and `SCRUM-48 [MV]` were transitioned to `已完成` after exact child read-back.
+- `SCRUM-48 [MV]` closure is P3-only/rescoped and does not claim P0/P2 Manager degraded variants.
+- `SCRUM-25 [EP]`, `SCRUM-31 [SH]`, and `SCRUM-41 [CH]` remain `待办` because their exposed Jira children are Done but repo evidence still includes unmapped or parent-evidence-only rows.
+- Jira project state after LR4 is `已完成 66`, `待办 6`, `正在进行 2`.
+- No implementation, child issue creation, backend/runtime/API/schema, real data, secrets, deploy, external pilot, public endpoint, or launch was authorized.
+
+Next route:
+
+```text
+WAIT_FOR_EP_SH_CH_PARENT_PARITY_RESCOPE_OR_CHILD_ISSUE_CREATION_GO_OR_STALE_SEED_CLEANUP_GO
+```
