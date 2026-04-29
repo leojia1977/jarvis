@@ -54,6 +54,48 @@ function buildP0CoverageHealthContext(): ResolvedSurfaceContext {
   return result.context;
 }
 
+function buildP0ReadonlyApprovalTestHarnessContext(): ResolvedSurfaceContext {
+  const context = adaptCoreSurfaceFixturePhase(2);
+  const p0ReadonlyActionPermissions = Object.fromEntries(
+    Object.keys(context.action_permissions).map((key) => [key, "READONLY"])
+  ) as ResolvedSurfaceContext["action_permissions"];
+  const p0ReadonlyAllowedActions = Object.fromEntries(
+    Object.keys(context.resolved_visibility.allowed_actions ?? context.action_permissions).map(
+      (key) => [key, "READONLY"]
+    )
+  ) as NonNullable<ResolvedSurfaceContext["resolved_visibility"]["allowed_actions"]>;
+  const p0Context: ResolvedSurfaceContext = {
+    ...context,
+    session: {
+      ...context.session,
+      role: "P0"
+    },
+    surface: "CROSS_SURFACE",
+    action_request: context.action_request
+      ? {
+          ...context.action_request,
+          action_mode: null
+        }
+      : undefined,
+    action_permissions: p0ReadonlyActionPermissions,
+    resolved_visibility: {
+      ...context.resolved_visibility,
+      pages: {
+        ...context.resolved_visibility.pages,
+        approval: "READONLY"
+      },
+      allowed_actions: p0ReadonlyAllowedActions
+    }
+  };
+  const result = validateResolvedSurfaceContext(p0Context);
+  if (!result.ok) {
+    throw new Error(
+      `AP-T02 P0 readonly approval test harness failed ${result.code}: ${result.reason}`
+    );
+  }
+  return result.context;
+}
+
 function buildApprovalRouteCase(
   context: ResolvedSurfaceContext
 ): Parameters<typeof ApprovalRouteShell>[0]["activeCase"] {
@@ -275,6 +317,48 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.queryByTestId("approval-audit-latest-id")).not.toBeInTheDocument();
     expect(screen.queryByTestId("approval-audit-derived-status")).not.toBeInTheDocument();
     expect(screen.queryByTestId("coverage-upgrade-prompt")).not.toBeInTheDocument();
+  });
+
+  it("renders AP-T02 P0 approval as readonly from the governed test harness only", () => {
+    const context = buildP0ReadonlyApprovalTestHarnessContext();
+    render(
+      <ApprovalRouteShell
+        activeCase={buildApprovalRouteCase(context)}
+        activeContext={context}
+      />
+    );
+
+    const surface = screen.getByTestId("approval-surface");
+    const shell = screen.getByTestId("approval-shell-card");
+    const statusPill = screen.getByTestId("approval-ar-status-pill");
+    const auditBoundary = screen.getByTestId("approval-audit-source-boundary");
+
+    expect(surface).toHaveAttribute("data-role", "P0");
+    expect(surface).toHaveAttribute("data-approval-mode", "readonly-container");
+    expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(surface).toHaveAttribute("data-route-authority", "resolved-surface-context");
+    expect(surface).toHaveAttribute("data-approval-scope", "route-shell-guard-only");
+    expect(statusPill).toHaveAttribute("data-ar-status", "PENDING_APPROVAL");
+    expect(statusPill).toHaveAttribute("data-action-authority", "display-only");
+    expect(statusPill).toHaveAttribute("data-mapping-source", "D-02");
+    expect(statusPill).toHaveAttribute("data-state-migration", "none");
+    expect(auditBoundary).toHaveAttribute("data-source", "activeContext.audit_trail");
+    expect(auditBoundary).toHaveAttribute("data-display-mode", "display-only");
+    expect(auditBoundary).toHaveAttribute("data-state-mutation", "none");
+    expect(new Set(Object.values(context.action_permissions))).toEqual(new Set(["READONLY"]));
+    expect(new Set(Object.values(context.resolved_visibility.allowed_actions ?? {}))).toEqual(
+      new Set(["READONLY"])
+    );
+    expect(screen.queryByTestId("approval-cta-boundary")).not.toBeInTheDocument();
+    expect(
+      within(shell).queryByRole("button", { name: /approve|reject|delay|observe/i })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(window.location.search).toBe("");
+    expect(window.localStorage.getItem("role")).toBeNull();
+    expect(window.localStorage.getItem("ar_status")).toBeNull();
+    expect(window.sessionStorage.getItem("action_mode")).toBeNull();
+    expect(document.body).not.toHaveTextContent(/IMMEDIATE|DELAYED|OBSERVE_ONLY/);
   });
 
   it("renders AP-T07 approved-pending execution as a locked semantic skeleton", async () => {

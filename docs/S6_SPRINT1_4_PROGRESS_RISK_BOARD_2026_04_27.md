@@ -641,3 +641,46 @@ Next safe route:
 ```text
 WAIT_FOR_AP_T02_GOVERNED_P0_CONTEXT_SOURCE_OR_APPROVED_TEST_HARNESS
 ```
+
+## 2026-04-29 AP-T02 Test-Harness-Only Source Closeout
+
+Status update:
+
+```text
+AP-T02: governed P0 readonly approval test harness source implemented / targeted gate PASS / Jira sync pending full gate
+```
+
+Progress impact:
+
+- AP-T02 no longer lacks an approved source path: Jarvis selected the test-harness-only path.
+- The implementation is intentionally limited to `frontend/src/App.test.tsx`.
+- The P0 approval context is constructed only in test scope, validated through `ContextValidator`, and not exported to product route, Storybook, Playwright, fixture, adapter, validator, or runtime code.
+- Full AP acceptance may now move from "source missing" to "full gate / review / Jira closeout" for this narrow AP-T02 source item.
+- This does not authorize production P0 `/approval` routing, fixture changes, backend/runtime/API/schema, real data, secrets, deploy, external pilot, or launch.
+
+Next safe route:
+
+```text
+RUN_AP_T02_FULL_GATE_CLAUDE_CODE_REVIEW_JIRA_SYNC_AND_CLOSEOUT
+```
+
+## 2026-04-29 AP-T02 Final Closeout
+
+Status update:
+
+```text
+AP-T02: test-harness-only P0 readonly approval source closed / Jira SCRUM-54 Done
+```
+
+Progress impact:
+
+- AP-T02 is no longer a missing-source blocker for full AP acceptance.
+- The source path remains test-harness-only and does not create a production P0 `/approval` route entry.
+- Jira `SCRUM-54` is `已完成`.
+- Full `AP-T12` remains a separate acceptance-scope recheck; AP-T02 closeout should be used as evidence, not as automatic parent/epic closure.
+
+Next safe route:
+
+```text
+OPEN_AP_T12_FULL_AP_ACCEPTANCE_RECHECK_OR_PARENT_EPIC_CLOSURE_REVIEW
+```

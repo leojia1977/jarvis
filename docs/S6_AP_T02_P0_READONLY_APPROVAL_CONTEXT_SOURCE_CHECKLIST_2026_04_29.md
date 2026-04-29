@@ -7,37 +7,39 @@
 | Ticket | `AP-T02` |
 | Jira issue | `SCRUM-54` |
 | Scope | P0 readonly approval context source / implementation readiness |
-| Status | `AP_T02_CONTEXT_SOURCE_CHECKLIST_HOLD_GOVERNED_P0_APPROVAL_CONTEXT_MISSING` |
+| Status | `AP_T02_TEST_HARNESS_SOURCE_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_FINDINGS_FIXED_JIRA_DONE_SYNCED` |
 | Date | 2026-04-29 |
 | Repo root | `D:\产品设计\New folder` |
 | Branch | `codex/s3-a-runtime` |
-| Mode | source/checklist only |
+| Mode | source/checklist + test-harness-only implementation |
 
 ## 2. Decision
 
 ```text
-AP_T02_CONTEXT_SOURCE_CHECKLIST_HOLD_GOVERNED_P0_APPROVAL_CONTEXT_MISSING
-IMPLEMENTATION_NOT_AUTHORIZED
+AP_T02_TEST_HARNESS_SOURCE_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_FINDINGS_FIXED_JIRA_DONE_SYNCED
+PRODUCT_ROUTE_IMPLEMENTATION_NOT_AUTHORIZED
 ```
 
-`AP-T02` remains HOLD. The code contains a P0 readonly approval shell branch if
-a P0 context is supplied, but the repo does not yet contain a governed renderable
-P0 approval context source or approved test harness.
+Jarvis provided the governed input and authorized the Option B test-harness-only
+path. `AP-T02` now has a validated P0 readonly approval context source inside
+`frontend/src/App.test.tsx`. This closes the AP-T02 source/checklist gap without
+authorizing a production route, fixture, Storybook, Playwright, backend, runtime,
+API, schema, real-data, deploy, launch, or external-pilot path.
 
 ## 3. Source Check
 
 | Requirement | Current result | Evidence |
 | --- | --- | --- |
 | `/approval` route shell exists | PASS | Existing route guard / AP-T01 evidence. |
-| P0 branch is readonly if supplied | PARTIAL | `ApprovalRouteShell` has `role === "P0"` read-only branch behavior. |
-| P0 approval route is reachable without URL/storage authority | HOLD | No governed P0 approval fixture or route entry exists. |
-| P0 approval context source is governed | HOLD | Current fixture phases cover P1/P2/P3 surfaces; no P0 approval phase. |
-| AP controls remain absent for P0 | PASS candidate | Existing branch logic is read-only, but cannot be accepted until context source is governed. |
-| No fixture/adapter/validator/ResolvedSurfaceContext change needed | HOLD | A source/harness may require separate governed route if not already available. |
+| P0 branch is readonly if supplied | PASS | `ApprovalRouteShell` has `role === "P0"` read-only branch behavior. |
+| P0 approval route is reachable without URL/storage authority | PASS via test harness | Direct component harness supplies validated context; no URL/storage authority is used. |
+| P0 approval context source is governed | PASS via Option B | `buildP0ReadonlyApprovalTestHarnessContext` validates through `ContextValidator`. |
+| AP controls remain absent for P0 | PASS | Test asserts no approve/reject/delay/observe controls or dialog are attached. |
+| No fixture/adapter/validator/ResolvedSurfaceContext change needed | PASS | Implementation changed only `frontend/src/App.test.tsx`; no fixture/adapter/validator/context model file changed. |
 
 ## 4. Required Input To Unlock
 
-A future implementation GO requires one of these governed inputs:
+Jarvis selected Option B for this ticket.
 
 ### Option A - Governed P0 Approval Fixture / Context Source
 
@@ -58,26 +60,30 @@ helper is not used by product route or Storybook/Playwright production-like path
 no fixture/adapter/validator/ResolvedSurfaceContext changes inside AP-T02
 ```
 
-## 5. Future Implementation Envelope If HOLD Clears
+## 5. Implemented Envelope
 
-Likely allowed files:
+Implemented file:
 
 ```text
-frontend/src/App.tsx
-frontend/src/App.css
 frontend/src/App.test.tsx
 ```
 
-Required tests:
+Implemented test:
 
 ```text
-P0 /approval renders readonly approval container
-P0 /approval does not render approve/reject/delay/observe controls
-P0 /approval does not create ActionMode
-P0 /approval does not mutate AP state
-P0 authority is not derived from URL/localStorage/sessionStorage
-P1/P3 guards remain unchanged
+renders AP-T02 P0 approval as readonly from the governed test harness only
 ```
+
+Assertions cover:
+
+- P0 readonly approval container;
+- `ResolvedSurfaceContext` as authority source;
+- `D-02` display mapping only;
+- no approval CTA boundary;
+- no approve/reject/delay/observe controls;
+- no dialog;
+- no URL/search/localStorage/sessionStorage authority;
+- no `IMMEDIATE` / `DELAYED` / `OBSERVE_ONLY` text.
 
 ## 6. HOLD Conditions
 
@@ -92,13 +98,11 @@ HOLD immediately if AP-T02 would require:
 
 ## 7. Jira
 
-`SCRUM-54` remains `待办`.
-
-No Jira Done transition is authorized by this checklist.
+`SCRUM-54` was verified as `[AP-T02] P0 readonly approval container`, received
+repo closeout evidence, and is now `已完成`.
 
 ## 8. Next Route
 
 ```text
-WAIT_FOR_AP_T02_GOVERNED_P0_CONTEXT_SOURCE_OR_APPROVED_TEST_HARNESS
+OPEN_AP_T12_FULL_AP_ACCEPTANCE_RECHECK_OR_PARENT_EPIC_CLOSURE_REVIEW
 ```
-

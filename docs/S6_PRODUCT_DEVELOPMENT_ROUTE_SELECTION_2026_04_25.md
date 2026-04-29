@@ -5190,3 +5190,65 @@ Next route:
 ```text
 WAIT_FOR_AP_T02_GOVERNED_P0_CONTEXT_SOURCE_OR_APPROVED_TEST_HARNESS
 ```
+
+## 156. Update 2026-04-29: AP-T02 Test-Harness-Only Source Closeout
+
+Records:
+
+```text
+docs/S6_AP_T02_P0_READONLY_APPROVAL_CONTEXT_SOURCE_CHECKLIST_2026_04_29.md
+docs/S6_AP_T02_P0_READONLY_APPROVAL_TEST_HARNESS_CLOSEOUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T02_TEST_HARNESS_SOURCE_IMPLEMENTED_GATE_PASS_PENDING_JIRA_SYNC
+PRODUCT_ROUTE_IMPLEMENTATION_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- Jarvis provided the governed AP-T02 input and authorized the Option B test-harness-only path.
+- `frontend/src/App.test.tsx` now constructs a P0 readonly approval context only inside test scope and validates it through `ContextValidator`.
+- The AP-T02 test harness proves the existing approval shell renders P0 as a readonly container with display-only AR status, no approval CTA boundary, no approve/reject/delay/observe controls, no dialog, no `ActionMode`, and no URL/storage authority.
+- No production route, fixture phase, Storybook, Playwright source, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or launch path is authorized by this closeout.
+- Targeted frontend gate passed: `npm test -- --run App.test.tsx` with 59 tests passing.
+
+Next route:
+
+```text
+RUN_AP_T02_FULL_GATE_CLAUDE_CODE_REVIEW_JIRA_SYNC_AND_CLOSEOUT
+```
+
+## 157. Update 2026-04-29: AP-T02 Test-Harness Closeout + Jira Done
+
+Records:
+
+```text
+docs/S6_AP_T02_P0_READONLY_APPROVAL_CONTEXT_SOURCE_CHECKLIST_2026_04_29.md
+docs/S6_AP_T02_P0_READONLY_APPROVAL_TEST_HARNESS_CLOSEOUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+AP_T02_TEST_HARNESS_SOURCE_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_FINDINGS_FIXED_JIRA_DONE_SYNCED
+PRODUCT_ROUTE_IMPLEMENTATION_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- AP-T02 is closed via the governed Option B test-harness-only path.
+- The only implementation file is `frontend/src/App.test.tsx`.
+- The P0 readonly approval context is constructed only in test scope, validates through `ContextValidator`, uses `surface = CROSS_SURFACE`, downgrades every inherited `action_permissions` and `resolved_visibility.allowed_actions` value to `READONLY`, and does not touch production routes, fixture phases, fixture adapter, validator, or `ResolvedSurfaceContext` type files.
+- Gates passed: frontend tests 96, frontend build, `git diff --check`, pilot preflight/backend guard 164, and release verification.
+- Claude Code focused review returned `PASS_WITH_FINDINGS`; required fixes were applied and the final P3 doc-token note was corrected before closeout.
+- Jira `SCRUM-54` was verified as `[AP-T02] P0 readonly approval container`, received closeout evidence, and is now `已完成`.
+- This closeout does not authorize production P0 `/approval` route entry, Storybook, Playwright source, fixture/adapter/validator changes, `ResolvedSurfaceContext` model changes, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or launch.
+
+Next route:
+
+```text
+OPEN_AP_T12_FULL_AP_ACCEPTANCE_RECHECK_OR_PARENT_EPIC_CLOSURE_REVIEW
+```
