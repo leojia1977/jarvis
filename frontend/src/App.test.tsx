@@ -1,7 +1,10 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import coreSurfaceFixture from "../fixtures/secupilot_core_surface_fixture_v0_1.json";
-import App from "./App";
+import App, { CoverageHealthView } from "./App";
+import { validateResolvedSurfaceContext } from "./secupilot/surface/context/validateResolvedSurfaceContext";
+import { adaptCoreSurfaceFixturePhase } from "./secupilot/surface/fixtures/coreSurfaceFixtureAdapter";
+import type { ResolvedSurfaceContext } from "./secupilot/surface/context/types";
 
 const APPROVED_PENDING_EXECUTION_PHASE = 5;
 const OBSERVATION_WINDOW_PHASE = 3;
@@ -18,6 +21,30 @@ function firstSectionEvidenceRef(sectionKey: string, fallback: string) {
     coreSurfaceFixture.case.narrative_sections.find((section) => section.section === sectionKey)
       ?.sentences[0]?.evidence_panel_ref ?? fallback
   );
+}
+
+function buildP0CoverageHealthContext(): ResolvedSurfaceContext {
+  const context = adaptCoreSurfaceFixturePhase(0);
+  const p0Context: ResolvedSurfaceContext = {
+    ...context,
+    session: {
+      ...context.session,
+      role: "P0"
+    },
+    surface: "CROSS_SURFACE",
+    resolved_visibility: {
+      ...context.resolved_visibility,
+      pages: {
+        ...context.resolved_visibility.pages,
+        coverage_health: "ON"
+      }
+    }
+  };
+  const result = validateResolvedSurfaceContext(p0Context);
+  if (!result.ok) {
+    throw new Error(`P0 coverage test context failed ${result.code}: ${result.reason}`);
+  }
+  return result.context;
 }
 
 describe("SecuPilot first-batch workbench slice", () => {
@@ -369,6 +396,55 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(
       within(surface).queryByRole("button", { name: /approve|reject|delay|observe|close/i })
     ).not.toBeInTheDocument();
+  });
+
+  it("renders the VF-01 P0 Coverage & Health semantic frame from governed ui_messages", () => {
+    const p0Context = buildP0CoverageHealthContext();
+    const p0Case = {
+      state: p0Context.case.case_state,
+      freshness: "Mock fixture"
+    } as Parameters<typeof CoverageHealthView>[0]["activeCase"];
+
+    render(<CoverageHealthView activeCase={p0Case} activeContext={p0Context} />);
+
+    const surface = screen.getByTestId("coverage-health-surface");
+    const root = screen.getByTestId("coverage-health-root");
+    const uiMessagePreview = screen.getByTestId("ui-message-preview");
+    const missingSignalNotice = screen.getByTestId("missing-signal-notice");
+    const confidenceNotice = screen.getByTestId("confidence-notice");
+    const escalationHint = screen.getByTestId("escalation-hint");
+
+    expect(surface).toHaveAttribute("data-role", "P0");
+    expect(surface).toHaveAttribute("data-authority-source", "resolved-surface-context");
+    expect(surface).toHaveAttribute("data-vf-01-state", "baseline-reconciled");
+    expect(surface).toHaveAttribute("data-visual-state", "semantic-frame");
+    expect(surface).toHaveAttribute("data-live-health-source", "none");
+    expect(root).toHaveAttribute("data-current-coverage", "L2");
+    expect(root).toHaveAttribute("data-frame-scope", "vf-01-p0-semantic");
+    expect(screen.getByTestId("current-coverage-level")).toHaveTextContent("L2");
+    expect(screen.getByTestId("field-presence-rate")).toHaveTextContent("2/7");
+    expect(screen.getByTestId("join-health-rate")).toHaveTextContent("Live joins are not queried");
+    expect(screen.getByTestId("data-freshness-indicator")).toHaveTextContent("Mock fixture");
+    expect(screen.getByTestId("capability-tier-reference")).toHaveTextContent(
+      "Coverage level remains a hard ceiling"
+    );
+    expect(screen.getByTestId("field-switch-matrix")).toHaveTextContent("OFF");
+    expect(screen.getByTestId("capability-package-list")).toHaveTextContent(
+      "No frontend unlock package is created"
+    );
+    expect(uiMessagePreview).toHaveAttribute("data-message-source", "ui_messages");
+    expect(missingSignalNotice).toHaveAttribute("data-message-source", "ui_messages");
+    expect(missingSignalNotice).toHaveAttribute("data-ui-message-key", "mock_only_notice");
+    expect(confidenceNotice).toHaveAttribute("data-message-source", "ui_messages");
+    expect(confidenceNotice).toHaveAttribute("data-ui-message-key", "fixture_status");
+    expect(escalationHint).toHaveAttribute("data-message-source", "ui_messages");
+    expect(escalationHint).toHaveAttribute("data-ui-message-key", "expected_ui");
+    expect(screen.queryByTestId("hardcoded-unlock-copy")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("frontend-generated-upgrade-copy")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("coverage-upgrade-prompt")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("real-data-sample-row")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("secret-or-connector-config")).not.toBeInTheDocument();
+    expect(within(surface).queryByRole("button")).not.toBeInTheDocument();
   });
 
   it("renders P1 expert mode as an inert restricted skeleton", () => {

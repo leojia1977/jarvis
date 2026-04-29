@@ -285,6 +285,24 @@ const COVERAGE_HEALTH_UI_MESSAGE_KEYS = [
   "expected_ui",
   "mock_only_notice"
 ] as const;
+const COVERAGE_HEALTH_NOTICE_ANCHORS = [
+  {
+    key: "mock_only_notice",
+    label: "Missing signal notice",
+    testId: "missing-signal-notice"
+  },
+  {
+    key: "fixture_status",
+    label: "Confidence notice",
+    testId: "confidence-notice"
+  },
+  {
+    key: "expected_ui",
+    label: "Escalation hint",
+    testId: "escalation-hint"
+  }
+] as const;
+const SWITCH_STATE_ORDER: SwitchState[] = ["ON", "READONLY", "DEGRADED", "OFF"];
 
 function getARStatusDisplay(
   arStatus: ARStatus | null,
@@ -2324,7 +2342,7 @@ function SearchHistoryView({
   );
 }
 
-function CoverageHealthView({
+export function CoverageHealthView({
   activeCase,
   activeContext
 }: {
@@ -2333,12 +2351,24 @@ function CoverageHealthView({
 }) {
   const role = activeContext.session.role;
   const isAllowedRole = role === "P0" || role === "P2";
+  const isP0CoverageAdmin = role === "P0";
   const coverage = activeContext.case.coverage_level;
   const effectiveVisibility = activeContext.resolved_visibility.effective_visibility_level;
+  const visibilityEntries = Object.entries(activeContext.resolved_visibility.fields);
+  const visibleOrDegradedFieldCount = visibilityEntries.filter(([, state]) => state !== "OFF").length;
+  const fieldPresenceRate = `${visibleOrDegradedFieldCount}/${visibilityEntries.length}`;
+  const fieldSwitchCounts = SWITCH_STATE_ORDER.map((state) => ({
+    state,
+    count: visibilityEntries.filter(([, value]) => value === state).length
+  })).filter((item) => item.count > 0);
   const availableCoverageHealthMessages = COVERAGE_HEALTH_UI_MESSAGE_KEYS.map((key) => ({
     key,
     value: activeContext.ui_messages[key]
   })).filter((message) => message.value !== undefined);
+  const vf01NoticeCards = COVERAGE_HEALTH_NOTICE_ANCHORS.map((anchor) => ({
+    ...anchor,
+    value: activeContext.ui_messages[anchor.key]
+  })).filter((anchor) => anchor.value !== undefined);
 
   return (
     <section
@@ -2349,12 +2379,14 @@ function CoverageHealthView({
       data-role={role}
       data-route-authority="role-filtered-nav"
       data-testid="coverage-health-surface"
-      data-vf-01-state="pending"
-      data-visual-state="skeleton"
+      data-vf-01-state={isP0CoverageAdmin ? "baseline-reconciled" : "pending"}
+      data-visual-state={isP0CoverageAdmin ? "semantic-frame" : "skeleton"}
     >
       <div className="page-heading">
         <p>Coverage & Health</p>
-        <h1 id="coverage-health-title">Coverage health skeleton</h1>
+        <h1 id="coverage-health-title">
+          {isP0CoverageAdmin ? "Coverage health baseline" : "Coverage health skeleton"}
+        </h1>
       </div>
 
       {!isAllowedRole ? (
@@ -2370,14 +2402,20 @@ function CoverageHealthView({
           </p>
         </article>
       ) : (
-        <>
+        <div
+          className="coverage-health-root"
+          data-current-coverage={coverage}
+          data-frame-scope={isP0CoverageAdmin ? "vf-01-p0-semantic" : "reduced-skeleton"}
+          data-role={role}
+          data-testid="coverage-health-root"
+        >
           <article
             className="coverage-health-summary"
             data-testid="coverage-health-context-summary"
           >
             <div>
-              <p className="section-kicker">CH-T01</p>
-              <h2>Resolved context health</h2>
+              <p className="section-kicker">{isP0CoverageAdmin ? "CH-T02 / VF-01" : "CH-T01"}</p>
+              <h2>{isP0CoverageAdmin ? "Coverage administration baseline" : "Resolved context health"}</h2>
               <p>
                 Skeleton-only health slots derived from the current mock context. No runtime
                 health endpoint or external source is queried.
@@ -2402,6 +2440,85 @@ function CoverageHealthView({
               </div>
             </dl>
           </article>
+
+          {isP0CoverageAdmin ? (
+            <>
+              <section
+                aria-label="Coverage health key indicators"
+                className="coverage-health-kpi-grid"
+                data-testid="coverage-health-kpi-grid"
+              >
+                <article data-testid="current-coverage-level">
+                  <span>Current coverage</span>
+                  <strong>{coverage}</strong>
+                  <p>Hard ceiling for visible fields.</p>
+                </article>
+                <article data-testid="field-presence-rate">
+                  <span>Field presence</span>
+                  <strong>{fieldPresenceRate}</strong>
+                  <p>Derived only from existing field switch states.</p>
+                </article>
+                <article data-testid="join-health-rate">
+                  <span>Join health</span>
+                  <strong>Mock-only</strong>
+                  <p>Live joins are not queried in this bounded frame.</p>
+                </article>
+                <article data-testid="data-freshness-indicator">
+                  <span>Data freshness</span>
+                  <strong>{activeCase.freshness}</strong>
+                  <p>Fixture freshness only; no live telemetry.</p>
+                </article>
+              </section>
+
+              <section
+                aria-label="Coverage health diagnostic frame"
+                className="coverage-health-diagnostic-grid"
+              >
+                <article data-testid="capability-tier-reference">
+                  <span>Tier reference</span>
+                  <strong>{`Current ${coverage} / effective ${effectiveVisibility}`}</strong>
+                  <p>Coverage level remains a hard ceiling and does not unlock OFF fields.</p>
+                </article>
+                <article data-testid="field-switch-matrix">
+                  <span>Field switch matrix</span>
+                  <ul>
+                    {fieldSwitchCounts.map((item) => (
+                      <li data-switch-state={item.state} key={item.state}>
+                        <strong>{item.state}</strong>
+                        <span>{item.count}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+                <article data-testid="capability-package-list">
+                  <span>Capability packages</span>
+                  <p>
+                    No frontend unlock package is created. Existing visibility fields are displayed
+                    as read-only switch evidence.
+                  </p>
+                </article>
+                <article
+                  data-message-source="ui_messages"
+                  data-testid="ui-message-preview"
+                >
+                  <span>UI message preview</span>
+                  <ul>
+                    {vf01NoticeCards.map((notice) => (
+                      <li
+                        data-message-source="ui_messages"
+                        data-testid={notice.testId}
+                        data-ui-message-key={notice.key}
+                        key={notice.testId}
+                      >
+                        <strong>{notice.label}</strong>
+                        <p>{formatUiMessageValue(notice.value ?? null)}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </section>
+            </>
+          ) : null}
 
           <section
             aria-label="Coverage health skeleton slots"
@@ -2471,7 +2588,7 @@ function CoverageHealthView({
               <p>Cross-surface hardening remains a later Sprint 4 regression lane.</p>
             </article>
           </section>
-        </>
+        </div>
       )}
     </section>
   );

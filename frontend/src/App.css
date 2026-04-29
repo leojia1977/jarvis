@@ -1424,6 +1424,11 @@ button {
   box-shadow: 0 10px 24px rgba(32, 46, 61, 0.06);
 }
 
+.coverage-health-root {
+  display: grid;
+  gap: 16px;
+}
+
 .coverage-health-summary {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.75fr);
   align-items: start;
@@ -1452,6 +1457,8 @@ button {
 }
 
 .coverage-health-facts > div,
+.coverage-health-kpi-grid article,
+.coverage-health-diagnostic-grid article,
 .coverage-health-slot-grid article {
   min-width: 0;
   border: 1px solid #e3e8df;
@@ -1473,12 +1480,24 @@ button {
   font-weight: 800;
 }
 
+.coverage-health-kpi-grid,
+.coverage-health-diagnostic-grid,
 .coverage-health-slot-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
+.coverage-health-kpi-grid,
+.coverage-health-slot-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.coverage-health-diagnostic-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.coverage-health-kpi-grid span,
+.coverage-health-diagnostic-grid > article > span,
 .coverage-health-slot-grid span {
   display: block;
   color: #667085;
@@ -1487,6 +1506,8 @@ button {
   text-transform: uppercase;
 }
 
+.coverage-health-kpi-grid strong,
+.coverage-health-diagnostic-grid > article > strong,
 .coverage-health-slot-grid strong {
   display: block;
   margin-top: 4px;
@@ -1494,11 +1515,28 @@ button {
   font-size: 18px;
 }
 
+.coverage-health-kpi-grid p,
+.coverage-health-diagnostic-grid p,
 .coverage-health-slot-grid p {
   margin: 8px 0 0;
   color: #5d6875;
   font-size: 12px;
   line-height: 1.45;
+}
+
+.coverage-health-diagnostic-grid ul {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.coverage-health-diagnostic-grid li {
+  display: grid;
+  gap: 4px;
+  border-top: 1px solid #dfe7db;
+  padding-top: 8px;
 }
 
 .coverage-health-ui-messages {
@@ -2516,6 +2554,8 @@ button {
   .approval-disabled-controls,
   .approval-draft-facts,
   .coverage-health-facts,
+  .coverage-health-kpi-grid,
+  .coverage-health-diagnostic-grid,
   .coverage-health-slot-grid {
     grid-template-columns: 1fr;
   }

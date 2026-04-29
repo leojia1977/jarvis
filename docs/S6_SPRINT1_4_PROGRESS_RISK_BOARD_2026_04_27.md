@@ -19,13 +19,13 @@ This board is the daily operating view for Sprint 1-4 automation. It classifies 
 
 | State | Count | Meaning |
 | --- | ---: | --- |
-| Done | 41 | Repo implementation or no-code reconciliation is already accepted. |
+| Done | 42 | Repo implementation or no-code reconciliation is already accepted. |
 | Running | 0 | In the active runner queue. |
 | Auto-ready | 0 | Can start automatically after an immediate dependency closes. |
 | Skeleton-ready | 0 | Authorized for semantic skeleton only if each checklist returns `GO`. |
 | Checklist-only | 0 | Authorized for readiness/checklist only; no implementation GO. |
 | Needs authority review | 4 | P2/P3 authority, AP/D-02 state, manager/audit, or approval semantics gate. |
-| Needs design | 2 | Missing visual frame is the primary blocker. |
+| Needs design | 1 | Missing visual frame is the primary blocker. |
 | HOLD | 7 | Waiting on upstream dependencies or acceptance prerequisites. |
 
 Total Sprint 1-4 tracker tasks covered: `54`.
@@ -49,6 +49,7 @@ Total Sprint 1-4 tracker tasks covered: `54`.
 | `CD-T04` | Sprint 1 | Implemented and Jira-synced. |
 | `CD-T05` | Sprint 1 | P3 executive summary implemented, gated, reviewed, Jira-synced as `SCRUM-52`. |
 | `CH-T01` | Sprint 4 | Coverage & Health page skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-42`. |
+| `CH-T02` | Sprint 4 | VF-01 Coverage & Health semantic frame implemented, gate PASS, Claude Code PASS; Jira sync pending env visibility. |
 | `EP-T01` | Sprint 1 | Implemented and pushed. |
 | `EP-T02` | Sprint 1 | Inferred-node weakening slot skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-38`. |
 | `EP-T03` | Sprint 1 | L1 lineage degradation semantic skeleton implemented, gated, reviewed, Jira-synced as `SCRUM-39`. |
@@ -122,7 +123,6 @@ Primary blocker is visual-frame availability. These are not currently approved f
 | Ticket | Sprint | Missing frame / dependency |
 | --- | --- | --- |
 | `AP-T09` | Sprint 2 | AP-T08 blocker closed; still missing `VF-15` or equivalent governed audit empty/unavailable visual/source and exact copy rules. |
-| `CH-T02` | Sprint 4 | Depends on `CH-T01` and missing `VF-01`; 2026-04-29 blocker refresh reconfirmed HOLD. |
 
 ## 10. HOLD
 
@@ -134,7 +134,7 @@ These should not be started until dependencies close or a later exact checklist 
 | `CD-T06` | Sprint 1 | Checklist HOLD: `VF-11/VF-12/VF-13` visual blocker removed, but renderable `CLOSED` Case Detail context is still missing; Jira `SCRUM-53` remains not Done. |
 | `CD-T07` | Sprint 1 | Readiness checked 2026-04-28; still depends on full `CD-T06`, which remains HOLD. |
 | `AP-T02` | Sprint 2 | Checklist HOLD: missing P0 renderable approval context; current AP-T01 P0 branch is not fixture-reachable; Jira `SCRUM-54` remains not Done. |
-| `CH-T04` | Sprint 4 | Depends on `CH-T01`, `CH-T02`, and `CH-T03`; 2026-04-29 blocker refresh reconfirmed HOLD pending `CH-T02` and governed runtime/source-health scope. |
+| `CH-T04` | Sprint 4 | `CH-T01`, `CH-T02`, and `CH-T03` are now closed/safe, but full CH-T04 remains HOLD pending governed runtime/source-health scope. |
 | `MV-T02` | Sprint 3B | Checklist HOLD: P0/P2 Manager variants require explicit manager authority model; Jira `SCRUM-55` remains not Done. |
 | `MV-T05` | Sprint 3B | Readiness checked 2026-04-28; Manager acceptance cannot close until `MV-T04` and `MV-T02` are resolved or explicitly rescoped. |
 
@@ -143,12 +143,12 @@ These should not be started until dependencies close or a later exact checklist 
 Current readout:
 
 ```text
-Done: 41 / 54
+Done: 42 / 54
 Running: 0
 Auto-ready: 0
 Skeleton-ready: 0
 Checklist-only: 0
-Blocked/HOLD/design/authority: 13
+Blocked/HOLD/design/authority: 12
 ```
 
 Active non-tracker automation queue:
@@ -187,6 +187,9 @@ docs\S6_MV_T04_APPROVAL_AUDIT_SUMMARY_IMPLEMENTATION_CLOSEOUT_2026_04_29.md
 docs\S6_AP_T11A_STATIC_NO_MUTATION_ASSERTION_CLOSEOUT_2026_04_29.md
 docs\S6_SH_T09_ACCEPTANCE_RECONCILIATION_CLOSEOUT_2026_04_29.md
 docs\S6_JIRA_MAPPING_SYNC_SH_T02_SH_T06_EP_T06_2026_04_29.md
+docs\S6_VF01_COVERAGE_HEALTH_BASELINE_RECONCILIATION_2026_04_29.md
+docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_LAUNCH_CHECKLIST_2026_04_29.md
+docs\S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_CLOSEOUT_2026_04_29.md
 ```
 
 Queue purpose:
@@ -223,6 +226,7 @@ MV-T04 implemented as P3-only read-only Manager approval audit summary, gate PAS
 AP-T11A static no-mutation assertion split implemented, gate PASS, Claude Code PASS; full AP-T11/AP-T12 remain HOLD and no Jira Done transition was made
 SH-T09 acceptance reconciliation closed no-code PASS; no exact Jira issue was found, so repo closeout remains authoritative
 Jira mapping parent evidence sync completed for SH-T02/SH-T06 on `SCRUM-31` and EP-T06 on `SCRUM-25`; no child issues created and no Done count increased
+VF-01 Coverage & Health baseline reconciled; CH-T02 semantic P0 frame implemented, gate PASS, Claude Code PASS; Jira sync pending env visibility; full CH-T04 remains HOLD pending runtime/source-health authority
 ```
 
 Latest implementation batch:

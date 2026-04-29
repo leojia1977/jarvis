@@ -4478,6 +4478,40 @@ Next route:
 WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
 ```
 
+## 136. Update 2026-04-29: VF-01 / CH-T02 Coverage & Health Main Frame
+
+Records:
+
+```text
+docs/S6_VF01_COVERAGE_HEALTH_BASELINE_RECONCILIATION_2026_04_29.md
+docs/S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_LAUNCH_CHECKLIST_2026_04_29.md
+docs/S6_CH_T02_COVERAGE_HEALTH_MAIN_FRAME_CLOSEOUT_2026_04_29.md
+```
+
+Decision:
+
+```text
+VF01_BASELINE_RECONCILED_READY_FOR_CH_T02_CHECKLIST
+CH_T02_LAUNCH_CHECKLIST_GO_FOR_BOUNDED_FRONTEND_IMPLEMENTATION
+CH_T02_IMPLEMENTED_GATE_PASS_CLAUDE_CODE_PASS_JIRA_ENV_MISSING
+```
+
+Interpretation:
+
+- `VF-01` is now accepted as the semantic Coverage & Health baseline.
+- `CH-T02` adds the P0 semantic frame anchors inside the existing frontend Coverage & Health surface and preserves current P2 reduced/skeleton behavior.
+- Gates passed: targeted frontend test 51, full frontend tests 88, build, pilot preflight/backend guard 164, `git diff --check`, and Claude Code `VERDICT: PASS`.
+- Jira sync was not performed because the current process exposes `JIRA_BASE_URL` only, without `JIRA_EMAIL` / `JIRA_API_TOKEN`.
+- The implementation renders `ui_messages`-sourced anchors and forbidden DOM assertions only.
+- No backend/runtime/API/schema, live `/health` or `/ready`, fixture/adapter/validator, `ResolvedSurfaceContext`, real data, secrets, deploy, public endpoint, or external pilot scope is introduced.
+- Full `CH-T04` remains HOLD until governed runtime/source-health scope is explicitly decided.
+
+Next route:
+
+```text
+WAIT_FOR_AP_T06_STATE_SYNC_SOURCE_DELIVERY_OR_AP_T09_VF15_SOURCE_DELIVERY_OR_CH_T04_RUNTIME_SCOPE_DECISION_OR_NEXT_EXACT_LOW_RISK_BURN_POOL
+```
+
 ## 134. Update 2026-04-29: 30m Runner Unlock Watchlist
 
 Watchlist:
