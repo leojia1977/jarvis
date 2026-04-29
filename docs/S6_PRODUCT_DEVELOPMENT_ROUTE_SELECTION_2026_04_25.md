@@ -5760,3 +5760,41 @@ Next route:
 ```text
 WAIT_FOR_BATCH3_DOCS_ONLY_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
 ```
+
+## 174. Update 2026-04-29: 12h Non-Qwen Docs-Only Evidence Runner Batch
+
+Records:
+
+```text
+docs/S6_S0_QWEN_CLOUD_HANDOFF_EVIDENCE_TEMPLATE_2026_04_29.md
+docs/S6_S0_QWEN_OUTPUT_IMPORT_AND_SCORING_CHECKLIST_2026_04_29.md
+docs/S6_REAL_DATA_SHADOW_PRECHECK_EVIDENCE_CHECKLIST_2026_04_29.md
+docs/S6_BUILD_READY_REVIEWER_BRIEF_2026_04_29.md
+docs/S6_NON_QWEN_EVIDENCE_QUEUE_IDLE_FALLBACK_REPORT_2026_04_29_002.md
+docs/S6_S0_ARTIFACT_FOLDER_MANIFEST_2026_04_29.md
+docs/S6_BUILD_READY_REVIEW_PACKET_INDEX_2026_04_29.md
+docs/S6_NEXT_STAGE_HOLD_MAP_2026_04_29.md
+```
+
+Decision:
+
+```text
+NON_QWEN_12H_DOCS_ONLY_EVIDENCE_BATCH_CREATED
+S0_INPUTS_READY
+QWEN_HANDOFF_TEMPLATE_READY
+REAL_DATA_SHADOW_PRECHECK_TEMPLATE_READY
+NO_EXECUTION_SELF_AUTHORIZED
+```
+
+Interpretation:
+
+- Automation now has a complete docs-only evidence packet for the next wait state.
+- S0 input artifacts are ready, and the missing execution evidence is clearly assigned to cloud Qwen runtime handoff and output scoring.
+- Real-data shadow remains explicitly precheck-gated and unauthorized.
+- This batch does not authorize Qwen execution, output fabrication, real or masked-real data, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, launch, or code changes.
+
+Next route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_BUILD_READY_REVIEW_REQUEST
+```

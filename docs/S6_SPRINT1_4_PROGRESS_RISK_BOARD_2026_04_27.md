@@ -949,3 +949,26 @@ Recommended next board lane:
 ```text
 WAIT_FOR_BATCH3_DOCS_ONLY_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
 ```
+
+## 2026-04-29 12h Non-Qwen Docs-Only Evidence Runner Batch
+
+Status update:
+
+```text
+Docs-only evidence runner: first 12h batch complete
+Execution lanes: blocked by Qwen handoff / build-ready review request
+Real-data shadow: still unauthorized
+```
+
+Board impact:
+
+- Automation has completed the currently safe docs-only evidence preparation loop.
+- Remaining productive non-code work is now mostly refresh/idle reporting until a new external input arrives.
+- Qwen handoff and real-data shadow precheck are the true blockers, not Jira or frontend implementation.
+- No code, Qwen execution, model-output import, real/masked-real data, backend/runtime/API/schema, Jira mutation, deploy, external pilot, or launch is authorized.
+
+Recommended next board lane:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_BUILD_READY_REVIEW_REQUEST
+```

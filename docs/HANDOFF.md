@@ -789,3 +789,28 @@ Next safe route:
 ```text
 WAIT_FOR_BATCH3_DOCS_ONLY_GO_OR_CLOUD_QWEN_RUNTIME_HANDOFF
 ```
+
+## 2026-04-29 12h Non-Qwen Docs-Only Evidence Runner Batch
+
+Status update:
+
+```text
+12h docs-only runner first batch: created
+S0 inputs: ready
+Qwen cloud handoff evidence template: ready
+Real-data shadow precheck checklist: ready
+No execution authorization: preserved
+```
+
+Progress impact:
+
+- Added cloud Qwen handoff evidence template, output import/scoring checklist, real-data shadow precheck checklist, build-ready reviewer brief, artifact folder manifest, build-ready packet index, next-stage HOLD map, and idle fallback report.
+- The next concrete external input is filled Qwen cloud handoff evidence.
+- The next possible governance input is a build-ready review request limited to mock/synthetic evidence.
+- Qwen execution, output fabrication, real data, masked real data, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, launch, and code changes remain forbidden.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_BUILD_READY_REVIEW_REQUEST
+```
