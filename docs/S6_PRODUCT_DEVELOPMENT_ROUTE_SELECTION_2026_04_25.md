@@ -4655,3 +4655,36 @@ Next route:
 ```text
 OPEN_REMAINING_SCOPE_TRIAGE_AND_BATCH_LAUNCH_PLAN
 ```
+
+## 140. Update 2026-04-29: Remaining Scope Triage And Batch Launch Plan
+
+Record:
+
+```text
+docs/S6_REMAINING_SCOPE_TRIAGE_AND_BATCH_LAUNCH_PLAN_2026_04_29.md
+```
+
+Decision:
+
+```text
+REMAINING_SCOPE_TRIAGE_OPENED_BATCH_R1_READY
+```
+
+Interpretation:
+
+- Remaining scope is now split into six narrow Batch R1 lanes.
+- `R1-A / AP-T06` opens state-sync input and test-hook checklist work only.
+- `R1-B / AP-T09` opens `VF-15` or equivalent audit empty/unavailable source request work only.
+- `R1-C / CD-T06` opens renderable CLOSED Case Detail context checklist work only.
+- `R1-D / CH-T04` opens runtime/source-health authority review work only.
+- `R1-E / IN-T03` opens P2 shortcut approval / close-entry authority review work only.
+- `R1-F / MV-T02` opens P0/P2 Manager authority model review work only.
+- Batch R1 may run these six docs-only lanes in parallel because the decision surfaces are disjoint.
+- Implementation remains not authorized for every lane. Any lane that becomes implementable must stop at `IMPLEMENTATION_GO_REQUIRED` and request a later exact GO with allowed files, tests, rollback, reviewer path, and HOLD conditions.
+- No frontend source, Storybook, Playwright, fixture/adapter/validator, `ResolvedSurfaceContext`, backend/runtime/API/schema, real data, secrets, deploy, public endpoint, external pilot, or Jira Done transition is authorized by this plan.
+
+Next route:
+
+```text
+OPEN_REMAINING_SCOPE_TRIAGE_BATCH_R1_CHECKLISTS
+```
