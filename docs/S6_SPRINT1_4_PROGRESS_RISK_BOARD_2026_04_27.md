@@ -855,3 +855,27 @@ Recommended next board lane:
 ```text
 OPEN_NEXT_STAGE_PLANNING_AND_BUILD_READY_GAP_REVIEW
 ```
+
+## 2026-04-29 Non-Qwen Build-Ready Evidence Queue Batch 1
+
+Status update:
+
+```text
+Old Jira burn-down lane: complete
+Non-Qwen evidence queue: active docs-only
+Batch 1 evidence docs: created
+Qwen cloud runtime handoff: HOLD
+```
+
+Board impact:
+
+- Sprint 1-4 Jira burn-down remains complete for the current governed tracking set.
+- Automation should now run next-stage evidence work, not attempt to reopen Done Jira rows.
+- Batch 1 adds docs-only evidence planning for S0 synthetic payloads, build-ready matrix, frontend regression evidence, Storybook/Playwright gate review, and maintenance runner policy.
+- No implementation, Jira mutation, real data, masked real data, backend/runtime/API/schema, deploy, external pilot, or launch is authorized by this board update.
+
+Recommended next board lane:
+
+```text
+WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_CONTINUE_NON_QWEN_DOCS_ONLY_EVIDENCE_REFRESH
+```

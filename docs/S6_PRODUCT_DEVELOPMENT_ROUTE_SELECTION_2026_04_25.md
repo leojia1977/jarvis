@@ -5623,3 +5623,36 @@ Next route:
 ```text
 RUN_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE
 ```
+
+## 170. Update 2026-04-29: Non-Qwen Build-Ready Evidence Queue Batch 1
+
+Records:
+
+```text
+docs/S6_S0_SYNTHETIC_PAYLOAD_GENERATION_CHECKLIST_2026_04_29.md
+docs/S6_BUILD_READY_EVIDENCE_MATRIX_2026_04_29.md
+docs/S6_FRONTEND_REGRESSION_EVIDENCE_REVIEW_2026_04_29.md
+docs/S6_STORYBOOK_PLAYWRIGHT_CANONICAL_GATE_REVIEW_2026_04_29.md
+docs/S6_AUTOMATION_MAINTENANCE_RUNNER_PLAN_2026_04_29.md
+```
+
+Decision:
+
+```text
+NON_QWEN_BUILD_READY_EVIDENCE_QUEUE_BATCH_1_CREATED
+QWEN_CLOUD_RUNTIME_HANDOFF_REMAINS_HOLD
+NO_IMPLEMENTATION_OR_JIRA_MUTATION_AUTHORIZED
+```
+
+Interpretation:
+
+- The old Jira burn-down runner remains retired because Jira is already `80 Done / 0 Non-Done`.
+- The new non-Qwen queue now has docs-only outputs for S0 synthetic payload planning, build-ready evidence matrix, frontend regression evidence review, Storybook/Playwright canonical gate review, and automation maintenance runner planning.
+- These records create next-stage evidence structure only. They do not authorize code edits, Storybook/Playwright edits, Qwen execution, real or masked-real data, backend/runtime/API/schema, connector changes, credentials, Jira mutation, deploy, external pilot, or launch.
+- Any future synthetic payload file generation, canonical gate refresh, or Qwen output import must start from an exact route and stop at `IMPLEMENTATION_GO_REQUIRED` or equivalent explicit GO.
+
+Next route:
+
+```text
+WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_AUTHORIZE_NON_QWEN_EVIDENCE_QUEUE_CLOSEOUT
+```

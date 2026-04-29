@@ -686,3 +686,32 @@ Next safe route:
 ```text
 RUN_NON_QWEN_BUILD_READY_EVIDENCE_QUEUE
 ```
+
+## 2026-04-29 Non-Qwen Build-Ready Evidence Queue Batch 1
+
+Status update:
+
+```text
+Non-Qwen evidence queue Batch 1: created
+Qwen cloud runtime handoff: still HOLD
+Implementation: not authorized
+Jira mutation: not authorized
+```
+
+Progress impact:
+
+- Batch 1 records are now present:
+  - `docs\S6_S0_SYNTHETIC_PAYLOAD_GENERATION_CHECKLIST_2026_04_29.md`
+  - `docs\S6_BUILD_READY_EVIDENCE_MATRIX_2026_04_29.md`
+  - `docs\S6_FRONTEND_REGRESSION_EVIDENCE_REVIEW_2026_04_29.md`
+  - `docs\S6_STORYBOOK_PLAYWRIGHT_CANONICAL_GATE_REVIEW_2026_04_29.md`
+  - `docs\S6_AUTOMATION_MAINTENANCE_RUNNER_PLAN_2026_04_29.md`
+- The queue can continue with docs-only refresh, HOLD maps, exact future checklist drafts, and idle reports.
+- The queue must stop before code at `IMPLEMENTATION_GO_REQUIRED`.
+- Qwen execution, real data, masked real data, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, and launch remain forbidden.
+
+Next safe route:
+
+```text
+WAIT_FOR_CLOUD_QWEN_RUNTIME_HANDOFF_OR_AUTHORIZE_NON_QWEN_EVIDENCE_QUEUE_CLOSEOUT
+```
