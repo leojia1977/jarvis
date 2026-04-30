@@ -150,6 +150,7 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(screen.getByRole("button", { name: /Inbox/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Search \/ History/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 Run/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Approval Queue/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Coverage & Health/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
@@ -161,9 +162,44 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     await user.click(screen.getByRole("button", { name: "P2" }));
 
+    expect(screen.getByRole("button", { name: /S1 Run/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Approval Queue/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Coverage & Health/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
+  });
+
+  it("opens the S1 artifact viewer from the workbench without action controls", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /S1 Run/i }));
+
+    const surface = screen.getByTestId("s1-artifact-view");
+
+    expect(window.location.pathname).toBe("/s1-run");
+    expect(surface).toHaveAttribute("data-artifact-source", "static-mvp-fixture");
+    expect(surface).toHaveAttribute("data-runtime-source", "none");
+    expect(surface).toHaveAttribute("data-customer-visible-output", "false");
+    expect(surface).toHaveAttribute("data-production-writeback", "false");
+    expect(surface).toHaveAttribute("data-qwen-used", "false");
+    expect(screen.getByTestId("s1-final-outcome")).toHaveTextContent(
+      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    );
+    expect(screen.getByTestId("s1-run-id")).toHaveTextContent(
+      "S1-CLOSED-SHADOW-2026-04-30-001"
+    );
+    expect(screen.getByTestId("s1-provider")).toHaveTextContent("fixture");
+    expect(screen.getByTestId("s1-case-count")).toHaveTextContent("20");
+    expect(screen.getByTestId("s1-safety-finding-count")).toHaveTextContent("0");
+    expect(screen.getByTestId("s1-customer-visible-output")).toHaveTextContent("NO");
+    expect(screen.getByTestId("s1-production-writeback")).toHaveTextContent("NO");
+    expect(screen.getByTestId("s1-qwen-autonomy")).toHaveTextContent("NO");
+    expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("NO");
+    expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("NO");
+    expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
+    expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
+    expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
+      .not.toBeInTheDocument();
   });
 
   it("opens P2 shell-only approval decision panels without state mutation", async () => {

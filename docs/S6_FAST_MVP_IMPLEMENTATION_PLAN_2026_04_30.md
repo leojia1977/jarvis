@@ -7,8 +7,8 @@
 | Record type | Fast MVP implementation plan |
 | Date | 2026-04-30 |
 | Scope | Discussion-ready implementation plan and command map |
-| Status | `DRAFT_FOR_DISCUSSION_NOT_EXECUTED` |
-| Current blocker | `S1_CLOSED_SHADOW_HOLD_NO_EXECUTABLE_RUNNER_OR_EXTERNAL_RUN_EVIDENCE` |
+| Status | `FAST_MVP_EXECUTION_ACTIVE` |
+| Current blocker | `NONE_FOR_MVP_03_FRONTEND_ARTIFACT_VIEWER` |
 | Primary goal | Make SecuPilot runnable, testable, reviewable, and deployable for fast MVP iteration |
 
 ## 2. Direction Change
@@ -452,4 +452,80 @@ map QwenFactBundle files into metadata-only S1 cases
 keep qwen-api provider as approved-output import only, no live API calls in MVP-01
 add repo-native backend tests because the package does not include tests
 defer frontend artifact reader to MVP-03
+```
+
+## 15. Update 2026-04-30: MVP-01 / MVP-02 Executed
+
+MVP-01 and MVP-02 are implemented and committed in:
+
+```text
+dd0d3d2 feat: add S1 closed shadow fixture runner
+```
+
+The executed local command was:
+
+```powershell
+py -3 scripts\s1_closed_shadow_run.py --run-id S1-CLOSED-SHADOW-2026-04-30-001 --input mock_data\s0_synthetic\qwen_fact_bundle --output artifacts\s1_closed_shadow_runs\2026-04-30-001 --provider fixture --no-writeback --no-customer-visible
+```
+
+Result:
+
+```text
+final_outcome = S1_CLOSED_SHADOW_PASS_WITH_NOTES
+case_count = 20
+provider = fixture
+qwen_used = false
+customer_visible_output = false
+production_writeback = false
+safety_scan_findings = 0
+```
+
+## 16. Update 2026-04-30: MVP-03 Frontend Artifact Viewer
+
+MVP-03 adds the S1 artifact viewer to the existing workbench:
+
+```text
+frontend/src/secupilot/s1/S1ArtifactView.tsx
+frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts
+frontend/src/App.tsx
+frontend/src/App.css
+frontend/src/App.test.tsx
+```
+
+Frontend route:
+
+```text
+/s1-run
+```
+
+Viewer scope:
+
+```text
+show S1 run status
+show run id / GO record / provider / case count
+show safety scan finding count
+show artifact manifest rows
+show all 20 synthetic case summaries
+show boundary facts: customer-visible output = NO, production write-back = NO, Qwen autonomy = NO
+```
+
+Non-goals preserved:
+
+```text
+no backend API
+no schema change
+no live file-system reader
+no live Qwen call
+no live connector
+no deploy
+no customer-visible publish control
+no approve/deploy/publish action button
+```
+
+Verification:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder\frontend'
+npm run test -- --run App.test.tsx
+npm run build
 ```

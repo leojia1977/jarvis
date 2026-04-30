@@ -12,6 +12,7 @@ import {
   Unlock
 } from "lucide-react";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { S1ArtifactView } from "./secupilot/s1/S1ArtifactView";
 import {
   adaptCoreSurfaceFixturePhase,
   CORE_SURFACE_FIXTURE,
@@ -29,7 +30,14 @@ import {
   SwitchState
 } from "./secupilot/surface/context/types";
 
-type Route = "inbox" | "case" | "search" | "coverage_health" | "approval" | "manager";
+type Route =
+  | "inbox"
+  | "case"
+  | "search"
+  | "s1_run"
+  | "coverage_health"
+  | "approval"
+  | "manager";
 type EvidenceFrameId =
   | "process_evidence"
   | "lateral_topology"
@@ -580,6 +588,13 @@ const NAV_ITEMS: NavItem[] = [
     activeInSlice: true
   },
   {
+    label: "S1 Run",
+    routeKey: "s1_run",
+    roles: ["P0", "P1", "P2", "P3"],
+    icon: Activity,
+    activeInSlice: true
+  },
+  {
     label: "Approval Queue",
     routeKey: "approval",
     roles: ["P2"],
@@ -610,6 +625,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   }
   if (path === "/search") {
     return { route: "search", caseId: null };
+  }
+  if (path === "/s1-run") {
+    return { route: "s1_run", caseId: null };
   }
   if (path === "/approval") {
     return { route: "approval", caseId: null };
@@ -859,11 +877,13 @@ function App({
           ? "/approval"
           : nextRoute === "manager"
             ? "/manager"
-        : nextRoute === "search"
-          ? "/search?tab=history"
-          : nextRoute === "coverage_health"
-            ? "/coverage-health"
-            : "/inbox";
+            : nextRoute === "search"
+              ? "/search?tab=history"
+              : nextRoute === "s1_run"
+                ? "/s1-run"
+                : nextRoute === "coverage_health"
+                  ? "/coverage-health"
+                  : "/inbox";
     window.history.pushState({}, "", path);
     setLocation({ route: nextRoute, caseId: nextCaseId ?? null });
   }
@@ -946,6 +966,7 @@ function App({
           {navItems.map((item) => {
             const Icon = item.icon;
             const isSearchRoute = item.routeKey === "search_history";
+            const isS1RunRoute = item.routeKey === "s1_run";
             const isCoverageHealthRoute = item.routeKey === "coverage_health";
             const isApprovalRoute = item.routeKey === "approval";
             const isManagerRoute = item.routeKey === "manager_view";
@@ -953,18 +974,21 @@ function App({
               item.routeKey === route ||
               (item.routeKey === "inbox" && route === "case") ||
               (isSearchRoute && route === "search") ||
+              (isS1RunRoute && route === "s1_run") ||
               (isCoverageHealthRoute && route === "coverage_health") ||
               (isApprovalRoute && route === "approval") ||
               (isManagerRoute && route === "manager");
             const navRoute: Route = isSearchRoute
               ? "search"
-              : isCoverageHealthRoute
-                ? "coverage_health"
-                : isApprovalRoute
-                  ? "approval"
-                  : isManagerRoute
-                    ? "manager"
-                    : "inbox";
+              : isS1RunRoute
+                ? "s1_run"
+                : isCoverageHealthRoute
+                  ? "coverage_health"
+                  : isApprovalRoute
+                    ? "approval"
+                    : isManagerRoute
+                      ? "manager"
+                      : "inbox";
             return (
               <button
                 aria-disabled={!item.activeInSlice}
@@ -1042,6 +1066,8 @@ function App({
             activeContext={activeContext}
             onNavigateToManager={() => navigate("manager")}
           />
+        ) : route === "s1_run" ? (
+          <S1ArtifactView />
         ) : route === "coverage_health" ? (
           <CoverageHealthView activeCase={renderActiveCase} activeContext={activeContext} />
         ) : (
