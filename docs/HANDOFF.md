@@ -1050,3 +1050,33 @@ Next safe route:
 ```text
 WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
 ```
+
+## 2026-04-30 Next-Stage Automation Pool
+
+Status update:
+
+```text
+Next-stage automation pool: open
+S0-002 local preflight: PASS
+S0-002 rerun: HOLD pending qwen-72b cloud recovery evidence
+S1 G01-G09 evidence prep: open
+Internal UAT rehearsal prep: open
+```
+
+Progress impact:
+
+- New readiness utility: `scripts\s0_qwen_readiness.py`.
+- New tests: `backend\tests\test_s0_qwen_readiness.py`.
+- S0-002 preflight report: `docs\S6_S0_002_READINESS_PREFLIGHT_REPORT_2026_04_30.md`.
+- S0 artifact validator/checklist: `docs\S6_S0_ARTIFACT_COMPLETENESS_VALIDATOR_CHECKLIST_2026_04_30.md`.
+- S1 evidence packet: `docs\S6_S1_G01_G09_OWNER_ALIAS_MATRIX_AND_EVIDENCE_PACKET_2026_04_30.md`.
+- Internal UAT rehearsal runbook: `docs\S6_INTERNAL_UAT_REHEARSAL_RUNBOOK_AND_SCORE_INSTANCE_2026_04_30.md`.
+- Build-ready refresh: `docs\S6_BUILD_READY_PACKET_REFRESH_2026_04_30.md`.
+- The current 20 synthetic QwenFactBundle inputs all pass prompt-budget and synthetic-boundary preflight. Maximum estimated input size is 681 tokens, below the 3000-token guard and the 4096-token practical cloud input budget discussed for `max_tokens=4096`.
+- S0-002 has not been run because qwen-72b EngineCore recovery evidence has not been received.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_S1_G01_G09_EVIDENCE_INPUT
+```

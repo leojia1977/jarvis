@@ -1,0 +1,227 @@
+{
+  "created_at_utc": "2026-04-30T05:34:59.473970+00:00",
+  "decision": "S0_002_PREFLIGHT_PASS_WAITING_FOR_CLOUD_RECOVERY",
+  "bundle_dir": "mock_data\\s0_synthetic\\qwen_fact_bundle",
+  "expected_uat_ids": [
+    "UAT-01",
+    "UAT-02",
+    "UAT-03",
+    "UAT-04",
+    "UAT-05",
+    "UAT-06",
+    "UAT-07",
+    "UAT-08",
+    "UAT-09",
+    "UAT-10",
+    "UAT-11",
+    "UAT-12",
+    "UAT-13",
+    "UAT-14",
+    "UAT-15",
+    "UAT-16",
+    "UAT-17",
+    "UAT-18",
+    "UAT-19",
+    "UAT-20"
+  ],
+  "prompt_budget": {
+    "max_input_chars": 12000,
+    "max_input_tokens_estimate": 3000
+  },
+  "prompt_stats": {
+    "count": 20,
+    "max_chars": 2722,
+    "max_estimated_tokens": 681,
+    "over_max_input_chars": 0,
+    "over_max_input_tokens_estimate": 0
+  },
+  "global_findings": [],
+  "rows": [
+    {
+      "uat_id": "UAT-01",
+      "filename": "uat-01_s0-qf-uat-01-ntlm-lateral.json",
+      "chars": 2670,
+      "estimated_tokens": 668,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-02",
+      "filename": "uat-02_s0-qf-uat-02-observation-expiry.json",
+      "chars": 2722,
+      "estimated_tokens": 681,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-03",
+      "filename": "uat-03_s0-qf-uat-03-terminal-lock.json",
+      "chars": 2608,
+      "estimated_tokens": 652,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-04",
+      "filename": "uat-04_s0-qf-uat-04-ransomware-staging.json",
+      "chars": 2622,
+      "estimated_tokens": 656,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-05",
+      "filename": "uat-05_s0-qf-uat-05-kerberoasting-spn.json",
+      "chars": 2609,
+      "estimated_tokens": 653,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-06",
+      "filename": "uat-06_s0-qf-uat-06-mfa-fatigue.json",
+      "chars": 2629,
+      "estimated_tokens": 658,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-07",
+      "filename": "uat-07_s0-qf-uat-07-oauth-consent.json",
+      "chars": 2596,
+      "estimated_tokens": 649,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-08",
+      "filename": "uat-08_s0-qf-uat-08-cloud-key.json",
+      "chars": 2612,
+      "estimated_tokens": 653,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-09",
+      "filename": "uat-09_s0-qf-uat-09-dns-tunneling.json",
+      "chars": 2626,
+      "estimated_tokens": 657,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-10",
+      "filename": "uat-10_s0-qf-uat-10-c2-low-slow.json",
+      "chars": 2651,
+      "estimated_tokens": 663,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-11",
+      "filename": "uat-11_s0-qf-uat-11-lotl-wmi-psexec.json",
+      "chars": 2613,
+      "estimated_tokens": 654,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-12",
+      "filename": "uat-12_s0-qf-uat-12-vpn-geo.json",
+      "chars": 2598,
+      "estimated_tokens": 650,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-13",
+      "filename": "uat-13_s0-qf-uat-13-insider-download.json",
+      "chars": 2651,
+      "estimated_tokens": 663,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-14",
+      "filename": "uat-14_s0-qf-uat-14-cmdb-unavailable.json",
+      "chars": 2597,
+      "estimated_tokens": 650,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-15",
+      "filename": "uat-15_s0-qf-uat-15-audit-empty.json",
+      "chars": 2551,
+      "estimated_tokens": 638,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-16",
+      "filename": "uat-16_s0-qf-uat-16-audit-unavailable.json",
+      "chars": 2620,
+      "estimated_tokens": 655,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-17",
+      "filename": "uat-17_s0-qf-uat-17-history-downgrade.json",
+      "chars": 2655,
+      "estimated_tokens": 664,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-18",
+      "filename": "uat-18_s0-qf-uat-18-history-upgrade-prohibited.json",
+      "chars": 2638,
+      "estimated_tokens": 660,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-19",
+      "filename": "uat-19_s0-qf-uat-19-p3-summary-no-raw.json",
+      "chars": 2635,
+      "estimated_tokens": 659,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    },
+    {
+      "uat_id": "UAT-20",
+      "filename": "uat-20_s0-qf-uat-20-prompt-injection.json",
+      "chars": 2696,
+      "estimated_tokens": 674,
+      "synthetic_valid": true,
+      "budget_valid": true,
+      "findings": []
+    }
+  ],
+  "s0_002_rerun_status": "NOT_STARTED_WAITING_FOR_CLOUD_RECOVERY_EVIDENCE",
+  "required_cloud_recovery_evidence": [
+    "EngineCore alive",
+    "/v1/models available",
+    "minimal synthetic chat completion succeeds"
+  ]
+}

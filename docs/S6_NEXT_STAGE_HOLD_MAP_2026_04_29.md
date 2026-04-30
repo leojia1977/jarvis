@@ -21,6 +21,7 @@ DOCS_ONLY_REFRESH_ALLOWED
 | HOLD item | Blocks | Missing evidence | Owner surface |
 | --- | --- | --- | --- |
 | Cloud Qwen handoff | S0 model evaluation | Model id/version, invocation, transfer, output path, metrics, operator/reviewer | Cloud Qwen runtime/operator |
+| Qwen runtime recovery | S0-002 rerun | EngineCore alive, `/v1/models` available, minimal synthetic chat completion succeeds | Cloud Qwen runtime/operator |
 | Qwen model outputs | S0 scoring | Per-UAT model outputs and manifest | Cloud Qwen runtime/operator |
 | Action-command scan over outputs | S0 safety decision | Scan results over actual model outputs | Evaluator |
 | Prompt-injection verdicts | S0 safety decision | UAT-20 and injection verdicts | Evaluator/reviewer |
@@ -44,6 +45,8 @@ Allowed:
 - S1 G-01 through G-09 evidence-board refresh;
 - offline synthetic mapping-tooling checklist refinement;
 - internal customer UAT demo-pack drafting.
+- S0-002 local preflight and artifact-shape validation;
+- Qwen runtime healthcheck utility creation, without running S0.
 
 Forbidden:
 
@@ -59,15 +62,17 @@ Forbidden:
 
 Recommended order:
 
-1. Fill cloud Qwen handoff evidence.
-2. Run S0 synthetic-only Qwen evaluation outside repo with no secrets in artifacts.
-3. Import and score outputs under explicit import GO.
-4. Decide S0.
-5. Collect S1 G-01 through G-09 evidence.
-6. Only then consider real-data shadow Go/No-Go review.
+1. Confirm qwen-72b EngineCore recovery.
+2. Confirm `/v1/models` availability.
+3. Confirm minimal synthetic chat completion succeeds.
+4. Run S0-002 synthetic-only Qwen evaluation with no secrets in artifacts.
+5. Import and score outputs under explicit import GO.
+6. Decide S0.
+7. Collect S1 G-01 through G-09 evidence.
+8. Only then consider real-data shadow Go/No-Go review.
 
 ## 6. Next Route
 
 ```text
-WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
+WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_S1_G01_G09_EVIDENCE_INPUT
 ```
