@@ -28,9 +28,9 @@ DOCS_ONLY_REFRESH_ALLOWED
 | GPU metrics | Runtime evaluation | CLOSED for S0-002, metrics collected | Cloud Qwen runtime/operator |
 | UAT-13 scoring remediation | S0 decision | CLOSED by profile split, local deterministic rescore, and `PASS_FOR_SYNTHETIC_ONLY` artifact set | Jarvis / QA / governance |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
-| S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Gate-specific evidence board remains incomplete | Data owner/security/governance/cloud runtime |
+| S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | G-07 evidence available pending sign-off; G-08 ready for internal rehearsal; G-01/G-02/G-03/G-04/G-05/G-06/G-09 still missing | Data owner/security/governance/cloud runtime |
 | MAP-T01 / MAP-T02 / MAP-T03 future use | Pre-shadow safety tooling use in S1 prep | S1 data owner/security evidence and future explicit run/use instruction | Jarvis / Security / TL |
-| Customer UAT externalization approval | Customer-visible observer testing | S0 decision, customer boundary, access control, and reviewed demo pack | Jarvis / PM / Governance |
+| Customer UAT externalization approval | Customer-visible observer testing | Internal rehearsal result, customer boundary, access control, and explicit customer-visible authorization | Jarvis / PM / Governance |
 | Build-ready approval | Build-ready transition | Explicit review request and decision | Jarvis/governance |
 
 ## 4. Safe Automation While Held
@@ -63,13 +63,14 @@ Forbidden:
 
 Recommended order:
 
-1. Collect S1 G-01 through G-09 evidence.
-2. Complete internal customer UAT rehearsal using synthetic-only materials.
-3. Confirm whether any future Qwen rerun is needed after cloud 16k restart.
-4. Only then consider real-data shadow Go/No-Go review.
+1. Collect G-01/G-02/G-03/G-04/G-05/G-06/G-09 evidence.
+2. Obtain G-07 reviewer sign-off over S0-002 rescore artifacts.
+3. Run G-08 internal UAT rehearsal with synthetic-only materials.
+4. Confirm whether any future Qwen rerun is needed after cloud 16k restart.
+5. Only then consider real-data shadow Go/No-Go review.
 
 ## 6. Next Route
 
 ```text
-OPEN_S1_G01_G09_EVIDENCE_COMPLETION_OR_CUSTOMER_UAT_INTERNAL_REHEARSAL
+COLLECT_G01_G06_G09_EVIDENCE_AND_RUN_INTERNAL_UAT_REHEARSAL_SYNTHETIC_ONLY
 ```

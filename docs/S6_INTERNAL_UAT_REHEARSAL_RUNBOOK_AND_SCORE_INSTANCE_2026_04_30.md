@@ -14,12 +14,12 @@
 ```text
 INTERNAL_UAT_REHEARSAL_PREP_CREATED
 CUSTOMER_VISIBLE_REHEARSAL_NOT_AUTHORIZED
-QWEN_OUTPUT_REHEARSAL_WAITING_FOR_S0_002
+QWEN_OUTPUT_REHEARSAL_READY_FROM_S0_002_RESCORING
 ```
 
 ## 3. Runbook
 
-1. Confirm S0-002 output availability or mark all Qwen-output checks as `PENDING_S0`.
+1. Use the S0-002 rescore artifacts as Qwen-output evidence.
 2. Use synthetic scenarios UAT-01 through UAT-20 only.
 3. Run the three-act flow from the accepted demo pack v0.2.
 4. Record pass/fail/HOLD per UAT scenario.

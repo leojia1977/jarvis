@@ -1160,3 +1160,29 @@ Next safe route:
 ```text
 OPEN_S1_G01_G09_EVIDENCE_COMPLETION_OR_CUSTOMER_UAT_INTERNAL_REHEARSAL
 ```
+
+## 2026-04-30 S1 G01-G09 Evidence Completion / Internal UAT Rehearsal
+
+Status update:
+
+```text
+S1_G01_G09_EVIDENCE_COMPLETION_OPENED
+INTERNAL_UAT_REHEARSAL_OPENED
+S1_CLOSED_SHADOW_NOT_AUTHORIZED
+CUSTOMER_VISIBLE_UAT_NOT_AUTHORIZED
+```
+
+Progress impact:
+
+- Launch record: `docs\S6_S1_G01_G09_EVIDENCE_COMPLETION_AND_INTERNAL_UAT_REHEARSAL_2026_04_30.md`.
+- G-07 is now `EVIDENCE_AVAILABLE_PENDING_SIGNOFF` because S0-002 rescore supports `PASS_FOR_SYNTHETIC_ONLY`.
+- G-08 is now `READY_FOR_INTERNAL_REHEARSAL`.
+- G-01/G-02/G-03/G-04/G-05/G-06/G-09 remain missing and must be collected before any S1 Closed Shadow Go/No-Go.
+- Internal UAT rehearsal remains synthetic-only and not customer-visible.
+- This route does not authorize real/masked-real data, closed shadow execution, customer-visible staging/demo, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or autonomous action.
+
+Next safe route:
+
+```text
+COLLECT_G01_G06_G09_EVIDENCE_AND_RUN_INTERNAL_UAT_REHEARSAL_SYNTHETIC_ONLY
+```

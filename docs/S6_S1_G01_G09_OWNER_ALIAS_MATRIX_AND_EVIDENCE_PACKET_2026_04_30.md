@@ -44,8 +44,8 @@ Before formal S1 Go/No-Go review, every G-01 through G-09 item must have a named
 | G-04 | GPU isolation / no production write-back proof | `infra_tl_01` | MISSING |
 | G-05 | Approved reviewer access list | `gov_owner_01` | MISSING |
 | G-06 | Log retention and deletion policy | `gov_owner_01` / `security_reviewer_01` | MISSING |
-| G-07 | Qwen protocol PASS evidence and action-command JSON scan | `model_owner_01` / `qa_reviewer_01` | PENDING S0-002 |
-| G-08 | SOC UAT pack PASS evidence | `qa_reviewer_01` | INTERNAL_REHEARSAL_PREP_CREATED |
+| G-07 | Qwen protocol PASS evidence and action-command JSON scan | `model_owner_01` / `qa_reviewer_01` | EVIDENCE_AVAILABLE_PENDING_SIGNOFF |
+| G-08 | SOC UAT pack PASS evidence | `qa_reviewer_01` | READY_FOR_INTERNAL_REHEARSAL |
 | G-09 | Rollback / stop / clean / delete plan | `infra_tl_01` / `gov_owner_01` | MISSING |
 
 ## 5. G07 Action-Command Scan Rule
@@ -80,8 +80,8 @@ G03 = MISSING
 G04 = MISSING
 G05 = MISSING
 G06 = MISSING
-G07 = PENDING_S0_002
-G08 = PENDING_INTERNAL_REHEARSAL
+G07 = EVIDENCE_AVAILABLE_PENDING_SIGNOFF
+G08 = READY_FOR_INTERNAL_REHEARSAL
 G09 = MISSING
 ```
 

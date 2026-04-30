@@ -6226,3 +6226,34 @@ Next route:
 ```text
 OPEN_S1_G01_G09_EVIDENCE_COMPLETION_OR_CUSTOMER_UAT_INTERNAL_REHEARSAL
 ```
+
+## 188. Update 2026-04-30: S1 G01-G09 Evidence Completion / Internal UAT Rehearsal
+
+Record:
+
+```text
+docs/S6_S1_G01_G09_EVIDENCE_COMPLETION_AND_INTERNAL_UAT_REHEARSAL_2026_04_30.md
+```
+
+Decision:
+
+```text
+S1_G01_G09_EVIDENCE_COMPLETION_OPENED
+INTERNAL_UAT_REHEARSAL_OPENED
+S1_CLOSED_SHADOW_NOT_AUTHORIZED
+CUSTOMER_VISIBLE_UAT_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- The project can now use S0-002 rescore evidence for G-07 reviewer sign-off.
+- Internal UAT rehearsal can proceed with synthetic-only artifacts.
+- G-01/G-02/G-03/G-04/G-05/G-06/G-09 remain missing.
+- G-08 remains pending the actual internal rehearsal result.
+- This route does not authorize real data, masked real data, S1 closed shadow, customer-visible staging/demo, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or Qwen autonomous action.
+
+Next route:
+
+```text
+COLLECT_G01_G06_G09_EVIDENCE_AND_RUN_INTERNAL_UAT_REHEARSAL_SYNTHETIC_ONLY
+```
