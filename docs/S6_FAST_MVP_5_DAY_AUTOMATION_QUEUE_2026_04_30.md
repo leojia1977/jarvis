@@ -68,6 +68,10 @@ the next item would require real data, live connector, live Qwen, deploy, or cus
 | 5 | MVP-07 | `external-output` provider import path | `scripts/s1_closed_shadow_run.py`, `backend/tests/test_s1_closed_shadow_run.py`, sample approved-output fixture | targeted backend test; runner command with `--provider external-output` |
 | 6 | MVP-08 | Local demo package builder | `scripts/package_s1_local_demo.py`, `backend/tests/test_package_s1_local_demo.py`, `artifacts/local_demo_packages/*` | targeted backend test; package command; manifest scan |
 | 7 | MVP-09 | Focused Claude Code review capture if local command is available | `artifacts/reviews/claude_code/*`, closeout doc | review command exits 0 and references current diff only |
+| 8 | MVP-10 | Formal S1 artifact JSON schemas plus validator schema coverage | `schemas/s1/*.schema.json`, `scripts/s1_artifact_validate.py`, `backend/tests/test_s1_artifact_validate.py` | schema-aware validator test and current artifact validation |
+| 9 | MVP-11 | Desktop/mobile visual smoke for `/s1-run` | `frontend/tests/e2e/s1-artifact-viewer.visual.spec.ts`, `artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/*` | Playwright visual smoke; frontend build |
+| 10 | MVP-12 | Golden synthetic artifact snapshot refresh command | `scripts/refresh_s1_synthetic_snapshot.py`, `backend/tests/test_refresh_s1_synthetic_snapshot.py`, `artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/*` | targeted backend test; snapshot refresh command |
+| 11 | MVP-13 | Offline reviewer README bundled into local demo package | `scripts/package_s1_local_demo.py`, `backend/tests/test_package_s1_local_demo.py`, `artifacts/local_demo_packages/s1-closed-shadow-2026-04-30-001/*` | package test; README-bearing package command |
 
 ## 5. MVP-04 Command Entrypoints
 
@@ -90,6 +94,10 @@ SecuPilot: MVP-06 Artifact Validator
 SecuPilot: MVP-07 External Output Provider
 SecuPilot: MVP-08 Local Demo Package
 SecuPilot: MVP-09 Claude Review Capture
+SecuPilot: MVP-10 S1 Artifact Schemas
+SecuPilot: MVP-11 Visual Smoke
+SecuPilot: MVP-12 Snapshot Refresh
+SecuPilot: MVP-13 Offline Reviewer README
 SecuPilot: Fast MVP Queue Verify
 ```
 
@@ -104,6 +112,10 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-07 -WriteStatus
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-08 -WriteStatus
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-09 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-10 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-11 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-12 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-13 -WriteStatus
 ```
 
 ## 6. One-Shot Commands
@@ -210,6 +222,72 @@ Set-Location -LiteralPath 'D:\产品设计\New folder'
 claude --print "Review only the current git diff for the SecuPilot Fast MVP queue item. Check correctness, unsafe data handling, secret/token/raw payload retention, production write-back, customer-visible output, tests, and overengineering. Do not edit files. Return findings ordered by severity, or say no findings."
 ```
 
+MVP-10 artifact schema validation:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+py -3 -m unittest -q backend.tests.test_s1_artifact_validate
+py -3 scripts\s1_artifact_validate.py --artifact-dir artifacts\s1_closed_shadow_runs\2026-04-30-001 --schema-dir schemas\s1
+```
+
+MVP-10 required schema files:
+
+```text
+schemas/s1/run_record.schema.json
+schemas/s1/artifact_manifest.schema.json
+schemas/s1/safety_scan.schema.json
+schemas/s1/case_summary.schema.json
+schemas/s1/final_status.schema.json
+```
+
+MVP-11 desktop/mobile visual smoke:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder\frontend'
+npm run test:e2e -- tests/e2e/s1-artifact-viewer.visual.spec.ts
+npm run build
+```
+
+MVP-11 screenshot boundary:
+
+```text
+Allowed screenshot root: artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/
+Screenshots must be local test artifacts only.
+Screenshots must not contain real data, masked-real data, secrets, tokens, auth headers, customer-visible publish UI, or production connector output.
+```
+
+MVP-12 golden synthetic artifact snapshot refresh:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+py -3 -m unittest -q backend.tests.test_refresh_s1_synthetic_snapshot
+py -3 scripts\refresh_s1_synthetic_snapshot.py --input mock_data\s0_synthetic\qwen_fact_bundle --output artifacts\s1_closed_shadow_runs\2026-04-30-001-snapshot --provider fixture --no-writeback --no-customer-visible
+```
+
+MVP-12 snapshot boundary:
+
+```text
+Input must remain mock_data/s0_synthetic/qwen_fact_bundle.
+Output must remain metadata-only synthetic/package artifact.
+No real data, masked-real data, live Qwen, connector, write-back, deploy, or customer-visible output.
+```
+
+MVP-13 offline reviewer README package:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+py -3 -m unittest -q backend.tests.test_package_s1_local_demo
+py -3 scripts\package_s1_local_demo.py --artifact-dir artifacts\s1_closed_shadow_runs\2026-04-30-001 --output-dir artifacts\local_demo_packages\s1-closed-shadow-2026-04-30-001 --include-reviewer-readme
+```
+
+MVP-13 reviewer README boundary:
+
+```text
+README must describe local/offline review only.
+README must not include customer deployment instructions, production credentials, live connector setup, live Qwen/API setup, or approval language.
+Package manifest must include SHA256 and retention class for README and packaged artifacts.
+```
+
 Fast closeout:
 
 ```powershell
@@ -254,22 +332,22 @@ never push
 stop on any HOLD condition
 ```
 
-If MVP-04 through MVP-09 finish before the five-day window ends, remaining scheduled runs must not create MVP-10. They should report:
+If MVP-04 through MVP-13 finish before the five-day window ends, remaining scheduled runs must not create MVP-14. They should report:
 
 ```text
 FAST_MVP_QUEUE_EXHAUSTED_NO_IDLE_LOOP
 ```
 
-## 8. Optional Extension Candidates
+## 8. Later Extension Candidates
 
-These are not active queue items unless the user separately upgrades the authorization from MVP-04 through MVP-09 to an extension queue:
+These are not active queue items unless the user separately upgrades the authorization beyond MVP-13:
 
 | Candidate | Deliverable | Boundary |
 | --- | --- | --- |
-| MVP-10 | Formal JSON schema files for S1 run artifacts plus validator coverage | local schema/tests only |
-| MVP-11 | Mobile and desktop visual regression smoke for `/s1-run` | local Playwright screenshots only |
-| MVP-12 | Golden synthetic artifact snapshot refresh command | synthetic/package metadata only |
-| MVP-13 | Offline reviewer README bundled with local demo package | local artifact package only |
+| MVP-14 | Static local HTML report generated from S1 local demo package | local/offline artifact only |
+| MVP-15 | Reviewer checklist renderer for local package contents | local/offline artifact only |
+| MVP-16 | Manual import UX sketch for external-output files | frontend/local mock only |
+| MVP-17 | Local cleanup command for generated Fast MVP artifacts | local artifact cleanup only, no repo source deletion |
 
 ## 9. Bulk Authorization Text
 
@@ -278,7 +356,7 @@ If the user wants the five-day queue to run without repeated micro-authorization
 ```text
 GO_FAST_MVP_5_DAY_AUTOMATION_QUEUE_2026_04_30
 
-Authorize Codex to execute MVP-04 through MVP-09 in order after MVP-03 closeout.
+Authorize Codex to execute MVP-04 through MVP-13 in order after MVP-03 closeout.
 Authorize local file edits, local command execution, local tests, local artifact generation, stage, and commit for each passing item.
 Do not push.
 Do not use real data or masked-real data.
@@ -296,4 +374,4 @@ When the queue is exhausted, automation must stop with:
 FAST_MVP_QUEUE_EXHAUSTED_NO_IDLE_LOOP
 ```
 
-It must not invent MVP-10 or continue scanning for unrelated work.
+It must not invent MVP-14 or continue scanning for unrelated work.

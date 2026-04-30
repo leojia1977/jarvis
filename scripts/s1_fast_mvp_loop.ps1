@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("verify", "baseline", "mvp-03", "mvp-05", "mvp-06", "mvp-07", "mvp-08", "mvp-09", "queue")]
+    [ValidateSet("verify", "baseline", "mvp-03", "mvp-05", "mvp-06", "mvp-07", "mvp-08", "mvp-09", "mvp-10", "mvp-11", "mvp-12", "mvp-13", "queue")]
     [string]$Mode = "verify",
 
     [string]$RepoRoot = "",
@@ -26,6 +26,8 @@ $StatusRoot = Join-Path $RepoRoot "artifacts\automation\fast_mvp_queue"
 $S1RunArtifactDir = "artifacts\s1_closed_shadow_runs\2026-04-30-001"
 $ExternalOutputArtifactDir = "artifacts\s1_closed_shadow_runs\2026-04-30-001-external-output"
 $LocalDemoPackageDir = "artifacts\local_demo_packages\s1-closed-shadow-2026-04-30-001"
+$SchemaDir = "schemas\s1"
+$SnapshotArtifactDir = "artifacts\s1_closed_shadow_runs\2026-04-30-001-snapshot"
 
 function Convert-ToJsonText {
     param([Parameter(Mandatory = $true)] [object]$Value)
@@ -186,6 +188,58 @@ function Invoke-Mvp09 {
     }
 }
 
+function Invoke-Mvp10 {
+    Require-RepoPath -RelativePath "schemas\s1\run_record.schema.json" -HoldCode "HOLD_MVP_10_RUN_RECORD_SCHEMA_MISSING"
+    Require-RepoPath -RelativePath "schemas\s1\artifact_manifest.schema.json" -HoldCode "HOLD_MVP_10_ARTIFACT_MANIFEST_SCHEMA_MISSING"
+    Require-RepoPath -RelativePath "schemas\s1\safety_scan.schema.json" -HoldCode "HOLD_MVP_10_SAFETY_SCAN_SCHEMA_MISSING"
+    Require-RepoPath -RelativePath "schemas\s1\case_summary.schema.json" -HoldCode "HOLD_MVP_10_CASE_SUMMARY_SCHEMA_MISSING"
+    Require-RepoPath -RelativePath "schemas\s1\final_status.schema.json" -HoldCode "HOLD_MVP_10_FINAL_STATUS_SCHEMA_MISSING"
+    Require-RepoPath -RelativePath "scripts\s1_artifact_validate.py" -HoldCode "HOLD_MVP_10_VALIDATOR_SCRIPT_MISSING"
+    Require-RepoPath -RelativePath "backend\tests\test_s1_artifact_validate.py" -HoldCode "HOLD_MVP_10_VALIDATOR_TEST_MISSING"
+    Invoke-CheckedCommand -Label "S1 schema validator tests" -FilePath "py" -Arguments @("-3", "-m", "unittest", "-q", "backend.tests.test_s1_artifact_validate")
+    Invoke-CheckedCommand -Label "S1 schema validation" -FilePath "py" -Arguments @("-3", "scripts\s1_artifact_validate.py", "--artifact-dir", $S1RunArtifactDir, "--schema-dir", $SchemaDir)
+}
+
+function Invoke-Mvp11 {
+    Require-RepoPath -RelativePath "frontend\tests\e2e\s1-artifact-viewer.visual.spec.ts" -HoldCode "HOLD_MVP_11_VISUAL_SPEC_MISSING"
+    $frontendRoot = Join-Path $RepoRoot "frontend"
+    Invoke-CheckedCommand -Label "S1 desktop/mobile visual smoke" -FilePath "npm.cmd" -Arguments @("run", "test:e2e", "--", "tests/e2e/s1-artifact-viewer.visual.spec.ts") -WorkingDirectory $frontendRoot
+    Invoke-CheckedCommand -Label "frontend build" -FilePath "npm.cmd" -Arguments @("run", "build") -WorkingDirectory $frontendRoot
+}
+
+function Invoke-Mvp12 {
+    Require-RepoPath -RelativePath "scripts\refresh_s1_synthetic_snapshot.py" -HoldCode "HOLD_MVP_12_SNAPSHOT_SCRIPT_MISSING"
+    Require-RepoPath -RelativePath "backend\tests\test_refresh_s1_synthetic_snapshot.py" -HoldCode "HOLD_MVP_12_SNAPSHOT_TEST_MISSING"
+    Invoke-CheckedCommand -Label "S1 snapshot refresh tests" -FilePath "py" -Arguments @("-3", "-m", "unittest", "-q", "backend.tests.test_refresh_s1_synthetic_snapshot")
+    Invoke-CheckedCommand -Label "S1 synthetic snapshot refresh" -FilePath "py" -Arguments @(
+        "-3",
+        "scripts\refresh_s1_synthetic_snapshot.py",
+        "--input",
+        "mock_data\s0_synthetic\qwen_fact_bundle",
+        "--output",
+        $SnapshotArtifactDir,
+        "--provider",
+        "fixture",
+        "--no-writeback",
+        "--no-customer-visible"
+    ) -AllowedExitCodes @(0, 10)
+}
+
+function Invoke-Mvp13 {
+    Require-RepoPath -RelativePath "scripts\package_s1_local_demo.py" -HoldCode "HOLD_MVP_13_PACKAGE_SCRIPT_MISSING"
+    Require-RepoPath -RelativePath "backend\tests\test_package_s1_local_demo.py" -HoldCode "HOLD_MVP_13_PACKAGE_TEST_MISSING"
+    Invoke-CheckedCommand -Label "S1 reviewer README package tests" -FilePath "py" -Arguments @("-3", "-m", "unittest", "-q", "backend.tests.test_package_s1_local_demo")
+    Invoke-CheckedCommand -Label "S1 reviewer README package" -FilePath "py" -Arguments @(
+        "-3",
+        "scripts\package_s1_local_demo.py",
+        "--artifact-dir",
+        $S1RunArtifactDir,
+        "--output-dir",
+        $LocalDemoPackageDir,
+        "--include-reviewer-readme"
+    )
+}
+
 function Invoke-Mode {
     switch ($Mode) {
         "verify" {
@@ -202,12 +256,20 @@ function Invoke-Mode {
         "mvp-07" { Invoke-Mvp07 }
         "mvp-08" { Invoke-Mvp08 }
         "mvp-09" { Invoke-Mvp09 }
+        "mvp-10" { Invoke-Mvp10 }
+        "mvp-11" { Invoke-Mvp11 }
+        "mvp-12" { Invoke-Mvp12 }
+        "mvp-13" { Invoke-Mvp13 }
         "queue" {
             Invoke-Mvp05
             Invoke-Mvp06
             Invoke-Mvp07
             Invoke-Mvp08
             Invoke-Mvp09
+            Invoke-Mvp10
+            Invoke-Mvp11
+            Invoke-Mvp12
+            Invoke-Mvp13
         }
     }
 }

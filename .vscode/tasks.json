@@ -119,6 +119,74 @@
       "problemMatcher": []
     },
     {
+      "label": "SecuPilot: MVP-10 S1 Artifact Schemas",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-10",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-11 Visual Smoke",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-11",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-12 Snapshot Refresh",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-12",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-13 Offline Reviewer README",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-13",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
       "label": "SecuPilot: Fast MVP Queue Verify",
       "type": "shell",
       "command": "powershell.exe",
