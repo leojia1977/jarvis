@@ -32,6 +32,7 @@ FAST_COMMANDS = [
         "backend.tests.test_case_action_request_contract",
         "backend.tests.test_case_store",
         "backend.tests.test_case_lifecycle_regression",
+        "backend.tests.test_s1_closed_shadow_run",
         "backend.tests.test_environment_profile",
       ],
     ["py", "-3", "selfcheck_t1_t5.py"],

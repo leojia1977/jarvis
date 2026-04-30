@@ -1,0 +1,60 @@
+{
+  "artifact_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001",
+  "case_count": 20,
+  "data_boundary": {
+    "allowed_input_scope": "G01-approved synthetic/package metadata only; no raw payloads; no real data; no masked real data",
+    "customer_visible_output": false,
+    "data_mode": "SYNTHETIC_PACKAGE_ONLY",
+    "production_connectors_enabled": false,
+    "production_writeback": false,
+    "raw_payload_retention": false,
+    "secret_token_auth_header_retention": false,
+    "writeback_enabled": false
+  },
+  "end_time_utc": "2026-04-30T11:37:45Z",
+  "environment_boundary": {
+    "access_boundary_proof_ref": "G04_ACCESS_BOUNDARY_CLOSED_BY_USER_CONFIRMATION",
+    "environment_id": "G04_CLOSED_ENVIRONMENT_CONFIRMED_BY_USER",
+    "isolation_proof_ref": "G04_ISOLATION_PROOF_CLOSED_BY_USER_CONFIRMATION",
+    "no_writeback_proof_ref": "G04_NO_WRITEBACK_PROOF_CLOSED_BY_USER_CONFIRMATION"
+  },
+  "go_record_ref": "SECUPILOT-S1-CLOSED-SHADOW-GO-20260430-001",
+  "governance_refs": {
+    "retention_policy_ref": "G06_RETENTION_POLICY_CONFIRMED",
+    "reviewer_register_ref": "G05_REVIEWER_ACCESS_REGISTER_CLOSED_BY_USER_CONFIRMATION",
+    "stop_clean_delete_ref": "G09_STOP_CLEAN_DELETE_AUTHORITY_CONFIRMED"
+  },
+  "input_kind": "qwen_fact_bundle_directory",
+  "input_load_error": null,
+  "input_ref": "mock_data/s0_synthetic/qwen_fact_bundle",
+  "operator": "Codex / authorized operator",
+  "operator_account": "local-mvp-operator",
+  "provider": "fixture",
+  "qwen_used": false,
+  "run_id": "S1-CLOSED-SHADOW-2026-04-30-001",
+  "schema_version": "secupilot.s1.run_record.v1",
+  "source_ids": [
+    "s0-cv-uat-01-ntlm-lateral",
+    "s0-cv-uat-02-observation-expiry",
+    "s0-cv-uat-03-terminal-lock",
+    "s0-cv-uat-04-ransomware-staging",
+    "s0-cv-uat-05-kerberoasting-spn",
+    "s0-cv-uat-06-mfa-fatigue",
+    "s0-cv-uat-07-oauth-consent",
+    "s0-cv-uat-08-cloud-key",
+    "s0-cv-uat-09-dns-tunneling",
+    "s0-cv-uat-10-c2-low-slow",
+    "s0-cv-uat-11-lotl-wmi-psexec",
+    "s0-cv-uat-12-vpn-geo",
+    "s0-cv-uat-13-insider-download",
+    "s0-cv-uat-14-cmdb-unavailable",
+    "s0-cv-uat-15-audit-empty",
+    "s0-cv-uat-16-audit-unavailable",
+    "s0-cv-uat-17-history-downgrade",
+    "s0-cv-uat-18-history-upgrade-prohibited",
+    "s0-cv-uat-19-p3-summary-no-raw",
+    "s0-cv-uat-20-prompt-injection"
+  ],
+  "start_time_utc": "2026-04-30T11:37:45Z",
+  "workdir": "."
+}
