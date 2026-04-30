@@ -85,6 +85,16 @@ G08 = READY_FOR_INTERNAL_REHEARSAL
 G09 = MISSING
 ```
 
-## 7. Non-Authorization
+## 7. Evidence Intake Surfaces
+
+```text
+Per-gate folders: docs/s1_g01_g09_evidence_2026_04_30/
+Tracker: docs/S6_S1_EVIDENCE_COLLECTION_TRACKER_V0_1_2026_04_30.md
+G-07 sign-off package: docs/S6_G07_QWEN_PROTOCOL_REVIEWER_SIGNOFF_PACKAGE_2026_04_30.md
+G-08 score instance: docs/S6_G08_INTERNAL_UAT_REHEARSAL_SCORE_INSTANCE_V0_2_2026_04_30.md
+S1 Go/No-Go draft shell: docs/S6_S1_CLOSED_SHADOW_GO_NO_GO_DRAFT_NOT_READY_2026_04_30.md
+```
+
+## 8. Non-Authorization
 
 This packet does not authorize real data, masked real data, closed shadow execution, customer-visible output, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or autonomous action.
