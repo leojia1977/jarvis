@@ -868,3 +868,28 @@ Next safe route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
 ```
+
+## 2026-04-30 Customer UAT Demo Pack v0.2 Intake Reconciliation
+
+Status update:
+
+```text
+Customer UAT Demo Pack v0.2: intake PASS
+Scenario library: 20 retained
+Customer-visible authorization: not granted
+```
+
+Progress impact:
+
+- External zip source read: `D:\产品设计\secupilot0421\Real Data to CaseView Mapping\SecuPilot_Customer_UAT_Demo_Pack_v0.2.zip`.
+- Reconciliation record: `docs\S6_CUSTOMER_UAT_DEMO_PACK_V0_2_INTAKE_RECONCILIATION_2026_04_30.md`.
+- The prior repo-local demo pack draft `docs\S6_CUSTOMER_UAT_DEMO_PACK_2026_04_29.md` is now marked as superseded by v0.2 for future demo-pack content decisions.
+- v0.2 is accepted as the latest input source for internal customer-demo rehearsal planning: three-act flow, updated pass/fail scorecard, UAT-02 mock `STATE_SYNC` clarification, UAT-19 P2/P3 contrast, UAT-20 prompt-injection preface, cloud/SaaS extended-scenario flags, and VF-03 Expert Mode validation.
+- This is not customer-visible authorization. S0/Qwen evidence, S1 G-01 through G-09 evidence, customer observer boundaries, access control, logging/retention, rollback/stop path, and explicit Jarvis/Human authorization are still required before customer-visible rehearsal or observer demo.
+- Real data, masked-real data, customer-visible staging, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_CUSTOMER_DEMO_REHEARSAL_GATE_REQUEST
+```

@@ -7,7 +7,8 @@
 | Record type | Customer UAT demo pack draft |
 | Date | 2026-04-29 |
 | Applies to | Future customer observer/demo planning |
-| Current status | Internal draft only |
+| Current status | Internal draft superseded by v0.2 source intake for future demo-pack content decisions |
+| Superseding source intake | `docs\S6_CUSTOMER_UAT_DEMO_PACK_V0_2_INTAKE_RECONCILIATION_2026_04_30.md` |
 
 ## 2. Decision
 
@@ -15,9 +16,12 @@
 CUSTOMER_UAT_DEMO_PACK_DRAFT_CREATED
 NOT_CUSTOMER_VISIBLE
 NO_CUSTOMER_TEST_AUTHORIZATION
+SUPERSEDED_BY_V0_2_INPUT_SOURCE_FOR_FUTURE_CONTENT_DECISIONS
 ```
 
 This draft converts the synthetic UAT-01 through UAT-20 scenario set into customer-readable demo planning material. It is not approved for customer delivery, staging access, external pilot, production, or launch.
+
+The later v0.2 source intake accepts `SecuPilot_Customer_UAT_Demo_Pack_v0.2.md` as the latest customer UAT demo-pack input source. This file remains a repo-local historical planning draft and boundary reference.
 
 ## 3. Executive Overview Draft
 
@@ -122,5 +126,21 @@ launch
 ## 9. Next Route
 
 ```text
-WAIT_FOR_S0_DECISION_AND_CUSTOMER_TEST_AUTHORIZATION
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_CUSTOMER_DEMO_REHEARSAL_GATE_REQUEST
 ```
+
+## 10. v0.2 Intake Note
+
+The external source package:
+
+```text
+D:\产品设计\secupilot0421\Real Data to CaseView Mapping\SecuPilot_Customer_UAT_Demo_Pack_v0.2.zip
+```
+
+has been read and reconciled in:
+
+```text
+docs\S6_CUSTOMER_UAT_DEMO_PACK_V0_2_INTAKE_RECONCILIATION_2026_04_30.md
+```
+
+v0.2 is accepted as the latest customer UAT demo-pack input source for internal rehearsal planning. It does not authorize customer-visible use, real data, masked real data, Qwen customer-visible output, backend/runtime/API/schema, connector changes, deploy, external pilot, or launch.

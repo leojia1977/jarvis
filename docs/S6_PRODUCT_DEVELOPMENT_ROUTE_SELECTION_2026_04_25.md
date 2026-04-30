@@ -5870,3 +5870,33 @@ Next route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
 ```
+
+## 177. Update 2026-04-30: Customer UAT Demo Pack v0.2 Intake Reconciliation
+
+Record:
+
+```text
+docs/S6_CUSTOMER_UAT_DEMO_PACK_V0_2_INTAKE_RECONCILIATION_2026_04_30.md
+```
+
+Decision:
+
+```text
+CUSTOMER_UAT_DEMO_PACK_V0_2_INTAKE_PASS
+CUSTOMER_UAT_DEMO_PACK_V0_2_ACCEPTED_AS_LATEST_INPUT_SOURCE
+READY_FOR_CUSTOMER_DEMO_REHEARSAL_PLANNING_ONLY
+NOT_CUSTOMER_VISIBLE_AUTHORIZATION
+```
+
+Interpretation:
+
+- `SecuPilot_Customer_UAT_Demo_Pack_v0.2.md` from the external zip source is accepted as the latest customer UAT demo-pack input source.
+- The prior repo-local `docs/S6_CUSTOMER_UAT_DEMO_PACK_2026_04_29.md` remains historical internal planning context and is superseded by v0.2 for future demo-pack content decisions.
+- v0.2 preserves all 20 scenarios, adds a three-act first-demo flow, updates scoring and HOLD tracking, clarifies UAT-02 mock `STATE_SYNC`, adds UAT-19 P2/P3 comparison, adds UAT-20 customer-facing prompt-injection preface, marks UAT-07/UAT-08 as cloud/SaaS extended, and adds VF-03 Expert Mode validation in UAT-01.
+- This is a docs-only intake/reconciliation. It does not authorize customer-visible staging, customer test, real data, masked-real data, Qwen output delivery to customer, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, or launch.
+
+Next route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_CUSTOMER_DEMO_REHEARSAL_GATE_REQUEST
+```
