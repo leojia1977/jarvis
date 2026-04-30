@@ -237,7 +237,7 @@ Qwen autonomous approval/rejection/blocking/closure/ActionMode choice
 Recommended next state after this template:
 
 ```text
-WAIT_FOR_ACTUAL_S1_RUN_OPERATOR_AND_EVIDENCE_PATH_OR_AUTHORIZE_TEMPLATE_CLOSEOUT_COMMIT
+WAIT_FOR_EXECUTABLE_S1_RUNNER_OR_EXTERNAL_RUN_EVIDENCE_PACKAGE
 ```
 
-Codex has not started S1 Closed Shadow execution by creating this template.
+Creating this template did not itself start S1 Closed Shadow execution. The later execution-start and preflight-only run HOLD records capture the current execution state.

@@ -21,6 +21,7 @@ S1_CLOSED_SHADOW_RUN_ID = S1-CLOSED-SHADOW-2026-04-30-001
 S1_CLOSED_SHADOW_RUN_OPERATOR = Codex / authorized operator
 S1_CLOSED_SHADOW_EVIDENCE_ROOT = artifacts/s1_closed_shadow_runs/2026-04-30-001/
 S1_CLOSED_SHADOW_START_DATE = 2026-04-30
+S1_CLOSED_SHADOW_RUN_STATUS = HOLD_NO_EXECUTABLE_RUNNER_OR_EXTERNAL_RUN_EVIDENCE
 ```
 
 ## 3. Tracker
@@ -43,9 +44,9 @@ S1_CLOSED_SHADOW_START_DATE = 2026-04-30
 NO_EVIDENCE_REFERENCE_BLOCKERS_REMAIN_AFTER_USER_CONFIRMATION
 S1_CLOSED_SHADOW_AUTHORIZED_ASSERTED_REFS_CLOSED_EXECUTION_MECHANICS_STARTED
 CODEX_S1_EXECUTION_MECHANICS_STARTED
-COMPLETED_S1_RUN_OUTPUT_PENDING
+COMPLETED_S1_RUN_OUTPUT_PENDING_EXTERNAL_RUNNER_OR_EVIDENCE_PACKAGE
 ```
 
 ## 5. Non-Authorization
 
-This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, and execution-mechanics start. It does not record a completed S1 run, final S1 PASS/HOLD/NO_GO decision, customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
+This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, execution-mechanics start, and the current preflight-only S1 run HOLD. It does not record a completed S1 run, final S1 PASS/PASS_WITH_NOTES/NO_GO decision, customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
