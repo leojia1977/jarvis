@@ -28,7 +28,7 @@ S1_CLOSED_SHADOW_NOT_AUTHORIZED
 | G-05 | MISSING | `docs/s1_g01_g09_evidence_2026_04_30/g05_reviewer_access_list/` | `gov_owner_01` | Provide reviewer access list |
 | G-06 | MISSING | `docs/s1_g01_g09_evidence_2026_04_30/g06_log_retention_deletion_policy/` | `gov_owner_01` / `security_reviewer_01` | Provide retention/deletion policy |
 | G-07 | EVIDENCE_AVAILABLE_PENDING_SIGNOFF | `docs/s1_g01_g09_evidence_2026_04_30/g07_qwen_protocol_pass_signoff/` | `model_owner_01` / `qa_reviewer_01` | Sign off S0-002 rescore evidence |
-| G-08 | EXECUTION_PACKAGE_READY | `docs/s1_g01_g09_evidence_2026_04_30/g08_internal_uat_rehearsal/` | `qa_reviewer_01` | Run internal UAT rehearsal using execution package |
+| G-08 | CONDITIONAL_PASS_WITH_NOTES | `docs/s1_g01_g09_evidence_2026_04_30/g08_internal_uat_rehearsal/` | `qa_reviewer_01` | Reviewer accepts current UAT-02 proof or adds timestamp follow-up |
 | G-09 | MISSING | `docs/s1_g01_g09_evidence_2026_04_30/g09_rollback_stop_clean_delete/` | `infra_tl_01` / `gov_owner_01` | Provide rollback/stop/clean/delete plan |
 
 ## 4. Current Blockers
@@ -36,7 +36,7 @@ S1_CLOSED_SHADOW_NOT_AUTHORIZED
 ```text
 G01_G06_G09_EXTERNAL_EVIDENCE_REQUIRED
 G07_SIGNOFF_REQUIRED
-G08_INTERNAL_REHEARSAL_EXECUTION_REQUIRED
+G08_TIMESTAMP_NOTE_REQUIRES_REVIEWER_ACCEPTANCE_OR_FOLLOWUP
 S1_GO_NOGO_NOT_READY
 ```
 

@@ -6325,3 +6325,35 @@ Next route:
 ```text
 WAIT_FOR_G08_INTERNAL_REHEARSAL_EXECUTION_GO_OR_G01_G06_G09_INPUT
 ```
+
+## 191. Update 2026-04-30: G08 Internal UAT Rehearsal Execution Record
+
+Records:
+
+```text
+docs/S6_G08_INTERNAL_UAT_REHEARSAL_EXECUTION_RECORD_2026_04_30.md
+docs/S6_G08_INTERNAL_UAT_REHEARSAL_COMPLETED_SCORE_INSTANCE_2026_04_30.md
+docs/S6_G08_INTERNAL_UAT_REHEARSAL_DECISION_RECORD_2026_04_30.md
+```
+
+Decision:
+
+```text
+G08_INTERNAL_UAT_REHEARSAL_EXECUTED_SYNTHETIC_ONLY
+G08_DECISION = G08_REHEARSAL_CONDITIONAL_PASS_WITH_NOTES
+```
+
+Interpretation:
+
+- UAT-01 through UAT-20 are recorded as completed against synthetic S0-002 rescore evidence.
+- Targeted component and Playwright gates passed for the critical UAT-02 and UAT-19 evidence paths.
+- UAT-02 proves mock `STATE_SYNC`, `mock_state_sync`, and `AUD-004` id/type/source behavior, but the current mock event payload does not expose an explicit timestamp field.
+- UAT-19 P3 isolation evidence passed for DOM absence and synthetic payload boundary.
+- G-08 moves from `EXECUTION_PACKAGE_READY` to `CONDITIONAL_PASS_WITH_NOTES`; formal S1 Go/No-Go still requires reviewer acceptance of the UAT-02 timestamp note or a small timestamp-field follow-up.
+- Customer-visible UAT, S1 closed shadow, real/masked-real data, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, and autonomous action remain unauthorized.
+
+Next route:
+
+```text
+WAIT_FOR_G01_G06_G09_INPUT_OR_G07_G08_REVIEWER_ACCEPTANCE
+```

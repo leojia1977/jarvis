@@ -1247,3 +1247,32 @@ Next safe route:
 ```text
 WAIT_FOR_G08_INTERNAL_REHEARSAL_EXECUTION_GO_OR_G01_G06_G09_INPUT
 ```
+
+## 2026-04-30 G08 Internal UAT Rehearsal Execution Record
+
+Status update:
+
+```text
+G08_INTERNAL_UAT_REHEARSAL_EXECUTED_SYNTHETIC_ONLY
+G08_DECISION = G08_REHEARSAL_CONDITIONAL_PASS_WITH_NOTES
+CUSTOMER_VISIBLE_UAT_NOT_AUTHORIZED
+S1_CLOSED_SHADOW_NOT_AUTHORIZED
+```
+
+Progress impact:
+
+- Execution record: `docs\S6_G08_INTERNAL_UAT_REHEARSAL_EXECUTION_RECORD_2026_04_30.md`.
+- Completed score instance: `docs\S6_G08_INTERNAL_UAT_REHEARSAL_COMPLETED_SCORE_INSTANCE_2026_04_30.md`.
+- Decision record: `docs\S6_G08_INTERNAL_UAT_REHEARSAL_DECISION_RECORD_2026_04_30.md`.
+- UAT-01 through UAT-20 are recorded as completed using the S0-002 rescore evidence.
+- Targeted component regression passed: `npx vitest run src/App.test.tsx --exclude tests/e2e/**`, 59 tests.
+- Targeted Playwright regression passed: approval acceptance, P3 DOM isolation, and static redline expansion, 9 tests.
+- G-08 remains conditional because UAT-02 proves mock `STATE_SYNC` / `AUD-004` id/type/source behavior but does not yet include an explicit timestamp field in the mock event payload.
+- S1 Go/No-Go remains not ready because G-01/G-02/G-03/G-04/G-05/G-06/G-09 external evidence and G-07/G-08 reviewer acceptance remain pending.
+- Real data, masked-real data, customer-visible staging/demo, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, and autonomous action remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_G01_G06_G09_INPUT_OR_G07_G08_REVIEWER_ACCEPTANCE
+```
