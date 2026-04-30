@@ -48,6 +48,10 @@ required input file/folder is missing
 tests fail twice in the same way
 command exits with unexpected code
 secret/token/raw payload/customer-visible/write-back finding appears
+runner CLI arguments in queue do not match `scripts/s1_closed_shadow_run.py`
+artifact manifest contains unknown `retention_class`
+`external-output` provider sees any non-whitelisted field
+review command references files outside the current diff / current MVP item scope
 Claude Code / external review command is unavailable or returns a tool/path error
 the ordered queue is exhausted
 the next item would require real data, live connector, live Qwen, deploy, or customer-visible output
@@ -65,7 +69,44 @@ the next item would require real data, live connector, live Qwen, deploy, or cus
 | 6 | MVP-08 | Local demo package builder | `scripts/package_s1_local_demo.py`, `backend/tests/test_package_s1_local_demo.py`, `artifacts/local_demo_packages/*` | targeted backend test; package command; manifest scan |
 | 7 | MVP-09 | Focused Claude Code review capture if local command is available | `artifacts/reviews/claude_code/*`, closeout doc | review command exits 0 and references current diff only |
 
-## 5. One-Shot Commands
+## 5. MVP-04 Command Entrypoints
+
+MVP-04 adds deterministic local command entrypoints:
+
+```text
+.vscode/tasks.json
+scripts/s1_fast_mvp_loop.ps1
+```
+
+The PowerShell loop is a command runner and verifier. It does not write product code by itself and does not push. Codex automation owns implementation, test execution, stage, and commit per passing item.
+
+VS Code task labels:
+
+```text
+SecuPilot: Fast MVP Baseline
+SecuPilot: MVP-03 S1 Artifact View
+SecuPilot: MVP-05 Playwright Smoke
+SecuPilot: MVP-06 Artifact Validator
+SecuPilot: MVP-07 External Output Provider
+SecuPilot: MVP-08 Local Demo Package
+SecuPilot: MVP-09 Claude Review Capture
+SecuPilot: Fast MVP Queue Verify
+```
+
+PowerShell modes:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode verify
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode baseline
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-05 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-06 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-07 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-08 -WriteStatus
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\s1_fast_mvp_loop.ps1 -Mode mvp-09 -WriteStatus
+```
+
+## 6. One-Shot Commands
 
 Baseline:
 
@@ -90,6 +131,85 @@ Set-Location -LiteralPath 'D:\产品设计\New folder'
 py -3 scripts\s1_closed_shadow_run.py --run-id S1-CLOSED-SHADOW-2026-04-30-001 --input mock_data\s0_synthetic\qwen_fact_bundle --output artifacts\s1_closed_shadow_runs\2026-04-30-001 --provider fixture --no-writeback --no-customer-visible
 ```
 
+Runner CLI note:
+
+```text
+`--input` / `--output` are supported short aliases.
+`--input-package` / `--artifact-dir` are supported long aliases.
+Queue canonical commands use `--input`, `--output`, `--no-writeback`, and `--no-customer-visible`.
+The explicit `--no-writeback` and `--no-customer-visible` assertions must stay present.
+```
+
+MVP-05 Playwright smoke:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder\frontend'
+npm run test:e2e -- tests/e2e/s1-artifact-viewer.spec.ts
+npm run build
+```
+
+MVP-06 artifact validator:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+py -3 -m unittest -q backend.tests.test_s1_artifact_validate
+py -3 scripts\s1_artifact_validate.py --artifact-dir artifacts\s1_closed_shadow_runs\2026-04-30-001
+```
+
+MVP-07 external-output provider import:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+py -3 scripts\s1_closed_shadow_run.py --run-id S1-CLOSED-SHADOW-2026-04-30-001-EXTERNAL-OUTPUT --input mock_data\s0_synthetic\qwen_fact_bundle --output artifacts\s1_closed_shadow_runs\2026-04-30-001-external-output --provider external-output --provider-output-file mock_data\s1_closed_shadow_fixture\external_provider_output.example.json --no-writeback --no-customer-visible
+py -3 -m unittest -q backend.tests.test_s1_closed_shadow_run
+```
+
+MVP-07 provider whitelist:
+
+```text
+allowed fields:
+case_id
+title
+summary
+severity
+risk_level
+evidence_metadata_refs
+model_summary
+reviewer_action
+confidence
+score
+limitation_note
+
+forbidden fields:
+raw_payload
+raw_evidence
+host_raw_evidence
+secret
+token
+auth_header
+cookie
+private_key
+customer_visible_message
+writeback_action
+action_command
+production_connector_output
+```
+
+MVP-08 local demo package builder:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+py -3 -m unittest -q backend.tests.test_package_s1_local_demo
+py -3 scripts\package_s1_local_demo.py --artifact-dir artifacts\s1_closed_shadow_runs\2026-04-30-001 --output-dir artifacts\local_demo_packages\s1-closed-shadow-2026-04-30-001
+```
+
+MVP-09 optional Claude Code review capture:
+
+```powershell
+Set-Location -LiteralPath 'D:\产品设计\New folder'
+claude --print "Review only the current git diff for the SecuPilot Fast MVP queue item. Check correctness, unsafe data handling, secret/token/raw payload retention, production write-back, customer-visible output, tests, and overengineering. Do not edit files. Return findings ordered by severity, or say no findings."
+```
+
 Fast closeout:
 
 ```powershell
@@ -99,7 +219,59 @@ py -3 scripts\git_preflight.py --mode fast
 git -c core.quotepath=false status --short --branch
 ```
 
-## 6. Bulk Authorization Text
+## 7. Five-Day Unattended Execution Model
+
+This queue should not run as a busy 120-hour process. The correct unattended model is finite scheduled automation:
+
+```text
+schedule = every 4 hours for 30 runs
+duration = approximately 5 days
+work per run = select exactly one pending MVP item, implement it, run its exact verification, stage/commit if passing
+idle behavior = if no pending item exists, report FAST_MVP_QUEUE_EXHAUSTED_NO_IDLE_LOOP and do not invent work
+```
+
+Recommended Codex cron automation:
+
+```text
+name = SecuPilot Fast MVP 5-Day Queue
+workspace = D:\产品设计\New folder
+schedule = FREQ=HOURLY;INTERVAL=4;COUNT=30
+model = coding model
+reasoning = high
+```
+
+Each automation run must:
+
+```text
+read this queue document first
+inspect git status
+preserve unrelated dirty files
+choose the first pending MVP item in order
+edit only the item write scope
+run item verification and fast closeout
+stage and commit passing item only
+never push
+stop on any HOLD condition
+```
+
+If MVP-04 through MVP-09 finish before the five-day window ends, remaining scheduled runs must not create MVP-10. They should report:
+
+```text
+FAST_MVP_QUEUE_EXHAUSTED_NO_IDLE_LOOP
+```
+
+## 8. Optional Extension Candidates
+
+These are not active queue items unless the user separately upgrades the authorization from MVP-04 through MVP-09 to an extension queue:
+
+| Candidate | Deliverable | Boundary |
+| --- | --- | --- |
+| MVP-10 | Formal JSON schema files for S1 run artifacts plus validator coverage | local schema/tests only |
+| MVP-11 | Mobile and desktop visual regression smoke for `/s1-run` | local Playwright screenshots only |
+| MVP-12 | Golden synthetic artifact snapshot refresh command | synthetic/package metadata only |
+| MVP-13 | Offline reviewer README bundled with local demo package | local artifact package only |
+
+## 9. Bulk Authorization Text
 
 If the user wants the five-day queue to run without repeated micro-authorization, use exactly:
 
@@ -116,7 +288,7 @@ Do not create customer-visible output.
 Stop on any Stop Condition in docs/S6_FAST_MVP_5_DAY_AUTOMATION_QUEUE_2026_04_30.md.
 ```
 
-## 7. No-Idle Rule
+## 10. No-Idle Rule
 
 When the queue is exhausted, automation must stop with:
 

@@ -1,0 +1,138 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "SecuPilot: Fast MVP Baseline",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "baseline"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-03 S1 Artifact View",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-03"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-05 Playwright Smoke",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-05",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-06 Artifact Validator",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-06",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-07 External Output Provider",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-07",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-08 Local Demo Package",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-08",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: MVP-09 Claude Review Capture",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "mvp-09",
+        "-WriteStatus"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "SecuPilot: Fast MVP Queue Verify",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\s1_fast_mvp_loop.ps1",
+        "-Mode",
+        "verify"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}
