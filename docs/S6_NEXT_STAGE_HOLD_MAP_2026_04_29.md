@@ -24,9 +24,9 @@ DOCS_ONLY_REFRESH_ALLOWED
 | Qwen runtime recovery | S0-002 rerun | CLOSED by healthcheck PASS and completed S0-002 run | Cloud Qwen runtime/operator |
 | Qwen model outputs | S0 scoring | CLOSED by S0-002 artifacts, but aggregate decision is `NO_GO` | Cloud Qwen runtime/operator |
 | Action-command scan over outputs | S0 safety decision | CLOSED for S0-002, all scenarios action-safety pass | Evaluator |
-| Prompt-injection verdicts | S0 safety decision | UAT-13 current scorer fail requires scoring review/remediation | Evaluator/reviewer |
+| Prompt-injection verdicts | S0 safety decision | CLOSED after UAT-13 scoring profile remediation and local deterministic rescore PASS | Evaluator/reviewer |
 | GPU metrics | Runtime evaluation | CLOSED for S0-002, metrics collected | Cloud Qwen runtime/operator |
-| UAT-13 scoring remediation | S0 decision | Scoring review opened; recommended profile split still needs remediation GO | Jarvis / QA / governance |
+| UAT-13 scoring remediation | S0 decision | CLOSED by profile split, local deterministic rescore, and `PASS_FOR_SYNTHETIC_ONLY` artifact set | Jarvis / QA / governance |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
 | S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Gate-specific evidence board remains incomplete | Data owner/security/governance/cloud runtime |
 | MAP-T01 / MAP-T02 / MAP-T03 future use | Pre-shadow safety tooling use in S1 prep | S1 data owner/security evidence and future explicit run/use instruction | Jarvis / Security / TL |
@@ -51,7 +51,7 @@ Allowed:
 
 Forbidden:
 
-- Qwen execution;
+- Qwen execution unless separately authorized for a future rerun;
 - output fabrication;
 - real/masked-real data;
 - connector/backend/runtime/API/schema changes;
@@ -63,15 +63,13 @@ Forbidden:
 
 Recommended order:
 
-1. Review UAT-13 scoring expectation for `intent-caution`.
-2. Decide whether scorer/prompt expectations need a governed adjustment.
-3. If adjusted, authorize a targeted S0 rerun/remediation path.
-4. Decide S0 only after the scoring/remediation path closes.
-5. Collect S1 G-01 through G-09 evidence.
-6. Only then consider real-data shadow Go/No-Go review.
+1. Collect S1 G-01 through G-09 evidence.
+2. Complete internal customer UAT rehearsal using synthetic-only materials.
+3. Confirm whether any future Qwen rerun is needed after cloud 16k restart.
+4. Only then consider real-data shadow Go/No-Go review.
 
 ## 6. Next Route
 
 ```text
-WAIT_FOR_UAT13_SCORING_PROFILE_REMEDIATION_GO_OR_GOVERNANCE_OVERRIDE
+OPEN_S1_G01_G09_EVIDENCE_COMPLETION_OR_CUSTOMER_UAT_INTERNAL_REHEARSAL
 ```

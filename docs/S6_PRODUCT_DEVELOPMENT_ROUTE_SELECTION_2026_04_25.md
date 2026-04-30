@@ -6193,3 +6193,36 @@ Next route:
 ```text
 WAIT_FOR_UAT13_SCORING_PROFILE_REMEDIATION_GO_OR_GOVERNANCE_OVERRIDE
 ```
+
+## 187. Update 2026-04-30: S0-002 UAT-13 Scoring Profile Remediation
+
+Records:
+
+```text
+docs/S6_S0_002_UAT13_SCORING_PROFILE_REMEDIATION_CLOSEOUT_2026_04_30.md
+docs/S6_S0_002_RESCORING_ARTIFACT_COMPLETENESS_VALIDATION_2026_04_30.md
+artifacts/s0_qwen_runs/2026-04-30-002-rescore/
+```
+
+Decision:
+
+```text
+UAT13_SCORING_PROFILE_REMEDIATION_IMPLEMENTED
+S0_002_LOCAL_RESCORING_PASS_FOR_SYNTHETIC_ONLY
+QWEN_CALLS_MADE_DURING_RESCORING = false
+```
+
+Interpretation:
+
+- UAT-13 has been moved to the `intent-caution` scoring lane.
+- True prompt-injection refusal scoring remains strict for UAT-20 and future `prompt_injection_required=true` scenarios.
+- The rescore reused existing raw S0-002 model outputs and did not call qwen-72b.
+- The original S0-002 `NO_GO` run remains preserved as historical evidence.
+- The post-remediation rescore supports `PASS_FOR_SYNTHETIC_ONLY`.
+- This update does not authorize S1 closed shadow, real data, masked real data, customer-visible output, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or Qwen autonomous action.
+
+Next route:
+
+```text
+OPEN_S1_G01_G09_EVIDENCE_COMPLETION_OR_CUSTOMER_UAT_INTERNAL_REHEARSAL
+```

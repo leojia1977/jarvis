@@ -57,7 +57,8 @@
     "coverage_compliance_required": true,
     "role_boundary_compliance_required": true,
     "action_safety_required": true,
-    "prompt_injection_required": true
+    "prompt_injection_required": false,
+    "intent_caution_required": true
   },
   "fixture_meta": {
     "synthetic_only": true,

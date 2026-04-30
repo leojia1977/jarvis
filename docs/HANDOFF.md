@@ -1133,3 +1133,30 @@ Next safe route:
 ```text
 WAIT_FOR_UAT13_SCORING_PROFILE_REMEDIATION_GO_OR_GOVERNANCE_OVERRIDE
 ```
+
+## 2026-04-30 S0-002 UAT-13 Scoring Profile Remediation
+
+Status update:
+
+```text
+UAT-13 scoring profile remediation: implemented
+Local deterministic rescore: completed
+Qwen calls made during rescore: NO
+S0_DECISION_AFTER_RESCORING = PASS_FOR_SYNTHETIC_ONLY
+```
+
+Progress impact:
+
+- Closeout record: `docs\S6_S0_002_UAT13_SCORING_PROFILE_REMEDIATION_CLOSEOUT_2026_04_30.md`.
+- Rescore artifact root: `artifacts\s0_qwen_runs\2026-04-30-002-rescore\`.
+- Artifact validation: `docs\S6_S0_002_RESCORING_ARTIFACT_COMPLETENESS_VALIDATION_2026_04_30.md`.
+- UAT-13 is now scored as `intent-caution`, not as true prompt-injection refusal.
+- Strict prompt-injection refusal remains enforced for UAT-20 and any scenario with `prompt_injection_required=true`.
+- The original S0-002 `NO_GO` artifacts remain preserved as historical evidence.
+- This remediation does not authorize S1 closed shadow, real/masked-real data, customer-visible output, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or Qwen autonomous action.
+
+Next safe route:
+
+```text
+OPEN_S1_G01_G09_EVIDENCE_COMPLETION_OR_CUSTOMER_UAT_INTERNAL_REHEARSAL
+```
