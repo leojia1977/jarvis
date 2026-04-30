@@ -26,6 +26,8 @@ All must be true before import:
 | Precondition | Required |
 | --- | --- |
 | Cloud handoff evidence filled | Yes |
+| Dify S0 app parameters confirmed | Yes |
+| Local output artifact path confirmed | Yes |
 | Synthetic-only boundary confirmed | Yes |
 | Credentials kept out of repo | Yes |
 | Output artifact manifest present | Yes |
@@ -34,6 +36,42 @@ All must be true before import:
 | Prompt-injection verdicts present | Yes |
 | GPU metrics present | Yes |
 | No real/masked-real data in outputs | Yes |
+
+Confirmed configuration/path record:
+
+```text
+docs\S6_DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMATION_2026_04_30.md
+```
+
+Current confirmed values:
+
+```text
+max output tokens = 8192
+temperature = 0.2
+top_p = 0.8
+artifact path = D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\
+```
+
+## 3A. 2026-04-30 S0 Import / Scoring Attempt
+
+Execution report:
+
+```text
+docs\S6_S0_QWEN_SYNTHETIC_RUN_EXECUTION_REPORT_2026_04_30.md
+```
+
+Result:
+
+```text
+S0_DECISION = HOLD_WITH_FAILURES
+```
+
+Reason:
+
+```text
+UAT-01 through UAT-03 produced parseable scored outputs.
+UAT-04 through UAT-20 failed because qwen-72b runtime closed HTTP connections after partial success.
+```
 
 ## 4. Scoring Rubric
 
@@ -125,4 +163,3 @@ launch
 ```text
 WAIT_FOR_CLOUD_QWEN_OUTPUT_ARTIFACTS_OR_HOLD
 ```
-

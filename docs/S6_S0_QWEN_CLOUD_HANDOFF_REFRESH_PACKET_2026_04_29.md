@@ -37,6 +37,21 @@ S0 cannot produce a valid `S0_DECISION` until cloud Qwen handoff evidence and ac
 | S0 model outputs | `PENDING` |
 | S0 final decision | `PENDING` |
 
+Follow-up configuration/path record:
+
+```text
+docs\S6_DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMATION_2026_04_30.md
+```
+
+Confirmed by follow-up:
+
+```text
+Dify max output tokens = 8192
+Dify temperature = 0.2
+Dify top_p = 0.8
+Local S0 artifact path = D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\
+```
+
 ## 4. Cloud-Team Collection Form
 
 Jarvis may provide these fields in Chinese or English. The repo entry should normalize them into the handoff template without adding secrets.

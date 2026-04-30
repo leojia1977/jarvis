@@ -919,3 +919,57 @@ Next safe route:
 ```text
 WAIT_FOR_DIFY_S0_APP_CONFIG_AND_OUTPUT_ARTIFACT_PATH_OR_QWEN_CLOUD_HANDOFF_COMPLETION_GO
 ```
+
+## 2026-04-30 Dify S0 App Config and Artifact Path Confirmation
+
+Status update:
+
+```text
+Dify S0 app config: confirmed
+S0 local artifact path: confirmed
+S0 decision: not yet available
+```
+
+Progress impact:
+
+- Confirmation record: `docs\S6_DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMATION_2026_04_30.md`.
+- Confirmed Dify generation parameters: `max output tokens = 8192`, `temperature = 0.2`, `top_p = 0.8`.
+- Confirmed local artifact path convention: `D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\`.
+- The prior Dify app config and output path gaps are closed for planning.
+- S0 still requires explicit run authorization, actual 20-scenario Qwen outputs, action-command scans, prompt-injection verdicts, unsupported-claims scoring, coverage/role/history scoring, GPU metrics, operator notes, reviewer notes, and aggregate scorecard before any `S0_DECISION`.
+- Real data, masked-real data, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+OPEN_S0_QWEN_SYNTHETIC_RUN_AUTHORIZATION_OR_WAIT_FOR_REVIEWER_ASSIGNMENT
+```
+
+## 2026-04-30 S0 Qwen Synthetic Run Execution
+
+Status update:
+
+```text
+S0 Qwen synthetic run: attempted
+S0_DECISION = HOLD_WITH_FAILURES
+PASS scenarios: UAT-01 / UAT-02 / UAT-03
+FAILED scenarios: UAT-04 through UAT-20
+```
+
+Progress impact:
+
+- Execution report: `docs\S6_S0_QWEN_SYNTHETIC_RUN_EXECUTION_REPORT_2026_04_30.md`.
+- Runner: `scripts\s0_qwen_synthetic_run.py`.
+- Artifact root: `artifacts\s0_qwen_runs\2026-04-30-001\`.
+- Actual endpoint: `http://192.168.10.139:8000/v1`, model `qwen-72b`.
+- `max_tokens=8192` was rejected by vLLM because the qwen runtime has `max_model_len=8192` and the first S0 prompt had input tokens. The run used effective `max_tokens=1024`.
+- UAT-01 through UAT-03 completed with parseable JSON and PASS scoring.
+- UAT-04 through UAT-20 failed because the qwen-72b runtime began forcibly closing HTTP connections after partial success.
+- Artifact safety scan found 0 hard-stop secret findings across 29 files.
+- This run does not authorize `PASS_FOR_SYNTHETIC_ONLY`, real data, masked real data, closed shadow, customer-visible output, backend/runtime/API/schema, connector changes, deploy, external pilot, or launch.
+
+Next safe route:
+
+```text
+OPEN_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN
+```

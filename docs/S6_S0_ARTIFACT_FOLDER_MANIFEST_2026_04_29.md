@@ -35,6 +35,54 @@ These are conventions only. They are not created or authorized by this record.
 | `s0/output/metrics/` | GPU runtime metrics | Pending cloud handoff. |
 | `s0/report/` | Final S0 evaluation report | Pending scoring. |
 
+## 4A. 2026-04-30 Local S0 Output Path Confirmation
+
+Follow-up record:
+
+```text
+docs\S6_DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMATION_2026_04_30.md
+```
+
+Confirmed local artifact path convention:
+
+```text
+D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\
+```
+
+Recommended folder structure:
+
+```text
+outputs\
+scoring\
+metrics\
+notes\
+manifest.json
+```
+
+This path is a local artifact convention. Raw Qwen outputs and detailed Dify run logs do not need to be committed to Git. Repo closeout should import only safe manifests, scoring summaries, and governed reports unless separately authorized.
+
+## 4B. 2026-04-30 S0 Run Artifact Creation
+
+Execution report:
+
+```text
+docs\S6_S0_QWEN_SYNTHETIC_RUN_EXECUTION_REPORT_2026_04_30.md
+```
+
+Created artifact root:
+
+```text
+artifacts\s0_qwen_runs\2026-04-30-001\
+```
+
+Artifact decision:
+
+```text
+S0_DECISION = HOLD_WITH_FAILURES
+PASS = UAT-01 / UAT-02 / UAT-03
+FAIL_NEEDS_FIX = UAT-04 through UAT-20 due qwen-72b runtime connection failure
+```
+
 ## 5. Import Rules
 
 Any future output import must:
@@ -68,6 +116,5 @@ launch
 ## 7. Next Route
 
 ```text
-WAIT_FOR_CLOUD_QWEN_OUTPUT_ARTIFACTS
+OPEN_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN
 ```
-

@@ -5930,3 +5930,69 @@ Next route:
 ```text
 WAIT_FOR_DIFY_S0_APP_CONFIG_AND_OUTPUT_ARTIFACT_PATH_OR_QWEN_CLOUD_HANDOFF_COMPLETION_GO
 ```
+
+## 179. Update 2026-04-30: Dify S0 App Config and Artifact Path Confirmation
+
+Record:
+
+```text
+docs/S6_DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMATION_2026_04_30.md
+```
+
+Decision:
+
+```text
+DIFY_S0_APP_CONFIG_CONFIRMED
+S0_OUTPUT_ARTIFACT_PATH_LOCAL_CONFIRMED
+S0_EXECUTION_READY_FOR_EXACT_RUN_AUTHORIZATION
+S0_DECISION_NOT_YET_AVAILABLE
+```
+
+Interpretation:
+
+- Dify S0 app/request parameters are now confirmed: `max output tokens = 8192`, `temperature = 0.2`, `top_p = 0.8`.
+- Local S0 artifact path convention is now confirmed: `D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\`.
+- These confirmations close the prior Dify app config and artifact-path planning gaps.
+- This update does not run Qwen, import model outputs, score outputs, authorize real data, authorize customer-visible output, authorize backend/runtime/API/schema, authorize deploy, authorize external pilot, or produce an `S0_DECISION`.
+- S0 next requires explicit synthetic run authorization and actual output/scoring/metrics artifacts.
+
+Next route:
+
+```text
+OPEN_S0_QWEN_SYNTHETIC_RUN_AUTHORIZATION_OR_WAIT_FOR_REVIEWER_ASSIGNMENT
+```
+
+## 180. Update 2026-04-30: S0 Qwen Synthetic Run Execution
+
+Records:
+
+```text
+docs/S6_S0_QWEN_SYNTHETIC_RUN_EXECUTION_REPORT_2026_04_30.md
+scripts/s0_qwen_synthetic_run.py
+artifacts/s0_qwen_runs/2026-04-30-001/
+```
+
+Decision:
+
+```text
+S0_QWEN_SYNTHETIC_RUN_ATTEMPTED
+S0_DECISION = HOLD_WITH_FAILURES
+REAL_DATA_USED = NO
+MASKED_REAL_DATA_USED = NO
+CUSTOMER_VISIBLE_OUTPUT = NO
+```
+
+Interpretation:
+
+- The S0 run attempted all UAT-01 through UAT-20 synthetic QwenFactBundle scenarios.
+- UAT-01 through UAT-03 produced parseable JSON outputs and passed deterministic safety scoring.
+- UAT-04 through UAT-20 failed because the qwen-72b runtime began forcibly closing HTTP connections after partial success.
+- Direct `max_tokens=8192` was rejected by vLLM because qwen-72b `max_model_len` is 8192 and S0 prompts have input tokens; the attempted bounded run used effective `max_tokens=1024`.
+- Artifact safety scan found no hard-stop secret findings.
+- This does not authorize PASS_FOR_SYNTHETIC_ONLY, closed shadow, real data, masked real data, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, or launch.
+
+Next route:
+
+```text
+OPEN_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN
+```

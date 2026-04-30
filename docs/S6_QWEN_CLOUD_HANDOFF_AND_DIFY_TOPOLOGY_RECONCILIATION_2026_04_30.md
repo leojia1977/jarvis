@@ -16,11 +16,12 @@
 ```text
 QWEN_CLOUD_ENVIRONMENT_HANDOFF_PARTIAL_PASS
 DIFY_TOPOLOGY_RECONCILED_FOR_S0_SYNTHETIC_EVALUATION
-S0_EXECUTION_STILL_HOLD_PENDING_DIFY_APP_CONFIG_AND_ARTIFACT_EXPORT_PATH
+DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMED_BY_FOLLOWUP
+S0_EXECUTION_READY_FOR_EXACT_RUN_AUTHORIZATION
 NO_REAL_DATA_OR_CUSTOMER_VISIBLE_OUTPUT_AUTHORIZED
 ```
 
-The cloud-team non-secret environment information is sufficient to establish the high-level Qwen cloud runtime topology. It is not yet sufficient to execute or close S0 because the Dify app-level generation parameters and exportable S0 artifact path are still not frozen.
+The cloud-team non-secret environment information is sufficient to establish the high-level Qwen cloud runtime topology. A follow-up record now confirms the Dify app-level generation parameters and local exportable S0 artifact path. S0 still requires explicit run authorization, model outputs, scoring artifacts, GPU metrics, and reviewer closeout before any `S0_DECISION` can be issued.
 
 ## 3. System Layers
 
@@ -136,11 +137,11 @@ Credentials, SSH keys, tokens, VPN details, API keys, and credential-bearing URL
 | IX-ML / driver | IX-ML / Driver `4.4.0` | `RECEIVED` | Cloud team |
 | Context length | `8192` via `--max-model-len 8192` | `RECEIVED` | Cloud team |
 | Tensor parallel | `2` | `RECEIVED` | Cloud team |
-| Max output tokens | Recommended `4096`, actual Dify app value pending | `PENDING_DIFY_APP_CONFIG_CONFIRMATION` | Product / Dify operator |
-| Temperature | Recommended `0.2` or `0.3`, actual Dify app value pending | `PENDING_DIFY_APP_CONFIG_CONFIRMATION` | Product / Dify operator |
-| top_p | Recommended `0.8`, actual Dify app value pending | `PENDING_DIFY_APP_CONFIG_CONFIRMATION` | Product / Dify operator |
+| Max output tokens | `8192` | `CONFIRMED_BY_DIFY_S0_CONFIG_RECORD` | Product / Dify operator |
+| Temperature | `0.2` | `CONFIRMED_BY_DIFY_S0_CONFIG_RECORD` | Product / Dify operator |
+| top_p | `0.8` | `CONFIRMED_BY_DIFY_S0_CONFIG_RECORD` | Product / Dify operator |
 | GPU metrics | `ixsmi`, `~/gpu_snapshot.txt` | `RECEIVED_WITH_EXPORT_PATH` | Cloud team |
-| Output artifact export path | Dify PostgreSQL exists; exportable S0 artifact path pending | `PENDING_EXPORT_PATH` | Product / Dify operator |
+| Output artifact export path | `D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\` | `LOCAL_PATH_CONFIRMED_BY_DIFY_S0_CONFIG_RECORD` | Product / Dify operator |
 | Reviewer | `Jarvis/product-governance reviewer pending` | `PENDING_REVIEWER_ASSIGNMENT_BEFORE_S0_CLOSEOUT` | Product / governance |
 
 ## 6. S0 Log Definition
@@ -212,7 +213,20 @@ temperature = 0.2
 top_p = 0.8
 ```
 
-These recommended values are not yet the governed actual Dify configuration. The actual Dify values must be recorded before S0 execution closeout.
+Follow-up record:
+
+```text
+docs\S6_DIFY_S0_APP_CONFIG_AND_ARTIFACT_PATH_CONFIRMATION_2026_04_30.md
+```
+
+Confirmed values:
+
+```text
+max output tokens = 8192
+temperature = 0.2
+top_p = 0.8
+output artifact path = D:\产品设计\New folder\artifacts\s0_qwen_runs\2026-04-30-001\
+```
 
 ## 8. Safety Assertions
 
@@ -243,10 +257,9 @@ DEPLOY_OR_EXTERNAL_PILOT = NO
 Remaining before S0 execution / closeout:
 
 ```text
-GAP-01: actual Dify max output tokens / temperature / top_p
-GAP-02: exportable S0 output artifact path outside Dify PostgreSQL internal storage
-GAP-03: final reviewer assignment before S0 closeout
-GAP-04: S0 output import/scoring execution still not run
+GAP-01: final reviewer assignment before S0 closeout
+GAP-02: explicit S0 Qwen synthetic run authorization
+GAP-03: S0 output import/scoring execution still not run
 ```
 
 ## 10. HOLD Conditions
@@ -287,5 +300,5 @@ launch
 ## 12. Next Route
 
 ```text
-WAIT_FOR_DIFY_S0_APP_CONFIG_AND_OUTPUT_ARTIFACT_PATH_OR_QWEN_CLOUD_HANDOFF_COMPLETION_GO
+OPEN_S0_QWEN_SYNTHETIC_RUN_AUTHORIZATION_OR_WAIT_FOR_REVIEWER_ASSIGNMENT
 ```
