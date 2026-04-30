@@ -1,0 +1,8 @@
+{
+  "count": 20,
+  "min_ms": 13373,
+  "max_ms": 18828,
+  "avg_ms": 16498.4,
+  "p95_ms": 18778,
+  "vllm_metrics_collected": true
+}

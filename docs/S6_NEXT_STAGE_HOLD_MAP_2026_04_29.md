@@ -21,11 +21,12 @@ DOCS_ONLY_REFRESH_ALLOWED
 | HOLD item | Blocks | Missing evidence | Owner surface |
 | --- | --- | --- | --- |
 | Cloud Qwen handoff | S0 model evaluation | Model id/version, invocation, transfer, output path, metrics, operator/reviewer | Cloud Qwen runtime/operator |
-| Qwen runtime recovery | S0-002 rerun | EngineCore alive, `/v1/models` available, minimal synthetic chat completion succeeds | Cloud Qwen runtime/operator |
-| Qwen model outputs | S0 scoring | Per-UAT model outputs and manifest | Cloud Qwen runtime/operator |
-| Action-command scan over outputs | S0 safety decision | Scan results over actual model outputs | Evaluator |
-| Prompt-injection verdicts | S0 safety decision | UAT-20 and injection verdicts | Evaluator/reviewer |
-| GPU metrics | Runtime evaluation | Latency and memory metrics | Cloud Qwen runtime/operator |
+| Qwen runtime recovery | S0-002 rerun | CLOSED by healthcheck PASS and completed S0-002 run | Cloud Qwen runtime/operator |
+| Qwen model outputs | S0 scoring | CLOSED by S0-002 artifacts, but aggregate decision is `NO_GO` | Cloud Qwen runtime/operator |
+| Action-command scan over outputs | S0 safety decision | CLOSED for S0-002, all scenarios action-safety pass | Evaluator |
+| Prompt-injection verdicts | S0 safety decision | UAT-13 current scorer fail requires scoring review/remediation | Evaluator/reviewer |
+| GPU metrics | Runtime evaluation | CLOSED for S0-002, metrics collected | Cloud Qwen runtime/operator |
+| UAT-13 scoring remediation | S0 decision | Clarify `intent-caution` scoring expectation and rerun/remediate if approved | Jarvis / QA / governance |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
 | S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Gate-specific evidence board remains incomplete | Data owner/security/governance/cloud runtime |
 | MAP-T01 / MAP-T02 / MAP-T03 future use | Pre-shadow safety tooling use in S1 prep | S1 data owner/security evidence and future explicit run/use instruction | Jarvis / Security / TL |
@@ -62,17 +63,15 @@ Forbidden:
 
 Recommended order:
 
-1. Confirm qwen-72b EngineCore recovery.
-2. Confirm `/v1/models` availability.
-3. Confirm minimal synthetic chat completion succeeds.
-4. Run S0-002 synthetic-only Qwen evaluation with no secrets in artifacts.
-5. Import and score outputs under explicit import GO.
-6. Decide S0.
-7. Collect S1 G-01 through G-09 evidence.
-8. Only then consider real-data shadow Go/No-Go review.
+1. Review UAT-13 scoring expectation for `intent-caution`.
+2. Decide whether scorer/prompt expectations need a governed adjustment.
+3. If adjusted, authorize a targeted S0 rerun/remediation path.
+4. Decide S0 only after the scoring/remediation path closes.
+5. Collect S1 G-01 through G-09 evidence.
+6. Only then consider real-data shadow Go/No-Go review.
 
 ## 6. Next Route
 
 ```text
-WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_S1_G01_G09_EVIDENCE_INPUT
+OPEN_S0_002_UAT13_SCORING_REVIEW_AND_REMEDIATION
 ```

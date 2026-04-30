@@ -1,0 +1,30 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "qwen-72b",
+      "object": "model",
+      "created": 1777529622,
+      "owned_by": "vllm",
+      "root": "/root/models/qwen2.5-72b-int4",
+      "parent": null,
+      "max_model_len": 8192,
+      "permission": [
+        {
+          "id": "modelperm-1fd98bad3bb44c0aaee9b26bd8b4b7e5",
+          "object": "model_permission",
+          "created": 1777529622,
+          "allow_create_engine": false,
+          "allow_sampling": true,
+          "allow_logprobs": true,
+          "allow_search_indices": false,
+          "allow_view": true,
+          "allow_fine_tuning": false,
+          "organization": "*",
+          "group": null,
+          "is_blocking": false
+        }
+      ]
+    }
+  ]
+}

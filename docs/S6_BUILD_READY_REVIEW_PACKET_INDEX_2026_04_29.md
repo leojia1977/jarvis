@@ -56,12 +56,15 @@ BUILD_READY_APPROVAL_NOT_GRANTED
 | S1 G01-G09 owner/evidence packet | `docs/S6_S1_G01_G09_OWNER_ALIAS_MATRIX_AND_EVIDENCE_PACKET_2026_04_30.md` |
 | Internal UAT rehearsal runbook | `docs/S6_INTERNAL_UAT_REHEARSAL_RUNBOOK_AND_SCORE_INSTANCE_2026_04_30.md` |
 | Build-ready packet refresh | `docs/S6_BUILD_READY_PACKET_REFRESH_2026_04_30.md` |
+| S0 Qwen synthetic rerun 002 report | `docs/S6_S0_QWEN_SYNTHETIC_RERUN_002_REPORT_2026_04_30.md` |
+| S0-002 artifact validation | `docs/S6_S0_002_ARTIFACT_COMPLETENESS_VALIDATION_2026_04_30.md` |
+| S0-002 run artifacts | `artifacts/s0_qwen_runs/2026-04-30-002/` |
 
 ## 4. Packet Status
 
 ```text
 MOCK_SYNTHETIC_PACKET_INDEX_READY
-QWEN_OUTPUT_EVIDENCE_MISSING
+QWEN_OUTPUT_EVIDENCE_PRESENT_NO_GO
 REAL_DATA_PRECHECK_EVIDENCE_MISSING
 S1_G01_G09_EVIDENCE_BOARD_CREATED
 MAP_TOOLING_IMPLEMENTED_FULL_GATE_PASS
@@ -76,6 +79,7 @@ S0_002_LOCAL_PREFLIGHT_PASS_WAITING_FOR_CLOUD_RECOVERY
 S1_G01_G09_OWNER_EVIDENCE_PACKET_CREATED
 INTERNAL_UAT_REHEARSAL_PREP_CREATED
 BUILD_READY_PACKET_REFRESH_CREATED
+S0_QWEN_002_RUN_COMPLETED_NO_GO_UAT13
 ```
 
 ## 5. Non-Authorization
@@ -84,7 +88,7 @@ This index does not authorize:
 
 ```text
 build-ready approval
-Qwen execution
+additional Qwen execution without a new governed rerun/remediation decision
 real data
 masked real data
 closed shadow

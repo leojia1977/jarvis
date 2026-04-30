@@ -1,0 +1,22 @@
+{
+  "created_at_utc": "2026-04-30T06:13:10.033640+00:00",
+  "decision": "QWEN_RUNTIME_HEALTHCHECK_PASS",
+  "endpoint": "http://192.168.10.139:8000/v1",
+  "model": "qwen-72b",
+  "elapsed_ms": 2553,
+  "checks": [
+    {
+      "name": "models",
+      "pass": true,
+      "detail": "models_count=1"
+    },
+    {
+      "name": "minimal_chat_completion",
+      "pass": true,
+      "detail": "choices_present"
+    }
+  ],
+  "real_data_used": false,
+  "masked_real_data_used": false,
+  "customer_visible_output": false
+}
