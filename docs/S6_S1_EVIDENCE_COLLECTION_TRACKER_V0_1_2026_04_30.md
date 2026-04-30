@@ -13,10 +13,14 @@
 
 ```text
 S1_EVIDENCE_COLLECTION_TRACKER_CREATED
-S1_READY = AUTHORIZED_ASSERTED_BY_USER_PENDING_GO_NO_GO_REF_CAPTURE
-S1_CLOSED_SHADOW_AUTHORIZATION = AUTHORIZED_ASSERTED_BY_USER_PENDING_GO_NO_GO_REF_CAPTURE
+S1_READY = AUTHORIZED_ASSERTED_BY_USER_REFS_CLOSED_EXECUTION_MECHANICS_STARTED
+S1_CLOSED_SHADOW_AUTHORIZATION = AUTHORIZED_ASSERTED_BY_USER_REFS_CLOSED_EXECUTION_MECHANICS_STARTED
 FORMAL_REFERENCE_REQUIREMENTS = CLOSED_BY_USER_CONFIRMATION_NO_SEPARATE_REF_CAPTURE_REQUIRED
-S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = NO
+S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = YES
+S1_CLOSED_SHADOW_RUN_ID = S1-CLOSED-SHADOW-2026-04-30-001
+S1_CLOSED_SHADOW_RUN_OPERATOR = Codex / authorized operator
+S1_CLOSED_SHADOW_EVIDENCE_ROOT = artifacts/s1_closed_shadow_runs/2026-04-30-001/
+S1_CLOSED_SHADOW_START_DATE = 2026-04-30
 ```
 
 ## 3. Tracker
@@ -37,10 +41,11 @@ S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = NO
 
 ```text
 NO_EVIDENCE_REFERENCE_BLOCKERS_REMAIN_AFTER_USER_CONFIRMATION
-S1_CLOSED_SHADOW_AUTHORIZED_ASSERTED_PENDING_GO_NO_GO_REF_CAPTURE
-CODEX_HAS_NOT_STARTED_S1_EXECUTION
+S1_CLOSED_SHADOW_AUTHORIZED_ASSERTED_REFS_CLOSED_EXECUTION_MECHANICS_STARTED
+CODEX_S1_EXECUTION_MECHANICS_STARTED
+COMPLETED_S1_RUN_OUTPUT_PENDING
 ```
 
 ## 5. Non-Authorization
 
-This tracker records user/Jarvis asserted S1 Closed Shadow authorization and formal-reference closure. It does not record that Codex has started S1 execution, connected to an S1 environment, ingested real or masked-real data, changed backend/runtime/API/schema, changed connectors, deployed, created customer-visible output, performed production write-back, launched an external pilot, or allowed Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
+This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, and execution-mechanics start. It does not record a completed S1 run, final S1 PASS/HOLD/NO_GO decision, customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.

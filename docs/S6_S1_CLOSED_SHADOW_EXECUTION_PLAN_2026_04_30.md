@@ -15,12 +15,14 @@
 
 ```text
 S1_CLOSED_SHADOW_EXECUTION_PLAN_CREATED
-S1_CLOSED_SHADOW_AUTHORIZATION = AUTHORIZED_ASSERTED_BY_USER_PENDING_GO_NO_GO_REF_CAPTURE
+S1_CLOSED_SHADOW_AUTHORIZATION = AUTHORIZED_ASSERTED_BY_USER_REFS_CLOSED_EXECUTION_MECHANICS_STARTED
 FORMAL_REFERENCE_REQUIREMENTS = CLOSED_BY_USER_CONFIRMATION_NO_SEPARATE_REF_CAPTURE_REQUIRED
-S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = NO
+S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = YES
+S1_CLOSED_SHADOW_RUN_ID = S1-CLOSED-SHADOW-2026-04-30-001
+S1_CLOSED_SHADOW_EVIDENCE_ROOT = artifacts/s1_closed_shadow_runs/2026-04-30-001/
 ```
 
-This plan converts the current S1 authorization/evidence status into an operator execution plan. It is not an execution log, environment connection record, data-ingestion record, model-run record, customer-visible record, or deployment record.
+This plan converts the current S1 authorization/evidence status into an operator execution plan. The execution-start fact is now captured separately by `docs/S6_S1_CLOSED_SHADOW_EXECUTION_START_RECORD_2026_04_30.md`. This plan is not a completed run log, final evidence review, customer-visible record, or deployment record.
 
 ## 3. Governing Inputs
 
@@ -28,6 +30,7 @@ This plan converts the current S1 authorization/evidence status into an operator
 | --- | --- |
 | `docs/S6_S1_EVIDENCE_COLLECTION_TRACKER_V0_1_2026_04_30.md` | Current G-01 through G-09 gate-state baseline |
 | `docs/S6_S1_CLOSED_SHADOW_AUTHORIZATION_INTAKE_RECONCILIATION_2026_04_30.md` | User/Jarvis Closed Shadow authorization and formal-reference closure intake |
+| `docs/S6_S1_CLOSED_SHADOW_EXECUTION_START_RECORD_2026_04_30.md` | S1 execution-mechanics start intake and run-control opening |
 | `docs/S6_S1_MISSING_EVIDENCE_COMPLETION_PACKET_INTAKE_RECONCILIATION_2026_04_30.md` | Historical packet intake showing document-shape gaps before later user/Jarvis closure |
 | `docs/S6_G05_ALIAS_REGISTRY_AND_G06_G09_REVIEWER_CONFIRMATION_2026_04_30.md` | G05 alias mapping and G06/G09 confirmation request |
 | `docs/S6_G05_G06_G09_REVIEWER_CONFIRMATION_RECORD_2026_04_30.md` | G05/G06/G09 reviewer confirmation capture |

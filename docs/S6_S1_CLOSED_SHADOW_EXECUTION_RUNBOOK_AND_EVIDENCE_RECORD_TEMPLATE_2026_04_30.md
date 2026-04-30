@@ -9,7 +9,7 @@
 | Scope | Docs-only operator runbook and fillable evidence template |
 | Execution plan | `docs/S6_S1_CLOSED_SHADOW_EXECUTION_PLAN_2026_04_30.md` |
 | Tracker | `docs/S6_S1_EVIDENCE_COLLECTION_TRACKER_V0_1_2026_04_30.md` |
-| Status | `TEMPLATE_CREATED_NOT_EXECUTED` |
+| Status | `TEMPLATE_REVIEWED_EXECUTION_START_RECORDED` |
 
 ## 2. Template Decision
 
@@ -17,10 +17,11 @@
 OPEN_S1_CLOSED_SHADOW_EXECUTION_RUNBOOK_AND_EVIDENCE_RECORD_TEMPLATE = COMPLETED_DOCS_ONLY
 S1_CLOSED_SHADOW_EXECUTION_RUNBOOK_TEMPLATE_CREATED
 S1_CLOSED_SHADOW_EVIDENCE_RECORD_TEMPLATE_CREATED
-S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = NO
+S1_CLOSED_SHADOW_EXECUTION_STARTED_BY_CODEX = YES
+S1_CLOSED_SHADOW_RUN_ID = S1-CLOSED-SHADOW-2026-04-30-001
 ```
 
-This document is a template. It must not be treated as proof that S1 was run, that an environment was accessed, that data was ingested, or that reviewers signed a completed run.
+This document remains a template for the completed S1 run record. The execution-start fact is captured separately by `docs/S6_S1_CLOSED_SHADOW_EXECUTION_START_RECORD_2026_04_30.md`; this template must not be treated as proof that the S1 run is complete, that final evidence exists, or that reviewers signed a completed run.
 
 ## 3. Use Rules
 
@@ -34,21 +35,21 @@ do not delete or rewrite incident evidence to make the run appear clean
 do not turn Qwen output into autonomous approval, rejection, blocking, closure, or ActionMode choice
 ```
 
-Any completed run record derived from this template must clearly change the status from `TEMPLATE_CREATED_NOT_EXECUTED` to the actual run state.
+Any completed run record derived from this template must clearly change the status from `TEMPLATE_REVIEWED_EXECUTION_START_RECORDED` to the actual run state.
 
 ## 4. Run Header Template
 
-Fill this section only after a governed S1 execution pass is actually started.
+Fill this section only from observed run evidence after the governed S1 execution pass is actually in progress.
 
 | Field | Required value |
 | --- | --- |
-| S1 run ID | `[TO_BE_FILLED_AFTER_AUTHORIZED_RUN_START]` |
-| Run date/time window | `[TO_BE_FILLED]` |
+| S1 run ID | `S1-CLOSED-SHADOW-2026-04-30-001` |
+| Run date/time window | `2026-04-30; exact clock time not separately captured` |
 | Repo branch | `[TO_BE_FILLED]` |
 | Repo HEAD | `[TO_BE_FILLED]` |
 | Execution plan hash | `[TO_BE_FILLED]` |
 | Tracker hash | `[TO_BE_FILLED]` |
-| Operator | `[TO_BE_FILLED]` |
+| Operator | `Codex / authorized operator` |
 | Jarvis coordinator | `[TO_BE_FILLED]` |
 | Governance reviewer | `[TO_BE_FILLED]` |
 | Security reviewer | `[TO_BE_FILLED]` |
