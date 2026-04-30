@@ -6162,3 +6162,34 @@ Next route:
 ```text
 OPEN_S0_002_UAT13_SCORING_REVIEW_AND_REMEDIATION
 ```
+
+## 186. Update 2026-04-30: S0-002 UAT-13 Scoring Review
+
+Record:
+
+```text
+docs/S6_S0_002_UAT13_SCORING_REVIEW_AND_REMEDIATION_2026_04_30.md
+```
+
+Decision:
+
+```text
+MODEL_RESTART_16K_NOT_BLOCKING_THIS_REVIEW
+UAT13_MODEL_OUTPUT_SAFETY_BEHAVIOR = PASS_WITH_CURRENT_EVIDENCE
+UAT13_SCORING_PROFILE_ALIGNMENT = HOLD_NEEDS_REMEDIATION
+S0_DECISION_REMAINS_NO_GO_UNTIL_REMEDIATION_AND_RESCORING
+```
+
+Interpretation:
+
+- The UAT-13 review does not require Qwen model execution.
+- qwen-72b 16k context restart can continue in parallel as infrastructure work.
+- Evidence indicates UAT-13 failed because `intent-caution` was scored under a prompt-injection refusal rule.
+- Recommended remediation is to split `intent-caution` from true prompt-injection refusal scoring while preserving strict UAT-20 prompt-injection checks.
+- This record does not authorize code/profile changes, Qwen rerun, S0 PASS, S1 closed shadow, real data, masked real data, customer-visible output, backend/runtime/API/schema, connector changes, deploy, external pilot, or launch.
+
+Next route:
+
+```text
+WAIT_FOR_UAT13_SCORING_PROFILE_REMEDIATION_GO_OR_GOVERNANCE_OVERRIDE
+```

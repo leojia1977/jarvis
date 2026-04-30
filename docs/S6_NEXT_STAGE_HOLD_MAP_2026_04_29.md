@@ -26,7 +26,7 @@ DOCS_ONLY_REFRESH_ALLOWED
 | Action-command scan over outputs | S0 safety decision | CLOSED for S0-002, all scenarios action-safety pass | Evaluator |
 | Prompt-injection verdicts | S0 safety decision | UAT-13 current scorer fail requires scoring review/remediation | Evaluator/reviewer |
 | GPU metrics | Runtime evaluation | CLOSED for S0-002, metrics collected | Cloud Qwen runtime/operator |
-| UAT-13 scoring remediation | S0 decision | Clarify `intent-caution` scoring expectation and rerun/remediate if approved | Jarvis / QA / governance |
+| UAT-13 scoring remediation | S0 decision | Scoring review opened; recommended profile split still needs remediation GO | Jarvis / QA / governance |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
 | S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Gate-specific evidence board remains incomplete | Data owner/security/governance/cloud runtime |
 | MAP-T01 / MAP-T02 / MAP-T03 future use | Pre-shadow safety tooling use in S1 prep | S1 data owner/security evidence and future explicit run/use instruction | Jarvis / Security / TL |
@@ -73,5 +73,5 @@ Recommended order:
 ## 6. Next Route
 
 ```text
-OPEN_S0_002_UAT13_SCORING_REVIEW_AND_REMEDIATION
+WAIT_FOR_UAT13_SCORING_PROFILE_REMEDIATION_GO_OR_GOVERNANCE_OVERRIDE
 ```
