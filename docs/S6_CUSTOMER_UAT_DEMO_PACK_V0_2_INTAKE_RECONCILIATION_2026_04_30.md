@@ -173,7 +173,47 @@ Access control, logging, retention, rollback, and stop path are defined.
 Jarvis/Human explicitly authorizes customer-visible rehearsal or observer demo.
 ```
 
-## 11. Non-Authorization
+## 11. 2026-04-30 Internal Rehearsal Score Sheet Addendum
+
+Source:
+
+```text
+docs\S6_S0_S1_UAT_EVIDENCE_REVIEW_SHEETS_INTAKE_RECONCILIATION_2026_04_30.md
+```
+
+The Customer UAT Internal Rehearsal Score Sheet v0.1 is accepted as PASS for internal rehearsal scoring use. It does not authorize customer-visible rehearsal.
+
+Required execution addendum:
+
+```text
+P3 isolation must be checked at both DOM and network/payload layers.
+UAT-02 observation_window_expired must produce timestamped audit evidence.
+Act III pacing risk must be recorded during internal rehearsal.
+```
+
+P3 payload checks:
+
+```text
+P3 response payload must not contain host_raw_evidence, process_tree_raw, p2_evidence_drawer, or full technical audit payload intended for P2.
+```
+
+UAT-02 audit proof must include:
+
+```text
+audit event id or equivalent synthetic id
+event type = OBSERVATION_WINDOW_EXPIRED
+timestamp
+source = mock STATE_SYNC / demo operator
+expiry action = RETURN_TO_PENDING_APPROVAL
+```
+
+If Act III feels overly restricted / constantly blocked during rehearsal, shorten Act III to:
+
+```text
+UAT-14, UAT-17, UAT-19, UAT-20
+```
+
+## 12. Non-Authorization
 
 This intake record does not authorize:
 
@@ -193,7 +233,7 @@ external pilot
 launch
 ```
 
-## 12. Next Route
+## 13. Next Route
 
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_CUSTOMER_DEMO_REHEARSAL_GATE_REQUEST

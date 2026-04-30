@@ -999,6 +999,32 @@ Next safe route:
 WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
 ```
 
+## 2026-04-30 S0 / S1 / UAT Evidence Review Sheets Intake
+
+Status update:
+
+```text
+S0 Handoff Completeness Review Sheet v0.1: PASS
+S1 G-01~G-09 Evidence Pre-Review Checklist v0.1: PASS
+Customer UAT Internal Rehearsal Score Sheet v0.1: PASS
+Execution addendum: required, non-blocking
+```
+
+Progress impact:
+
+- Intake/reconciliation record: `docs\S6_S0_S1_UAT_EVIDENCE_REVIEW_SHEETS_INTAKE_RECONCILIATION_2026_04_30.md`.
+- External source zip: `D:\产品设计\secupilot0421\SecuPilot_S0_S1_UAT_Evidence_Review_Sheets_v0.1.zip`.
+- The three sheets are accepted as evidence / review / rehearsal gate materials, not implementation or launch authorization.
+- Addendum rules are now recorded for S0 mandatory prompt clause severity, S1 named owner aliases, G-07 action-command JSON scan, P3 DOM+payload isolation, UAT-02 timestamped STATE_SYNC audit proof, and Act III pacing risk.
+- S0-002 remains waiting for qwen-72b EngineCore recovery evidence. S1 closed shadow remains waiting for G-01 through G-09 evidence. Customer-visible rehearsal remains unauthorized.
+- Real data, masked real data, customer-visible staging, customer test, customer-visible Qwen output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_S1_G01_G09_EVIDENCE_INPUT_OR_INTERNAL_UAT_REHEARSAL_REQUEST
+```
+
 ## 2026-04-30 S0 Prompt Budget And Compact Policy Header
 
 Status update:
