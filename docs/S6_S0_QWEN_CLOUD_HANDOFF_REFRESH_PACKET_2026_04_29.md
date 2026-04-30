@@ -26,14 +26,14 @@ S0 cannot produce a valid `S0_DECISION` until cloud Qwen handoff evidence and ac
 | Synthetic CaseView payloads | Ready: 20 files |
 | Synthetic QwenFactBundle payloads | Ready: 20 files |
 | Qwen cloud environment id | `PENDING` |
-| Qwen model id/version/checkpoint | `PENDING` |
-| Runtime invocation method | `PENDING` |
-| Prompt template version | `PENDING` |
+| Qwen model id/version/checkpoint | `PARTIAL_RECEIVED: qwen-72b / Qwen2.5-72B-Instruct-Int4 / /root/models/qwen2.5-72b-int4` |
+| Runtime invocation method | `RECEIVED: vLLM 0.11.2 OpenAI-compatible API; qwen-72b at http://192.168.10.139:8000/v1; bge-m3 at http://192.168.10.139:8001/v1` |
+| Prompt template version | `PRODUCT_DEFINED_PENDING` |
 | Synthetic input transfer path | `PENDING` |
-| Output artifact export path | `PENDING` |
-| GPU metrics method | `PENDING` |
-| Evaluator runbook/script | `PENDING` |
-| Operator / reviewer | `PENDING` |
+| Output artifact export path | `PENDING_EXPORT_PATH: Dify PostgreSQL exists, governed export path still required` |
+| GPU metrics method | `RECEIVED: ixsmi, ~/gpu_snapshot.txt` |
+| Evaluator runbook/script | `PRODUCT_DEFINED_PENDING` |
+| Operator / reviewer | `OPERATOR_RECEIVED: jia; REVIEWER_PENDING: Jarvis/product-governance reviewer pending` |
 | S0 model outputs | `PENDING` |
 | S0 final decision | `PENDING` |
 
@@ -125,4 +125,19 @@ launch
 
 ```text
 WAIT_FOR_CLOUD_TEAM_NON_SECRET_QWEN_HANDOFF_FIELDS
+```
+
+## 9. 2026-04-30 Topology Reconciliation Note
+
+Follow-up record:
+
+```text
+docs\S6_QWEN_CLOUD_HANDOFF_AND_DIFY_TOPOLOGY_RECONCILIATION_2026_04_30.md
+```
+
+Updated interpretation:
+
+```text
+The cloud runtime environment facts are partially received and usable for topology reconciliation.
+S0 remains HOLD because Dify app-level generation parameters and an exportable S0 artifact path are not yet frozen.
 ```

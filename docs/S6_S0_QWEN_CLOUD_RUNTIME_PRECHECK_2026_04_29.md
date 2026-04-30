@@ -79,12 +79,12 @@ launch
 | Item | Status | Required before S0 rerun |
 |---|---|---|
 | Cloud GPU environment id | Pending | Yes |
-| Qwen model id/version | Pending | Yes |
-| Invocation method | Pending | Yes |
+| Qwen model id/version | Partial received: `qwen-72b` / Qwen2.5-72B-Instruct-Int4 / `/root/models/qwen2.5-72b-int4` | Yes |
+| Invocation method | Received: vLLM 0.11.2 OpenAI-compatible API; qwen-72b at `http://192.168.10.139:8000/v1`; bge-m3 at `http://192.168.10.139:8001/v1` | Yes |
 | Synthetic-only input transfer | Pending | Yes |
-| Output artifact path | Pending | Yes |
-| GPU metrics capture | Pending | Yes |
-| Prompt template version | Pending | Yes |
+| Output artifact path | Pending export path; Dify PostgreSQL alone is not enough for repo intake | Yes |
+| GPU metrics capture | Received: `ixsmi`, `~/gpu_snapshot.txt` | Yes |
+| Prompt template version | Product-defined pending | Yes |
 | Evaluator runbook/script | Pending | Yes |
 | Credentials kept out of repo | Required | Yes |
 | Real/masked-real data exclusion | Required | Yes |
@@ -104,4 +104,20 @@ SYNTHETIC_ONLY_BOUNDARY_CONFIRMED
 
 ```text
 CURRENT_DECISION: HOLD_PENDING_CLOUD_QWEN_RUNTIME_HANDOFF
+```
+
+## 9. 2026-04-30 Dify Topology Reconciliation
+
+Follow-up record:
+
+```text
+docs\S6_QWEN_CLOUD_HANDOFF_AND_DIFY_TOPOLOGY_RECONCILIATION_2026_04_30.md
+```
+
+Current updated decision:
+
+```text
+QWEN_CLOUD_ENVIRONMENT_HANDOFF_PARTIAL_PASS
+DIFY_TOPOLOGY_RECONCILED_FOR_S0_SYNTHETIC_EVALUATION
+S0_EXECUTION_STILL_HOLD_PENDING_DIFY_APP_CONFIG_AND_ARTIFACT_EXPORT_PATH
 ```

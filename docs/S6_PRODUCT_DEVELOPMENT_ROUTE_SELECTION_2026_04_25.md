@@ -5900,3 +5900,33 @@ Next route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_CUSTOMER_DEMO_REHEARSAL_GATE_REQUEST
 ```
+
+## 178. Update 2026-04-30: Qwen Cloud Handoff and Dify Topology Reconciliation
+
+Record:
+
+```text
+docs/S6_QWEN_CLOUD_HANDOFF_AND_DIFY_TOPOLOGY_RECONCILIATION_2026_04_30.md
+```
+
+Decision:
+
+```text
+QWEN_CLOUD_ENVIRONMENT_HANDOFF_PARTIAL_PASS
+DIFY_TOPOLOGY_RECONCILED_FOR_S0_SYNTHETIC_EVALUATION
+S0_EXECUTION_STILL_HOLD_PENDING_DIFY_APP_CONFIG_AND_ARTIFACT_EXPORT_PATH
+```
+
+Interpretation:
+
+- Cloud Qwen runtime facts are now partially received: 全向箔云平台, dual Iluvatar MR-V100 32GB, `qwen-72b` / Qwen2.5-72B-Instruct-Int4, checkpoint `/root/models/qwen2.5-72b-int4`, vLLM 0.11.2 OpenAI-compatible API, qwen-72b endpoint `http://192.168.10.139:8000/v1`, bge-m3 endpoint `http://192.168.10.139:8001/v1`, context length 8192, `ixsmi` GPU metrics, and operator `jia`.
+- The topology is reconciled as repo synthetic payloads -> Dify S0 workflow/app -> SSH-forwarded Qwen vLLM API -> Dify S0 synthetic run logs / exportable artifacts -> repo-side artifact manifest/scoring import.
+- S0 still cannot execute or close because Dify app-level `max output tokens / temperature / top_p` and an exportable S0 artifact path remain pending.
+- S0 logs must be referred to as synthetic run logs / Dify workflow logs, not real business or alert logs.
+- This record does not authorize Qwen execution, Qwen output import, real data, masked-real data, closed shadow, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, Jira mutation, deploy, external pilot, or launch.
+
+Next route:
+
+```text
+WAIT_FOR_DIFY_S0_APP_CONFIG_AND_OUTPUT_ARTIFACT_PATH_OR_QWEN_CLOUD_HANDOFF_COMPLETION_GO
+```

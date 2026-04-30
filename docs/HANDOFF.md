@@ -893,3 +893,29 @@ Next safe route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_CUSTOMER_DEMO_REHEARSAL_GATE_REQUEST
 ```
+
+## 2026-04-30 Qwen Cloud Handoff and Dify Topology Reconciliation
+
+Status update:
+
+```text
+Qwen cloud environment handoff: partial PASS
+Dify topology: reconciled for S0 synthetic evaluation
+S0 execution: still HOLD pending Dify app config and exportable artifact path
+```
+
+Progress impact:
+
+- Reconciliation record: `docs\S6_QWEN_CLOUD_HANDOFF_AND_DIFY_TOPOLOGY_RECONCILIATION_2026_04_30.md`.
+- The system is now explicitly split into three layers: SecuPilot repo synthetic payloads, company Dify workflow/app, and cloud Qwen vLLM runtime.
+- Cloud environment facts received: 全向箔云平台, dual Iluvatar MR-V100 32GB, Qwen2.5-72B-Instruct-Int4, checkpoint `/root/models/qwen2.5-72b-int4`, vLLM 0.11.2 OpenAI-compatible API, context length 8192, `ixsmi` metrics, operator `jia`.
+- For S0, "business logs" must be treated as `S0 synthetic run logs / Dify workflow logs`; S0 must not ingest or store real alert logs, masked-real alert logs, customer data, production SIEM/EDR logs, secrets, tokens, SSH keys, API keys, or credential-bearing URLs.
+- Endpoint confirmation received: qwen-72b LLM uses `http://192.168.10.139:8000/v1`; bge-m3 embedding uses `http://192.168.10.139:8001/v1`.
+- Remaining before S0 execution/closeout: actual Dify `max output tokens / temperature / top_p`, exportable S0 output artifact path, and final reviewer assignment before closeout.
+- Real data, masked-real data, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_DIFY_S0_APP_CONFIG_AND_OUTPUT_ARTIFACT_PATH_OR_QWEN_CLOUD_HANDOFF_COMPLETION_GO
+```

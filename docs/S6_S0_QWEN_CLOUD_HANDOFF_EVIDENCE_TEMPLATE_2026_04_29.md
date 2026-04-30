@@ -126,3 +126,40 @@ launch
 WAIT_FOR_FILLED_CLOUD_QWEN_HANDOFF_EVIDENCE
 ```
 
+## 10. 2026-04-30 Topology Reconciliation Note
+
+Follow-up record:
+
+```text
+docs\S6_QWEN_CLOUD_HANDOFF_AND_DIFY_TOPOLOGY_RECONCILIATION_2026_04_30.md
+```
+
+Status update:
+
+```text
+QWEN_CLOUD_ENVIRONMENT_HANDOFF_PARTIAL_PASS
+DIFY_TOPOLOGY_RECONCILED_FOR_S0_SYNTHETIC_EVALUATION
+S0_EXECUTION_STILL_HOLD_PENDING_DIFY_APP_CONFIG_AND_ARTIFACT_EXPORT_PATH
+```
+
+Cloud runtime facts now received:
+
+```text
+Cloud GPU environment: 全向箔云平台, dual Iluvatar MR-V100 32GB
+Model id: qwen-72b / Qwen2.5-72B-Instruct-Int4
+Checkpoint: /root/models/qwen2.5-72b-int4
+Runtime: vLLM 0.11.2 OpenAI-compatible API
+LLM endpoint: http://192.168.10.139:8000/v1
+Embedding endpoint: http://192.168.10.139:8001/v1
+Context length: 8192
+GPU metrics: ixsmi
+Operator: jia
+```
+
+Remaining required before S0 execution / closeout:
+
+```text
+Actual Dify max output tokens / temperature / top_p
+Exportable S0 output artifact path
+Reviewer assignment before S0 closeout
+```
