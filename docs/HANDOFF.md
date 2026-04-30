@@ -973,3 +973,28 @@ Next safe route:
 ```text
 OPEN_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN
 ```
+
+## 2026-04-30 Qwen Runtime Stability Fix And S0 Rerun
+
+Status update:
+
+```text
+Cloud confirmation: vLLM EngineCore dead / qwen-72b down
+Prior S0 decision: HOLD_WITH_FAILURES
+S0 rerun: not yet started
+```
+
+Progress impact:
+
+- Stability/rerun checklist: `docs\S6_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN_2026_04_30.md`.
+- The cloud team confirmation matches the repo-side failure evidence: UAT-01 through UAT-03 passed, then qwen-72b began forcibly closing HTTP connections.
+- The HOLD is now classified as qwen-72b runtime instability, not product, prompt-policy, frontend, Storybook, Playwright, fixture, or scoring failure.
+- The next rerun should use a new run id `S0-QWEN-2026-04-30-002`, artifact root `artifacts\s0_qwen_runs\2026-04-30-002\`, and effective `max_tokens=1024`.
+- Rerun must wait for non-secret cloud recovery evidence that EngineCore is alive and `/v1/models` plus a minimal synthetic `/v1/chat/completions` call succeed.
+- Real data, masked real data, closed shadow, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
+```

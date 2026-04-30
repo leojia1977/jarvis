@@ -122,6 +122,15 @@ Primary HOLD:
 QWEN_RUNTIME_CONNECTION_FAILURE_AFTER_PARTIAL_SUCCESS
 ```
 
+Cloud team confirmation received after the run:
+
+```text
+vLLM EngineCore is dead.
+The 72b model is down.
+```
+
+This confirms that the failed `UAT-04` through `UAT-20` calls were caused by qwen-72b runtime instability, not by a product-scope failure or a frontend/test implementation failure.
+
 Secondary configuration finding:
 
 ```text
@@ -163,4 +172,10 @@ launch
 
 ```text
 OPEN_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN
+```
+
+Follow-up checklist:
+
+```text
+docs\S6_QWEN_RUNTIME_STABILITY_FIX_AND_S0_RERUN_2026_04_30.md
 ```
