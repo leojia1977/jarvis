@@ -27,7 +27,7 @@ DOCS_ONLY_REFRESH_ALLOWED
 | GPU metrics | Runtime evaluation | Latency and memory metrics | Cloud Qwen runtime/operator |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
 | S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Gate-specific evidence board remains incomplete | Data owner/security/governance/cloud runtime |
-| MAP-T01 / MAP-T02 / MAP-T03 implementation GO | Pre-shadow safety tooling implementation | Exact implementation authorization, allowed files, and test command | Jarvis / TL |
+| MAP-T01 / MAP-T02 / MAP-T03 future use | Pre-shadow safety tooling use in S1 prep | S1 data owner/security evidence and future explicit run/use instruction | Jarvis / Security / TL |
 | Customer UAT externalization approval | Customer-visible observer testing | S0 decision, customer boundary, access control, and reviewed demo pack | Jarvis / PM / Governance |
 | Build-ready approval | Build-ready transition | Explicit review request and decision | Jarvis/governance |
 
@@ -69,5 +69,5 @@ Recommended order:
 ## 6. Next Route
 
 ```text
-WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
 ```

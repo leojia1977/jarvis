@@ -841,3 +841,30 @@ Next safe route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
 ```
+
+## 2026-04-30 MAP-T01/T02/T03 Offline Synthetic Tooling
+
+Status update:
+
+```text
+MAP-T01 / MAP-T02 / MAP-T03: implementation GO received
+Targeted unit gate: PASS, 7 tests
+Full gate / Claude Code review: PASS
+```
+
+Progress impact:
+
+- Closeout record: `docs\S6_MAP_T01_T02_T03_OFFLINE_SYNTHETIC_TOOLING_CLOSEOUT_2026_04_30.md`.
+- Implementation file: `scripts\synthetic_safety_tooling.py`.
+- Test file: `backend\tests\test_synthetic_safety_tooling.py`.
+- The tooling covers deterministic synthetic masking, hard-stop secret scanning, and QwenFactBundle synthetic input validation.
+- All 20 existing S0 QwenFactBundle files validate under the MAP-T03 check.
+- Fast preflight, pilot preflight, `git diff --check`, and Claude Code focused review passed.
+- Claude Code was run in no-tools mode because normal tool-mode review attempts returned API 400 due to tool-use concurrency.
+- Real data, masked-real data, connector changes, backend/runtime/API/schema, Qwen execution, Qwen prompt/runtime/parser changes, fixture/adapter/validator/ResolvedSurfaceContext changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
+```

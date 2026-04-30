@@ -999,3 +999,28 @@ Recommended next board lane:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
 ```
+
+## 2026-04-30 MAP-T01/T02/T03 Offline Synthetic Tooling
+
+Status update:
+
+```text
+MAP-T01: implemented / targeted gate PASS
+MAP-T02: implemented / targeted gate PASS
+MAP-T03: implemented / targeted gate PASS
+Full gate / review: PASS
+```
+
+Board impact:
+
+- Automation no longer needs to wait on MAP implementation authorization.
+- The current MAP work remains pre-shadow synthetic safety tooling only.
+- No Qwen execution, real/masked-real data, connector, backend/runtime/API/schema, frontend, Storybook, Playwright, fixture/adapter/validator/ResolvedSurfaceContext, deploy, external pilot, or launch scope entered.
+- S0 still waits on Qwen cloud handoff and S1 still waits on G-01 through G-09 evidence.
+- MAP tooling is now available as pre-shadow synthetic safety tooling evidence, but future use against any S1 inputs still requires separate S1 Go/No-Go and data-owner/security evidence.
+
+Recommended next board lane:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
+```

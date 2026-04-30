@@ -5836,3 +5836,37 @@ Next route:
 ```text
 WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT_OR_MAP_TOOLING_IMPLEMENTATION_GO
 ```
+
+## 176. Update 2026-04-30: MAP-T01/T02/T03 Offline Synthetic Tooling Implementation
+
+Records:
+
+```text
+docs/S6_MAP_T01_T02_T03_OFFLINE_SYNTHETIC_TOOLING_CLOSEOUT_2026_04_30.md
+scripts/synthetic_safety_tooling.py
+backend/tests/test_synthetic_safety_tooling.py
+```
+
+Decision:
+
+```text
+MAP_T01_T02_T03_IMPLEMENTATION_GO_RECEIVED
+OFFLINE_SYNTHETIC_SAFETY_TOOLING_IMPLEMENTED_FULL_GATE_PASS
+CLAUDE_CODE_FOCUSED_REVIEW_PASS
+```
+
+Interpretation:
+
+- MAP-T01 / MAP-T02 / MAP-T03 moved from docs-only ticket prep to bounded offline synthetic tooling implementation under explicit Jarvis GO.
+- The implementation adds only script-level offline helpers and backend unittest coverage.
+- Targeted unit gate passed: `py -3 -m unittest -q backend.tests.test_synthetic_safety_tooling`, 7 tests.
+- Fast preflight passed.
+- Pilot preflight passed.
+- Claude Code focused review passed in no-tools mode after normal tool-mode attempts hit API 400 tool-use concurrency errors.
+- The new utilities do not invoke Qwen, import model outputs, connect to real or masked-real data, change connectors, change backend runtime/API/schema, or touch frontend/Storybook/Playwright/fixtures/adapters/validators/`ResolvedSurfaceContext`.
+
+Next route:
+
+```text
+WAIT_FOR_QWEN_CLOUD_HANDOFF_OR_S1_G01_G09_EVIDENCE_INPUT
+```

@@ -16,7 +16,7 @@ OFFLINE_SYNTHETIC_MAPPING_TOOLING_TICKETS_OPENED
 MAP_T01_MASKING_VALIDATOR_CHECKLIST_READY
 MAP_T02_REDACTION_HARD_STOP_SCANNER_CHECKLIST_READY
 MAP_T03_QWEN_FACT_BUNDLE_SYNTHETIC_BUILDER_CHECK_READY
-IMPLEMENTATION_GO_REQUIRED_FOR_CODE
+IMPLEMENTATION_GO_RECEIVED_2026_04_30
 ```
 
 These tickets are pre-shadow synthetic safety tooling. They do not connect to real data, masked-real data, customer data, connectors, backend/runtime/API/schema, deploy, external pilot, or launch.
@@ -25,9 +25,9 @@ These tickets are pre-shadow synthetic safety tooling. They do not connect to re
 
 | Ticket | Purpose | Current state |
 | --- | --- | --- |
-| `MAP-T01` | Masking Validator | `IMPLEMENTATION_GO_REQUIRED` |
-| `MAP-T02` | Redaction Hard Stop Scanner | `IMPLEMENTATION_GO_REQUIRED` |
-| `MAP-T03` | QwenFactBundle Synthetic Builder Check | `IMPLEMENTATION_GO_REQUIRED` |
+| `MAP-T01` | Masking Validator | `IMPLEMENTED_TARGET_GATE_PASS` |
+| `MAP-T02` | Redaction Hard Stop Scanner | `IMPLEMENTED_TARGET_GATE_PASS` |
+| `MAP-T03` | QwenFactBundle Synthetic Builder Check | `IMPLEMENTED_TARGET_GATE_PASS` |
 
 ## 4. MAP-T01 Masking Validator
 
@@ -130,7 +130,13 @@ mock_data/s0_synthetic/
 docs/
 ```
 
-No file is authorized by this ticket pack yet.
+Implementation authorization was later supplied by Jarvis for offline synthetic safety tooling only. Implemented files:
+
+```text
+scripts/synthetic_safety_tooling.py
+backend/tests/test_synthetic_safety_tooling.py
+docs/S6_MAP_T01_T02_T03_OFFLINE_SYNTHETIC_TOOLING_CLOSEOUT_2026_04_30.md
+```
 
 ## 8. Shared HOLD Conditions
 
@@ -163,5 +169,5 @@ launch
 ## 10. Next Route
 
 ```text
-WAIT_FOR_MAP_T01_T02_T03_IMPLEMENTATION_GO
+RUN_MAP_T01_T02_T03_FULL_GATE_AND_REVIEW
 ```
