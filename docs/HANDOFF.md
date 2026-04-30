@@ -998,3 +998,29 @@ Next safe route:
 ```text
 WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
 ```
+
+## 2026-04-30 S0 Prompt Budget And Compact Policy Header
+
+Status update:
+
+```text
+S0 prompt compaction: implemented
+Prompt budget guard: implemented
+S0 rerun: still waiting for qwen-72b recovery evidence
+```
+
+Progress impact:
+
+- Implementation record: `docs\S6_S0_PROMPT_BUDGET_AND_COMPACT_POLICY_HEADER_2026_04_30.md`.
+- Runner update: `scripts\s0_qwen_synthetic_run.py`.
+- S0 runner now uses a compact policy header and compact JSON payload instead of pretty-printed prompt payloads.
+- S0 runner now applies pre-call prompt budget guards: `max_input_chars=12000` and `max_input_tokens_estimate=3000` by default.
+- Oversized per-scenario synthetic prompts are recorded as `HOLD_PROMPT_TOO_LARGE` instead of being sent to Qwen.
+- This reduces avoidable prompt/context pressure but does not replace the qwen-72b runtime stability fix.
+- Real data, masked real data, closed shadow, customer-visible output, production write-back, autonomous action, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, and launch remain unauthorized.
+
+Next safe route:
+
+```text
+WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
+```

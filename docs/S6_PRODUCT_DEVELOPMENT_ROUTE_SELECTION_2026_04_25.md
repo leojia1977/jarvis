@@ -6027,3 +6027,32 @@ Next route:
 ```text
 WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
 ```
+
+## 182. Update 2026-04-30: S0 Prompt Budget And Compact Policy Header
+
+Record:
+
+```text
+docs/S6_S0_PROMPT_BUDGET_AND_COMPACT_POLICY_HEADER_2026_04_30.md
+```
+
+Decision:
+
+```text
+S0_PROMPT_BUDGET_AND_COMPACT_POLICY_HEADER_IMPLEMENTED
+S0_RERUN_STILL_WAITING_FOR_QWEN_72B_ENGINECORE_RECOVERY
+```
+
+Interpretation:
+
+- The S0 runner now sends compact per-scenario prompts instead of pretty-printed payloads.
+- The S0 runner now enforces pre-call prompt budget guards with defaults `max_input_chars=12000` and `max_input_tokens_estimate=3000`.
+- Oversized synthetic prompts are recorded as `HOLD_PROMPT_TOO_LARGE` and are not sent to qwen-72b.
+- This reduces prompt/context pressure for S0 reruns but does not replace cloud qwen-72b runtime recovery.
+- This update does not authorize Qwen rerun by itself, PASS_FOR_SYNTHETIC_ONLY, closed shadow, real data, masked real data, customer-visible output, production write-back, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, or launch.
+
+Next route:
+
+```text
+WAIT_FOR_QWEN_72B_ENGINECORE_RECOVERY_EVIDENCE_OR_AUTHORIZE_S0_RERUN_002
+```

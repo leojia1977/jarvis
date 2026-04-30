@@ -49,6 +49,31 @@ Before rerunning S0, the cloud/Dify operator must provide non-secret evidence th
 7. GPU/vLLM metrics are exportable during or immediately after the run.
 8. No credentials, API keys, tokens, SSH keys, secrets, real data, masked-real data, or customer data are written into repo artifacts.
 
+## 4A. Prompt Budget And Compact Policy Header
+
+S0 rerun must use the repo runner's compact prompt mode:
+
+- compact policy header only;
+- compact JSON user payload, not pretty-printed full documentation;
+- one UAT scenario per Qwen call;
+- deterministic repo-side scoring after model output;
+- hard prompt budget guard before any model call.
+
+Default prompt budget guard:
+
+```text
+max_input_chars = 12000
+max_input_tokens_estimate = 3000
+```
+
+If any UAT prompt exceeds this budget, the runner must stop that scenario as:
+
+```text
+HOLD_PROMPT_TOO_LARGE
+```
+
+The fix for an oversized prompt is to shrink the per-scenario synthetic fact bundle or split the scenario input. The runner must not bypass the budget by increasing `max_tokens`, adding larger context windows, or sending full PRD/governance documents to Qwen.
+
 ## 5. Rerun Parameters
 
 Recommended next run id:
@@ -74,6 +99,8 @@ py -3 scripts\s0_qwen_synthetic_run.py `
   --max-tokens 1024 `
   --temperature 0.2 `
   --top-p 0.8 `
+  --max-input-chars 12000 `
+  --max-input-tokens-estimate 3000 `
   --request-timeout 120 `
   --metrics-url http://192.168.10.139:8000/metrics `
   --no-reuse-existing
