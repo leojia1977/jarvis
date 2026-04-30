@@ -1223,3 +1223,27 @@ Next safe route:
 ```text
 WAIT_FOR_G01_G06_G09_INPUT_OR_RUN_G08_INTERNAL_UAT_REHEARSAL
 ```
+
+## 2026-04-30 G08 Internal UAT Rehearsal Execution Package
+
+Status update:
+
+```text
+G08_EXECUTION_PACKAGE_READY
+G08_EXECUTION_NOT_RUN
+CUSTOMER_VISIBLE_UAT_NOT_AUTHORIZED
+```
+
+Progress impact:
+
+- Execution package: `docs\S6_G08_INTERNAL_UAT_REHEARSAL_EXECUTION_PACKAGE_2026_04_30.md`.
+- Evidence manifest: `docs\S6_G08_INTERNAL_UAT_REHEARSAL_EVIDENCE_MANIFEST_2026_04_30.md`.
+- Decision template: `docs\S6_G08_INTERNAL_UAT_REHEARSAL_DECISION_RECORD_TEMPLATE_2026_04_30.md`.
+- G-08 can now be executed as an internal synthetic-only rehearsal when Jarvis authorizes the run.
+- This does not authorize customer-visible UAT, S1 closed shadow, real/masked-real data, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or autonomous action.
+
+Next safe route:
+
+```text
+WAIT_FOR_G08_INTERNAL_REHEARSAL_EXECUTION_GO_OR_G01_G06_G09_INPUT
+```

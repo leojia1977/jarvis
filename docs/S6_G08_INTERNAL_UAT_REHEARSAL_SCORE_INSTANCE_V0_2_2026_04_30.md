@@ -68,3 +68,17 @@ UAT-14, UAT-17, UAT-19, UAT-20
 
 This score instance is internal-only. It does not authorize customer-visible staging/demo, real data, masked real data, closed shadow, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or autonomous action.
 
+## 7. Execution Package
+
+```text
+Execution package: docs/S6_G08_INTERNAL_UAT_REHEARSAL_EXECUTION_PACKAGE_2026_04_30.md
+Evidence manifest: docs/S6_G08_INTERNAL_UAT_REHEARSAL_EVIDENCE_MANIFEST_2026_04_30.md
+Decision template: docs/S6_G08_INTERNAL_UAT_REHEARSAL_DECISION_RECORD_TEMPLATE_2026_04_30.md
+```
+
+Current state:
+
+```text
+G08_EXECUTION_PACKAGE_READY
+G08_EXECUTION_NOT_RUN
+```

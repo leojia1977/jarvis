@@ -6295,3 +6295,33 @@ Next route:
 ```text
 WAIT_FOR_G01_G06_G09_INPUT_OR_RUN_G08_INTERNAL_UAT_REHEARSAL
 ```
+
+## 190. Update 2026-04-30: G08 Internal UAT Rehearsal Execution Package
+
+Records:
+
+```text
+docs/S6_G08_INTERNAL_UAT_REHEARSAL_EXECUTION_PACKAGE_2026_04_30.md
+docs/S6_G08_INTERNAL_UAT_REHEARSAL_EVIDENCE_MANIFEST_2026_04_30.md
+docs/S6_G08_INTERNAL_UAT_REHEARSAL_DECISION_RECORD_TEMPLATE_2026_04_30.md
+```
+
+Decision:
+
+```text
+G08_EXECUTION_PACKAGE_READY
+G08_EXECUTION_NOT_RUN
+CUSTOMER_VISIBLE_UAT_NOT_AUTHORIZED
+```
+
+Interpretation:
+
+- G-08 now has an operator checklist, reviewer worksheet, evidence manifest, and decision template.
+- The actual internal rehearsal still requires execution GO.
+- This update does not authorize customer-visible UAT, S1 closed shadow, real/masked-real data, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or autonomous action.
+
+Next route:
+
+```text
+WAIT_FOR_G08_INTERNAL_REHEARSAL_EXECUTION_GO_OR_G01_G06_G09_INPUT
+```

@@ -28,7 +28,7 @@ DOCS_ONLY_REFRESH_ALLOWED
 | GPU metrics | Runtime evaluation | CLOSED for S0-002, metrics collected | Cloud Qwen runtime/operator |
 | UAT-13 scoring remediation | S0 decision | CLOSED by profile split, local deterministic rescore, and `PASS_FOR_SYNTHETIC_ONLY` artifact set | Jarvis / QA / governance |
 | Real-data precheck evidence | S1 closed shadow | Owner, data inventory, access, retention, deletion, redaction, rollback, compliance | Data owner/security/governance |
-| S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Intake folders and tracker created; G-07 sign-off package created; G-08 score instance created; G-01/G-02/G-03/G-04/G-05/G-06/G-09 still missing | Data owner/security/governance/cloud runtime |
+| S1 G-01 through G-09 evidence | S1 closed shadow Go/No-Go | Intake folders and tracker created; G-07 sign-off package created; G-08 execution package ready; G-01/G-02/G-03/G-04/G-05/G-06/G-09 still missing | Data owner/security/governance/cloud runtime |
 | MAP-T01 / MAP-T02 / MAP-T03 future use | Pre-shadow safety tooling use in S1 prep | S1 data owner/security evidence and future explicit run/use instruction | Jarvis / Security / TL |
 | Customer UAT externalization approval | Customer-visible observer testing | Boundary checklist created; still needs internal rehearsal result, access control, and explicit customer-visible authorization | Jarvis / PM / Governance |
 | Build-ready approval | Build-ready transition | Explicit review request and decision | Jarvis/governance |
@@ -65,12 +65,12 @@ Recommended order:
 
 1. Collect G-01/G-02/G-03/G-04/G-05/G-06/G-09 evidence using the intake folders.
 2. Obtain G-07 reviewer sign-off over S0-002 rescore artifacts.
-3. Run G-08 internal UAT rehearsal with synthetic-only materials.
+3. Run G-08 internal UAT rehearsal with synthetic-only materials after explicit execution GO.
 4. Confirm whether any future Qwen rerun is needed after cloud 16k restart.
 5. Only then consider real-data shadow Go/No-Go review.
 
 ## 6. Next Route
 
 ```text
-WAIT_FOR_G01_G06_G09_INPUT_OR_RUN_G08_INTERNAL_UAT_REHEARSAL
+WAIT_FOR_G08_INTERNAL_REHEARSAL_EXECUTION_GO_OR_G01_G06_G09_INPUT
 ```

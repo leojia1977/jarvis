@@ -24,6 +24,9 @@ S1_CLOSED_SHADOW_NOT_AUTHORIZED
 | `docs/S6_S1_EVIDENCE_COLLECTION_TRACKER_V0_1_2026_04_30.md` | Evidence collection tracker |
 | `docs/S6_G07_QWEN_PROTOCOL_REVIEWER_SIGNOFF_PACKAGE_2026_04_30.md` | G-07 sign-off package |
 | `docs/S6_G08_INTERNAL_UAT_REHEARSAL_SCORE_INSTANCE_V0_2_2026_04_30.md` | G-08 rehearsal score instance |
+| `docs/S6_G08_INTERNAL_UAT_REHEARSAL_EXECUTION_PACKAGE_2026_04_30.md` | G-08 rehearsal execution package |
+| `docs/S6_G08_INTERNAL_UAT_REHEARSAL_EVIDENCE_MANIFEST_2026_04_30.md` | G-08 evidence manifest |
+| `docs/S6_G08_INTERNAL_UAT_REHEARSAL_DECISION_RECORD_TEMPLATE_2026_04_30.md` | G-08 decision template |
 | `docs/S6_S1_CLOSED_SHADOW_GO_NO_GO_DRAFT_NOT_READY_2026_04_30.md` | S1 Go/No-Go draft shell |
 | `docs/S6_CUSTOMER_OBSERVER_READINESS_BOUNDARY_CHECKLIST_2026_04_30.md` | Customer observer boundary checklist |
 
@@ -32,6 +35,7 @@ S1_CLOSED_SHADOW_NOT_AUTHORIZED
 ```text
 G01_G06_G09_EXTERNAL_EVIDENCE_REQUIRED
 G07_REVIEWER_SIGNOFF_REQUIRED
+G08_INTERNAL_REHEARSAL_EXECUTION_PACKAGE_READY
 G08_INTERNAL_REHEARSAL_EXECUTION_REQUIRED
 CUSTOMER_VISIBLE_GO_REQUIRED_BEFORE_ANY_CUSTOMER_OBSERVER_USE
 ```
@@ -39,4 +43,3 @@ CUSTOMER_VISIBLE_GO_REQUIRED_BEFORE_ANY_CUSTOMER_OBSERVER_USE
 ## 5. Non-Authorization
 
 This closeout does not authorize real data, masked real data, S1 closed shadow, customer-visible output, backend/runtime/API/schema, connector changes, secrets, deploy, external pilot, launch, or autonomous action.
-
