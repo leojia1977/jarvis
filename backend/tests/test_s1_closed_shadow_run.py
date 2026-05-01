@@ -142,10 +142,17 @@ class S1ClosedShadowRunTests(unittest.TestCase):
                         "items": [
                             {
                                 "case_id": "UAT-01",
+                                "title": "Approved title",
                                 "summary": "Approved summary only.",
+                                "severity": "MEDIUM",
+                                "risk_level": "MEDIUM",
                                 "evidence_metadata_refs": ["metadata:source:case"],
+                                "model_summary": "Model reviewed offline synthetic evidence only.",
+                                "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+                                "confidence": 0.72,
+                                "score": 72,
+                                "limitation_note": "Offline synthetic-only fixture.",
                                 "provider_decision_hint": "REVIEW_REQUIRED",
-                                "raw_payload": "must not be retained",
                             }
                         ]
                     }
@@ -158,11 +165,47 @@ class S1ClosedShadowRunTests(unittest.TestCase):
             args.extend(["--provider-output-file", str(provider_output)])
             exit_code = runner.run(args)
 
-            self.assertEqual(30, exit_code)
+            self.assertEqual(10, exit_code)
             case_summary_text = (output_root / "case_summary.json").read_text(encoding="utf-8")
             safety_text = (output_root / "safety_scan.json").read_text(encoding="utf-8")
-            self.assertNotIn("must not be retained", case_summary_text)
-            self.assertIn("raw_payload", safety_text)
+            self.assertIn("Approved summary only.", case_summary_text)
+            self.assertNotIn("provider_output_non_whitelisted_field", safety_text)
+
+    def test_external_output_provider_non_whitelisted_field_holds(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            input_root = root / "input"
+            output_root = root / "artifacts"
+            provider_output = root / "provider.json"
+            input_root.mkdir()
+            self._write_bundle(input_root, uat_id="UAT-01")
+            provider_output.write_text(
+                json.dumps(
+                    {
+                        "items": [
+                            {
+                                "case_id": "UAT-01",
+                                "summary": "Approved summary only.",
+                                "evidence_metadata_refs": ["metadata:source:case"],
+                                "provider_decision_hint": "REVIEW_REQUIRED",
+                                "debug_note": "non-whitelisted field should trigger hold",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            args = self._base_args(input_root, output_root)
+            args[args.index("fixture")] = "external-output"
+            args.extend(["--provider-output-file", str(provider_output)])
+            exit_code = runner.run(args)
+
+            self.assertEqual(20, exit_code)
+            final_status = json.loads((output_root / "final_status.json").read_text(encoding="utf-8"))
+            safety_text = (output_root / "safety_scan.json").read_text(encoding="utf-8")
+            self.assertEqual("S1_CLOSED_SHADOW_HOLD", final_status["final_outcome"])
+            self.assertIn("provider_output_non_whitelisted_field", safety_text)
 
 
 if __name__ == "__main__":

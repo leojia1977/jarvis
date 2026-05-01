@@ -1,0 +1,55 @@
+{
+  "items": [
+    {
+      "case_id": "UAT-01",
+      "title": "Synthetic NTLM lateral movement signal",
+      "summary": "Metadata-only indicator chain suggests NTLM relay risk; offline reviewer confirmation required.",
+      "severity": "HIGH",
+      "risk_level": "HIGH",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-01-ntlm-lateral",
+        "source_payload:s0-cv-uat-01"
+      ],
+      "model_summary": "No raw payload retained; decision built from synthetic metadata labels only.",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.74,
+      "score": 74,
+      "limitation_note": "Synthetic fixture output; no production connector evidence.",
+      "provider_decision_hint": "REVIEW_REQUIRED"
+    },
+    {
+      "case_id": "UAT-02",
+      "title": "Synthetic observation expiry drift",
+      "summary": "Observation window appears stale; verify timer policy before any downstream action.",
+      "severity": "MEDIUM",
+      "risk_level": "MEDIUM",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-02-observation-expiry",
+        "source_payload:s0-cv-uat-02"
+      ],
+      "model_summary": "Offline synthetic package review only; no live API or connector call.",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.69,
+      "score": 69,
+      "limitation_note": "Sample output for local import-path verification.",
+      "provider_decision_hint": "REVIEW_REQUIRED"
+    },
+    {
+      "case_id": "UAT-03",
+      "title": "Synthetic terminal lock bypass trail",
+      "summary": "Potential lock bypass sequence detected in synthetic metadata; needs manual triage.",
+      "severity": "HIGH",
+      "risk_level": "HIGH",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-03-terminal-lock",
+        "source_payload:s0-cv-uat-03"
+      ],
+      "model_summary": "Whitelisted fields only; no raw evidence or secret-bearing content.",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.77,
+      "score": 77,
+      "limitation_note": "Offline synthetic evaluation artifact.",
+      "provider_decision_hint": "REVIEW_REQUIRED"
+    }
+  ]
+}

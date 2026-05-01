@@ -77,6 +77,21 @@ REQUIRED_REVIEWERS = (
     {"alias": "SecuPilot-QA-01", "role": "QA Reviewer"},
 )
 
+ALLOWED_EXTERNAL_OUTPUT_FIELDS = {
+    "case_id",
+    "title",
+    "summary",
+    "severity",
+    "risk_level",
+    "evidence_metadata_refs",
+    "model_summary",
+    "reviewer_action",
+    "confidence",
+    "score",
+    "limitation_note",
+    "provider_decision_hint",
+}
+
 
 @dataclass(frozen=True)
 class CaseInput:
@@ -391,6 +406,42 @@ def build_import_provider(loaded: LoadedInput, provider_name: str, provider_outp
     outputs = obj.get("items") or obj.get("case_outputs") or []
     if not isinstance(outputs, list):
         raise ValueError("provider output must contain an 'items' or 'case_outputs' list")
+    if provider_name == "external-output":
+        for index, item in enumerate(outputs):
+            item_path = f"provider_output_file.items[{index}]"
+            if not isinstance(item, dict):
+                provider_scan["findings"].append(
+                    {
+                        "source": "provider_output_file",
+                        "finding_type": "provider_output_item_not_object",
+                        "field_path": item_path,
+                        "severity": HOLD,
+                        "matched_value_retained": False,
+                    }
+                )
+                continue
+            if not item.get("case_id"):
+                provider_scan["findings"].append(
+                    {
+                        "source": "provider_output_file",
+                        "finding_type": "provider_output_missing_case_id",
+                        "field_path": f"{item_path}.case_id",
+                        "severity": HOLD,
+                        "matched_value_retained": False,
+                    }
+                )
+            for key in item:
+                if key not in ALLOWED_EXTERNAL_OUTPUT_FIELDS:
+                    provider_scan["findings"].append(
+                        {
+                            "source": "provider_output_file",
+                            "finding_type": "provider_output_non_whitelisted_field",
+                            "field_path": f"{item_path}.{key}",
+                            "rule": "external_output_whitelist",
+                            "severity": HOLD,
+                            "matched_value_retained": False,
+                        }
+                    )
     by_case = {str(item.get("case_id")): item for item in outputs if isinstance(item, dict) and item.get("case_id")}
     items = []
     for case in loaded.cases:
