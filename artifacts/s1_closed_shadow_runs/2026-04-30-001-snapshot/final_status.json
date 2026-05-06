@@ -1,0 +1,56 @@
+{
+  "boundaries_preserved": {
+    "customer_visible_output": false,
+    "production_connectors": false,
+    "qwen_autonomous_action": false,
+    "raw_payload_retention": false,
+    "secret_retention": false,
+    "writeback": false
+  },
+  "can_deploy_to_customer_production": false,
+  "can_show_in_local_demo": true,
+  "exit_code": 10,
+  "final_outcome": "S1_CLOSED_SHADOW_PASS_WITH_NOTES",
+  "frontend_status_fields": {
+    "case_summary_artifact": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/case_summary.json",
+    "evidence_list_artifact": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/artifact_manifest.json",
+    "hold_pass_reason": "Closed-shadow fixture metadata capture completed; reviewer signoff required.",
+    "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+    "s1_run_status": "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+  },
+  "next_step": "FRONTEND_ARTIFACT_VIEW",
+  "pass_hold_reason": "Closed-shadow fixture metadata capture completed; reviewer signoff required.",
+  "required_reviewers": [
+    {
+      "alias": "Jarvis",
+      "role": "TL / S1 DRI / Product-Governance Reviewer"
+    },
+    {
+      "alias": "SecuPilot-GOV-01",
+      "role": "Governance Reviewer"
+    },
+    {
+      "alias": "SecuPilot-SEC-01",
+      "role": "Security Reviewer"
+    },
+    {
+      "alias": "SecuPilot-DATA-OWNER-01",
+      "role": "Data Owner"
+    },
+    {
+      "alias": "SecuPilot-INFRA-01",
+      "role": "Infra Reviewer"
+    },
+    {
+      "alias": "SecuPilot-MODEL-OWNER-01",
+      "role": "Model Owner"
+    },
+    {
+      "alias": "SecuPilot-QA-01",
+      "role": "QA Reviewer"
+    }
+  ],
+  "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+  "run_id": "S1-CLOSED-SHADOW-2026-04-30-001-SNAPSHOT",
+  "schema_version": "secupilot.s1.final_status.v1"
+}

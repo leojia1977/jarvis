@@ -1,0 +1,39 @@
+{
+  "findings": [],
+  "generated_at_utc": "2026-05-06T06:01:12Z",
+  "input_package_scan": {
+    "findings": [],
+    "input_kind": "qwen_fact_bundle_directory",
+    "label": "input_package",
+    "object_count": 20,
+    "scanned_fields": 1201,
+    "scanned_string_values": 740
+  },
+  "provider_output_scan": {
+    "findings": [],
+    "label": "provider_output_file",
+    "scanned_fields": 0,
+    "scanned_string_values": 0
+  },
+  "rules": [
+    "no secrets/tokens/auth headers/cookies/private keys/SAS tokens",
+    "no raw_payload/host_raw_evidence/raw_evidence keys",
+    "no customer-visible artifact retention",
+    "no write-back or production connector flags",
+    "Qwen provider imports approved metadata only and makes no live API call in MVP-01"
+  ],
+  "runtime_boundary_findings": [],
+  "scanner_scope": [
+    "runtime_args",
+    "input_package_or_directory",
+    "provider_output_file_if_supplied",
+    "generated_metadata"
+  ],
+  "schema_version": "secupilot.s1.safety_scan.v1",
+  "summary": {
+    "finding_count": 0,
+    "hold_count": 0,
+    "matched_values_retained": false,
+    "no_go_count": 0
+  }
+}

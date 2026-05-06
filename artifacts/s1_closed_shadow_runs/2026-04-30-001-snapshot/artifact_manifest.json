@@ -1,0 +1,61 @@
+{
+  "artifact_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot",
+  "artifacts": [
+    {
+      "contains_customer_visible_artifact": false,
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "file_name": "run_record.json",
+      "path": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/run_record.json",
+      "retain_allowed": true,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "sha256": "e949cfc342b5843154d9f7dd413319ea8aa02cc68cb1e963cccc1a213c4f6bbc"
+    },
+    {
+      "contains_customer_visible_artifact": false,
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "file_name": "safety_scan.json",
+      "path": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/safety_scan.json",
+      "retain_allowed": true,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "sha256": "1728bbca2c29b77a848022dd174027ae5c2bea62cbc52e1c2391f36517de9bdb"
+    },
+    {
+      "contains_customer_visible_artifact": false,
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "file_name": "case_summary.json",
+      "path": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/case_summary.json",
+      "retain_allowed": true,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "sha256": "58a2fddfbada698e9215ad61e652bd240d28ed21a9acd1f7fa5525a8e2a9c6af"
+    },
+    {
+      "contains_customer_visible_artifact": false,
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "file_name": "final_status.json",
+      "path": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/final_status.json",
+      "retain_allowed": true,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "sha256": "27f276b56798d9db29c02189d450fe2e350b46e24e9fa64e4444a7370516a3d1"
+    },
+    {
+      "contains_customer_visible_artifact": false,
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "file_name": "RUN_RECORD.md",
+      "path": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/RUN_RECORD.md",
+      "retain_allowed": true,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "sha256": "e56eeaad9f40836100d82807b6aec22f70605b7d8ad7be9584ad20506e6c67c4"
+    }
+  ],
+  "generated_at_utc": "2026-05-06T06:01:12Z",
+  "manifest_self": {
+    "path": "artifacts/s1_closed_shadow_runs/2026-04-30-001-snapshot/artifact_manifest.json",
+    "sha256": "SELF_REFERENTIAL_HASH_EXCLUDED"
+  },
+  "schema_version": "secupilot.s1.artifact_manifest.v1"
+}
