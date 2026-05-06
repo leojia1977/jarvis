@@ -61,8 +61,8 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   },
   localReview: {
     schemaVersion: "secupilot.s1.local_review_record.v1",
-    candidate: "LOCAL_OFFLINE_TRIAL_RC_003",
-    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_002",
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_004",
+    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_003",
     reviewer: "LOCAL_REVIEWER",
     defaultDecision: "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC" satisfies S1LocalReviewDecision,
     allowedDecisions: [
@@ -72,7 +72,32 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
       "NO_GO_FOR_CURRENT_PRODUCT_PATH"
     ] satisfies S1LocalReviewDecision[],
     defaultNotes:
-      "RC-002 passed with notes; RC-003 aligns local review wording and package naming for the next local/offline review."
+      "RC-003 passed; RC-004 adds a self-contained local/offline reviewer handoff view.",
+    handoff: {
+      reviewMode: "LOCAL_OFFLINE_REVIEW_ONLY",
+      packagePath: "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
+      readmePath:
+        "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md",
+      zipName: "s1-closed-shadow-local-offline-trial-rc-004-review-package-20260506.zip",
+      requiredChecks: [
+        "REVIEWER_README.md",
+        "package_manifest.json",
+        "final_status.json",
+        "case_summary.json",
+        "artifact_manifest.json",
+        "safety_scan.json",
+        "playwright/s1-run-desktop.png",
+        "playwright/s1-run-mobile.png"
+      ],
+      boundaryChecks: [
+        "real_data=false",
+        "masked_real_data=false",
+        "live_qwen_api=false",
+        "live_connectors=false",
+        "production_writeback=false",
+        "customer_visible_output=false"
+      ]
+    }
   },
   artifacts: [
     {

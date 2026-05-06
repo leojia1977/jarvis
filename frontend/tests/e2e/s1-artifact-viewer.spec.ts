@@ -21,7 +21,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-writeback")).toContainText("NO");
     await expect(page.getByTestId("s1-production-deploy")).toContainText("NO");
     const reviewPanel = page.getByTestId("s1-local-review-panel");
-    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_003");
+    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_004");
     await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     await expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
@@ -32,6 +32,15 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-review-record-preview")).toContainText(
       '"customer_visible_output": false'
     );
+    const handoffPanel = page.getByTestId("s1-review-handoff-panel");
+    await expect(handoffPanel).toHaveAttribute("data-review-mode", "LOCAL_OFFLINE_REVIEW_ONLY");
+    await expect(handoffPanel).toHaveAttribute(
+      "data-review-package",
+      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
+    );
+    await expect(handoffPanel).toHaveAttribute("data-state-mutation", "none");
+    await expect(page.getByTestId("s1-review-required-check")).toHaveCount(8);
+    await expect(page.getByTestId("s1-review-boundary-check")).toHaveCount(6);
     await expect(page.getByTestId("s1-artifact-row")).toHaveCount(5);
     await expect(page.getByTestId("s1-case-row")).toHaveCount(20);
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
@@ -50,7 +59,10 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-connectors")).toContainText("NO");
     await expect(page.getByTestId("s1-local-review-panel")).toHaveAttribute(
       "data-source-candidate",
-      "LOCAL_OFFLINE_TRIAL_RC_002"
+      "LOCAL_OFFLINE_TRIAL_RC_003"
+    );
+    await expect(page.getByTestId("s1-review-readme-path")).toContainText(
+      "s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md"
     );
   });
 });

@@ -261,6 +261,65 @@ export function S1ArtifactView() {
         </div>
       </section>
 
+      <section
+        aria-labelledby="s1-review-handoff-title"
+        className="s1-artifact-panel s1-handoff-panel"
+        data-connector-call="false"
+        data-customer-visible-output="false"
+        data-production-writeback="false"
+        data-qwen-api-call="false"
+        data-review-mode={run.localReview.handoff.reviewMode}
+        data-review-package={run.localReview.handoff.packagePath}
+        data-review-readme={run.localReview.handoff.readmePath}
+        data-state-mutation="none"
+        data-testid="s1-review-handoff-panel"
+      >
+        <div className="s1-panel-title">
+          <FileText aria-hidden="true" size={18} />
+          <h2 id="s1-review-handoff-title">Offline Review Handoff</h2>
+        </div>
+        <dl className="s1-handoff-facts">
+          <div>
+            <dt>Package</dt>
+            <dd data-testid="s1-review-package-path">{run.localReview.handoff.packagePath}</dd>
+          </div>
+          <div>
+            <dt>README</dt>
+            <dd data-testid="s1-review-readme-path">{run.localReview.handoff.readmePath}</dd>
+          </div>
+          <div>
+            <dt>ZIP</dt>
+            <dd data-testid="s1-review-zip-name">{run.localReview.handoff.zipName}</dd>
+          </div>
+          <div>
+            <dt>Mode</dt>
+            <dd data-testid="s1-review-mode">{run.localReview.handoff.reviewMode}</dd>
+          </div>
+        </dl>
+        <div className="s1-handoff-grid">
+          <div>
+            <h3>Reviewer Checks</h3>
+            <ul>
+              {run.localReview.handoff.requiredChecks.map((item) => (
+                <li data-testid="s1-review-required-check" key={item}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3>Boundary Checks</h3>
+            <ul>
+              {run.localReview.handoff.boundaryChecks.map((item) => (
+                <li data-testid="s1-review-boundary-check" key={item}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section className="s1-artifact-panel">
         <div className="s1-panel-title">
           <FileText aria-hidden="true" size={18} />

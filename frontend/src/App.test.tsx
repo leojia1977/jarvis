@@ -197,8 +197,8 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("NO");
     expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("NO");
     const reviewPanel = screen.getByTestId("s1-local-review-panel");
-    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_003");
-    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_002");
+    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_004");
+    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_003");
     expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
@@ -213,6 +213,19 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-review-record-preview")).toHaveTextContent(
       '"qwen_api_call": false'
     );
+    const handoffPanel = screen.getByTestId("s1-review-handoff-panel");
+    expect(handoffPanel).toHaveAttribute("data-review-mode", "LOCAL_OFFLINE_REVIEW_ONLY");
+    expect(handoffPanel).toHaveAttribute(
+      "data-review-package",
+      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
+    );
+    expect(handoffPanel).toHaveAttribute("data-state-mutation", "none");
+    expect(handoffPanel).toHaveAttribute("data-qwen-api-call", "false");
+    expect(screen.getByTestId("s1-review-zip-name")).toHaveTextContent(
+      "s1-closed-shadow-local-offline-trial-rc-004-review-package-20260506.zip"
+    );
+    expect(screen.getAllByTestId("s1-review-required-check")).toHaveLength(8);
+    expect(screen.getAllByTestId("s1-review-boundary-check")).toHaveLength(6);
     expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
     expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))

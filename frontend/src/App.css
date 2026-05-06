@@ -1941,6 +1941,76 @@ button {
   word-break: break-all;
 }
 
+.s1-handoff-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 0;
+}
+
+.s1-handoff-facts > div {
+  min-width: 0;
+  border: 1px solid #dce8e8;
+  border-radius: 7px;
+  background: #f5faf9;
+  padding: 10px;
+}
+
+.s1-handoff-facts dt,
+.s1-handoff-grid h3 {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.s1-handoff-facts dd {
+  margin: 4px 0 0;
+  color: #243140;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.s1-handoff-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.s1-handoff-grid > div {
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 7px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.s1-handoff-grid h3 {
+  margin: 0 0 8px;
+}
+
+.s1-handoff-grid ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.s1-handoff-grid li {
+  border: 1px solid #e3e8df;
+  border-radius: 7px;
+  background: #f8fbf6;
+  color: #243140;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
 .s1-table-shell {
   margin-top: 14px;
   overflow-x: auto;
@@ -3102,6 +3172,8 @@ button {
   .s1-review-layout,
   .s1-review-decision-grid,
   .s1-review-facts,
+  .s1-handoff-facts,
+  .s1-handoff-grid,
   .s1-boundary-grid,
   .s1-status-facts,
   .approval-facts,
