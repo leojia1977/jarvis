@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.s1.local_demo_package_manifest.v1",
-  "generated_at_utc": "2026-05-06T06:03:12Z",
+  "generated_at_utc": "2026-05-06T06:08:46Z",
   "source_artifact_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001",
   "package_dir": "artifacts/local_demo_packages/s1-closed-shadow-2026-04-30-001",
   "package_artifacts": [
