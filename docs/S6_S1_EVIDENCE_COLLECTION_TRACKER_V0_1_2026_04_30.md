@@ -27,6 +27,9 @@ S1_CLOSED_SHADOW_INPUT = mock_data/s0_synthetic/qwen_fact_bundle
 S1_CLOSED_SHADOW_STANDARD_ARTIFACTS_CAPTURED = YES
 S1_REVIEWER_ALIAS_ACCOUNTABLE_SIGNOFF_RC005 = SIGNED_YES_CAPTURED_BY_USER_CONFIRMATION
 S1_GO_NOGO_REVIEWER_ALIAS_SIGNOFF = CLOSED_BY_USER_CONFIRMED_7_ALIAS_YES
+S1_LOCAL_OFFLINE_GO_NOGO_READINESS_RC006 = GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY
+S1_LOCAL_OFFLINE_RC_CHAIN = READY_WITH_BOUNDARIES
+CUSTOMER_VISIBLE_OR_DEPLOY_GO = NOT_AUTHORIZED
 ```
 
 ## 3. Tracker
@@ -54,8 +57,9 @@ FRONTEND_ARTIFACT_VIEW_AVAILABLE_IN_LOCAL_RC_PACKAGE
 REVIEWER_SIGNOFF_CAPTURED_FOR_MVP_FIXTURE_RUN_BY_USER_CONFIRMATION
 S1_GO_NOGO_REVIEWER_ALIAS_SIGNOFF_CAPTURED_BY_USER_CONFIRMATION
 RC005_7_ALIAS_SIGNOFF_CAPTURED_BY_USER_CONFIRMATION
+RC006_S1_LOCAL_OFFLINE_GO_NOGO_READINESS_CLOSEOUT_COMPLETE
 ```
 
 ## 5. Non-Authorization
 
-This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, execution-mechanics start, the MVP fixture runner output, and the RC-005 seven-alias accountable mapping plus signed YES capture state. RC-005 sign-off capture closes the reviewer-alias blocker only. This tracker does not record customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
+This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, execution-mechanics start, the MVP fixture runner output, the RC-005 seven-alias accountable mapping plus signed YES capture state, and the RC-006 local/offline Go/No-Go readiness closeout. RC-006 authorizes internal local/offline review readiness only. This tracker does not record customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
