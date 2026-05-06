@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.s1.local_demo_package_manifest.v1",
-  "generated_at_utc": "2026-05-06T05:09:43Z",
+  "generated_at_utc": "2026-05-06T06:03:12Z",
   "source_artifact_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001",
   "package_dir": "artifacts/local_demo_packages/s1-closed-shadow-2026-04-30-001",
   "package_artifacts": [
@@ -59,6 +59,16 @@
       "path": "RUN_RECORD.md",
       "sha256": "b0c58bcf49626265a89af379145676dcee01d17b1c85035a204e0c2a05b04bd5",
       "bytes": 758,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "REVIEWER_README.md",
+      "path": "REVIEWER_README.md",
+      "sha256": "745bd482836e3cd1f8f0dcf6717ff2f17146d294b935116afe468def435c2ca0",
+      "bytes": 1280,
       "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
       "contains_raw_payload": false,
       "contains_secret_or_token": false,

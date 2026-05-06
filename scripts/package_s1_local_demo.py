@@ -42,6 +42,7 @@ FORBIDDEN_LEAF_KEYS = {
 }
 
 DEFAULT_RETENTION_CLASS = "S1_CLOSED_SHADOW_EVIDENCE_METADATA"
+REVIEWER_README_FILE = "REVIEWER_README.md"
 
 FORBIDDEN_TEXT_PATTERNS = tuple(
     re.compile(pattern, re.IGNORECASE)
@@ -177,7 +178,55 @@ def build_retention_map(manifest: dict[str, Any]) -> dict[str, str]:
     return retention_map
 
 
-def package_artifacts(artifact_dir: Path, output_dir: Path) -> tuple[int, list[str]]:
+def build_reviewer_readme(artifact_dir: Path, output_dir: Path) -> str:
+    return (
+        "# SecuPilot S1 Local Demo Package\n\n"
+        "## Scope\n\n"
+        "This package is for local/offline reviewer inspection only.\n\n"
+        "Allowed review:\n\n"
+        "```text\n"
+        "synthetic S1 run status\n"
+        "metadata-only case summary\n"
+        "artifact manifest and SHA256 values\n"
+        "safety scan summary\n"
+        "reviewer notes and follow-up decisions\n"
+        "```\n\n"
+        "Not allowed from this package:\n\n"
+        "```text\n"
+        "real data\n"
+        "masked-real data\n"
+        "live Qwen/API calls\n"
+        "live connector setup\n"
+        "production credentials\n"
+        "production write-back\n"
+        "customer-visible publish/deploy\n"
+        "external pilot execution\n"
+        "```\n\n"
+        "## Files\n\n"
+        "Start with `package_manifest.json`, then inspect `final_status.json`, "
+        "`case_summary.json`, `artifact_manifest.json`, and `safety_scan.json`.\n\n"
+        "Source artifact root:\n\n"
+        "```text\n"
+        f"{portable_path(artifact_dir)}\n"
+        "```\n\n"
+        "Package root:\n\n"
+        "```text\n"
+        f"{portable_path(output_dir)}\n"
+        "```\n\n"
+        "## Reviewer Checks\n\n"
+        "```text\n"
+        "run status is understandable\n"
+        "case count matches expected synthetic bundle\n"
+        "evidence references are metadata-only\n"
+        "no raw payloads, credentials, tokens, auth headers, or customer logs appear\n"
+        "no write-back or deployment path appears\n"
+        "reviewer action is clear\n"
+        "```\n\n"
+        "Record feedback in the repo feedback form or a governed review note without pasting raw customer data or secrets.\n"
+    )
+
+
+def package_artifacts(artifact_dir: Path, output_dir: Path, include_reviewer_readme: bool = False) -> tuple[int, list[str]]:
     loaded, errors = validate_artifact_dir(artifact_dir)
     if errors:
         return HOLD, errors
@@ -214,6 +263,26 @@ def package_artifacts(artifact_dir: Path, output_dir: Path) -> tuple[int, list[s
             }
         )
 
+    if include_reviewer_readme:
+        readme_path = output_dir / REVIEWER_README_FILE
+        readme_path.write_text(build_reviewer_readme(artifact_dir, output_dir), encoding="utf-8")
+        text = readme_path.read_text(encoding="utf-8")
+        for pattern in FORBIDDEN_TEXT_PATTERNS:
+            if pattern.search(text):
+                return HOLD, [f"{REVIEWER_README_FILE}: forbidden text pattern {pattern.pattern}"]
+        package_entries.append(
+            {
+                "file_name": REVIEWER_README_FILE,
+                "path": REVIEWER_README_FILE,
+                "sha256": file_sha256(readme_path),
+                "bytes": readme_path.stat().st_size,
+                "retention_class": DEFAULT_RETENTION_CLASS,
+                "contains_raw_payload": False,
+                "contains_secret_or_token": False,
+                "contains_customer_visible_artifact": False,
+            }
+        )
+
     package_manifest_path = output_dir / "package_manifest.json"
     package_manifest = {
         "schema_version": "secupilot.s1.local_demo_package_manifest.v1",
@@ -233,6 +302,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build local S1 demo package from artifact directory.")
     parser.add_argument("--artifact-dir", required=True)
     parser.add_argument("--output-dir", required=True)
+    parser.add_argument("--include-reviewer-readme", action="store_true")
     return parser.parse_args(argv)
 
 
@@ -241,7 +311,7 @@ def run(argv: list[str] | None = None) -> int:
     artifact_dir = Path(args.artifact_dir).resolve()
     output_dir = Path(args.output_dir).resolve()
 
-    code, errors = package_artifacts(artifact_dir, output_dir)
+    code, errors = package_artifacts(artifact_dir, output_dir, include_reviewer_readme=args.include_reviewer_readme)
     if code == PASS:
         print(f"PASS: local demo package created at {output_dir}")
         return PASS

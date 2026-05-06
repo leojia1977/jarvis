@@ -145,6 +145,50 @@ class PackageS1LocalDemoTests(unittest.TestCase):
             self.assertEqual(packager.PASS, code)
             self.assertTrue((output_dir / "package_manifest.json").exists())
 
+    def test_include_reviewer_readme_adds_manifest_entry(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp) / "package"
+
+            code, errors = packager.package_artifacts(
+                FIXTURE_DIR,
+                output_dir,
+                include_reviewer_readme=True,
+            )
+
+            self.assertEqual(packager.PASS, code)
+            self.assertEqual([], errors)
+            readme_path = output_dir / packager.REVIEWER_README_FILE
+            self.assertTrue(readme_path.exists())
+            readme = readme_path.read_text(encoding="utf-8")
+            self.assertIn("local/offline reviewer inspection only", readme)
+            self.assertIn("live Qwen/API calls", readme)
+            manifest = json.loads((output_dir / "package_manifest.json").read_text(encoding="utf-8"))
+            readme_entries = [
+                item
+                for item in manifest["package_artifacts"]
+                if item["file_name"] == packager.REVIEWER_README_FILE
+            ]
+            self.assertEqual(1, len(readme_entries))
+            self.assertEqual(packager.DEFAULT_RETENTION_CLASS, readme_entries[0]["retention_class"])
+            self.assertFalse(readme_entries[0]["contains_raw_payload"])
+
+    def test_run_cli_can_include_reviewer_readme(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp) / "package"
+
+            code = packager.run(
+                [
+                    "--artifact-dir",
+                    str(FIXTURE_DIR),
+                    "--output-dir",
+                    str(output_dir),
+                    "--include-reviewer-readme",
+                ]
+            )
+
+            self.assertEqual(packager.PASS, code)
+            self.assertTrue((output_dir / packager.REVIEWER_README_FILE).exists())
+
 
 if __name__ == "__main__":
     unittest.main()
