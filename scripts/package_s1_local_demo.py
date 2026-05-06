@@ -43,6 +43,8 @@ FORBIDDEN_LEAF_KEYS = {
 
 DEFAULT_RETENTION_CLASS = "S1_CLOSED_SHADOW_EVIDENCE_METADATA"
 REVIEWER_README_FILE = "REVIEWER_README.md"
+SCREENSHOT_SOURCE_DIR = "playwright"
+SCREENSHOT_EXTENSIONS = {".png", ".jpg", ".jpeg"}
 
 FORBIDDEN_TEXT_PATTERNS = tuple(
     re.compile(pattern, re.IGNORECASE)
@@ -178,7 +180,12 @@ def build_retention_map(manifest: dict[str, Any]) -> dict[str, str]:
     return retention_map
 
 
-def build_reviewer_readme(artifact_dir: Path, output_dir: Path) -> str:
+def build_reviewer_readme(artifact_dir: Path, output_dir: Path, include_screenshots: bool = False) -> str:
+    screenshot_note = (
+        "\nVisual screenshots are packaged under `playwright/`.\n"
+        if include_screenshots
+        else "\nVisual screenshots may be reviewed from the source artifact `playwright/` directory when present.\n"
+    )
     return (
         "# SecuPilot S1 Local Demo Package\n\n"
         "## Scope\n\n"
@@ -204,7 +211,8 @@ def build_reviewer_readme(artifact_dir: Path, output_dir: Path) -> str:
         "```\n\n"
         "## Files\n\n"
         "Start with `package_manifest.json`, then inspect `final_status.json`, "
-        "`case_summary.json`, `artifact_manifest.json`, and `safety_scan.json`.\n\n"
+        "`case_summary.json`, `artifact_manifest.json`, and `safety_scan.json`.\n"
+        f"{screenshot_note}\n"
         "Source artifact root:\n\n"
         "```text\n"
         f"{portable_path(artifact_dir)}\n"
@@ -226,7 +234,23 @@ def build_reviewer_readme(artifact_dir: Path, output_dir: Path) -> str:
     )
 
 
-def package_artifacts(artifact_dir: Path, output_dir: Path, include_reviewer_readme: bool = False) -> tuple[int, list[str]]:
+def collect_screenshots(artifact_dir: Path) -> list[Path]:
+    screenshot_dir = artifact_dir / SCREENSHOT_SOURCE_DIR
+    if not screenshot_dir.exists():
+        return []
+    return [
+        path
+        for path in sorted(screenshot_dir.iterdir())
+        if path.is_file() and path.suffix.lower() in SCREENSHOT_EXTENSIONS
+    ]
+
+
+def package_artifacts(
+    artifact_dir: Path,
+    output_dir: Path,
+    include_reviewer_readme: bool = False,
+    include_screenshots: bool = False,
+) -> tuple[int, list[str]]:
     loaded, errors = validate_artifact_dir(artifact_dir)
     if errors:
         return HOLD, errors
@@ -263,9 +287,38 @@ def package_artifacts(artifact_dir: Path, output_dir: Path, include_reviewer_rea
             }
         )
 
+    if include_screenshots:
+        screenshots = collect_screenshots(artifact_dir)
+        if not screenshots:
+            return HOLD, [f"no screenshots found under {SCREENSHOT_SOURCE_DIR}/"]
+        screenshot_output_dir = output_dir / SCREENSHOT_SOURCE_DIR
+        screenshot_output_dir.mkdir(parents=True, exist_ok=True)
+        for src in screenshots:
+            dst = screenshot_output_dir / src.name
+            source_sha256 = file_sha256(src)
+            shutil.copy2(src, dst)
+            copy_sha256 = file_sha256(dst)
+            if copy_sha256 != source_sha256:
+                return HOLD, [f"copy hash mismatch for {SCREENSHOT_SOURCE_DIR}/{src.name}"]
+            package_entries.append(
+                {
+                    "file_name": src.name,
+                    "path": f"{SCREENSHOT_SOURCE_DIR}/{src.name}",
+                    "sha256": source_sha256,
+                    "bytes": dst.stat().st_size,
+                    "retention_class": DEFAULT_RETENTION_CLASS,
+                    "contains_raw_payload": False,
+                    "contains_secret_or_token": False,
+                    "contains_customer_visible_artifact": False,
+                }
+            )
+
     if include_reviewer_readme:
         readme_path = output_dir / REVIEWER_README_FILE
-        readme_path.write_text(build_reviewer_readme(artifact_dir, output_dir), encoding="utf-8")
+        readme_path.write_text(
+            build_reviewer_readme(artifact_dir, output_dir, include_screenshots=include_screenshots),
+            encoding="utf-8",
+        )
         text = readme_path.read_text(encoding="utf-8")
         for pattern in FORBIDDEN_TEXT_PATTERNS:
             if pattern.search(text):
@@ -303,6 +356,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--artifact-dir", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--include-reviewer-readme", action="store_true")
+    parser.add_argument("--include-screenshots", action="store_true")
     return parser.parse_args(argv)
 
 
@@ -311,7 +365,12 @@ def run(argv: list[str] | None = None) -> int:
     artifact_dir = Path(args.artifact_dir).resolve()
     output_dir = Path(args.output_dir).resolve()
 
-    code, errors = package_artifacts(artifact_dir, output_dir, include_reviewer_readme=args.include_reviewer_readme)
+    code, errors = package_artifacts(
+        artifact_dir,
+        output_dir,
+        include_reviewer_readme=args.include_reviewer_readme,
+        include_screenshots=args.include_screenshots,
+    )
     if code == PASS:
         print(f"PASS: local demo package created at {output_dir}")
         return PASS

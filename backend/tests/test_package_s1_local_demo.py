@@ -189,6 +189,49 @@ class PackageS1LocalDemoTests(unittest.TestCase):
             self.assertEqual(packager.PASS, code)
             self.assertTrue((output_dir / packager.REVIEWER_README_FILE).exists())
 
+    def test_include_screenshots_adds_manifest_entries(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp) / "package"
+
+            code, errors = packager.package_artifacts(
+                FIXTURE_DIR,
+                output_dir,
+                include_reviewer_readme=True,
+                include_screenshots=True,
+            )
+
+            self.assertEqual(packager.PASS, code)
+            self.assertEqual([], errors)
+            self.assertTrue((output_dir / "playwright" / "s1-run-desktop.png").exists())
+            self.assertTrue((output_dir / "playwright" / "s1-run-mobile.png").exists())
+            manifest = json.loads((output_dir / "package_manifest.json").read_text(encoding="utf-8"))
+            screenshot_paths = {
+                item["path"]
+                for item in manifest["package_artifacts"]
+                if item["path"].startswith("playwright/")
+            }
+            self.assertEqual(
+                {"playwright/s1-run-desktop.png", "playwright/s1-run-mobile.png"},
+                screenshot_paths,
+            )
+            readme = (output_dir / packager.REVIEWER_README_FILE).read_text(encoding="utf-8")
+            self.assertIn("Visual screenshots are packaged under `playwright/`", readme)
+
+    def test_include_screenshots_holds_when_missing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact_dir = Path(tmp) / "artifact"
+            output_dir = Path(tmp) / "package"
+            self._copy_fixture(artifact_dir)
+
+            code, errors = packager.package_artifacts(
+                artifact_dir,
+                output_dir,
+                include_screenshots=True,
+            )
+
+            self.assertEqual(packager.HOLD, code)
+            self.assertTrue(any("no screenshots found under playwright/" in err for err in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -31,6 +31,8 @@ external pilot execution
 
 Start with `package_manifest.json`, then inspect `final_status.json`, `case_summary.json`, `artifact_manifest.json`, and `safety_scan.json`.
 
+Visual screenshots are packaged under `playwright/`.
+
 Source artifact root:
 
 ```text
