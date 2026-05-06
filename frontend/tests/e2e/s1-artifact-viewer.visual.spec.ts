@@ -24,6 +24,17 @@ async function assertS1VisualBoundary(page: Page) {
   await expect(page.getByTestId("s1-final-outcome")).toContainText(
     "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
   );
+  const reviewPanel = page.getByTestId("s1-local-review-panel");
+  await expect(reviewPanel).toBeVisible();
+  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_002");
+  await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
+  await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
+  await expect(page.getByTestId("s1-selected-review-decision")).toContainText(
+    "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC"
+  );
+  await expect(page.getByTestId("s1-review-record-preview")).toContainText(
+    '"production_writeback": false'
+  );
   await expect(page.getByTestId("s1-artifact-row")).toHaveCount(5);
   await expect(page.getByTestId("s1-case-row")).toHaveCount(20);
   await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);

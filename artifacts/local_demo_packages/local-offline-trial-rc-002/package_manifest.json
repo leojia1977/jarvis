@@ -1,0 +1,98 @@
+{
+  "schema_version": "secupilot.s1.local_demo_package_manifest.v1",
+  "generated_at_utc": "2026-05-06T10:36:39Z",
+  "source_artifact_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001",
+  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-002",
+  "package_artifacts": [
+    {
+      "file_name": "run_record.json",
+      "path": "run_record.json",
+      "sha256": "a229362348df05ef6acaa70a22837e7c967084bb505f26c177f93970e3161b57",
+      "bytes": 2445,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "safety_scan.json",
+      "path": "safety_scan.json",
+      "sha256": "1feb98bc48a6a9e681f06a2cd3e325e5d3d8d2ba0e7dbd773ea7284f1973cf15",
+      "bytes": 1152,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "case_summary.json",
+      "path": "case_summary.json",
+      "sha256": "58a2fddfbada698e9215ad61e652bd240d28ed21a9acd1f7fa5525a8e2a9c6af",
+      "bytes": 16430,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "final_status.json",
+      "path": "final_status.json",
+      "sha256": "45f57750a303b42596ef30eb013b96d30b65759725741c1fa5e8b18d43692690",
+      "bytes": 1804,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "artifact_manifest.json",
+      "path": "artifact_manifest.json",
+      "sha256": "9f83b0963309a319e3e8fc68fc4a1efa837ea8fc08ac899c6f0ffaaf3b9bf646",
+      "bytes": 2600,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "RUN_RECORD.md",
+      "path": "RUN_RECORD.md",
+      "sha256": "b0c58bcf49626265a89af379145676dcee01d17b1c85035a204e0c2a05b04bd5",
+      "bytes": 758,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "s1-run-desktop.png",
+      "path": "playwright/s1-run-desktop.png",
+      "sha256": "b1e108c632c9288404ba76268ff069d9c329b3e8b9f595df7644de69915231ad",
+      "bytes": 360201,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "s1-run-mobile.png",
+      "path": "playwright/s1-run-mobile.png",
+      "sha256": "72aafb2518d7965e8ab4670bc32c5f2c2600b0c2a74f6955a5ec39ccef60d12b",
+      "bytes": 260547,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    },
+    {
+      "file_name": "REVIEWER_README.md",
+      "path": "REVIEWER_README.md",
+      "sha256": "3a5ec88135e3e49a0f6b4dbf52e3d9220537f3fa29c90cbb4591a257b5cfd94a",
+      "bytes": 1451,
+      "retention_class": "S1_CLOSED_SHADOW_EVIDENCE_METADATA",
+      "contains_raw_payload": false,
+      "contains_secret_or_token": false,
+      "contains_customer_visible_artifact": false
+    }
+  ]
+}

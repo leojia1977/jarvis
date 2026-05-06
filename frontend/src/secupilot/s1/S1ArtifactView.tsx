@@ -1,5 +1,9 @@
-import { Activity, FileText, Lock, ShieldCheck } from "lucide-react";
-import { S1_CLOSED_SHADOW_RUN_ARTIFACTS } from "./s1ClosedShadowRunArtifacts";
+import { useMemo, useState } from "react";
+import { Activity, ClipboardCheck, FileText, Lock, ShieldCheck } from "lucide-react";
+import {
+  S1_CLOSED_SHADOW_RUN_ARTIFACTS,
+  type S1LocalReviewDecision
+} from "./s1ClosedShadowRunArtifacts";
 
 function yesNo(value: boolean): string {
   return value ? "YES" : "NO";
@@ -11,6 +15,38 @@ function shaShort(value: string): string {
 
 export function S1ArtifactView() {
   const run = S1_CLOSED_SHADOW_RUN_ARTIFACTS;
+  const [reviewDecision, setReviewDecision] = useState<S1LocalReviewDecision>(
+    run.localReview.defaultDecision
+  );
+  const [reviewNotes, setReviewNotes] = useState<string>(run.localReview.defaultNotes);
+
+  const localReviewRecord = useMemo(
+    () => ({
+      schema_version: run.localReview.schemaVersion,
+      candidate: run.localReview.candidate,
+      source_candidate: run.localReview.sourceCandidate,
+      run_id: run.runId,
+      reviewer: run.localReview.reviewer,
+      decision: reviewDecision,
+      notes: reviewNotes,
+      record_scope: "LOCAL_BROWSER_PREVIEW_ONLY",
+      state_mutation: "none",
+      artifact_write: false,
+      qwen_api_call: false,
+      connector_call: false,
+      customer_visible_output: false,
+      production_writeback: false
+    }),
+    [
+      reviewDecision,
+      reviewNotes,
+      run.localReview.candidate,
+      run.localReview.reviewer,
+      run.localReview.schemaVersion,
+      run.localReview.sourceCandidate,
+      run.runId
+    ]
+  );
 
   const boundaryFacts = [
     {
@@ -149,6 +185,80 @@ export function S1ArtifactView() {
           </dl>
           <p data-testid="s1-pass-hold-reason">{run.passHoldReason}</p>
         </article>
+      </section>
+
+      <section
+        aria-labelledby="s1-local-review-title"
+        className="s1-artifact-panel s1-review-panel"
+        data-artifact-write="false"
+        data-connector-call="false"
+        data-customer-visible-output="false"
+        data-production-writeback="false"
+        data-qwen-api-call="false"
+        data-review-scope={run.localReview.candidate}
+        data-source-candidate={run.localReview.sourceCandidate}
+        data-state-mutation="none"
+        data-testid="s1-local-review-panel"
+      >
+        <div className="s1-panel-title">
+          <ClipboardCheck aria-hidden="true" size={18} />
+          <h2 id="s1-local-review-title">Local Review Decision</h2>
+        </div>
+        <div className="s1-review-layout">
+          <div className="s1-review-controls">
+            <div className="s1-review-current">
+              <span>Candidate</span>
+              <strong>{run.localReview.candidate}</strong>
+            </div>
+            <div
+              aria-label="Local review decision options"
+              className="s1-review-decision-grid"
+              role="group"
+            >
+              {run.localReview.allowedDecisions.map((decision) => (
+                <button
+                  aria-pressed={decision === reviewDecision}
+                  className={decision === reviewDecision ? "is-selected" : undefined}
+                  data-decision={decision}
+                  data-testid="s1-review-decision-option"
+                  key={decision}
+                  onClick={() => setReviewDecision(decision)}
+                  type="button"
+                >
+                  {decision}
+                </button>
+              ))}
+            </div>
+            <label className="s1-review-notes-field">
+              <span>Reviewer notes</span>
+              <textarea
+                aria-label="Reviewer notes"
+                data-testid="s1-review-notes"
+                onChange={(event) => setReviewNotes(event.target.value)}
+                value={reviewNotes}
+              />
+            </label>
+          </div>
+          <div className="s1-review-preview">
+            <dl className="s1-review-facts">
+              <div>
+                <dt>Selected decision</dt>
+                <dd data-testid="s1-selected-review-decision">{reviewDecision}</dd>
+              </div>
+              <div>
+                <dt>Preview scope</dt>
+                <dd>LOCAL_BROWSER_PREVIEW_ONLY</dd>
+              </div>
+            </dl>
+            <div className="s1-review-record-preview" data-testid="s1-review-record-preview">
+              {JSON.stringify(localReviewRecord, null, 2)
+                .split("\n")
+                .map((line, index) => (
+                  <code key={`${index}-${line}`}>{line}</code>
+                ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="s1-artifact-panel">

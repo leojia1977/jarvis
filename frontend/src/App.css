@@ -1802,6 +1802,145 @@ button {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.s1-review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.s1-review-controls,
+.s1-review-preview {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.s1-review-current {
+  border: 1px solid #dce8e8;
+  border-radius: 7px;
+  background: #f5faf9;
+  padding: 10px;
+}
+
+.s1-review-current span,
+.s1-review-notes-field span,
+.s1-review-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.s1-review-current strong {
+  display: block;
+  margin-top: 4px;
+  color: #243140;
+  overflow-wrap: anywhere;
+}
+
+.s1-review-decision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.s1-review-decision-grid button {
+  min-height: 42px;
+  border: 1px solid #cfd8dd;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #263544;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.s1-review-decision-grid button.is-selected {
+  border-color: #267f62;
+  background: #eaf7f1;
+  color: #15543f;
+  box-shadow: inset 3px 0 0 #267f62;
+}
+
+.s1-review-notes-field {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.s1-review-notes-field textarea {
+  min-height: 104px;
+  resize: vertical;
+  border: 1px solid #cfd8dd;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #243140;
+  padding: 10px;
+  font: inherit;
+  line-height: 1.45;
+}
+
+.s1-review-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.9fr);
+  gap: 10px;
+  margin: 0;
+}
+
+.s1-review-facts > div {
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 7px;
+  background: #f8fbf6;
+  padding: 10px;
+}
+
+.s1-review-facts dd {
+  margin: 4px 0 0;
+  color: #243140;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.s1-review-record-preview {
+  box-sizing: border-box;
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 310px;
+  margin: 12px 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid #d7e0e2;
+  border-radius: 7px;
+  background: #17212b;
+  color: #edf6f3;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.s1-review-record-preview code {
+  display: block;
+  min-width: 0;
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  word-break: break-all;
+}
+
 .s1-table-shell {
   margin-top: 14px;
   overflow-x: auto;
@@ -2960,6 +3099,9 @@ button {
   .history-approval-audit-facts,
   .s1-run-header-facts,
   .s1-kpi-grid,
+  .s1-review-layout,
+  .s1-review-decision-grid,
+  .s1-review-facts,
   .s1-boundary-grid,
   .s1-status-facts,
   .approval-facts,

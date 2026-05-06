@@ -196,9 +196,49 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-qwen-autonomy")).toHaveTextContent("NO");
     expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("NO");
     expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("NO");
+    const reviewPanel = screen.getByTestId("s1-local-review-panel");
+    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_002");
+    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_001");
+    expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
+    expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
+    expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
+    expect(reviewPanel).toHaveAttribute("data-connector-call", "false");
+    expect(screen.getAllByTestId("s1-review-decision-option")).toHaveLength(4);
+    expect(screen.getByTestId("s1-selected-review-decision")).toHaveTextContent(
+      "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC"
+    );
+    expect(screen.getByTestId("s1-review-record-preview")).toHaveTextContent(
+      '"artifact_write": false'
+    );
+    expect(screen.getByTestId("s1-review-record-preview")).toHaveTextContent(
+      '"qwen_api_call": false'
+    );
     expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
     expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
+      .not.toBeInTheDocument();
+  });
+
+  it("updates the S1 local review record preview without artifact writes", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /S1 Run/i }));
+    await user.click(screen.getByRole("button", { name: "HOLD_FOR_FIXES" }));
+    await user.clear(screen.getByTestId("s1-review-notes"));
+    await user.type(screen.getByTestId("s1-review-notes"), "Hold pending RC-002 reviewer note.");
+
+    const reviewPanel = screen.getByTestId("s1-local-review-panel");
+    const preview = screen.getByTestId("s1-review-record-preview");
+
+    expect(screen.getByTestId("s1-selected-review-decision")).toHaveTextContent("HOLD_FOR_FIXES");
+    expect(preview).toHaveTextContent('"decision": "HOLD_FOR_FIXES"');
+    expect(preview).toHaveTextContent('"notes": "Hold pending RC-002 reviewer note."');
+    expect(preview).toHaveTextContent('"state_mutation": "none"');
+    expect(preview).toHaveTextContent('"artifact_write": false');
+    expect(preview).toHaveTextContent('"customer_visible_output": false');
+    expect(preview).toHaveTextContent('"production_writeback": false');
+    expect(within(reviewPanel).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
   });
 

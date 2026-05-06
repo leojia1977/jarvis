@@ -162,6 +162,8 @@ class PackageS1LocalDemoTests(unittest.TestCase):
             readme = readme_path.read_text(encoding="utf-8")
             self.assertIn("local/offline reviewer inspection only", readme)
             self.assertIn("live Qwen/API calls", readme)
+            self.assertIn("local browser review decision preview", readme)
+            self.assertIn("does not write artifacts or call external systems", readme)
             manifest = json.loads((output_dir / "package_manifest.json").read_text(encoding="utf-8"))
             readme_entries = [
                 item

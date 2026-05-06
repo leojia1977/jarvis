@@ -17,6 +17,12 @@ export interface S1CaseSummaryEntry {
   reviewerAction: string;
 }
 
+export type S1LocalReviewDecision =
+  | "PASS_TO_NEXT_LOCAL_RC"
+  | "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC"
+  | "HOLD_FOR_FIXES"
+  | "NO_GO_FOR_CURRENT_PRODUCT_PATH";
+
 export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   schemaVersion: "secupilot.s1.frontend_fixture.v1",
   runId: "S1-CLOSED-SHADOW-2026-04-30-001",
@@ -52,6 +58,21 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
     qwenAutonomousAction: false,
     rawPayloadRetention: false,
     secretRetention: false
+  },
+  localReview: {
+    schemaVersion: "secupilot.s1.local_review_record.v1",
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_002",
+    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_001",
+    reviewer: "LOCAL_REVIEWER",
+    defaultDecision: "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC" satisfies S1LocalReviewDecision,
+    allowedDecisions: [
+      "PASS_TO_NEXT_LOCAL_RC",
+      "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC",
+      "HOLD_FOR_FIXES",
+      "NO_GO_FOR_CURRENT_PRODUCT_PATH"
+    ] satisfies S1LocalReviewDecision[],
+    defaultNotes:
+      "RC-001 package is self-contained and ready for the next local/offline RC iteration."
   },
   artifacts: [
     {
