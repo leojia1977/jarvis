@@ -1,0 +1,86 @@
+Now I have enough to report. Here are the findings, ordered by severity:
+
+---
+
+## 审查结论 — `codex/s3-a-runtime`
+
+### 严重 (HIGH)
+
+**1. `main.py:34` — 原始异常字符串直接返回给客户端**
+```python
+def _internal_error(self, exc: Exception) -> None:
+    self._write_json(500, {"status": "error", "error": "internal_error", "detail": str(exc)})
+```
+所有未捕获的异常（数据库错误、IO 错误、网络错误）都通过 `str(exc)` 完整序列化进 HTTP 响应体。如果异常携带内部路径、连接串、堆栈摘要等信息，均对调用方可见。`do_GET` / `do_POST` 的 `except Exception` 也走此路径（`main.py:64, 113`）。
+
+**2. `runtime_service.py:107, 397` — 绝对文件路径暴露在客户 API 响应中**
+```python
+"store_path": str(self.settings.get_case_store_path())  # line 107
+"case_store_path": str(self.settings.get_case_store_path())  # line 397
+```
+`_case_store_details()` 的返回值被嵌入 `POST /api/v1/cases` 的响应体（`runtime_service.py:593`）；同一字段也出现在 `GET /ready` 响应中。这将完整绝对路径（如 `C:\Users\Administrator\...`）暴露给调用方，泄漏部署拓扑和 OS 用户名。
+
+---
+
+### 中 (MEDIUM)
+
+**3. `edr_adapter.py:451` — JSONDecodeError 内容片段进入 gap_reason**
+```python
+gap_reason=f"edr_source_invalid_json:{exc}",
+```
+`json.JSONDecodeError` 的 `str()` 包含出错位置附近的原始内容片段。若 EDR 源文件含敏感告警载荷（IP、主机名、用户名），该片段会被传入 `AdapterResult.gap_reason`，后续可能随 case 记录持久化或出现在日志中。
+
+**4. `edr_adapter.py:469, 452` — OSError 含绝对路径进入 gap_reason 和 metadata**
+```python
+gap_reason=f"edr_source_read_failed:{exc}",   # OSError includes full path
+metadata={"path": str(selected_path)},          # absolute path in metadata
+```
+两个字段都将本地文件系统绝对路径带入 `AdapterResult`，在错误路径下可能随 case 响应传播。
+
+**5. `siem_adapter.py:788` — SIEM 响应片段进入 gap_reason**
+```python
+gap_reason=f"production_transport_bad_response:{exc}",
+```
+`json.JSONDecodeError` 的 `str()` 携带 SIEM 响应的原始字节片段。若 SIEM 在错误响应中回显了 session token 或内部地址，这些内容会进入 `gap_reason`。
+
+**6. `persistent_case.py` — `frozen=True` 无法阻止嵌套集合的原地修改**
+`CanonicalProcessEvent.extra: dict`、`ProcessEventBatch.events: list`、`PersistentCaseRecord.action_requests` 等字段在 `frozen=True` 的 dataclass 中仍然是可变的容器。调用方可以执行 `record.action_requests.append(...)` 而不触发任何异常，绕过生命周期管控。代码中已有注释提到这一风险，但未做运行时防护（如 `tuple` 化或拷贝检查）。
+
+**7. `runtime_service.py:469` — `asyncio.run()` 在 `ThreadingHTTPServer` 线程中调用**
+每个请求在独立线程中执行 `asyncio.run()`，每次创建并销毁事件循环。在并发请求场景下，若 pipeline 内部使用了进程级单例（如已初始化的 async 资源），可能引发竞争或资源泄漏。当前 MVP 体量下不会崩溃，但随 pipeline 复杂度上升风险增加。
+
+---
+
+### 低 (LOW)
+
+**8. `main.py:62` — 404 响应回显原始请求路径**
+```python
+self._write_json(404, {"status": "error", "error": "not_found", "path": self.path})
+```
+将未净化的 `self.path` 直接写入响应，可被用于路径枚举确认。
+
+**9. `config.py` — `service_version: str = "3.2.0-s3a"` 携带 Sprint 标记**
+版本号随 `/health` 或 `server_version` 头暴露，向外部披露内部迭代节奏（已在 MEMORY.md P3 中记录为已知问题，此处确认）。
+
+---
+
+### 测试覆盖
+
+- `test_runtime_service.py` 未覆盖 `_internal_error` 路径（即触发 500 时的响应结构）；异常泄漏路径无测试验证。
+- `persistent_case.py` 中没有测试验证冻结 dataclass 的嵌套字段在 append/update 操作后是否有副作用保护。
+
+---
+
+### 总结
+
+| 编号 | 位置 | 类别 | 严重度 |
+|---|---|---|---|
+| 1 | `main.py:34` | 原始异常泄漏至客户端 | HIGH |
+| 2 | `runtime_service.py:107,397` | 绝对路径进入 API 响应 | HIGH |
+| 3 | `edr_adapter.py:451` | JSONDecodeError 片段入 gap_reason | MEDIUM |
+| 4 | `edr_adapter.py:469,452` | OSError 路径入 gap_reason/metadata | MEDIUM |
+| 5 | `siem_adapter.py:788` | SIEM 响应片段入 gap_reason | MEDIUM |
+| 6 | `persistent_case.py` | frozen dataclass 嵌套集合可变 | MEDIUM |
+| 7 | `runtime_service.py:469` | asyncio.run() 在线程池中 | MEDIUM |
+| 8 | `main.py:62` | 请求路径回显于 404 | LOW |
+| 9 | `config.py` | 版本号含 Sprint 标记 | LOW |

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -42,6 +43,25 @@ FORBIDDEN_LEAF_KEYS = {
 
 DEFAULT_RETENTION_CLASS = "S1_CLOSED_SHADOW_EVIDENCE_METADATA"
 
+FORBIDDEN_TEXT_PATTERNS = tuple(
+    re.compile(pattern, re.IGNORECASE)
+    for pattern in (
+        r"authorization\s*[:=]\s*\S+",
+        r"bearer\s+[A-Za-z0-9._~+/=-]{12,}",
+        r"api[_-]?key\s*[:=]\s*\S+",
+        r"secret\s*[:=]\s*\S+",
+        r"token\s*[:=]\s*\S+",
+        r"private[_-]?key\s*[:=]\s*\S+",
+        r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
+        r"raw_payload\s*[:=]",
+        r"raw_evidence\s*[:=]",
+        r"host_raw_evidence\s*[:=]",
+        r"customer_visible_message\s*[:=]",
+        r"writeback_action\s*[:=]",
+        r"production_connector_output\s*[:=]",
+    )
+)
+
 
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -56,18 +76,29 @@ def read_json(path: Path) -> Any:
         return json.load(handle)
 
 
-def flatten_json(obj: Any, prefix: str = "") -> list[tuple[str, Any]]:
+def portable_path(path: Path, base: Path | None = None) -> str:
+    resolved = path.resolve()
+    base = (base or Path.cwd()).resolve()
+    try:
+        return resolved.relative_to(base).as_posix()
+    except ValueError:
+        return path.name
+
+
+def flatten_json(obj: Any, prefix: str = "", depth: int = 0, max_depth: int = 32) -> list[tuple[str, Any]]:
     fields: list[tuple[str, Any]] = []
+    if depth > max_depth:
+        raise ValueError(f"JSON nesting exceeds max depth {max_depth} at {prefix or '<root>'}")
     if isinstance(obj, dict):
         for key, value in obj.items():
             field_path = f"{prefix}.{key}" if prefix else str(key)
             fields.append((field_path, value))
-            fields.extend(flatten_json(value, field_path))
+            fields.extend(flatten_json(value, field_path, depth + 1, max_depth))
     elif isinstance(obj, list):
         for index, value in enumerate(obj):
             field_path = f"{prefix}[{index}]"
             fields.append((field_path, value))
-            fields.extend(flatten_json(value, field_path))
+            fields.extend(flatten_json(value, field_path, depth + 1, max_depth))
     return fields
 
 
@@ -89,12 +120,26 @@ def validate_artifact_dir(artifact_dir: Path) -> tuple[dict[str, Any] | None, li
                 errors.append(f"{name}: invalid JSON ({exc.msg})")
             except OSError as exc:
                 errors.append(f"{name}: read error ({exc})")
+        elif path.suffix.lower() in {".md", ".txt"}:
+            try:
+                text = path.read_text(encoding="utf-8")
+            except OSError as exc:
+                errors.append(f"{name}: read error ({exc})")
+                continue
+            for pattern in FORBIDDEN_TEXT_PATTERNS:
+                if pattern.search(text):
+                    errors.append(f"{name}: forbidden text pattern {pattern.pattern}")
 
     if errors:
         return None, errors
 
     for file_name, payload in loaded.items():
-        for field_path, _ in flatten_json(payload):
+        try:
+            fields = flatten_json(payload)
+        except ValueError as exc:
+            errors.append(f"{file_name}: {exc}")
+            continue
+        for field_path, _ in fields:
             leaf = field_path.split(".")[-1].split("[")[0].strip().lower()
             if leaf in FORBIDDEN_LEAF_KEYS:
                 errors.append(f"{file_name}: forbidden field key {field_path}")
@@ -137,7 +182,9 @@ def package_artifacts(artifact_dir: Path, output_dir: Path) -> tuple[int, list[s
     if errors:
         return HOLD, errors
 
-    assert loaded is not None
+    if loaded is None:
+        return HOLD, ["artifact validation produced no loaded metadata"]
+
     output_dir.mkdir(parents=True, exist_ok=True)
 
     source_manifest = loaded["artifact_manifest.json"]
@@ -149,12 +196,16 @@ def package_artifacts(artifact_dir: Path, output_dir: Path) -> tuple[int, list[s
     for name in REQUIRED_ARTIFACT_FILES:
         src = artifact_dir / name
         dst = output_dir / name
+        source_sha256 = file_sha256(src)
         shutil.copy2(src, dst)
+        copy_sha256 = file_sha256(dst)
+        if copy_sha256 != source_sha256:
+            return HOLD, [f"copy hash mismatch for {name}"]
         package_entries.append(
             {
                 "file_name": name,
-                "path": str(dst.as_posix()),
-                "sha256": file_sha256(dst),
+                "path": name,
+                "sha256": source_sha256,
                 "bytes": dst.stat().st_size,
                 "retention_class": retention_map.get(name, DEFAULT_RETENTION_CLASS),
                 "contains_raw_payload": False,
@@ -167,8 +218,8 @@ def package_artifacts(artifact_dir: Path, output_dir: Path) -> tuple[int, list[s
     package_manifest = {
         "schema_version": "secupilot.s1.local_demo_package_manifest.v1",
         "generated_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "source_artifact_dir": str(artifact_dir.as_posix()),
-        "package_dir": str(output_dir.as_posix()),
+        "source_artifact_dir": portable_path(artifact_dir),
+        "package_dir": portable_path(output_dir),
         "package_artifacts": package_entries,
     }
     package_manifest_path.write_text(

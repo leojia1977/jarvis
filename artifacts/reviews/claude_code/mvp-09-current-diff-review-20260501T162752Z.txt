@@ -1,0 +1,61 @@
+**MVP-08 review — `scripts/package_s1_local_demo.py` + `backend/tests/test_package_s1_local_demo.py` + committed artifact**
+
+---
+
+## MEDIUM
+
+**M1 — Absolute local Windows paths committed in the output artifact**
+`artifacts/local_demo_packages/s1-closed-shadow-2026-04-30-001/package_manifest.json:4-5,9,19,29,...`
+
+The committed `package_manifest.json` contains the operator's full local path in three places:
+- `source_artifact_dir`: `"D:/产品设计/New folder/artifacts/..."`
+- `package_dir`: same root
+- every `package_artifacts[n].path`: same root
+
+This is produced by `scripts/package_s1_local_demo.py:171-172`. The purpose of a "local demo package" is presumably to hand to a reviewer; the absolute path leaks the operator's filesystem layout in every copy. The committed artifact already has this in the repo.
+
+**M2 — `RUN_RECORD.md` is copied but never scanned for forbidden content**
+`scripts/package_s1_local_demo.py:85-91, 96-100`
+
+The forbidden-key check at line 85 gates on `path.suffix.lower() == ".json"`, so only JSON files are loaded and scanned. `RUN_RECORD.md` is in `REQUIRED_ARTIFACT_FILES`, copied into the package, but its content is never checked. If forbidden data (credential strings, customer-visible text) is in the markdown, validation passes silently.
+
+---
+
+## LOW
+
+**L1 — `assert` used as a guard that vanishes under `python -O`**
+`scripts/package_s1_local_demo.py:140`
+
+```python
+assert loaded is not None   # stripped by -O
+```
+
+In `package_artifacts`, after the early-return on error (lines 137-138), `loaded` is guaranteed non-None by the logic. The `assert` is therefore purely defensive, but defensive `assert` is problematic because `-O` silently removes it. Replace with an explicit check or restructure to make the invariant clear without `assert`.
+
+**L2 — Missing test for manifest flag path**
+`backend/tests/test_package_s1_local_demo.py`
+
+The three tests cover: happy path, missing required file, and a forbidden field key. No test exercises the `artifact_manifest.json` flag checks at `scripts/package_s1_local_demo.py:110-116` — specifically `contains_raw_payload=true`, `contains_secret_or_token=true`, `contains_customer_visible_artifact=true`. That branch has no coverage.
+
+Also missing: test for invalid JSON in a required file (exercises the `JSONDecodeError` branch at line 88), and no test that exercises the `run()` / `main()` CLI entry points with `--artifact-dir` / `--output-dir`.
+
+**L3 — SHA-256 computed on the destination copy, not verified against source**
+`scripts/package_s1_local_demo.py:152,157`
+
+```python
+shutil.copy2(src, dst)
+...
+"sha256": file_sha256(dst),   # hashes the copy, not the source
+```
+
+If `shutil.copy2` produced a corrupt or truncated file (OS-level error that didn't raise), the manifest would record a hash of the bad copy. Hashing the source before copying, and either verifying the copy matches or hashing the source directly, is more reliable.
+
+---
+
+## No findings
+
+- No network calls, no production write-back, no live credentials anywhere in the script.
+- `customer_visible_message`, `writeback_action`, `production_connector_output` are all in `FORBIDDEN_LEAF_KEYS` and are correctly rejected with `HOLD`.
+- The fixture in `artifacts/s1_closed_shadow_runs/2026-04-30-001/` passes the forbidden-key check (verified by the happy-path test and by inspection).
+- No overengineering; the code is appropriately sized for the task.
+- `FORBIDDEN_LEAF_KEYS` is case-insensitive at check time (`.lower()` on line 98) — correct.

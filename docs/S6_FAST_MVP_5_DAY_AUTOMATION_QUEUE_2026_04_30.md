@@ -57,6 +57,8 @@ the ordered queue is exhausted
 the next item would require real data, live connector, live Qwen, deploy, or customer-visible output
 ```
 
+Recoverable review-tool HOLDs must not be retried indefinitely. If a review command produces out-of-scope findings twice, preserve the raw evidence, write a scope-filtered closeout, reject out-of-scope findings for the current Fast MVP queue item, remediate only accepted in-scope findings, and resume only after item verification plus fast gate pass.
+
 ## 4. Queue
 
 | Order | Item | Deliverable | Main files | Verification |
@@ -336,6 +338,14 @@ If MVP-04 through MVP-13 finish before the five-day window ends, remaining sched
 
 ```text
 FAST_MVP_QUEUE_EXHAUSTED_NO_IDLE_LOOP
+```
+
+MVP-09 resume marker:
+
+```text
+If docs/S6_FAST_MVP_MVP_09_CLAUDE_REVIEW_CAPTURE_CLOSEOUT_2026_05_01.md records
+MVP_09_CLOSED_WITH_SCOPE_FILTERED_FINDINGS_REMEDIATED, automation must not rerun MVP-09.
+It should resume at MVP-10.
 ```
 
 ## 8. Later Extension Candidates
