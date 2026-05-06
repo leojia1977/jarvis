@@ -21,7 +21,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-writeback")).toContainText("NO");
     await expect(page.getByTestId("s1-production-deploy")).toContainText("NO");
     const reviewPanel = page.getByTestId("s1-local-review-panel");
-    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_002");
+    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_003");
     await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     await expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
@@ -50,7 +50,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-connectors")).toContainText("NO");
     await expect(page.getByTestId("s1-local-review-panel")).toHaveAttribute(
       "data-source-candidate",
-      "LOCAL_OFFLINE_TRIAL_RC_001"
+      "LOCAL_OFFLINE_TRIAL_RC_002"
     );
   });
 });

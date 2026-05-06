@@ -26,7 +26,7 @@ async function assertS1VisualBoundary(page: Page) {
   );
   const reviewPanel = page.getByTestId("s1-local-review-panel");
   await expect(reviewPanel).toBeVisible();
-  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_002");
+  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_003");
   await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
   await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
   await expect(page.getByTestId("s1-selected-review-decision")).toContainText(

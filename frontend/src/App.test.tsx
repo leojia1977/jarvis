@@ -197,8 +197,8 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("NO");
     expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("NO");
     const reviewPanel = screen.getByTestId("s1-local-review-panel");
-    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_002");
-    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_001");
+    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_003");
+    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_002");
     expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");

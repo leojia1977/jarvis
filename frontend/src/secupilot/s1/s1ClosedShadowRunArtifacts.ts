@@ -61,8 +61,8 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   },
   localReview: {
     schemaVersion: "secupilot.s1.local_review_record.v1",
-    candidate: "LOCAL_OFFLINE_TRIAL_RC_002",
-    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_001",
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_003",
+    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_002",
     reviewer: "LOCAL_REVIEWER",
     defaultDecision: "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC" satisfies S1LocalReviewDecision,
     allowedDecisions: [
@@ -72,7 +72,7 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
       "NO_GO_FOR_CURRENT_PRODUCT_PATH"
     ] satisfies S1LocalReviewDecision[],
     defaultNotes:
-      "RC-001 package is self-contained and ready for the next local/offline RC iteration."
+      "RC-002 passed with notes; RC-003 aligns local review wording and package naming for the next local/offline review."
   },
   artifacts: [
     {
