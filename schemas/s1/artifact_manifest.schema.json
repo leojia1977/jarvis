@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secupilot.local/schemas/s1/artifact_manifest.schema.json",
+  "title": "SecuPilot S1 Artifact Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_dir",
+    "artifacts",
+    "generated_at_utc",
+    "manifest_self"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "secupilot.s1.artifact_manifest.v1"
+    },
+    "artifact_dir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file_name",
+          "path",
+          "sha256",
+          "retention_class",
+          "retain_allowed",
+          "contains_raw_payload",
+          "contains_secret_or_token",
+          "contains_customer_visible_artifact"
+        ],
+        "properties": {
+          "file_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "minLength": 64
+          },
+          "retention_class": {
+            "const": "S1_CLOSED_SHADOW_EVIDENCE_METADATA"
+          },
+          "retain_allowed": {
+            "type": "boolean"
+          },
+          "contains_raw_payload": {
+            "type": "boolean"
+          },
+          "contains_secret_or_token": {
+            "type": "boolean"
+          },
+          "contains_customer_visible_artifact": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "minLength": 1
+    },
+    "manifest_self": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

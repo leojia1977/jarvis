@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secupilot.local/schemas/s1/case_summary.schema.json",
+  "title": "SecuPilot S1 Case Summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_count",
+    "cases",
+    "provider",
+    "qwen_used"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "secupilot.s1.case_summary.v1"
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "evidence_metadata_refs",
+          "expected_outcome",
+          "provider_decision_hint",
+          "reviewer_action",
+          "severity",
+          "source_id",
+          "summary",
+          "tags",
+          "title"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_metadata_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "expected_outcome": {
+            "type": "string",
+            "minLength": 1
+          },
+          "provider_decision_hint": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reviewer_action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tags": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "provider": {
+      "enum": [
+        "fixture",
+        "external-output"
+      ]
+    },
+    "qwen_used": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
   "schema_version": "secupilot.fast_mvp_queue.status.v1",
-  "generated_at_utc": "2026-05-06T05:10:00Z",
-  "status": "MVP_09_CLOSED_WITH_SCOPE_FILTERED_FINDINGS_REMEDIATED",
-  "item": "mvp-09",
-  "detail": "MVP-09 review capture closed after scope filtering; broad backend findings rejected for this queue; accepted MVP-08 package-builder findings remediated; queue can resume at MVP-10.",
-  "mode": "mvp-09"
+  "generated_at_utc": "2026-05-06T05:53:50Z",
+  "status": "PASS",
+  "item": "mvp-10",
+  "detail": "Completed requested Fast MVP queue command.",
+  "mode": "mvp-10"
 }

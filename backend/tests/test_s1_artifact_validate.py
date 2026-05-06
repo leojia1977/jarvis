@@ -13,6 +13,7 @@ from scripts import s1_artifact_validate as validator  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FIXTURE_DIR = REPO_ROOT / "artifacts" / "s1_closed_shadow_runs" / "2026-04-30-001"
+SCHEMA_DIR = REPO_ROOT / "schemas" / "s1"
 
 
 class S1ArtifactValidateTests(unittest.TestCase):
@@ -26,6 +27,45 @@ class S1ArtifactValidateTests(unittest.TestCase):
         code, errors = validator.validate_artifact_dir(FIXTURE_DIR)
         self.assertEqual(validator.PASS, code)
         self.assertEqual([], errors)
+
+    def test_validate_repo_fixture_passes_with_schemas(self):
+        code, errors = validator.validate_artifact_dir(FIXTURE_DIR, schema_dir=SCHEMA_DIR)
+        self.assertEqual(validator.PASS, code)
+        self.assertEqual([], errors)
+
+    def test_missing_schema_holds(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            schema_dir = Path(tmp) / "schemas"
+            schema_dir.mkdir(parents=True)
+            for schema_name in validator.SCHEMA_FILE_BY_ARTIFACT.values():
+                if schema_name == "run_record.schema.json":
+                    continue
+                source = SCHEMA_DIR / schema_name
+                schema_dir.joinpath(schema_name).write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+            code, errors = validator.validate_artifact_dir(FIXTURE_DIR, schema_dir=schema_dir)
+
+            self.assertEqual(validator.HOLD, code)
+            self.assertTrue(any("missing schema: run_record.schema.json" in err for err in errors))
+
+    def test_schema_violation_holds(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            artifact_dir = Path(tmp) / "artifacts"
+            self._copy_fixture(artifact_dir)
+
+            run_record_path = artifact_dir / "run_record.json"
+            run_record = json.loads(run_record_path.read_text(encoding="utf-8"))
+            broken = copy.deepcopy(run_record)
+            broken["case_count"] = "20"
+            run_record_path.write_text(json.dumps(broken, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            code, errors = validator.validate_artifact_dir(artifact_dir, schema_dir=SCHEMA_DIR)
+
+            self.assertEqual(validator.HOLD, code)
+            self.assertTrue(
+                any("run_record.json: schema violation" in err and "case_count" in err for err in errors),
+                errors,
+            )
 
     def test_missing_required_file_holds(self):
         with tempfile.TemporaryDirectory() as tmp:

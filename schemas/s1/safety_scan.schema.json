@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secupilot.local/schemas/s1/safety_scan.schema.json",
+  "title": "SecuPilot S1 Safety Scan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at_utc",
+    "findings",
+    "input_package_scan",
+    "provider_output_scan",
+    "rules",
+    "runtime_boundary_findings",
+    "scanner_scope",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "secupilot.s1.safety_scan.v1"
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "minLength": 1
+    },
+    "findings": {
+      "type": "array"
+    },
+    "input_package_scan": {
+      "$ref": "#/$defs/scan_result"
+    },
+    "provider_output_scan": {
+      "$ref": "#/$defs/scan_result"
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "runtime_boundary_findings": {
+      "type": "array"
+    },
+    "scanner_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_count",
+        "hold_count",
+        "matched_values_retained",
+        "no_go_count"
+      ],
+      "properties": {
+        "finding_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hold_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "matched_values_retained": {
+          "type": "boolean"
+        },
+        "no_go_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "scan_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "findings",
+        "label",
+        "scanned_fields",
+        "scanned_string_values"
+      ],
+      "properties": {
+        "findings": {
+          "type": "array"
+        },
+        "input_kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "object_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scanned_fields": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scanned_string_values": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

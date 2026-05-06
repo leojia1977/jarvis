@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secupilot.local/schemas/s1/final_status.schema.json",
+  "title": "SecuPilot S1 Final Status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "exit_code",
+    "final_outcome",
+    "boundaries_preserved",
+    "can_deploy_to_customer_production",
+    "can_show_in_local_demo",
+    "frontend_status_fields",
+    "next_step",
+    "pass_hold_reason",
+    "required_reviewers",
+    "reviewer_action"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "secupilot.s1.final_status.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exit_code": {
+      "type": "integer"
+    },
+    "final_outcome": {
+      "enum": [
+        "S1_CLOSED_SHADOW_PASS",
+        "S1_CLOSED_SHADOW_PASS_WITH_NOTES",
+        "S1_CLOSED_SHADOW_HOLD",
+        "S1_CLOSED_SHADOW_NO_GO"
+      ]
+    },
+    "boundaries_preserved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "customer_visible_output",
+        "production_connectors",
+        "qwen_autonomous_action",
+        "raw_payload_retention",
+        "secret_retention",
+        "writeback"
+      ],
+      "properties": {
+        "customer_visible_output": {
+          "type": "boolean"
+        },
+        "production_connectors": {
+          "type": "boolean"
+        },
+        "qwen_autonomous_action": {
+          "type": "boolean"
+        },
+        "raw_payload_retention": {
+          "type": "boolean"
+        },
+        "secret_retention": {
+          "type": "boolean"
+        },
+        "writeback": {
+          "type": "boolean"
+        }
+      }
+    },
+    "can_deploy_to_customer_production": {
+      "type": "boolean"
+    },
+    "can_show_in_local_demo": {
+      "type": "boolean"
+    },
+    "frontend_status_fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_summary_artifact",
+        "evidence_list_artifact",
+        "hold_pass_reason",
+        "reviewer_action",
+        "s1_run_status"
+      ],
+      "properties": {
+        "case_summary_artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_list_artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hold_pass_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "s1_run_status": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "next_step": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pass_hold_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "required_reviewers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "alias",
+          "role"
+        ],
+        "properties": {
+          "alias": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "reviewer_action": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
