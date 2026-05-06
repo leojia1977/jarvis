@@ -21,12 +21,12 @@ S1_CLOSED_SHADOW_RUN_ID = S1-CLOSED-SHADOW-2026-04-30-001
 S1_CLOSED_SHADOW_RUN_OPERATOR = Codex / authorized operator
 S1_CLOSED_SHADOW_EVIDENCE_ROOT = artifacts/s1_closed_shadow_runs/2026-04-30-001/
 S1_CLOSED_SHADOW_START_DATE = 2026-04-30
-S1_CLOSED_SHADOW_RUN_STATUS = PASS_WITH_NOTES_FOR_MVP_FIXTURE_REVIEW_REQUIRED
+S1_CLOSED_SHADOW_RUN_STATUS = PASS_WITH_NOTES_LOCAL_OFFLINE_REVIEW_SIGNOFF_CAPTURED
 S1_CLOSED_SHADOW_RUNNER = scripts/s1_closed_shadow_run.py
 S1_CLOSED_SHADOW_INPUT = mock_data/s0_synthetic/qwen_fact_bundle
 S1_CLOSED_SHADOW_STANDARD_ARTIFACTS_CAPTURED = YES
-S1_REVIEWER_ALIAS_ACCOUNTABLE_SIGNOFF_RC005 = MAPPED_TO_7_REQUIRED_ALIASES_PENDING_FINAL_SIGNOFF_CAPTURE
-S1_GO_NOGO_REVIEWER_ALIAS_SIGNOFF = BLOCKED_ON_7_ALIAS_SIGNOFF_CAPTURE
+S1_REVIEWER_ALIAS_ACCOUNTABLE_SIGNOFF_RC005 = SIGNED_YES_CAPTURED_BY_USER_CONFIRMATION
+S1_GO_NOGO_REVIEWER_ALIAS_SIGNOFF = CLOSED_BY_USER_CONFIRMED_7_ALIAS_YES
 ```
 
 ## 3. Tracker
@@ -50,12 +50,12 @@ NO_EVIDENCE_REFERENCE_BLOCKERS_REMAIN_AFTER_USER_CONFIRMATION
 S1_CLOSED_SHADOW_AUTHORIZED_ASSERTED_REFS_CLOSED_EXECUTION_MECHANICS_STARTED
 CODEX_S1_EXECUTION_MECHANICS_STARTED
 MVP_FIXTURE_RUN_OUTPUT_CAPTURED
-FRONTEND_ARTIFACT_VIEW_PENDING
-REVIEWER_SIGNOFF_PENDING_FOR_MVP_FIXTURE_RUN
-S1_GO_NOGO_REVIEWER_ALIAS_SIGNOFF_PENDING
-RC005_7_ALIAS_ACCOUNTABLE_MAPPING_READY_PENDING_SIGNOFF_CAPTURE
+FRONTEND_ARTIFACT_VIEW_AVAILABLE_IN_LOCAL_RC_PACKAGE
+REVIEWER_SIGNOFF_CAPTURED_FOR_MVP_FIXTURE_RUN_BY_USER_CONFIRMATION
+S1_GO_NOGO_REVIEWER_ALIAS_SIGNOFF_CAPTURED_BY_USER_CONFIRMATION
+RC005_7_ALIAS_SIGNOFF_CAPTURED_BY_USER_CONFIRMATION
 ```
 
 ## 5. Non-Authorization
 
-This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, execution-mechanics start, the MVP fixture runner output, and the RC-005 seven-alias accountable mapping state. RC-005 mapping does not close final sign-off capture. This tracker does not record customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
+This tracker records user/Jarvis asserted S1 Closed Shadow authorization, formal-reference closure, execution-mechanics start, the MVP fixture runner output, and the RC-005 seven-alias accountable mapping plus signed YES capture state. RC-005 sign-off capture closes the reviewer-alias blocker only. This tracker does not record customer-visible output, backend/runtime/API/schema change, connector change, deploy, production write-back, external pilot, production launch, or Qwen autonomous approval/rejection/blocking/closure/ActionMode choice.
