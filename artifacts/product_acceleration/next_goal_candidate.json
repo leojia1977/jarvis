@@ -1,22 +1,22 @@
 {
   "status": "PASS",
   "schema_version": "secupilot.next_mvp_goal_candidate.v1",
-  "generated_at_local": "2026-05-08T04:47:42",
+  "generated_at_local": "2026-05-08T07:50:05",
   "repo_root": "D:/产品设计/New folder",
   "latest_backlog_json": "D:/产品设计/New folder/artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "selection_mode": "CONCRETE_BLOCKER",
   "candidate_goal": {
     "queue_key": "QUEUE_EXHAUSTED_REQUIRE_NEW_PRODUCT_GOAL",
-    "goal_id": "GOAL-MVP-58_QUEUE_EXHAUSTED",
+    "goal_id": "GOAL-MVP-61_QUEUE_EXHAUSTED",
     "goal_type": "script",
     "statement": "All predefined queue goals appear completed; require one new explicit product-acceleration goal definition.",
     "exact_files": [
-      "docs/goals/GOAL-MVP-58_QUEUE_EXHAUSTED.md",
+      "docs/goals/GOAL-MVP-61_QUEUE_EXHAUSTED.md",
       "scripts/close_reviewer_backlog_items.py",
-      "docs/S6_FAST_MVP_GOAL-MVP-58_QUEUE_EXHAUSTED_2026_05_08.md"
+      "docs/S6_FAST_MVP_GOAL-MVP-61_QUEUE_EXHAUSTED_2026_05_08.md"
     ],
     "acceptance_commands": [
-      "py -3 scripts/validate_codex_goal_card.py docs/goals/GOAL-MVP-58_QUEUE_EXHAUSTED.md",
+      "py -3 scripts/validate_codex_goal_card.py docs/goals/GOAL-MVP-61_QUEUE_EXHAUSTED.md",
       "py -3 scripts/close_reviewer_backlog_items.py --help",
       "git -c core.quotepath=false diff --check"
     ],
