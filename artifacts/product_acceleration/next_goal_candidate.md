@@ -1,25 +1,25 @@
 # SecuPilot Next MVP Goal Candidate
 
-Generated at: 2026-05-08T03:50:31
+Generated at: 2026-05-08T04:47:42
 
 Selection mode: CONCRETE_BLOCKER
 
 ## Candidate Goal
 
 - queue_key: QUEUE_EXHAUSTED_REQUIRE_NEW_PRODUCT_GOAL
-- goal_id: GOAL-MVP-57_QUEUE_EXHAUSTED
+- goal_id: GOAL-MVP-58_QUEUE_EXHAUSTED
 - goal_type: script
 - statement: All predefined queue goals appear completed; require one new explicit product-acceleration goal definition.
 
 ## Exact Files
 
-- docs/goals/GOAL-MVP-57_QUEUE_EXHAUSTED.md
+- docs/goals/GOAL-MVP-58_QUEUE_EXHAUSTED.md
 - scripts/close_reviewer_backlog_items.py
-- docs/S6_FAST_MVP_GOAL-MVP-57_QUEUE_EXHAUSTED_2026_05_08.md
+- docs/S6_FAST_MVP_GOAL-MVP-58_QUEUE_EXHAUSTED_2026_05_08.md
 
 ## Acceptance Commands
 
-- py -3 scripts/validate_codex_goal_card.py docs/goals/GOAL-MVP-57_QUEUE_EXHAUSTED.md
+- py -3 scripts/validate_codex_goal_card.py docs/goals/GOAL-MVP-58_QUEUE_EXHAUSTED.md
 - py -3 scripts/close_reviewer_backlog_items.py --help
 - git -c core.quotepath=false diff --check
 
