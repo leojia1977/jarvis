@@ -1690,6 +1690,12 @@ button {
   padding: 18px;
 }
 
+.s1-result-hero {
+  align-items: start;
+  border-color: #c9ddd6;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
+}
+
 .s1-trial-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1720,6 +1726,14 @@ button {
   line-height: 1.55;
 }
 
+.s1-result-lede {
+  max-width: 820px;
+  margin: 10px 0 0;
+  color: #4f5d6b;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
 .s1-artifact-panel h2 {
   font-size: 20px;
 }
@@ -1739,6 +1753,15 @@ button {
 .s1-run-header-facts,
 .s1-trial-header-facts {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.s1-result-facts {
+  max-width: 960px;
+}
+
+.s1-result-facts dd {
+  font-size: 13px;
+  line-height: 1.3;
 }
 
 .s1-run-header-facts > div,
@@ -1829,6 +1852,58 @@ button {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+}
+
+.s1-result-highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.s1-result-highlight-grid article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid #d9e4df;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(32, 46, 61, 0.05);
+  padding: 14px;
+}
+
+.s1-result-highlight-icon {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 7px;
+  background: #e7f2ee;
+  color: #1f684f;
+}
+
+.s1-result-highlight-grid span:not(.s1-result-highlight-icon) {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.s1-result-highlight-grid strong {
+  display: block;
+  margin-top: 4px;
+  color: #18202b;
+  font-size: 16px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.s1-result-highlight-grid p {
+  margin: 8px 0 0;
+  color: #5d6875;
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .s1-product-entry-grid article {
@@ -2238,6 +2313,8 @@ button {
 }
 
 .s1-review-decision-grid button {
+  display: grid;
+  gap: 3px;
   min-height: 42px;
   border: 1px solid #cfd8dd;
   border-radius: 7px;
@@ -2251,11 +2328,27 @@ button {
   text-align: left;
 }
 
+.s1-review-decision-grid button strong {
+  color: inherit;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.s1-review-decision-grid button span {
+  color: #667085;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
 .s1-review-decision-grid button.is-selected {
   border-color: #267f62;
   background: #eaf7f1;
   color: #15543f;
   box-shadow: inset 3px 0 0 #267f62;
+}
+
+.s1-review-decision-grid button.is-selected span {
+  color: #15543f;
 }
 
 .s1-review-notes-field {
@@ -2401,6 +2494,67 @@ button {
   font-size: 12px;
   font-weight: 800;
   overflow-wrap: anywhere;
+}
+
+.s1-technical-details {
+  padding: 0;
+}
+
+.s1-technical-details summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+  padding: 18px;
+  list-style: none;
+}
+
+.s1-technical-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.s1-technical-details summary > span:last-child {
+  color: #667085;
+  font-size: 12px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.s1-technical-details summary::after {
+  content: "+";
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid #cfd8dd;
+  border-radius: 7px;
+  color: #314255;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.s1-technical-details[open] summary {
+  border-bottom: 1px solid #e3e8df;
+}
+
+.s1-technical-details[open] summary::after {
+  content: "-";
+}
+
+.s1-technical-section {
+  padding: 18px;
+}
+
+.s1-technical-section + .s1-technical-section {
+  border-top: 1px solid #edf1ee;
+}
+
+.s1-technical-section h2 {
+  margin: 0;
+  color: #18202b;
+  font-size: 18px;
+  letter-spacing: 0;
 }
 
 .s1-table-shell {
@@ -3576,6 +3730,7 @@ button {
   .s1-trial-package-facts,
   .s1-trial-boundary-grid,
   .s1-product-entry-grid,
+  .s1-result-highlight-grid,
   .s1-feedback-layout,
   .s1-provider-mode-grid,
   .approval-facts,
@@ -3586,6 +3741,10 @@ button {
   .coverage-health-kpi-grid,
   .coverage-health-diagnostic-grid,
   .coverage-health-slot-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .s1-technical-details summary {
     grid-template-columns: 1fr;
   }
 

@@ -187,6 +187,10 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-final-outcome")).toHaveTextContent(
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
+    expect(screen.getByRole("heading", { name: "本地离线试用结果" })).toBeInTheDocument();
+    expect(screen.getByTestId("s1-result-decision")).toHaveTextContent(
+      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    );
     expect(screen.getByTestId("s1-run-id")).toHaveTextContent(
       "S1-CLOSED-SHADOW-2026-04-30-001"
     );
@@ -230,6 +234,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getAllByTestId("s1-review-boundary-check")).toHaveLength(6);
     expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
     expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
+    expect(screen.getByTestId("s1-technical-reconciliation")).not.toHaveAttribute("open");
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
   });
@@ -299,7 +304,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     render(<App />);
 
     await user.click(screen.getByRole("button", { name: /S1 证据/i }));
-    await user.click(screen.getByRole("button", { name: "HOLD_FOR_FIXES" }));
+    await user.click(screen.getByRole("button", { name: /HOLD_FOR_FIXES/ }));
     await user.clear(screen.getByTestId("s1-review-notes"));
     await user.type(screen.getByTestId("s1-review-notes"), "Hold pending RC-002 reviewer note.");
 

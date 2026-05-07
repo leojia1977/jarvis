@@ -1,5 +1,13 @@
 import { useMemo, useState } from "react";
-import { Activity, ClipboardCheck, FileText, Lock, ShieldCheck } from "lucide-react";
+import {
+  Activity,
+  CheckCircle2,
+  ClipboardCheck,
+  FileText,
+  Lock,
+  PackageCheck,
+  ShieldCheck
+} from "lucide-react";
 import {
   S1_CLOSED_SHADOW_RUN_ARTIFACTS,
   type S1LocalReviewDecision
@@ -12,6 +20,13 @@ function yesNo(value: boolean): string {
 function shaShort(value: string): string {
   return value.slice(0, 12);
 }
+
+const REVIEW_DECISION_LABELS: Record<S1LocalReviewDecision, string> = {
+  PASS_TO_NEXT_LOCAL_RC: "通过，进入下一轮本地 RC",
+  PASS_WITH_NOTES_TO_NEXT_LOCAL_RC: "带备注通过",
+  HOLD_FOR_FIXES: "暂停，先修复",
+  NO_GO_FOR_CURRENT_PRODUCT_PATH: "当前路径不通过"
+};
 
 export function S1ArtifactView() {
   const run = S1_CLOSED_SHADOW_RUN_ARTIFACTS;
@@ -92,18 +107,21 @@ export function S1ArtifactView() {
       data-runtime-source="none"
       data-testid="s1-artifact-view"
     >
-      <header className="s1-run-header">
+      <header className="s1-run-header s1-result-hero">
         <div>
-          <p className="summary-kicker">S1 证据查看器</p>
-          <h1 id="s1-artifact-title">S1 Closed Shadow 运行证据</h1>
-          <dl className="s1-run-header-facts">
+          <p className="summary-kicker">本地离线结果</p>
+          <h1 id="s1-artifact-title">本地离线试用结果</h1>
+          <p className="s1-result-lede">
+            本轮使用 synthetic fixture 完成 20 个案例检查，安全扫描无命中；当前结果仅用于内部本地评审，不授权客户可见输出或生产部署。
+          </p>
+          <dl className="s1-run-header-facts s1-result-facts">
             <div>
-              <dt>Run ID</dt>
-              <dd data-testid="s1-run-id">{run.runId}</dd>
+              <dt>候选版本</dt>
+              <dd>{run.localReview.candidate}</dd>
             </div>
             <div>
-              <dt>GO 记录</dt>
-              <dd>{run.goRecordRef}</dd>
+              <dt>运行编号</dt>
+              <dd data-testid="s1-run-id">{run.runId}</dd>
             </div>
             <div>
               <dt>数据模式</dt>
@@ -117,9 +135,42 @@ export function S1ArtifactView() {
         </span>
       </header>
 
+      <section aria-label="试用结果摘要" className="s1-result-highlight-grid">
+        <article>
+          <span className="s1-result-highlight-icon">
+            <CheckCircle2 aria-hidden="true" size={18} />
+          </span>
+          <div>
+            <span>当前结论</span>
+            <strong data-testid="s1-result-decision">{run.finalOutcome}</strong>
+            <p>{run.passHoldReason}</p>
+          </div>
+        </article>
+        <article>
+          <span className="s1-result-highlight-icon">
+            <ShieldCheck aria-hidden="true" size={18} />
+          </span>
+          <div>
+            <span>安全边界</span>
+            <strong>未发现越界</strong>
+            <p>真实数据、live Qwen/API、connector、生产写回和客户可见输出均为否。</p>
+          </div>
+        </article>
+        <article>
+          <span className="s1-result-highlight-icon">
+            <PackageCheck aria-hidden="true" size={18} />
+          </span>
+          <div>
+            <span>下一步</span>
+            <strong>{run.nextStep}</strong>
+            <p>评审者可基于本地离线包继续给出 RC 结论。</p>
+          </div>
+        </article>
+      </section>
+
       <section aria-label="S1 run facts" className="s1-kpi-grid">
         <article>
-          <span>提供方</span>
+          <span>离线 provider</span>
           <strong data-testid="s1-provider">{run.provider}</strong>
           <p>{run.inputKind}</p>
         </article>
@@ -138,7 +189,7 @@ export function S1ArtifactView() {
         <article>
           <span>Qwen 调用</span>
           <strong data-testid="s1-qwen-used">{yesNo(run.qwenUsed)}</strong>
-          <p>{run.reviewerAction}</p>
+          <p>仅本地 fixture 路径</p>
         </article>
       </section>
 
@@ -202,7 +253,7 @@ export function S1ArtifactView() {
       >
         <div className="s1-panel-title">
           <ClipboardCheck aria-hidden="true" size={18} />
-          <h2 id="s1-local-review-title">本地评审决定</h2>
+          <h2 id="s1-local-review-title">本地评审结论</h2>
         </div>
         <div className="s1-review-layout">
           <div className="s1-review-controls">
@@ -225,7 +276,8 @@ export function S1ArtifactView() {
                   onClick={() => setReviewDecision(decision)}
                   type="button"
                 >
-                  {decision}
+                  <strong>{REVIEW_DECISION_LABELS[decision]}</strong>
+                  <span>{decision}</span>
                 </button>
               ))}
             </div>
@@ -250,13 +302,9 @@ export function S1ArtifactView() {
                 <dd>LOCAL_BROWSER_PREVIEW_ONLY</dd>
               </div>
             </dl>
-            <div className="s1-review-record-preview" data-testid="s1-review-record-preview">
-              {JSON.stringify(localReviewRecord, null, 2)
-                .split("\n")
-                .map((line, index) => (
-                  <code key={`${index}-${line}`}>{line}</code>
-                ))}
-            </div>
+            <p>
+              此预览不会写入 artifact、不会调用后端、不会调用 Qwen/API/connectors。
+            </p>
           </div>
         </div>
       </section>
@@ -320,70 +368,88 @@ export function S1ArtifactView() {
         </div>
       </section>
 
-      <section className="s1-artifact-panel">
-        <div className="s1-panel-title">
-          <FileText aria-hidden="true" size={18} />
-          <h2>Artifact 清单</h2>
-        </div>
-        <div className="s1-table-shell">
-          <table className="s1-artifact-table">
-            <thead>
-              <tr>
-                <th scope="col">文件</th>
-                <th scope="col">留存级别</th>
-                <th scope="col">SHA256</th>
-                <th scope="col">原始载荷</th>
-                <th scope="col">密钥</th>
-                <th scope="col">客户可见</th>
-              </tr>
-            </thead>
-            <tbody>
-              {run.artifacts.map((artifact) => (
-                <tr data-testid="s1-artifact-row" key={artifact.fileName}>
-                  <td>
-                    <strong>{artifact.fileName}</strong>
-                    <span>{artifact.path}</span>
-                  </td>
-                  <td>{artifact.retentionClass}</td>
-                  <td>{shaShort(artifact.sha256)}</td>
-                  <td>{yesNo(artifact.containsRawPayload)}</td>
-                  <td>{yesNo(artifact.containsSecretOrToken)}</td>
-                  <td>{yesNo(artifact.containsCustomerVisibleArtifact)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <details
+        className="s1-artifact-panel s1-technical-details"
+        data-testid="s1-technical-reconciliation"
+      >
+        <summary>
+          <span className="s1-panel-title">
+            <FileText aria-hidden="true" size={18} />
+            <span>技术对账信息</span>
+          </span>
+          <span>JSON 预览、artifact 清单、案例摘要</span>
+        </summary>
 
-      <section className="s1-artifact-panel">
-        <div className="s1-panel-title">
-          <ShieldCheck aria-hidden="true" size={18} />
-          <h2>案例摘要</h2>
-        </div>
-        <div className="s1-table-shell">
-          <table className="s1-case-table">
-            <thead>
-              <tr>
-                <th scope="col">案例</th>
-                <th scope="col">标题</th>
-                <th scope="col">来源</th>
-                <th scope="col">决定</th>
-              </tr>
-            </thead>
-            <tbody>
-              {run.cases.map((item) => (
-                <tr data-testid="s1-case-row" key={item.caseId}>
-                  <td>{item.caseId}</td>
-                  <td>{item.title}</td>
-                  <td>{item.sourceId}</td>
-                  <td>{item.decisionHint}</td>
-                </tr>
+        <section aria-label="本地评审记录预览" className="s1-technical-section">
+          <h2>本地评审记录预览</h2>
+          <div className="s1-review-record-preview" data-testid="s1-review-record-preview">
+            {JSON.stringify(localReviewRecord, null, 2)
+              .split("\n")
+              .map((line, index) => (
+                <code key={`${index}-${line}`}>{line}</code>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+          </div>
+        </section>
+
+        <section aria-label="Artifact 清单" className="s1-technical-section">
+          <h2>Artifact 清单</h2>
+          <div className="s1-table-shell">
+            <table className="s1-artifact-table">
+              <thead>
+                <tr>
+                  <th scope="col">文件</th>
+                  <th scope="col">留存级别</th>
+                  <th scope="col">SHA256</th>
+                  <th scope="col">原始载荷</th>
+                  <th scope="col">密钥</th>
+                  <th scope="col">客户可见</th>
+                </tr>
+              </thead>
+              <tbody>
+                {run.artifacts.map((artifact) => (
+                  <tr data-testid="s1-artifact-row" key={artifact.fileName}>
+                    <td>
+                      <strong>{artifact.fileName}</strong>
+                      <span>{artifact.path}</span>
+                    </td>
+                    <td>{artifact.retentionClass}</td>
+                    <td>{shaShort(artifact.sha256)}</td>
+                    <td>{yesNo(artifact.containsRawPayload)}</td>
+                    <td>{yesNo(artifact.containsSecretOrToken)}</td>
+                    <td>{yesNo(artifact.containsCustomerVisibleArtifact)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section aria-label="案例摘要" className="s1-technical-section">
+          <h2>案例摘要</h2>
+          <div className="s1-table-shell">
+            <table className="s1-case-table">
+              <thead>
+                <tr>
+                  <th scope="col">案例</th>
+                  <th scope="col">标题</th>
+                  <th scope="col">来源</th>
+                  <th scope="col">决定</th>
+                </tr>
+              </thead>
+              <tbody>
+                {run.cases.map((item) => (
+                  <tr data-testid="s1-case-row" key={item.caseId}>
+                    <td>{item.caseId}</td>
+                    <td>{item.title}</td>
+                    <td>{item.sourceId}</td>
+                    <td>{item.decisionHint}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </details>
     </section>
   );
 }
