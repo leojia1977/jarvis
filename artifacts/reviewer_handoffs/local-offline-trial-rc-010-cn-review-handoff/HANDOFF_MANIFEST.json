@@ -1,0 +1,100 @@
+{
+  "schema_version": "secupilot.rc_review_handoff_manifest.v1",
+  "generated_at_utc": "2026-05-07T06:25:32.083505Z",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_010_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_009_CN",
+  "package_zip": "rc_package/local-offline-trial-rc-010-cn-review-package-20260507.zip",
+  "screenshot_safety_status": "PASS",
+  "rc_consistency_status": "PASS",
+  "qwen_preview_validation_status": "PASS",
+  "entries": [
+    {
+      "label": "handoff_start_here",
+      "path": "REVIEWER_HANDOFF_START_HERE_中文.md",
+      "bytes": 1153,
+      "sha256": "68ee1624fde75c0a0f4ac9a7fdf0352c2beb327fef770cf172582be423b987ea"
+    },
+    {
+      "label": "reviewer_prompt",
+      "path": "REVIEWER_PROMPT_中文.md",
+      "bytes": 948,
+      "sha256": "4405a899f6f6c91dbcdcf7580e613df1fed179f1fb34e9e85aa56427ef8d6e91"
+    },
+    {
+      "label": "qwen_validation",
+      "path": "qwen_preview/qwen_dry_ui_preview_validation.json",
+      "bytes": 371,
+      "sha256": "5f683615ba93b26bbe2c919b469f2473a32905d139814a874049bdae8b300e13"
+    },
+    {
+      "label": "qwen_preview_screenshot",
+      "path": "qwen_preview/s1-qwen-dry-provider-preview.png",
+      "bytes": 41418,
+      "sha256": "2ff88c7b93468cb1f467b5ba39d08335393175d905668b52421ed132035c7222"
+    },
+    {
+      "label": "qwen_preview_text",
+      "path": "qwen_preview/s1-qwen-dry-provider-preview.text.json",
+      "bytes": 843,
+      "sha256": "8f61d1a5375dfaf9cf4677102142e4959483e8835dccd8c91c27c1c3536dde51"
+    },
+    {
+      "label": "rc_package_zip",
+      "path": "rc_package/local-offline-trial-rc-010-cn-review-package-20260507.zip",
+      "bytes": 1367222,
+      "sha256": "52dc5f47916632a8c71866669648f83345d59e9ff5a55464549655b8b7fa7352"
+    },
+    {
+      "label": "rc_feedback_template",
+      "path": "reviewer_entry/RC010_FEEDBACK_TEMPLATE_中文.md",
+      "bytes": 1133,
+      "sha256": "a08b56ca660aebe46de7c7167fb3fb0d683055cc06d360f7d739031a7ac89b71"
+    },
+    {
+      "label": "rc_package_index",
+      "path": "reviewer_entry/RC010_PACKAGE_INDEX_中文.json",
+      "bytes": 1229,
+      "sha256": "b50f982040b1b70b5dde16c93a2438791fa16f2e7ab6e8a8a76f6298c0985c7c"
+    },
+    {
+      "label": "rc_checklist",
+      "path": "reviewer_entry/RC010_REVIEWER_CHECKLIST_中文.md",
+      "bytes": 1538,
+      "sha256": "8daef546eeccce45a43e99ca8be7e40f24078f18c42d27249fe860ecd486697d"
+    },
+    {
+      "label": "rc_start_here",
+      "path": "reviewer_entry/RC010_REVIEWER_START_HERE_中文.md",
+      "bytes": 1515,
+      "sha256": "3be38c18bd5895bec5d081c4df5ebcd02948171658f90364cb7341b4626b9881"
+    },
+    {
+      "label": "rc_package_manifest",
+      "path": "reviewer_entry/RC010_package_manifest.json",
+      "bytes": 6525,
+      "sha256": "74a90d8ced239d737e7fc2eba9280e9d0df3f94b21583e500f4b15af4b6ef6e4"
+    },
+    {
+      "label": "rc_consistency_check",
+      "path": "validation/rc_consistency_check.json",
+      "bytes": 606,
+      "sha256": "55f3857bdac5a9961440b32a63d64936150873e6fd5bc0905c9f6facede7b640"
+    },
+    {
+      "label": "screenshot_safety_scan",
+      "path": "validation/screenshot_safety_scan.json",
+      "bytes": 2725,
+      "sha256": "2200454f4225df8026c82c7082068061716bf48275210d952c1efcb9fcc50a86"
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "customer_visible_or_deploy_go": false
+}

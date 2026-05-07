@@ -1,0 +1,10 @@
+{
+  "schema_version": "secupilot.s1.qwen_dry_provider_preview_text.v1",
+  "route": "/s1-trial",
+  "provider_mode": "dry_contract_only",
+  "live_qwen_api": false,
+  "live_connectors": false,
+  "production_writeback": false,
+  "autonomous_qwen_action": false,
+  "visible_text": "Dry provider 输入预览\n数据模式\nSYNTHETIC_ONLY\n本地 FIXTURE\nmock_data/s0_synthetic/qwen_fact_bundle\n输入包\nmock_data/qwen_provider_contract/valid_response.json\n案例数\n1\nDry provider 输出预览\n案例\nUAT-01\n风险\nmedium\n人工动作\nREVIEW_AND_SIGNOFF_REQUIRED\n置信度\n0.74\n\nSynthetic metadata indicates a lateral movement pattern that requires human review.\n\n拒绝进入 UI 的字段\n原始载荷字段\n密钥或令牌字段\n认证头字段\n生产连接器输出\n写回动作字段\n自主审批/驳回/关闭字段"
+}
