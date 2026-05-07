@@ -1,0 +1,32 @@
+﻿{
+    "schema_version":  "secupilot.s1.local_offline_trial_launcher.v1",
+    "generated_at_utc":  "2026-05-06T23:58:51.8341478Z",
+    "candidate":  "LOCAL_OFFLINE_TRIAL_RC_006",
+    "route":  "/s1-trial",
+    "local_url":  "http://127.0.0.1:4174/s1-trial",
+    "package_dir":  "artifacts\\local_demo_packages\\s1-closed-shadow-local-offline-trial-rc-004",
+    "reviewer_readme":  "artifacts\\local_demo_packages\\s1-closed-shadow-local-offline-trial-rc-004\\REVIEWER_README.md",
+    "launcher_output_path":  "artifacts\\local_trial_launches\\local-offline-trial-rc-006\\launch_info.json",
+    "server_started":  true,
+    "build_skipped":  true,
+    "check_only":  false,
+    "boundaries":  {
+                       "real_data":  false,
+                       "masked_real_data":  false,
+                       "live_qwen_api":  false,
+                       "live_connectors":  false,
+                       "production_writeback":  false,
+                       "customer_visible_output":  false,
+                       "push":  false
+                   },
+    "required_files":  [
+                           "REVIEWER_README.md",
+                           "package_manifest.json",
+                           "final_status.json",
+                           "case_summary.json",
+                           "artifact_manifest.json",
+                           "safety_scan.json",
+                           "playwright\\s1-run-desktop.png",
+                           "playwright\\s1-run-mobile.png"
+                       ]
+}

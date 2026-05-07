@@ -151,6 +151,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByRole("button", { name: /Inbox/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Search \/ History/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /S1 Run/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 Trial/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Approval Queue/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Coverage & Health/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
@@ -163,6 +164,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     await user.click(screen.getByRole("button", { name: "P2" }));
 
     expect(screen.getByRole("button", { name: /S1 Run/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 Trial/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Approval Queue/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Coverage & Health/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
@@ -197,15 +199,15 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("NO");
     expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("NO");
     const reviewPanel = screen.getByTestId("s1-local-review-panel");
-    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_004");
-    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_003");
+    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_006");
+    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_005");
     expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
     expect(reviewPanel).toHaveAttribute("data-connector-call", "false");
     expect(screen.getAllByTestId("s1-review-decision-option")).toHaveLength(4);
     expect(screen.getByTestId("s1-selected-review-decision")).toHaveTextContent(
-      "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC"
+      "PASS_TO_NEXT_LOCAL_RC"
     );
     expect(screen.getByTestId("s1-review-record-preview")).toHaveTextContent(
       '"artifact_write": false'
@@ -228,6 +230,42 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getAllByTestId("s1-review-boundary-check")).toHaveLength(6);
     expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
     expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
+    expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
+      .not.toBeInTheDocument();
+  });
+
+  it("opens the S1 local offline trial walkthrough without external authority", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /S1 Trial/i }));
+
+    const surface = screen.getByTestId("s1-local-trial-view");
+
+    expect(window.location.pathname).toBe("/s1-trial");
+    expect(surface).toHaveAttribute("data-real-data", "false");
+    expect(surface).toHaveAttribute("data-live-qwen-api", "false");
+    expect(surface).toHaveAttribute("data-live-connectors", "false");
+    expect(surface).toHaveAttribute("data-customer-visible-output", "false");
+    expect(surface).toHaveAttribute("data-production-writeback", "false");
+    expect(surface).toHaveAttribute("data-push", "false");
+    expect(screen.getByTestId("s1-trial-candidate")).toHaveTextContent(
+      "LOCAL_OFFLINE_TRIAL_RC_006"
+    );
+    expect(screen.getByTestId("s1-trial-readiness")).toHaveTextContent(
+      "GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY"
+    );
+    expect(screen.getByTestId("s1-trial-route")).toHaveTextContent("/s1-trial");
+    expect(screen.getByTestId("s1-trial-launcher-script")).toHaveTextContent(
+      "scripts/launch_s1_local_offline_trial.ps1"
+    );
+    expect(screen.getByTestId("s1-trial-launch-command")).toHaveTextContent(
+      "launch_s1_local_offline_trial.ps1"
+    );
+    expect(screen.getByTestId("s1-trial-package-path")).toHaveTextContent(
+      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
+    );
+    expect(screen.getAllByTestId("s1-trial-step")).toHaveLength(5);
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
   });

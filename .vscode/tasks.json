@@ -187,6 +187,20 @@
       "problemMatcher": []
     },
     {
+      "label": "SecuPilot: MVP-14 Launch Local Offline Trial",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\launch_s1_local_offline_trial.ps1"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
       "label": "SecuPilot: Fast MVP Queue Verify",
       "type": "shell",
       "command": "powershell.exe",

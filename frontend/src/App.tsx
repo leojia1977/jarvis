@@ -9,10 +9,12 @@ import {
   Send,
   ShieldCheck,
   Activity,
+  ClipboardCheck,
   Unlock
 } from "lucide-react";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { S1ArtifactView } from "./secupilot/s1/S1ArtifactView";
+import { S1LocalTrialView } from "./secupilot/s1/S1LocalTrialView";
 import {
   adaptCoreSurfaceFixturePhase,
   CORE_SURFACE_FIXTURE,
@@ -35,6 +37,7 @@ type Route =
   | "case"
   | "search"
   | "s1_run"
+  | "s1_trial"
   | "coverage_health"
   | "approval"
   | "manager";
@@ -595,6 +598,13 @@ const NAV_ITEMS: NavItem[] = [
     activeInSlice: true
   },
   {
+    label: "S1 Trial",
+    routeKey: "s1_trial",
+    roles: ["P0", "P1", "P2", "P3"],
+    icon: ClipboardCheck,
+    activeInSlice: true
+  },
+  {
     label: "Approval Queue",
     routeKey: "approval",
     roles: ["P2"],
@@ -628,6 +638,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   }
   if (path === "/s1-run") {
     return { route: "s1_run", caseId: null };
+  }
+  if (path === "/s1-trial") {
+    return { route: "s1_trial", caseId: null };
   }
   if (path === "/approval") {
     return { route: "approval", caseId: null };
@@ -881,9 +894,11 @@ function App({
               ? "/search?tab=history"
               : nextRoute === "s1_run"
                 ? "/s1-run"
-                : nextRoute === "coverage_health"
-                  ? "/coverage-health"
-                  : "/inbox";
+                : nextRoute === "s1_trial"
+                  ? "/s1-trial"
+                  : nextRoute === "coverage_health"
+                    ? "/coverage-health"
+                    : "/inbox";
     window.history.pushState({}, "", path);
     setLocation({ route: nextRoute, caseId: nextCaseId ?? null });
   }
@@ -967,6 +982,7 @@ function App({
             const Icon = item.icon;
             const isSearchRoute = item.routeKey === "search_history";
             const isS1RunRoute = item.routeKey === "s1_run";
+            const isS1TrialRoute = item.routeKey === "s1_trial";
             const isCoverageHealthRoute = item.routeKey === "coverage_health";
             const isApprovalRoute = item.routeKey === "approval";
             const isManagerRoute = item.routeKey === "manager_view";
@@ -975,6 +991,7 @@ function App({
               (item.routeKey === "inbox" && route === "case") ||
               (isSearchRoute && route === "search") ||
               (isS1RunRoute && route === "s1_run") ||
+              (isS1TrialRoute && route === "s1_trial") ||
               (isCoverageHealthRoute && route === "coverage_health") ||
               (isApprovalRoute && route === "approval") ||
               (isManagerRoute && route === "manager");
@@ -982,13 +999,15 @@ function App({
               ? "search"
               : isS1RunRoute
                 ? "s1_run"
-                : isCoverageHealthRoute
-                  ? "coverage_health"
-                  : isApprovalRoute
-                    ? "approval"
-                    : isManagerRoute
-                      ? "manager"
-                      : "inbox";
+                : isS1TrialRoute
+                  ? "s1_trial"
+                  : isCoverageHealthRoute
+                    ? "coverage_health"
+                    : isApprovalRoute
+                      ? "approval"
+                      : isManagerRoute
+                        ? "manager"
+                        : "inbox";
             return (
               <button
                 aria-disabled={!item.activeInSlice}
@@ -1068,6 +1087,8 @@ function App({
           />
         ) : route === "s1_run" ? (
           <S1ArtifactView />
+        ) : route === "s1_trial" ? (
+          <S1LocalTrialView />
         ) : route === "coverage_health" ? (
           <CoverageHealthView activeCase={renderActiveCase} activeContext={activeContext} />
         ) : (

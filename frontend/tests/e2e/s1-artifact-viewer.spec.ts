@@ -21,13 +21,13 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-writeback")).toContainText("NO");
     await expect(page.getByTestId("s1-production-deploy")).toContainText("NO");
     const reviewPanel = page.getByTestId("s1-local-review-panel");
-    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_004");
+    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_006");
     await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     await expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
     await expect(page.getByTestId("s1-review-decision-option")).toHaveCount(4);
     await expect(page.getByTestId("s1-selected-review-decision")).toContainText(
-      "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC"
+      "PASS_TO_NEXT_LOCAL_RC"
     );
     await expect(page.getByTestId("s1-review-record-preview")).toContainText(
       '"customer_visible_output": false'
@@ -59,10 +59,39 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-connectors")).toContainText("NO");
     await expect(page.getByTestId("s1-local-review-panel")).toHaveAttribute(
       "data-source-candidate",
-      "LOCAL_OFFLINE_TRIAL_RC_003"
+      "LOCAL_OFFLINE_TRIAL_RC_005"
     );
     await expect(page.getByTestId("s1-review-readme-path")).toContainText(
       "s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md"
     );
+  });
+
+  test("opens /s1-trial walkthrough with local-only launcher boundaries", async ({ page }) => {
+    await page.goto("/inbox");
+    await page.getByRole("button", { name: /S1 Trial/i }).click();
+
+    const surface = page.getByTestId("s1-local-trial-view");
+
+    await expect(page).toHaveURL(/\/s1-trial$/);
+    await expect(surface).toHaveAttribute("data-real-data", "false");
+    await expect(surface).toHaveAttribute("data-live-qwen-api", "false");
+    await expect(surface).toHaveAttribute("data-live-connectors", "false");
+    await expect(surface).toHaveAttribute("data-customer-visible-output", "false");
+    await expect(surface).toHaveAttribute("data-production-writeback", "false");
+    await expect(surface).toHaveAttribute("data-push", "false");
+    await expect(page.getByTestId("s1-trial-candidate")).toContainText(
+      "LOCAL_OFFLINE_TRIAL_RC_006"
+    );
+    await expect(page.getByTestId("s1-trial-readiness")).toContainText(
+      "GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY"
+    );
+    await expect(page.getByTestId("s1-trial-launch-command")).toContainText(
+      "launch_s1_local_offline_trial.ps1"
+    );
+    await expect(page.getByTestId("s1-trial-package-path")).toContainText(
+      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
+    );
+    await expect(page.getByTestId("s1-trial-step")).toHaveCount(5);
+    await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
 });

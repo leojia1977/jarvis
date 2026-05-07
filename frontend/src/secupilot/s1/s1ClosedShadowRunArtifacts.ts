@@ -17,6 +17,13 @@ export interface S1CaseSummaryEntry {
   reviewerAction: string;
 }
 
+export interface S1LocalTrialStep {
+  id: string;
+  title: string;
+  detail: string;
+  artifactRef: string;
+}
+
 export type S1LocalReviewDecision =
   | "PASS_TO_NEXT_LOCAL_RC"
   | "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC"
@@ -36,9 +43,9 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   finalOutcome: "S1_CLOSED_SHADOW_PASS_WITH_NOTES",
   exitCode: 10,
   passHoldReason:
-    "Closed-shadow fixture metadata capture completed; reviewer signoff required.",
-  reviewerAction: "REVIEW_AND_SIGNOFF_REQUIRED",
-  nextStep: "FRONTEND_ARTIFACT_VIEW",
+    "Closed-shadow fixture metadata capture completed; RC-006 local/offline readiness is closed for internal review only.",
+  reviewerAction: "LOCAL_OFFLINE_REVIEW_READY",
+  nextStep: "POST_RC006_PRODUCT_ROUTE_SELECTION",
   caseCount: 20,
   qwenUsed: false,
   canShowInLocalDemo: true,
@@ -61,10 +68,10 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   },
   localReview: {
     schemaVersion: "secupilot.s1.local_review_record.v1",
-    candidate: "LOCAL_OFFLINE_TRIAL_RC_004",
-    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_003",
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_006",
+    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_005",
     reviewer: "LOCAL_REVIEWER",
-    defaultDecision: "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC" satisfies S1LocalReviewDecision,
+    defaultDecision: "PASS_TO_NEXT_LOCAL_RC" satisfies S1LocalReviewDecision,
     allowedDecisions: [
       "PASS_TO_NEXT_LOCAL_RC",
       "PASS_WITH_NOTES_TO_NEXT_LOCAL_RC",
@@ -72,7 +79,7 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
       "NO_GO_FOR_CURRENT_PRODUCT_PATH"
     ] satisfies S1LocalReviewDecision[],
     defaultNotes:
-      "RC-003 passed; RC-004 adds a self-contained local/offline reviewer handoff view.",
+      "RC-006 closes local/offline S1 readiness for internal review only. Customer-visible, deploy, real data, live Qwen/API, and connectors remain unauthorized.",
     handoff: {
       reviewMode: "LOCAL_OFFLINE_REVIEW_ONLY",
       packagePath: "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
@@ -98,6 +105,58 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
         "customer_visible_output=false"
       ]
     }
+  },
+  localTrial: {
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_006",
+    readiness: "GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY",
+    route: "/s1-trial",
+    launcherScript: "scripts/launch_s1_local_offline_trial.ps1",
+    routeDecisionDoc: "docs/S6_POST_RC006_PRODUCT_ROUTE_SELECTION_2026_05_07.md",
+    closeoutDoc:
+      "docs/S6_FAST_MVP_RC_006_S1_LOCAL_OFFLINE_GO_NOGO_READINESS_CLOSEOUT_2026_05_06.md",
+    packagePath: "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
+    readmePath:
+      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md",
+    launcherOutputPath:
+      "artifacts/local_trial_launches/local-offline-trial-rc-006/launch_info.json",
+    localUrl: "http://127.0.0.1:4174/s1-trial",
+    steps: [
+      {
+        id: "readme",
+        title: "Open reviewer README",
+        detail: "Start from the package-level review scope, files, and forbidden actions.",
+        artifactRef:
+          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md"
+      },
+      {
+        id: "manifest",
+        title: "Check package manifest",
+        detail: "Confirm SHA256 values and metadata-only retention for every packaged file.",
+        artifactRef:
+          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/package_manifest.json"
+      },
+      {
+        id: "status",
+        title: "Review run status",
+        detail: "Read final status, case count, reviewer action, and preserved boundaries.",
+        artifactRef:
+          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/final_status.json"
+      },
+      {
+        id: "safety",
+        title: "Confirm safety scan",
+        detail: "Verify zero retained secret/token/auth/raw payload findings in the local package.",
+        artifactRef:
+          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/safety_scan.json"
+      },
+      {
+        id: "screenshots",
+        title: "Inspect desktop and mobile screenshots",
+        detail: "Use packaged screenshots to confirm the reviewer can understand the local S1 surface.",
+        artifactRef:
+          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/playwright/"
+      }
+    ] satisfies S1LocalTrialStep[]
   },
   artifacts: [
     {
