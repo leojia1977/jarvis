@@ -243,6 +243,12 @@ describe("SecuPilot first-batch workbench slice", () => {
     const surface = screen.getByTestId("s1-local-trial-view");
 
     expect(window.location.pathname).toBe("/s1-trial");
+    expect(screen.getByRole("heading", { name: "SecuPilot 本地离线试用中心" }))
+      .toBeInTheDocument();
+    expect(screen.queryByLabelText("Role selector")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Mock fixture phase")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("vf-03-expert-mode-frame")).not.toBeInTheDocument();
+    expect(surface).not.toHaveTextContent(/MVP-14|MVP-15|MVP-17|MVP-18|MVP-19/);
     expect(surface).toHaveAttribute("data-real-data", "false");
     expect(surface).toHaveAttribute("data-live-qwen-api", "false");
     expect(surface).toHaveAttribute("data-live-connectors", "false");

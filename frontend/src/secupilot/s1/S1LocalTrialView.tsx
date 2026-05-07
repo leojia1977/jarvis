@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 import {
+  ArrowRight,
+  CheckCircle2,
   ClipboardCheck,
   FileText,
   Lock,
@@ -53,6 +55,29 @@ export function S1LocalTrialView() {
     "评审者可以从 README、manifest、final_status、安全扫描和截图完成本地离线检查。"
   );
   const launchCommand = `powershell.exe -NoProfile -ExecutionPolicy Bypass -File ${trial.launcherScript}`;
+  const trialActions = [
+    {
+      title: "打开本地试用",
+      description: "进入本地浏览器页面，先确认候选版本和试用边界。",
+      value: trial.localUrl
+    },
+    {
+      title: "核验评审材料",
+      description: "按中文入口、manifest、运行状态、安全扫描和截图完成离线检查。",
+      value: "RC-008 中文评审包"
+    },
+    {
+      title: "记录本地反馈",
+      description: "在页面中预览反馈结论，再写入评审模板或 governed review note。",
+      value: "本地反馈预览"
+    }
+  ];
+  const materialStatus = [
+    ["中文入口", "已就绪"],
+    ["检查清单", "已就绪"],
+    ["反馈模板", "已就绪"],
+    ["截图与证据", "已打包"]
+  ] as const;
   const boundaryFacts = [
     ["真实数据", false],
     ["脱敏真实数据", false],
@@ -94,7 +119,11 @@ export function S1LocalTrialView() {
       <header className="s1-trial-header">
         <div>
           <p className="summary-kicker">本地离线试用</p>
-          <h1 id="s1-trial-title">S1 评审试用导览</h1>
+          <h1 id="s1-trial-title">SecuPilot 本地离线试用中心</h1>
+          <p className="s1-trial-lede">
+            从这里启动一次内部本地试用、核验评审材料并记录反馈。当前页面只用于
+            synthetic package 的离线检查，不连接真实系统。
+          </p>
           <dl className="s1-trial-header-facts">
             <div>
               <dt>候选版本</dt>
@@ -115,6 +144,20 @@ export function S1LocalTrialView() {
           仅限内部本地/离线
         </span>
       </header>
+
+      <section aria-label="本地试用入口" className="s1-product-entry-grid">
+        {trialActions.map((action, index) => (
+          <article key={action.title}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <strong>{action.title}</strong>
+              <p>{action.description}</p>
+              <code>{action.value}</code>
+            </div>
+            <ArrowRight aria-hidden="true" size={18} />
+          </article>
+        ))}
+      </section>
 
       <section aria-label="本地离线试用概览" className="s1-trial-kpi-grid">
         <article>
@@ -139,15 +182,50 @@ export function S1LocalTrialView() {
         </article>
       </section>
 
-      <section className="s1-trial-split-grid">
+      <section className="s1-trial-product-grid">
         <article
-          className="s1-artifact-panel s1-trial-launcher"
+          className="s1-artifact-panel s1-trial-primary-panel"
           data-testid="s1-trial-launcher-panel"
         >
           <div className="s1-panel-title">
             <PlayCircle aria-hidden="true" size={18} />
-            <h2>MVP-14 本地启动器</h2>
+            <h2>开始试用</h2>
           </div>
+          <p>
+            当前候选包已通过本地离线边界检查。先打开试用入口，再按材料状态完成核验。
+          </p>
+          <div className="s1-trial-primary-action">
+            <span>本地入口</span>
+            <strong>{trial.localUrl}</strong>
+          </div>
+          <div className="s1-launch-command" aria-label="本地试用启动命令">
+            <MonitorCheck aria-hidden="true" size={18} />
+            <code data-testid="s1-trial-launch-command">{launchCommand}</code>
+          </div>
+        </article>
+
+        <article className="s1-artifact-panel s1-trial-material-panel">
+          <div className="s1-panel-title">
+            <FileText aria-hidden="true" size={18} />
+            <h2>材料状态</h2>
+          </div>
+          <ul className="s1-trial-material-list" aria-label="评审材料状态">
+            {materialStatus.map(([label, state]) => (
+              <li key={label}>
+                <CheckCircle2 aria-hidden="true" size={17} />
+                <div>
+                  <span>{label}</span>
+                  <strong>{state}</strong>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </section>
+
+      <details className="s1-artifact-panel s1-trial-technical-details">
+        <summary>技术对账信息</summary>
+        <div className="s1-trial-split-grid">
           <dl className="s1-trial-launch-facts">
             <div>
               <dt>路由</dt>
@@ -166,17 +244,6 @@ export function S1LocalTrialView() {
               <dd>{trial.launcherOutputPath}</dd>
             </div>
           </dl>
-          <div className="s1-launch-command" aria-label="本地试用启动命令">
-            <MonitorCheck aria-hidden="true" size={18} />
-            <code data-testid="s1-trial-launch-command">{launchCommand}</code>
-          </div>
-        </article>
-
-        <article className="s1-artifact-panel">
-          <div className="s1-panel-title">
-            <FileText aria-hidden="true" size={18} />
-            <h2>MVP-18 交付包入口</h2>
-          </div>
           <dl className="s1-trial-package-facts">
             <div>
               <dt>评审包</dt>
@@ -195,8 +262,8 @@ export function S1LocalTrialView() {
               <dd>{trial.feedbackTemplatePath}</dd>
             </div>
           </dl>
-        </article>
-      </section>
+        </div>
+      </details>
 
       <section
         aria-labelledby="s1-trial-walkthrough-title"
@@ -205,7 +272,7 @@ export function S1LocalTrialView() {
       >
         <div className="s1-panel-title">
           <ClipboardCheck aria-hidden="true" size={18} />
-          <h2 id="s1-trial-walkthrough-title">MVP-15 试用导览</h2>
+          <h2 id="s1-trial-walkthrough-title">试用流程</h2>
         </div>
         <ol className="s1-trial-steps">
           {trial.steps.map((step, index) => (
@@ -214,7 +281,6 @@ export function S1LocalTrialView() {
               <div>
                 <strong>{step.title}</strong>
                 <p>{step.detail}</p>
-                <code>{step.artifactRef}</code>
               </div>
             </li>
           ))}
@@ -234,7 +300,7 @@ export function S1LocalTrialView() {
       >
         <div className="s1-panel-title">
           <MessageSquareText aria-hidden="true" size={18} />
-          <h2 id="s1-feedback-title">MVP-17 本地反馈预览</h2>
+          <h2 id="s1-feedback-title">本地反馈</h2>
         </div>
         <div className="s1-feedback-layout">
           <div className="s1-feedback-controls">
@@ -283,7 +349,7 @@ export function S1LocalTrialView() {
       >
         <div className="s1-panel-title">
           <Lock aria-hidden="true" size={18} />
-          <h2 id="s1-qwen-contract-title">MVP-19 Qwen 接入准备</h2>
+          <h2 id="s1-qwen-contract-title">Qwen 接入状态</h2>
         </div>
         <dl className="s1-trial-package-facts">
           <div>
@@ -308,8 +374,8 @@ export function S1LocalTrialView() {
 
       <section className="s1-artifact-panel">
         <div className="s1-panel-title">
-          <Lock aria-hidden="true" size={18} />
-          <h2>边界锁定</h2>
+          <CheckCircle2 aria-hidden="true" size={18} />
+          <h2>安全边界</h2>
         </div>
         <dl className="s1-trial-boundary-grid">
           {boundaryFacts.map(([label, value]) => (

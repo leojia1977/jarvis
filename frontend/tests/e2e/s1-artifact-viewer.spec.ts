@@ -73,6 +73,11 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     const surface = page.getByTestId("s1-local-trial-view");
 
     await expect(page).toHaveURL(/\/s1-trial$/);
+    await expect(page.getByRole("heading", { name: "SecuPilot 本地离线试用中心" })).toBeVisible();
+    await expect(page.getByLabel("Role selector")).toHaveCount(0);
+    await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
+    await expect(page.getByTestId("vf-03-expert-mode-frame")).toHaveCount(0);
+    await expect(surface).not.toContainText(/MVP-14|MVP-15|MVP-17|MVP-18|MVP-19/);
     await expect(surface).toHaveAttribute("data-real-data", "false");
     await expect(surface).toHaveAttribute("data-live-qwen-api", "false");
     await expect(surface).toHaveAttribute("data-live-connectors", "false");
