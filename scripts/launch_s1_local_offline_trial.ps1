@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$PackageDir = "artifacts\local_demo_packages\s1-closed-shadow-local-offline-trial-rc-004",
+    [string]$DeliveryDir = "artifacts\local_trial_packages\local-offline-trial-rc-006",
     [string]$Route = "/s1-trial",
     [int]$Port = 4174,
     [switch]$SkipBuild,
@@ -23,6 +24,7 @@ function Resolve-RepoPath {
 
 $RepoRoot = (Resolve-Path -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath "..")).Path
 $PackageRoot = Resolve-RepoPath -PathValue $PackageDir
+$DeliveryRoot = Resolve-RepoPath -PathValue $DeliveryDir
 $FrontendRoot = Resolve-RepoPath -PathValue "frontend"
 $LaunchRoot = Join-Path -Path $RepoRoot -ChildPath "artifacts\local_trial_launches\local-offline-trial-rc-006"
 $LaunchInfoPath = Join-Path -Path $LaunchRoot -ChildPath "launch_info.json"
@@ -39,6 +41,13 @@ $RequiredFiles = @(
     "playwright\s1-run-mobile.png"
 )
 
+$RequiredDeliveryFiles = @(
+    "START_HERE.md",
+    "REVIEWER_CHECKLIST.md",
+    "FEEDBACK_TEMPLATE.md",
+    "PACKAGE_INDEX.json"
+)
+
 $MissingFiles = @()
 foreach ($RelativePath in $RequiredFiles) {
     $Candidate = Join-Path -Path $PackageRoot -ChildPath $RelativePath
@@ -49,6 +58,18 @@ foreach ($RelativePath in $RequiredFiles) {
 
 if ($MissingFiles.Count -gt 0) {
     throw "S1 local offline trial package is incomplete. Missing: $($MissingFiles -join ', ')"
+}
+
+$MissingDeliveryFiles = @()
+foreach ($RelativePath in $RequiredDeliveryFiles) {
+    $Candidate = Join-Path -Path $DeliveryRoot -ChildPath $RelativePath
+    if (-not (Test-Path -LiteralPath $Candidate -PathType Leaf)) {
+        $MissingDeliveryFiles += $RelativePath
+    }
+}
+
+if ($MissingDeliveryFiles.Count -gt 0) {
+    throw "S1 local offline delivery package is incomplete. Missing: $($MissingDeliveryFiles -join ', ')"
 }
 
 $FinalStatusPath = Join-Path -Path $PackageRoot -ChildPath "final_status.json"
@@ -123,7 +144,11 @@ $LaunchInfo = [ordered]@{
     route = $Route
     local_url = $LocalUrl
     package_dir = $PackageDir
+    delivery_package_dir = $DeliveryDir
     reviewer_readme = (Join-Path -Path $PackageDir -ChildPath "REVIEWER_README.md")
+    start_here = (Join-Path -Path $DeliveryDir -ChildPath "START_HERE.md")
+    reviewer_checklist = (Join-Path -Path $DeliveryDir -ChildPath "REVIEWER_CHECKLIST.md")
+    feedback_template = (Join-Path -Path $DeliveryDir -ChildPath "FEEDBACK_TEMPLATE.md")
     launcher_output_path = "artifacts\local_trial_launches\local-offline-trial-rc-006\launch_info.json"
     server_started = $ServerStarted
     build_skipped = [bool]$SkipBuild
@@ -138,6 +163,7 @@ $LaunchInfo = [ordered]@{
         push = $false
     }
     required_files = $RequiredFiles
+    required_delivery_files = $RequiredDeliveryFiles
 }
 
 if (-not $CheckOnly) {

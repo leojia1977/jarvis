@@ -1,13 +1,17 @@
 ﻿{
     "schema_version":  "secupilot.s1.local_offline_trial_launcher.v1",
-    "generated_at_utc":  "2026-05-06T23:58:51.8341478Z",
+    "generated_at_utc":  "2026-05-07T00:17:14.5834512Z",
     "candidate":  "LOCAL_OFFLINE_TRIAL_RC_006",
     "route":  "/s1-trial",
     "local_url":  "http://127.0.0.1:4174/s1-trial",
     "package_dir":  "artifacts\\local_demo_packages\\s1-closed-shadow-local-offline-trial-rc-004",
+    "delivery_package_dir":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006",
     "reviewer_readme":  "artifacts\\local_demo_packages\\s1-closed-shadow-local-offline-trial-rc-004\\REVIEWER_README.md",
+    "start_here":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006\\START_HERE.md",
+    "reviewer_checklist":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006\\REVIEWER_CHECKLIST.md",
+    "feedback_template":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006\\FEEDBACK_TEMPLATE.md",
     "launcher_output_path":  "artifacts\\local_trial_launches\\local-offline-trial-rc-006\\launch_info.json",
-    "server_started":  true,
+    "server_started":  false,
     "build_skipped":  true,
     "check_only":  false,
     "boundaries":  {
@@ -28,5 +32,11 @@
                            "safety_scan.json",
                            "playwright\\s1-run-desktop.png",
                            "playwright\\s1-run-mobile.png"
-                       ]
+                       ],
+    "required_delivery_files":  [
+                                    "START_HERE.md",
+                                    "REVIEWER_CHECKLIST.md",
+                                    "FEEDBACK_TEMPLATE.md",
+                                    "PACKAGE_INDEX.json"
+                                ]
 }

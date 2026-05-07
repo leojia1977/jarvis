@@ -591,14 +591,14 @@ const NAV_ITEMS: NavItem[] = [
     activeInSlice: true
   },
   {
-    label: "S1 Run",
+    label: "S1 证据",
     routeKey: "s1_run",
     roles: ["P0", "P1", "P2", "P3"],
     icon: Activity,
     activeInSlice: true
   },
   {
-    label: "S1 Trial",
+    label: "本地试用",
     routeKey: "s1_trial",
     roles: ["P0", "P1", "P2", "P3"],
     icon: ClipboardCheck,

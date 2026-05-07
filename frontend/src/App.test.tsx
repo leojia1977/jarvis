@@ -150,8 +150,8 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(screen.getByRole("button", { name: /Inbox/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Search \/ History/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /S1 Run/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /S1 Trial/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 证据/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /本地试用/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Approval Queue/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Coverage & Health/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
@@ -163,8 +163,8 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     await user.click(screen.getByRole("button", { name: "P2" }));
 
-    expect(screen.getByRole("button", { name: /S1 Run/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /S1 Trial/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 证据/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /本地试用/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Approval Queue/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Coverage & Health/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Manager View/i })).not.toBeInTheDocument();
@@ -174,7 +174,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: /S1 Run/i }));
+    await user.click(screen.getByRole("button", { name: /S1 证据/i }));
 
     const surface = screen.getByTestId("s1-artifact-view");
 
@@ -193,11 +193,11 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-provider")).toHaveTextContent("fixture");
     expect(screen.getByTestId("s1-case-count")).toHaveTextContent("20");
     expect(screen.getByTestId("s1-safety-finding-count")).toHaveTextContent("0");
-    expect(screen.getByTestId("s1-customer-visible-output")).toHaveTextContent("NO");
-    expect(screen.getByTestId("s1-production-writeback")).toHaveTextContent("NO");
-    expect(screen.getByTestId("s1-qwen-autonomy")).toHaveTextContent("NO");
-    expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("NO");
-    expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("NO");
+    expect(screen.getByTestId("s1-customer-visible-output")).toHaveTextContent("否");
+    expect(screen.getByTestId("s1-production-writeback")).toHaveTextContent("否");
+    expect(screen.getByTestId("s1-qwen-autonomy")).toHaveTextContent("否");
+    expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("否");
+    expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("否");
     const reviewPanel = screen.getByTestId("s1-local-review-panel");
     expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_006");
     expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_005");
@@ -238,7 +238,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: /S1 Trial/i }));
+    await user.click(screen.getByRole("button", { name: /本地试用/i }));
 
     const surface = screen.getByTestId("s1-local-trial-view");
 
@@ -265,7 +265,25 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-trial-package-path")).toHaveTextContent(
       "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
     );
+    expect(screen.getByTestId("s1-trial-start-here-path")).toHaveTextContent(
+      "artifacts/local_trial_packages/local-offline-trial-rc-006/START_HERE.md"
+    );
     expect(screen.getAllByTestId("s1-trial-step")).toHaveLength(5);
+    const feedbackPanel = screen.getByTestId("s1-feedback-panel");
+    expect(feedbackPanel).toHaveAttribute("data-artifact-write", "false");
+    expect(feedbackPanel).toHaveAttribute("data-backend-write", "false");
+    expect(feedbackPanel).toHaveAttribute("data-qwen-api-call", "false");
+    expect(screen.getAllByTestId("s1-feedback-option")).toHaveLength(3);
+    expect(screen.getByTestId("s1-feedback-preview")).toHaveTextContent(
+      '"artifact_write": false'
+    );
+    const qwenContract = screen.getByTestId("s1-qwen-provider-contract");
+    expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-cloud-disabled");
+    expect(qwenContract).toHaveAttribute("data-live-call-allowed", "false");
+    expect(screen.getByTestId("s1-qwen-active-mode")).toHaveTextContent(
+      "qwen-cloud-disabled"
+    );
+    expect(screen.getAllByTestId("s1-qwen-provider-mode")).toHaveLength(3);
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
   });
@@ -274,7 +292,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: /S1 Run/i }));
+    await user.click(screen.getByRole("button", { name: /S1 证据/i }));
     await user.click(screen.getByRole("button", { name: "HOLD_FOR_FIXES" }));
     await user.clear(screen.getByTestId("s1-review-notes"));
     await user.type(screen.getByTestId("s1-review-notes"), "Hold pending RC-002 reviewer note.");

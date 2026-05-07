@@ -1,0 +1,28 @@
+{
+  "schema_version": "secupilot.s1.qwen_provider_contract.v0.1",
+  "status": "PLANNING_STUB_ONLY",
+  "active_mode": "qwen-cloud-disabled",
+  "allowed_modes": [
+    "fixture",
+    "external-output",
+    "qwen-cloud-disabled"
+  ],
+  "live_qwen_api_call_allowed": false,
+  "secret_material_allowed": false,
+  "connector_call_allowed": false,
+  "customer_visible_output_allowed": false,
+  "production_writeback_allowed": false,
+  "requires_separate_go_before_live_qwen": true,
+  "non_authorization": [
+    "real_data",
+    "masked_real_data",
+    "live_qwen_api_calls",
+    "live_connectors",
+    "production_writeback",
+    "customer_visible_output",
+    "deploy",
+    "external_pilot",
+    "production_launch",
+    "push"
+  ]
+}

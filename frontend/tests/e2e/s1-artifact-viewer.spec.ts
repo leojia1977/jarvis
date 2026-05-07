@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test.describe("MVP-05 S1 artifact viewer smoke", () => {
   test("opens /s1-run from workbench nav with local-only boundaries", async ({ page }, testInfo) => {
     await page.goto("/inbox");
-    await page.getByRole("button", { name: /S1 Run/i }).click();
+    await page.getByRole("button", { name: /S1 证据/i }).click();
 
     const surface = page.getByTestId("s1-artifact-view");
 
@@ -17,9 +17,9 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
     await expect(page.getByTestId("s1-provider")).toContainText("fixture");
-    await expect(page.getByTestId("s1-customer-visible-output")).toContainText("NO");
-    await expect(page.getByTestId("s1-production-writeback")).toContainText("NO");
-    await expect(page.getByTestId("s1-production-deploy")).toContainText("NO");
+    await expect(page.getByTestId("s1-customer-visible-output")).toContainText("否");
+    await expect(page.getByTestId("s1-production-writeback")).toContainText("否");
+    await expect(page.getByTestId("s1-production-deploy")).toContainText("否");
     const reviewPanel = page.getByTestId("s1-local-review-panel");
     await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_006");
     await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
@@ -51,12 +51,12 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
   test("renders /s1-run directly as readonly artifact fixture", async ({ page }) => {
     await page.goto("/s1-run");
 
-    await expect(page.getByRole("heading", { name: "S1 Closed Shadow Run" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "S1 Closed Shadow 运行证据" })).toBeVisible();
     await expect(page.getByTestId("s1-run-id")).toContainText("S1-CLOSED-SHADOW-2026-04-30-001");
-    await expect(page.getByTestId("s1-qwen-used")).toContainText("NO");
-    await expect(page.getByTestId("s1-secret-retained")).toContainText("NO");
-    await expect(page.getByTestId("s1-raw-payload-retained")).toContainText("NO");
-    await expect(page.getByTestId("s1-production-connectors")).toContainText("NO");
+    await expect(page.getByTestId("s1-qwen-used")).toContainText("否");
+    await expect(page.getByTestId("s1-secret-retained")).toContainText("否");
+    await expect(page.getByTestId("s1-raw-payload-retained")).toContainText("否");
+    await expect(page.getByTestId("s1-production-connectors")).toContainText("否");
     await expect(page.getByTestId("s1-local-review-panel")).toHaveAttribute(
       "data-source-candidate",
       "LOCAL_OFFLINE_TRIAL_RC_005"
@@ -68,7 +68,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
 
   test("opens /s1-trial walkthrough with local-only launcher boundaries", async ({ page }) => {
     await page.goto("/inbox");
-    await page.getByRole("button", { name: /S1 Trial/i }).click();
+    await page.getByRole("button", { name: /本地试用/i }).click();
 
     const surface = page.getByTestId("s1-local-trial-view");
 
@@ -91,7 +91,22 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-trial-package-path")).toContainText(
       "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
     );
+    await expect(page.getByTestId("s1-trial-start-here-path")).toContainText(
+      "artifacts/local_trial_packages/local-offline-trial-rc-006/START_HERE.md"
+    );
     await expect(page.getByTestId("s1-trial-step")).toHaveCount(5);
+    const feedbackPanel = page.getByTestId("s1-feedback-panel");
+    await expect(feedbackPanel).toHaveAttribute("data-artifact-write", "false");
+    await expect(feedbackPanel).toHaveAttribute("data-backend-write", "false");
+    await expect(feedbackPanel).toHaveAttribute("data-qwen-api-call", "false");
+    await expect(page.getByTestId("s1-feedback-option")).toHaveCount(3);
+    await expect(page.getByTestId("s1-feedback-preview")).toContainText(
+      '"customer_visible_output": false'
+    );
+    const qwenContract = page.getByTestId("s1-qwen-provider-contract");
+    await expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-cloud-disabled");
+    await expect(qwenContract).toHaveAttribute("data-live-call-allowed", "false");
+    await expect(page.getByTestId("s1-qwen-provider-mode")).toHaveCount(3);
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
 });

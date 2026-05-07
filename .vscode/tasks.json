@@ -201,6 +201,22 @@
       "problemMatcher": []
     },
     {
+      "label": "SecuPilot: MVP-16-19 Local Trial Productization Check",
+      "type": "shell",
+      "command": "powershell.exe",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\scripts\\launch_s1_local_offline_trial.ps1",
+        "-CheckOnly",
+        "-SkipBuild"
+      ],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
       "label": "SecuPilot: Fast MVP Queue Verify",
       "type": "shell",
       "command": "powershell.exe",

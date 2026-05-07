@@ -43,7 +43,7 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   finalOutcome: "S1_CLOSED_SHADOW_PASS_WITH_NOTES",
   exitCode: 10,
   passHoldReason:
-    "Closed-shadow fixture metadata capture completed; RC-006 local/offline readiness is closed for internal review only.",
+    "Closed-shadow fixture metadata capture completed；RC-006 已关闭内部本地/离线试用就绪口径。",
   reviewerAction: "LOCAL_OFFLINE_REVIEW_READY",
   nextStep: "POST_RC006_PRODUCT_ROUTE_SELECTION",
   caseCount: 20,
@@ -79,7 +79,7 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
       "NO_GO_FOR_CURRENT_PRODUCT_PATH"
     ] satisfies S1LocalReviewDecision[],
     defaultNotes:
-      "RC-006 closes local/offline S1 readiness for internal review only. Customer-visible, deploy, real data, live Qwen/API, and connectors remain unauthorized.",
+      "RC-006 已关闭内部本地/离线 S1 readiness。客户可见、部署、真实数据、live Qwen/API、connector 仍未授权。",
     handoff: {
       reviewMode: "LOCAL_OFFLINE_REVIEW_ONLY",
       packagePath: "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
@@ -120,39 +120,47 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
     launcherOutputPath:
       "artifacts/local_trial_launches/local-offline-trial-rc-006/launch_info.json",
     localUrl: "http://127.0.0.1:4174/s1-trial",
+    deliveryPackagePath: "artifacts/local_trial_packages/local-offline-trial-rc-006",
+    startHerePath: "artifacts/local_trial_packages/local-offline-trial-rc-006/START_HERE.md",
+    reviewerChecklistPath:
+      "artifacts/local_trial_packages/local-offline-trial-rc-006/REVIEWER_CHECKLIST.md",
+    feedbackTemplatePath:
+      "artifacts/local_trial_packages/local-offline-trial-rc-006/FEEDBACK_TEMPLATE.md",
+    packageIndexPath:
+      "artifacts/local_trial_packages/local-offline-trial-rc-006/PACKAGE_INDEX.json",
     steps: [
       {
         id: "readme",
-        title: "Open reviewer README",
-        detail: "Start from the package-level review scope, files, and forbidden actions.",
+        title: "打开评审 README",
+        detail: "先确认试用包范围、文件清单和禁止动作。",
         artifactRef:
           "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md"
       },
       {
         id: "manifest",
-        title: "Check package manifest",
-        detail: "Confirm SHA256 values and metadata-only retention for every packaged file.",
+        title: "核对 package manifest",
+        detail: "确认每个打包文件的 SHA256 和 metadata-only 留存口径。",
         artifactRef:
           "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/package_manifest.json"
       },
       {
         id: "status",
-        title: "Review run status",
-        detail: "Read final status, case count, reviewer action, and preserved boundaries.",
+        title: "查看运行状态",
+        detail: "检查 final status、case count、reviewer action 和已保留边界。",
         artifactRef:
           "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/final_status.json"
       },
       {
         id: "safety",
-        title: "Confirm safety scan",
-        detail: "Verify zero retained secret/token/auth/raw payload findings in the local package.",
+        title: "确认安全扫描",
+        detail: "确认本地包中 secret/token/auth/raw payload 留存命中为 0。",
         artifactRef:
           "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/safety_scan.json"
       },
       {
         id: "screenshots",
-        title: "Inspect desktop and mobile screenshots",
-        detail: "Use packaged screenshots to confirm the reviewer can understand the local S1 surface.",
+        title: "检查桌面和移动端截图",
+        detail: "用包内截图确认评审者能理解本地 S1 页面。",
         artifactRef:
           "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/playwright/"
       }
