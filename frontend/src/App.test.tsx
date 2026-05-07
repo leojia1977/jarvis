@@ -205,7 +205,7 @@ describe("SecuPilot first-batch workbench slice", () => {
       "查看技术对账"
     );
     expect(screen.getByTestId("s1-technical-reconciliation-explainer")).toHaveTextContent(
-      "点开后只查看版本、运行编号、证据哈希和状态码等内部核验信息"
+      "点开后仅用于核对候选版本、运行编号、证据哈希和状态码"
     );
     expect(screen.getByTestId("s1-run-next-step")).toHaveTextContent(
       "进入内部本地试用下一轮"

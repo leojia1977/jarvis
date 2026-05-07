@@ -34,7 +34,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
       "查看技术对账"
     );
     await expect(page.getByTestId("s1-technical-reconciliation-explainer")).toContainText(
-      "点开后只查看版本、运行编号、证据哈希和状态码等内部核验信息"
+      "点开后仅用于核对候选版本、运行编号、证据哈希和状态码"
     );
     await expect(page.getByTestId("s1-run-next-step")).toContainText(
       "进入内部本地试用下一轮"

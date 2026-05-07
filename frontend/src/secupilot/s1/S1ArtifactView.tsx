@@ -185,7 +185,7 @@ export function S1ArtifactView() {
               className="s1-technical-link-help"
               data-testid="s1-technical-reconciliation-explainer"
             >
-              点开后只查看版本、运行编号、证据哈希和状态码等内部核验信息；不改变上方中文结论。
+              点开后仅用于核对候选版本、运行编号、证据哈希和状态码；不会改变上方中文结论。
             </p>
           </div>
         </article>
