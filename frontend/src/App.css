@@ -36,6 +36,14 @@ button {
     #f4f6f2;
 }
 
+.reviewer-clean-shell {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.reviewer-clean-shell .content-shell {
+  min-height: 100vh;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;

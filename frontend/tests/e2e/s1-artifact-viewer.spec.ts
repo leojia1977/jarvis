@@ -21,7 +21,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-writeback")).toContainText("否");
     await expect(page.getByTestId("s1-production-deploy")).toContainText("否");
     const reviewPanel = page.getByTestId("s1-local-review-panel");
-    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_006");
+    await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_008_CN");
     await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     await expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
@@ -36,10 +36,10 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(handoffPanel).toHaveAttribute("data-review-mode", "LOCAL_OFFLINE_REVIEW_ONLY");
     await expect(handoffPanel).toHaveAttribute(
       "data-review-package",
-      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review"
     );
     await expect(handoffPanel).toHaveAttribute("data-state-mutation", "none");
-    await expect(page.getByTestId("s1-review-required-check")).toHaveCount(8);
+    await expect(page.getByTestId("s1-review-required-check")).toHaveCount(10);
     await expect(page.getByTestId("s1-review-boundary-check")).toHaveCount(6);
     await expect(page.getByTestId("s1-artifact-row")).toHaveCount(5);
     await expect(page.getByTestId("s1-case-row")).toHaveCount(20);
@@ -59,10 +59,10 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-production-connectors")).toContainText("否");
     await expect(page.getByTestId("s1-local-review-panel")).toHaveAttribute(
       "data-source-candidate",
-      "LOCAL_OFFLINE_TRIAL_RC_005"
+      "LOCAL_OFFLINE_TRIAL_RC_007_CN"
     );
     await expect(page.getByTestId("s1-review-readme-path")).toContainText(
-      "s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md"
+      "local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md"
     );
   });
 
@@ -80,7 +80,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(surface).toHaveAttribute("data-production-writeback", "false");
     await expect(surface).toHaveAttribute("data-push", "false");
     await expect(page.getByTestId("s1-trial-candidate")).toContainText(
-      "LOCAL_OFFLINE_TRIAL_RC_006"
+      "LOCAL_OFFLINE_TRIAL_RC_008_CN"
     );
     await expect(page.getByTestId("s1-trial-readiness")).toContainText(
       "GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY"
@@ -89,10 +89,10 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
       "launch_s1_local_offline_trial.ps1"
     );
     await expect(page.getByTestId("s1-trial-package-path")).toContainText(
-      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004"
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review"
     );
     await expect(page.getByTestId("s1-trial-start-here-path")).toContainText(
-      "artifacts/local_trial_packages/local-offline-trial-rc-006/START_HERE.md"
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md"
     );
     await expect(page.getByTestId("s1-trial-step")).toHaveCount(5);
     const feedbackPanel = page.getByTestId("s1-feedback-panel");

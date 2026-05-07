@@ -1,0 +1,20 @@
+{
+  "schema_version": "secupilot.s1.local_trial_delivery_index.v1",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_006",
+  "route": "/s1-trial",
+  "source_package": "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
+  "files": [
+    "START_HERE.md",
+    "REVIEWER_CHECKLIST.md",
+    "FEEDBACK_TEMPLATE.md"
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

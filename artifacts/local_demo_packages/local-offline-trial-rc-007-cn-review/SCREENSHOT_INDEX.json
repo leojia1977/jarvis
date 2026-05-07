@@ -1,0 +1,49 @@
+﻿{
+    "schema_version":  "secupilot.s1.local_offline_chinese_screenshot_index.v1",
+    "candidate":  "LOCAL_OFFLINE_TRIAL_RC_007_CN",
+    "source_commit":  "184635a",
+    "generated_at_utc":  "2026-05-07T00:28:43.4671402Z",
+    "screenshots":  [
+                        {
+                            "file_name":  "s1-run-desktop.png",
+                            "path":  "screenshots/s1-run-desktop.png",
+                            "bytes":  430808,
+                            "sha256":  "94c46024f2f9d19baee7fb00f80f5d681ae6df8bb1b8b331635a91edc85d7aae",
+                            "route":  "/s1-run",
+                            "viewport":  "1440x1100"
+                        },
+                        {
+                            "file_name":  "s1-run-mobile.png",
+                            "path":  "screenshots/s1-run-mobile.png",
+                            "bytes":  340869,
+                            "sha256":  "37794f93fde6ace384168dd0cb7a405bf91dd4fb480a98bb2e65aab79e0406e6",
+                            "route":  "/s1-run",
+                            "viewport":  "390x1000"
+                        },
+                        {
+                            "file_name":  "s1-trial-desktop.png",
+                            "path":  "screenshots/s1-trial-desktop.png",
+                            "bytes":  408483,
+                            "sha256":  "cd4c7161b4240216d5662dc4804c2ab97f409c53f9dbc1ed571c692d92ebddd4",
+                            "route":  "/s1-trial",
+                            "viewport":  "1440x1100"
+                        },
+                        {
+                            "file_name":  "s1-trial-mobile.png",
+                            "path":  "screenshots/s1-trial-mobile.png",
+                            "bytes":  362954,
+                            "sha256":  "463db598e723967e060a9ca6173ab05ba35ae244d808d5182fdbb2b66bed6ef9",
+                            "route":  "/s1-trial",
+                            "viewport":  "390x1000"
+                        }
+                    ],
+    "boundaries":  {
+                       "real_data":  false,
+                       "masked_real_data":  false,
+                       "live_qwen_api":  false,
+                       "live_connectors":  false,
+                       "production_writeback":  false,
+                       "customer_visible_output":  false,
+                       "push":  false
+                   }
+}

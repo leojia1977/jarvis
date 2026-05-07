@@ -862,6 +862,7 @@ function App({
     [activeCase, initialClosedCaseDetailRole]
   );
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(role));
+  const isReviewerCleanRoute = route === "s1_run" || route === "s1_trial";
 
   function selectRole(nextRole: Role) {
     const nextPhase = FIXTURE_PHASES.find((phase) => phase.role === nextRole);
@@ -949,7 +950,11 @@ function App({
   }
 
   return (
-    <main className="workbench-shell">
+    <main
+      className={isReviewerCleanRoute ? "workbench-shell reviewer-clean-shell" : "workbench-shell"}
+      data-reviewer-clean-mode={String(isReviewerCleanRoute)}
+    >
+      {!isReviewerCleanRoute && (
       <aside className="sidebar" aria-label="Primary navigation">
         <div className="brand-lockup">
           <span className="brand-mark">S</span>
@@ -990,8 +995,6 @@ function App({
               item.routeKey === route ||
               (item.routeKey === "inbox" && route === "case") ||
               (isSearchRoute && route === "search") ||
-              (isS1RunRoute && route === "s1_run") ||
-              (isS1TrialRoute && route === "s1_trial") ||
               (isCoverageHealthRoute && route === "coverage_health") ||
               (isApprovalRoute && route === "approval") ||
               (isManagerRoute && route === "manager");
@@ -1029,8 +1032,10 @@ function App({
           role={role}
         />
       </aside>
+      )}
 
       <section className="content-shell">
+        {!isReviewerCleanRoute && (
         <header className="topbar">
           <form className="global-query" onSubmit={submitGlobalQuery} role="search">
             <Search aria-hidden="true" size={20} />
@@ -1061,6 +1066,7 @@ function App({
             onRedlineFixtureChange={selectRedlineFixture}
           />
         </header>
+        )}
 
         {route === "case" ? (
           <CaseDetail

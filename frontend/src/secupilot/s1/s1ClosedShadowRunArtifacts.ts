@@ -43,9 +43,9 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   finalOutcome: "S1_CLOSED_SHADOW_PASS_WITH_NOTES",
   exitCode: 10,
   passHoldReason:
-    "Closed-shadow fixture metadata capture completed；RC-006 已关闭内部本地/离线试用就绪口径。",
+    "Closed-shadow fixture metadata capture completed；RC-008 中文本地/离线评审包用于修复 RC-007 包一致性 HOLD。",
   reviewerAction: "LOCAL_OFFLINE_REVIEW_READY",
-  nextStep: "POST_RC006_PRODUCT_ROUTE_SELECTION",
+  nextStep: "POST_RC008_CN_REVIEWER_FIX_REVIEW",
   caseCount: 20,
   qwenUsed: false,
   canShowInLocalDemo: true,
@@ -68,8 +68,8 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   },
   localReview: {
     schemaVersion: "secupilot.s1.local_review_record.v1",
-    candidate: "LOCAL_OFFLINE_TRIAL_RC_006",
-    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_005",
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_008_CN",
+    sourceCandidate: "LOCAL_OFFLINE_TRIAL_RC_007_CN",
     reviewer: "LOCAL_REVIEWER",
     defaultDecision: "PASS_TO_NEXT_LOCAL_RC" satisfies S1LocalReviewDecision,
     allowedDecisions: [
@@ -79,22 +79,24 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
       "NO_GO_FOR_CURRENT_PRODUCT_PATH"
     ] satisfies S1LocalReviewDecision[],
     defaultNotes:
-      "RC-006 已关闭内部本地/离线 S1 readiness。客户可见、部署、真实数据、live Qwen/API、connector 仍未授权。",
+      "RC-008 中文本地/离线评审包修复 RC-007 的版本与路径不一致；客户可见、部署、真实数据、live Qwen/API、connector 仍未授权。",
     handoff: {
       reviewMode: "LOCAL_OFFLINE_REVIEW_ONLY",
-      packagePath: "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
+      packagePath: "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review",
       readmePath:
-        "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md",
-      zipName: "s1-closed-shadow-local-offline-trial-rc-004-review-package-20260506.zip",
+        "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md",
+      zipName: "local-offline-trial-rc-008-cn-review-package-20260507.zip",
       requiredChecks: [
-        "REVIEWER_README.md",
+        "REVIEWER_START_HERE_中文.md",
         "package_manifest.json",
-        "final_status.json",
-        "case_summary.json",
-        "artifact_manifest.json",
-        "safety_scan.json",
-        "playwright/s1-run-desktop.png",
-        "playwright/s1-run-mobile.png"
+        "evidence/final_status.json",
+        "evidence/case_summary.json",
+        "evidence/artifact_manifest.json",
+        "evidence/safety_scan.json",
+        "screenshots/s1-trial-desktop.png",
+        "screenshots/s1-trial-mobile.png",
+        "screenshots/s1-run-desktop.png",
+        "screenshots/s1-run-mobile.png"
       ],
       boundaryChecks: [
         "real_data=false",
@@ -107,62 +109,64 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
     }
   },
   localTrial: {
-    candidate: "LOCAL_OFFLINE_TRIAL_RC_006",
+    candidate: "LOCAL_OFFLINE_TRIAL_RC_008_CN",
     readiness: "GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY",
     route: "/s1-trial",
     launcherScript: "scripts/launch_s1_local_offline_trial.ps1",
-    routeDecisionDoc: "docs/S6_POST_RC006_PRODUCT_ROUTE_SELECTION_2026_05_07.md",
+    routeDecisionDoc:
+      "docs/S6_FAST_MVP_MVP_20_CHINESE_REVIEWER_PACKAGE_AND_UI_TRIAGE_2026_05_07.md",
     closeoutDoc:
-      "docs/S6_FAST_MVP_RC_006_S1_LOCAL_OFFLINE_GO_NOGO_READINESS_CLOSEOUT_2026_05_06.md",
-    packagePath: "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004",
+      "docs/S6_FAST_MVP_MVP_20_CHINESE_REVIEWER_PACKAGE_AND_UI_TRIAGE_2026_05_07.md",
+    packagePath: "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review",
     readmePath:
-      "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md",
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md",
     launcherOutputPath:
-      "artifacts/local_trial_launches/local-offline-trial-rc-006/launch_info.json",
+      "artifacts/local_trial_launches/local-offline-trial-rc-008-cn-review/launch_info.json",
     localUrl: "http://127.0.0.1:4174/s1-trial",
-    deliveryPackagePath: "artifacts/local_trial_packages/local-offline-trial-rc-006",
-    startHerePath: "artifacts/local_trial_packages/local-offline-trial-rc-006/START_HERE.md",
+    deliveryPackagePath: "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review",
+    startHerePath:
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md",
     reviewerChecklistPath:
-      "artifacts/local_trial_packages/local-offline-trial-rc-006/REVIEWER_CHECKLIST.md",
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_CHECKLIST_中文.md",
     feedbackTemplatePath:
-      "artifacts/local_trial_packages/local-offline-trial-rc-006/FEEDBACK_TEMPLATE.md",
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/FEEDBACK_TEMPLATE_中文.md",
     packageIndexPath:
-      "artifacts/local_trial_packages/local-offline-trial-rc-006/PACKAGE_INDEX.json",
+      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/package_manifest.json",
     steps: [
       {
         id: "readme",
         title: "打开评审 README",
         detail: "先确认试用包范围、文件清单和禁止动作。",
         artifactRef:
-          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/REVIEWER_README.md"
+          "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md"
       },
       {
         id: "manifest",
         title: "核对 package manifest",
         detail: "确认每个打包文件的 SHA256 和 metadata-only 留存口径。",
         artifactRef:
-          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/package_manifest.json"
+          "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/package_manifest.json"
       },
       {
         id: "status",
         title: "查看运行状态",
         detail: "检查 final status、case count、reviewer action 和已保留边界。",
         artifactRef:
-          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/final_status.json"
+          "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/evidence/final_status.json"
       },
       {
         id: "safety",
         title: "确认安全扫描",
         detail: "确认本地包中 secret/token/auth/raw payload 留存命中为 0。",
         artifactRef:
-          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/safety_scan.json"
+          "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/evidence/safety_scan.json"
       },
       {
         id: "screenshots",
         title: "检查桌面和移动端截图",
         detail: "用包内截图确认评审者能理解本地 S1 页面。",
         artifactRef:
-          "artifacts/local_demo_packages/s1-closed-shadow-local-offline-trial-rc-004/playwright/"
+          "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/screenshots/"
       }
     ] satisfies S1LocalTrialStep[]
   },

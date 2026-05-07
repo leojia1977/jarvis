@@ -1,0 +1,50 @@
+﻿{
+    "schema_version":  "secupilot.s1.local_offline_chinese_screenshot_index.v1",
+    "candidate":  "LOCAL_OFFLINE_TRIAL_RC_008_CN",
+    "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_007_CN",
+    "source_commit":  "184635a",
+    "generated_at_utc":  "2026-05-07T00:49:03.7161492Z",
+    "screenshots":  [
+                        {
+                            "file_name":  "s1-run-desktop.png",
+                            "path":  "screenshots/s1-run-desktop.png",
+                            "bytes":  524055,
+                            "sha256":  "059215f6c8603ddb48050204d08e401c610808aeb95c2dedaad57e8cff038ce7",
+                            "route":  "/s1-run",
+                            "viewport":  "1440x1100"
+                        },
+                        {
+                            "file_name":  "s1-run-mobile.png",
+                            "path":  "screenshots/s1-run-mobile.png",
+                            "bytes":  297317,
+                            "sha256":  "bfaa48addc855baef49cf7631760b059c53dd4aace59af358edfcc2e73b1b9b4",
+                            "route":  "/s1-run",
+                            "viewport":  "390x1000"
+                        },
+                        {
+                            "file_name":  "s1-trial-desktop.png",
+                            "path":  "screenshots/s1-trial-desktop.png",
+                            "bytes":  438181,
+                            "sha256":  "5835d169d284522a9ca7a30bdebeef1fd01ae0de14d826a688714165e6c5f9a5",
+                            "route":  "/s1-trial",
+                            "viewport":  "1440x1100"
+                        },
+                        {
+                            "file_name":  "s1-trial-mobile.png",
+                            "path":  "screenshots/s1-trial-mobile.png",
+                            "bytes":  311992,
+                            "sha256":  "c1b4b3d47939ae565936b6e43a9690fef41ab9215e5c218809c6baf0b685cd9f",
+                            "route":  "/s1-trial",
+                            "viewport":  "390x1000"
+                        }
+                    ],
+    "boundaries":  {
+                       "real_data":  false,
+                       "masked_real_data":  false,
+                       "live_qwen_api":  false,
+                       "live_connectors":  false,
+                       "production_writeback":  false,
+                       "customer_visible_output":  false,
+                       "push":  false
+                   }
+}

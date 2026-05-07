@@ -26,7 +26,7 @@ async function assertS1VisualBoundary(page: Page) {
   );
   const reviewPanel = page.getByTestId("s1-local-review-panel");
   await expect(reviewPanel).toBeVisible();
-  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_006");
+  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_008_CN");
   await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
   await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
   await expect(page.getByTestId("s1-selected-review-decision")).toContainText(
@@ -38,7 +38,7 @@ async function assertS1VisualBoundary(page: Page) {
   const handoffPanel = page.getByTestId("s1-review-handoff-panel");
   await expect(handoffPanel).toBeVisible();
   await expect(handoffPanel).toHaveAttribute("data-review-mode", "LOCAL_OFFLINE_REVIEW_ONLY");
-  await expect(page.getByTestId("s1-review-required-check")).toHaveCount(8);
+  await expect(page.getByTestId("s1-review-required-check")).toHaveCount(10);
   await expect(page.getByTestId("s1-artifact-row")).toHaveCount(5);
   await expect(page.getByTestId("s1-case-row")).toHaveCount(20);
   await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
