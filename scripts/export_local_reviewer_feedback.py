@@ -72,7 +72,7 @@ def portable_path(path: Path, base: Path) -> str:
 
 def text_between(text: str, heading: str) -> str:
     pattern = re.compile(
-        rf"^##\s+\d+\.\s+{re.escape(heading)}\s*$([\s\S]*?)(?=^##\s+\d+\.|\Z)",
+        rf"^##\s+(?:\d+\.\s+)?{re.escape(heading)}\s*$([\s\S]*?)(?=^##\s+(?:\d+\.\s+)?|\Z)",
         re.MULTILINE,
     )
     match = pattern.search(text)
@@ -99,6 +99,26 @@ def key_value_lines(section: str) -> dict[str, str]:
     return values
 
 
+def document_fields(text: str) -> dict[str, str]:
+    values: dict[str, str] = {}
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if line.startswith("## "):
+            break
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        values[key.strip()] = value.strip().strip("`")
+    return values
+
+
+def first_decision_value(values: dict[str, str]) -> str:
+    for value in values.values():
+        if value:
+            return value
+    return ""
+
+
 def numbered_lines(section: str) -> list[str]:
     lines = []
     for line in code_block_lines(section):
@@ -108,33 +128,67 @@ def numbered_lines(section: str) -> list[str]:
     return lines
 
 
+def bullet_lines(section: str) -> list[str]:
+    lines = []
+    for raw_line in section.splitlines():
+        cleaned = raw_line.strip()
+        if cleaned.startswith("- "):
+            lines.append(cleaned[2:].strip())
+    return lines
+
+
 def scan_text(text: str, label: str) -> None:
     for pattern in FORBIDDEN_TEXT_PATTERNS:
         if pattern.search(text):
             raise ValueError(f"{label}: forbidden text pattern {pattern.pattern}")
 
 
-def parse_decision_doc(decision_doc: Path) -> dict[str, Any]:
+def parse_decision_doc(decision_doc: Path, reviewer_override: str | None = None) -> dict[str, Any]:
     text = decision_doc.read_text(encoding="utf-8")
     scan_text(text, decision_doc.name)
 
+    top_fields = document_fields(text)
     decision = key_value_lines(text_between(text, "Decision"))
     reviewer = key_value_lines(text_between(text, "Reviewer"))
-    passed_checks = key_value_lines(text_between(text, "Passed Checks"))
-    observations = code_block_lines(text_between(text, "Non-Blocking Observation"))
+    passed_checks = key_value_lines(text_between(text, "Passed Checks")) or key_value_lines(
+        text_between(text, "Reviewer Checks")
+    )
+    passed_findings = bullet_lines(text_between(text, "Passed Findings"))
+    observations = (
+        code_block_lines(text_between(text, "Non-Blocking Observation"))
+        or code_block_lines(text_between(text, "Non-Blocking Notes"))
+        or bullet_lines(text_between(text, "Non-Blocking Notes"))
+    )
     suggestions = numbered_lines(text_between(text, "Reviewer Next-Round Suggestions"))
-    non_authorization = "\n".join(code_block_lines(text_between(text, "Non-Authorization"))).lower()
+    if not suggestions:
+        suggestions = [
+            line
+            for line in observations
+            if "后续" in line or "建议" in line or "弱化" in line or "tooltip" in line.lower()
+        ]
+    non_authorization = "\n".join(
+        code_block_lines(text_between(text, "Non-Authorization"))
+        or code_block_lines(text_between(text, "Boundary Confirmation"))
+    ).lower()
+
+    candidate = decision.get("CANDIDATE") or top_fields.get("Candidate")
+    source_candidate = decision.get("SOURCE_CANDIDATE") or top_fields.get("Source candidate")
+    reviewer_name = reviewer.get("Reviewer") or top_fields.get("Reviewer") or reviewer_override
+    reviewer_decision = reviewer.get("Decision") or top_fields.get("Reviewer decision") or first_decision_value(decision)
+    timestamp = reviewer.get("Timestamp") or top_fields.get("Date")
+    package = reviewer.get("Package") or top_fields.get("Package")
+    zip_path = reviewer.get("Zip") or top_fields.get("Zip")
+    zip_sha = reviewer.get("Zip SHA256") or top_fields.get("Zip SHA256")
 
     required = {
-        "RC_009_CN_LOCAL_OFFLINE_REVIEW": decision.get("RC_009_CN_LOCAL_OFFLINE_REVIEW"),
-        "CANDIDATE": decision.get("CANDIDATE"),
-        "SOURCE_CANDIDATE": decision.get("SOURCE_CANDIDATE"),
-        "Reviewer": reviewer.get("Reviewer"),
-        "Decision": reviewer.get("Decision"),
-        "Timestamp": reviewer.get("Timestamp"),
-        "Package": reviewer.get("Package"),
-        "Zip": reviewer.get("Zip"),
-        "Zip SHA256": reviewer.get("Zip SHA256"),
+        "Decision": reviewer_decision,
+        "CANDIDATE": candidate,
+        "SOURCE_CANDIDATE": source_candidate,
+        "Reviewer": reviewer_name,
+        "Timestamp": timestamp,
+        "Package": package,
+        "Zip": zip_path,
+        "Zip SHA256": zip_sha,
     }
     missing = [key for key, value in required.items() if not value]
     if missing:
@@ -145,9 +199,25 @@ def parse_decision_doc(decision_doc: Path) -> dict[str, Any]:
             raise ValueError(f"non-authorization missing boundary: {boundary}")
 
     return {
-        "decision": decision,
-        "reviewer": reviewer,
+        "decision": {
+            "DECISION": reviewer_decision,
+            "CANDIDATE": candidate,
+            "SOURCE_CANDIDATE": source_candidate,
+            "CUSTOMER_VISIBLE_OR_DEPLOY_GO": decision.get(
+                "CUSTOMER_VISIBLE_OR_DEPLOY_GO", "NOT_AUTHORIZED"
+            ),
+        },
+        "reviewer": {
+            "Reviewer": reviewer_name,
+            "Decision": reviewer_decision,
+            "Timestamp": timestamp,
+            "Review scope": reviewer.get("Review scope", "LOCAL_OFFLINE_REVIEW_ONLY"),
+            "Package": package,
+            "Zip": zip_path,
+            "Zip SHA256": zip_sha,
+        },
         "passed_checks": passed_checks,
+        "passed_findings": passed_findings,
         "non_blocking_observations": observations,
         "next_round_suggestions": suggestions,
     }
@@ -213,6 +283,7 @@ def build_feedback_payload(
         "zip": reviewer["Zip"],
         "zip_sha256": reviewer["Zip SHA256"],
         "passed_checks": parsed["passed_checks"],
+        "passed_findings": parsed["passed_findings"],
         "non_blocking_observations": parsed["non_blocking_observations"],
         "next_round_suggestions": parsed["next_round_suggestions"],
         "package_evidence": package_evidence,
@@ -233,9 +304,10 @@ def build_feedback_payload(
 
 def feedback_markdown(payload: dict[str, Any]) -> str:
     checks = "\n".join(f"- {key}: {value}" for key, value in payload["passed_checks"].items())
+    findings = "\n".join(f"- {item}" for item in payload.get("passed_findings", []))
     observations = "\n".join(f"- {item}" for item in payload["non_blocking_observations"])
     suggestions = "\n".join(f"- {item}" for item in payload["next_round_suggestions"])
-    return f"""# RC-009 Local Reviewer Feedback
+    return f"""# {payload["candidate"]} Local Reviewer Feedback
 
 ## Decision
 
@@ -251,6 +323,10 @@ review_scope: {payload["review_scope"]}
 ## Passed Checks
 
 {checks}
+
+## Passed Findings
+
+{findings}
 
 ## Non-Blocking Observations
 
@@ -281,7 +357,7 @@ def export_feedback(args: argparse.Namespace) -> dict[str, Any]:
     output_json = (repo_root / args.output_json).resolve()
     output_md = (repo_root / args.output_md).resolve()
 
-    parsed = parse_decision_doc(decision_doc)
+    parsed = parse_decision_doc(decision_doc, args.reviewer)
     package_evidence = validate_package(package_dir, parsed)
     payload = build_feedback_payload(decision_doc, package_dir, parsed, package_evidence, repo_root)
 
@@ -308,6 +384,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--package-dir", required=True)
     parser.add_argument("--output-json", required=True)
     parser.add_argument("--output-md", required=True)
+    parser.add_argument("--reviewer")
     parser.add_argument("--repo-root", default=".")
     return parser.parse_args(argv)
 

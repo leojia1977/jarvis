@@ -73,6 +73,63 @@ live connectors
 production write-back
 customer-visible publish/deploy/output
 ```
+    """
+
+
+def rc011_decision_doc_text() -> str:
+    return """# S6 RC-011 Chinese Local Offline Review Decision
+
+Date: 2026-05-07
+
+Candidate: `LOCAL_OFFLINE_TRIAL_RC_099_CN`
+
+Source candidate: `LOCAL_OFFLINE_TRIAL_RC_098_CN`
+
+Package: `artifacts/local_demo_packages/local-offline-trial-rc-099-cn-review`
+
+Zip: `local-offline-trial-rc-099-cn-review-package.zip`
+
+Zip SHA256: `abc123`
+
+Reviewer decision: `PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL`
+
+## Decision
+
+```text
+RC-099 = PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL
+```
+
+## Reviewer Checks
+
+```text
+中文页面是否能看懂 = PASS
+/s1-run 是否已经像产品结果页，而不是证据台 = PASS
+```
+
+## Passed Findings
+
+- /s1-run 已经把技术状态转换为中文结论、下一步和边界说明。
+- 未看到真实数据、脱敏真实数据、live Qwen/API、connector、生产写回、客户可见发布/部署或外部试点授权。
+
+## Non-Blocking Notes
+
+```text
+后续可继续增加中文 tooltip。
+后续可继续弱化英文技术码的首屏存在感，但应保留技术对账入口。
+```
+
+## Boundary Confirmation
+
+This review decision does not authorize:
+
+```text
+real data
+masked-real data
+live Qwen/API calls
+live connectors
+production write-back
+customer-visible publish/deploy/output
+```
 """
 
 
@@ -144,6 +201,35 @@ class ExportLocalReviewerFeedbackTests(unittest.TestCase):
         self.assertEqual("PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL", payload["decision"])
         self.assertEqual(False, payload["boundaries"]["customer_visible_output"])
         self.assertIn("产品结果页", self.output_md.read_text(encoding="utf-8"))
+
+    def test_exports_current_rc011_decision_format_with_reviewer_override(self):
+        self.decision_doc.write_text(rc011_decision_doc_text(), encoding="utf-8")
+
+        with redirect_stdout(StringIO()):
+            code = exporter.run(
+                [
+                    "--decision-doc",
+                    str(self.decision_doc),
+                    "--package-dir",
+                    str(self.package_dir),
+                    "--output-json",
+                    str(self.output_json),
+                    "--output-md",
+                    str(self.output_md),
+                    "--reviewer",
+                    "Jarvis / TL / Product-governance reviewer",
+                    "--repo-root",
+                    str(self.root),
+                ]
+            )
+
+        self.assertEqual(exporter.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("LOCAL_OFFLINE_TRIAL_RC_099_CN", payload["candidate"])
+        self.assertEqual("LOCAL_OFFLINE_TRIAL_RC_098_CN", payload["source_candidate"])
+        self.assertEqual("PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL", payload["decision"])
+        self.assertEqual("Jarvis / TL / Product-governance reviewer", payload["reviewer"])
+        self.assertIn("中文 tooltip", payload["next_round_suggestions"][0])
 
     def test_holds_when_safety_scan_has_findings(self):
         self.write_package(finding_count=1)

@@ -82,6 +82,21 @@ class ExportReviewerFeedbackBacklogTests(unittest.TestCase):
         self.assertEqual("BACKLOG_OPEN", payload["items"][0]["status"])
         self.assertTrue(self.output_md.exists())
 
+    def test_deduplicates_observation_repeated_as_next_round_suggestion(self):
+        duplicate = "后续可继续弱化英文技术码的首屏存在感，但应保留技术对账入口。"
+        self.write_feedback(
+            non_blocking_observations=[duplicate],
+            next_round_suggestions=[duplicate],
+        )
+
+        code = self.run_exporter()
+
+        self.assertEqual(exporter.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual(1, len(payload["items"]))
+        self.assertEqual("next_round_suggestion", payload["items"][0]["source_type"])
+        self.assertEqual("P2", payload["items"][0]["priority"])
+
     def test_holds_when_boundary_is_true(self):
         self.write_feedback(
             boundaries={

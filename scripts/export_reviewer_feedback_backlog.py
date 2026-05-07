@@ -140,8 +140,17 @@ def build_items(feedback: dict[str, Any]) -> list[dict[str, Any]]:
     raw_items: list[tuple[str, str]] = []
     raw_items.extend(("non_blocking_observation", item) for item in feedback.get("non_blocking_observations", []))
     raw_items.extend(("next_round_suggestion", item) for item in feedback.get("next_round_suggestions", []))
+    deduped: dict[str, tuple[str, str]] = {}
+    for source_type, text in raw_items:
+        normalized = text.strip().rstrip(".。")
+        if not normalized:
+            continue
+        previous = deduped.get(normalized)
+        if previous and previous[0] == "next_round_suggestion":
+            continue
+        deduped[normalized] = (source_type, text)
     items: list[dict[str, Any]] = []
-    for index, (source_type, text) in enumerate(raw_items, start=1):
+    for index, (source_type, text) in enumerate(deduped.values(), start=1):
         category = classify_category(text)
         items.append(
             {
