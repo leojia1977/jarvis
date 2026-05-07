@@ -64,7 +64,7 @@ export function S1LocalTrialView() {
     {
       title: "核验评审材料",
       description: "按中文入口、manifest、运行状态、安全扫描和截图完成离线检查。",
-      value: "RC-008 中文评审包"
+      value: trial.deliveryPackagePath
     },
     {
       title: "记录本地反馈",

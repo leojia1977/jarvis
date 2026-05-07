@@ -25,6 +25,8 @@ EVIDENCE_FILES = (
     "safety_scan.json",
 )
 
+VALIDATION_RETENTION_CLASS = "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
+
 SCREENSHOT_SPECS = (
     ("s1-run-desktop.png", "/s1-run", "1440x1100"),
     ("s1-run-mobile.png", "/s1-run", "390x1000"),
@@ -140,6 +142,13 @@ def scan_text_file(path: Path) -> None:
             raise ValueError(f"{path.name}: forbidden text pattern {pattern.pattern}")
 
 
+def rc_display_label(candidate: str) -> str:
+    match = re.search(r"RC_(\d{3})", candidate)
+    if not match:
+        return candidate
+    return f"RC-{match.group(1)}"
+
+
 def copy_evidence(source_package: Path, output_dir: Path) -> list[dict[str, Any]]:
     evidence_output = output_dir / "evidence"
     evidence_output.mkdir(parents=True, exist_ok=True)
@@ -168,6 +177,24 @@ def copy_screenshots(screenshot_dir: Path, output_dir: Path) -> list[dict[str, A
     return entries
 
 
+def copy_validation_artifacts(
+    validation_paths: list[Path],
+    output_dir: Path,
+) -> list[dict[str, Any]]:
+    if not validation_paths:
+        return []
+    validation_output = output_dir / "validation"
+    validation_output.mkdir(parents=True, exist_ok=True)
+    entries: list[dict[str, Any]] = []
+    for src in validation_paths:
+        if not src.exists():
+            raise FileNotFoundError(f"missing validation artifact: {src}")
+        dst = validation_output / src.name
+        shutil.copy2(src, dst)
+        entries.append(build_manifest_entry(dst, output_dir, VALIDATION_RETENTION_CLASS))
+    return entries
+
+
 def build_manifest_entry(path: Path, package_dir: Path, retention_class: str) -> dict[str, Any]:
     return {
         "file_name": path.name,
@@ -182,11 +209,12 @@ def build_manifest_entry(path: Path, package_dir: Path, retention_class: str) ->
 
 
 def reviewer_start_here(candidate: str, source_candidate: str, package_dir: str, zip_name: str) -> str:
-    return f"""# SecuPilot 本地离线中文评审包 RC-009
+    rc_label = rc_display_label(candidate)
+    return f"""# SecuPilot 本地离线中文评审包 {rc_label}
 
 ## 本轮目标
 
-RC-009 用于验证 MVP-22 产品化结果页是否已经从“证据台”收敛成 reviewer 可理解的本地离线试用结果页。
+{rc_label} 用于验证本地离线试用包、产品化结果页和机器验证证据是否保持一致。
 
 本轮所有 reviewer-facing 口径统一为：
 
@@ -238,7 +266,8 @@ push
 
 
 def reviewer_checklist(candidate: str, source_candidate: str, package_slug: str) -> str:
-    return f"""# RC-009 中文本地离线评审检查清单
+    rc_label = rc_display_label(candidate)
+    return f"""# {rc_label} 中文本地离线评审检查清单
 
 ## 必查项
 
@@ -259,6 +288,7 @@ def reviewer_checklist(candidate: str, source_candidate: str, package_slug: str)
 | `live_qwen_api` | false |
 | `live_connectors` | false |
 | `safety_scan.summary.finding_count` | 0 |
+| `validation/screenshot_safety_scan.json` 阻塞项 | 0 |
 
 ## HOLD 条件
 
@@ -278,7 +308,8 @@ def reviewer_checklist(candidate: str, source_candidate: str, package_slug: str)
 
 
 def feedback_template(candidate: str, source_candidate: str, package_dir: str, zip_name: str) -> str:
-    return f"""# RC-009 中文本地离线评审反馈模板
+    rc_label = rc_display_label(candidate)
+    return f"""# {rc_label} 中文本地离线评审反馈模板
 
 ## 基本信息
 
@@ -329,7 +360,13 @@ push = false
 """
 
 
-def package_index(candidate: str, source_candidate: str, package_dir: str, zip_name: str) -> dict[str, Any]:
+def package_index(
+    candidate: str,
+    source_candidate: str,
+    package_dir: str,
+    zip_name: str,
+    validation_files: list[str],
+) -> dict[str, Any]:
     return {
         "schema_version": "secupilot.s1.local_offline_chinese_package_index.v1",
         "candidate": candidate,
@@ -342,6 +379,7 @@ def package_index(candidate: str, source_candidate: str, package_dir: str, zip_n
         "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
         "evidence_files": [f"evidence/{name}" for name in EVIDENCE_FILES],
         "screenshot_files": [f"screenshots/{name}" for name, _, _ in SCREENSHOT_SPECS],
+        "validation_files": validation_files,
         "boundaries": BOUNDARIES,
     }
 
@@ -423,11 +461,17 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     entries.extend(copy_evidence(source_package, output_dir))
     entries.extend(write_reviewer_docs(output_dir, args.candidate, args.source_candidate, package_dir_ref, zip_name))
     entries.extend(copy_screenshots(screenshot_dir, output_dir))
+    validation_sources = []
+    if args.screenshot_safety_scan:
+        validation_sources.append((repo_root / args.screenshot_safety_scan).resolve())
+    validation_entries = copy_validation_artifacts(validation_sources, output_dir)
+    entries.extend(validation_entries)
+    validation_files = [entry["path"] for entry in validation_entries]
 
     package_index_path = output_dir / "PACKAGE_INDEX_中文.json"
     write_json(
         package_index_path,
-        package_index(args.candidate, args.source_candidate, package_dir_ref, zip_name),
+        package_index(args.candidate, args.source_candidate, package_dir_ref, zip_name, validation_files),
     )
     entries.append(build_manifest_entry(package_index_path, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
 
@@ -474,6 +518,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--zip-path", required=True)
     parser.add_argument("--source-commit", required=True)
     parser.add_argument("--repo-root", default=".")
+    parser.add_argument("--screenshot-safety-scan")
     return parser.parse_args(argv)
 
 
