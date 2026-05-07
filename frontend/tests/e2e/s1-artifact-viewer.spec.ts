@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test.describe("MVP-05 S1 artifact viewer smoke", () => {
   test("opens /s1-run from workbench nav with local-only boundaries", async ({ page }, testInfo) => {
     await page.goto("/inbox");
-    await page.getByRole("button", { name: /S1 证据/i }).click();
+    await page.getByRole("button", { name: /S1 证据清单/i }).click();
 
     const surface = page.getByTestId("s1-artifact-view");
 

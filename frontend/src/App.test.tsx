@@ -150,7 +150,7 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(screen.getByRole("button", { name: /Inbox/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Search \/ History/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /S1 证据/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 证据清单/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /本地试用/i })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Approval Queue/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Coverage & Health/i })).not.toBeInTheDocument();
@@ -163,7 +163,7 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     await user.click(screen.getByRole("button", { name: "P2" }));
 
-    expect(screen.getByRole("button", { name: /S1 证据/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /S1 证据清单/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /本地试用/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Approval Queue/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Coverage & Health/i })).toBeInTheDocument();
@@ -174,7 +174,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: /S1 证据/i }));
+    await user.click(screen.getByRole("button", { name: /S1 证据清单/i }));
 
     const surface = screen.getByTestId("s1-artifact-view");
 
@@ -356,7 +356,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: /S1 证据/i }));
+    await user.click(screen.getByRole("button", { name: /S1 证据清单/i }));
     await user.click(screen.getByRole("button", { name: /HOLD_FOR_FIXES/ }));
     await user.clear(screen.getByTestId("s1-review-notes"));
     await user.type(screen.getByTestId("s1-review-notes"), "Hold pending RC-002 reviewer note.");
