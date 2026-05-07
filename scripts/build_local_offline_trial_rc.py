@@ -95,6 +95,33 @@ def manifest_self_sha256(manifest: dict[str, Any]) -> str:
     return json_payload_sha256(manifest_for_hash)
 
 
+def build_outer_zip_manifest_payload(
+    *,
+    candidate: str,
+    source_candidate: str,
+    package_dir: str,
+    zip_path: Path,
+    package_manifest_path: Path,
+    manifest_self_hash: str,
+    repo_root: Path,
+) -> dict[str, Any]:
+    return {
+        "schema_version": "secupilot.s1.local_offline_outer_zip_manifest.v1",
+        "generated_at_utc": utc_now(),
+        "candidate": candidate,
+        "source_candidate": source_candidate,
+        "package_dir": package_dir,
+        "zip_name": zip_path.name,
+        "zip_path": portable_path(zip_path, repo_root),
+        "zip_bytes": zip_path.stat().st_size,
+        "zip_sha256": file_sha256(zip_path),
+        "package_manifest_path": portable_path(package_manifest_path, repo_root),
+        "package_manifest_sha256": file_sha256(package_manifest_path),
+        "manifest_self_sha256": manifest_self_hash,
+        "boundaries": BOUNDARIES,
+    }
+
+
 def portable_path(path: Path, base: Path) -> str:
     try:
         return path.resolve().relative_to(base.resolve()).as_posix()
@@ -488,6 +515,20 @@ def create_zip(output_dir: Path, zip_path: Path) -> None:
                 archive.write(path, portable_path(path, output_dir))
 
 
+def resolve_outer_zip_manifest_path(
+    repo_root: Path,
+    zip_path: Path,
+    explicit_path: str | None,
+) -> Path:
+    if explicit_path:
+        target = (repo_root / explicit_path).resolve()
+    else:
+        target = Path(str(zip_path) + ".outer_zip_manifest.json")
+    assert_inside_repo(target, repo_root)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    return target
+
+
 def build_package(args: argparse.Namespace) -> dict[str, Any]:
     repo_root = Path(args.repo_root).resolve()
     source_package = (repo_root / args.source_package).resolve()
@@ -541,14 +582,32 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     package_manifest_path = output_dir / "package_manifest.json"
     write_json(package_manifest_path, package_manifest)
 
+    outer_zip_manifest_path = resolve_outer_zip_manifest_path(
+        repo_root=repo_root,
+        zip_path=zip_path,
+        explicit_path=args.outer_zip_manifest,
+    )
     create_zip(output_dir, zip_path)
+    outer_zip_manifest = build_outer_zip_manifest_payload(
+        candidate=args.candidate,
+        source_candidate=args.source_candidate,
+        package_dir=package_dir_ref,
+        zip_path=zip_path,
+        package_manifest_path=package_manifest_path,
+        manifest_self_hash=package_manifest["manifest_self_sha256"],
+        repo_root=repo_root,
+    )
+    write_json(outer_zip_manifest_path, outer_zip_manifest)
+    zip_sha256 = outer_zip_manifest["zip_sha256"]
     return {
         "status": "PASS",
         "candidate": args.candidate,
         "package_dir": package_dir_ref,
         "zip_path": portable_path(zip_path, repo_root),
-        "zip_sha256": file_sha256(zip_path),
+        "zip_sha256": zip_sha256,
         "manifest_self_sha256": package_manifest["manifest_self_sha256"],
+        "outer_zip_manifest_path": portable_path(outer_zip_manifest_path, repo_root),
+        "outer_zip_manifest_sha256": file_sha256(outer_zip_manifest_path),
         "file_count": len(entries) + 1,
     }
 
@@ -564,6 +623,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-commit", required=True)
     parser.add_argument("--repo-root", default=".")
     parser.add_argument("--screenshot-safety-scan")
+    parser.add_argument("--outer-zip-manifest")
     return parser.parse_args(argv)
 
 

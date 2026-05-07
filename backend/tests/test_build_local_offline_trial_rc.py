@@ -1,6 +1,7 @@
 import json
 import tempfile
 import unittest
+import zipfile
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
@@ -88,28 +89,29 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             },
         )
 
-    def run_builder(self) -> int:
+    def run_builder(self, extra_args: list[str] | None = None) -> int:
+        argv = [
+            "--candidate",
+            "LOCAL_OFFLINE_TRIAL_RC_099_CN",
+            "--source-candidate",
+            "LOCAL_OFFLINE_TRIAL_RC_098_CN",
+            "--source-package",
+            str(self.source_package),
+            "--screenshot-dir",
+            str(self.screenshot_dir),
+            "--output-dir",
+            str(self.output_dir),
+            "--zip-path",
+            str(self.zip_path),
+            "--source-commit",
+            "testcommit",
+            "--repo-root",
+            str(self.root),
+        ]
+        if extra_args:
+            argv.extend(extra_args)
         with redirect_stdout(StringIO()):
-            return builder.run(
-                [
-                    "--candidate",
-                    "LOCAL_OFFLINE_TRIAL_RC_099_CN",
-                    "--source-candidate",
-                    "LOCAL_OFFLINE_TRIAL_RC_098_CN",
-                    "--source-package",
-                    str(self.source_package),
-                    "--screenshot-dir",
-                    str(self.screenshot_dir),
-                    "--output-dir",
-                    str(self.output_dir),
-                    "--zip-path",
-                    str(self.zip_path),
-                    "--source-commit",
-                    "testcommit",
-                    "--repo-root",
-                    str(self.root),
-                ]
-        )
+            return builder.run(argv)
 
     def run_builder_with_validation(self) -> int:
         with redirect_stdout(StringIO()):
@@ -136,6 +138,9 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 ]
             )
 
+    def default_outer_manifest_path(self) -> Path:
+        return Path(str(self.zip_path) + ".outer_zip_manifest.json")
+
     def test_builds_self_contained_package_and_zip(self):
         code = self.run_builder()
 
@@ -156,6 +161,25 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(manifest["manifest_self_sha256"], builder.manifest_self_sha256(manifest))
         self.assertEqual(13, len(manifest["package_files"]))
         self.assertTrue(all(item["sha256"] for item in manifest["package_files"]))
+        with zipfile.ZipFile(self.zip_path, "r") as archive:
+            archived_paths = set(archive.namelist())
+        self.assertIn("package_manifest.json", archived_paths)
+
+        outer_zip_manifest_path = self.default_outer_manifest_path()
+        self.assertTrue(outer_zip_manifest_path.exists())
+        outer_manifest = json.loads(outer_zip_manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(self.zip_path.name, outer_manifest["zip_name"])
+        self.assertEqual(
+            str(self.zip_path.relative_to(self.root)).replace("\\", "/"),
+            outer_manifest["zip_path"],
+        )
+        self.assertRegex(outer_manifest["zip_sha256"], r"^[0-9a-f]{64}$")
+        self.assertRegex(outer_manifest["package_manifest_sha256"], r"^[0-9a-f]{64}$")
+        self.assertEqual(manifest["manifest_self_sha256"], outer_manifest["manifest_self_sha256"])
+        self.assertEqual(
+            builder.file_sha256(self.output_dir / "package_manifest.json"),
+            outer_manifest["package_manifest_sha256"],
+        )
         self.assertIn("RC-099", (self.output_dir / "REVIEWER_START_HERE_中文.md").read_text(encoding="utf-8"))
         case_summary = json.loads(
             (self.output_dir / "evidence" / "case_summary.json").read_text(encoding="utf-8")
@@ -177,6 +201,36 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         manifest = json.loads((self.output_dir / "package_manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(14, len(manifest["package_files"]))
 
+    def test_supports_explicit_outer_zip_manifest_path(self):
+        explicit_outer_manifest = self.root / "out" / "manifests" / "rc099.outer.json"
+
+        code = self.run_builder(
+            [
+                "--outer-zip-manifest",
+                str(explicit_outer_manifest.relative_to(self.root)).replace("\\", "/"),
+            ]
+        )
+
+        self.assertEqual(builder.PASS, code)
+        self.assertTrue(explicit_outer_manifest.exists())
+        outer_manifest = json.loads(explicit_outer_manifest.read_text(encoding="utf-8"))
+        self.assertEqual(self.zip_path.name, outer_manifest["zip_name"])
+        self.assertRegex(outer_manifest["zip_sha256"], r"^[0-9a-f]{64}$")
+        self.assertRegex(outer_manifest["package_manifest_sha256"], r"^[0-9a-f]{64}$")
+        manifest = json.loads((self.output_dir / "package_manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["manifest_self_sha256"], outer_manifest["manifest_self_sha256"])
+        self.assertEqual(
+            builder.file_sha256(self.output_dir / "package_manifest.json"),
+            outer_manifest["package_manifest_sha256"],
+        )
+
+    def test_holds_when_outer_manifest_path_is_outside_repo(self):
+        code = self.run_builder(["--outer-zip-manifest", "../../outside/outer.json"])
+
+        self.assertEqual(builder.HOLD, code)
+        self.assertFalse(self.zip_path.exists())
+        self.assertFalse((self.root.parent / "outside" / "outer.json").exists())
+
     def test_holds_when_safety_scan_has_findings(self):
         self.write_source_package(finding_count=1)
 
@@ -184,6 +238,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
 
         self.assertEqual(builder.HOLD, code)
         self.assertFalse(self.zip_path.exists())
+        self.assertFalse(self.default_outer_manifest_path().exists())
 
 
 if __name__ == "__main__":

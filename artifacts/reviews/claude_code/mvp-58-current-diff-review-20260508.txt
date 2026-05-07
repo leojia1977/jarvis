@@ -1,0 +1,76 @@
+﻿Here is my independent review of GOAL-MVP-58_OUTER_ZIP_MANIFEST.
+
+---
+
+## Review: GOAL-MVP-58_OUTER_ZIP_MANIFEST
+
+### Scope read
+Goal card, `build_local_offline_trial_rc.py`, `test_build_local_offline_trial_rc.py`, outer zip manifest artifact, rc consistency JSON, screenshot safety JSON, closeout doc, prior automated review artifact.
+
+---
+
+### Boundary safety
+
+| Check | Result |
+|---|---|
+| `resolve_outer_zip_manifest_path` calls `assert_inside_repo` before any write | ✅ |
+| For default path: `zip_path` already validated by `ensure_clean_output`; appending `.outer_zip_manifest.json` stays inside | ✅ |
+| For explicit path: `assert_inside_repo` on resolved target before `mkdir` | ✅ |
+| `mkdir` only fires after `assert_inside_repo` succeeds (raise kills further execution) | ✅ |
+| HOLD on explicit path outside repo: zip not created, outer manifest not created | ✅ (test line 230-232) |
+| HOLD on source boundary failure: `validate_source_boundaries` fires before `ensure_clean_output` and before `resolve_outer_zip_manifest_path`; no dirs created, no residue | ✅ (test line 241) |
+| All `BOUNDARIES` fields = `false` in stored artifact | ✅ |
+
+---
+
+### Integrity chain
+
+| Check | Result |
+|---|---|
+| `package_manifest.json` written to `output_dir` (line 583) before `create_zip` (line 590) — manifest is inside the zip | ✅ |
+| `manifest_self_sha256` computed from manifest dict (line 581) before zip is created | ✅ |
+| `build_outer_zip_manifest_payload` called after `create_zip` — zip exists at stat/hash time | ✅ |
+| Cross-link: `outer_manifest["manifest_self_sha256"]` == inner `package_manifest["manifest_self_sha256"]` | ✅ (test line 178) |
+| Cross-link: `outer_manifest["package_manifest_sha256"]` == `file_sha256(package_manifest.json)` | ✅ (test lines 180-182) |
+| Hash format: `hashlib.sha256().hexdigest()` always 64-char lowercase hex; no additional validation needed | ✅ |
+
+---
+
+### Evidence alignment check
+
+The prior automated review (F1) flagged `closeout hashes ≠ stored artifact hashes`. That issue is **resolved**: both the closeout (`S6_FAST_MVP_MVP_58…md` lines 62-63) and the stored artifact now show identical values:
+
+```
+zip_sha256:           9f840c4a4dd54db589b71b25556b9b5f2472c95b9d8f1e66c079c69d4ad6f7ed
+manifest_self_sha256: 5f7b30828cd7d6750b0dea9f45789f00c681acc7b55a84a3b8fe9a2862cfcdf6
+```
+
+✅ Evidence contract satisfied.
+
+---
+
+### Findings
+
+| # | Sev | Finding |
+|---|---|---|
+| F1 | ~~P2~~ ✅ | Prior automated review's evidence hash mismatch — resolved in final closeout; artifact and closeout now agree |
+| F2 | — | Prior automated review's "orphaned zip" claim was wrong; `resolve_outer_zip_manifest_path` fires on line 585 **before** `create_zip` on line 590; implementation and test are correct |
+| F3 | P3 | Outer manifest carries no self-hash of its own; downstream tooling cannot verify the outer manifest's integrity without re-running the builder; design trade-off, not a defect, but should be documented |
+| F4 | P3 | `zip_bytes > 0` and `schema_version` value not asserted in any test case; non-blocking |
+
+### HOLD condition checklist
+
+| Condition | Status |
+|---|---|
+| `outer_zip_manifest` missing after builder run | NO |
+| `zip_sha256` / `package_manifest_sha256` not 64-char lowercase hex | NO |
+| `manifest_self_sha256` mismatches `package_manifest.json` | NO |
+| Builder mutation changes package boundaries | NO |
+| RC consistency validator blocking findings | 0 |
+| Screenshot safety validator blocking findings | 0 |
+
+---
+
+## Overall Decision: **PASS_WITH_NOTES**
+
+Implementation is sound. Boundary enforcement, hash ordering, cross-link invariants, and HOLD residue protection are all correct. The only previously open blocker (F1 evidence hash mismatch) is confirmed resolved in the committed artifacts. F3–F4 are non-blocking P3 items that do not prevent merge.
