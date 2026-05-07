@@ -1,16 +1,16 @@
 {
   "schema_version": "secupilot.reviewer_backlog_closeout.v1",
-  "created_at_utc": "2026-05-07T15:41:14.115760Z",
+  "created_at_utc": "2026-05-07T17:43:10.222007Z",
   "source_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "output_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "output_backlog_md": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.md",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_014_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_013_CN",
-  "closed_by_goal": "GOAL-MVP-51_REVIEWER_EVIDENCE_LABEL_CLEANUP",
-  "closed_by_commit": "d951208",
-  "resolution": "MVP-51 renamed the /s1-run reviewer-facing nav label to S1 证据清单 for artifact-manifest wording alignment while preserving local/offline safety boundaries.",
+  "closed_by_goal": "GOAL-MVP-53_REVIEWER_TECHNICAL_CODE_COLLAPSE",
+  "closed_by_commit": "af161d7",
+  "resolution": "MVP-53 kept final_outcome technical code out of the /s1-run collapsed first-screen surface and preserved code visibility only inside technical reconciliation details.",
   "closed_item_ids": [
-    "RFB-RC014-004"
+    "RFB-RC014-003"
   ],
   "closed_item_count": 1,
   "boundaries": {
