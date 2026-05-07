@@ -1,0 +1,49 @@
+{
+  "schema_version": "secupilot.local_reviewer_feedback.v1",
+  "generated_at_utc": "2026-05-07T05:19:51.087834Z",
+  "source_decision_doc": "docs/S6_RC_009_CHINESE_LOCAL_OFFLINE_REVIEW_DECISION_2026_05_07.md",
+  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-009-cn-review",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_009_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_008_CN",
+  "reviewer": "Jarvis / TL / Product-governance reviewer",
+  "decision": "PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+  "timestamp": "2026-05-07",
+  "review_scope": "LOCAL_OFFLINE_REVIEW_ONLY",
+  "zip": "artifacts/local_demo_packages/local-offline-trial-rc-009-cn-review-package-20260507.zip",
+  "zip_sha256": "0f13f910f52f294d257f1280afc5ed3c9cf10e6b607478fb93d4d78b70692e34",
+  "passed_checks": {
+    "中文页面能看懂": "YES",
+    "/s1-run 已像产品结果页，不再像证据台": "YES",
+    "candidate/source/package/zip 口径一致": "YES",
+    "未看到 P1/P2/P3、Mock Fixture Phase、Expert Mode 调试控件": "YES",
+    "四张截图足够离线判断": "YES",
+    "未看到真实数据、secret/token/auth header、live Qwen/API/connectors、生产写回、客户可见发布/部署": "YES",
+    "无需补截图": "YES"
+  },
+  "non_blocking_observations": [
+    "/s1-trial desktop 的试用流程第 02 步说明文字中出现 \"RC-008 中文评审包\" 字样。",
+    "Reviewer 判定这是 source_candidate 引用，不是旧版本口径混入。",
+    "建议下一轮清理该引用，使 /s1-trial 文案更简洁。"
+  ],
+  "next_round_suggestions": [
+    "清理 /s1-trial 第 02 步说明文字中的 source candidate 引用。",
+    "考虑在 /s1-run 顶部增加更明确的 \"本轮试用范围\" 说明，降低对技术背景的依赖。"
+  ],
+  "package_evidence": {
+    "package_manifest_sha256": "36df6cbea54d1dce2fc5168e291e90ea134ebd2f81ea9fae35cd060dbc141b99",
+    "final_status_sha256": "45f57750a303b42596ef30eb013b96d30b65759725741c1fa5e8b18d43692690",
+    "safety_scan_sha256": "1feb98bc48a6a9e681f06a2cd3e325e5d3d8d2ba0e7dbd773ea7284f1973cf15"
+  },
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "state_mutation": "none",
+  "artifact_write": "local_feedback_export_only",
+  "customer_visible_or_deploy_go": false
+}

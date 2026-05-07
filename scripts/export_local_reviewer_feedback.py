@@ -1,0 +1,327 @@
+#!/usr/bin/env python3
+"""Export a local/offline reviewer decision doc into structured feedback artifacts."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+PASS = 0
+HOLD = 20
+
+FORBIDDEN_TEXT_PATTERNS = tuple(
+    re.compile(pattern, re.IGNORECASE)
+    for pattern in (
+        r"authorization\s*[:=]\s*\S+",
+        r"bearer\s+[A-Za-z0-9._~+/=-]{12,}",
+        r"api[_-]?key\s*[:=]\s*\S+",
+        r"secret\s*[:=]\s*\S+",
+        r"token\s*[:=]\s*\S+",
+        r"private[_-]?key\s*[:=]\s*\S+",
+        r"raw_payload\s*[:=]",
+        r"raw_evidence\s*[:=]",
+        r"writeback_action\s*[:=]",
+        r"customer_visible_message\s*[:=]",
+    )
+)
+
+REQUIRED_FALSE_BOUNDARIES = (
+    "real data",
+    "masked-real data",
+    "live qwen/api",
+    "live connectors",
+    "production write-back",
+    "customer-visible",
+)
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def read_json(path: Path) -> Any:
+    with path.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def write_json(path: Path, payload: Any) -> None:
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def portable_path(path: Path, base: Path) -> str:
+    try:
+        return path.resolve().relative_to(base.resolve()).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def text_between(text: str, heading: str) -> str:
+    pattern = re.compile(
+        rf"^##\s+\d+\.\s+{re.escape(heading)}\s*$([\s\S]*?)(?=^##\s+\d+\.|\Z)",
+        re.MULTILINE,
+    )
+    match = pattern.search(text)
+    return match.group(1).strip() if match else ""
+
+
+def code_block_lines(section: str) -> list[str]:
+    match = re.search(r"```text\s*([\s\S]*?)```", section)
+    if not match:
+        return []
+    return [line.strip() for line in match.group(1).splitlines() if line.strip()]
+
+
+def key_value_lines(section: str) -> dict[str, str]:
+    values: dict[str, str] = {}
+    for line in code_block_lines(section):
+        if "=" in line:
+            key, value = line.split("=", 1)
+        elif ":" in line:
+            key, value = line.split(":", 1)
+        else:
+            continue
+        values[key.strip()] = value.strip()
+    return values
+
+
+def numbered_lines(section: str) -> list[str]:
+    lines = []
+    for line in code_block_lines(section):
+        cleaned = re.sub(r"^\d+\.\s*", "", line).strip()
+        if cleaned:
+            lines.append(cleaned)
+    return lines
+
+
+def scan_text(text: str, label: str) -> None:
+    for pattern in FORBIDDEN_TEXT_PATTERNS:
+        if pattern.search(text):
+            raise ValueError(f"{label}: forbidden text pattern {pattern.pattern}")
+
+
+def parse_decision_doc(decision_doc: Path) -> dict[str, Any]:
+    text = decision_doc.read_text(encoding="utf-8")
+    scan_text(text, decision_doc.name)
+
+    decision = key_value_lines(text_between(text, "Decision"))
+    reviewer = key_value_lines(text_between(text, "Reviewer"))
+    passed_checks = key_value_lines(text_between(text, "Passed Checks"))
+    observations = code_block_lines(text_between(text, "Non-Blocking Observation"))
+    suggestions = numbered_lines(text_between(text, "Reviewer Next-Round Suggestions"))
+    non_authorization = "\n".join(code_block_lines(text_between(text, "Non-Authorization"))).lower()
+
+    required = {
+        "RC_009_CN_LOCAL_OFFLINE_REVIEW": decision.get("RC_009_CN_LOCAL_OFFLINE_REVIEW"),
+        "CANDIDATE": decision.get("CANDIDATE"),
+        "SOURCE_CANDIDATE": decision.get("SOURCE_CANDIDATE"),
+        "Reviewer": reviewer.get("Reviewer"),
+        "Decision": reviewer.get("Decision"),
+        "Timestamp": reviewer.get("Timestamp"),
+        "Package": reviewer.get("Package"),
+        "Zip": reviewer.get("Zip"),
+        "Zip SHA256": reviewer.get("Zip SHA256"),
+    }
+    missing = [key for key, value in required.items() if not value]
+    if missing:
+        raise ValueError(f"decision doc missing required fields: {', '.join(missing)}")
+
+    for boundary in REQUIRED_FALSE_BOUNDARIES:
+        if boundary not in non_authorization:
+            raise ValueError(f"non-authorization missing boundary: {boundary}")
+
+    return {
+        "decision": decision,
+        "reviewer": reviewer,
+        "passed_checks": passed_checks,
+        "non_blocking_observations": observations,
+        "next_round_suggestions": suggestions,
+    }
+
+
+def validate_package(package_dir: Path, parsed: dict[str, Any]) -> dict[str, Any]:
+    manifest_path = package_dir / "package_manifest.json"
+    final_status_path = package_dir / "evidence" / "final_status.json"
+    safety_scan_path = package_dir / "evidence" / "safety_scan.json"
+    if not manifest_path.exists():
+        raise FileNotFoundError(f"missing package manifest: {manifest_path}")
+
+    manifest = read_json(manifest_path)
+    final_status = read_json(final_status_path)
+    safety_scan = read_json(safety_scan_path)
+
+    candidate = parsed["decision"]["CANDIDATE"]
+    source_candidate = parsed["decision"]["SOURCE_CANDIDATE"]
+    if manifest.get("candidate") != candidate:
+        raise ValueError("package manifest candidate does not match decision doc")
+    if manifest.get("source_candidate") != source_candidate:
+        raise ValueError("package manifest source_candidate does not match decision doc")
+
+    summary = safety_scan.get("summary", {})
+    if summary.get("finding_count") != 0:
+        raise ValueError("safety scan finding_count must be 0")
+
+    boundaries = final_status.get("boundaries_preserved", {})
+    for key in (
+        "customer_visible_output",
+        "production_connectors",
+        "qwen_autonomous_action",
+        "raw_payload_retention",
+        "secret_retention",
+        "writeback",
+    ):
+        if boundaries.get(key) is not False:
+            raise ValueError(f"final_status boundary must be false: {key}")
+
+    return {
+        "package_manifest_sha256": file_sha256(manifest_path),
+        "final_status_sha256": file_sha256(final_status_path),
+        "safety_scan_sha256": file_sha256(safety_scan_path),
+    }
+
+
+def build_feedback_payload(
+    decision_doc: Path, package_dir: Path, parsed: dict[str, Any], package_evidence: dict[str, Any], repo_root: Path
+) -> dict[str, Any]:
+    decision = parsed["decision"]
+    reviewer = parsed["reviewer"]
+    return {
+        "schema_version": "secupilot.local_reviewer_feedback.v1",
+        "generated_at_utc": utc_now(),
+        "source_decision_doc": portable_path(decision_doc, repo_root),
+        "package_dir": portable_path(package_dir, repo_root),
+        "candidate": decision["CANDIDATE"],
+        "source_candidate": decision["SOURCE_CANDIDATE"],
+        "reviewer": reviewer["Reviewer"],
+        "decision": reviewer["Decision"],
+        "timestamp": reviewer["Timestamp"],
+        "review_scope": reviewer.get("Review scope", "LOCAL_OFFLINE_REVIEW_ONLY"),
+        "zip": reviewer["Zip"],
+        "zip_sha256": reviewer["Zip SHA256"],
+        "passed_checks": parsed["passed_checks"],
+        "non_blocking_observations": parsed["non_blocking_observations"],
+        "next_round_suggestions": parsed["next_round_suggestions"],
+        "package_evidence": package_evidence,
+        "boundaries": {
+            "real_data": False,
+            "masked_real_data": False,
+            "live_qwen_api": False,
+            "live_connectors": False,
+            "production_writeback": False,
+            "customer_visible_output": False,
+            "push": False,
+        },
+        "state_mutation": "none",
+        "artifact_write": "local_feedback_export_only",
+        "customer_visible_or_deploy_go": False,
+    }
+
+
+def feedback_markdown(payload: dict[str, Any]) -> str:
+    checks = "\n".join(f"- {key}: {value}" for key, value in payload["passed_checks"].items())
+    observations = "\n".join(f"- {item}" for item in payload["non_blocking_observations"])
+    suggestions = "\n".join(f"- {item}" for item in payload["next_round_suggestions"])
+    return f"""# RC-009 Local Reviewer Feedback
+
+## Decision
+
+```text
+candidate: {payload["candidate"]}
+source_candidate: {payload["source_candidate"]}
+reviewer: {payload["reviewer"]}
+decision: {payload["decision"]}
+timestamp: {payload["timestamp"]}
+review_scope: {payload["review_scope"]}
+```
+
+## Passed Checks
+
+{checks}
+
+## Non-Blocking Observations
+
+{observations}
+
+## Next-Round Suggestions
+
+{suggestions}
+
+## Boundaries
+
+```text
+real_data = false
+masked_real_data = false
+live_qwen_api = false
+live_connectors = false
+production_writeback = false
+customer_visible_output = false
+push = false
+```
+"""
+
+
+def export_feedback(args: argparse.Namespace) -> dict[str, Any]:
+    repo_root = Path(args.repo_root).resolve()
+    decision_doc = (repo_root / args.decision_doc).resolve()
+    package_dir = (repo_root / args.package_dir).resolve()
+    output_json = (repo_root / args.output_json).resolve()
+    output_md = (repo_root / args.output_md).resolve()
+
+    parsed = parse_decision_doc(decision_doc)
+    package_evidence = validate_package(package_dir, parsed)
+    payload = build_feedback_payload(decision_doc, package_dir, parsed, package_evidence, repo_root)
+
+    output_json.parent.mkdir(parents=True, exist_ok=True)
+    write_json(output_json, payload)
+    output_md.write_text(feedback_markdown(payload), encoding="utf-8")
+    scan_text(output_json.read_text(encoding="utf-8"), output_json.name)
+    scan_text(output_md.read_text(encoding="utf-8"), output_md.name)
+
+    return {
+        "status": "PASS",
+        "candidate": payload["candidate"],
+        "decision": payload["decision"],
+        "output_json": portable_path(output_json, repo_root),
+        "output_md": portable_path(output_md, repo_root),
+        "output_json_sha256": file_sha256(output_json),
+        "output_md_sha256": file_sha256(output_md),
+    }
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--decision-doc", required=True)
+    parser.add_argument("--package-dir", required=True)
+    parser.add_argument("--output-json", required=True)
+    parser.add_argument("--output-md", required=True)
+    parser.add_argument("--repo-root", default=".")
+    return parser.parse_args(argv)
+
+
+def run(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
+    try:
+        result = export_feedback(args)
+    except Exception as exc:
+        print(json.dumps({"status": "HOLD", "error": str(exc)}, ensure_ascii=False, indent=2))
+        return HOLD
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return PASS
+
+
+if __name__ == "__main__":
+    sys.exit(run())
