@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
-  "generated_at_utc": "2026-05-07T10:19:14.960117Z",
+  "generated_at_utc": "2026-05-07T11:34:58.840122Z",
   "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-014-cn-review/reviewer_feedback.json",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_014_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_013_CN",
@@ -42,7 +42,7 @@
       "description": "N2. /s1-run 首屏仍保留 candidate、run id、data mode、fixture provider 等对账字段。当前用于本地包与运行核验，不阻塞；后续若要进一步接近客户可读预览，可继续下沉到技术对账区。",
       "category": "PACKAGE_CONSISTENCY",
       "priority": "P3",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -57,7 +57,14 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-47_RESULT_PAGE_FIELD_DOWNSHIFT",
+      "closed_by_commit": "bc67b42",
+      "closed_at_utc": "2026-05-07T11:34:58.840122Z",
+      "resolution": "MVP-47 moved candidate, run id, data mode, and provider from first-screen emphasis into technical reconciliation while preserving traceability.",
+      "closure_evidence": [
+        "docs/S6_FAST_MVP_MVP_47_RESULT_PAGE_FIELD_DOWNSHIFT_CLOSEOUT_2026_05_07.md"
+      ]
     },
     {
       "id": "RFB-RC014-003",
@@ -118,5 +125,6 @@
     "push": false
   },
   "customer_visible_or_deploy_go": false,
-  "external_tracker_write": false
+  "external_tracker_write": false,
+  "closed_item_count": 1
 }

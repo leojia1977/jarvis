@@ -1,12 +1,13 @@
 # SecuPilot Reviewer Feedback Product Backlog
 
-Generated at: 2026-05-07T10:19:14.960117Z
+Generated at: 2026-05-07T11:34:58.840122Z
 
 ```text
 candidate = LOCAL_OFFLINE_TRIAL_RC_014_CN
 source_candidate = LOCAL_OFFLINE_TRIAL_RC_013_CN
 reviewer_decision = PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL
 item_count = 4
+closed_item_count = 1
 customer_visible_or_deploy_go = false
 ```
 
@@ -34,7 +35,7 @@ Acceptance:
 ```text
 category = PACKAGE_CONSISTENCY
 priority = P3
-status = BACKLOG_OPEN
+status = BACKLOG_CLOSED
 source_type = non_blocking_observation
 ```
 
@@ -47,6 +48,15 @@ Acceptance:
   - no customer-visible publish/deploy/output
   - RC consistency validator PASS
   - /s1-run App and Playwright smoke PASS
+
+Resolution:
+
+```text
+closed_by_goal = GOAL-MVP-47_RESULT_PAGE_FIELD_DOWNSHIFT
+closed_by_commit = bc67b42
+resolution = MVP-47 moved candidate, run id, data mode, and provider from first-screen emphasis into technical reconciliation while preserving traceability.
+closed_at_utc = 2026-05-07T11:34:58.840122Z
+```
 
 ## RFB-RC014-003: N3. final_outcome 仍是 S1_CLOSED_SHADOW_PASS_WITH_NOTES。页面已做中文解释并收起技术码；后续可把技术码只保留在折叠区
 
@@ -81,6 +91,7 @@ Acceptance:
   - no live Qwen/API/connectors
   - no production write-back
   - no customer-visible publish/deploy/output
+
 
 
 ## Non-Authorization
