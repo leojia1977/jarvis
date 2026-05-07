@@ -1,0 +1,59 @@
+﻿## GOAL-MVP-56 Code Review: `pick_next_mvp_goal`
+
+---
+
+**Verdict: PASS_WITH_NOTES**
+
+---
+
+### What the diff delivers
+
+- `scripts/pick_next_mvp_goal.py` — deterministic next-goal picker (backlog → queue → exhausted)
+- `backend/tests/test_pick_next_mvp_goal.py` — 3 unit tests
+- Real run artifact in `artifacts/product_acceleration/` showing `CONCRETE_BLOCKER / QUEUE_EXHAUSTED`
+
+---
+
+### Correctness
+
+| # | Finding | Priority |
+|---|---------|----------|
+| 1 | **QUEUE_EXHAUSTED output is correct by design.** All 4 `QUEUE_ITEMS` match existing goal cards (MVP-47, -49, -55, -56). The script correctly reports no queue items remain. The artifact is honest. | ✅ |
+| 2 | `next_goal_index()` returns 57 (max existing = 56). `goal_id` format uses `:02d` — produces 3-digit numbers correctly when needed. | ✅ |
+| 3 | `find_latest_backlog()` sorts by `st_mtime` — acceptable for a local script where files are written sequentially. | ✅ |
+| 4 | HOLD path does not write to `output_json` or `output_md`. Test `assertFalse(self.output_json.exists())` confirms this. Correct. | ✅ |
+| 5 | `output_json = (repo_root / args.output_json).resolve()` — if an absolute path is passed as `--output-json`, pathlib returns the absolute path unchanged on both Unix and Windows. No double-join bug. | ✅ |
+
+---
+
+### Missing tests (non-blocking but noted)
+
+| # | Gap | Priority |
+|---|-----|----------|
+| T1 | **No test for the no-backlog-file path** (`find_latest_backlog` returns `None` → falls through to `queue_candidate`). | P2 |
+| T2 | **No test for backlog top-level not being a dict** (e.g., `[]`). Code raises `ValueError` → HOLD. Covered by code, not by test. | P2 |
+
+---
+
+### Safety / security boundary
+
+| # | Check | Result |
+|---|-------|--------|
+| S1 | No external network calls | ✅ |
+| S2 | No `Authorization:` / `Bearer` / `refresh_token` in any new artifact | ✅ |
+| S3 | No `raw_payload` markers in outputs | ✅ |
+| S4 | Local/offline boundaries: `find_latest_backlog` and `list_goal_cards` are bounded to `repo_root.glob(...)` | ✅ |
+| S5 | `--output-json`/`--output-md` accept relative paths without traversal guard | P3 — acceptable for local/offline scope |
+
+---
+
+### Design notes (P3, non-blocking)
+
+- `infer_profile` SCRIPT_GENERIC fallback maps to `close_reviewer_backlog_items.py` as `exact_files`. For future backlog items that don't match known keywords, this will produce an underfitting goal card. Acceptable for now.
+- QUEUE_ITEMS is self-referential: once MVP-56 is committed, every run will output `CONCRETE_BLOCKER` until new queue items are added. This is intentional and the output is honest.
+
+---
+
+### Acceptance commands status
+
+The real-run artifact exists (`next_goal_candidate.json`, `next_goal_candidate.md`) with valid `exact_files` and `acceptance_commands` fields. No HOLD conditions are triggered. The review artifact at `artifacts/reviews/claude_code/mvp-56-current-diff-review-20260508.txt` is currently empty (1 line) — it should be populated with this review before closeout.
