@@ -33,6 +33,9 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-result-technical-code-link")).toContainText(
       "查看技术对账"
     );
+    await expect(page.getByTestId("s1-technical-reconciliation-explainer")).toContainText(
+      "点开后只查看版本、运行编号、证据哈希和状态码等内部核验信息"
+    );
     await expect(page.getByTestId("s1-run-next-step")).toContainText(
       "进入内部本地试用下一轮"
     );
@@ -67,6 +70,9 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-artifact-row")).toHaveCount(5);
     await expect(page.getByTestId("s1-case-row")).toHaveCount(20);
     await expect(page.getByTestId("s1-technical-reconciliation")).not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("s1-technical-reconciliation-summary")).toContainText(
+      "仅用于内部核验"
+    );
     await expect(page.getByTestId("s1-final-outcome-code")).toContainText(
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );

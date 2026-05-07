@@ -204,6 +204,9 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-result-technical-code-link")).toHaveTextContent(
       "查看技术对账"
     );
+    expect(screen.getByTestId("s1-technical-reconciliation-explainer")).toHaveTextContent(
+      "点开后只查看版本、运行编号、证据哈希和状态码等内部核验信息"
+    );
     expect(screen.getByTestId("s1-run-next-step")).toHaveTextContent(
       "进入内部本地试用下一轮"
     );
@@ -254,6 +257,9 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
     expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
     expect(screen.getByTestId("s1-technical-reconciliation")).not.toHaveAttribute("open");
+    expect(screen.getByTestId("s1-technical-reconciliation-summary")).toHaveTextContent(
+      "仅用于内部核验"
+    );
     expect(screen.getByTestId("s1-final-outcome-code")).toHaveTextContent(
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );

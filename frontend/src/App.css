@@ -1872,6 +1872,14 @@ button {
   overflow-wrap: anywhere;
 }
 
+.s1-technical-link-help {
+  max-width: 360px;
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .s1-trial-status {
   display: inline-flex;
   align-items: center;

@@ -181,6 +181,12 @@ export function S1ArtifactView() {
             >
               查看技术对账
             </a>
+            <p
+              className="s1-technical-link-help"
+              data-testid="s1-technical-reconciliation-explainer"
+            >
+              点开后只查看版本、运行编号、证据哈希和状态码等内部核验信息；不改变上方中文结论。
+            </p>
           </div>
         </article>
         <article>
@@ -438,7 +444,9 @@ export function S1ArtifactView() {
             <FileText aria-hidden="true" size={18} />
             <span>技术对账信息</span>
           </span>
-          <span>JSON 预览、artifact 清单、案例摘要</span>
+          <span data-testid="s1-technical-reconciliation-summary">
+            点开后仅用于内部核验证据、状态码和案例摘要
+          </span>
         </summary>
 
         <section aria-label="技术状态码" className="s1-technical-section">
