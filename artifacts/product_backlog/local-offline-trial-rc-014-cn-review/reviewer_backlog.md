@@ -1,0 +1,96 @@
+# SecuPilot Reviewer Feedback Product Backlog
+
+Generated at: 2026-05-07T10:19:14.960117Z
+
+```text
+candidate = LOCAL_OFFLINE_TRIAL_RC_014_CN
+source_candidate = LOCAL_OFFLINE_TRIAL_RC_013_CN
+reviewer_decision = PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL
+item_count = 4
+customer_visible_or_deploy_go = false
+```
+
+## RFB-RC014-001: N1. evidence/case_summary.json 内部仍有 UAT-19 synthetic case title/summary 含 "P3 manager summary without host raw evidence"。这不是 reviewer-facing 截图控件，也没有出现在 /s1-run 或 /s1-trial 截图中；当前不阻塞
+
+```text
+category = REVIEW_SCREENSHOT
+priority = P3
+status = BACKLOG_OPEN
+source_type = non_blocking_observation
+```
+
+Acceptance:
+
+  - local/offline only
+  - no real or masked-real data
+  - no live Qwen/API/connectors
+  - no production write-back
+  - no customer-visible publish/deploy/output
+  - Playwright screenshot and screenshot safety validator PASS
+  - /s1-run App and Playwright smoke PASS
+
+## RFB-RC014-002: N2. /s1-run 首屏仍保留 candidate、run id、data mode、fixture provider 等对账字段。当前用于本地包与运行核验，不阻塞；后续若要进一步接近客户可读预览，可继续下沉到技术对账区
+
+```text
+category = PACKAGE_CONSISTENCY
+priority = P3
+status = BACKLOG_OPEN
+source_type = non_blocking_observation
+```
+
+Acceptance:
+
+  - local/offline only
+  - no real or masked-real data
+  - no live Qwen/API/connectors
+  - no production write-back
+  - no customer-visible publish/deploy/output
+  - RC consistency validator PASS
+  - /s1-run App and Playwright smoke PASS
+
+## RFB-RC014-003: N3. final_outcome 仍是 S1_CLOSED_SHADOW_PASS_WITH_NOTES。页面已做中文解释并收起技术码；后续可把技术码只保留在折叠区
+
+```text
+category = REVIEWER_EXPERIENCE
+priority = P3
+status = BACKLOG_OPEN
+source_type = non_blocking_observation
+```
+
+Acceptance:
+
+  - local/offline only
+  - no real or masked-real data
+  - no live Qwen/API/connectors
+  - no production write-back
+  - no customer-visible publish/deploy/output
+
+## RFB-RC014-004: N01. "证据称" 建议下一轮顺手改为 "证据摘要" 或 "证据清单"，与 artifact manifest 的概念对齐。不阻塞本轮
+
+```text
+category = REVIEWER_EXPERIENCE
+priority = P2
+status = BACKLOG_OPEN
+source_type = next_round_suggestion
+```
+
+Acceptance:
+
+  - local/offline only
+  - no real or masked-real data
+  - no live Qwen/API/connectors
+  - no production write-back
+  - no customer-visible publish/deploy/output
+
+
+## Non-Authorization
+
+```text
+real_data = false
+masked_real_data = false
+live_qwen_api = false
+live_connectors = false
+production_writeback = false
+customer_visible_output = false
+push = false
+```
