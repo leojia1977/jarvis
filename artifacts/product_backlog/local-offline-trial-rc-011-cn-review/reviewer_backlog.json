@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
-  "generated_at_utc": "2026-05-07T07:29:27.711293Z",
+  "generated_at_utc": "2026-05-07T07:44:14.315627Z",
   "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-011-cn-review/reviewer_feedback.json",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_011_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_010_CN",
@@ -16,7 +16,7 @@
       "description": "后续可继续增加中文 tooltip。",
       "category": "REVIEWER_EXPERIENCE",
       "priority": "P2",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -29,7 +29,15 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-36_RESULT_TECH_CODE_DISCLOSURE",
+      "closed_by_commit": "02fa889",
+      "closed_at_utc": "2026-05-07T07:44:14.315627Z",
+      "resolution": "MVP-36 added Chinese tooltips and moved raw technical codes into technical reconciliation.",
+      "closure_evidence": [
+        "docs\\S6_FAST_MVP_MVP_36_RESULT_TECH_CODE_DISCLOSURE_CLOSEOUT_2026_05_07.md",
+        "docs/S6_FAST_MVP_MVP_36_RESULT_TECH_CODE_DISCLOSURE_CLOSEOUT_2026_05_07.md"
+      ]
     },
     {
       "id": "RFB-RC011-002",
@@ -40,7 +48,7 @@
       "description": "后续可继续弱化英文技术码的首屏存在感，但应保留技术对账入口。",
       "category": "REVIEWER_EXPERIENCE",
       "priority": "P2",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -53,7 +61,15 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-36_RESULT_TECH_CODE_DISCLOSURE",
+      "closed_by_commit": "02fa889",
+      "closed_at_utc": "2026-05-07T07:44:14.315627Z",
+      "resolution": "MVP-36 added Chinese tooltips and moved raw technical codes into technical reconciliation.",
+      "closure_evidence": [
+        "docs\\S6_FAST_MVP_MVP_36_RESULT_TECH_CODE_DISCLOSURE_CLOSEOUT_2026_05_07.md",
+        "docs/S6_FAST_MVP_MVP_36_RESULT_TECH_CODE_DISCLOSURE_CLOSEOUT_2026_05_07.md"
+      ]
     }
   ],
   "boundaries": {
@@ -66,5 +82,6 @@
     "push": false
   },
   "customer_visible_or_deploy_go": false,
-  "external_tracker_write": false
+  "external_tracker_write": false,
+  "closed_item_count": 2
 }

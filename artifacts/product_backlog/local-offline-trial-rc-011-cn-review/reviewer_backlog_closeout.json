@@ -1,0 +1,28 @@
+{
+  "schema_version": "secupilot.reviewer_backlog_closeout.v1",
+  "created_at_utc": "2026-05-07T07:44:14.315627Z",
+  "source_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-011-cn-review/reviewer_backlog.json",
+  "output_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-011-cn-review/reviewer_backlog.json",
+  "output_backlog_md": "artifacts/product_backlog/local-offline-trial-rc-011-cn-review/reviewer_backlog.md",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_011_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_010_CN",
+  "closed_by_goal": "GOAL-MVP-36_RESULT_TECH_CODE_DISCLOSURE",
+  "closed_by_commit": "02fa889",
+  "resolution": "MVP-36 added Chinese tooltips and moved raw technical codes into technical reconciliation.",
+  "closed_item_ids": [
+    "RFB-RC011-001",
+    "RFB-RC011-002"
+  ],
+  "closed_item_count": 2,
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "customer_visible_or_deploy_go": false,
+  "external_tracker_write": false
+}
