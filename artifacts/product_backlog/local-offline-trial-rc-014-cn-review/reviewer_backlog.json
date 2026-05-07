@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
-  "generated_at_utc": "2026-05-07T13:37:44.707183Z",
+  "generated_at_utc": "2026-05-07T15:41:14.115760Z",
   "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-014-cn-review/reviewer_feedback.json",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_014_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_013_CN",
@@ -106,7 +106,7 @@
       "description": "N01. \"证据称\" 建议下一轮顺手改为 \"证据摘要\" 或 \"证据清单\"，与 artifact manifest 的概念对齐。不阻塞本轮。",
       "category": "REVIEWER_EXPERIENCE",
       "priority": "P2",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -119,7 +119,14 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-51_REVIEWER_EVIDENCE_LABEL_CLEANUP",
+      "closed_by_commit": "d951208",
+      "closed_at_utc": "2026-05-07T15:41:14.115760Z",
+      "resolution": "MVP-51 renamed the /s1-run reviewer-facing nav label to S1 证据清单 for artifact-manifest wording alignment while preserving local/offline safety boundaries.",
+      "closure_evidence": [
+        "docs/S6_FAST_MVP_MVP_51_REVIEWER_EVIDENCE_LABEL_CLEANUP_2026_05_07.md"
+      ]
     }
   ],
   "boundaries": {
@@ -133,5 +140,5 @@
   },
   "customer_visible_or_deploy_go": false,
   "external_tracker_write": false,
-  "closed_item_count": 2
+  "closed_item_count": 3
 }

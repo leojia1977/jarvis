@@ -1,16 +1,16 @@
 {
   "schema_version": "secupilot.reviewer_backlog_closeout.v1",
-  "created_at_utc": "2026-05-07T13:37:44.707183Z",
+  "created_at_utc": "2026-05-07T15:41:14.115760Z",
   "source_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "output_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "output_backlog_md": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.md",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_014_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_013_CN",
-  "closed_by_goal": "GOAL-MVP-49_CASE_TITLE_CLEANUP",
-  "closed_by_commit": "9f7231d",
-  "resolution": "MVP-49 sanitized legacy UAT-19 synthetic P3 package-facing wording in evidence/case_summary.json while preserving local/offline boundaries.",
+  "closed_by_goal": "GOAL-MVP-51_REVIEWER_EVIDENCE_LABEL_CLEANUP",
+  "closed_by_commit": "d951208",
+  "resolution": "MVP-51 renamed the /s1-run reviewer-facing nav label to S1 证据清单 for artifact-manifest wording alignment while preserving local/offline safety boundaries.",
   "closed_item_ids": [
-    "RFB-RC014-001"
+    "RFB-RC014-004"
   ],
   "closed_item_count": 1,
   "boundaries": {

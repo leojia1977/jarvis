@@ -1,13 +1,13 @@
 # SecuPilot Reviewer Feedback Product Backlog
 
-Generated at: 2026-05-07T13:37:44.707183Z
+Generated at: 2026-05-07T15:41:14.115760Z
 
 ```text
 candidate = LOCAL_OFFLINE_TRIAL_RC_014_CN
 source_candidate = LOCAL_OFFLINE_TRIAL_RC_013_CN
 reviewer_decision = PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL
 item_count = 4
-closed_item_count = 2
+closed_item_count = 3
 customer_visible_or_deploy_go = false
 ```
 
@@ -89,7 +89,7 @@ Acceptance:
 ```text
 category = REVIEWER_EXPERIENCE
 priority = P2
-status = BACKLOG_OPEN
+status = BACKLOG_CLOSED
 source_type = next_round_suggestion
 ```
 
@@ -100,6 +100,15 @@ Acceptance:
   - no live Qwen/API/connectors
   - no production write-back
   - no customer-visible publish/deploy/output
+
+Resolution:
+
+```text
+closed_by_goal = GOAL-MVP-51_REVIEWER_EVIDENCE_LABEL_CLEANUP
+closed_by_commit = d951208
+resolution = MVP-51 renamed the /s1-run reviewer-facing nav label to S1 证据清单 for artifact-manifest wording alignment while preserving local/offline safety boundaries.
+closed_at_utc = 2026-05-07T15:41:14.115760Z
+```
 
 
 

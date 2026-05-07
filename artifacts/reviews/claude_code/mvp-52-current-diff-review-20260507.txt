@@ -1,0 +1,31 @@
+﻿**Review: MVP-51 — S1 证据 → S1 证据清单 label rename**
+
+---
+
+**No blocking findings.**
+
+---
+
+### Observations (ordered by severity)
+
+**P3 — Screenshot safety scan covers pre-rename screenshots**
+
+`screenshot_safety_scan_mvp51.json` references `expected_candidate: LOCAL_OFFLINE_TRIAL_RC_014_CN` and screenshots captured on 2026-04-30, before this rename. The `visible_text_sha256` hashes therefore reflect `"S1 证据"` (old label), not `"S1 证据清单"`. If the scan is supposed to verify the current UI label is safe for reviewer eyes, it's running against stale captures. This is a process gap rather than a code defect — acceptable if RC-015 screenshots will be taken before distribution, but worth tracking.
+
+**P3 — RC-015 package zip not present in commit**
+
+`rc_consistency_check_mvp51.json` references `artifacts/local_demo_packages/local-offline-trial-rc-015-cn-review-package-20260507.zip` but that file doesn't appear in this diff or in tracked/untracked files from the session snapshot. If the consistency check artifact is committed before the package it describes exists, the artifact is unverifiable at review time.
+
+---
+
+### Checks that passed
+
+| Check | Result |
+|---|---|
+| Correctness | Label updated consistently across `App.tsx`, 4 unit test assertions, 1 E2E selector |
+| Regex soundness | `/S1 证据清单/i` — correct; `/i` flag is harmless on Chinese text |
+| Data handling / secrets / payload retention | None — pure UI string change |
+| Production write-back | None |
+| Backend surface | No backend files changed |
+| Overengineering | No — change is minimal and focused |
+| Artifact schemas | Both JSON artifacts use versioned schemas and report `PASS` with zero blocking findings |
