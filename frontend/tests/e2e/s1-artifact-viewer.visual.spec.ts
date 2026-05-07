@@ -62,7 +62,7 @@ async function assertS1VisualBoundary(page: Page) {
   );
   const reviewPanel = page.getByTestId("s1-local-review-panel");
   await expect(reviewPanel).toBeVisible();
-  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_011_CN");
+  await expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_012_CN");
   await expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
   await expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
   await expect(page.getByTestId("s1-selected-review-decision")).toContainText(
@@ -91,10 +91,10 @@ async function assertS1TrialVisualBoundary(page: Page) {
   await expect(surface).toHaveAttribute("data-production-writeback", "false");
   await expect(surface).toHaveAttribute("data-push", "false");
   await expect(page.getByTestId("s1-trial-candidate")).toContainText(
-    "LOCAL_OFFLINE_TRIAL_RC_011_CN"
+    "LOCAL_OFFLINE_TRIAL_RC_012_CN"
   );
   await expect(page.getByTestId("s1-trial-package-path")).toContainText(
-    "artifacts/local_demo_packages/local-offline-trial-rc-011-cn-review"
+    "artifacts/local_demo_packages/local-offline-trial-rc-012-cn-review"
   );
   await expect(page.getByLabel("Role selector")).toHaveCount(0);
   await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
