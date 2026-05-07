@@ -2269,6 +2269,46 @@ button {
   margin: 0;
 }
 
+.s1-qwen-dry-preview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+  border: 1px solid #dce5d8;
+  border-radius: 8px;
+  background: #f8fbf6;
+  padding: 12px;
+}
+
+.s1-qwen-dry-preview > div {
+  min-width: 0;
+}
+
+.s1-qwen-dry-preview strong {
+  display: block;
+  color: #18202b;
+  font-size: 13px;
+}
+
+.s1-qwen-rejected-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.s1-qwen-rejected-fields li {
+  border: 1px solid #d8c999;
+  border-radius: 999px;
+  background: #fff7df;
+  color: #6d5114;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
 .s1-review-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);

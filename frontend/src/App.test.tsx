@@ -295,6 +295,20 @@ describe("SecuPilot first-batch workbench slice", () => {
       "qwen-cloud-disabled"
     );
     expect(screen.getAllByTestId("s1-qwen-provider-mode")).toHaveLength(3);
+    const qwenDryPreview = screen.getByTestId("s1-qwen-dry-preview");
+    expect(qwenDryPreview).toHaveAttribute("data-provider-mode", "dry_contract_only");
+    expect(qwenDryPreview).toHaveAttribute("data-live-qwen-api", "false");
+    expect(qwenDryPreview).toHaveAttribute("data-live-connectors", "false");
+    expect(qwenDryPreview).toHaveAttribute("data-production-writeback", "false");
+    expect(qwenDryPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
+    expect(screen.getByTestId("s1-qwen-dry-data-mode")).toHaveTextContent("SYNTHETIC_ONLY");
+    expect(screen.getByTestId("s1-qwen-dry-case-id")).toHaveTextContent("UAT-01");
+    expect(screen.getByTestId("s1-qwen-dry-reviewer-action")).toHaveTextContent(
+      "REVIEW_AND_SIGNOFF_REQUIRED"
+    );
+    expect(screen.getByTestId("s1-qwen-dry-model-summary")).toHaveTextContent(
+      "Synthetic metadata"
+    );
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
   });

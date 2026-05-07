@@ -11,6 +11,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { S1_CLOSED_SHADOW_RUN_ARTIFACTS } from "./s1ClosedShadowRunArtifacts";
+import { S1_QWEN_PROVIDER_DRY_PREVIEW } from "./s1QwenProviderDryPreview";
 import { S1_QWEN_PROVIDER_CONTRACT } from "./s1QwenProviderContract";
 
 type FeedbackDecision =
@@ -48,6 +49,7 @@ export function S1LocalTrialView() {
   const run = S1_CLOSED_SHADOW_RUN_ARTIFACTS;
   const trial = run.localTrial;
   const qwenContract = S1_QWEN_PROVIDER_CONTRACT;
+  const qwenDryPreview = S1_QWEN_PROVIDER_DRY_PREVIEW;
   const [feedbackDecision, setFeedbackDecision] = useState<FeedbackDecision>(
     "READY_FOR_NEXT_INTERNAL_TRIAL"
   );
@@ -369,6 +371,73 @@ export function S1LocalTrialView() {
               <p>{mode.description}</p>
             </article>
           ))}
+        </div>
+        <div
+          className="s1-qwen-dry-preview"
+          data-autonomous-qwen-action={String(qwenDryPreview.boundaries.autonomousQwenAction)}
+          data-customer-visible-output={String(qwenDryPreview.boundaries.customerVisibleOutput)}
+          data-live-connectors={String(qwenDryPreview.boundaries.liveConnectors)}
+          data-live-qwen-api={String(qwenDryPreview.boundaries.liveQwenApi)}
+          data-production-writeback={String(qwenDryPreview.boundaries.productionWriteback)}
+          data-provider-mode={qwenDryPreview.providerMode}
+          data-secret-material-allowed={String(qwenDryPreview.boundaries.secretMaterialAllowed)}
+          data-testid="s1-qwen-dry-preview"
+        >
+          <div>
+            <strong>Dry provider 输入预览</strong>
+            <dl className="s1-trial-package-facts">
+              <div>
+                <dt>数据模式</dt>
+                <dd data-testid="s1-qwen-dry-data-mode">{qwenDryPreview.dataMode}</dd>
+              </div>
+              <div>
+                <dt>本地 fixture</dt>
+                <dd>{qwenDryPreview.fixtureSourceRef}</dd>
+              </div>
+              <div>
+                <dt>输入包</dt>
+                <dd>{qwenDryPreview.inputPackageRef}</dd>
+              </div>
+              <div>
+                <dt>案例数</dt>
+                <dd>{qwenDryPreview.caseCount}</dd>
+              </div>
+            </dl>
+          </div>
+          <div>
+            <strong>Dry provider 输出预览</strong>
+            <dl className="s1-trial-package-facts">
+              <div>
+                <dt>案例</dt>
+                <dd data-testid="s1-qwen-dry-case-id">{qwenDryPreview.outputPreview.caseId}</dd>
+              </div>
+              <div>
+                <dt>风险</dt>
+                <dd>{qwenDryPreview.outputPreview.riskLevel}</dd>
+              </div>
+              <div>
+                <dt>人工动作</dt>
+                <dd data-testid="s1-qwen-dry-reviewer-action">
+                  {qwenDryPreview.outputPreview.reviewerAction}
+                </dd>
+              </div>
+              <div>
+                <dt>置信度</dt>
+                <dd>{qwenDryPreview.outputPreview.confidence}</dd>
+              </div>
+            </dl>
+            <p data-testid="s1-qwen-dry-model-summary">
+              {qwenDryPreview.outputPreview.modelSummary}
+            </p>
+          </div>
+          <div>
+            <strong>拒绝进入 UI 的字段</strong>
+            <ul className="s1-qwen-rejected-fields">
+              {qwenDryPreview.rejectedFieldLabels.map((label) => (
+                <li key={label}>{label}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

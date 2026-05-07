@@ -117,6 +117,17 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-cloud-disabled");
     await expect(qwenContract).toHaveAttribute("data-live-call-allowed", "false");
     await expect(page.getByTestId("s1-qwen-provider-mode")).toHaveCount(3);
+    const qwenDryPreview = page.getByTestId("s1-qwen-dry-preview");
+    await expect(qwenDryPreview).toHaveAttribute("data-provider-mode", "dry_contract_only");
+    await expect(qwenDryPreview).toHaveAttribute("data-live-qwen-api", "false");
+    await expect(qwenDryPreview).toHaveAttribute("data-live-connectors", "false");
+    await expect(qwenDryPreview).toHaveAttribute("data-production-writeback", "false");
+    await expect(qwenDryPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
+    await expect(page.getByTestId("s1-qwen-dry-data-mode")).toContainText("SYNTHETIC_ONLY");
+    await expect(page.getByTestId("s1-qwen-dry-case-id")).toContainText("UAT-01");
+    await expect(page.getByTestId("s1-qwen-dry-reviewer-action")).toContainText(
+      "REVIEW_AND_SIGNOFF_REQUIRED"
+    );
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
 });
