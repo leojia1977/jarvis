@@ -1,5 +1,5 @@
 import { expect, type Page, test } from "@playwright/test";
-import { mkdir } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -12,6 +12,35 @@ const SCREENSHOT_ROOT = path.join(
   "2026-04-30-001",
   "playwright"
 );
+
+async function captureScreenshotEvidence(
+  page: Page,
+  fileName: string,
+  route: "/s1-run" | "/s1-trial",
+  viewport: string
+) {
+  const screenshotPath = path.join(SCREENSHOT_ROOT, fileName);
+  await page.screenshot({
+    fullPage: true,
+    path: screenshotPath
+  });
+  const visibleText = await page.locator("body").innerText();
+  await writeFile(
+    path.join(SCREENSHOT_ROOT, fileName.replace(/\.png$/, ".text.json")),
+    JSON.stringify(
+      {
+        schema_version: "secupilot.s1.screenshot_text_evidence.v1",
+        file_name: fileName,
+        route,
+        viewport,
+        visible_text: visibleText
+      },
+      null,
+      2
+    ),
+    "utf-8"
+  );
+}
 
 async function assertS1VisualBoundary(page: Page) {
   const surface = page.getByTestId("s1-artifact-view");
@@ -78,10 +107,7 @@ test.describe("MVP-11 S1 artifact viewer visual smoke", () => {
     await page.goto("/s1-run");
 
     await assertS1VisualBoundary(page);
-    await page.screenshot({
-      fullPage: true,
-      path: path.join(SCREENSHOT_ROOT, "s1-run-desktop.png")
-    });
+    await captureScreenshotEvidence(page, "s1-run-desktop.png", "/s1-run", "1440x1100");
   });
 
   test("captures local-only mobile visual smoke", async ({ page }) => {
@@ -89,10 +115,7 @@ test.describe("MVP-11 S1 artifact viewer visual smoke", () => {
     await page.goto("/s1-run");
 
     await assertS1VisualBoundary(page);
-    await page.screenshot({
-      fullPage: true,
-      path: path.join(SCREENSHOT_ROOT, "s1-run-mobile.png")
-    });
+    await captureScreenshotEvidence(page, "s1-run-mobile.png", "/s1-run", "390x1000");
   });
 
   test("captures local trial desktop visual smoke", async ({ page }) => {
@@ -100,10 +123,7 @@ test.describe("MVP-11 S1 artifact viewer visual smoke", () => {
     await page.goto("/s1-trial");
 
     await assertS1TrialVisualBoundary(page);
-    await page.screenshot({
-      fullPage: true,
-      path: path.join(SCREENSHOT_ROOT, "s1-trial-desktop.png")
-    });
+    await captureScreenshotEvidence(page, "s1-trial-desktop.png", "/s1-trial", "1440x1100");
   });
 
   test("captures local trial mobile visual smoke", async ({ page }) => {
@@ -111,9 +131,6 @@ test.describe("MVP-11 S1 artifact viewer visual smoke", () => {
     await page.goto("/s1-trial");
 
     await assertS1TrialVisualBoundary(page);
-    await page.screenshot({
-      fullPage: true,
-      path: path.join(SCREENSHOT_ROOT, "s1-trial-mobile.png")
-    });
+    await captureScreenshotEvidence(page, "s1-trial-mobile.png", "/s1-trial", "390x1000");
   });
 });
