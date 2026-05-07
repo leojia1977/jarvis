@@ -21,7 +21,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     );
     await expect(page.getByTestId("s1-final-outcome-code-link")).toHaveAttribute(
       "title",
-      /S1_CLOSED_SHADOW_PASS_WITH_NOTES/
+      "技术码已收起，仅在“技术对账信息”展开后显示。"
     );
     await expect(page.getByRole("heading", { name: "本地离线试用结果" })).toBeVisible();
     await expect(page.getByTestId("s1-result-decision")).toContainText(

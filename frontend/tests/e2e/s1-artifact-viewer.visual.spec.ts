@@ -58,7 +58,7 @@ async function assertS1VisualBoundary(page: Page) {
   );
   await expect(page.getByTestId("s1-final-outcome-code-link")).toHaveAttribute(
     "title",
-    /S1_CLOSED_SHADOW_PASS_WITH_NOTES/
+    "技术码已收起，仅在“技术对账信息”展开后显示。"
   );
   const reviewPanel = page.getByTestId("s1-local-review-panel");
   await expect(reviewPanel).toBeVisible();

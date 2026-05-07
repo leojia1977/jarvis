@@ -192,7 +192,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     );
     expect(screen.getByTestId("s1-final-outcome-code-link")).toHaveAttribute(
       "title",
-      expect.stringContaining("S1_CLOSED_SHADOW_PASS_WITH_NOTES")
+      "技术码已收起，仅在“技术对账信息”展开后显示。"
     );
     expect(screen.getByRole("heading", { name: "本地离线试用结果" })).toBeInTheDocument();
     expect(screen.getByTestId("s1-result-decision")).toHaveTextContent(

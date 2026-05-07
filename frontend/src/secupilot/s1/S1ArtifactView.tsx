@@ -37,9 +37,8 @@ const RESULT_STATUS_EXPLAINER = {
     "使用本轮中文评审包继续内部 review；客户可见、deploy、live Qwen/API 仍未授权。"
 } as const;
 
-function technicalCodeTitle(label: string, value: string): string {
-  return `${label}：${value}。此技术码仅用于工程审计追踪，评审主结论以中文说明为准。`;
-}
+const TECHNICAL_CODE_LINK_TITLE =
+  "技术码已收起，仅在“技术对账信息”展开后显示。";
 
 export function S1ArtifactView() {
   const run = S1_CLOSED_SHADOW_RUN_ARTIFACTS;
@@ -139,7 +138,7 @@ export function S1ArtifactView() {
             className="s1-technical-code-link"
             data-testid="s1-final-outcome-code-link"
             href="#s1-technical-reconciliation"
-            title={technicalCodeTitle("最终状态技术码", run.finalOutcome)}
+            title={TECHNICAL_CODE_LINK_TITLE}
           >
             技术码已收起
           </a>
@@ -163,7 +162,7 @@ export function S1ArtifactView() {
               className="s1-technical-code-link"
               data-testid="s1-result-technical-code-link"
               href="#s1-technical-reconciliation"
-              title={technicalCodeTitle("最终状态技术码", run.finalOutcome)}
+              title={TECHNICAL_CODE_LINK_TITLE}
             >
               查看技术对账
             </a>
@@ -199,7 +198,7 @@ export function S1ArtifactView() {
               className="s1-technical-code-link"
               data-testid="s1-next-step-code-link"
               href="#s1-technical-reconciliation"
-              title={technicalCodeTitle("下一步技术码", run.nextStep)}
+              title={TECHNICAL_CODE_LINK_TITLE}
             >
               查看下一步技术码
             </a>
@@ -261,7 +260,7 @@ export function S1ArtifactView() {
                   className="s1-technical-code-link"
                   data-testid="s1-run-next-step-code-link"
                   href="#s1-technical-reconciliation"
-                  title={technicalCodeTitle("下一步技术码", run.nextStep)}
+                  title={TECHNICAL_CODE_LINK_TITLE}
                 >
                   技术码已收起
                 </a>
