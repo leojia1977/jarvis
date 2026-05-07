@@ -1,13 +1,13 @@
 # SecuPilot Reviewer Feedback Product Backlog
 
-Generated at: 2026-05-07T11:34:58.840122Z
+Generated at: 2026-05-07T13:37:44.707183Z
 
 ```text
 candidate = LOCAL_OFFLINE_TRIAL_RC_014_CN
 source_candidate = LOCAL_OFFLINE_TRIAL_RC_013_CN
 reviewer_decision = PASS_TO_NEXT_INTERNAL_LOCAL_TRIAL
 item_count = 4
-closed_item_count = 1
+closed_item_count = 2
 customer_visible_or_deploy_go = false
 ```
 
@@ -16,7 +16,7 @@ customer_visible_or_deploy_go = false
 ```text
 category = REVIEW_SCREENSHOT
 priority = P3
-status = BACKLOG_OPEN
+status = BACKLOG_CLOSED
 source_type = non_blocking_observation
 ```
 
@@ -29,6 +29,15 @@ Acceptance:
   - no customer-visible publish/deploy/output
   - Playwright screenshot and screenshot safety validator PASS
   - /s1-run App and Playwright smoke PASS
+
+Resolution:
+
+```text
+closed_by_goal = GOAL-MVP-49_CASE_TITLE_CLEANUP
+closed_by_commit = 9f7231d
+resolution = MVP-49 sanitized legacy UAT-19 synthetic P3 package-facing wording in evidence/case_summary.json while preserving local/offline boundaries.
+closed_at_utc = 2026-05-07T13:37:44.707183Z
+```
 
 ## RFB-RC014-002: N2. /s1-run 首屏仍保留 candidate、run id、data mode、fixture provider 等对账字段。当前用于本地包与运行核验，不阻塞；后续若要进一步接近客户可读预览，可继续下沉到技术对账区
 

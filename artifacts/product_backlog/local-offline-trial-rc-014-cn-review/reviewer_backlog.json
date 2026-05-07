@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
-  "generated_at_utc": "2026-05-07T11:34:58.840122Z",
+  "generated_at_utc": "2026-05-07T13:37:44.707183Z",
   "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-014-cn-review/reviewer_feedback.json",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_014_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_013_CN",
@@ -16,7 +16,7 @@
       "description": "N1. evidence/case_summary.json 内部仍有 UAT-19 synthetic case title/summary 含 \"P3 manager summary without host raw evidence\"。这不是 reviewer-facing 截图控件，也没有出现在 /s1-run 或 /s1-trial 截图中；当前不阻塞。",
       "category": "REVIEW_SCREENSHOT",
       "priority": "P3",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -31,7 +31,14 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-49_CASE_TITLE_CLEANUP",
+      "closed_by_commit": "9f7231d",
+      "closed_at_utc": "2026-05-07T13:37:44.707183Z",
+      "resolution": "MVP-49 sanitized legacy UAT-19 synthetic P3 package-facing wording in evidence/case_summary.json while preserving local/offline boundaries.",
+      "closure_evidence": [
+        "docs/S6_FAST_MVP_MVP_49_CASE_TITLE_CLEANUP_CLOSEOUT_2026_05_07.md"
+      ]
     },
     {
       "id": "RFB-RC014-002",
@@ -126,5 +133,5 @@
   },
   "customer_visible_or_deploy_go": false,
   "external_tracker_write": false,
-  "closed_item_count": 1
+  "closed_item_count": 2
 }

@@ -1,16 +1,16 @@
 {
   "schema_version": "secupilot.reviewer_backlog_closeout.v1",
-  "created_at_utc": "2026-05-07T11:34:58.840122Z",
+  "created_at_utc": "2026-05-07T13:37:44.707183Z",
   "source_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "output_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "output_backlog_md": "artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.md",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_014_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_013_CN",
-  "closed_by_goal": "GOAL-MVP-47_RESULT_PAGE_FIELD_DOWNSHIFT",
-  "closed_by_commit": "bc67b42",
-  "resolution": "MVP-47 moved candidate, run id, data mode, and provider from first-screen emphasis into technical reconciliation while preserving traceability.",
+  "closed_by_goal": "GOAL-MVP-49_CASE_TITLE_CLEANUP",
+  "closed_by_commit": "9f7231d",
+  "resolution": "MVP-49 sanitized legacy UAT-19 synthetic P3 package-facing wording in evidence/case_summary.json while preserving local/offline boundaries.",
   "closed_item_ids": [
-    "RFB-RC014-002"
+    "RFB-RC014-001"
   ],
   "closed_item_count": 1,
   "boundaries": {
