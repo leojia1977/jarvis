@@ -1,0 +1,75 @@
+﻿The write to the review artifact was denied — that's fine, this review serves as the artifact. Here is the full assessment:
+
+---
+
+## GOAL-MVP-49_CASE_TITLE_CLEANUP — Review Decision
+
+**Decision: PASS_WITH_NOTES**
+
+---
+
+### Scope Verified
+
+All modified tracked files (`scripts/build_local_offline_trial_rc.py`, `backend/tests/test_build_local_offline_trial_rc.py`) and all produced untracked artifacts are within the goal's allowed list. No out-of-scope files were modified.
+
+---
+
+### Implementation Analysis
+
+**`scripts/build_local_offline_trial_rc.py`**
+- Two constants added: `LEGACY_P3_CASE_TITLE` / `PACKAGE_FACING_P3_CASE_TITLE`.
+- `copy_evidence()` branches on `case_summary.json`: reads→sanitizes→writes instead of `shutil.copy2`. Source data is never modified — package-facing only.
+- `sanitize_case_summary_for_package()` uses **exact title match** (`title.strip() == LEGACY_P3_CASE_TITLE`), plus string replace in summary. Defensively passes through non-dict/non-list payloads unchanged.
+
+**`backend/tests/test_build_local_offline_trial_rc.py`**
+- `write_source_package()` now fixtures UAT-19 with the legacy title/summary.
+- `test_builds_self_contained_package_and_zip()` asserts new title and absence of the old phrase in summary. Coverage is proportionate and correct.
+
+---
+
+### Artifact Verification
+
+| Check | Result |
+|---|---|
+| UAT-19 title in rc-015 `case_summary.json` | `"P3 manager summary (metadata-only evidence scope)"` — PASS |
+| UAT-19 summary | `"without host raw evidence"` phrase absent — PASS |
+| UAT-01..UAT-18, UAT-20 | Unchanged — PASS |
+| All boundaries in `final_status.json` | All `false` — PASS |
+| `screenshot_safety_scan.json` | status PASS, blocking_finding_count 0 — PASS |
+| `rc_consistency_check.json` | status PASS, blocking_finding_count 0 — PASS |
+
+---
+
+### Hold Condition Check
+
+| Condition | Status |
+|---|---|
+| Legacy phrase still in package-facing `case_summary` | CLEAR — absent |
+| Non-UAT-19 case semantics changed | CLEAR — 19 other cases unchanged |
+| `build_local_offline_trial_rc.py` fails twice same way | CLEAR — validators PASS |
+| Screenshot safety blocking findings | CLEAR — 0 |
+| RC consistency blocking findings | CLEAR — 0 |
+| Any boundary flips to true | CLEAR — all false |
+
+---
+
+### Findings
+
+**P1 — None**
+
+**P2 — None**
+
+**P3-1 (non-blocking):** `artifacts/reviews/claude_code/mvp-49-current-diff-review-20260507.txt` was 0 bytes before this review. Evidence contract requires an automated review artifact or `REVIEW_TOOL_UNAVAILABLE_NON_BLOCKING` record. This review output satisfies the contract; Codex should write this content to that file.
+
+**P3-2 (non-blocking):** Three untracked zip files outside the goal's allowed list are present in the working directory (dated 20260506, pre-existing):
+- `local-offline-trial-rc-002-review-package-20260506.zip`
+- `s1-closed-shadow-local-offline-trial-rc-003-review-package-20260506.zip`
+- `s1-closed-shadow-local-offline-trial-rc-004-review-package-20260506.zip`
+
+These **must not** be staged or committed under this goal's merge rule. No fix needed to achieve PASS.
+
+---
+
+### Merge Readiness
+
+Scope respected. No boundary violations. Commit as `feat(secupilot): GOAL-MVP-49 case title cleanup`. Do not push. Do not stage the three rc-002/rc-003/rc-004 zip artifacts.

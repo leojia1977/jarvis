@@ -54,7 +54,23 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             {"summary": {"finding_count": finding_count, "no_go_count": 0}},
         )
         write_json(evidence / "artifact_manifest.json", {"artifacts": []})
-        write_json(evidence / "case_summary.json", {"case_count": 20, "cases": []})
+        write_json(
+            evidence / "case_summary.json",
+            {
+                "case_count": 20,
+                "cases": [
+                    {
+                        "case_id": "UAT-19",
+                        "title": "P3 manager summary without host raw evidence",
+                        "summary": (
+                            "S1 fixture summary for UAT-19: "
+                            "P3 manager summary without host raw evidence. "
+                            "Metadata-only review required."
+                        ),
+                    }
+                ],
+            },
+        )
 
     def write_screenshots(self) -> None:
         self.screenshot_dir.mkdir(parents=True, exist_ok=True)
@@ -139,6 +155,15 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(13, len(manifest["package_files"]))
         self.assertTrue(all(item["sha256"] for item in manifest["package_files"]))
         self.assertIn("RC-099", (self.output_dir / "REVIEWER_START_HERE_中文.md").read_text(encoding="utf-8"))
+        case_summary = json.loads(
+            (self.output_dir / "evidence" / "case_summary.json").read_text(encoding="utf-8")
+        )
+        case = case_summary["cases"][0]
+        self.assertEqual(
+            "P3 manager summary (metadata-only evidence scope)",
+            case["title"],
+        )
+        self.assertNotIn("without host raw evidence", case["summary"])
 
     def test_includes_validation_artifact_when_supplied(self):
         code = self.run_builder_with_validation()

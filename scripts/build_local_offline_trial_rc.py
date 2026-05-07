@@ -25,6 +25,9 @@ EVIDENCE_FILES = (
     "safety_scan.json",
 )
 
+LEGACY_P3_CASE_TITLE = "P3 manager summary without host raw evidence"
+PACKAGE_FACING_P3_CASE_TITLE = "P3 manager summary (metadata-only evidence scope)"
+
 VALIDATION_RETENTION_CLASS = "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
 
 SCREENSHOT_SPECS = (
@@ -158,9 +161,38 @@ def copy_evidence(source_package: Path, output_dir: Path) -> list[dict[str, Any]
         if not src.exists():
             raise FileNotFoundError(f"missing evidence file: {src}")
         dst = evidence_output / name
-        shutil.copy2(src, dst)
+        if name == "case_summary.json":
+            payload = read_json(src)
+            payload = sanitize_case_summary_for_package(payload)
+            write_json(dst, payload)
+        else:
+            shutil.copy2(src, dst)
         entries.append(build_manifest_entry(dst, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
     return entries
+
+
+def sanitize_case_summary_for_package(payload: Any) -> Any:
+    if not isinstance(payload, dict):
+        return payload
+    cases = payload.get("cases")
+    if not isinstance(cases, list):
+        return payload
+    next_cases: list[Any] = []
+    for case in cases:
+        if not isinstance(case, dict):
+            next_cases.append(case)
+            continue
+        next_case = dict(case)
+        title = next_case.get("title")
+        if isinstance(title, str) and title.strip() == LEGACY_P3_CASE_TITLE:
+            next_case["title"] = PACKAGE_FACING_P3_CASE_TITLE
+        summary = next_case.get("summary")
+        if isinstance(summary, str):
+            next_case["summary"] = summary.replace(LEGACY_P3_CASE_TITLE, PACKAGE_FACING_P3_CASE_TITLE)
+        next_cases.append(next_case)
+    next_payload = dict(payload)
+    next_payload["cases"] = next_cases
+    return next_payload
 
 
 def copy_screenshots(screenshot_dir: Path, output_dir: Path) -> list[dict[str, Any]]:
