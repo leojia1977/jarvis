@@ -203,8 +203,8 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-qwen-used")).toHaveTextContent("否");
     expect(screen.getByTestId("s1-production-deploy")).toHaveTextContent("否");
     const reviewPanel = screen.getByTestId("s1-local-review-panel");
-    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_008_CN");
-    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_007_CN");
+    expect(reviewPanel).toHaveAttribute("data-review-scope", "LOCAL_OFFLINE_TRIAL_RC_009_CN");
+    expect(reviewPanel).toHaveAttribute("data-source-candidate", "LOCAL_OFFLINE_TRIAL_RC_008_CN");
     expect(reviewPanel).toHaveAttribute("data-state-mutation", "none");
     expect(reviewPanel).toHaveAttribute("data-artifact-write", "false");
     expect(reviewPanel).toHaveAttribute("data-qwen-api-call", "false");
@@ -223,12 +223,12 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(handoffPanel).toHaveAttribute("data-review-mode", "LOCAL_OFFLINE_REVIEW_ONLY");
     expect(handoffPanel).toHaveAttribute(
       "data-review-package",
-      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review"
+      "artifacts/local_demo_packages/local-offline-trial-rc-009-cn-review"
     );
     expect(handoffPanel).toHaveAttribute("data-state-mutation", "none");
     expect(handoffPanel).toHaveAttribute("data-qwen-api-call", "false");
     expect(screen.getByTestId("s1-review-zip-name")).toHaveTextContent(
-      "local-offline-trial-rc-008-cn-review-package-20260507.zip"
+      "local-offline-trial-rc-009-cn-review-package-20260507.zip"
     );
     expect(screen.getAllByTestId("s1-review-required-check")).toHaveLength(10);
     expect(screen.getAllByTestId("s1-review-boundary-check")).toHaveLength(6);
@@ -261,7 +261,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(surface).toHaveAttribute("data-production-writeback", "false");
     expect(surface).toHaveAttribute("data-push", "false");
     expect(screen.getByTestId("s1-trial-candidate")).toHaveTextContent(
-      "LOCAL_OFFLINE_TRIAL_RC_008_CN"
+      "LOCAL_OFFLINE_TRIAL_RC_009_CN"
     );
     expect(screen.getByTestId("s1-trial-readiness")).toHaveTextContent(
       "GO_FOR_INTERNAL_LOCAL_OFFLINE_REVIEW_ONLY"
@@ -274,10 +274,10 @@ describe("SecuPilot first-batch workbench slice", () => {
       "launch_s1_local_offline_trial.ps1"
     );
     expect(screen.getByTestId("s1-trial-package-path")).toHaveTextContent(
-      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review"
+      "artifacts/local_demo_packages/local-offline-trial-rc-009-cn-review"
     );
     expect(screen.getByTestId("s1-trial-start-here-path")).toHaveTextContent(
-      "artifacts/local_demo_packages/local-offline-trial-rc-008-cn-review/REVIEWER_START_HERE_中文.md"
+      "artifacts/local_demo_packages/local-offline-trial-rc-009-cn-review/REVIEWER_START_HERE_中文.md"
     );
     expect(screen.getAllByTestId("s1-trial-step")).toHaveLength(5);
     const feedbackPanel = screen.getByTestId("s1-feedback-panel");
