@@ -1824,6 +1824,45 @@ button {
   overflow-wrap: anywhere;
 }
 
+.s1-status-pill--stacked {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 360px;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.s1-status-pill-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.s1-technical-code {
+  display: block;
+  margin-top: 6px;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.s1-status-pill .s1-technical-code {
+  color: #1f684f;
+  opacity: 0.82;
+}
+
+.s1-technical-note {
+  margin: 8px 0 0;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
 .s1-trial-status {
   display: inline-flex;
   align-items: center;
@@ -1904,6 +1943,10 @@ button {
   font-size: 12px;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+.s1-result-highlight-grid .s1-technical-code {
+  margin-top: 8px;
 }
 
 .s1-product-entry-grid article {

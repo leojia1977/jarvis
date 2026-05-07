@@ -13,12 +13,27 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(surface).toHaveAttribute("data-customer-visible-output", "false");
     await expect(surface).toHaveAttribute("data-production-writeback", "false");
     await expect(surface).toHaveAttribute("data-qwen-used", "false");
-    await expect(page.getByTestId("s1-final-outcome")).toContainText(
-      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    await expect(page.getByTestId("s1-final-outcome-label")).toContainText(
+      "带备注通过，可进入下一轮内部本地试用评审"
+    );
+    await expect(page.getByTestId("s1-final-outcome-code")).toContainText(
+      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
     await expect(page.getByRole("heading", { name: "本地离线试用结果" })).toBeVisible();
     await expect(page.getByTestId("s1-result-decision")).toContainText(
-      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+      "带备注通过，可进入下一轮内部本地试用评审"
+    );
+    await expect(page.getByTestId("s1-result-decision-explainer")).toContainText(
+      "不代表客户发布或生产部署 GO"
+    );
+    await expect(page.getByTestId("s1-result-technical-code")).toContainText(
+      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    );
+    await expect(page.getByTestId("s1-run-next-step")).toContainText(
+      "进入内部本地试用下一轮"
+    );
+    await expect(page.getByTestId("s1-run-next-step-code")).toContainText(
+      "技术码：RC010_LOCAL_OFFLINE_REVIEW"
     );
     await expect(page.getByTestId("s1-provider")).toContainText("fixture");
     await expect(page.getByTestId("s1-customer-visible-output")).toContainText("否");

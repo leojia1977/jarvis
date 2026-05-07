@@ -184,12 +184,27 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(surface).toHaveAttribute("data-customer-visible-output", "false");
     expect(surface).toHaveAttribute("data-production-writeback", "false");
     expect(surface).toHaveAttribute("data-qwen-used", "false");
-    expect(screen.getByTestId("s1-final-outcome")).toHaveTextContent(
-      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    expect(screen.getByTestId("s1-final-outcome-label")).toHaveTextContent(
+      "带备注通过，可进入下一轮内部本地试用评审"
+    );
+    expect(screen.getByTestId("s1-final-outcome-code")).toHaveTextContent(
+      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
     expect(screen.getByRole("heading", { name: "本地离线试用结果" })).toBeInTheDocument();
     expect(screen.getByTestId("s1-result-decision")).toHaveTextContent(
-      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+      "带备注通过，可进入下一轮内部本地试用评审"
+    );
+    expect(screen.getByTestId("s1-result-decision-explainer")).toHaveTextContent(
+      "不代表客户发布或生产部署 GO"
+    );
+    expect(screen.getByTestId("s1-result-technical-code")).toHaveTextContent(
+      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    );
+    expect(screen.getByTestId("s1-run-next-step")).toHaveTextContent(
+      "进入内部本地试用下一轮"
+    );
+    expect(screen.getByTestId("s1-run-next-step-code")).toHaveTextContent(
+      "技术码：RC010_LOCAL_OFFLINE_REVIEW"
     );
     expect(screen.getByTestId("s1-run-id")).toHaveTextContent(
       "S1-CLOSED-SHADOW-2026-04-30-001"

@@ -28,6 +28,15 @@ const REVIEW_DECISION_LABELS: Record<S1LocalReviewDecision, string> = {
   NO_GO_FOR_CURRENT_PRODUCT_PATH: "当前路径不通过"
 };
 
+const RESULT_STATUS_EXPLAINER = {
+  finalLabel: "带备注通过，可进入下一轮内部本地试用评审",
+  finalDescription:
+    "20 个 synthetic 案例已完成，安全扫描无命中；当前结论仍限定为内部本地评审，不代表客户发布或生产部署 GO。",
+  nextStepLabel: "进入内部本地试用下一轮",
+  nextStepDescription:
+    "使用 RC-010 交接包继续内部 review；客户可见、deploy、live Qwen/API 仍未授权。"
+} as const;
+
 export function S1ArtifactView() {
   const run = S1_CLOSED_SHADOW_RUN_ARTIFACTS;
   const [reviewDecision, setReviewDecision] = useState<S1LocalReviewDecision>(
@@ -129,9 +138,16 @@ export function S1ArtifactView() {
             </div>
           </dl>
         </div>
-        <span className="s1-status-pill" data-testid="s1-final-outcome">
-          <ShieldCheck aria-hidden="true" size={18} />
-          {run.finalOutcome}
+        <span className="s1-status-pill s1-status-pill--stacked" data-testid="s1-final-outcome">
+          <span className="s1-status-pill-main">
+            <ShieldCheck aria-hidden="true" size={18} />
+            <span data-testid="s1-final-outcome-label">
+              {RESULT_STATUS_EXPLAINER.finalLabel}
+            </span>
+          </span>
+          <small className="s1-technical-code" data-testid="s1-final-outcome-code">
+            技术码：{run.finalOutcome}
+          </small>
         </span>
       </header>
 
@@ -142,8 +158,15 @@ export function S1ArtifactView() {
           </span>
           <div>
             <span>当前结论</span>
-            <strong data-testid="s1-result-decision">{run.finalOutcome}</strong>
-            <p>{run.passHoldReason}</p>
+            <strong data-testid="s1-result-decision">
+              {RESULT_STATUS_EXPLAINER.finalLabel}
+            </strong>
+            <p data-testid="s1-result-decision-explainer">
+              {RESULT_STATUS_EXPLAINER.finalDescription}
+            </p>
+            <small className="s1-technical-code" data-testid="s1-result-technical-code">
+              技术码：{run.finalOutcome}
+            </small>
           </div>
         </article>
         <article>
@@ -162,8 +185,13 @@ export function S1ArtifactView() {
           </span>
           <div>
             <span>下一步</span>
-            <strong>{run.nextStep}</strong>
-            <p>评审者可基于本地离线包继续给出 RC 结论。</p>
+            <strong data-testid="s1-next-step-label">
+              {RESULT_STATUS_EXPLAINER.nextStepLabel}
+            </strong>
+            <p>{RESULT_STATUS_EXPLAINER.nextStepDescription}</p>
+            <small className="s1-technical-code" data-testid="s1-next-step-code">
+              技术码：{run.nextStep}
+            </small>
           </div>
         </article>
       </section>
@@ -221,7 +249,12 @@ export function S1ArtifactView() {
             </div>
             <div>
               <dt>下一步</dt>
-              <dd>{run.nextStep}</dd>
+              <dd data-testid="s1-run-next-step">
+                {RESULT_STATUS_EXPLAINER.nextStepLabel}
+                <small className="s1-technical-code" data-testid="s1-run-next-step-code">
+                  技术码：{run.nextStep}
+                </small>
+              </dd>
             </div>
             <div>
               <dt>本地演示</dt>
@@ -234,7 +267,10 @@ export function S1ArtifactView() {
               </dd>
             </div>
           </dl>
-          <p data-testid="s1-pass-hold-reason">{run.passHoldReason}</p>
+          <p data-testid="s1-pass-hold-reason">
+            {RESULT_STATUS_EXPLAINER.finalDescription}
+          </p>
+          <p className="s1-technical-note">原始技术说明：{run.passHoldReason}</p>
         </article>
       </section>
 

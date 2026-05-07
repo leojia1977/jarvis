@@ -50,8 +50,11 @@ async function assertS1VisualBoundary(page: Page) {
   await expect(surface).toHaveAttribute("data-customer-visible-output", "false");
   await expect(surface).toHaveAttribute("data-production-writeback", "false");
   await expect(surface).toHaveAttribute("data-qwen-used", "false");
-  await expect(page.getByTestId("s1-final-outcome")).toContainText(
-    "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+  await expect(page.getByTestId("s1-final-outcome-label")).toContainText(
+    "带备注通过，可进入下一轮内部本地试用评审"
+  );
+  await expect(page.getByTestId("s1-final-outcome-code")).toContainText(
+    "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
   );
   const reviewPanel = page.getByTestId("s1-local-review-panel");
   await expect(reviewPanel).toBeVisible();
