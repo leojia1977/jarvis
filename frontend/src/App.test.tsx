@@ -205,7 +205,7 @@ describe("SecuPilot first-batch workbench slice", () => {
       "查看技术对账"
     );
     expect(screen.getByTestId("s1-technical-reconciliation-explainer")).toHaveTextContent(
-      "点开后仅用于核对候选版本、运行编号、证据哈希和状态码"
+      "点开后仅用于核对候选版本、运行编号、数据模式、离线 provider、证据哈希和状态码"
     );
     expect(screen.getByTestId("s1-run-next-step")).toHaveTextContent(
       "进入内部本地试用下一轮"
@@ -213,10 +213,6 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-run-next-step-code-link")).toHaveTextContent(
       "技术码已收起"
     );
-    expect(screen.getByTestId("s1-run-id")).toHaveTextContent(
-      "S1-CLOSED-SHADOW-2026-04-30-001"
-    );
-    expect(screen.getByTestId("s1-provider")).toHaveTextContent("fixture");
     expect(screen.getByTestId("s1-case-count")).toHaveTextContent("20");
     expect(screen.getByTestId("s1-safety-finding-count")).toHaveTextContent("0");
     expect(screen.getByTestId("s1-customer-visible-output")).toHaveTextContent("否");
@@ -260,6 +256,18 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-technical-reconciliation-summary")).toHaveTextContent(
       "仅用于内部核验"
     );
+    await user.click(screen.getByText("技术对账信息"));
+    expect(screen.getByTestId("s1-technical-reconciliation")).toHaveAttribute("open");
+    expect(screen.getByTestId("s1-run-id")).toHaveTextContent(
+      "S1-CLOSED-SHADOW-2026-04-30-001"
+    );
+    expect(screen.getByTestId("s1-reconciliation-candidate")).toHaveTextContent(
+      "LOCAL_OFFLINE_TRIAL_RC_014_CN"
+    );
+    expect(screen.getByTestId("s1-reconciliation-data-mode")).toHaveTextContent(
+      "SYNTHETIC_PACKAGE_ONLY"
+    );
+    expect(screen.getByTestId("s1-provider")).toHaveTextContent("fixture");
     expect(screen.getByTestId("s1-final-outcome-code")).toHaveTextContent(
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );

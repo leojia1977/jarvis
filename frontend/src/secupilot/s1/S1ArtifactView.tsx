@@ -127,20 +127,6 @@ export function S1ArtifactView() {
           <p className="s1-result-lede">
             本轮使用 synthetic fixture 完成 20 个案例检查，安全扫描无命中；当前结果仅用于内部本地评审，不授权客户可见输出或生产部署。
           </p>
-          <dl className="s1-run-header-facts s1-result-facts">
-            <div>
-              <dt>候选版本</dt>
-              <dd>{run.localReview.candidate}</dd>
-            </div>
-            <div>
-              <dt>运行编号</dt>
-              <dd data-testid="s1-run-id">{run.runId}</dd>
-            </div>
-            <div>
-              <dt>数据模式</dt>
-              <dd>{run.dataMode}</dd>
-            </div>
-          </dl>
         </div>
         <span className="s1-status-pill s1-status-pill--stacked" data-testid="s1-final-outcome">
           <span className="s1-status-pill-main">
@@ -185,7 +171,7 @@ export function S1ArtifactView() {
               className="s1-technical-link-help"
               data-testid="s1-technical-reconciliation-explainer"
             >
-              点开后仅用于核对候选版本、运行编号、证据哈希和状态码；不会改变上方中文结论。
+              点开后仅用于核对候选版本、运行编号、数据模式、离线 provider、证据哈希和状态码；不会改变上方中文结论。
             </p>
           </div>
         </article>
@@ -222,11 +208,6 @@ export function S1ArtifactView() {
       </section>
 
       <section aria-label="S1 run facts" className="s1-kpi-grid">
-        <article>
-          <span>离线 provider</span>
-          <strong data-testid="s1-provider">{run.provider}</strong>
-          <p>{run.inputKind}</p>
-        </article>
         <article>
           <span>案例数</span>
           <strong data-testid="s1-case-count">{run.caseCount}</strong>
@@ -466,6 +447,32 @@ export function S1ArtifactView() {
             <div>
               <dt>原始说明</dt>
               <dd>{run.passHoldReason}</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section aria-label="运行对账字段" className="s1-technical-section">
+          <h2>运行对账字段</h2>
+          <dl className="s1-technical-code-grid">
+            <div>
+              <dt>候选版本</dt>
+              <dd data-testid="s1-reconciliation-candidate">{run.localReview.candidate}</dd>
+            </div>
+            <div>
+              <dt>运行编号</dt>
+              <dd data-testid="s1-run-id">{run.runId}</dd>
+            </div>
+            <div>
+              <dt>数据模式</dt>
+              <dd data-testid="s1-reconciliation-data-mode">{run.dataMode}</dd>
+            </div>
+            <div>
+              <dt>离线 provider</dt>
+              <dd data-testid="s1-provider">{run.provider}</dd>
+            </div>
+            <div>
+              <dt>输入类型</dt>
+              <dd>{run.inputKind}</dd>
             </div>
           </dl>
         </section>

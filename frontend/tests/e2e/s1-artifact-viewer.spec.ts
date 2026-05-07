@@ -34,7 +34,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
       "查看技术对账"
     );
     await expect(page.getByTestId("s1-technical-reconciliation-explainer")).toContainText(
-      "点开后仅用于核对候选版本、运行编号、证据哈希和状态码"
+      "点开后仅用于核对候选版本、运行编号、数据模式、离线 provider、证据哈希和状态码"
     );
     await expect(page.getByTestId("s1-run-next-step")).toContainText(
       "进入内部本地试用下一轮"
@@ -42,7 +42,6 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-run-next-step-code-link")).toContainText(
       "技术码已收起"
     );
-    await expect(page.getByTestId("s1-provider")).toContainText("fixture");
     await expect(page.getByTestId("s1-customer-visible-output")).toContainText("否");
     await expect(page.getByTestId("s1-production-writeback")).toContainText("否");
     await expect(page.getByTestId("s1-production-deploy")).toContainText("否");
@@ -73,6 +72,15 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-technical-reconciliation-summary")).toContainText(
       "仅用于内部核验"
     );
+    await page.locator("#s1-technical-reconciliation > summary").click();
+    await expect(page.getByTestId("s1-technical-reconciliation")).toHaveAttribute("open", "");
+    await expect(page.getByTestId("s1-provider")).toContainText("fixture");
+    await expect(page.getByTestId("s1-reconciliation-candidate")).toContainText(
+      "LOCAL_OFFLINE_TRIAL_RC_014_CN"
+    );
+    await expect(page.getByTestId("s1-reconciliation-data-mode")).toContainText(
+      "SYNTHETIC_PACKAGE_ONLY"
+    );
     await expect(page.getByTestId("s1-final-outcome-code")).toContainText(
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
@@ -88,7 +96,16 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await page.goto("/s1-run");
 
     await expect(page.getByRole("heading", { name: "本地离线试用结果" })).toBeVisible();
+    await expect(page.getByTestId("s1-technical-reconciliation")).not.toHaveAttribute("open", "");
+    await page.locator("#s1-technical-reconciliation > summary").click();
+    await expect(page.getByTestId("s1-technical-reconciliation")).toHaveAttribute("open", "");
     await expect(page.getByTestId("s1-run-id")).toContainText("S1-CLOSED-SHADOW-2026-04-30-001");
+    await expect(page.getByTestId("s1-reconciliation-candidate")).toContainText(
+      "LOCAL_OFFLINE_TRIAL_RC_014_CN"
+    );
+    await expect(page.getByTestId("s1-reconciliation-data-mode")).toContainText(
+      "SYNTHETIC_PACKAGE_ONLY"
+    );
     await expect(page.getByTestId("s1-qwen-used")).toContainText("否");
     await expect(page.getByTestId("s1-secret-retained")).toContainText("否");
     await expect(page.getByTestId("s1-raw-payload-retained")).toContainText("否");

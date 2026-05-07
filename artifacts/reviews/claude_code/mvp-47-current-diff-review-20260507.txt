@@ -1,0 +1,50 @@
+﻿I have all the information needed. Let me deliver the review directly from the diff analysis.
+
+---
+
+## Code Review: GOAL-MVP-47 Result Page Field Downshift
+
+**Decision: PASS**
+
+---
+
+### Summary of Change
+
+The diff correctly implements the field downshift: removes `候选版本 / 运行编号 / 数据模式` from the first-screen hero `<dl>` and the `离线 provider` KPI card, and relocates all four fields plus `inputKind` into a new `运行对账字段` section inside the existing `<details>` accordion.
+
+---
+
+### Findings
+
+**F1 — Boundary compliance: CLEAR**
+- `s1-customer-visible-output` remains asserted as "否" — not removed by this diff. (`App.test.tsx:217`, `e2e spec:44`)
+- `s1-production-writeback`, `s1-production-deploy` — not touched; still present downstream in both test files.
+- No live API, no secrets, no auth headers introduced anywhere in the diff. ✅
+
+**F2 — HOLD conditions from goal card: ALL CLEAR**
+- First-screen hero block removed entirely (`S1ArtifactView.tsx:-127` to `+-142`). ✅
+- KPI grid provider card removed (`S1ArtifactView.tsx:-208` to `+-212`). ✅
+- Technical reconciliation entry point preserved (explainer text update confirms accordion still exists). ✅
+- Closed-by-default sentinel: e2e test at line 97 explicitly asserts `not.toHaveAttribute("open", "")` before expansion. ✅
+
+**F3 — Accordion gate correctness in unit tests: MINOR NOTE (non-blocking)**
+Unit test correctly calls `await user.click(screen.getByText("技术对账信息"))` before asserting downshifted fields (`App.test.tsx:+259–272`). The closeout reports 62 tests passed. JSDOM ≥16.5 supports `<details>/<summary>` toggle via user-event v14, so this is reliable. E2E provides authoritative validation.
+
+**F4 — `inputKind` field has no `data-testid`: MINOR NOTE (non-blocking)**
+In the new `运行对账字段` section (`S1ArtifactView.tsx:+475`), `inputKind` is rendered without a testid. This field was also untested in the prior KPI card. Acceptable for an internal traceability field; no regression introduced.
+
+**F5 — Test adequacy: ADEQUATE**
+- New testids `s1-reconciliation-candidate` and `s1-reconciliation-data-mode` are tested in both unit (`App.test.tsx:+264–271`) and E2E (`e2e spec:+76–83, +101–107`). ✅
+- The previously unconditional `s1-provider` assertion in E2E (line 45, deleted) is correctly replaced by an accordion-gated assertion (line `+74`). ✅
+- `s1-run-id` testid is preserved on the new location; tests updated to require accordion open before asserting. ✅
+
+**F6 — Scope compliance: CLEAR**
+All changed files are in the goal card's `Allowed files` list. No backend, no schema migration, no push. Artifact updates (`s1-run-desktop.png`, `s1-run-mobile.png`, `rc_consistency_check.json`, `screenshot_safety_scan.json`) are expected re-runs of Playwright and validators, within allowed scope.
+
+---
+
+### Verdict
+
+All HOLD conditions clear. No regressions. No boundary violations. Test coverage is adequate for the moved fields. Two minor notes (F3, F4) are non-blocking and consistent with prior project patterns.
+
+**Decision: PASS**
