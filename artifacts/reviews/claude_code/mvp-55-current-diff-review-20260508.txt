@@ -1,0 +1,66 @@
+﻿I have sufficient information from reading the files. Here is the review.
+
+---
+
+## GOAL-MVP-55 Review: `manifest_self_sha256`
+
+### Decision: **PASS_WITH_NOTES**
+
+No HOLD conditions are triggered. The core feature is correctly implemented and tested. Two low-severity notes follow.
+
+---
+
+### Implementation Correctness
+
+**`scripts/build_local_offline_trial_rc.py`**
+
+| Check | Result |
+|---|---|
+| `json_payload_sha256` uses `sort_keys=True` for deterministic serialization | ✓ |
+| `manifest_self_sha256()` zeroes the field (`= None`) before hashing | ✓ |
+| Field is added after all `package_files` entries are finalized | ✓ |
+| Hash is present in both the written `package_manifest.json` and the stdout result | ✓ |
+| `BOUNDARIES` dict unchanged, all values `False` | ✓ |
+| No external network, auth headers, tokens, or `raw_payload` introduced | ✓ |
+
+**`backend/tests/test_build_local_offline_trial_rc.py`**
+
+| Check | Result |
+|---|---|
+| Format asserted: `assertRegex(manifest["manifest_self_sha256"], r"^[0-9a-f]{64}$")` (line 155) | ✓ |
+| Idempotency asserted: `assertEqual(manifest["manifest_self_sha256"], builder.manifest_self_sha256(manifest))` (line 156) | ✓ |
+| File count assertions (13/14) consistent with new code | ✓ |
+
+---
+
+### Findings
+
+**P2 — No zip-level manifest integrity test**
+
+`package_manifest.json` is written to disk and included in the zip via `create_zip()`, but is not listed in its own `package_files`. An external consistency validator iterating `package_files` will count 13 files but find 14 in the zip.
+
+- File: `scripts/build_local_offline_trial_rc.py:529–542`
+- The return dict exposes `file_count: len(entries) + 1` (line 552) which accounts for this, but the manifest on disk has no corresponding field.
+- Fix: Add a test that opens the zip, confirms `package_manifest.json` is present, and confirms `manifest_self_sha256` verifies. Alternatively, add `"manifest_file": "package_manifest.json"` to the written manifest so a validator knows the +1 is intentional.
+
+**P3 — No tampering/mutation test**
+
+No test verifies that modifying any manifest field causes hash verification to fail.
+
+- File: `backend/tests/test_build_local_offline_trial_rc.py`
+- Fix: Add a test case that reads the manifest, mutates one field (e.g. `candidate`), and asserts `builder.manifest_self_sha256(mutated) != original_hash`.
+
+**P3 — Shallow copy in `manifest_self_sha256`**
+
+```python
+# build_local_offline_trial_rc.py:93
+manifest_for_hash = dict(manifest)
+```
+
+Shallow copy is safe for the current flat+nested-readonly schema. Will become fragile if mutable nested objects are inserted before the hash is computed. Note only; no fix required now.
+
+---
+
+### Safety Boundary Confirmation
+
+All `BOUNDARIES` values remain `False` (lines 40–48). No changes to route semantics, UI text, or reviewer-facing fields. `manifest_self_sha256` uses only `hashlib.sha256` (stdlib). No forbidden patterns (`Authorization`, `Bearer`, `raw_payload`, etc.) introduced. Local/offline boundaries intact.

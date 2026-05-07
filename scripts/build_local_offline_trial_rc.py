@@ -84,6 +84,17 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def json_payload_sha256(payload: Any) -> str:
+    blob = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(blob).hexdigest()
+
+
+def manifest_self_sha256(manifest: dict[str, Any]) -> str:
+    manifest_for_hash = dict(manifest)
+    manifest_for_hash["manifest_self_sha256"] = None
+    return json_payload_sha256(manifest_for_hash)
+
+
 def portable_path(path: Path, base: Path) -> str:
     try:
         return path.resolve().relative_to(base.resolve()).as_posix()
@@ -526,6 +537,7 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
         "package_files": entries,
         "boundaries": BOUNDARIES,
     }
+    package_manifest["manifest_self_sha256"] = manifest_self_sha256(package_manifest)
     package_manifest_path = output_dir / "package_manifest.json"
     write_json(package_manifest_path, package_manifest)
 
@@ -536,6 +548,7 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
         "package_dir": package_dir_ref,
         "zip_path": portable_path(zip_path, repo_root),
         "zip_sha256": file_sha256(zip_path),
+        "manifest_self_sha256": package_manifest["manifest_self_sha256"],
         "file_count": len(entries) + 1,
     }
 

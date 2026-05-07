@@ -152,6 +152,8 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual("LOCAL_OFFLINE_TRIAL_RC_099_CN", manifest["candidate"])
         self.assertEqual("LOCAL_OFFLINE_TRIAL_RC_098_CN", manifest["source_candidate"])
         self.assertEqual(False, manifest["boundaries"]["customer_visible_output"])
+        self.assertRegex(manifest["manifest_self_sha256"], r"^[0-9a-f]{64}$")
+        self.assertEqual(manifest["manifest_self_sha256"], builder.manifest_self_sha256(manifest))
         self.assertEqual(13, len(manifest["package_files"]))
         self.assertTrue(all(item["sha256"] for item in manifest["package_files"]))
         self.assertIn("RC-099", (self.output_dir / "REVIEWER_START_HERE_中文.md").read_text(encoding="utf-8"))
