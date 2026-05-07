@@ -34,7 +34,7 @@ const RESULT_STATUS_EXPLAINER = {
     "20 个 synthetic 案例已完成，安全扫描无命中；当前结论仍限定为内部本地评审，不代表客户发布或生产部署 GO。",
   nextStepLabel: "进入内部本地试用下一轮",
   nextStepDescription:
-    "使用 RC-010 交接包继续内部 review；客户可见、deploy、live Qwen/API 仍未授权。"
+    "使用本轮中文评审包继续内部 review；客户可见、deploy、live Qwen/API 仍未授权。"
 } as const;
 
 export function S1ArtifactView() {
