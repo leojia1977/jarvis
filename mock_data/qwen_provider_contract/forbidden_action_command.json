@@ -1,0 +1,25 @@
+{
+  "schema_version": "secupilot.qwen_provider_dry_response.v1",
+  "provider_mode": "dry_contract_only",
+  "data_mode": "SYNTHETIC_ONLY",
+  "qwen_used": false,
+  "live_qwen_api": false,
+  "live_connectors": false,
+  "customer_visible_output": false,
+  "production_writeback": false,
+  "autonomous_qwen_action": false,
+  "qwen_action_mode": "HITL_SUMMARY_ONLY",
+  "cases": [
+    {
+      "case_id": "UAT-01",
+      "title": "Forbidden action example",
+      "risk_level": "high",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-01-ntlm-lateral"
+      ],
+      "model_summary": "This fixture must HOLD because it includes an action command.",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "action_command": "isolate host now"
+    }
+  ]
+}

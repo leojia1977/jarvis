@@ -1,0 +1,27 @@
+{
+  "schema_version": "secupilot.qwen_provider_dry_response.v1",
+  "provider_mode": "dry_contract_only",
+  "data_mode": "SYNTHETIC_ONLY",
+  "qwen_used": false,
+  "live_qwen_api": false,
+  "live_connectors": false,
+  "customer_visible_output": false,
+  "production_writeback": false,
+  "autonomous_qwen_action": false,
+  "qwen_action_mode": "HITL_SUMMARY_ONLY",
+  "cases": [
+    {
+      "case_id": "UAT-01",
+      "title": "NTLM lateral movement with AR escalation",
+      "risk_level": "medium",
+      "severity": "review_required",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-01-ntlm-lateral"
+      ],
+      "model_summary": "Synthetic metadata indicates a lateral movement pattern that requires human review.",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.74,
+      "limitation_note": "Synthetic metadata-only contract; no raw customer evidence, write-back, or autonomous action."
+    }
+  ]
+}
