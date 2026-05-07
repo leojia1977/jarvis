@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
-  "generated_at_utc": "2026-05-07T08:13:50.947551Z",
+  "generated_at_utc": "2026-05-07T08:22:27.889663Z",
   "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-012-cn-review/reviewer_feedback.json",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_012_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_011_CN",
@@ -91,7 +91,7 @@
       "description": "N01. 技术对账展开按钮加说明文字。",
       "category": "PRODUCT_COPY",
       "priority": "P2",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -104,7 +104,14 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-39_TECH_RECONCILIATION_BUTTON_EXPLAINER",
+      "closed_by_commit": "448e995",
+      "closed_at_utc": "2026-05-07T08:22:27.889663Z",
+      "resolution": "MVP-39 added Chinese explanatory copy to the /s1-run technical reconciliation entry and kept the technical reconciliation area closed by default.",
+      "closure_evidence": [
+        "docs/S6_FAST_MVP_MVP_39_TECH_RECONCILIATION_BUTTON_EXPLAINER_CLOSEOUT_2026_05_07.md"
+      ]
     }
   ],
   "boundaries": {
@@ -117,5 +124,6 @@
     "push": false
   },
   "customer_visible_or_deploy_go": false,
-  "external_tracker_write": false
+  "external_tracker_write": false,
+  "closed_item_count": 1
 }
