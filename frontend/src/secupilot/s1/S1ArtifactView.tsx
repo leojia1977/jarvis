@@ -37,6 +37,10 @@ const RESULT_STATUS_EXPLAINER = {
     "使用本轮中文评审包继续内部 review；客户可见、deploy、live Qwen/API 仍未授权。"
 } as const;
 
+function technicalCodeTitle(label: string, value: string): string {
+  return `${label}：${value}。此技术码仅用于工程审计追踪，评审主结论以中文说明为准。`;
+}
+
 export function S1ArtifactView() {
   const run = S1_CLOSED_SHADOW_RUN_ARTIFACTS;
   const [reviewDecision, setReviewDecision] = useState<S1LocalReviewDecision>(
@@ -145,9 +149,14 @@ export function S1ArtifactView() {
               {RESULT_STATUS_EXPLAINER.finalLabel}
             </span>
           </span>
-          <small className="s1-technical-code" data-testid="s1-final-outcome-code">
-            技术码：{run.finalOutcome}
-          </small>
+          <a
+            className="s1-technical-code-link"
+            data-testid="s1-final-outcome-code-link"
+            href="#s1-technical-reconciliation"
+            title={technicalCodeTitle("最终状态技术码", run.finalOutcome)}
+          >
+            技术码已收起
+          </a>
         </span>
       </header>
 
@@ -164,9 +173,14 @@ export function S1ArtifactView() {
             <p data-testid="s1-result-decision-explainer">
               {RESULT_STATUS_EXPLAINER.finalDescription}
             </p>
-            <small className="s1-technical-code" data-testid="s1-result-technical-code">
-              技术码：{run.finalOutcome}
-            </small>
+            <a
+              className="s1-technical-code-link"
+              data-testid="s1-result-technical-code-link"
+              href="#s1-technical-reconciliation"
+              title={technicalCodeTitle("最终状态技术码", run.finalOutcome)}
+            >
+              查看技术对账
+            </a>
           </div>
         </article>
         <article>
@@ -189,9 +203,14 @@ export function S1ArtifactView() {
               {RESULT_STATUS_EXPLAINER.nextStepLabel}
             </strong>
             <p>{RESULT_STATUS_EXPLAINER.nextStepDescription}</p>
-            <small className="s1-technical-code" data-testid="s1-next-step-code">
-              技术码：{run.nextStep}
-            </small>
+            <a
+              className="s1-technical-code-link"
+              data-testid="s1-next-step-code-link"
+              href="#s1-technical-reconciliation"
+              title={technicalCodeTitle("下一步技术码", run.nextStep)}
+            >
+              查看下一步技术码
+            </a>
           </div>
         </article>
       </section>
@@ -251,9 +270,14 @@ export function S1ArtifactView() {
               <dt>下一步</dt>
               <dd data-testid="s1-run-next-step">
                 {RESULT_STATUS_EXPLAINER.nextStepLabel}
-                <small className="s1-technical-code" data-testid="s1-run-next-step-code">
-                  技术码：{run.nextStep}
-                </small>
+                <a
+                  className="s1-technical-code-link"
+                  data-testid="s1-run-next-step-code-link"
+                  href="#s1-technical-reconciliation"
+                  title={technicalCodeTitle("下一步技术码", run.nextStep)}
+                >
+                  技术码已收起
+                </a>
               </dd>
             </div>
             <div>
@@ -406,6 +430,7 @@ export function S1ArtifactView() {
 
       <details
         className="s1-artifact-panel s1-technical-details"
+        id="s1-technical-reconciliation"
         data-testid="s1-technical-reconciliation"
       >
         <summary>
@@ -415,6 +440,27 @@ export function S1ArtifactView() {
           </span>
           <span>JSON 预览、artifact 清单、案例摘要</span>
         </summary>
+
+        <section aria-label="技术状态码" className="s1-technical-section">
+          <h2>技术状态码</h2>
+          <p className="s1-technical-note">
+            这些值只用于工程对账和审计追踪；reviewer 主结论以上方中文结果为准。
+          </p>
+          <dl className="s1-technical-code-grid">
+            <div>
+              <dt>最终状态</dt>
+              <dd data-testid="s1-final-outcome-code">{run.finalOutcome}</dd>
+            </div>
+            <div>
+              <dt>下一步</dt>
+              <dd data-testid="s1-run-next-step-code">{run.nextStep}</dd>
+            </div>
+            <div>
+              <dt>原始说明</dt>
+              <dd>{run.passHoldReason}</dd>
+            </div>
+          </dl>
+        </section>
 
         <section aria-label="本地评审记录预览" className="s1-technical-section">
           <h2>本地评审记录预览</h2>

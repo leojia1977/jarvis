@@ -187,8 +187,12 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-final-outcome-label")).toHaveTextContent(
       "带备注通过，可进入下一轮内部本地试用评审"
     );
-    expect(screen.getByTestId("s1-final-outcome-code")).toHaveTextContent(
-      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    expect(screen.getByTestId("s1-final-outcome-code-link")).toHaveTextContent(
+      "技术码已收起"
+    );
+    expect(screen.getByTestId("s1-final-outcome-code-link")).toHaveAttribute(
+      "title",
+      expect.stringContaining("S1_CLOSED_SHADOW_PASS_WITH_NOTES")
     );
     expect(screen.getByRole("heading", { name: "本地离线试用结果" })).toBeInTheDocument();
     expect(screen.getByTestId("s1-result-decision")).toHaveTextContent(
@@ -197,14 +201,14 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("s1-result-decision-explainer")).toHaveTextContent(
       "不代表客户发布或生产部署 GO"
     );
-    expect(screen.getByTestId("s1-result-technical-code")).toHaveTextContent(
-      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    expect(screen.getByTestId("s1-result-technical-code-link")).toHaveTextContent(
+      "查看技术对账"
     );
     expect(screen.getByTestId("s1-run-next-step")).toHaveTextContent(
       "进入内部本地试用下一轮"
     );
-    expect(screen.getByTestId("s1-run-next-step-code")).toHaveTextContent(
-      "技术码：RC011_LOCAL_OFFLINE_REVIEW"
+    expect(screen.getByTestId("s1-run-next-step-code-link")).toHaveTextContent(
+      "技术码已收起"
     );
     expect(screen.getByTestId("s1-run-id")).toHaveTextContent(
       "S1-CLOSED-SHADOW-2026-04-30-001"
@@ -250,6 +254,12 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getAllByTestId("s1-artifact-row")).toHaveLength(5);
     expect(screen.getAllByTestId("s1-case-row")).toHaveLength(20);
     expect(screen.getByTestId("s1-technical-reconciliation")).not.toHaveAttribute("open");
+    expect(screen.getByTestId("s1-final-outcome-code")).toHaveTextContent(
+      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    );
+    expect(screen.getByTestId("s1-run-next-step-code")).toHaveTextContent(
+      "RC011_LOCAL_OFFLINE_REVIEW"
+    );
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
   });

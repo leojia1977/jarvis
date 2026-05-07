@@ -16,8 +16,12 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-final-outcome-label")).toContainText(
       "带备注通过，可进入下一轮内部本地试用评审"
     );
-    await expect(page.getByTestId("s1-final-outcome-code")).toContainText(
-      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    await expect(page.getByTestId("s1-final-outcome-code-link")).toContainText(
+      "技术码已收起"
+    );
+    await expect(page.getByTestId("s1-final-outcome-code-link")).toHaveAttribute(
+      "title",
+      /S1_CLOSED_SHADOW_PASS_WITH_NOTES/
     );
     await expect(page.getByRole("heading", { name: "本地离线试用结果" })).toBeVisible();
     await expect(page.getByTestId("s1-result-decision")).toContainText(
@@ -26,14 +30,14 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-result-decision-explainer")).toContainText(
       "不代表客户发布或生产部署 GO"
     );
-    await expect(page.getByTestId("s1-result-technical-code")).toContainText(
-      "技术码：S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    await expect(page.getByTestId("s1-result-technical-code-link")).toContainText(
+      "查看技术对账"
     );
     await expect(page.getByTestId("s1-run-next-step")).toContainText(
       "进入内部本地试用下一轮"
     );
-    await expect(page.getByTestId("s1-run-next-step-code")).toContainText(
-      "技术码：RC011_LOCAL_OFFLINE_REVIEW"
+    await expect(page.getByTestId("s1-run-next-step-code-link")).toContainText(
+      "技术码已收起"
     );
     await expect(page.getByTestId("s1-provider")).toContainText("fixture");
     await expect(page.getByTestId("s1-customer-visible-output")).toContainText("否");
@@ -63,6 +67,12 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-artifact-row")).toHaveCount(5);
     await expect(page.getByTestId("s1-case-row")).toHaveCount(20);
     await expect(page.getByTestId("s1-technical-reconciliation")).not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("s1-final-outcome-code")).toContainText(
+      "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
+    );
+    await expect(page.getByTestId("s1-run-next-step-code")).toContainText(
+      "RC011_LOCAL_OFFLINE_REVIEW"
+    );
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
 
     await page.screenshot({ fullPage: true, path: testInfo.outputPath("s1-run-smoke.png") });
