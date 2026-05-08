@@ -61,62 +61,62 @@ export function S1LocalTrialView() {
   const launchCommand = `powershell.exe -NoProfile -ExecutionPolicy Bypass -File ${trial.launcherScript}`;
   const roleEntries = [
     {
-      title: "一线研判",
+      title: "工程师视角",
       question: "我现在最应该先看哪件事?",
-      description: "先看结论、影响和下一步，快速判断是否需要继续跟进。",
-      action: "/incident/CASE-2847"
+      description: "先看事件结论、影响范围和建议动作，快速判断是否需要继续跟进。",
+      action: "打开事件详情"
     },
     {
-      title: "深度分析",
+      title: "分析负责人视角",
       question: "为什么这么判断?",
-      description: "展开证据链、限制说明和推理计划，确认系统没有越过证据边界。",
-      action: "展开可信证据"
+      description: "展开证据链、限制说明和模型建议，确认判断没有越过证据边界。",
+      action: "核对可信依据"
     },
     {
-      title: "管理审阅",
+      title: "安全负责人视角",
       question: "是否可以进入下一步?",
-      description: "用管理视角看风险、人工确认状态、审阅结论和未关闭建议。",
-      action: "查看试用结论"
+      description: "用管理视角看风险、人工确认状态、试用结论和未关闭建议。",
+      action: "查看结果摘要"
     },
     {
-      title: "部署与集成",
+      title: "CTO / 部署视角",
       question: "怎么启动和交付?",
-      description: "查看本地启动、评审包、干运行模型契约和后续私有化部署路径。",
-      action: "查看部署准备"
+      description: "查看私有化部署前置条件、模型接入准备和本地启动方式。",
+      action: "查看接入准备"
     }
   ];
   const productHomeFacts = [
     {
-      label: "当前结论",
-      value: "可继续内部本地试用",
-      detail: "带备注通过，不代表客户发布或生产部署 GO。"
+      label: "SecuPilot 是谁",
+      value: "企业安全分析助理",
+      detail: "把事件结论、可信依据和下一步建议整理给不同层级的使用者。"
     },
     {
-      label: "可信依据",
-      value: `${run.caseCount} 个合成案例`,
-      detail: "安全扫描零命中，证据链和限制说明可核验。"
+      label: "帮我判断什么",
+      value: "这起事件该怎么处理",
+      detail: `${run.caseCount} 个合成案例用于验证判断链路，安全扫描零命中。`
     },
     {
-      label: "建议动作",
-      value: "先看结果页，再提交反馈",
-      detail: "客户可见发布、真实数据和生产写回仍未授权。"
+      label: "现在建议做什么",
+      value: "先看结论，再核依据，最后反馈",
+      detail: "当前仍是本地安全预览，不连接真实系统，不写生产。"
     }
   ];
   const nextActions = [
     {
       title: "查看试用结果",
       description: "进入结果页，先读中文结论、可信边界和下一步。",
-      value: "/incident/CASE-2847"
+      value: "打开事件研判结果"
     },
     {
       title: "提交本地反馈",
       description: "按准确性、可用性、缺失信息记录 reviewer 反馈。",
-      value: "本地反馈预览"
+      value: "记录试用体验"
     },
     {
       title: "查看部署准备",
       description: "确认启动脚本、评审包和 dry provider 状态。",
-      value: trial.deliveryPackagePath
+      value: "核对私有化前置条件"
     }
   ];
   const materialStatus = [
@@ -171,11 +171,11 @@ export function S1LocalTrialView() {
     >
       <header className="s1-trial-header s1-product-home-hero">
         <div>
-          <p className="summary-kicker">产品首页 / 内部本地试用</p>
+          <p className="summary-kicker">客户试用入口 / 私有化预览</p>
           <h1 id="s1-trial-title">SecuPilot 企业安全分析助理</h1>
           <p className="s1-trial-lede">
-            SecuPilot 把安全事件、证据链、模型建议和人工确认流程整理成一份可读结论，
-            帮一线工程师、深度分析师、管理者和部署负责人判断现在该做什么。
+            面向从一线工程师到 CTO 的安全事件研判入口：先给清晰结论，再解释为什么可信，
+            最后把建议动作、模型接入准备和反馈闭环交给人确认。
           </p>
           <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
             <a href="/incident/CASE-2847">查看事件研判</a>
@@ -194,7 +194,7 @@ export function S1LocalTrialView() {
         </div>
         <span className="s1-trial-status">
           <ShieldCheck aria-hidden="true" size={18} />
-          本地离线 / 合成包
+          本地安全预览
         </span>
       </header>
 
@@ -203,7 +203,7 @@ export function S1LocalTrialView() {
         className="s1-product-home-section"
       >
         <div className="s1-product-home-section-heading">
-          <p className="summary-kicker">角色入口</p>
+          <p className="summary-kicker">客户角色入口</p>
           <h2 id="s1-product-role-title">按你的工作目标进入</h2>
         </div>
         <div className="s1-product-entry-grid s1-role-entry-grid" data-testid="s1-product-role-grid">
@@ -224,9 +224,9 @@ export function S1LocalTrialView() {
 
       <section aria-label="本地离线试用概览" className="s1-trial-kpi-grid">
         <article>
-          <span>判断对象</span>
+          <span>演练案例</span>
           <strong>{run.caseCount}</strong>
-          <p>合成安全案例, 用于内部产品体验验证。</p>
+          <p>用合成事件验证从结论到反馈的完整产品路径。</p>
         </article>
         <article>
           <span>安全扫描</span>
@@ -234,14 +234,14 @@ export function S1LocalTrialView() {
           <p>{`${run.safetyScan.scannedStringValues} 个字符串已扫描, 未发现敏感留存。`}</p>
         </article>
         <article>
-          <span>云端模型</span>
-          <strong>{yesNo(run.qwenUsed)}</strong>
-          <p>当前只展示 dry contract, 不发起 live 调用。</p>
+          <span>模型接入</span>
+          <strong>已演练</strong>
+          <p>Qwen provider stub 已可本地预览, 仍不发起 live 调用。</p>
         </article>
         <article>
-          <span>客户发布</span>
+          <span>上线状态</span>
           <strong>{yesNo(run.canDeployToCustomerProduction)}</strong>
-          <p>当前只用于内部本地试用, 不发布客户可见输出。</p>
+          <p>当前不是客户发布或生产部署, 只用于本地安全预览。</p>
         </article>
       </section>
 
@@ -252,8 +252,8 @@ export function S1LocalTrialView() {
             <h2>SecuPilot 研判计划</h2>
           </div>
           <p>
-            当前版本把告警理解、证据约束、人工确认和反馈闭环放在同一个产品路径里。
-            它会先给结论, 再说明依据和不能确认的部分。
+            当前版本把告警理解、证据约束、建议动作、人工确认和反馈闭环放在同一个产品路径里。
+            它先给结论, 再说明依据、限制和不能确认的部分。
           </p>
           <ul className="s1-assistant-plan-list">
             <li>
@@ -266,7 +266,7 @@ export function S1LocalTrialView() {
             </li>
             <li>
               <strong>后交接</strong>
-              <span>反馈、报告、评审包和部署准备都保留本地离线边界。</span>
+              <span>反馈、报告、评审包和部署准备都保留本地安全边界。</span>
             </li>
           </ul>
         </article>
@@ -292,8 +292,8 @@ export function S1LocalTrialView() {
         className="s1-product-home-section"
       >
         <div className="s1-product-home-section-heading">
-          <p className="summary-kicker">下一步</p>
-          <h2 id="s1-product-next-actions-title">先完成一次内部试用闭环</h2>
+          <p className="summary-kicker">试用路径</p>
+          <h2 id="s1-product-next-actions-title">一次试用要完成的三件事</h2>
         </div>
         <div className="s1-product-entry-grid">
           {nextActions.map((action, index) => (
@@ -302,7 +302,7 @@ export function S1LocalTrialView() {
               <div>
                 <strong>{action.title}</strong>
                 <p>{action.description}</p>
-                <code>{action.value}</code>
+                <small>{action.value}</small>
               </div>
               <ArrowRight aria-hidden="true" size={18} />
             </article>
@@ -317,19 +317,22 @@ export function S1LocalTrialView() {
         >
           <div className="s1-panel-title">
             <PlayCircle aria-hidden="true" size={18} />
-            <h2>开始试用</h2>
+            <h2>打开试用入口</h2>
           </div>
           <p>
-            当前候选包已通过本地离线边界检查。先打开试用入口，再按材料状态完成核验。
+            当前候选包已通过本地安全边界检查。先打开试用入口，再按材料状态完成核验。
           </p>
           <div className="s1-trial-primary-action">
             <span>本地入口</span>
             <strong>{trial.localUrl}</strong>
           </div>
-          <div className="s1-launch-command" aria-label="本地试用启动命令">
-            <MonitorCheck aria-hidden="true" size={18} />
+          <details className="s1-launch-command" aria-label="本地试用启动命令">
+            <summary>
+              <MonitorCheck aria-hidden="true" size={18} />
+              一键启动脚本
+            </summary>
             <code data-testid="s1-trial-launch-command">{launchCommand}</code>
-          </div>
+          </details>
         </article>
 
         <article className="s1-artifact-panel s1-trial-material-panel">

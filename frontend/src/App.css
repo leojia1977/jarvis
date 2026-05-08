@@ -2275,14 +2275,26 @@ button {
 
 .s1-launch-command {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
   gap: 10px;
-  align-items: center;
   margin-top: 14px;
   border: 1px solid #d6e3d8;
   border-radius: 8px;
   background: #f7fbf5;
   padding: 12px;
+}
+
+.s1-launch-command summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #28536b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.s1-launch-command[open] summary {
+  margin-bottom: 10px;
 }
 
 .s1-launch-command svg {

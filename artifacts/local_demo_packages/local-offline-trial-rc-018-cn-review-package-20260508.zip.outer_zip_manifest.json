@@ -1,0 +1,23 @@
+{
+  "schema_version": "secupilot.s1.local_offline_outer_zip_manifest.v1",
+  "generated_at_utc": "2026-05-08T05:20:52.756813Z",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
+  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
+  "zip_name": "local-offline-trial-rc-018-cn-review-package-20260508.zip",
+  "zip_path": "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review-package-20260508.zip",
+  "zip_bytes": 2122284,
+  "zip_sha256": "c62d1bfb9efddb8502ad7c11492543844a457e79752770489782d443db797db8",
+  "package_manifest_path": "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review/package_manifest.json",
+  "package_manifest_sha256": "a18832fe6047e1d3c3de2b15371a7a0146c01f3ae141ce15ccb203143de36c28",
+  "manifest_self_sha256": "5ffd96264b07470bac70ed7f8f29c7c76241c83859e236d4d92895beb7ef4fbc",
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

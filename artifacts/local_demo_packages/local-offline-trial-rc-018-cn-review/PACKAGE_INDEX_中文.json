@@ -1,0 +1,42 @@
+{
+  "schema_version": "secupilot.s1.local_offline_chinese_package_index.v1",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
+  "route": [
+    "/s1-trial",
+    "/s1-run"
+  ],
+  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
+  "zip_name": "local-offline-trial-rc-018-cn-review-package-20260508.zip",
+  "start_here": "REVIEWER_START_HERE_中文.md",
+  "checklist": "REVIEWER_CHECKLIST_中文.md",
+  "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
+  "evidence_files": [
+    "evidence/artifact_manifest.json",
+    "evidence/case_summary.json",
+    "evidence/final_status.json",
+    "evidence/safety_scan.json"
+  ],
+  "screenshot_files": [
+    "screenshots/s1-run-desktop.png",
+    "screenshots/s1-run-mobile.png",
+    "screenshots/s1-trial-desktop.png",
+    "screenshots/s1-trial-mobile.png"
+  ],
+  "validation_files": [
+    "validation/screenshot_safety_scan.json",
+    "validation/qwen_live_synthetic_go_precheck_report.json",
+    "validation/qwen_live_synthetic_runtime_config_report.json",
+    "validation/qwen_live_synthetic_provider_stub_report.json",
+    "validation/qwen_live_synthetic_provider_stub_report_中文.md"
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

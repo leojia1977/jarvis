@@ -1,0 +1,22 @@
+{
+  "schema_version": "secupilot.qwen_live_synthetic_provider_stub_report.v1",
+  "report_id": "secupilot-qwen-live-synthetic-provider-stub",
+  "created_at_utc": "2026-05-08T04:56:51.038797Z",
+  "overall_status": "QWEN_SYNTHETIC_PROVIDER_STUB_READY_NO_NETWORK",
+  "execution_status": "NOT_EXECUTED",
+  "provider_stub_mode": "qwen_live_synthetic_provider_stub_no_network",
+  "case_count": 20,
+  "network_call": false,
+  "live_qwen_api_call": false,
+  "secret_values_read": false,
+  "secret_values_retained": false,
+  "customer_visible_output": false,
+  "production_writeback": false,
+  "autonomous_qwen_action": false,
+  "summary": "Qwen synthetic provider stub generated metadata-only model output from local synthetic bundles; no network or live Qwen/API call was executed.",
+  "outputs": {
+    "provider_output": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_provider_stub_output.json",
+    "report_json": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_provider_stub_report.json",
+    "report_markdown": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_provider_stub_report_中文.md"
+  }
+}
