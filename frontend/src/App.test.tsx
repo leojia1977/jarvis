@@ -362,6 +362,35 @@ describe("SecuPilot first-batch workbench slice", () => {
       .not.toBeInTheDocument();
   });
 
+  it("renders the product incident page as conclusion-first with folded evidence", () => {
+    window.history.pushState({}, "", "/incident/CASE-2847");
+
+    render(<App />);
+
+    const surface = screen.getByTestId("incident-product-view");
+
+    expect(screen.getByRole("heading", { name: "SecuPilot 事件研判结果" }))
+      .toBeInTheDocument();
+    expect(screen.queryByLabelText("Role selector")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Mock fixture phase")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("vf-03-expert-mode-frame")).not.toBeInTheDocument();
+    expect(screen.getByTestId("incident-current-outcome")).toHaveTextContent(
+      "需要人工复核的高风险事件"
+    );
+    expect(screen.getByTestId("incident-recommended-action")).toHaveTextContent(
+      "不自动处置"
+    );
+    expect(screen.getByTestId("incident-trust-summary")).toHaveTextContent("证据覆盖");
+    expect(screen.getByTestId("incident-evidence-details")).not.toHaveAttribute("open");
+    expect(screen.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute("open");
+    expect(surface).toHaveAttribute("data-real-data", "false");
+    expect(surface).toHaveAttribute("data-live-qwen-api", "false");
+    expect(surface).toHaveAttribute("data-live-connectors", "false");
+    expect(surface).toHaveAttribute("data-production-writeback", "false");
+    expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
+      .not.toBeInTheDocument();
+  });
+
   it("updates the S1 local review record preview without artifact writes", async () => {
     const user = userEvent.setup();
     render(<App />);

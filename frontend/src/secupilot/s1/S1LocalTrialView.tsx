@@ -62,7 +62,7 @@ export function S1LocalTrialView() {
       title: "一线研判",
       question: "我现在最应该先看哪件事?",
       description: "先看结论、影响和下一步，快速判断是否需要继续跟进。",
-      action: "查看事件研判"
+      action: "/incident/CASE-2847"
     },
     {
       title: "深度分析",
@@ -104,7 +104,7 @@ export function S1LocalTrialView() {
     {
       title: "查看试用结果",
       description: "进入结果页，先读中文结论、可信边界和下一步。",
-      value: "/s1-run"
+      value: "/incident/CASE-2847"
     },
     {
       title: "提交本地反馈",
@@ -176,7 +176,7 @@ export function S1LocalTrialView() {
             帮一线工程师、深度分析师、管理者和部署负责人判断现在该做什么。
           </p>
           <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
-            <a href="/s1-run">查看试用结果</a>
+            <a href="/incident/CASE-2847">查看事件研判</a>
             <a href="#s1-feedback-title">提交本地反馈</a>
             <a href="#s1-qwen-contract-title">查看部署准备</a>
           </div>

@@ -35,6 +35,7 @@ import {
 type Route =
   | "inbox"
   | "case"
+  | "incident"
   | "search"
   | "s1_run"
   | "s1_trial"
@@ -633,6 +634,10 @@ function initialRoute(): { route: Route; caseId: string | null } {
   if (caseMatch) {
     return { route: "case", caseId: decodeURIComponent(caseMatch[1]) };
   }
+  const incidentMatch = path.match(/^\/incident\/([^/]+)$/);
+  if (incidentMatch) {
+    return { route: "incident", caseId: decodeURIComponent(incidentMatch[1]) };
+  }
   if (path === "/search") {
     return { route: "search", caseId: null };
   }
@@ -862,7 +867,8 @@ function App({
     [activeCase, initialClosedCaseDetailRole]
   );
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(role));
-  const isReviewerCleanRoute = route === "s1_run" || route === "s1_trial";
+  const isReviewerCleanRoute =
+    route === "s1_run" || route === "s1_trial" || route === "incident";
 
   function selectRole(nextRole: Role) {
     const nextPhase = FIXTURE_PHASES.find((phase) => phase.role === nextRole);
@@ -887,6 +893,8 @@ function App({
     const path =
       nextRoute === "case" && nextCaseId
         ? `/case/${nextCaseId}`
+        : nextRoute === "incident" && nextCaseId
+          ? `/incident/${nextCaseId}`
         : nextRoute === "approval"
           ? "/approval"
           : nextRoute === "manager"
@@ -1091,6 +1099,8 @@ function App({
             activeContext={activeContext}
             onNavigateToManager={() => navigate("manager")}
           />
+        ) : route === "incident" ? (
+          <IncidentProductView activeCase={renderActiveCase} />
         ) : route === "s1_run" ? (
           <S1ArtifactView />
         ) : route === "s1_trial" ? (
@@ -2980,6 +2990,159 @@ export function CoverageHealthView({
           </section>
         </div>
       )}
+    </section>
+  );
+}
+
+function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
+  const primaryEvidence = activeCase.evidenceFrames.slice(0, 3);
+  const limitations = [
+    "部分文件访问行为目前是推断结论，仍缺少直接终端进程证据。",
+    "账号是否已经被完全接管尚未证实，还需要结合 MFA 和身份日志复核。",
+    "凭据复用是基于行为模式的研判，不等同于已经确认攻击手法。"
+  ];
+
+  return (
+    <section
+      aria-labelledby="incident-product-title"
+      className="page-region incident-product-view"
+      data-customer-visible-output="false"
+      data-live-connectors="false"
+      data-live-qwen-api="false"
+      data-production-writeback="false"
+      data-real-data="false"
+      data-testid="incident-product-view"
+    >
+      <header className="incident-product-hero" data-testid="incident-product-hero">
+        <div>
+          <p className="summary-kicker">事件研判 / 产品预览</p>
+          <h1 id="incident-product-title">SecuPilot 事件研判结果</h1>
+          <p>
+            SecuPilot 已把当前安全事件整理成客户可读结论。先看判断和建议动作，
+            再按需展开证据、限制和技术对账信息。
+          </p>
+          <div className="incident-primary-actions" aria-label="事件研判快捷动作">
+            <a href="#incident-evidence-details">查看证据摘要</a>
+            <a href="#incident-feedback-anchor">记录反馈</a>
+            <a href="/s1-trial">返回试用首页</a>
+          </div>
+        </div>
+        <span className="incident-boundary-pill">本地离线 / 合成案例</span>
+      </header>
+
+      <section className="incident-result-grid" aria-label="事件研判核心结论">
+        <article data-testid="incident-current-outcome">
+          <span>当前结论</span>
+          <strong>需要人工复核的高风险事件</strong>
+          <p>SecuPilot 识别到疑似凭据复用和横向移动行为，建议先进入人工复核。</p>
+        </article>
+        <article data-testid="incident-recommended-action">
+          <span>建议动作</span>
+          <strong>提交人工确认, 不自动处置</strong>
+          <p>当前页面只生成研判和交接建议，不执行隔离、阻断、关闭或生产写回。</p>
+        </article>
+        <article data-testid="incident-trust-summary">
+          <span>可信边界</span>
+          <strong>中等证据覆盖</strong>
+          <p>证据链可展开核验；不能确认的部分会单独列出，不做静默乐观判断。</p>
+        </article>
+      </section>
+
+      <section className="incident-brief-grid" aria-label="事件解释摘要">
+        <article>
+          <h2>发生了什么</h2>
+          <p>财务工作站向多台内部服务器发起异常认证尝试，行为模式接近横向移动。</p>
+        </article>
+        <article>
+          <h2>为什么重要</h2>
+          <p>这类行为可能意味着凭据被滥用，攻击者正在从单台主机扩展到更多系统。</p>
+        </article>
+        <article>
+          <h2>还不能确认什么</h2>
+          <ul>
+            {limitations.length > 0 ? (
+              limitations.map((item) => <li key={item}>{item}</li>)
+            ) : (
+              <li>当前没有额外限制说明；仍需按证据覆盖范围复核。</li>
+            )}
+          </ul>
+        </article>
+      </section>
+
+      <section
+        aria-labelledby="incident-assistant-plan-title"
+        className="incident-action-panel"
+        id="incident-feedback-anchor"
+      >
+        <div>
+          <p className="summary-kicker">SecuPilot 研判计划</p>
+          <h2 id="incident-assistant-plan-title">下一步建议</h2>
+        </div>
+        <ol>
+          <li>
+            <strong>先复核结论</strong>
+            <span>确认这是否是需要继续跟进的高风险事件。</span>
+          </li>
+          <li>
+            <strong>再展开证据</strong>
+            <span>核对证据摘要、时间线和覆盖限制。</span>
+          </li>
+          <li>
+            <strong>最后交接人工确认</strong>
+            <span>把建议动作交给人工确认流程，当前页面不执行生产动作。</span>
+          </li>
+        </ol>
+      </section>
+
+      <details
+        className="incident-collapsible-panel"
+        data-testid="incident-evidence-details"
+        id="incident-evidence-details"
+      >
+        <summary>查看证据摘要</summary>
+        <div className="incident-evidence-list">
+          {primaryEvidence.map((frame) => (
+            <article key={frame.id}>
+              <strong>{frame.title}</strong>
+              <span>{frame.provenance}</span>
+              <p>该证据摘要来自本地合成案例的 metadata-only 结果，仅用于说明判断依据。</p>
+            </article>
+          ))}
+        </div>
+      </details>
+
+      <details
+        className="incident-collapsible-panel"
+        data-testid="incident-technical-reconciliation"
+      >
+        <summary>技术对账信息</summary>
+        <dl className="incident-technical-facts">
+          <div>
+            <dt>事件编号</dt>
+            <dd data-testid="incident-case-id">{activeCase.id}</dd>
+          </div>
+          <div>
+            <dt>数据模式</dt>
+            <dd>本地合成案例</dd>
+          </div>
+          <div>
+            <dt>状态变更</dt>
+            <dd>未执行</dd>
+          </div>
+          <div>
+            <dt>生产写回</dt>
+            <dd>否</dd>
+          </div>
+          <div>
+            <dt>客户发布</dt>
+            <dd>否</dd>
+          </div>
+          <div>
+            <dt>Live Qwen/API</dt>
+            <dd>否</dd>
+          </div>
+        </dl>
+      </details>
     </section>
   );
 }
