@@ -1,0 +1,280 @@
+{
+  "schema_version": "secupilot.customer_trial_success_qwen_live_gate.v1",
+  "report_id": "secupilot-customer-trial-success-qwen-live-gate",
+  "generated_at_utc": "2026-05-08T04:00:39.036749Z",
+  "overall_status": "READY_FOR_LOCAL_PRIVATE_TRIAL_AND_HOLD_FOR_QWEN_LIVE",
+  "summary": "客户试用成功标准在当前本地/私有化包证据上通过；Qwen live 接入仍保持 HOLD，必须等待单独的 synthetic-only live GO 和运行时 secret 方案。",
+  "inputs": {
+    "trial_status": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_status.json",
+    "feedback_sample": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_feedback.sample.json",
+    "kpi_report": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/internal_trial_kpi_report.json",
+    "precheck_result": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/private_deployment_precheck_result.json",
+    "sizing_report": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/private_deployment_sizing_report.json",
+    "qwen_spec": "docs/S6_FAST_MVP_QWEN_CLOUD_ADAPTER_SPEC_2026_05_06.md"
+  },
+  "customer_trial_success": {
+    "status": "PASS_FOR_LOCAL_PRIVATE_TRIAL",
+    "thresholds": {
+      "required_roles": [
+        "cto",
+        "security_engineer",
+        "security_manager"
+      ],
+      "min_understanding_rate_percent": 80.0,
+      "min_usefulness_rate_percent": 60.0
+    },
+    "checks": [
+      {
+        "id": "CTS-01",
+        "name": "local trial entry ready",
+        "passed": true,
+        "observed": "LOCAL_TRIAL_ENTRY_READY",
+        "required": "LOCAL_TRIAL_ENTRY_READY"
+      },
+      {
+        "id": "CTS-02",
+        "name": "role coverage includes engineer manager CTO",
+        "passed": true,
+        "observed": [
+          "cto",
+          "security_engineer",
+          "security_manager"
+        ],
+        "required": [
+          "cto",
+          "security_engineer",
+          "security_manager"
+        ]
+      },
+      {
+        "id": "CTS-03",
+        "name": "understanding rate threshold",
+        "passed": true,
+        "observed": 100.0,
+        "required": ">= 80.0"
+      },
+      {
+        "id": "CTS-04",
+        "name": "usefulness rate threshold",
+        "passed": true,
+        "observed": 66.67,
+        "required": ">= 60.0"
+      },
+      {
+        "id": "CTS-05",
+        "name": "no KPI blockers",
+        "passed": true,
+        "observed": 0,
+        "required": 0
+      },
+      {
+        "id": "CTS-06",
+        "name": "private deployment precheck pass",
+        "passed": true,
+        "observed": "PRIVATE_DEPLOYMENT_PRECHECK_PASS",
+        "required": "PRIVATE_DEPLOYMENT_PRECHECK_PASS"
+      },
+      {
+        "id": "CTS-07",
+        "name": "sizing report remains draft not benchmarked",
+        "passed": true,
+        "observed": "SIZING_DRAFT_READY_NOT_BENCHMARKED",
+        "required": "SIZING_DRAFT_READY_NOT_BENCHMARKED"
+      },
+      {
+        "id": "CTS-08",
+        "name": "no production or customer pilot sizing claims",
+        "passed": true,
+        "observed": "all sizing profile claims false",
+        "required": "production_claim=false and customer_pilot_claim=false"
+      },
+      {
+        "id": "CTS-TRIAL-real_data",
+        "name": "real_data remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-masked_real_data",
+        "name": "masked_real_data remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-live_qwen_api",
+        "name": "live_qwen_api remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-live_connectors",
+        "name": "live_connectors remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-network_request",
+        "name": "network_request remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-production_writeback",
+        "name": "production_writeback remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-customer_visible_output",
+        "name": "customer_visible_output remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-TRIAL-deploy_executed",
+        "name": "deploy_executed remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-real_data",
+        "name": "real_data remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-masked_real_data",
+        "name": "masked_real_data remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-live_qwen_api",
+        "name": "live_qwen_api remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-live_connectors",
+        "name": "live_connectors remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-network_request",
+        "name": "network_request remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-production_writeback",
+        "name": "production_writeback remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-customer_visible_output",
+        "name": "customer_visible_output remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      },
+      {
+        "id": "CTS-PRECHECK-deploy_executed",
+        "name": "deploy_executed remains false",
+        "passed": true,
+        "observed": false,
+        "required": false
+      }
+    ]
+  },
+  "qwen_live_gate": {
+    "status": "HOLD_PENDING_EXPLICIT_QWEN_LIVE_SYNTHETIC_ONLY_GO",
+    "first_allowed_live_scope": "QWEN_LIVE_SYNTHETIC_ONLY_SANDBOX",
+    "customer_data_allowed": false,
+    "masked_real_data_allowed": false,
+    "customer_visible_output_allowed": false,
+    "production_writeback_allowed": false,
+    "autonomous_action_allowed": false,
+    "controls": [
+      {
+        "id": "QWEN-GATE-01",
+        "name": "synthetic-only live sandbox scope",
+        "status": "DEFINED"
+      },
+      {
+        "id": "QWEN-GATE-02",
+        "name": "explicit GO required",
+        "status": "DEFINED"
+      },
+      {
+        "id": "QWEN-GATE-03",
+        "name": "live Qwen not currently authorized",
+        "status": "DEFINED"
+      },
+      {
+        "id": "QWEN-GATE-04",
+        "name": "request/response forbidden fields",
+        "status": "DEFINED"
+      },
+      {
+        "id": "QWEN-GATE-05",
+        "name": "timeout and retry guard",
+        "status": "DEFINED"
+      },
+      {
+        "id": "QWEN-GATE-06",
+        "name": "secret runtime provisioning outside repo",
+        "status": "REQUIRES_SEPARATE_OPERATOR_CONFIRMATION"
+      },
+      {
+        "id": "QWEN-GATE-07",
+        "name": "run id, operator, artifact root, rollback and stop plan",
+        "status": "REQUIRES_SEPARATE_GO_RECORD"
+      }
+    ],
+    "required_go_fields": [
+      "run_id",
+      "operator",
+      "artifact_root",
+      "data_mode=SYNTHETIC_ONLY",
+      "provider_flag_default=false",
+      "secret_source=human_runtime_or_secret_manager_only",
+      "timeout_seconds",
+      "max_retries",
+      "cost_or_token_budget",
+      "stop_conditions",
+      "rollback_plan"
+    ]
+  },
+  "non_authorization": [
+    "No real data",
+    "No masked-real data",
+    "No live Qwen/API call",
+    "No API keys/secrets/tokens/auth headers/raw customer logs",
+    "No live connectors",
+    "No production write-back",
+    "No customer-visible publish/deploy/output",
+    "No external pilot",
+    "No production launch"
+  ],
+  "next_unlock": "GOAL-MVP-80_MODEL_PROVIDER_SETUP_FLOW_DRY_RUN",
+  "outputs": {
+    "json": "artifacts/product_readiness/customer_trial_success_qwen_live_gate/customer_trial_success_qwen_live_gate_report.json",
+    "markdown": "artifacts/product_readiness/customer_trial_success_qwen_live_gate/customer_trial_success_qwen_live_gate_report_中文.md"
+  }
+}
