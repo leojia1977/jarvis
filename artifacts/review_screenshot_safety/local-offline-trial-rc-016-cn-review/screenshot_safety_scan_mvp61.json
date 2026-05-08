@@ -1,0 +1,56 @@
+{
+  "schema_version": "secupilot.s1.review_screenshot_safety_scan.v1",
+  "created_at_utc": "2026-05-08T00:53:08.306646Z",
+  "status": "PASS",
+  "expected_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+  "screenshot_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright",
+  "checked": 4,
+  "blocking_finding_count": 0,
+  "warning_count": 0,
+  "results": [
+    {
+      "file_name": "s1-run-desktop.png",
+      "route": "/s1-run",
+      "viewport": "1440x1100",
+      "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-desktop.png",
+      "screenshot_sha256": "c1e9214b45a8e22ad7a26ea289706fad774e2fef26fb842993c997efbd262be8",
+      "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-desktop.text.json",
+      "visible_text_sha256": "2c7bc2a4fb3d12cfe980c71d9a621e94f98dec39e33012920025eec6c287a63e",
+      "blocking_findings": [],
+      "warnings": []
+    },
+    {
+      "file_name": "s1-run-mobile.png",
+      "route": "/s1-run",
+      "viewport": "390x1000",
+      "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-mobile.png",
+      "screenshot_sha256": "6a14f744098e614a8b405d2cfacb1ec31a1857e8b05ee347237272a4d8d4a822",
+      "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-mobile.text.json",
+      "visible_text_sha256": "2c7bc2a4fb3d12cfe980c71d9a621e94f98dec39e33012920025eec6c287a63e",
+      "blocking_findings": [],
+      "warnings": []
+    },
+    {
+      "file_name": "s1-trial-desktop.png",
+      "route": "/s1-trial",
+      "viewport": "1440x1100",
+      "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.png",
+      "screenshot_sha256": "a776b916cb7df62f18c1e359ef364a7a797e670736451e9eff2ee3245656609f",
+      "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.text.json",
+      "visible_text_sha256": "a4b032ef091c82e529de9830c792ac002305ebdfe88267213f229a0c7c3a5eeb",
+      "blocking_findings": [],
+      "warnings": []
+    },
+    {
+      "file_name": "s1-trial-mobile.png",
+      "route": "/s1-trial",
+      "viewport": "390x1000",
+      "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.png",
+      "screenshot_sha256": "8fc2d8beabad898899f774bee90fb3fa7ae5787b6fa01754c8cb5004399943de",
+      "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.text.json",
+      "visible_text_sha256": "a4b032ef091c82e529de9830c792ac002305ebdfe88267213f229a0c7c3a5eeb",
+      "blocking_findings": [],
+      "warnings": []
+    }
+  ]
+}
