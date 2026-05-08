@@ -186,6 +186,24 @@ class PickNextMvpGoalTests(unittest.TestCase):
         self.assertEqual("GOAL-MVP-75_INTERNAL_TRIAL_KPI_REPORT", payload["candidate_goal"]["queue_key"])
         self.assertIn("scripts/build_internal_trial_kpi_report.py", payload["candidate_goal"]["exact_files"])
 
+    def test_private_preview_reset_skips_legacy_queue_items(self):
+        (self.root / "docs" / "goals" / "GOAL-MVP-94_PRIVATE_PREVIEW_SHELL_ROUTE_MAP.md").write_text(
+            "# placeholder\n", encoding="utf-8"
+        )
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-MVP-95_PRIVATE_PREVIEW_LAUNCH_SHELL", payload["candidate_goal"]["queue_key"])
+        self.assertEqual("GOAL-MVP-95_PRIVATE_PREVIEW_LAUNCH_SHELL", payload["candidate_goal"]["goal_id"])
+        self.assertIn("scripts/launch_s1_local_offline_trial.ps1", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("local-offline-trial-rc-019-cn-review" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
     def test_holds_when_backlog_items_is_not_list(self):
         write_json(self.backlog_json, {"items": {"bad": "shape"}})
 

@@ -138,7 +138,58 @@ QUEUE_ITEMS = (
         "profile": "TRIAL_KPI_REPORT",
         "statement": "Generate an internal trial KPI report covering understanding rate, task completion, feedback themes, and blockers from local/offline feedback artifacts.",
     },
+    {
+        "queue_key": "GOAL-MVP-95_PRIVATE_PREVIEW_LAUNCH_SHELL",
+        "suffix": "PRIVATE_PREVIEW_LAUNCH_SHELL",
+        "match": "PRIVATE_PREVIEW_LAUNCH_SHELL",
+        "goal_type": "script",
+        "profile": "PRIVATE_PREVIEW_LAUNCH_SHELL",
+        "statement": "Refresh the private-preview launch shell so RC-019 opens as a product preview entry with current package paths, local-only boundaries, and check-only verification.",
+    },
+    {
+        "queue_key": "GOAL-MVP-96_PRIVATE_PREVIEW_ROUTE_MAP_INDEX",
+        "suffix": "PRIVATE_PREVIEW_ROUTE_MAP_INDEX",
+        "match": "PRIVATE_PREVIEW_ROUTE_MAP_INDEX",
+        "goal_type": "test-report",
+        "profile": "PRIVATE_PREVIEW_ROUTE_MAP_INDEX",
+        "statement": "Generate a product route-map index from the latest private preview package so reviewers see journeys and pages instead of evidence-package internals.",
+    },
+    {
+        "queue_key": "GOAL-MVP-97_PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW",
+        "suffix": "PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW",
+        "match": "PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW",
+        "goal_type": "page",
+        "profile": "PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW",
+        "statement": "Add a customer-readable private preview task flow that guides engineer, manager, and CTO users through the product without exposing debug fixtures.",
+    },
+    {
+        "queue_key": "GOAL-MVP-98_PRIVATE_PREVIEW_RC_PACKAGE_REFRESH",
+        "suffix": "PRIVATE_PREVIEW_RC_PACKAGE_REFRESH",
+        "match": "PRIVATE_PREVIEW_RC_PACKAGE_REFRESH",
+        "goal_type": "package",
+        "profile": "PRIVATE_PREVIEW_RC_PACKAGE_REFRESH",
+        "statement": "Refresh the local/private preview RC package after product route-map changes, including validators, screenshots, consistency checks, and zip manifest.",
+    },
 )
+
+PRODUCT_ACCELERATION_RESET_MARKERS = ("PRIVATE_PREVIEW_SHELL_ROUTE_MAP",)
+LEGACY_QUEUE_MATCHES = {
+    "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
+    "ZIP_TAMPER_NEGATIVE_TEST",
+    "PRODUCT_ACCELERATION_POOL_PICKER",
+    "CLIENT_TRIAL_HOME_PRODUCTIZATION",
+    "LOCAL_OFFLINE_TRIAL_REPORT",
+    "RC_PACKAGE_SELF_REVIEW_REPORT",
+    "ROLE_BASED_TRIAL_HOME",
+    "INCIDENT_DETAIL_PRODUCT_PAGE",
+    "RECOMMENDED_ACTION_CARDS",
+    "USER_FEEDBACK_LOOP",
+    "QWEN_DRY_PROVIDER_UI",
+    "QWEN_CLOUD_CONTRACT_MOCK",
+    "PRIVATE_DEPLOY_PACKAGE_STRUCTURE",
+    "CUSTOMER_TRIAL_README_AND_LAUNCHER",
+    "INTERNAL_TRIAL_KPI_REPORT",
+}
 
 
 def read_json(path: Path) -> Any:
@@ -658,6 +709,126 @@ def profile_contract(
                 "scope expands beyond listed files",
             ],
         }
+    if profile == "PRIVATE_PREVIEW_LAUNCH_SHELL":
+        return {
+            "goal_type": "script",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/launch_s1_local_offline_trial.ps1",
+                "backend/tests/test_s1_local_offline_launcher_contract.py",
+                "artifacts/local_trial_launches/local-offline-trial-rc-019/launch_info.json",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_s1_local_offline_launcher_contract",
+                "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/launch_s1_local_offline_trial.ps1 -PackageDir artifacts\\local_demo_packages\\local-offline-trial-rc-019-cn-review -DeliveryDir artifacts\\local_trial_packages\\local-offline-trial-rc-006 -Route /s1-trial -CheckOnly -SkipBuild -NoServer",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "launcher references RC-006 or RC-004 as the current candidate",
+                "launcher starts a server, opens a browser, deploys, or calls live Qwen/API/connectors during check-only verification",
+                "launcher omits local-only, no-writeback, no-customer-visible, or stop instructions",
+                "unit test or check-only command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRIVATE_PREVIEW_ROUTE_MAP_INDEX":
+        report_path = "artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.md"
+        report_json = "artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.json"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_private_preview_route_map_index.py",
+                "backend/tests/test_build_private_preview_route_map_index.py",
+                report_path,
+                report_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_private_preview_route_map_index",
+                f"py -3 scripts/build_private_preview_route_map_index.py --package-dir artifacts/local_demo_packages/local-offline-trial-rc-019-cn-review --output-md {report_path} --output-json {report_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "route map index is dominated by artifact file tables instead of product journeys",
+                "route map grants customer-visible deploy, live Qwen/API, connector, or production write-back authority",
+                "report omits engineer, manager, or CTO route coverage",
+                "unit test or report command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/S1LocalTrialView.tsx",
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                "frontend/tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "customer task flow exposes P1/P2/P3, Mock Fixture, Expert Mode, or stale RC wording",
+                "first screen is dominated by evidence paths instead of product tasks and next actions",
+                "engineer, manager, or CTO path is missing",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRIVATE_PREVIEW_RC_PACKAGE_REFRESH":
+        package_dir = "artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review"
+        zip_path = "artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review-package-20260508.zip"
+        consistency = "artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review-consistency-check.json"
+        screenshot_scan = "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/screenshot_safety_scan.json"
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                package_dir,
+                zip_path,
+                f"{zip_path}.outer_zip_manifest.json",
+                consistency,
+                screenshot_scan,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                "py -3 scripts/validate_review_screenshots.py --screenshot-dir artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright --expected-candidate LOCAL_OFFLINE_TRIAL_RC_020_CN --output-json artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/screenshot_safety_scan.json",
+                "py -3 scripts/build_local_offline_trial_rc.py --candidate LOCAL_OFFLINE_TRIAL_RC_020_CN --source-candidate LOCAL_OFFLINE_TRIAL_RC_019_CN --source-package artifacts/local_demo_packages/local-offline-trial-rc-019-cn-review --screenshot-dir artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright --output-dir artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review --zip-path artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review-package-20260508.zip --repo-root . --screenshot-safety-scan artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/screenshot_safety_scan.json --outer-zip-manifest artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review-package-20260508.zip.outer_zip_manifest.json",
+                "py -3 scripts/validate_local_trial_rc_consistency.py --package-dir artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review --candidate LOCAL_OFFLINE_TRIAL_RC_020_CN --source-candidate LOCAL_OFFLINE_TRIAL_RC_019_CN --zip-name local-offline-trial-rc-020-cn-review-package-20260508.zip --zip-path artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review-package-20260508.zip --output-json artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review-consistency-check.json",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "package or screenshots contain stale RC-019-as-current after RC-020 refresh",
+                "manifest, screenshot safety, RC consistency, or outer zip manifest reports blocking findings",
+                "package grants customer-visible deploy, live Qwen/API, connector, or production write-back authority",
+                "frontend/package command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
     return {
         "goal_type": "script",
         "goal_card_path": goal_card,
@@ -713,7 +884,14 @@ def backlog_candidate(
 def queue_candidate(repo_root: Path, goal_index: int, goal_cards: list[Path]) -> dict[str, Any]:
     existing_names = [path.stem.upper() for path in goal_cards]
     date_tag = datetime.now().strftime("%Y_%m_%d")
+    product_lane_reset_seen = any(
+        reset_marker in name
+        for reset_marker in PRODUCT_ACCELERATION_RESET_MARKERS
+        for name in existing_names
+    )
     for item in QUEUE_ITEMS:
+        if product_lane_reset_seen and item["match"] in LEGACY_QUEUE_MATCHES:
+            continue
         if any(item["match"] in name for name in existing_names):
             continue
         goal_id = f"GOAL-MVP-{goal_index:02d}_{item['suffix']}"
