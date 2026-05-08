@@ -1,0 +1,417 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "generated_at_utc": "2026-05-08T10:15:56.187164Z",
+  "forecast_count": 5,
+  "candidates": [
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "forecast_id": "vfe-forecast-vfe_case_001_config_risk_candidate",
+      "query_context": {
+        "requester_alias": "SecuPilot-GOV-01",
+        "requester_role": "Governance Reviewer",
+        "query_reason": "local fixture review",
+        "asset_scope": "single_asset",
+        "asset_count": 1,
+        "bulk_export": false,
+        "rate_limit_bucket": "vfe_query_user_hour",
+        "audit_required": true,
+        "high_value_asset_extra_review": false,
+        "cross_scope_query_requires_governance": false
+      },
+      "candidate_label": {
+        "value": "CONFIGURATION_RISK_REVIEW",
+        "source": "RULE_ENGINE",
+        "confidence": 0.67,
+        "evidence_refs": [
+          "vfe_case_001_config_risk_candidate::configuration_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "attack_path_defensive_summary": {
+        "value": "Defensive summary: review configuration drift that may expand exposure if paired with suspicious authentication activity.",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.67,
+        "evidence_refs": [
+          "vfe_case_001_config_risk_candidate::configuration_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "affected_abstract_asset_group": {
+        "value": "synthetic finance service group",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.67,
+        "evidence_refs": [
+          "vfe_case_001_config_risk_candidate::configuration_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "risk_rationale": {
+        "value": "CONFIGURATION_RISK_REVIEW: Synthetic configuration-risk forecast candidate",
+        "source": "RULE_ENGINE",
+        "confidence": 0.67,
+        "evidence_refs": [
+          "vfe_case_001_config_risk_candidate::configuration_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "recommended_defensive_check": {
+        "value": "Confirm ownership, recent change intent, and compensating control status.",
+        "source": "RULE_ENGINE",
+        "confidence": 0.67,
+        "evidence_refs": [
+          "vfe_case_001_config_risk_candidate::configuration_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_gaps": [
+        {
+          "gap": "Need asset-owner metadata and recent change-intent metadata",
+          "why_it_matters": "Distinguishes intended configuration drift from review-worthy weakness",
+          "recommended_query_type": "ASSET_OWNER_AND_CHANGE_METADATA",
+          "allowed_scope": "metadata_only",
+          "urgency": "MEDIUM",
+          "window_closes_in": "2h",
+          "deadline_basis": "human business context needed",
+          "fallback_if_missed": "Keep as forecast candidate and require human validation"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": false,
+        "injection_source_field": null,
+        "raw_injection_retained": false,
+        "sanitized_summary": "no injection-like input detected",
+        "forbidden_output_present": false,
+        "guard_status": "PASS"
+      },
+      "human_validation_required": true
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "forecast_id": "vfe-forecast-vfe_case_002_privilege_boundary_candidate",
+      "query_context": {
+        "requester_alias": "SecuPilot-SEC-01",
+        "requester_role": "Security Reviewer",
+        "query_reason": "local fixture review",
+        "asset_scope": "case_linked_assets",
+        "asset_count": 2,
+        "bulk_export": false,
+        "rate_limit_bucket": "vfe_query_user_hour",
+        "audit_required": true,
+        "high_value_asset_extra_review": true,
+        "cross_scope_query_requires_governance": false
+      },
+      "candidate_label": {
+        "value": "PRIVILEGE_BOUNDARY_REVIEW",
+        "source": "RULE_ENGINE",
+        "confidence": 0.78,
+        "evidence_refs": [
+          "vfe_case_002_privilege_boundary_candidate::privilege_boundary_signal"
+        ],
+        "is_authoritative": false
+      },
+      "attack_path_defensive_summary": {
+        "value": "Defensive summary: verify whether a privileged service boundary could increase blast radius if an active chain is confirmed.",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.78,
+        "evidence_refs": [
+          "vfe_case_002_privilege_boundary_candidate::privilege_boundary_signal"
+        ],
+        "is_authoritative": false
+      },
+      "affected_abstract_asset_group": {
+        "value": "synthetic shared service boundary",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.78,
+        "evidence_refs": [
+          "vfe_case_002_privilege_boundary_candidate::privilege_boundary_signal"
+        ],
+        "is_authoritative": false
+      },
+      "risk_rationale": {
+        "value": "PRIVILEGE_BOUNDARY_REVIEW: Synthetic privilege-boundary forecast candidate",
+        "source": "RULE_ENGINE",
+        "confidence": 0.78,
+        "evidence_refs": [
+          "vfe_case_002_privilege_boundary_candidate::privilege_boundary_signal"
+        ],
+        "is_authoritative": false
+      },
+      "recommended_defensive_check": {
+        "value": "Confirm role ownership and approval requirement for boundary-sensitive changes.",
+        "source": "RULE_ENGINE",
+        "confidence": 0.78,
+        "evidence_refs": [
+          "vfe_case_002_privilege_boundary_candidate::privilege_boundary_signal"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_gaps": [
+        {
+          "gap": "Need current ownership and change approval metadata for the synthetic service group",
+          "why_it_matters": "Identifies whether the forecast is operationally relevant",
+          "recommended_query_type": "OWNERSHIP_AND_APPROVAL_METADATA",
+          "allowed_scope": "metadata_only",
+          "urgency": "HIGH",
+          "window_closes_in": "1h",
+          "deadline_basis": "human business context needed",
+          "fallback_if_missed": "Keep the candidate visible but non-authoritative"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": false,
+        "injection_source_field": null,
+        "raw_injection_retained": false,
+        "sanitized_summary": "no injection-like input detected",
+        "forbidden_output_present": false,
+        "guard_status": "PASS"
+      },
+      "human_validation_required": true
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "forecast_id": "vfe-forecast-vfe_case_003_false_positive_candidate",
+      "query_context": {
+        "requester_alias": "SecuPilot-DATA-OWNER-01",
+        "requester_role": "Data Owner Reviewer",
+        "query_reason": "local fixture review",
+        "asset_scope": "single_asset",
+        "asset_count": 1,
+        "bulk_export": false,
+        "rate_limit_bucket": "vfe_query_user_hour",
+        "audit_required": true,
+        "high_value_asset_extra_review": false,
+        "cross_scope_query_requires_governance": false
+      },
+      "candidate_label": {
+        "value": "LOW_CONFIDENCE_REVIEW_ONLY",
+        "source": "RULE_ENGINE",
+        "confidence": 0.36,
+        "evidence_refs": [
+          "vfe_case_003_false_positive_candidate::maintenance_context"
+        ],
+        "is_authoritative": false
+      },
+      "attack_path_defensive_summary": {
+        "value": "Defensive summary: planned maintenance context reduces concern, but the candidate remains available for review.",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.36,
+        "evidence_refs": [
+          "vfe_case_003_false_positive_candidate::maintenance_context"
+        ],
+        "is_authoritative": false
+      },
+      "affected_abstract_asset_group": {
+        "value": "synthetic maintenance-scoped asset",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.36,
+        "evidence_refs": [
+          "vfe_case_003_false_positive_candidate::maintenance_context"
+        ],
+        "is_authoritative": false
+      },
+      "risk_rationale": {
+        "value": "LOW_CONFIDENCE_REVIEW_ONLY: Synthetic false-positive forecast candidate",
+        "source": "RULE_ENGINE",
+        "confidence": 0.36,
+        "evidence_refs": [
+          "vfe_case_003_false_positive_candidate::maintenance_context"
+        ],
+        "is_authoritative": false
+      },
+      "recommended_defensive_check": {
+        "value": "Confirm that the maintenance window and asset group match the forecast candidate.",
+        "source": "RULE_ENGINE",
+        "confidence": 0.36,
+        "evidence_refs": [
+          "vfe_case_003_false_positive_candidate::maintenance_context"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_gaps": [
+        {
+          "gap": "Need maintenance-window metadata from a trusted reviewer record",
+          "why_it_matters": "Avoids promoting a planned change into a weakness forecast",
+          "recommended_query_type": "HUMAN_REVIEW_METADATA",
+          "allowed_scope": "metadata_only",
+          "urgency": "LOW",
+          "window_closes_in": "4h",
+          "deadline_basis": "human business context needed",
+          "fallback_if_missed": "Keep the candidate as low confidence"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": false,
+        "injection_source_field": null,
+        "raw_injection_retained": false,
+        "sanitized_summary": "no injection-like input detected",
+        "forbidden_output_present": false,
+        "guard_status": "PASS"
+      },
+      "human_validation_required": true
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "forecast_id": "vfe-forecast-vfe_case_004_malicious_banner_injection",
+      "query_context": {
+        "requester_alias": "SecuPilot-SEC-01",
+        "requester_role": "Security Reviewer",
+        "query_reason": "local fixture review",
+        "asset_scope": "single_asset",
+        "asset_count": 1,
+        "bulk_export": false,
+        "rate_limit_bucket": "vfe_query_user_hour",
+        "audit_required": true,
+        "high_value_asset_extra_review": false,
+        "cross_scope_query_requires_governance": false
+      },
+      "candidate_label": {
+        "value": "SANITIZED_INPUT_REVIEW_ONLY",
+        "source": "RULE_ENGINE",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_004_malicious_banner_injection::service_banner"
+        ],
+        "is_authoritative": false
+      },
+      "attack_path_defensive_summary": {
+        "value": "Defensive summary: the banner text is treated only as untrusted metadata and cannot drive a forecast alone.",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_004_malicious_banner_injection::service_banner"
+        ],
+        "is_authoritative": false
+      },
+      "affected_abstract_asset_group": {
+        "value": "synthetic service banner source",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_004_malicious_banner_injection::service_banner"
+        ],
+        "is_authoritative": false
+      },
+      "risk_rationale": {
+        "value": "SANITIZED_INPUT_REVIEW_ONLY: Synthetic service-banner instruction-like text sanitization",
+        "source": "RULE_ENGINE",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_004_malicious_banner_injection::service_banner"
+        ],
+        "is_authoritative": false
+      },
+      "recommended_defensive_check": {
+        "value": "Use trusted inventory metadata rather than banner text for validation.",
+        "source": "RULE_ENGINE",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_004_malicious_banner_injection::service_banner"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_gaps": [
+        {
+          "gap": "Need trusted inventory metadata independent of service banner text",
+          "why_it_matters": "Prevents untrusted banner content from becoming a forecast source",
+          "recommended_query_type": "ASSET_REGISTRY_METADATA",
+          "allowed_scope": "metadata_only",
+          "urgency": "MEDIUM",
+          "window_closes_in": "2h",
+          "deadline_basis": "cloud audit delay",
+          "fallback_if_missed": "Keep this as sanitized context only"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": true,
+        "injection_source_field": "service_banner",
+        "raw_injection_retained": false,
+        "sanitized_summary": "untrusted field contained instruction-like text",
+        "forbidden_output_present": false,
+        "guard_status": "PASS_WITH_SANITIZATION"
+      },
+      "human_validation_required": true
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "forecast_id": "vfe-forecast-vfe_case_005_malicious_config_comment_injection",
+      "query_context": {
+        "requester_alias": "SecuPilot-GOV-01",
+        "requester_role": "Governance Reviewer",
+        "query_reason": "local fixture review",
+        "asset_scope": "single_asset",
+        "asset_count": 1,
+        "bulk_export": false,
+        "rate_limit_bucket": "vfe_query_user_hour",
+        "audit_required": true,
+        "high_value_asset_extra_review": false,
+        "cross_scope_query_requires_governance": false
+      },
+      "candidate_label": {
+        "value": "SANITIZED_INPUT_REVIEW_ONLY",
+        "source": "RULE_ENGINE",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_005_malicious_config_comment_injection::code_comment"
+        ],
+        "is_authoritative": false
+      },
+      "attack_path_defensive_summary": {
+        "value": "Defensive summary: configuration comments are not trusted as forecast evidence unless supported by typed metadata.",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_005_malicious_config_comment_injection::code_comment"
+        ],
+        "is_authoritative": false
+      },
+      "affected_abstract_asset_group": {
+        "value": "synthetic configuration metadata source",
+        "source": "ASSET_REGISTRY",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_005_malicious_config_comment_injection::code_comment"
+        ],
+        "is_authoritative": false
+      },
+      "risk_rationale": {
+        "value": "SANITIZED_INPUT_REVIEW_ONLY: Synthetic configuration-comment instruction-like text sanitization",
+        "source": "RULE_ENGINE",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_005_malicious_config_comment_injection::code_comment"
+        ],
+        "is_authoritative": false
+      },
+      "recommended_defensive_check": {
+        "value": "Validate typed configuration metadata and reviewer context before keeping this forecast visible.",
+        "source": "RULE_ENGINE",
+        "confidence": 0.41,
+        "evidence_refs": [
+          "vfe_case_005_malicious_config_comment_injection::code_comment"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_gaps": [
+        {
+          "gap": "Need typed configuration metadata separate from comment text",
+          "why_it_matters": "Avoids letting comments shape the forecast",
+          "recommended_query_type": "CONFIG_METADATA_SUMMARY",
+          "allowed_scope": "metadata_only",
+          "urgency": "LOW",
+          "window_closes_in": "4h",
+          "deadline_basis": "human business context needed",
+          "fallback_if_missed": "Keep this as non-authoritative context only"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": true,
+        "injection_source_field": "code_comment",
+        "raw_injection_retained": false,
+        "sanitized_summary": "untrusted field contained instruction-like text",
+        "forbidden_output_present": false,
+        "guard_status": "PASS_WITH_SANITIZATION"
+      },
+      "human_validation_required": true
+    }
+  ]
+}

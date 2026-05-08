@@ -1,0 +1,441 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "generated_at_utc": "2026-05-08T10:15:56.187148Z",
+  "assessment_count": 6,
+  "assessments": [
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "assessment_id": "eci-assessment-eci_case_001_early_stage_recon",
+      "case_id": "ECI-FIX-001",
+      "stage_label": {
+        "value": "EARLY_STAGE_RECON",
+        "source": "RULE_ENGINE",
+        "confidence": 0.44,
+        "evidence_refs": [
+          "eci_case_001_early_stage_recon::event_family",
+          "eci_case_001_early_stage_recon::asset_group"
+        ],
+        "is_authoritative": false
+      },
+      "stage_number": {
+        "value": 1,
+        "source": "RULE_ENGINE",
+        "confidence": 0.44,
+        "evidence_refs": [
+          "eci_case_001_early_stage_recon::event_family",
+          "eci_case_001_early_stage_recon::asset_group"
+        ],
+        "is_authoritative": false
+      },
+      "stage_status": {
+        "value": "LOW_STAGE_MONITOR",
+        "source": "RULE_ENGINE",
+        "confidence": 0.44,
+        "evidence_refs": [
+          "eci_case_001_early_stage_recon::event_family",
+          "eci_case_001_early_stage_recon::asset_group"
+        ],
+        "is_authoritative": false
+      },
+      "confidence": {
+        "value": 0.44,
+        "source": "RULE_ENGINE",
+        "confidence": 0.44,
+        "evidence_refs": [
+          "eci_case_001_early_stage_recon::event_family",
+          "eci_case_001_early_stage_recon::asset_group"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_refs": [
+        "eci_case_001_early_stage_recon::event_family",
+        "eci_case_001_early_stage_recon::asset_group"
+      ],
+      "evidence_gaps": [
+        {
+          "gap": "Need endpoint process metadata around the discovery interval",
+          "why_it_matters": "Distinguishes benign inventory activity from suspicious exploration",
+          "recommended_query_type": "EDR_PROCESS_TREE",
+          "allowed_scope": "metadata_only",
+          "urgency": "MEDIUM",
+          "window_closes_in": "2h",
+          "deadline_basis": "endpoint log rotation",
+          "fallback_if_missed": "Use network sequence and asset ownership metadata with lower confidence"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": false,
+        "injection_source_field": null,
+        "raw_injection_retained": false,
+        "sanitized_summary": "no injection-like input detected",
+        "forbidden_output_present": false,
+        "guard_status": "PASS"
+      },
+      "human_review_required": true,
+      "automatic_containment_allowed": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "assessment_id": "eci-assessment-eci_case_002_initial_access_to_persistence",
+      "case_id": "ECI-FIX-002",
+      "stage_label": {
+        "value": "INITIAL_ACCESS_TO_PERSISTENCE",
+        "source": "RULE_ENGINE",
+        "confidence": 0.71,
+        "evidence_refs": [
+          "eci_case_002_initial_access_to_persistence::auth_sequence_shape",
+          "eci_case_002_initial_access_to_persistence::system_change_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_number": {
+        "value": 3,
+        "source": "RULE_ENGINE",
+        "confidence": 0.71,
+        "evidence_refs": [
+          "eci_case_002_initial_access_to_persistence::auth_sequence_shape",
+          "eci_case_002_initial_access_to_persistence::system_change_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_status": {
+        "value": "INITIAL_ACCESS_SUSPECTED",
+        "source": "RULE_ENGINE",
+        "confidence": 0.71,
+        "evidence_refs": [
+          "eci_case_002_initial_access_to_persistence::auth_sequence_shape",
+          "eci_case_002_initial_access_to_persistence::system_change_family"
+        ],
+        "is_authoritative": false
+      },
+      "confidence": {
+        "value": 0.71,
+        "source": "RULE_ENGINE",
+        "confidence": 0.71,
+        "evidence_refs": [
+          "eci_case_002_initial_access_to_persistence::auth_sequence_shape",
+          "eci_case_002_initial_access_to_persistence::system_change_family"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_refs": [
+        "eci_case_002_initial_access_to_persistence::auth_sequence_shape",
+        "eci_case_002_initial_access_to_persistence::system_change_family"
+      ],
+      "evidence_gaps": [
+        {
+          "gap": "Need post-auth session metadata and durable-change metadata for the same synthetic host group",
+          "why_it_matters": "Determines whether the sequence is a single event or a staged chain",
+          "recommended_query_type": "AUTH_AND_ENDPOINT_SEQUENCE",
+          "allowed_scope": "metadata_only",
+          "urgency": "HIGH",
+          "window_closes_in": "45m",
+          "deadline_basis": "SIEM ingestion delay",
+          "fallback_if_missed": "Keep the case in suspected state and request human context"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": false,
+        "injection_source_field": null,
+        "raw_injection_retained": false,
+        "sanitized_summary": "no injection-like input detected",
+        "forbidden_output_present": false,
+        "guard_status": "PASS"
+      },
+      "human_review_required": true,
+      "automatic_containment_allowed": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "assessment_id": "eci-assessment-eci_case_003_lateral_movement_suspected",
+      "case_id": "ECI-FIX-003",
+      "stage_label": {
+        "value": "LATERAL_MOVEMENT_SUSPECTED",
+        "source": "RULE_ENGINE",
+        "confidence": 0.77,
+        "evidence_refs": [
+          "eci_case_003_lateral_movement_suspected::account_use_pattern",
+          "eci_case_003_lateral_movement_suspected::time_window_minutes"
+        ],
+        "is_authoritative": false
+      },
+      "stage_number": {
+        "value": 5,
+        "source": "RULE_ENGINE",
+        "confidence": 0.77,
+        "evidence_refs": [
+          "eci_case_003_lateral_movement_suspected::account_use_pattern",
+          "eci_case_003_lateral_movement_suspected::time_window_minutes"
+        ],
+        "is_authoritative": false
+      },
+      "stage_status": {
+        "value": "HIGH_STAGE_SUSPECTED_SHORT_OBSERVATION",
+        "source": "RULE_ENGINE",
+        "confidence": 0.77,
+        "evidence_refs": [
+          "eci_case_003_lateral_movement_suspected::account_use_pattern",
+          "eci_case_003_lateral_movement_suspected::time_window_minutes"
+        ],
+        "is_authoritative": false
+      },
+      "confidence": {
+        "value": 0.77,
+        "source": "RULE_ENGINE",
+        "confidence": 0.77,
+        "evidence_refs": [
+          "eci_case_003_lateral_movement_suspected::account_use_pattern",
+          "eci_case_003_lateral_movement_suspected::time_window_minutes"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_refs": [
+        "eci_case_003_lateral_movement_suspected::account_use_pattern",
+        "eci_case_003_lateral_movement_suspected::time_window_minutes"
+      ],
+      "evidence_gaps": [
+        {
+          "gap": "Need target-host process metadata after the cross-host authentication sequence",
+          "why_it_matters": "Separates suspicious movement from approved administration",
+          "recommended_query_type": "EDR_PROCESS_TREE",
+          "allowed_scope": "metadata_only",
+          "urgency": "HIGH",
+          "window_closes_in": "30m",
+          "deadline_basis": "short-lived process evidence",
+          "fallback_if_missed": "Use authentication sequence and network-flow metadata with lower confidence"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": false,
+        "injection_source_field": null,
+        "raw_injection_retained": false,
+        "sanitized_summary": "no injection-like input detected",
+        "forbidden_output_present": false,
+        "guard_status": "PASS"
+      },
+      "human_review_required": true,
+      "automatic_containment_allowed": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "assessment_id": "eci-assessment-eci_case_004_prompt_injection_process_name",
+      "case_id": "ECI-FIX-004",
+      "stage_label": {
+        "value": "PROMPT_INJECTION_SANITIZATION",
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_004_prompt_injection_process_name::process_name",
+          "eci_case_004_prompt_injection_process_name::event_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_number": {
+        "value": 2,
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_004_prompt_injection_process_name::process_name",
+          "eci_case_004_prompt_injection_process_name::event_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_status": {
+        "value": "INSUFFICIENT_EVIDENCE_WITH_PRIORITY_GAPS",
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_004_prompt_injection_process_name::process_name",
+          "eci_case_004_prompt_injection_process_name::event_family"
+        ],
+        "is_authoritative": false
+      },
+      "confidence": {
+        "value": 0.33,
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_004_prompt_injection_process_name::process_name",
+          "eci_case_004_prompt_injection_process_name::event_family"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_refs": [
+        "eci_case_004_prompt_injection_process_name::process_name",
+        "eci_case_004_prompt_injection_process_name::event_family"
+      ],
+      "evidence_gaps": [
+        {
+          "gap": "Need clean endpoint metadata from a trusted parser after sanitization",
+          "why_it_matters": "Prevents untrusted text from becoming an authoritative signal",
+          "recommended_query_type": "SANITIZED_ENDPOINT_METADATA",
+          "allowed_scope": "metadata_only",
+          "urgency": "MEDIUM",
+          "window_closes_in": "1h",
+          "deadline_basis": "endpoint log rotation",
+          "fallback_if_missed": "Keep the inference non-authoritative and require human review"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": true,
+        "injection_source_field": "process_name",
+        "raw_injection_retained": false,
+        "sanitized_summary": "untrusted field contained instruction-like text",
+        "forbidden_output_present": false,
+        "guard_status": "PASS_WITH_SANITIZATION"
+      },
+      "human_review_required": true,
+      "automatic_containment_allowed": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "assessment_id": "eci-assessment-eci_case_005_prompt_injection_user_agent",
+      "case_id": "ECI-FIX-005",
+      "stage_label": {
+        "value": "PROMPT_INJECTION_SANITIZATION",
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_005_prompt_injection_user_agent::http_user_agent",
+          "eci_case_005_prompt_injection_user_agent::request_pattern_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_number": {
+        "value": 2,
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_005_prompt_injection_user_agent::http_user_agent",
+          "eci_case_005_prompt_injection_user_agent::request_pattern_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_status": {
+        "value": "INSUFFICIENT_EVIDENCE_WITH_PRIORITY_GAPS",
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_005_prompt_injection_user_agent::http_user_agent",
+          "eci_case_005_prompt_injection_user_agent::request_pattern_family"
+        ],
+        "is_authoritative": false
+      },
+      "confidence": {
+        "value": 0.33,
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_005_prompt_injection_user_agent::http_user_agent",
+          "eci_case_005_prompt_injection_user_agent::request_pattern_family"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_refs": [
+        "eci_case_005_prompt_injection_user_agent::http_user_agent",
+        "eci_case_005_prompt_injection_user_agent::request_pattern_family"
+      ],
+      "evidence_gaps": [
+        {
+          "gap": "Need request sequence metadata from trusted network summary storage",
+          "why_it_matters": "Confirms whether the pattern matters without using untrusted text",
+          "recommended_query_type": "NETWORK_SEQUENCE_METADATA",
+          "allowed_scope": "metadata_only",
+          "urgency": "LOW",
+          "window_closes_in": "3h",
+          "deadline_basis": "network flow retention",
+          "fallback_if_missed": "Treat the network signal as supporting context only"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": true,
+        "injection_source_field": "http_user_agent",
+        "raw_injection_retained": false,
+        "sanitized_summary": "untrusted field contained instruction-like text",
+        "forbidden_output_present": false,
+        "guard_status": "PASS_WITH_SANITIZATION"
+      },
+      "human_review_required": true,
+      "automatic_containment_allowed": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "assessment_id": "eci-assessment-eci_case_006_prompt_injection_code_comment",
+      "case_id": "ECI-FIX-006",
+      "stage_label": {
+        "value": "PROMPT_INJECTION_SANITIZATION",
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_006_prompt_injection_code_comment::code_comment",
+          "eci_case_006_prompt_injection_code_comment::repository_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_number": {
+        "value": 2,
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_006_prompt_injection_code_comment::code_comment",
+          "eci_case_006_prompt_injection_code_comment::repository_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "stage_status": {
+        "value": "INSUFFICIENT_EVIDENCE_WITH_PRIORITY_GAPS",
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_006_prompt_injection_code_comment::code_comment",
+          "eci_case_006_prompt_injection_code_comment::repository_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "confidence": {
+        "value": 0.33,
+        "source": "RULE_ENGINE",
+        "confidence": 0.33,
+        "evidence_refs": [
+          "eci_case_006_prompt_injection_code_comment::code_comment",
+          "eci_case_006_prompt_injection_code_comment::repository_signal_family"
+        ],
+        "is_authoritative": false
+      },
+      "evidence_refs": [
+        "eci_case_006_prompt_injection_code_comment::code_comment",
+        "eci_case_006_prompt_injection_code_comment::repository_signal_family"
+      ],
+      "evidence_gaps": [
+        {
+          "gap": "Need trusted configuration metadata separate from the untrusted comment",
+          "why_it_matters": "Keeps source text from steering ECI conclusions",
+          "recommended_query_type": "CONFIG_METADATA_SUMMARY",
+          "allowed_scope": "metadata_only",
+          "urgency": "LOW",
+          "window_closes_in": "4h",
+          "deadline_basis": "human business context needed",
+          "fallback_if_missed": "Record the signal as non-authoritative context only"
+        }
+      ],
+      "prompt_injection_handling": {
+        "input_injection_detected": true,
+        "injection_source_field": "code_comment",
+        "raw_injection_retained": false,
+        "sanitized_summary": "untrusted field contained instruction-like text",
+        "forbidden_output_present": false,
+        "guard_status": "PASS_WITH_SANITIZATION"
+      },
+      "human_review_required": true,
+      "automatic_containment_allowed": false
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false
+  }
+}

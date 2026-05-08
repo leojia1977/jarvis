@@ -1,0 +1,140 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "generated_at_utc": "2026-05-08T10:15:56.187168Z",
+  "correlation_count": 6,
+  "correlations": [
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "correlation_id": "eci-vfe-correlation-001",
+      "case_id": "ECI-FIX-001",
+      "forecast_id": "vfe-forecast-vfe_case_001_config_risk_candidate",
+      "correlation_decision": "NO_MATCH",
+      "hard_match": false,
+      "bounded_fuzzy_match": false,
+      "semantic_supporting_signal": true,
+      "semantic_similarity": 0.51,
+      "case_upgrade_allowed": false,
+      "human_review_required": true,
+      "reason": "Correlation is metadata-only and non-authoritative; semantic similarity is supporting context only.",
+      "evidence_refs": [
+        "eci_case_001_early_stage_recon::event_family",
+        "eci_case_001_early_stage_recon::asset_group",
+        "vfe_case_001_config_risk_candidate::configuration_signal_family"
+      ],
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "is_authoritative": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "correlation_id": "eci-vfe-correlation-002",
+      "case_id": "ECI-FIX-002",
+      "forecast_id": "vfe-forecast-vfe_case_002_privilege_boundary_candidate",
+      "correlation_decision": "WEAK_MATCH",
+      "hard_match": false,
+      "bounded_fuzzy_match": true,
+      "semantic_supporting_signal": true,
+      "semantic_similarity": 0.66,
+      "case_upgrade_allowed": false,
+      "human_review_required": true,
+      "reason": "Bounded fuzzy match found; keep case in suspected state pending additional metadata.",
+      "evidence_refs": [
+        "eci_case_002_initial_access_to_persistence::auth_sequence_shape",
+        "eci_case_002_initial_access_to_persistence::system_change_family",
+        "vfe_case_002_privilege_boundary_candidate::privilege_boundary_signal"
+      ],
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "is_authoritative": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "correlation_id": "eci-vfe-correlation-003",
+      "case_id": "ECI-FIX-003",
+      "forecast_id": "vfe-forecast-vfe_case_003_false_positive_candidate",
+      "correlation_decision": "WEAK_MATCH",
+      "hard_match": false,
+      "bounded_fuzzy_match": true,
+      "semantic_supporting_signal": true,
+      "semantic_similarity": 0.66,
+      "case_upgrade_allowed": false,
+      "human_review_required": true,
+      "reason": "Bounded fuzzy match found; keep case in suspected state pending additional metadata.",
+      "evidence_refs": [
+        "eci_case_003_lateral_movement_suspected::account_use_pattern",
+        "eci_case_003_lateral_movement_suspected::time_window_minutes",
+        "vfe_case_003_false_positive_candidate::maintenance_context"
+      ],
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "is_authoritative": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "correlation_id": "eci-vfe-correlation-004",
+      "case_id": "ECI-FIX-004",
+      "forecast_id": "vfe-forecast-vfe_case_004_malicious_banner_injection",
+      "correlation_decision": "NO_MATCH",
+      "hard_match": false,
+      "bounded_fuzzy_match": false,
+      "semantic_supporting_signal": true,
+      "semantic_similarity": 0.51,
+      "case_upgrade_allowed": false,
+      "human_review_required": true,
+      "reason": "Correlation is metadata-only and non-authoritative; semantic similarity is supporting context only.",
+      "evidence_refs": [
+        "eci_case_004_prompt_injection_process_name::process_name",
+        "eci_case_004_prompt_injection_process_name::event_family",
+        "vfe_case_004_malicious_banner_injection::service_banner"
+      ],
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "is_authoritative": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "correlation_id": "eci-vfe-correlation-005",
+      "case_id": "ECI-FIX-005",
+      "forecast_id": "vfe-forecast-vfe_case_005_malicious_config_comment_injection",
+      "correlation_decision": "NO_MATCH",
+      "hard_match": false,
+      "bounded_fuzzy_match": false,
+      "semantic_supporting_signal": true,
+      "semantic_similarity": 0.51,
+      "case_upgrade_allowed": false,
+      "human_review_required": true,
+      "reason": "Correlation is metadata-only and non-authoritative; semantic similarity is supporting context only.",
+      "evidence_refs": [
+        "eci_case_005_prompt_injection_user_agent::http_user_agent",
+        "eci_case_005_prompt_injection_user_agent::request_pattern_family",
+        "vfe_case_005_malicious_config_comment_injection::code_comment"
+      ],
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "is_authoritative": false
+    },
+    {
+      "schema_version": "eci_vfe.v0.2",
+      "correlation_id": "eci-vfe-correlation-006",
+      "case_id": "ECI-FIX-006",
+      "forecast_id": "vfe-forecast-vfe_case_001_config_risk_candidate",
+      "correlation_decision": "NO_MATCH",
+      "hard_match": false,
+      "bounded_fuzzy_match": false,
+      "semantic_supporting_signal": true,
+      "semantic_similarity": 0.51,
+      "case_upgrade_allowed": false,
+      "human_review_required": true,
+      "reason": "Correlation is metadata-only and non-authoritative; semantic similarity is supporting context only.",
+      "evidence_refs": [
+        "eci_case_006_prompt_injection_code_comment::code_comment",
+        "eci_case_006_prompt_injection_code_comment::repository_signal_family",
+        "vfe_case_001_config_risk_candidate::configuration_signal_family"
+      ],
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "is_authoritative": false
+    }
+  ],
+  "case_upgrade_allowed": false
+}

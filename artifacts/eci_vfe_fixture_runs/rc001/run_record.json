@@ -1,0 +1,27 @@
+{
+  "schema_version": "secupilot.eci_vfe_fixture_analyzer_run.v1",
+  "status": "PASS",
+  "generated_at_utc": "2026-05-08T10:15:56.187170Z",
+  "fixture_dir": "D:/产品设计/New folder/mock_data/eci_vfe",
+  "output_dir": "D:/产品设计/New folder/artifacts/eci_vfe_fixture_runs/rc001",
+  "assessment_count": 6,
+  "forecast_count": 5,
+  "correlation_count": 6,
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "network_request": false,
+    "api_key_required": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "outputs": {
+    "chain_assessment": "chain_assessment.json",
+    "forecast_candidates": "forecast_candidates.json",
+    "correlation_result": "correlation_result.json",
+    "run_record": "run_record.json"
+  }
+}
