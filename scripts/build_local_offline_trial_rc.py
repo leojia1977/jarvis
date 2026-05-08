@@ -57,6 +57,7 @@ def required_archive_evidence_payload() -> dict[str, Any]:
         "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
         "folded_state_expected_route": "/s1-run",
         "folded_state_expected_viewport": "1440x1100",
+        "folded_state_primary_screenshot": "screenshots/s1-run-first-load-folded-desktop.png",
     }
 
 FORBIDDEN_TEXT_PATTERNS = tuple(
