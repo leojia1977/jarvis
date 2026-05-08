@@ -5,14 +5,14 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp71");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp72");
 
-test.describe("MVP-71 cloud Qwen dry-run provider UI", () => {
+test.describe("MVP-72 cloud model latency and error handling", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
 
-  test("renders conclusion-first incident page with cloud Qwen dry-run provider UI", async ({ page }) => {
+  test("renders conclusion-first incident page with cloud model latency and error handling", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/incident/CASE-2847");
 
@@ -71,10 +71,31 @@ test.describe("MVP-71 cloud Qwen dry-run provider UI", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
     await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(3);
-    await page.getByRole("button", { name: /人工复核/ }).click();
+    await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
+      "回退本地规则摘要"
+    );
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
+      "提示稍后重试"
+    );
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("Live API");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("网络请求");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("不会发送");
+    await page.getByTestId("incident-qwen-provider-mode").filter({ hasText: "人工复核" }).click();
+    await page.getByTestId("incident-qwen-runtime-scenario").filter({ hasText: "字段违规" }).click();
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText("人工复核");
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText("HOLD 输入包");
     await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
       '"selected_provider_mode": "human_review"'
+    );
+    await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
+      '"selected_runtime_scenario": "contract_error"'
+    );
+    await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
+      '"retry_policy": "manual_retry_only"'
+    );
+    await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
+      '"fallback_mode": "local_rules_summary"'
     );
     await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
       '"network_request": false'
@@ -101,7 +122,7 @@ test.describe("MVP-71 cloud Qwen dry-run provider UI", () => {
       path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp71.cloud_qwen_dry_run_provider_ui_text.v1",
+          schema_version: "secupilot.mvp72.cloud_model_latency_error_handling_text.v1",
           route: "/incident/CASE-2847",
           viewport: "1440x1000",
           visible_text: visibleText
@@ -141,6 +162,9 @@ test.describe("MVP-71 cloud Qwen dry-run provider UI", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
     await expect(qwenProviderPreview).toContainText("dry-run");
+    await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("生产写回");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("禁止");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
@@ -155,7 +179,7 @@ test.describe("MVP-71 cloud Qwen dry-run provider UI", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp71.cloud_qwen_dry_run_provider_ui_text.v1",
+          schema_version: "secupilot.mvp72.cloud_model_latency_error_handling_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
           visible_text: visibleText

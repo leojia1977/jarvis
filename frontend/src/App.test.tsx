@@ -424,11 +424,28 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     expect(qwenProviderPreview).toHaveTextContent("Qwen 接入路径：先 dry-run，再谈真实调用");
     expect(screen.getAllByTestId("incident-qwen-provider-mode")).toHaveLength(3);
+    expect(screen.getAllByTestId("incident-qwen-runtime-scenario")).toHaveLength(4);
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("Dry-run 输出预览");
-    await user.click(screen.getByRole("button", { name: /人工复核/ }));
+    expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent(
+      "回退本地规则摘要"
+    );
+    expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent(
+      "提示稍后重试"
+    );
+    expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("Live API");
+    expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("关闭");
+    expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("网络请求");
+    expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("不会发送");
+    await user.click(screen.getAllByTestId("incident-qwen-provider-mode")[2]);
+    await user.click(screen.getAllByTestId("incident-qwen-runtime-scenario")[2]);
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("人工复核");
+    expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("HOLD 输入包");
     const qwenPreviewRecord = screen.getByTestId("incident-qwen-provider-preview");
     expect(qwenPreviewRecord).toHaveTextContent('"selected_provider_mode": "human_review"');
+    expect(qwenPreviewRecord).toHaveTextContent('"selected_runtime_scenario": "contract_error"');
+    expect(qwenPreviewRecord).toHaveTextContent('"fallback_action": "拒绝生成请求，先清理违规字段。"');
+    expect(qwenPreviewRecord).toHaveTextContent('"retry_policy": "manual_retry_only"');
+    expect(qwenPreviewRecord).toHaveTextContent('"fallback_mode": "local_rules_summary"');
     expect(qwenPreviewRecord).toHaveTextContent('"live_qwen_api": false');
     expect(qwenPreviewRecord).toHaveTextContent('"network_request": false');
     expect(qwenPreviewRecord).toHaveTextContent('"api_key_required": false');

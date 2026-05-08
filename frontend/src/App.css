@@ -3342,7 +3342,14 @@ button {
   gap: 8px;
 }
 
-.incident-qwen-provider-modes button {
+.incident-qwen-runtime-scenarios {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.incident-qwen-provider-modes button,
+.incident-qwen-runtime-scenarios button {
   display: grid;
   min-height: 82px;
   gap: 4px;
@@ -3354,22 +3361,30 @@ button {
   text-align: left;
 }
 
-.incident-qwen-provider-modes button.is-selected {
+.incident-qwen-runtime-scenarios button {
+  min-height: 70px;
+}
+
+.incident-qwen-provider-modes button.is-selected,
+.incident-qwen-runtime-scenarios button.is-selected {
   border-color: #28536b;
   background: #eef6fb;
 }
 
-.incident-qwen-provider-modes button:focus-visible {
+.incident-qwen-provider-modes button:focus-visible,
+.incident-qwen-runtime-scenarios button:focus-visible {
   outline: 2px solid rgba(40, 83, 107, 0.28);
   outline-offset: 2px;
 }
 
-.incident-qwen-provider-modes span {
+.incident-qwen-provider-modes span,
+.incident-qwen-runtime-scenarios span {
   font-size: 13px;
   font-weight: 900;
 }
 
-.incident-qwen-provider-modes small {
+.incident-qwen-provider-modes small,
+.incident-qwen-runtime-scenarios small {
   color: #5d6875;
   line-height: 1.45;
 }
@@ -3426,6 +3441,34 @@ button {
   overflow-wrap: anywhere;
   color: #18202b;
   font-size: 13px;
+  font-weight: 900;
+}
+
+.incident-qwen-sentinel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.incident-qwen-sentinel-grid > div {
+  min-width: 0;
+  border: 1px solid #d9e3ec;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 9px 10px;
+}
+
+.incident-qwen-sentinel-grid dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.incident-qwen-sentinel-grid dd {
+  margin: 4px 0 0;
+  color: #18202b;
+  font-size: 12px;
   font-weight: 900;
 }
 
@@ -4683,6 +4726,8 @@ button {
   .incident-feedback-options,
   .incident-feedback-missing-info,
   .incident-qwen-provider-modes,
+  .incident-qwen-runtime-scenarios,
+  .incident-qwen-sentinel-grid,
   .incident-action-panel ol,
   .incident-evidence-list,
   .incident-technical-facts,

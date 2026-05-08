@@ -225,6 +225,12 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
     await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(3);
+    await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
+      "回退本地规则摘要"
+    );
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("网络请求");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("不会发送");
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
 });

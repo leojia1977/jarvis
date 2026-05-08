@@ -3092,7 +3092,47 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     "字段违规：拒绝生成模型请求，要求先清理输入包。",
     "低置信度：保留人工确认建议，不升级为自动处置。"
   ];
+  const qwenRuntimeScenarios = [
+    {
+      value: "success",
+      label: "正常 dry-run",
+      latency: "约 1.8 秒",
+      status: "返回人工复核建议",
+      fallback: "无需回退；仍不执行生产动作。"
+    },
+    {
+      value: "timeout_rate_limit",
+      label: "超时 / 限流",
+      latency: "超过 8 秒或被限流",
+      status: "回退本地规则摘要",
+      fallback: "提示稍后重试，保留本地研判结果。"
+    },
+    {
+      value: "contract_error",
+      label: "字段违规",
+      latency: "请求前拦截",
+      status: "HOLD 输入包",
+      fallback: "拒绝生成请求，先清理违规字段。"
+    },
+    {
+      value: "low_confidence",
+      label: "低置信度",
+      latency: "约 1.8 秒",
+      status: "只保留人工复核",
+      fallback: "不升级风险、不自动处置。"
+    }
+  ] as const;
+  const qwenNoLiveCallSentinels = [
+    ["Live API", "关闭"],
+    ["网络请求", "不会发送"],
+    ["API key", "不读取"],
+    ["真实数据", "不进入"],
+    ["连接器", "不调用"],
+    ["生产写回", "禁止"]
+  ] as const;
   const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_cloud_dry_run");
+  const [selectedQwenRuntimeScenario, setSelectedQwenRuntimeScenario] =
+    useState("timeout_rate_limit");
   const selectedAccuracyLabel =
     feedbackAccuracyOptions.find((option) => option.value === feedbackAccuracy)?.label ?? "未选择";
   const selectedUsefulnessLabel =
@@ -3121,11 +3161,18 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     }),
     [activeCase.id, feedbackAccuracy, feedbackNotes, feedbackUsefulness, selectedMissingInfo]
   );
+  const selectedQwenRuntime =
+    qwenRuntimeScenarios.find((scenario) => scenario.value === selectedQwenRuntimeScenario) ??
+    qwenRuntimeScenarios[0];
   const qwenDryRunPreview = useMemo(
     () => ({
       schema_version: "secupilot.incident.qwen_cloud_dry_run_preview.v1",
       case_id: activeCase.id,
       selected_provider_mode: selectedQwenProviderMode,
+      selected_runtime_scenario: selectedQwenRuntimeScenario,
+      runtime_status: selectedQwenRuntime.status,
+      latency_display: selectedQwenRuntime.latency,
+      fallback_action: selectedQwenRuntime.fallback,
       active_contract_mode: qwenProviderContract.activeMode,
       provider_mode: qwenDryPreview.providerMode,
       data_mode: qwenDryPreview.dataMode,
@@ -3133,6 +3180,10 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       allowed_metadata_fields: qwenDryPreview.allowedMetadataFields,
       output_preview: qwenDryPreview.outputPreview,
       simulated_latency_ms: 1800,
+      latency_budget_ms: 2000,
+      timeout_threshold_ms: 8000,
+      retry_policy: "manual_retry_only",
+      fallback_mode: "local_rules_summary",
       live_qwen_api: false,
       network_request: false,
       api_key_required: false,
@@ -3143,7 +3194,14 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       autonomous_qwen_action: false,
       state_mutation: "none"
     }),
-    [activeCase.id, qwenDryPreview, qwenProviderContract.activeMode, selectedQwenProviderMode]
+    [
+      activeCase.id,
+      qwenDryPreview,
+      qwenProviderContract.activeMode,
+      selectedQwenProviderMode,
+      selectedQwenRuntime,
+      selectedQwenRuntimeScenario
+    ]
   );
   const toggleMissingInfo = (value: string) => {
     setSelectedMissingInfo((current) =>
@@ -3410,6 +3468,23 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 </button>
               ))}
             </div>
+            <div className="incident-qwen-runtime-scenarios" aria-label="dry-run 运行状态演练" role="group">
+              {qwenRuntimeScenarios.map((scenario) => (
+                <button
+                  aria-pressed={selectedQwenRuntimeScenario === scenario.value}
+                  className={
+                    selectedQwenRuntimeScenario === scenario.value ? "is-selected" : undefined
+                  }
+                  data-testid="incident-qwen-runtime-scenario"
+                  key={scenario.value}
+                  onClick={() => setSelectedQwenRuntimeScenario(scenario.value)}
+                  type="button"
+                >
+                  <span>{scenario.label}</span>
+                  <small>{scenario.status}</small>
+                </button>
+              ))}
+            </div>
             <div className="incident-qwen-dry-run-flow">
               <article>
                 <h3>输入如何进入模型</h3>
@@ -3442,16 +3517,32 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
               </div>
               <div>
                 <dt>模拟延迟</dt>
-                <dd>约 1.8 秒</dd>
+                <dd>{selectedQwenRuntime.latency}</dd>
               </div>
               <div>
                 <dt>人工动作</dt>
                 <dd>需要复核签收</dd>
               </div>
+              <div>
+                <dt>当前状态</dt>
+                <dd>{selectedQwenRuntime.status}</dd>
+              </div>
+              <div>
+                <dt>回退策略</dt>
+                <dd>{selectedQwenRuntime.fallback}</dd>
+              </div>
             </dl>
             <p>
               输出只作为人工复核建议；不会触发审批、关闭、阻断、隔离或生产写回。
             </p>
+            <dl className="incident-qwen-sentinel-grid" data-testid="incident-qwen-no-live-sentinels">
+              {qwenNoLiveCallSentinels.map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
             <details className="incident-qwen-local-record">
               <summary>查看 dry-run contract 预览</summary>
               <pre data-testid="incident-qwen-provider-preview">
