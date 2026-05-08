@@ -1,0 +1,27 @@
+{
+  "schema_version": "secupilot.reviewer_backlog_closeout.v1",
+  "created_at_utc": "2026-05-08T11:23:54.275356Z",
+  "source_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-016-cn-review/reviewer_backlog.json",
+  "output_backlog_json": "artifacts/product_backlog/local-offline-trial-rc-016-cn-review/reviewer_backlog.json",
+  "output_backlog_md": "artifacts/product_backlog/local-offline-trial-rc-016-cn-review/reviewer_backlog.md",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_015_CN",
+  "closed_by_goal": "GOAL-MVP-116_BACKLOG_ITEM_RFB_RC016_003",
+  "closed_by_commit": "64c29de",
+  "resolution": "Optional folded-state screenshot packaging support implemented and verified by GOAL-MVP-116.",
+  "closed_item_ids": [
+    "RFB-RC016-003"
+  ],
+  "closed_item_count": 1,
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "customer_visible_or_deploy_go": false,
+  "external_tracker_write": false
+}

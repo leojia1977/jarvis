@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
-  "generated_at_utc": "2026-05-08T11:17:46.337178Z",
+  "generated_at_utc": "2026-05-08T11:23:54.275356Z",
   "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_015_CN",
@@ -65,7 +65,7 @@
       "description": "Include one first-load no-interaction folded-state screenshot for AI advice source in the next RC package.",
       "category": "REVIEW_SCREENSHOT",
       "priority": "P1",
-      "status": "BACKLOG_OPEN",
+      "status": "BACKLOG_CLOSED",
       "owner": "SecuPilot product engineering",
       "acceptance": [
         "local/offline only",
@@ -79,7 +79,15 @@
         "customer_visible_or_deploy_go": false,
         "live_qwen_api": false,
         "production_writeback": false
-      }
+      },
+      "closed_by_goal": "GOAL-MVP-116_BACKLOG_ITEM_RFB_RC016_003",
+      "closed_by_commit": "64c29de",
+      "closed_at_utc": "2026-05-08T11:23:54.275356Z",
+      "resolution": "Optional folded-state screenshot packaging support implemented and verified by GOAL-MVP-116.",
+      "closure_evidence": [
+        "scripts/build_local_offline_trial_rc.py",
+        "backend/tests/test_build_local_offline_trial_rc.py"
+      ]
     },
     {
       "id": "RFB-RC016-004",
@@ -140,5 +148,6 @@
     "push": false
   },
   "customer_visible_or_deploy_go": false,
-  "external_tracker_write": false
+  "external_tracker_write": false,
+  "closed_item_count": 1
 }
