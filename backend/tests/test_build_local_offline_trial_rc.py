@@ -187,6 +187,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_review_source_type": "NON_BLOCKING_OBSERVATION",
                 "folded_state_review_source_priority": "P3",
                 "folded_state_review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
+                "folded_state_review_source_category": "REVIEW_SCREENSHOT",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_phase": "FIRST_LOAD",
@@ -270,6 +271,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
             required_archive["folded_state_review_source_title"],
+        )
+        self.assertEqual(
+            "REVIEW_SCREENSHOT",
+            required_archive["folded_state_review_source_category"],
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
@@ -430,6 +435,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "review_source_type": "NON_BLOCKING_OBSERVATION",
                 "review_source_priority": "P3",
                 "review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
+                "review_source_category": "REVIEW_SCREENSHOT",
             },
             folded_entry["archive_evidence"],
         )
