@@ -474,6 +474,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
     expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     expect(qwenProviderPreview).not.toHaveAttribute("open");
+    expect(screen.getByRole("link", { name: "AI 建议来源 ▸" })).toBeInTheDocument();
     expect(qwenProviderPreview).toHaveTextContent("了解 AI 建议的工作方式");
     expect(qwenProviderPreview).toHaveTextContent("展开查看");
     expect(qwenProviderPreview).not.toHaveTextContent("AI 建议输出预览");

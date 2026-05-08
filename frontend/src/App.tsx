@@ -3584,7 +3584,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 <div className="incident-primary-actions" aria-label="事件研判快捷动作">
                   <a href="#incident-evidence-details">查看证据摘要</a>
                   <a href="#incident-feedback-anchor">记录反馈</a>
-                  <a href="#incident-qwen-provider-anchor">AI 建议来源</a>
+                  <a href="#incident-qwen-provider-anchor">AI 建议来源 ▸</a>
                   <a href="/s1-trial">返回试用首页</a>
                 </div>
               </div>

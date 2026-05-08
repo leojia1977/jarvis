@@ -252,6 +252,7 @@ test.describe("UX-04 incident AI source collapse decision", () => {
     await expect(recommendedActionCard).toHaveAttribute("data-production-writeback", "false");
     await expect(recommendedActionCard).toHaveAttribute("data-customer-visible-output", "false");
     await expect(recommendedActionCard).toContainText("先交给人工确认");
+    await expect(page.getByRole("link", { name: "AI 建议来源 ▸" })).toBeVisible();
     const feedbackLoop = page.getByTestId("incident-recommendation-feedback-loop");
     await expect(feedbackLoop).toBeVisible();
     await expect(feedbackLoop).toHaveAttribute("data-backend-write", "false");
