@@ -72,6 +72,7 @@ def required_archive_evidence_payload(
         "folded_state_primary_screenshot": "screenshots/s1-run-first-load-folded-desktop.png",
         "folded_state_review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
         "folded_state_review_order_step": 3,
+        "folded_state_review_evidence_status": "REQUIRED_AND_PRESENT",
     }
     if folded_state_primary_sha256:
         payload["folded_state_primary_sha256"] = folded_state_primary_sha256
@@ -545,6 +546,7 @@ def screenshot_index(
                 "expected_viewport": "1440x1100",
                 "review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
                 "review_order_step": 3,
+                "review_evidence_status": "REQUIRED_AND_PRESENT",
             }
         screenshots.append(item)
     return {
