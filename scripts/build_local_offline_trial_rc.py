@@ -63,6 +63,7 @@ def required_archive_evidence_payload(
         "folded_state_submission_gate_level": "BLOCKER",
         "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
         "folded_state_evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
+        "folded_state_backlog_item_id": "RFB-RC016-001",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
