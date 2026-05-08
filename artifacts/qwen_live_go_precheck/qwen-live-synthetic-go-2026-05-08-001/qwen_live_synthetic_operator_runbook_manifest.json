@@ -1,0 +1,29 @@
+{
+  "schema_version": "secupilot.qwen_live_synthetic_operator_runbook_manifest.v1",
+  "created_at_utc": "2026-05-08T04:22:24.835876Z",
+  "status": "OPERATOR_RUNBOOK_READY_DRY_COMMAND_ONLY",
+  "execution_status": "NOT_EXECUTED",
+  "network_call": false,
+  "live_qwen_api_call": false,
+  "request": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_go_request.json",
+  "precheck_report": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_go_precheck_report.json",
+  "outputs": {
+    "runbook": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_operator_runbook_中文.md",
+    "dry_command": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_dry_command.ps1",
+    "manifest": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_operator_runbook_manifest.json"
+  },
+  "run_id": "QWEN-LIVE-SYNTHETIC-2026-05-08-001",
+  "operator_alias": "SecuPilot-QWEN-RUNNER-01",
+  "runtime_secret_source": "human_runtime_or_secret_manager_only",
+  "non_authorization": [
+    "No live Qwen/API call",
+    "No network request",
+    "No real data",
+    "No masked-real data",
+    "No secret value read or stored",
+    "No live connectors",
+    "No production write-back",
+    "No customer-visible output",
+    "No autonomous Qwen action"
+  ]
+}
