@@ -15,6 +15,7 @@ import {
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { S1ArtifactView } from "./secupilot/s1/S1ArtifactView";
 import { S1LocalTrialView } from "./secupilot/s1/S1LocalTrialView";
+import { EciChainIndicator } from "./secupilot/eciVfe/EciChainIndicator";
 import { S1_QWEN_PROVIDER_CONTRACT } from "./secupilot/s1/s1QwenProviderContract";
 import { S1_QWEN_PROVIDER_DRY_PREVIEW } from "./secupilot/s1/s1QwenProviderDryPreview";
 import { S1_QWEN_PROVIDER_READINESS } from "./secupilot/s1/s1QwenProviderReadiness";
@@ -39,6 +40,7 @@ type Route =
   | "inbox"
   | "case"
   | "incident"
+  | "eci_vfe_chain"
   | "search"
   | "s1_run"
   | "s1_trial"
@@ -650,6 +652,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   if (path === "/s1-trial") {
     return { route: "s1_trial", caseId: null };
   }
+  if (path === "/eci-vfe-chain") {
+    return { route: "eci_vfe_chain", caseId: null };
+  }
   if (path === "/approval") {
     return { route: "approval", caseId: null };
   }
@@ -871,7 +876,10 @@ function App({
   );
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(role));
   const isReviewerCleanRoute =
-    route === "s1_run" || route === "s1_trial" || route === "incident";
+    route === "s1_run" ||
+    route === "s1_trial" ||
+    route === "incident" ||
+    route === "eci_vfe_chain";
 
   function selectRole(nextRole: Role) {
     const nextPhase = FIXTURE_PHASES.find((phase) => phase.role === nextRole);
@@ -906,8 +914,10 @@ function App({
               ? "/search?tab=history"
               : nextRoute === "s1_run"
                 ? "/s1-run"
-                : nextRoute === "s1_trial"
-                  ? "/s1-trial"
+              : nextRoute === "s1_trial"
+                ? "/s1-trial"
+                : nextRoute === "eci_vfe_chain"
+                  ? "/eci-vfe-chain"
                   : nextRoute === "coverage_health"
                     ? "/coverage-health"
                     : "/inbox";
@@ -1108,6 +1118,8 @@ function App({
           <S1ArtifactView />
         ) : route === "s1_trial" ? (
           <S1LocalTrialView />
+        ) : route === "eci_vfe_chain" ? (
+          <EciChainIndicator />
         ) : route === "coverage_health" ? (
           <CoverageHealthView activeCase={renderActiveCase} activeContext={activeContext} />
         ) : (
