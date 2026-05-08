@@ -1,0 +1,56 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "fixture_id": "eci_case_002_initial_access_to_persistence",
+  "fixture_meta": {
+    "source": "fully_artificial",
+    "real_data_derived": false,
+    "contains_real_customer_data": false,
+    "metadata_only": true,
+    "allowed_for": "local_offline_fixture_only"
+  },
+  "case_id": "ECI-FIX-002",
+  "title": "Synthetic initial access followed by persistence-like metadata",
+  "source_fields": [
+    {
+      "field_name": "auth_sequence_shape",
+      "source_type": "AUTH_EVENT",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "authentication pattern shifted from failed attempts to one successful session",
+      "value": "failed_then_success_sequence"
+    },
+    {
+      "field_name": "system_change_family",
+      "source_type": "EDR_EVENT",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "metadata indicates a durable configuration change family",
+      "value": "durable_change_family"
+    }
+  ],
+  "expected_focus": "INITIAL_ACCESS_TO_PERSISTENCE",
+  "prompt_injection_handling": {
+    "input_injection_detected": false,
+    "raw_injection_retained": false,
+    "sanitized_summary": "no injection-like input detected",
+    "forbidden_output_present": false,
+    "guard_status": "PASS"
+  },
+  "expected_evidence_gaps": [
+    {
+      "gap": "Need post-auth session metadata and durable-change metadata for the same synthetic host group",
+      "why_it_matters": "Determines whether the sequence is a single event or a staged chain",
+      "recommended_query_type": "AUTH_AND_ENDPOINT_SEQUENCE",
+      "allowed_scope": "metadata_only",
+      "urgency": "HIGH",
+      "window_closes_in": "45m",
+      "deadline_basis": "SIEM ingestion delay",
+      "fallback_if_missed": "Keep the case in suspected state and request human context"
+    }
+  ],
+  "no_action_boundary": {
+    "human_review_required": true,
+    "automatic_containment_allowed": false,
+    "production_writeback_allowed": false
+  }
+}

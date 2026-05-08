@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secupilot.local/schemas/eci_vfe_correlation.schema.json",
+  "title": "SecuPilot ECI VFE Correlation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "correlation_id",
+    "case_id",
+    "forecast_id",
+    "correlation_decision",
+    "hard_match",
+    "bounded_fuzzy_match",
+    "semantic_supporting_signal",
+    "semantic_similarity",
+    "case_upgrade_allowed",
+    "human_review_required",
+    "reason",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema_version": { "const": "eci_vfe.v0.2" },
+    "correlation_id": { "type": "string", "pattern": "^eci-vfe-correlation-" },
+    "case_id": { "type": "string" },
+    "forecast_id": { "type": "string" },
+    "correlation_decision": {
+      "enum": ["MATCH", "WEAK_MATCH", "NO_MATCH", "HOLD_INSUFFICIENT_EVIDENCE"]
+    },
+    "hard_match": { "type": "boolean" },
+    "bounded_fuzzy_match": { "type": "boolean" },
+    "semantic_supporting_signal": { "type": "boolean" },
+    "semantic_similarity": { "type": "number", "minimum": 0, "maximum": 1 },
+    "case_upgrade_allowed": { "const": false },
+    "human_review_required": { "const": true },
+    "reason": { "type": "string" },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "source_type": {
+      "description": "Compatibility marker for baseline tests; individual evidence refs retain typed source metadata upstream.",
+      "enum": ["EDR_EVENT", "NETWORK_EVENT", "AUTH_EVENT", "SERVICE_BANNER", "CODE_COMMENT", "ASSET_REGISTRY", "FIXTURE", "HUMAN_REVIEW"]
+    },
+    "trust_level": {
+      "description": "Compatibility marker for baseline tests; correlation inputs carry source trust metadata upstream.",
+      "enum": ["TRUSTED_SYSTEM", "BOUNDED_METADATA", "UNTRUSTED_EXTERNAL_TEXT", "UNTRUSTED_ATTACKER_CONTROLLED"]
+    },
+    "is_authoritative": {
+      "description": "Correlation alone is not authoritative.",
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "hard_match": { "const": false },
+          "bounded_fuzzy_match": { "const": false },
+          "semantic_supporting_signal": { "const": true }
+        },
+        "required": ["hard_match", "bounded_fuzzy_match", "semantic_supporting_signal"]
+      },
+      "then": {
+        "properties": {
+          "case_upgrade_allowed": { "const": false },
+          "correlation_decision": { "enum": ["WEAK_MATCH", "NO_MATCH", "HOLD_INSUFFICIENT_EVIDENCE"] }
+        }
+      }
+    }
+  ]
+}

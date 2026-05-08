@@ -1,0 +1,56 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "fixture_id": "eci_case_001_early_stage_recon",
+  "fixture_meta": {
+    "source": "fully_artificial",
+    "real_data_derived": false,
+    "contains_real_customer_data": false,
+    "metadata_only": true,
+    "allowed_for": "local_offline_fixture_only"
+  },
+  "case_id": "ECI-FIX-001",
+  "title": "Synthetic early-stage reconnaissance metadata",
+  "source_fields": [
+    {
+      "field_name": "event_family",
+      "source_type": "NETWORK_EVENT",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "bounded metadata indicates repeated service discovery behavior",
+      "value": "service_discovery_pattern"
+    },
+    {
+      "field_name": "asset_group",
+      "source_type": "ASSET_REGISTRY",
+      "trust_level": "TRUSTED_SYSTEM",
+      "raw_value_retained": false,
+      "sanitized_summary": "synthetic asset group identity",
+      "value": "finance_service_group_alpha"
+    }
+  ],
+  "expected_focus": "EARLY_STAGE_RECON",
+  "prompt_injection_handling": {
+    "input_injection_detected": false,
+    "raw_injection_retained": false,
+    "sanitized_summary": "no injection-like input detected",
+    "forbidden_output_present": false,
+    "guard_status": "PASS"
+  },
+  "expected_evidence_gaps": [
+    {
+      "gap": "Need endpoint process metadata around the discovery interval",
+      "why_it_matters": "Distinguishes benign inventory activity from suspicious exploration",
+      "recommended_query_type": "EDR_PROCESS_TREE",
+      "allowed_scope": "metadata_only",
+      "urgency": "MEDIUM",
+      "window_closes_in": "2h",
+      "deadline_basis": "endpoint log rotation",
+      "fallback_if_missed": "Use network sequence and asset ownership metadata with lower confidence"
+    }
+  ],
+  "no_action_boundary": {
+    "human_review_required": true,
+    "automatic_containment_allowed": false,
+    "production_writeback_allowed": false
+  }
+}

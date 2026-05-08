@@ -1,0 +1,62 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "fixture_id": "vfe_case_002_privilege_boundary_candidate",
+  "fixture_meta": {
+    "source": "fully_artificial",
+    "real_data_derived": false,
+    "contains_real_customer_data": false,
+    "metadata_only": true,
+    "allowed_for": "local_offline_fixture_only"
+  },
+  "forecast_id": "VFE-FIX-002",
+  "title": "Synthetic privilege-boundary forecast candidate",
+  "query_context": {
+    "requester_alias": "SecuPilot-SEC-01",
+    "requester_role": "Security Reviewer",
+    "query_reason": "local fixture review",
+    "asset_scope": "case_linked_assets",
+    "asset_count": 2,
+    "bulk_export": false,
+    "rate_limit_bucket": "vfe_query_user_hour",
+    "audit_required": true,
+    "high_value_asset_extra_review": true,
+    "cross_scope_query_requires_governance": false
+  },
+  "source_fields": [
+    {
+      "field_name": "privilege_boundary_signal",
+      "source_type": "ASSET_REGISTRY",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "synthetic metadata indicates a boundary that should be reviewed",
+      "value": "privilege_boundary_review_candidate"
+    }
+  ],
+  "attack_path_defensive_summary": "Defensive summary: verify whether a privileged service boundary could increase blast radius if an active chain is confirmed.",
+  "affected_abstract_asset_group": "synthetic shared service boundary",
+  "recommended_defensive_check": "Confirm role ownership and approval requirement for boundary-sensitive changes.",
+  "prompt_injection_handling": {
+    "input_injection_detected": false,
+    "raw_injection_retained": false,
+    "sanitized_summary": "no injection-like input detected",
+    "forbidden_output_present": false,
+    "guard_status": "PASS"
+  },
+  "expected_evidence_gaps": [
+    {
+      "gap": "Need current ownership and change approval metadata for the synthetic service group",
+      "why_it_matters": "Identifies whether the forecast is operationally relevant",
+      "recommended_query_type": "OWNERSHIP_AND_APPROVAL_METADATA",
+      "allowed_scope": "metadata_only",
+      "urgency": "HIGH",
+      "window_closes_in": "1h",
+      "deadline_basis": "human business context needed",
+      "fallback_if_missed": "Keep the candidate visible but non-authoritative"
+    }
+  ],
+  "no_action_boundary": {
+    "human_review_required": true,
+    "automatic_containment_allowed": false,
+    "production_writeback_allowed": false
+  }
+}

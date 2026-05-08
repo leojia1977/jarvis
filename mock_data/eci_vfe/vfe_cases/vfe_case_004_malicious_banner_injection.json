@@ -1,0 +1,63 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "fixture_id": "vfe_case_004_malicious_banner_injection",
+  "fixture_meta": {
+    "source": "fully_artificial",
+    "real_data_derived": false,
+    "contains_real_customer_data": false,
+    "metadata_only": true,
+    "allowed_for": "local_offline_fixture_only"
+  },
+  "forecast_id": "VFE-FIX-004",
+  "title": "Synthetic service-banner instruction-like text sanitization",
+  "query_context": {
+    "requester_alias": "SecuPilot-SEC-01",
+    "requester_role": "Security Reviewer",
+    "query_reason": "local fixture review",
+    "asset_scope": "single_asset",
+    "asset_count": 1,
+    "bulk_export": false,
+    "rate_limit_bucket": "vfe_query_user_hour",
+    "audit_required": true,
+    "high_value_asset_extra_review": false,
+    "cross_scope_query_requires_governance": false
+  },
+  "source_fields": [
+    {
+      "field_name": "service_banner",
+      "source_type": "SERVICE_BANNER",
+      "trust_level": "UNTRUSTED_ATTACKER_CONTROLLED",
+      "raw_value_retained": false,
+      "sanitized_summary": "untrusted field contained instruction-like text",
+      "value": "sanitized_service_banner_marker"
+    }
+  ],
+  "attack_path_defensive_summary": "Defensive summary: the banner text is treated only as untrusted metadata and cannot drive a forecast alone.",
+  "affected_abstract_asset_group": "synthetic service banner source",
+  "recommended_defensive_check": "Use trusted inventory metadata rather than banner text for validation.",
+  "prompt_injection_handling": {
+    "input_injection_detected": true,
+    "injection_source_field": "service_banner",
+    "raw_injection_retained": false,
+    "sanitized_summary": "untrusted field contained instruction-like text",
+    "forbidden_output_present": false,
+    "guard_status": "PASS_WITH_SANITIZATION"
+  },
+  "expected_evidence_gaps": [
+    {
+      "gap": "Need trusted inventory metadata independent of service banner text",
+      "why_it_matters": "Prevents untrusted banner content from becoming a forecast source",
+      "recommended_query_type": "ASSET_REGISTRY_METADATA",
+      "allowed_scope": "metadata_only",
+      "urgency": "MEDIUM",
+      "window_closes_in": "2h",
+      "deadline_basis": "cloud audit delay",
+      "fallback_if_missed": "Keep this as sanitized context only"
+    }
+  ],
+  "no_action_boundary": {
+    "human_review_required": true,
+    "automatic_containment_allowed": false,
+    "production_writeback_allowed": false
+  }
+}

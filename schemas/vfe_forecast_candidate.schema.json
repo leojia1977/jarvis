@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://secupilot.local/schemas/vfe_forecast_candidate.schema.json",
+  "title": "SecuPilot VFE Forecast Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "not": {
+    "required": ["attack_path"]
+  },
+  "required": [
+    "schema_version",
+    "forecast_id",
+    "query_context",
+    "candidate_label",
+    "attack_path_defensive_summary",
+    "affected_abstract_asset_group",
+    "risk_rationale",
+    "recommended_defensive_check",
+    "evidence_gaps",
+    "prompt_injection_handling",
+    "human_validation_required"
+  ],
+  "properties": {
+    "schema_version": { "const": "eci_vfe.v0.2" },
+    "forecast_id": { "type": "string", "pattern": "^vfe-forecast-" },
+    "query_context": { "$ref": "#/$defs/query_context" },
+    "candidate_label": { "$ref": "#/$defs/authority_string" },
+    "attack_path_defensive_summary": { "$ref": "#/$defs/authority_string" },
+    "affected_abstract_asset_group": { "$ref": "#/$defs/authority_string" },
+    "risk_rationale": { "$ref": "#/$defs/authority_string" },
+    "recommended_defensive_check": { "$ref": "#/$defs/authority_string" },
+    "evidence_gaps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidence_gap" }
+    },
+    "prompt_injection_handling": { "$ref": "#/$defs/prompt_injection_handling" },
+    "human_validation_required": { "const": true }
+  },
+  "$defs": {
+    "query_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requester_alias",
+        "requester_role",
+        "query_reason",
+        "asset_scope",
+        "asset_count",
+        "bulk_export",
+        "rate_limit_bucket",
+        "audit_required",
+        "high_value_asset_extra_review",
+        "cross_scope_query_requires_governance"
+      ],
+      "properties": {
+        "requester_alias": { "type": "string" },
+        "requester_role": { "type": "string" },
+        "query_reason": { "type": "string" },
+        "asset_scope": { "enum": ["single_asset", "case_linked_assets", "bulk"] },
+        "asset_count": { "type": "integer", "minimum": 1 },
+        "bulk_export": { "const": false },
+        "rate_limit_bucket": { "type": "string" },
+        "audit_required": { "const": true },
+        "high_value_asset_extra_review": { "type": "boolean" },
+        "cross_scope_query_requires_governance": { "type": "boolean" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "asset_scope": { "const": "bulk" } }, "required": ["asset_scope"] },
+          "then": false
+        }
+      ]
+    },
+    "authority_string": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source", "confidence", "evidence_refs", "is_authoritative"],
+      "properties": {
+        "value": { "type": "string" },
+        "source": { "$ref": "#/$defs/authority_source" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "is_authoritative": { "type": "boolean" },
+        "signoff_ref": { "type": "string" }
+      },
+      "allOf": [{ "$ref": "#/$defs/llm_never_authoritative_by_default" }]
+    },
+    "authority_source": {
+      "enum": ["RULE_ENGINE", "LLM_INFERENCE", "ASSET_REGISTRY", "HUMAN_REVIEW", "FIXTURE"]
+    },
+    "llm_never_authoritative_by_default": {
+      "if": {
+        "properties": { "source": { "const": "LLM_INFERENCE" } },
+        "required": ["source"]
+      },
+      "then": {
+        "properties": { "is_authoritative": { "const": false } }
+      }
+    },
+    "evidence_gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gap",
+        "why_it_matters",
+        "recommended_query_type",
+        "allowed_scope",
+        "urgency",
+        "window_closes_in",
+        "deadline_basis",
+        "fallback_if_missed"
+      ],
+      "properties": {
+        "gap": { "type": "string" },
+        "why_it_matters": { "type": "string" },
+        "recommended_query_type": { "type": "string" },
+        "allowed_scope": { "const": "metadata_only" },
+        "urgency": { "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"] },
+        "window_closes_in": { "type": "string" },
+        "deadline_basis": {
+          "enum": [
+            "endpoint log rotation",
+            "SIEM ingestion delay",
+            "short-lived process evidence",
+            "volatile memory evidence",
+            "network flow retention",
+            "cloud audit delay",
+            "human business context needed"
+          ]
+        },
+        "fallback_if_missed": { "type": "string" }
+      }
+    },
+    "prompt_injection_handling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_injection_detected",
+        "raw_injection_retained",
+        "sanitized_summary",
+        "forbidden_output_present",
+        "guard_status"
+      ],
+      "properties": {
+        "input_injection_detected": { "type": "boolean" },
+        "injection_source_field": { "type": "string" },
+        "raw_injection_retained": { "const": false },
+        "sanitized_summary": { "type": "string" },
+        "forbidden_output_present": { "const": false },
+        "guard_status": { "enum": ["PASS", "PASS_WITH_SANITIZATION"] }
+      }
+    }
+  }
+}

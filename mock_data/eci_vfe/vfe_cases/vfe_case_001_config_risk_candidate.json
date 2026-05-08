@@ -1,0 +1,62 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "fixture_id": "vfe_case_001_config_risk_candidate",
+  "fixture_meta": {
+    "source": "fully_artificial",
+    "real_data_derived": false,
+    "contains_real_customer_data": false,
+    "metadata_only": true,
+    "allowed_for": "local_offline_fixture_only"
+  },
+  "forecast_id": "VFE-FIX-001",
+  "title": "Synthetic configuration-risk forecast candidate",
+  "query_context": {
+    "requester_alias": "SecuPilot-GOV-01",
+    "requester_role": "Governance Reviewer",
+    "query_reason": "local fixture review",
+    "asset_scope": "single_asset",
+    "asset_count": 1,
+    "bulk_export": false,
+    "rate_limit_bucket": "vfe_query_user_hour",
+    "audit_required": true,
+    "high_value_asset_extra_review": false,
+    "cross_scope_query_requires_governance": false
+  },
+  "source_fields": [
+    {
+      "field_name": "configuration_signal_family",
+      "source_type": "ASSET_REGISTRY",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "synthetic configuration metadata indicates review-worthy drift",
+      "value": "configuration_drift_family"
+    }
+  ],
+  "attack_path_defensive_summary": "Defensive summary: review configuration drift that may expand exposure if paired with suspicious authentication activity.",
+  "affected_abstract_asset_group": "synthetic finance service group",
+  "recommended_defensive_check": "Confirm ownership, recent change intent, and compensating control status.",
+  "prompt_injection_handling": {
+    "input_injection_detected": false,
+    "raw_injection_retained": false,
+    "sanitized_summary": "no injection-like input detected",
+    "forbidden_output_present": false,
+    "guard_status": "PASS"
+  },
+  "expected_evidence_gaps": [
+    {
+      "gap": "Need asset-owner metadata and recent change-intent metadata",
+      "why_it_matters": "Distinguishes intended configuration drift from review-worthy weakness",
+      "recommended_query_type": "ASSET_OWNER_AND_CHANGE_METADATA",
+      "allowed_scope": "metadata_only",
+      "urgency": "MEDIUM",
+      "window_closes_in": "2h",
+      "deadline_basis": "human business context needed",
+      "fallback_if_missed": "Keep as forecast candidate and require human validation"
+    }
+  ],
+  "no_action_boundary": {
+    "human_review_required": true,
+    "automatic_containment_allowed": false,
+    "production_writeback_allowed": false
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "eci_vfe.v0.2",
+  "fixture_id": "eci_case_003_lateral_movement_suspected",
+  "fixture_meta": {
+    "source": "fully_artificial",
+    "real_data_derived": false,
+    "contains_real_customer_data": false,
+    "metadata_only": true,
+    "allowed_for": "local_offline_fixture_only"
+  },
+  "case_id": "ECI-FIX-003",
+  "title": "Synthetic lateral-movement suspected metadata",
+  "source_fields": [
+    {
+      "field_name": "account_use_pattern",
+      "source_type": "AUTH_EVENT",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "same synthetic identity appears across multiple host groups in a bounded time window",
+      "value": "bounded_cross_host_sequence"
+    },
+    {
+      "field_name": "time_window_minutes",
+      "source_type": "FIXTURE",
+      "trust_level": "BOUNDED_METADATA",
+      "raw_value_retained": false,
+      "sanitized_summary": "bounded fixture window for local rule evaluation",
+      "value": 18
+    }
+  ],
+  "expected_focus": "LATERAL_MOVEMENT_SUSPECTED",
+  "prompt_injection_handling": {
+    "input_injection_detected": false,
+    "raw_injection_retained": false,
+    "sanitized_summary": "no injection-like input detected",
+    "forbidden_output_present": false,
+    "guard_status": "PASS"
+  },
+  "expected_evidence_gaps": [
+    {
+      "gap": "Need target-host process metadata after the cross-host authentication sequence",
+      "why_it_matters": "Separates suspicious movement from approved administration",
+      "recommended_query_type": "EDR_PROCESS_TREE",
+      "allowed_scope": "metadata_only",
+      "urgency": "HIGH",
+      "window_closes_in": "30m",
+      "deadline_basis": "short-lived process evidence",
+      "fallback_if_missed": "Use authentication sequence and network-flow metadata with lower confidence"
+    }
+  ],
+  "no_action_boundary": {
+    "human_review_required": true,
+    "automatic_containment_allowed": false,
+    "production_writeback_allowed": false
+  }
+}
