@@ -179,6 +179,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
+                "folded_state_capture_phase": "FIRST_LOAD",
                 "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
                 "folded_state_expected_interaction_count": 0,
                 "folded_state_expected_route": "/s1-run",
@@ -225,6 +226,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
+        self.assertEqual("FIRST_LOAD", required_archive["folded_state_capture_phase"])
         self.assertEqual(0, required_archive["folded_state_expected_interaction_count"])
         self.assertEqual("/s1-run", required_archive["folded_state_expected_route"])
         self.assertEqual("1440x1100", required_archive["folded_state_expected_viewport"])

@@ -61,6 +61,7 @@ def required_archive_evidence_payload(
         "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
+        "folded_state_capture_phase": "FIRST_LOAD",
         "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
         "folded_state_expected_interaction_count": 0,
         "folded_state_expected_route": "/s1-run",
