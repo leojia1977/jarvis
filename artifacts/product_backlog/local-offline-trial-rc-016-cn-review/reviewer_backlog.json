@@ -1,0 +1,144 @@
+{
+  "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
+  "generated_at_utc": "2026-05-08T11:17:46.337178Z",
+  "source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_015_CN",
+  "reviewer_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+  "reviewer": "Jarvis / TL / Product-governance reviewer",
+  "items": [
+    {
+      "id": "RFB-RC016-001",
+      "source_type": "non_blocking_observation",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
+      "description": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence.",
+      "category": "REVIEW_SCREENSHOT",
+      "priority": "P3",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "acceptance": [
+        "local/offline only",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back",
+        "no customer-visible publish/deploy/output",
+        "RC consistency validator PASS"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false
+      }
+    },
+    {
+      "id": "RFB-RC016-002",
+      "source_type": "non_blocking_observation",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "On mobile, \"AI 建议来源\" and \"了解 AI 建议的工作方式\" may feel repetitive and can be simplified",
+      "description": "On mobile, \"AI 建议来源\" and \"了解 AI 建议的工作方式\" may feel repetitive and can be simplified.",
+      "category": "REVIEWER_EXPERIENCE",
+      "priority": "P3",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "acceptance": [
+        "local/offline only",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back",
+        "no customer-visible publish/deploy/output"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false
+      }
+    },
+    {
+      "id": "RFB-RC016-003",
+      "source_type": "next_round_suggestion",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Include one first-load no-interaction folded-state screenshot for AI advice source in the next RC package",
+      "description": "Include one first-load no-interaction folded-state screenshot for AI advice source in the next RC package.",
+      "category": "REVIEW_SCREENSHOT",
+      "priority": "P1",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "acceptance": [
+        "local/offline only",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back",
+        "no customer-visible publish/deploy/output",
+        "RC consistency validator PASS"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false
+      }
+    },
+    {
+      "id": "RFB-RC016-004",
+      "source_type": "next_round_suggestion",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Consider shortening the mobile navigation label to \"AI 建议来源 ▸\"",
+      "description": "Consider shortening the mobile navigation label to \"AI 建议来源 ▸\".",
+      "category": "REVIEWER_EXPERIENCE",
+      "priority": "P2",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "acceptance": [
+        "local/offline only",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back",
+        "no customer-visible publish/deploy/output"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false
+      }
+    },
+    {
+      "id": "RFB-RC016-005",
+      "source_type": "next_round_suggestion",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Keep Chinese-first copy while confirming formal customer-view capitalization in a later branding pass",
+      "description": "Keep Chinese-first copy while confirming formal customer-view capitalization in a later branding pass.",
+      "category": "REVIEWER_EXPERIENCE",
+      "priority": "P2",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "acceptance": [
+        "local/offline only",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back",
+        "no customer-visible publish/deploy/output"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false
+      }
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "customer_visible_or_deploy_go": false,
+  "external_tracker_write": false
+}

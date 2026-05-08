@@ -1,0 +1,50 @@
+{
+  "schema_version": "secupilot.local_reviewer_feedback.v1",
+  "generated_at_utc": "2026-05-08T11:17:40.685530Z",
+  "source_decision_doc": "artifacts/product_backlog/local-offline-trial-rc-016-cn-review/reviewer_decision_normalized.md",
+  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_015_CN",
+  "reviewer": "Jarvis / TL / Product-governance reviewer",
+  "decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+  "timestamp": "2026-05-08",
+  "review_scope": "LOCAL_OFFLINE_REVIEW_ONLY",
+  "zip": "local-offline-trial-rc-016-cn-review-package-20260508.zip",
+  "zip_sha256": "7287a89adb713fa337189f2d1bff28747da80b3d203bf839afff7a3fafcf5151",
+  "passed_checks": {
+    "first-screen product check is conclusion-first and operator-readable": "PASS",
+    "forbidden/debug text scan is clear of P1/P2/P3, Mock Fixture, Expert Mode, and sensitive credential markers": "PASS",
+    "local/offline and production write-back boundary remains clear": "PASS"
+  },
+  "passed_findings": [
+    "RC-015 AI/model engineering terms are removed from visible product copy.",
+    "Chinese-first subtitle and mobile readability checks are accepted.",
+    "Technical reconciliation and local feedback preview expand affordances are present."
+  ],
+  "non_blocking_observations": [
+    "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence.",
+    "On mobile, \"AI 建议来源\" and \"了解 AI 建议的工作方式\" may feel repetitive and can be simplified."
+  ],
+  "next_round_suggestions": [
+    "Include one first-load no-interaction folded-state screenshot for AI advice source in the next RC package.",
+    "Consider shortening the mobile navigation label to \"AI 建议来源 ▸\".",
+    "Keep Chinese-first copy while confirming formal customer-view capitalization in a later branding pass."
+  ],
+  "package_evidence": {
+    "package_manifest_sha256": "f2e6a4dc36992bf8abdf52cc879321a6066fb286b841f301719c59b108851bba",
+    "final_status_sha256": "45f57750a303b42596ef30eb013b96d30b65759725741c1fa5e8b18d43692690",
+    "safety_scan_sha256": "1feb98bc48a6a9e681f06a2cd3e325e5d3d8d2ba0e7dbd773ea7284f1973cf15"
+  },
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "state_mutation": "none",
+  "artifact_write": "local_feedback_export_only",
+  "customer_visible_or_deploy_go": false
+}
