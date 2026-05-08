@@ -3524,7 +3524,7 @@ button {
   display: flex;
   gap: 8px;
   align-items: center;
-  min-height: 42px;
+  min-height: 44px;
 }
 
 .incident-feedback-missing-info input {
@@ -3631,6 +3631,19 @@ button {
   gap: 16px;
   border-left: 4px solid #28536b;
   padding: 20px;
+}
+
+.incident-qwen-provider-card > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.incident-qwen-provider-card > summary::-webkit-details-marker {
+  display: none;
+}
+
+.incident-ai-advice-card:not([open]) {
+  gap: 0;
 }
 
 .incident-qwen-provider-header {
@@ -3884,6 +3897,22 @@ button {
   padding: 0 18px;
   font-weight: 900;
   cursor: pointer;
+}
+
+.incident-collapsible-panel summary::after,
+.incident-feedback-local-record summary::after,
+.incident-qwen-local-record summary::after {
+  content: "展开";
+  margin-left: auto;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.incident-collapsible-panel[open] summary::after,
+.incident-feedback-local-record[open] summary::after,
+.incident-qwen-local-record[open] summary::after {
+  content: "收起";
 }
 
 .incident-collapsible-panel > div,

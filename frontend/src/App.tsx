@@ -3070,18 +3070,18 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
   const qwenProviderModes = [
     {
       value: "local_rules",
-      label: "本地规则",
-      description: "当前可运行路径，只用本地 fixture 和已打包规则。"
+      label: "本地规则建议",
+      description: "当前可运行路径，只用本地样例和已打包规则。"
     },
     {
       value: "qwen_cloud_dry_run",
-      label: "云端 Qwen dry-run",
+      label: "云端 AI 建议预演",
       description: "未来接入路径预览；现在不发请求、不需要运行时密钥值。"
     },
     {
       value: "qwen_synthetic_stub",
-      label: "合成 provider stub",
-      description: "已能用本地合成包生成 metadata-only 模型建议。"
+      label: "离线建议引擎",
+      description: "已能用本地合成包生成建议摘要。"
     },
     {
       value: "human_review",
@@ -3090,20 +3090,20 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     }
   ] as const;
   const qwenDryRunSteps = [
-    "把事件结论整理为 metadata-only 请求，不带原始日志、密钥或客户数据。",
-    "按 Qwen provider contract 做字段白名单检查，违规字段直接 HOLD。",
-    "返回风险摘要、可信度和 reviewer action，只作为人工复核建议。"
+    "只整理必要事件摘要，不带原始日志、密钥或客户数据。",
+    "先做字段白名单检查，不合规内容会暂停并提示人工清理。",
+    "返回风险摘要、可信度和建议动作，只作为人工复核输入。"
   ];
   const qwenFailureHandling = [
     "超时或限流：回退本地规则摘要，并提示稍后重试。",
-    "字段违规：拒绝生成模型请求，要求先清理输入包。",
+    "字段不合规：拒绝生成建议，要求先清理输入内容。",
     "低置信度：保留人工确认建议，不升级为自动处置。"
   ];
   const qwenRuntimeScenarios = [
     {
       value: "success",
-      label: "正常 dry-run",
-      latency: "约 1.8 秒",
+      label: "建议生成正常",
+      latency: "约 2 秒",
       status: "返回人工复核建议",
       fallback: "无需回退；仍不执行生产动作。"
     },
@@ -3116,10 +3116,10 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     },
     {
       value: "contract_error",
-      label: "字段违规",
-      latency: "请求前拦截",
-      status: "HOLD 输入包",
-      fallback: "拒绝生成请求，先清理违规字段。"
+      label: "字段不合规",
+      latency: "提交前拦截",
+      status: "建议暂停，等待人工清理",
+      fallback: "拒绝生成建议，先清理不合规字段。"
     },
     {
       value: "low_confidence",
@@ -3130,8 +3130,8 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     }
   ] as const;
   const qwenNoLiveCallSentinels = [
-    ["Live API", "关闭"],
-    ["网络请求", "不会发送"],
+    ["实时模型连接", "关闭"],
+    ["外部网络", "不会发送"],
     ["运行时密钥值", "不读取"],
     ["真实数据", "不进入"],
     ["连接器", "不调用"],
@@ -3176,7 +3176,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     ["证据覆盖", "中等，仍需补端点进程与 MFA"],
     ["不确定性", "已单独列出，不强行下结论"],
     ["动作边界", "只读建议，不自动隔离或写回"],
-    ["模型状态", "Qwen dry-run stub，无 live 调用"]
+    ["AI 建议模式", "离线建议引擎，无实时连接"]
   ] as const;
   const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_synthetic_stub");
   const [selectedQwenRuntimeScenario, setSelectedQwenRuntimeScenario] =
@@ -3343,7 +3343,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
           <main className="incident-workbench-main" aria-label="事件研判主路径">
             <header className="incident-product-hero incident-workbench-report-card" data-testid="incident-product-hero">
               <div>
-                <p className="summary-kicker">SecuPilot · Investigation Report</p>
+                <p className="summary-kicker">SecuPilot · 事件研判报告</p>
                 <h1 id="incident-product-title">SecuPilot 事件研判结果</h1>
                 <p>
                   SecuPilot 已经把当前事件压缩成一条客户可读判断：先看结论和建议动作，
@@ -3352,7 +3352,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 <div className="incident-primary-actions" aria-label="事件研判快捷动作">
                   <a href="#incident-evidence-details">查看证据摘要</a>
                   <a href="#incident-feedback-anchor">记录反馈</a>
-                  <a href="#incident-qwen-provider-anchor">模型接入预览</a>
+                  <a href="#incident-qwen-provider-anchor">了解 AI 建议来源</a>
                   <a href="/s1-trial">返回试用首页</a>
                 </div>
               </div>
@@ -3607,9 +3607,9 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         </div>
       </section>
 
-      <section
+      <details
         aria-labelledby="incident-qwen-provider-title"
-        className="incident-qwen-provider-card"
+        className="incident-qwen-provider-card incident-ai-advice-card"
         data-api-key-required="false"
         data-autonomous-qwen-action="false"
         data-connector-call="false"
@@ -3624,20 +3624,20 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         data-testid="incident-qwen-provider-dry-run"
         id="incident-qwen-provider-anchor"
       >
-        <div className="incident-qwen-provider-header">
+        <summary className="incident-qwen-provider-header">
           <div>
-            <p className="summary-kicker">云端模型接入预览</p>
-            <h2 id="incident-qwen-provider-title">Qwen 接入路径：先 dry-run，再谈真实调用</h2>
+            <p className="summary-kicker">AI 建议来源</p>
+            <h2 id="incident-qwen-provider-title">了解 AI 建议的工作方式</h2>
             <p>
-              当前页面只展示未来云端模型接入的产品形态。输入是合成 metadata，
-              输出是人工复核建议；provider stub 已可本地生成预览，但不发送网络请求、不读取运行时密钥值、不接真实系统。
+              这里说明 SecuPilot 如何把事件摘要变成建议。默认收起，不影响主操作路径；
+              当前仍是本地离线预览，不发送网络请求、不读取运行时密钥值、不接真实系统。
             </p>
           </div>
-          <span>dry-run only</span>
-        </div>
-        <div className="incident-qwen-provider-layout">
+          <span>默认收起</span>
+        </summary>
+        <div className="incident-qwen-provider-layout incident-ai-advice-body">
           <div className="incident-qwen-provider-main">
-            <div className="incident-qwen-provider-modes" aria-label="模型接入模式" role="group">
+            <div className="incident-qwen-provider-modes" aria-label="AI 建议模式" role="group">
               {qwenProviderModes.map((mode) => (
                 <button
                   aria-pressed={selectedQwenProviderMode === mode.value}
@@ -3652,7 +3652,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 </button>
               ))}
             </div>
-            <div className="incident-qwen-runtime-scenarios" aria-label="dry-run 运行状态演练" role="group">
+            <div className="incident-qwen-runtime-scenarios" aria-label="建议引擎状态演练" role="group">
               {qwenRuntimeScenarios.map((scenario) => (
                 <button
                   aria-pressed={selectedQwenRuntimeScenario === scenario.value}
@@ -3671,7 +3671,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
             </div>
             <div className="incident-qwen-dry-run-flow">
               <article>
-                <h3>输入如何进入模型</h3>
+                <h3>输入如何进入建议引擎</h3>
                 <ol>
                   {qwenDryRunSteps.map((step) => (
                     <li key={step}>{step}</li>
@@ -3689,27 +3689,19 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
             </div>
           </div>
           <aside className="incident-qwen-provider-summary" data-testid="incident-qwen-provider-summary">
-            <h3>Dry-run 输出预览</h3>
+            <h3>AI 建议输出预览</h3>
             <dl>
               <div>
                 <dt>接入状态</dt>
-                <dd data-testid="incident-qwen-readiness-status">{qwenReadiness.productLabel}</dd>
+                <dd data-testid="incident-qwen-readiness-status">建议引擎就绪（离线）</dd>
               </div>
               <div>
-                <dt>stub 案例数</dt>
-                <dd data-testid="incident-qwen-readiness-case-count">{qwenReadiness.caseCount}</dd>
-              </div>
-              <div>
-                <dt>当前模式</dt>
+                <dt>建议模式</dt>
                 <dd>{qwenProviderModes.find((mode) => mode.value === selectedQwenProviderMode)?.label}</dd>
               </div>
               <div>
                 <dt>数据模式</dt>
-                <dd>合成 metadata only</dd>
-              </div>
-              <div>
-                <dt>模拟延迟</dt>
-                <dd>{selectedQwenRuntime.latency}</dd>
+                <dd>本地合成摘要</dd>
               </div>
               <div>
                 <dt>人工动作</dt>
@@ -3736,14 +3728,14 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
               ))}
             </dl>
             <details className="incident-qwen-local-record">
-              <summary>查看 dry-run contract 预览</summary>
+              <summary>查看技术对账预览</summary>
               <pre data-testid="incident-qwen-provider-preview">
                 {JSON.stringify(qwenDryRunPreview, null, 2)}
               </pre>
             </details>
           </aside>
         </div>
-      </section>
+      </details>
 
       <section className="incident-brief-grid" aria-label="事件解释摘要">
         <article>

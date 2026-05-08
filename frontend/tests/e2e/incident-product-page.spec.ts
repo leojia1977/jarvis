@@ -5,14 +5,14 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux01");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux02");
 
-test.describe("UX-01 incident workbench main path polish", () => {
+test.describe("UX-02 incident AI advice language and collapse", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
 
-  test("renders conclusion-first incident page with cloud model latency and error handling", async ({ page }) => {
+  test("renders conclusion-first incident page with collapsed AI advice source", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/incident/CASE-2847");
 
@@ -74,22 +74,38 @@ test.describe("UX-01 incident workbench main path polish", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
-    await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
+    await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
+    await expect(qwenProviderPreview.locator("summary").first()).toContainText(
+      "了解 AI 建议的工作方式"
+    );
+    await expect(page.locator("body")).not.toContainText(
+      /Qwen dry-run|provider stub|HOLD 输入包|模拟延迟|stub 案例数|Dry-run 输出预览|模型接入预览/
+    );
+    await qwenProviderPreview.locator("summary").first().click();
+    await expect(qwenProviderPreview).toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
+    await expect(page.getByTestId("incident-qwen-readiness-status")).toContainText(
+      "建议引擎就绪"
+    );
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
+      "AI 建议输出预览"
+    );
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
       "回退本地规则摘要"
     );
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
       "提示稍后重试"
     );
-    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("Live API");
-    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("网络请求");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("实时模型连接");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("外部网络");
     await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("不会发送");
     await page.getByTestId("incident-qwen-provider-mode").filter({ hasText: "人工复核" }).click();
-    await page.getByTestId("incident-qwen-runtime-scenario").filter({ hasText: "字段违规" }).click();
+    await page.getByTestId("incident-qwen-runtime-scenario").filter({ hasText: "字段不合规" }).click();
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText("人工复核");
-    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText("HOLD 输入包");
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
+      "建议暂停，等待人工清理"
+    );
     await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
       '"selected_provider_mode": "human_review"'
     );
@@ -108,6 +124,8 @@ test.describe("UX-01 incident workbench main path polish", () => {
     await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
       '"api_key_required": false'
     );
+    await qwenProviderPreview.locator("summary").first().click();
+    await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
       "open",
@@ -119,6 +137,9 @@ test.describe("UX-01 incident workbench main path polish", () => {
     await expect(page.locator("body")).not.toContainText(
       /\bP1\b|\bP2\b|\bP3\b|Mock Fixture|Expert Mode|raw_payload\s*[:=]|authorization\s*[:=]|token\s*[:=]|private_key\s*[:=]/i
     );
+    await expect(page.locator("body")).not.toContainText(
+      /Qwen dry-run|provider stub|HOLD 输入包|模拟延迟|stub 案例数|Dry-run 输出预览|模型接入预览/
+    );
 
     const screenshotPath = path.join(EVIDENCE_ROOT, "incident-product-desktop.png");
     await page.screenshot({ fullPage: true, path: screenshotPath });
@@ -127,7 +148,7 @@ test.describe("UX-01 incident workbench main path polish", () => {
       path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.ux01.incident_workbench_main_path_text.v1",
+          schema_version: "secupilot.ux02.incident_ai_advice_language_text.v1",
           route: "/incident/CASE-2847",
           viewport: "1440x1000",
           visible_text: visibleText
@@ -167,10 +188,8 @@ test.describe("UX-01 incident workbench main path polish", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-live-qwen-api", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
-    await expect(qwenProviderPreview).toContainText("dry-run");
-    await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
-    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("生产写回");
-    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("禁止");
+    await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
+    await expect(qwenProviderPreview.locator("summary").first()).toContainText("AI 建议来源");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
@@ -185,7 +204,7 @@ test.describe("UX-01 incident workbench main path polish", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.ux01.incident_workbench_main_path_text.v1",
+          schema_version: "secupilot.ux02.incident_ai_advice_language_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
           visible_text: visibleText
