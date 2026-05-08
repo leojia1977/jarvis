@@ -37,6 +37,10 @@ SCREENSHOT_SPECS = (
     ("s1-trial-mobile.png", "/s1-trial", "390x1000"),
 )
 
+OPTIONAL_SCREENSHOT_SPECS = (
+    ("s1-run-first-load-folded-desktop.png", "/s1-run", "1440x1100"),
+)
+
 BOUNDARIES = {
     "real_data": False,
     "masked_real_data": False,
@@ -233,18 +237,30 @@ def sanitize_case_summary_for_package(payload: Any) -> Any:
     return next_payload
 
 
-def copy_screenshots(screenshot_dir: Path, output_dir: Path) -> list[dict[str, Any]]:
+def copy_screenshots(
+    screenshot_dir: Path, output_dir: Path
+) -> tuple[list[dict[str, Any]], list[tuple[str, str, str]]]:
     screenshot_output = output_dir / "screenshots"
     screenshot_output.mkdir(parents=True, exist_ok=True)
     entries: list[dict[str, Any]] = []
-    for file_name, _, _ in SCREENSHOT_SPECS:
+    included_specs: list[tuple[str, str, str]] = []
+    for file_name, route, viewport in SCREENSHOT_SPECS:
         src = screenshot_dir / file_name
         if not src.exists():
             raise FileNotFoundError(f"missing screenshot: {src}")
         dst = screenshot_output / file_name
         shutil.copy2(src, dst)
         entries.append(build_manifest_entry(dst, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
-    return entries
+        included_specs.append((file_name, route, viewport))
+    for file_name, route, viewport in OPTIONAL_SCREENSHOT_SPECS:
+        src = screenshot_dir / file_name
+        if not src.exists():
+            continue
+        dst = screenshot_output / file_name
+        shutil.copy2(src, dst)
+        entries.append(build_manifest_entry(dst, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
+        included_specs.append((file_name, route, viewport))
+    return entries, included_specs
 
 
 def copy_validation_artifacts(
@@ -435,6 +451,7 @@ def package_index(
     source_candidate: str,
     package_dir: str,
     zip_name: str,
+    screenshot_files: list[str],
     validation_files: list[str],
 ) -> dict[str, Any]:
     return {
@@ -448,17 +465,21 @@ def package_index(
         "checklist": "REVIEWER_CHECKLIST_中文.md",
         "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
         "evidence_files": [f"evidence/{name}" for name in EVIDENCE_FILES],
-        "screenshot_files": [f"screenshots/{name}" for name, _, _ in SCREENSHOT_SPECS],
+        "screenshot_files": screenshot_files,
         "validation_files": validation_files,
         "boundaries": BOUNDARIES,
     }
 
 
 def screenshot_index(
-    candidate: str, source_candidate: str, source_commit: str, output_dir: Path
+    candidate: str,
+    source_candidate: str,
+    source_commit: str,
+    output_dir: Path,
+    screenshot_specs: list[tuple[str, str, str]],
 ) -> dict[str, Any]:
     screenshots = []
-    for file_name, route, viewport in SCREENSHOT_SPECS:
+    for file_name, route, viewport in screenshot_specs:
         path = output_dir / "screenshots" / file_name
         screenshots.append(
             {
@@ -544,7 +565,9 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     entries = []
     entries.extend(copy_evidence(source_package, output_dir))
     entries.extend(write_reviewer_docs(output_dir, args.candidate, args.source_candidate, package_dir_ref, zip_name))
-    entries.extend(copy_screenshots(screenshot_dir, output_dir))
+    screenshot_entries, included_screenshot_specs = copy_screenshots(screenshot_dir, output_dir)
+    entries.extend(screenshot_entries)
+    screenshot_files = [f"screenshots/{name}" for name, _, _ in included_screenshot_specs]
     validation_sources = []
     if args.screenshot_safety_scan:
         validation_sources.append((repo_root / args.screenshot_safety_scan).resolve())
@@ -557,14 +580,27 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     package_index_path = output_dir / "PACKAGE_INDEX_中文.json"
     write_json(
         package_index_path,
-        package_index(args.candidate, args.source_candidate, package_dir_ref, zip_name, validation_files),
+        package_index(
+            args.candidate,
+            args.source_candidate,
+            package_dir_ref,
+            zip_name,
+            screenshot_files,
+            validation_files,
+        ),
     )
     entries.append(build_manifest_entry(package_index_path, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
 
     screenshot_index_path = output_dir / "SCREENSHOT_INDEX.json"
     write_json(
         screenshot_index_path,
-        screenshot_index(args.candidate, args.source_candidate, args.source_commit, output_dir),
+        screenshot_index(
+            args.candidate,
+            args.source_candidate,
+            args.source_commit,
+            output_dir,
+            included_screenshot_specs,
+        ),
     )
     entries.append(build_manifest_entry(screenshot_index_path, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
 

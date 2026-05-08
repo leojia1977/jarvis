@@ -81,6 +81,11 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         for file_name, _, _ in builder.SCREENSHOT_SPECS:
             (self.screenshot_dir / file_name).write_bytes(png_stub)
 
+    def write_optional_folded_screenshot(self) -> None:
+        png_stub = b"\x89PNG\r\n\x1a\nsecupilot-folded"
+        for file_name, _, _ in builder.OPTIONAL_SCREENSHOT_SPECS:
+            (self.screenshot_dir / file_name).write_bytes(png_stub)
+
     def write_validation_scan(self) -> None:
         write_json(
             self.validation_scan,
@@ -261,6 +266,21 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(builder.HOLD, code)
         self.assertFalse(self.zip_path.exists())
         self.assertFalse(self.default_outer_manifest_path().exists())
+
+    def test_includes_optional_folded_state_screenshot_when_present(self):
+        self.write_optional_folded_screenshot()
+
+        code = self.run_builder()
+
+        self.assertEqual(builder.PASS, code)
+        optional_name = builder.OPTIONAL_SCREENSHOT_SPECS[0][0]
+        optional_path = self.output_dir / "screenshots" / optional_name
+        self.assertTrue(optional_path.exists())
+        package_index = json.loads((self.output_dir / "PACKAGE_INDEX_中文.json").read_text(encoding="utf-8"))
+        self.assertIn(f"screenshots/{optional_name}", package_index["screenshot_files"])
+        screenshot_index = json.loads((self.output_dir / "SCREENSHOT_INDEX.json").read_text(encoding="utf-8"))
+        screenshot_names = {item["file_name"] for item in screenshot_index["screenshots"]}
+        self.assertIn(optional_name, screenshot_names)
 
 
 if __name__ == "__main__":
