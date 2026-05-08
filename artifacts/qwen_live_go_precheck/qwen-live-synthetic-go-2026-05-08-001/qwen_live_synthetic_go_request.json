@@ -1,0 +1,70 @@
+{
+  "schema_version": "secupilot.qwen_live_synthetic_go_request.v1",
+  "request_id": "QWEN-LIVE-SYNTHETIC-GO-2026-05-08-001",
+  "status": "PREPARED_NOT_EXECUTED",
+  "authorization": {
+    "live_call_authorized": false,
+    "requires_separate_go": true,
+    "authorization_note": "This request is ready for human GO review only. It does not authorize execution."
+  },
+  "data_mode": "SYNTHETIC_ONLY",
+  "run_id": "QWEN-LIVE-SYNTHETIC-2026-05-08-001",
+  "operator": {
+    "type": "human_runtime_operator",
+    "alias": "SecuPilot-QWEN-RUNNER-01",
+    "confirmation_required": true
+  },
+  "artifact_root": "artifacts/qwen_live_synthetic_runs/2026-05-08-001",
+  "input_package": "mock_data/s0_synthetic/qwen_fact_bundle",
+  "runtime_controls": {
+    "provider_flag_default": false,
+    "secret_source": "human_runtime_or_secret_manager_only",
+    "secret_value_present": false,
+    "secret_env_var_names_allowed": [
+      "SECUPILOT_QWEN_API_KEY"
+    ],
+    "secret_must_not_be_written_to_repo": true,
+    "timeout_seconds": 30,
+    "max_retries": 1,
+    "cost_or_token_budget": {
+      "max_requests": 20,
+      "max_tokens_per_case": 1200,
+      "stop_on_budget_exceeded": true
+    }
+  },
+  "data_boundary": {
+    "real_data": false,
+    "masked_real_data": false,
+    "raw_payload_allowed": false,
+    "raw_log_allowed": false,
+    "customer_visible_output": false,
+    "production_writeback": false,
+    "live_connectors": false,
+    "autonomous_qwen_action": false
+  },
+  "stop_conditions": [
+    "runtime secret appears in repo, command, log, artifact, or chat",
+    "input package is not synthetic-only",
+    "provider flag is enabled by default",
+    "timeout, retry, or budget guard is missing",
+    "response contains forbidden fields",
+    "adapter attempts connector action or write-back",
+    "network target or model name differs from the human-confirmed runtime values",
+    "operator cannot write to the dedicated artifact root"
+  ],
+  "rollback_plan": [
+    "disable provider flag",
+    "delete incomplete run artifact directory",
+    "preserve precheck report and failure reason",
+    "record HOLD without retrying automatically"
+  ],
+  "non_authorization": [
+    "No live Qwen/API call is executed by this request",
+    "No real data",
+    "No masked-real data",
+    "No live connectors",
+    "No production write-back",
+    "No customer-visible output",
+    "No autonomous Qwen action"
+  ]
+}
