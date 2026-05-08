@@ -50,8 +50,11 @@ BOUNDARIES = {
 }
 
 
-def required_archive_evidence_payload() -> dict[str, Any]:
-    return {
+def required_archive_evidence_payload(
+    *,
+    folded_state_primary_sha256: str | None = None,
+) -> dict[str, Any]:
+    payload = {
         "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
         "folded_state_screenshot_required": True,
         "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
@@ -59,6 +62,9 @@ def required_archive_evidence_payload() -> dict[str, Any]:
         "folded_state_expected_viewport": "1440x1100",
         "folded_state_primary_screenshot": "screenshots/s1-run-first-load-folded-desktop.png",
     }
+    if folded_state_primary_sha256:
+        payload["folded_state_primary_sha256"] = folded_state_primary_sha256
+    return payload
 
 FORBIDDEN_TEXT_PATTERNS = tuple(
     re.compile(pattern, re.IGNORECASE)
@@ -456,6 +462,7 @@ def package_index(
     zip_name: str,
     screenshot_files: list[str],
     validation_files: list[str],
+    required_archive_evidence: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_version": "secupilot.s1.local_offline_chinese_package_index.v1",
@@ -469,7 +476,7 @@ def package_index(
         "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
         "evidence_files": [f"evidence/{name}" for name in EVIDENCE_FILES],
         "screenshot_files": screenshot_files,
-        "required_archive_evidence": required_archive_evidence_payload(),
+        "required_archive_evidence": required_archive_evidence,
         "validation_files": validation_files,
         "boundaries": BOUNDARIES,
     }
@@ -572,6 +579,11 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     screenshot_entries, included_screenshot_specs = copy_screenshots(screenshot_dir, output_dir)
     entries.extend(screenshot_entries)
     screenshot_files = [f"screenshots/{name}" for name, _, _ in included_screenshot_specs]
+    folded_state_primary_relpath = f"screenshots/{REQUIRED_ARCHIVE_SCREENSHOT_FILES[0]}"
+    folded_state_primary_path = output_dir / folded_state_primary_relpath
+    required_archive_evidence = required_archive_evidence_payload(
+        folded_state_primary_sha256=file_sha256(folded_state_primary_path)
+    )
     validation_sources = []
     if args.screenshot_safety_scan:
         validation_sources.append((repo_root / args.screenshot_safety_scan).resolve())
@@ -591,6 +603,7 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
             zip_name,
             screenshot_files,
             validation_files,
+            required_archive_evidence,
         ),
     )
     entries.append(build_manifest_entry(package_index_path, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
@@ -617,7 +630,7 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
         "generated_at_utc": utc_now(),
         "package_dir": package_dir_ref,
         "zip_name": zip_name,
-        "required_archive_evidence": required_archive_evidence_payload(),
+        "required_archive_evidence": required_archive_evidence,
         "package_files": entries,
         "boundaries": BOUNDARIES,
     }
