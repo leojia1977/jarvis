@@ -119,6 +119,49 @@ export function S1LocalTrialView() {
       value: "核对私有化前置条件"
     }
   ];
+  const privatePreviewRoutes = [
+    {
+      label: "01",
+      title: "试用首页",
+      route: "/s1-trial",
+      audience: "所有角色",
+      outcome: "先理解 SecuPilot 是谁、帮我判断什么、现在建议做什么。"
+    },
+    {
+      label: "02",
+      title: "事件研判",
+      route: "/incident/CASE-2847",
+      audience: "工程师 / 分析负责人",
+      outcome: "查看结论、影响、可信依据、建议动作和反馈入口。"
+    },
+    {
+      label: "03",
+      title: "本地反馈",
+      route: "#s1-feedback-title",
+      audience: "试用 reviewer",
+      outcome: "记录准确性、可用性和缺失信息，不写后端。"
+    },
+    {
+      label: "04",
+      title: "模型接入准备",
+      route: "#s1-qwen-contract-title",
+      audience: "CTO / 部署负责人",
+      outcome: "查看 Qwen synthetic provider readiness，确认仍是 no-network dry path。"
+    },
+    {
+      label: "05",
+      title: "技术对账",
+      route: "展开技术对账信息",
+      audience: "内部核验",
+      outcome: "只在需要时核对 candidate、run、package、manifest 和边界。"
+    }
+  ];
+  const privatePreviewChecklist = [
+    ["启动入口", "本机浏览器打开 /s1-trial"],
+    ["核心动作", "看事件研判并提交本地反馈"],
+    ["模型路径", "只看 synthetic provider stub readiness"],
+    ["交付边界", "不部署、不连真实系统、不产生客户可见输出"]
+  ] as const;
   const materialStatus = [
     ["中文入口", "已就绪"],
     ["检查清单", "已就绪"],
@@ -197,6 +240,42 @@ export function S1LocalTrialView() {
           本地安全预览
         </span>
       </header>
+
+      <section
+        aria-labelledby="s1-private-preview-shell-title"
+        className="s1-private-preview-shell"
+        data-testid="s1-private-preview-shell"
+      >
+        <div className="s1-product-home-section-heading">
+          <p className="summary-kicker">私有化预览启动壳</p>
+          <h2 id="s1-private-preview-shell-title">从一个入口完成试用、反馈和接入准备</h2>
+          <p>
+            当前预览像产品一样进入：打开首页、查看事件研判、提交本地反馈、确认模型接入准备。
+            证据包和技术字段保留在后台对账区，不作为客户第一眼的主要内容。
+          </p>
+        </div>
+        <div className="s1-private-preview-checklist" data-testid="s1-private-preview-checklist">
+          {privatePreviewChecklist.map(([label, value]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+            </div>
+          ))}
+        </div>
+        <div className="s1-product-route-map" data-testid="s1-product-route-map">
+          {privatePreviewRoutes.map((item) => (
+            <article data-testid="s1-product-route-map-item" key={item.label}>
+              <span>{item.label}</span>
+              <div>
+                <strong>{item.title}</strong>
+                <small>{item.audience}</small>
+                <p>{item.outcome}</p>
+                <code>{item.route}</code>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section
         aria-labelledby="s1-product-role-title"

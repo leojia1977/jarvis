@@ -1955,6 +1955,114 @@ button {
   line-height: 1.25;
 }
 
+.s1-product-home-section-heading p:not(.summary-kicker) {
+  max-width: 820px;
+  margin: 8px 0 0;
+  color: #5d6875;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.s1-private-preview-shell {
+  display: grid;
+  gap: 14px;
+  border: 1px solid #c8ddd6;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(32, 46, 61, 0.06);
+  padding: 18px;
+}
+
+.s1-private-preview-checklist {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.s1-private-preview-checklist > div {
+  min-width: 0;
+  border: 1px solid #d9e7df;
+  border-radius: 7px;
+  background: #f8fbf6;
+  padding: 10px;
+}
+
+.s1-private-preview-checklist span {
+  display: block;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.s1-private-preview-checklist strong {
+  display: block;
+  margin-top: 5px;
+  color: #18202b;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.s1-product-route-map {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.s1-product-route-map article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid #d9e7df;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.s1-product-route-map article > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 7px;
+  background: #e0ecea;
+  color: #0f4f4a;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.s1-product-route-map strong,
+.s1-product-route-map small,
+.s1-product-route-map code {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.s1-product-route-map strong {
+  color: #18202b;
+  font-size: 14px;
+}
+
+.s1-product-route-map small {
+  margin-top: 4px;
+  color: #28536b;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.s1-product-route-map p {
+  margin: 7px 0 0;
+  color: #5d6875;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.s1-product-route-map code {
+  margin-top: 8px;
+  color: #314255;
+  font-size: 12px;
+}
+
 .s1-role-entry-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -4743,6 +4851,8 @@ button {
   .incident-action-panel ol,
   .incident-evidence-list,
   .incident-technical-facts,
+  .s1-private-preview-checklist,
+  .s1-product-route-map,
   .s1-run-header-facts,
   .s1-trial-header-facts,
   .s1-kpi-grid,
