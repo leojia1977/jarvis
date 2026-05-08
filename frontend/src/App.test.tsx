@@ -475,9 +475,12 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     expect(qwenProviderPreview).not.toHaveAttribute("open");
     expect(qwenProviderPreview).toHaveTextContent("了解 AI 建议的工作方式");
-    expect(qwenProviderPreview).toHaveTextContent("默认收起");
+    expect(qwenProviderPreview).toHaveTextContent("展开查看");
+    expect(qwenProviderPreview).not.toHaveTextContent("AI 建议输出预览");
+    expect(qwenProviderPreview).not.toHaveTextContent("输入如何进入建议引擎");
     await user.click(screen.getByText("了解 AI 建议的工作方式"));
     expect(qwenProviderPreview).toHaveAttribute("open");
+    expect(qwenProviderPreview).toHaveTextContent("收起说明");
     expect(screen.getByTestId("incident-qwen-readiness-status")).toHaveTextContent(
       "建议引擎就绪（离线）"
     );

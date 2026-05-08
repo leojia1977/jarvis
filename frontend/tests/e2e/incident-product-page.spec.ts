@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux03");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux04");
 
-test.describe("UX-03 incident evidence and timeline depth", () => {
+test.describe("UX-04 incident AI source collapse decision", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
@@ -78,6 +78,9 @@ test.describe("UX-03 incident evidence and timeline depth", () => {
     await expect(qwenProviderPreview.locator("summary").first()).toContainText(
       "了解 AI 建议的工作方式"
     );
+    await expect(qwenProviderPreview.locator("summary").first()).toContainText("展开查看");
+    await expect(qwenProviderPreview).not.toContainText("AI 建议输出预览");
+    await expect(qwenProviderPreview).not.toContainText("输入如何进入建议引擎");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
       "open",
@@ -92,6 +95,11 @@ test.describe("UX-03 incident evidence and timeline depth", () => {
       path: path.join(EVIDENCE_ROOT, "incident-product-first-load-desktop.png")
     });
     const firstLoadText = await page.locator("body").innerText();
+    const aiSourceIndex = firstLoadText.lastIndexOf("AI 建议来源");
+    expect(aiSourceIndex).toBeGreaterThan(-1);
+    const textAfterAiSource = firstLoadText.slice(aiSourceIndex);
+    expect(textAfterAiSource).not.toMatch(/发生了什么|为什么重要|还不能确认什么|SecuPilot 研判计划/);
+    expect(textAfterAiSource).not.toMatch(/AI 建议输出预览|输入如何进入建议引擎|失败时怎么处理/);
     await writeFile(
       path.join(EVIDENCE_ROOT, "incident-product-first-load-desktop.text.json"),
       JSON.stringify(
@@ -110,6 +118,7 @@ test.describe("UX-03 incident evidence and timeline depth", () => {
 
     await qwenProviderPreview.locator("summary").first().click();
     await expect(qwenProviderPreview).toHaveAttribute("open", "");
+    await expect(qwenProviderPreview.locator("summary").first()).toContainText("收起说明");
     await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-readiness-status")).toContainText(
@@ -153,6 +162,7 @@ test.describe("UX-03 incident evidence and timeline depth", () => {
     );
     await qwenProviderPreview.locator("summary").first().click();
     await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
+    await expect(qwenProviderPreview).not.toContainText("AI 建议输出预览");
     const evidenceDetails = page.getByTestId("incident-evidence-details");
     await expect(evidenceDetails).not.toHaveAttribute("open", "");
     await evidenceDetails.locator("summary").click();
@@ -254,6 +264,8 @@ test.describe("UX-03 incident evidence and timeline depth", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
     await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
     await expect(qwenProviderPreview.locator("summary").first()).toContainText("AI 建议来源");
+    await expect(qwenProviderPreview.locator("summary").first()).toContainText("展开查看");
+    await expect(qwenProviderPreview).not.toContainText("AI 建议输出预览");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
       "open",
