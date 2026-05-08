@@ -49,6 +49,13 @@ BOUNDARIES = {
     "push": False,
 }
 
+
+def required_archive_evidence_payload() -> dict[str, Any]:
+    return {
+        "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
+        "folded_state_screenshot_required": True,
+    }
+
 FORBIDDEN_TEXT_PATTERNS = tuple(
     re.compile(pattern, re.IGNORECASE)
     for pattern in (
@@ -458,10 +465,7 @@ def package_index(
         "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
         "evidence_files": [f"evidence/{name}" for name in EVIDENCE_FILES],
         "screenshot_files": screenshot_files,
-        "required_archive_evidence": {
-            "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
-            "folded_state_screenshot_required": True,
-        },
+        "required_archive_evidence": required_archive_evidence_payload(),
         "validation_files": validation_files,
         "boundaries": BOUNDARIES,
     }
@@ -609,6 +613,7 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
         "generated_at_utc": utc_now(),
         "package_dir": package_dir_ref,
         "zip_name": zip_name,
+        "required_archive_evidence": required_archive_evidence_payload(),
         "package_files": entries,
         "boundaries": BOUNDARIES,
     }

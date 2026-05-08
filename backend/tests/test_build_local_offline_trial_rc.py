@@ -172,6 +172,13 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual("LOCAL_OFFLINE_TRIAL_RC_099_CN", manifest["candidate"])
         self.assertEqual("LOCAL_OFFLINE_TRIAL_RC_098_CN", manifest["source_candidate"])
         self.assertEqual(False, manifest["boundaries"]["customer_visible_output"])
+        self.assertEqual(
+            {
+                "folded_state_screenshot_files": ["screenshots/s1-run-first-load-folded-desktop.png"],
+                "folded_state_screenshot_required": True,
+            },
+            manifest["required_archive_evidence"],
+        )
         self.assertRegex(manifest["manifest_self_sha256"], r"^[0-9a-f]{64}$")
         self.assertEqual(manifest["manifest_self_sha256"], builder.manifest_self_sha256(manifest))
         self.assertEqual(14, len(manifest["package_files"]))
