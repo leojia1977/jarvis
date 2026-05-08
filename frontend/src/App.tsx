@@ -15,6 +15,8 @@ import {
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { S1ArtifactView } from "./secupilot/s1/S1ArtifactView";
 import { S1LocalTrialView } from "./secupilot/s1/S1LocalTrialView";
+import { S1_QWEN_PROVIDER_CONTRACT } from "./secupilot/s1/s1QwenProviderContract";
+import { S1_QWEN_PROVIDER_DRY_PREVIEW } from "./secupilot/s1/s1QwenProviderDryPreview";
 import {
   adaptCoreSurfaceFixturePhase,
   CORE_SURFACE_FIXTURE,
@@ -3061,6 +3063,36 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
   const [feedbackNotes, setFeedbackNotes] = useState(
     "建议保留，但需要复核 MFA、身份日志和终端进程证据后再处置。"
   );
+  const qwenProviderContract = S1_QWEN_PROVIDER_CONTRACT;
+  const qwenDryPreview = S1_QWEN_PROVIDER_DRY_PREVIEW;
+  const qwenProviderModes = [
+    {
+      value: "local_rules",
+      label: "本地规则",
+      description: "当前可运行路径，只用本地 fixture 和已打包规则。"
+    },
+    {
+      value: "qwen_cloud_dry_run",
+      label: "云端 Qwen dry-run",
+      description: "未来接入路径预览；现在不发请求、不需要 API key。"
+    },
+    {
+      value: "human_review",
+      label: "人工复核",
+      description: "模型结果只能变成建议，最终仍交给人工确认。"
+    }
+  ] as const;
+  const qwenDryRunSteps = [
+    "把事件结论整理为 metadata-only 请求，不带原始日志、密钥或客户数据。",
+    "按 Qwen provider contract 做字段白名单检查，违规字段直接 HOLD。",
+    "返回风险摘要、可信度和 reviewer action，只作为人工复核建议。"
+  ];
+  const qwenFailureHandling = [
+    "超时或限流：回退本地规则摘要，并提示稍后重试。",
+    "字段违规：拒绝生成模型请求，要求先清理输入包。",
+    "低置信度：保留人工确认建议，不升级为自动处置。"
+  ];
+  const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_cloud_dry_run");
   const selectedAccuracyLabel =
     feedbackAccuracyOptions.find((option) => option.value === feedbackAccuracy)?.label ?? "未选择";
   const selectedUsefulnessLabel =
@@ -3088,6 +3120,30 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       production_writeback: false
     }),
     [activeCase.id, feedbackAccuracy, feedbackNotes, feedbackUsefulness, selectedMissingInfo]
+  );
+  const qwenDryRunPreview = useMemo(
+    () => ({
+      schema_version: "secupilot.incident.qwen_cloud_dry_run_preview.v1",
+      case_id: activeCase.id,
+      selected_provider_mode: selectedQwenProviderMode,
+      active_contract_mode: qwenProviderContract.activeMode,
+      provider_mode: qwenDryPreview.providerMode,
+      data_mode: qwenDryPreview.dataMode,
+      input_package_ref: qwenDryPreview.inputPackageRef,
+      allowed_metadata_fields: qwenDryPreview.allowedMetadataFields,
+      output_preview: qwenDryPreview.outputPreview,
+      simulated_latency_ms: 1800,
+      live_qwen_api: false,
+      network_request: false,
+      api_key_required: false,
+      real_data: false,
+      connector_call: false,
+      production_writeback: false,
+      customer_visible_output: false,
+      autonomous_qwen_action: false,
+      state_mutation: "none"
+    }),
+    [activeCase.id, qwenDryPreview, qwenProviderContract.activeMode, selectedQwenProviderMode]
   );
   const toggleMissingInfo = (value: string) => {
     setSelectedMissingInfo((current) =>
@@ -3117,6 +3173,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
           <div className="incident-primary-actions" aria-label="事件研判快捷动作">
             <a href="#incident-evidence-details">查看证据摘要</a>
             <a href="#incident-feedback-anchor">记录反馈</a>
+            <a href="#incident-qwen-provider-anchor">模型接入预览</a>
             <a href="/s1-trial">返回试用首页</a>
           </div>
         </div>
@@ -3304,6 +3361,101 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
               <summary>查看本地记录预览</summary>
               <pre data-testid="incident-feedback-preview">
                 {JSON.stringify(feedbackPreview, null, 2)}
+              </pre>
+            </details>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="incident-qwen-provider-title"
+        className="incident-qwen-provider-card"
+        data-api-key-required="false"
+        data-autonomous-qwen-action="false"
+        data-connector-call="false"
+        data-customer-visible-output="false"
+        data-live-qwen-api="false"
+        data-network-request="false"
+        data-production-writeback="false"
+        data-real-data="false"
+        data-state-mutation="none"
+        data-testid="incident-qwen-provider-dry-run"
+        id="incident-qwen-provider-anchor"
+      >
+        <div className="incident-qwen-provider-header">
+          <div>
+            <p className="summary-kicker">云端模型接入预览</p>
+            <h2 id="incident-qwen-provider-title">Qwen 接入路径：先 dry-run，再谈真实调用</h2>
+            <p>
+              当前页面只展示未来云端模型接入的产品形态。输入是合成 metadata，
+              输出是人工复核建议，不发送网络请求、不读取 API key、不接真实系统。
+            </p>
+          </div>
+          <span>dry-run only</span>
+        </div>
+        <div className="incident-qwen-provider-layout">
+          <div className="incident-qwen-provider-main">
+            <div className="incident-qwen-provider-modes" aria-label="模型接入模式" role="group">
+              {qwenProviderModes.map((mode) => (
+                <button
+                  aria-pressed={selectedQwenProviderMode === mode.value}
+                  className={selectedQwenProviderMode === mode.value ? "is-selected" : undefined}
+                  data-testid="incident-qwen-provider-mode"
+                  key={mode.value}
+                  onClick={() => setSelectedQwenProviderMode(mode.value)}
+                  type="button"
+                >
+                  <span>{mode.label}</span>
+                  <small>{mode.description}</small>
+                </button>
+              ))}
+            </div>
+            <div className="incident-qwen-dry-run-flow">
+              <article>
+                <h3>输入如何进入模型</h3>
+                <ol>
+                  {qwenDryRunSteps.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+              </article>
+              <article>
+                <h3>失败时怎么处理</h3>
+                <ol>
+                  {qwenFailureHandling.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ol>
+              </article>
+            </div>
+          </div>
+          <aside className="incident-qwen-provider-summary" data-testid="incident-qwen-provider-summary">
+            <h3>Dry-run 输出预览</h3>
+            <dl>
+              <div>
+                <dt>当前模式</dt>
+                <dd>{qwenProviderModes.find((mode) => mode.value === selectedQwenProviderMode)?.label}</dd>
+              </div>
+              <div>
+                <dt>数据模式</dt>
+                <dd>合成 metadata only</dd>
+              </div>
+              <div>
+                <dt>模拟延迟</dt>
+                <dd>约 1.8 秒</dd>
+              </div>
+              <div>
+                <dt>人工动作</dt>
+                <dd>需要复核签收</dd>
+              </div>
+            </dl>
+            <p>
+              输出只作为人工复核建议；不会触发审批、关闭、阻断、隔离或生产写回。
+            </p>
+            <details className="incident-qwen-local-record">
+              <summary>查看 dry-run contract 预览</summary>
+              <pre data-testid="incident-qwen-provider-preview">
+                {JSON.stringify(qwenDryRunPreview, null, 2)}
               </pre>
             </details>
           </aside>

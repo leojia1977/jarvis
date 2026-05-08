@@ -217,6 +217,14 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("incident-feedback-accuracy-option")).toHaveCount(3);
     await expect(page.getByTestId("incident-feedback-usefulness-option")).toHaveCount(3);
     await expect(page.getByTestId("incident-feedback-missing-info-option")).toHaveCount(4);
+    const qwenProviderPreview = page.getByTestId("incident-qwen-provider-dry-run");
+    await expect(qwenProviderPreview).toHaveAttribute("data-live-qwen-api", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
+    await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
+    await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(3);
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
 });

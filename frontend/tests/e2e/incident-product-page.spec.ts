@@ -5,14 +5,14 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp70");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp71");
 
-test.describe("MVP-70 recommendation feedback closed loop", () => {
+test.describe("MVP-71 cloud Qwen dry-run provider UI", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
 
-  test("renders conclusion-first incident page with local recommendation feedback", async ({ page }) => {
+  test("renders conclusion-first incident page with cloud Qwen dry-run provider UI", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/incident/CASE-2847");
 
@@ -62,6 +62,26 @@ test.describe("MVP-70 recommendation feedback closed loop", () => {
     await expect(page.getByTestId("incident-feedback-preview")).toContainText(
       '"backend_write": false'
     );
+    const qwenProviderPreview = page.getByTestId("incident-qwen-provider-dry-run");
+    await expect(qwenProviderPreview).toBeVisible();
+    await expect(qwenProviderPreview).toHaveAttribute("data-live-qwen-api", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
+    await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
+    await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(3);
+    await page.getByRole("button", { name: /人工复核/ }).click();
+    await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText("人工复核");
+    await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
+      '"selected_provider_mode": "human_review"'
+    );
+    await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
+      '"network_request": false'
+    );
+    await expect(page.getByTestId("incident-qwen-provider-preview")).toContainText(
+      '"api_key_required": false'
+    );
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
       "open",
@@ -81,7 +101,7 @@ test.describe("MVP-70 recommendation feedback closed loop", () => {
       path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp70.recommendation_feedback_loop_text.v1",
+          schema_version: "secupilot.mvp71.cloud_qwen_dry_run_provider_ui_text.v1",
           route: "/incident/CASE-2847",
           viewport: "1440x1000",
           visible_text: visibleText
@@ -115,6 +135,12 @@ test.describe("MVP-70 recommendation feedback closed loop", () => {
     await expect(feedbackLoop).toHaveAttribute("data-backend-write", "false");
     await expect(feedbackLoop).toHaveAttribute("data-qwen-api-call", "false");
     await expect(feedbackLoop).toContainText("反馈摘要");
+    const qwenProviderPreview = page.getByTestId("incident-qwen-provider-dry-run");
+    await expect(qwenProviderPreview).toBeVisible();
+    await expect(qwenProviderPreview).toHaveAttribute("data-live-qwen-api", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
+    await expect(qwenProviderPreview).toContainText("dry-run");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
@@ -129,7 +155,7 @@ test.describe("MVP-70 recommendation feedback closed loop", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp70.recommendation_feedback_loop_text.v1",
+          schema_version: "secupilot.mvp71.cloud_qwen_dry_run_provider_ui_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
           visible_text: visibleText

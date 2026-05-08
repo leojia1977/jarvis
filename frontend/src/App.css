@@ -2849,6 +2849,7 @@ button {
 .incident-result-grid article,
 .incident-recommended-action-card,
 .incident-feedback-loop-card,
+.incident-qwen-provider-card,
 .incident-brief-grid article,
 .incident-action-panel,
 .incident-collapsible-panel {
@@ -2956,6 +2957,9 @@ button {
 .incident-recommended-action-body li,
 .incident-feedback-loop-header p,
 .incident-feedback-summary p,
+.incident-qwen-provider-header p,
+.incident-qwen-provider-summary p,
+.incident-qwen-dry-run-flow li,
 .incident-action-panel span,
 .incident-evidence-list p {
   color: #5d6875;
@@ -2967,6 +2971,7 @@ button {
 .incident-brief-grid p,
 .incident-recommended-action-header p,
 .incident-feedback-loop-header p,
+.incident-qwen-provider-header p,
 .incident-brief-grid ul {
   margin: 8px 0 0;
 }
@@ -2974,6 +2979,7 @@ button {
 .incident-brief-grid h2,
 .incident-recommended-action-header h2,
 .incident-feedback-loop-header h2,
+.incident-qwen-provider-header h2,
 .incident-action-panel h2 {
   margin: 0;
   color: #18202b;
@@ -3272,6 +3278,171 @@ button {
 }
 
 .incident-feedback-local-record pre {
+  max-height: 260px;
+  overflow: auto;
+  margin: 10px 0 0;
+  border-radius: 8px;
+  background: #101828;
+  color: #f8fafc;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.incident-qwen-provider-card {
+  display: grid;
+  gap: 16px;
+  border-left: 4px solid #28536b;
+  padding: 20px;
+}
+
+.incident-qwen-provider-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.incident-qwen-provider-header .summary-kicker {
+  text-transform: none;
+}
+
+.incident-qwen-provider-header > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border: 1px solid #c8d5e6;
+  border-radius: 999px;
+  background: #f2f7fc;
+  color: #28536b;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.incident-qwen-provider-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.incident-qwen-provider-main {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.incident-qwen-provider-modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.incident-qwen-provider-modes button {
+  display: grid;
+  min-height: 82px;
+  gap: 4px;
+  border: 1px solid #d9e3ec;
+  border-radius: 8px;
+  background: #fbfcf8;
+  color: #243140;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.incident-qwen-provider-modes button.is-selected {
+  border-color: #28536b;
+  background: #eef6fb;
+}
+
+.incident-qwen-provider-modes button:focus-visible {
+  outline: 2px solid rgba(40, 83, 107, 0.28);
+  outline-offset: 2px;
+}
+
+.incident-qwen-provider-modes span {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.incident-qwen-provider-modes small {
+  color: #5d6875;
+  line-height: 1.45;
+}
+
+.incident-qwen-dry-run-flow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.incident-qwen-dry-run-flow article,
+.incident-qwen-provider-summary {
+  min-width: 0;
+  border: 1px solid #d9e3ec;
+  border-radius: 8px;
+  background: #f7fafc;
+  padding: 14px;
+}
+
+.incident-qwen-dry-run-flow h3,
+.incident-qwen-provider-summary h3 {
+  margin: 0;
+  color: #18202b;
+  font-size: 17px;
+}
+
+.incident-qwen-dry-run-flow ol {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.incident-qwen-provider-summary dl {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.incident-qwen-provider-summary dl > div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.incident-qwen-provider-summary dt {
+  color: #667085;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.incident-qwen-provider-summary dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #18202b;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.incident-qwen-local-record {
+  margin-top: 12px;
+  border-top: 1px solid #d9e3ec;
+  padding-top: 10px;
+}
+
+.incident-qwen-local-record summary {
+  color: #28536b;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.incident-qwen-local-record pre {
   max-height: 260px;
   overflow: auto;
   margin: 10px 0 0;
@@ -4475,6 +4646,9 @@ button {
   .incident-recommended-action-body,
   .incident-feedback-loop-header,
   .incident-feedback-loop-layout,
+  .incident-qwen-provider-header,
+  .incident-qwen-provider-layout,
+  .incident-qwen-dry-run-flow,
   .incident-action-panel,
   .s1-run-header,
   .s1-trial-header,
@@ -4508,6 +4682,7 @@ button {
   .incident-recommended-action-facts,
   .incident-feedback-options,
   .incident-feedback-missing-info,
+  .incident-qwen-provider-modes,
   .incident-action-panel ol,
   .incident-evidence-list,
   .incident-technical-facts,
