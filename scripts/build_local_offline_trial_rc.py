@@ -65,6 +65,14 @@ def required_archive_evidence_payload(
     }
     if folded_state_primary_sha256:
         payload["folded_state_primary_sha256"] = folded_state_primary_sha256
+        payload["folded_state_proof"] = {
+            "screenshot_path": "screenshots/s1-run-first-load-folded-desktop.png",
+            "route": "/s1-run",
+            "viewport": "1440x1100",
+            "interaction_count": 0,
+            "interaction_policy": "FIRST_LOAD_NO_INTERACTION",
+            "sha256": folded_state_primary_sha256,
+        }
     if folded_state_screenshot_sha256:
         payload["folded_state_screenshot_sha256"] = {
             key: folded_state_screenshot_sha256[key] for key in sorted(folded_state_screenshot_sha256)
