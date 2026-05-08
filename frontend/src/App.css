@@ -3892,11 +3892,24 @@ button {
 .incident-collapsible-panel summary {
   display: flex;
   align-items: center;
+  gap: 12px;
   min-height: 52px;
   color: #243140;
   padding: 0 18px;
   font-weight: 900;
   cursor: pointer;
+}
+
+.incident-collapsible-panel summary span {
+  min-width: 0;
+}
+
+.incident-collapsible-panel summary small {
+  min-width: 0;
+  color: #667085;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .incident-collapsible-panel summary::after,
@@ -3931,6 +3944,38 @@ button {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.incident-evidence-depth,
+.incident-technical-depth {
+  display: grid;
+  gap: 18px;
+}
+
+.incident-depth-section-title {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.incident-depth-section-title h3,
+.incident-technical-group-grid h3 {
+  margin: 0;
+  color: #18202b;
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.incident-depth-section-title p,
+.incident-technical-explainer,
+.incident-technical-group-grid article > p,
+.incident-evidence-mini-facts dd,
+.incident-expanded-timeline p {
+  margin: 0;
+  color: #5d6875;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .incident-evidence-list article,
 .incident-technical-facts > div {
   min-width: 0;
@@ -3938,6 +3983,23 @@ button {
   border-radius: 8px;
   background: #f8fbf6;
   padding: 12px;
+}
+
+.incident-evidence-mini-facts {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.incident-evidence-mini-facts > div {
+  border-top: 1px solid #e3e8df;
+  padding-top: 8px;
+}
+
+.incident-evidence-mini-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
 }
 
 .incident-evidence-list span,
@@ -3955,11 +4017,74 @@ button {
   margin: 0;
 }
 
+.incident-technical-group-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.incident-technical-group-grid article {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 8px;
+  background: #f8fbf6;
+  padding: 14px;
+}
+
+.incident-technical-group-grid .incident-technical-facts {
+  grid-template-columns: 1fr;
+}
+
 .incident-technical-facts dd {
   margin: 4px 0 0;
   overflow-wrap: anywhere;
   color: #243140;
   font-size: 13px;
+  font-weight: 900;
+}
+
+.incident-expanded-timeline {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.incident-expanded-timeline li {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid #e3e8df;
+  border-radius: 8px;
+  background: #f8fbf6;
+  padding: 12px;
+}
+
+.incident-expanded-timeline time {
+  color: #256f5a;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.incident-expanded-timeline strong {
+  color: #18202b;
+  font-size: 14px;
+}
+
+.incident-expanded-timeline span {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 8px;
+  border: 1px solid #c7d8cf;
+  border-radius: 999px;
+  color: #267f62;
+  padding: 4px 8px;
+  font-size: 11px;
   font-weight: 900;
 }
 
@@ -5265,7 +5390,10 @@ button {
 .incident-workbench-view .incident-qwen-provider-summary h3,
 .incident-workbench-view .incident-qwen-dry-run-flow h3,
 .incident-workbench-view .incident-action-panel strong,
-.incident-workbench-view .incident-evidence-list strong {
+.incident-workbench-view .incident-evidence-list strong,
+.incident-workbench-view .incident-depth-section-title h3,
+.incident-workbench-view .incident-technical-group-grid h3,
+.incident-workbench-view .incident-expanded-timeline strong {
   color: #f5f8ff;
 }
 
@@ -5281,7 +5409,12 @@ button {
 .incident-workbench-view .incident-qwen-provider-summary p,
 .incident-workbench-view .incident-qwen-dry-run-flow li,
 .incident-workbench-view .incident-action-panel span,
-.incident-workbench-view .incident-evidence-list p {
+.incident-workbench-view .incident-evidence-list p,
+.incident-workbench-view .incident-depth-section-title p,
+.incident-workbench-view .incident-technical-explainer,
+.incident-workbench-view .incident-technical-group-grid article > p,
+.incident-workbench-view .incident-evidence-mini-facts dd,
+.incident-workbench-view .incident-expanded-timeline p {
   color: #aab8ca;
 }
 
@@ -5324,7 +5457,9 @@ button {
 .incident-workbench-view .incident-qwen-sentinel-grid > div,
 .incident-workbench-view .incident-action-panel li,
 .incident-workbench-view .incident-evidence-list article,
-.incident-workbench-view .incident-technical-facts > div {
+.incident-workbench-view .incident-technical-facts > div,
+.incident-workbench-view .incident-technical-group-grid article,
+.incident-workbench-view .incident-expanded-timeline li {
   border-color: #28384d;
   background: #0c1420;
   color: #dce8f7;
@@ -5343,7 +5478,8 @@ button {
 .incident-workbench-view .incident-qwen-sentinel-grid dd,
 .incident-workbench-view .incident-technical-facts dd,
 .incident-workbench-view .incident-feedback-options span,
-.incident-workbench-view .incident-feedback-missing-info span {
+.incident-workbench-view .incident-feedback-missing-info span,
+.incident-workbench-view .incident-expanded-timeline time {
   color: #f5f8ff;
 }
 
@@ -5353,10 +5489,21 @@ button {
 .incident-workbench-view .incident-qwen-sentinel-grid dt,
 .incident-workbench-view .incident-technical-facts dt,
 .incident-workbench-view .incident-evidence-list span,
+.incident-workbench-view .incident-evidence-mini-facts dt,
 .incident-workbench-view .incident-feedback-options small,
 .incident-workbench-view .incident-qwen-provider-modes small,
 .incident-workbench-view .incident-qwen-runtime-scenarios small {
   color: #7f90a7;
+}
+
+.incident-workbench-view .incident-evidence-mini-facts > div {
+  border-top-color: #28384d;
+}
+
+.incident-workbench-view .incident-expanded-timeline span {
+  border-color: #31506d;
+  background: #0d1725;
+  color: #9dd6ff;
 }
 
 .incident-workbench-view .incident-feedback-note-field textarea {
@@ -5576,6 +5723,7 @@ button {
   .incident-action-panel ol,
   .incident-evidence-list,
   .incident-technical-facts,
+  .incident-technical-group-grid,
   .s1-private-preview-checklist,
   .s1-product-route-map,
   .s1-customer-command-card dl,
@@ -5609,6 +5757,20 @@ button {
   }
 
   .s1-technical-details summary {
+    grid-template-columns: 1fr;
+  }
+
+  .incident-collapsible-panel summary {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 12px 16px;
+  }
+
+  .incident-collapsible-panel summary::after {
+    margin-left: 0;
+  }
+
+  .incident-expanded-timeline li {
     grid-template-columns: 1fr;
   }
 

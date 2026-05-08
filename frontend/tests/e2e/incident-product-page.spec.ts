@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux02");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux03");
 
-test.describe("UX-02 incident AI advice language and collapse", () => {
+test.describe("UX-03 incident evidence and timeline depth", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
@@ -78,9 +78,36 @@ test.describe("UX-02 incident AI advice language and collapse", () => {
     await expect(qwenProviderPreview.locator("summary").first()).toContainText(
       "了解 AI 建议的工作方式"
     );
+    await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
+      "open",
+      ""
+    );
     await expect(page.locator("body")).not.toContainText(
       /Qwen dry-run|provider stub|HOLD 输入包|模拟延迟|stub 案例数|Dry-run 输出预览|模型接入预览/
     );
+
+    await page.screenshot({
+      fullPage: true,
+      path: path.join(EVIDENCE_ROOT, "incident-product-first-load-desktop.png")
+    });
+    const firstLoadText = await page.locator("body").innerText();
+    await writeFile(
+      path.join(EVIDENCE_ROOT, "incident-product-first-load-desktop.text.json"),
+      JSON.stringify(
+        {
+          schema_version: "secupilot.ux03.incident_evidence_depth_text.v1",
+          route: "/incident/CASE-2847",
+          viewport: "1440x1000",
+          state: "first_load_no_interaction",
+          visible_text: firstLoadText
+        },
+        null,
+        2
+      ),
+      "utf-8"
+    );
+
     await qwenProviderPreview.locator("summary").first().click();
     await expect(qwenProviderPreview).toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(4);
@@ -126,10 +153,63 @@ test.describe("UX-02 incident AI advice language and collapse", () => {
     );
     await qwenProviderPreview.locator("summary").first().click();
     await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
-    await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
-    await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
-      "open",
-      ""
+    const evidenceDetails = page.getByTestId("incident-evidence-details");
+    await expect(evidenceDetails).not.toHaveAttribute("open", "");
+    await evidenceDetails.locator("summary").click();
+    await expect(evidenceDetails).toHaveAttribute("open", "");
+    await expect(page.getByTestId("incident-evidence-depth")).toContainText("判断依据摘要");
+    await expect(page.getByTestId("incident-evidence-depth")).toContainText("还缺什么");
+    await expect(page.getByTestId("incident-evidence-depth")).toContainText("时间线解释");
+    await expect(page.getByTestId("incident-expanded-timeline")).toContainText("等待人工确认");
+    await page.screenshot({
+      fullPage: true,
+      path: path.join(EVIDENCE_ROOT, "incident-product-evidence-expanded-desktop.png")
+    });
+    const evidenceText = await page.locator("body").innerText();
+    await writeFile(
+      path.join(EVIDENCE_ROOT, "incident-product-evidence-expanded-desktop.text.json"),
+      JSON.stringify(
+        {
+          schema_version: "secupilot.ux03.incident_evidence_depth_text.v1",
+          route: "/incident/CASE-2847",
+          viewport: "1440x1000",
+          state: "evidence_expanded",
+          visible_text: evidenceText
+        },
+        null,
+        2
+      ),
+      "utf-8"
+    );
+    await evidenceDetails.locator("summary").click();
+    await expect(evidenceDetails).not.toHaveAttribute("open", "");
+    const technicalReconciliation = page.getByTestId("incident-technical-reconciliation");
+    await expect(technicalReconciliation).not.toHaveAttribute("open", "");
+    await technicalReconciliation.locator("summary").click();
+    await expect(technicalReconciliation).toHaveAttribute("open", "");
+    await expect(page.getByTestId("incident-technical-depth")).toContainText("运行边界");
+    await expect(page.getByTestId("incident-technical-depth")).toContainText("实时模型连接");
+    await expect(page.getByTestId("incident-technical-depth")).toContainText("原始日志");
+    await expect(page.getByTestId("incident-technical-depth")).toContainText("客户发布");
+    await page.screenshot({
+      fullPage: true,
+      path: path.join(EVIDENCE_ROOT, "incident-product-technical-expanded-desktop.png")
+    });
+    const technicalText = await page.locator("body").innerText();
+    await writeFile(
+      path.join(EVIDENCE_ROOT, "incident-product-technical-expanded-desktop.text.json"),
+      JSON.stringify(
+        {
+          schema_version: "secupilot.ux03.incident_evidence_depth_text.v1",
+          route: "/incident/CASE-2847",
+          viewport: "1440x1000",
+          state: "technical_reconciliation_expanded",
+          visible_text: technicalText
+        },
+        null,
+        2
+      ),
+      "utf-8"
     );
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
@@ -141,23 +221,7 @@ test.describe("UX-02 incident AI advice language and collapse", () => {
       /Qwen dry-run|provider stub|HOLD 输入包|模拟延迟|stub 案例数|Dry-run 输出预览|模型接入预览/
     );
 
-    const screenshotPath = path.join(EVIDENCE_ROOT, "incident-product-desktop.png");
-    await page.screenshot({ fullPage: true, path: screenshotPath });
-    const visibleText = await page.locator("body").innerText();
-    await writeFile(
-      path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
-      JSON.stringify(
-        {
-          schema_version: "secupilot.ux02.incident_ai_advice_language_text.v1",
-          route: "/incident/CASE-2847",
-          viewport: "1440x1000",
-          visible_text: visibleText
-        },
-        null,
-        2
-      ),
-      "utf-8"
-    );
+    await expect(technicalReconciliation).toHaveAttribute("open", "");
   });
 
   test("renders mobile incident page without debug controls", async ({ page }) => {
@@ -191,6 +255,10 @@ test.describe("UX-02 incident AI advice language and collapse", () => {
     await expect(qwenProviderPreview).not.toHaveAttribute("open", "");
     await expect(qwenProviderPreview.locator("summary").first()).toContainText("AI 建议来源");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
+    await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
+      "open",
+      ""
+    );
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
     await expect(page.locator("body")).not.toContainText(
@@ -204,9 +272,10 @@ test.describe("UX-02 incident AI advice language and collapse", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.ux02.incident_ai_advice_language_text.v1",
+          schema_version: "secupilot.ux03.incident_evidence_depth_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
+          state: "mobile_first_load",
           visible_text: visibleText
         },
         null,

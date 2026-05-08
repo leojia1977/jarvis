@@ -82,7 +82,7 @@ py -3 scripts\validate_codex_goal_card.py docs\goals\GOAL-UX-03_INCIDENT_EVIDENC
 npm run test -- --run src/App.test.tsx
 npm run build
 npm run test:e2e -- tests/e2e/incident-product-page.spec.ts
-Select-String -LiteralPath artifacts\product_experience\ux03\*.text.json -Pattern 'Qwen dry-run|provider stub|HOLD 输入包|模拟延迟|stub 案例数|Dry-run 输出预览|模型接入预览|\bP1\b|\bP2\b|\bP3\b|Mock Fixture|Expert Mode|raw_payload|authorization\s*[:=]|token\s*[:=]|private_key' -AllMatches
+Get-ChildItem -LiteralPath artifacts\product_experience\ux03 -Filter '*.text.json' | Select-String -Pattern 'Qwen dry-run|provider stub|HOLD 输入包|模拟延迟|stub 案例数|Dry-run 输出预览|模型接入预览|\bP1\b|\bP2\b|\bP3\b|Mock Fixture|Expert Mode|raw_payload|authorization\s*[:=]|token\s*[:=]|private_key' -AllMatches
 git -c core.quotepath=false diff --check
 ```
 

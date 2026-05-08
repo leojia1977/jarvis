@@ -2998,7 +2998,6 @@ export function CoverageHealthView({
 }
 
 function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
-  const primaryEvidence = activeCase.evidenceFrames.slice(0, 3);
   const limitations = [
     "部分文件访问行为目前是推断结论，仍缺少直接终端进程证据。",
     "账号是否已经被完全接管尚未证实，还需要结合 MFA 和身份日志复核。",
@@ -3178,6 +3177,87 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     ["动作边界", "只读建议，不自动隔离或写回"],
     ["AI 建议模式", "离线建议引擎，无实时连接"]
   ] as const;
+  const incidentEvidenceDepthItems = [
+    {
+      title: "认证行为摘要",
+      finding: "同一财务工作站在短时间内访问多台内部服务器，行为不符合日常使用习惯。",
+      supports: "支持“需要人工复核的高风险事件”这一结论。",
+      stillNeeds: "仍需补充 MFA 与身份日志，确认是否为本人合法操作。",
+      source: "本地合成摘要字段"
+    },
+    {
+      title: "影响范围判断",
+      finding: "受影响对象集中在财务工作站和相关内部服务器，暂未扩大到全域。",
+      supports: "支持先进入人工确认，而不是立即执行大范围阻断。",
+      stillNeeds: "仍需资产负责人确认业务影响和可接受处置窗口。",
+      source: "覆盖范围摘要"
+    },
+    {
+      title: "缺口与保守判断",
+      finding: "当前缺少直接终端进程证据，因此不能把文件访问行为直接判定为恶意。",
+      supports: "支持“不自动处置、先复核证据”的动作边界。",
+      stillNeeds: "补齐终端进程、文件访问和身份认证三类证据后再升级判断。",
+      source: "不确定性摘要"
+    }
+  ] as const;
+  const incidentTimelineDepthItems = [
+    {
+      time: "09:14",
+      title: "认证异常开始",
+      meaning: "财务工作站开始访问多台内部服务器，是本轮研判的起点。",
+      status: "已纳入判断"
+    },
+    {
+      time: "09:17",
+      title: "出现一次成功认证",
+      meaning: "成功认证提升了风险，但缺少终端进程证据，不能直接下最终结论。",
+      status: "需要补证"
+    },
+    {
+      time: "09:18",
+      title: "形成疑似横向移动链路",
+      meaning: "SecuPilot 将认证行为、影响范围和证据缺口放在同一条判断链里。",
+      status: "中等可信"
+    },
+    {
+      time: "09:32",
+      title: "生成只读建议",
+      meaning: "页面只建议人工确认，不触发隔离、阻断、关闭或生产写回。",
+      status: "等待人工确认"
+    }
+  ] as const;
+  const incidentTechnicalGroups = [
+    {
+      title: "运行边界",
+      description: "用于确认这个页面不会越过本地试用范围。",
+      facts: [
+        ["数据来源", "本地合成案例"],
+        ["实时模型连接", "关闭"],
+        ["连接器调用", "不调用"],
+        ["生产写回", "禁止"]
+      ]
+    },
+    {
+      title: "证据保留方式",
+      description: "用于说明展开区为什么只显示摘要，不展示原始日志。",
+      facts: [
+        ["原始日志", "不展示"],
+        ["证据形态", "摘要字段"],
+        ["敏感值", "不保留"],
+        ["用途", "内部试用核验"]
+      ]
+    },
+    {
+      title: "当前案例状态",
+      description: "用于把页面、包和评审口径对齐。",
+      facts: [
+        ["事件编号", activeCase.id],
+        ["研判状态", "等待人工确认"],
+        ["建议动作", "先复核再处置"],
+        ["客户发布", "未授权"]
+      ]
+    }
+  ] as const;
   const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_synthetic_stub");
   const [selectedQwenRuntimeScenario, setSelectedQwenRuntimeScenario] =
     useState("timeout_rate_limit");
@@ -3352,7 +3432,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 <div className="incident-primary-actions" aria-label="事件研判快捷动作">
                   <a href="#incident-evidence-details">查看证据摘要</a>
                   <a href="#incident-feedback-anchor">记录反馈</a>
-                  <a href="#incident-qwen-provider-anchor">了解 AI 建议来源</a>
+                  <a href="#incident-qwen-provider-anchor">AI 建议来源</a>
                   <a href="/s1-trial">返回试用首页</a>
                 </div>
               </div>
@@ -3405,7 +3485,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
             <section>
               <div className="incident-right-rail-title">
                 <History aria-hidden="true" size={16} />
-                <span>事件时间线</span>
+                <span>事件时间线（4 项）</span>
               </div>
               <ol className="incident-workbench-timeline">
                 {incidentTimelineItems.map(([time, text]) => (
@@ -3787,15 +3867,54 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         data-testid="incident-evidence-details"
         id="incident-evidence-details"
       >
-        <summary>查看证据摘要</summary>
-        <div className="incident-evidence-list">
-          {primaryEvidence.map((frame) => (
-            <article key={frame.id}>
-              <strong>{frame.title}</strong>
-              <span>{frame.provenance}</span>
-              <p>该证据摘要来自本地合成案例的 metadata-only 结果，仅用于说明判断依据。</p>
-            </article>
-          ))}
+        <summary>
+          <span>查看证据摘要与时间线</span>
+          <small>3 条判断依据 · 4 个时间点 · 原始日志收起</small>
+        </summary>
+        <div className="incident-evidence-depth" data-testid="incident-evidence-depth">
+          <section aria-label="判断依据摘要">
+            <div className="incident-depth-section-title">
+              <h3>判断依据摘要</h3>
+              <p>只展示帮助人工复核的摘要字段；原始日志和敏感值不进入当前试用视图。</p>
+            </div>
+            <div className="incident-evidence-list">
+              {incidentEvidenceDepthItems.map((item) => (
+                <article key={item.title}>
+                  <strong>{item.title}</strong>
+                  <span>{item.source}</span>
+                  <p>{item.finding}</p>
+                  <dl className="incident-evidence-mini-facts">
+                    <div>
+                      <dt>支持什么</dt>
+                      <dd>{item.supports}</dd>
+                    </div>
+                    <div>
+                      <dt>还缺什么</dt>
+                      <dd>{item.stillNeeds}</dd>
+                    </div>
+                  </dl>
+                </article>
+              ))}
+            </div>
+          </section>
+          <section aria-label="时间线解释">
+            <div className="incident-depth-section-title">
+              <h3>时间线解释</h3>
+              <p>把关键时间点翻译成操作员能直接理解的判断链，而不是逐条原始事件。</p>
+            </div>
+            <ol className="incident-expanded-timeline" data-testid="incident-expanded-timeline">
+              {incidentTimelineDepthItems.map((item) => (
+                <li key={item.time}>
+                  <time>{item.time}</time>
+                  <div>
+                    <strong>{item.title}</strong>
+                    <p>{item.meaning}</p>
+                    <span>{item.status}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
         </div>
       </details>
 
@@ -3803,33 +3922,34 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         className="incident-collapsible-panel"
         data-testid="incident-technical-reconciliation"
       >
-        <summary>技术对账信息</summary>
-        <dl className="incident-technical-facts">
-          <div>
-            <dt>事件编号</dt>
-            <dd data-testid="incident-case-id">{activeCase.id}</dd>
+        <summary>
+          <span>技术对账信息</span>
+          <small>仅用于核验边界、数据模式和交付口径</small>
+        </summary>
+        <div className="incident-technical-depth" data-testid="incident-technical-depth">
+          <p className="incident-technical-explainer">
+            这部分面向内部核验者，帮助确认页面仍是本地离线、只读、无真实系统连接。
+            操作员不需要先读这里，也不会在这里触发任何动作。
+          </p>
+          <div className="incident-technical-group-grid">
+            {incidentTechnicalGroups.map((group) => (
+              <article key={group.title}>
+                <h3>{group.title}</h3>
+                <p>{group.description}</p>
+                <dl className="incident-technical-facts">
+                  {group.facts.map(([label, value]) => (
+                    <div key={label}>
+                      <dt>{label}</dt>
+                      <dd data-testid={label === "事件编号" ? "incident-case-id" : undefined}>
+                        {value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </article>
+            ))}
           </div>
-          <div>
-            <dt>数据模式</dt>
-            <dd>本地合成案例</dd>
-          </div>
-          <div>
-            <dt>状态变更</dt>
-            <dd>未执行</dd>
-          </div>
-          <div>
-            <dt>生产写回</dt>
-            <dd>否</dd>
-          </div>
-          <div>
-            <dt>客户发布</dt>
-            <dd>否</dd>
-          </div>
-          <div>
-            <dt>Live Qwen/API</dt>
-            <dd>否</dd>
-          </div>
-        </dl>
+        </div>
       </details>
     </section>
   );
