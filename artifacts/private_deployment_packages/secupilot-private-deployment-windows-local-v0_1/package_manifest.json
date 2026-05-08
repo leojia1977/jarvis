@@ -1,0 +1,152 @@
+{
+  "schema_version": "secupilot.private_deployment_package_manifest.v1",
+  "created_at_utc": "2026-05-08T02:51:06.910784Z",
+  "package_id": "secupilot-private-deployment-windows-local-v0_1",
+  "package_dir": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1",
+  "package_type": "WINDOWS_LOCAL_FIRST_PRIVATE_DEPLOYMENT_STRUCTURE",
+  "status": "STRUCTURE_ONLY_NOT_DEPLOYED",
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "network_request": false,
+    "api_key_required": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "deploy_executed": false,
+    "production_launch": false,
+    "push": false,
+    "autonomous_qwen_action": false
+  },
+  "files": [
+    {
+      "path": "README_PRIVATE_DEPLOYMENT_中文.md",
+      "file_name": "README_PRIVATE_DEPLOYMENT_中文.md",
+      "bytes": 789,
+      "sha256": "747eca4fde345f9322303f73d85bd86a1fced018dba20ccafe21c4d1faba93be",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "docs/WINDOWS_LOCAL_FIRST_STRUCTURE_中文.md",
+      "file_name": "WINDOWS_LOCAL_FIRST_STRUCTURE_中文.md",
+      "bytes": 699,
+      "sha256": "7760bc34132e54d80a97224b9722ba218a8052079bc50065d5cf3888d36cf17e",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "docs/DEPLOYMENT_BOUNDARIES_中文.md",
+      "file_name": "DEPLOYMENT_BOUNDARIES_中文.md",
+      "bytes": 405,
+      "sha256": "21e5e65373ea0d7b1edc26383e502c060f16b8bbe3f0275139dc97dbde6458aa",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "configs/secupilot.env.template",
+      "file_name": "secupilot.env.template",
+      "bytes": 485,
+      "sha256": "7eb10be8e97fb4829bc2105398b2efedb610b5d2dc8843637ba18358f0418f41",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "configs/provider.dry-run.json",
+      "file_name": "provider.dry-run.json",
+      "bytes": 441,
+      "sha256": "0191cd648addefd41e09d4359e787f07efa3a3635346595a248822a0432e693a",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "data/README_SYNTHETIC_ONLY_中文.md",
+      "file_name": "README_SYNTHETIC_ONLY_中文.md",
+      "bytes": 201,
+      "sha256": "d0e5bdf7af01d0b07eb15561a4a689efa54d39921060161b37ae62a4d2fd4392",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "logs/README_LOGS_中文.md",
+      "file_name": "README_LOGS_中文.md",
+      "bytes": 162,
+      "sha256": "80b07af2658a77c90773ff4dc49526c7bd5223e6fd2ab4e728396874d17c95f2",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "runtime/README_RUNTIME_中文.md",
+      "file_name": "README_RUNTIME_中文.md",
+      "bytes": 122,
+      "sha256": "49263859e7781ccd286f22a3d20bdf73b10ecda65fd9f6a8c72e2497becd3d4d",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "scripts/START_LOCAL_DRY_RUN.ps1",
+      "file_name": "START_LOCAL_DRY_RUN.ps1",
+      "bytes": 419,
+      "sha256": "4ed75044f71f1e59050d1405dc300e698098cc212023e37693fe691acd622328",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "scripts/VERIFY_BOUNDARIES.ps1",
+      "file_name": "VERIFY_BOUNDARIES.ps1",
+      "bytes": 431,
+      "sha256": "679e63d587bee8f9752d57fe8a5383125eb97167c72d0d005eb4249dadc494d2",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    },
+    {
+      "path": "package_manifest.json",
+      "file_name": "package_manifest.json",
+      "bytes": 5238,
+      "sha256": "af2a6de5655c18c0dc492dc437ffac36fcd9f4c60669cfd93e0a7262bc6b9664",
+      "retention_class": "PRIVATE_DEPLOYMENT_STRUCTURE_DRY_RUN",
+      "contains_secret": false,
+      "contains_raw_payload": false,
+      "customer_visible": false,
+      "production_writeback": false
+    }
+  ],
+  "next_unlock": "GOAL-MVP-74_CUSTOMER_TRIAL_README_AND_ONE_CLICK_START_SCRIPT",
+  "zip": {
+    "zip_path": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1.zip",
+    "zip_name": "secupilot-private-deployment-windows-local-v0_1.zip",
+    "zip_bytes": 5705,
+    "zip_sha256": "0843b311b33404bdfd47894e3b6e5f12994d039a9b2be49e2525c5336f174673"
+  }
+}

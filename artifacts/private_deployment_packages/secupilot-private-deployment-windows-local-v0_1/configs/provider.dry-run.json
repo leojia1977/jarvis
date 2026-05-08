@@ -1,0 +1,14 @@
+{
+  "schema_version": "secupilot.private.provider_dry_run.v1",
+  "provider_mode": "dry_run_only",
+  "data_mode": "synthetic_only",
+  "live_qwen_api": false,
+  "network_request": false,
+  "api_key_required": false,
+  "connector_call": false,
+  "production_writeback": false,
+  "customer_visible_output": false,
+  "autonomous_qwen_action": false,
+  "fallback_mode": "local_rules_summary",
+  "retry_policy": "manual_retry_only"
+}

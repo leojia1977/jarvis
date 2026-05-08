@@ -1,0 +1,10 @@
+param()
+$ErrorActionPreference = 'Stop'
+Write-Host 'SecuPilot local private deployment dry-run'
+Write-Host 'deploy_executed=false'
+Write-Host 'real_data=false'
+Write-Host 'live_qwen_api=false'
+Write-Host 'network_request=false'
+Write-Host 'production_writeback=false'
+Write-Host 'customer_visible_output=false'
+Write-Host 'This script validates package structure only; it does not start production services.'
