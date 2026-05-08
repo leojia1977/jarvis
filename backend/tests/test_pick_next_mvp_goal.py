@@ -241,6 +241,69 @@ class PickNextMvpGoalTests(unittest.TestCase):
             any("output_guard_scan.json" in path for path in payload["candidate_goal"]["exact_files"])
         )
 
+    def test_eci_vfe_lane_advances_to_chain_indicator_ui_after_guard(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-31_CHAIN_INDICATOR_UI", payload["candidate_goal"]["queue_key"])
+        self.assertIn("frontend/src/secupilot/eciVfe/EciChainIndicator.tsx", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("eci-vfe-chain-indicator.spec.ts" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
+    def test_eci_vfe_lane_advances_to_forecast_card_ui_after_chain_ui(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-32_FORECAST_CARD_UI", payload["candidate_goal"]["queue_key"])
+        self.assertIn("frontend/src/secupilot/eciVfe/VfeForecastCard.tsx", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("attack_path_defensive_summary" in condition for condition in payload["candidate_goal"]["hold_conditions"])
+        )
+
+    def test_eci_vfe_lane_advances_to_review_package_after_ui_goals(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI.md",
+            "GOAL-ECIVFE-32_FORECAST_CARD_UI.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-35_LOCAL_REVIEW_PACKAGE", payload["candidate_goal"]["queue_key"])
+        self.assertIn("scripts/package_eci_vfe_local_review.py", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("ECI_VFE_LOCAL_OFFLINE_RC_001" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
     def test_private_preview_lane_continues_after_rc_package_refresh(self):
         for name in (
             "GOAL-MVP-94_PRIVATE_PREVIEW_SHELL_ROUTE_MAP.md",
