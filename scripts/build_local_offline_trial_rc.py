@@ -53,6 +53,7 @@ BOUNDARIES = {
 def required_archive_evidence_payload(
     *,
     folded_state_primary_sha256: str | None = None,
+    folded_state_screenshot_sha256: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     payload = {
         "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
@@ -64,6 +65,10 @@ def required_archive_evidence_payload(
     }
     if folded_state_primary_sha256:
         payload["folded_state_primary_sha256"] = folded_state_primary_sha256
+    if folded_state_screenshot_sha256:
+        payload["folded_state_screenshot_sha256"] = {
+            key: folded_state_screenshot_sha256[key] for key in sorted(folded_state_screenshot_sha256)
+        }
     return payload
 
 FORBIDDEN_TEXT_PATTERNS = tuple(
@@ -579,10 +584,14 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     screenshot_entries, included_screenshot_specs = copy_screenshots(screenshot_dir, output_dir)
     entries.extend(screenshot_entries)
     screenshot_files = [f"screenshots/{name}" for name, _, _ in included_screenshot_specs]
-    folded_state_primary_relpath = f"screenshots/{REQUIRED_ARCHIVE_SCREENSHOT_FILES[0]}"
-    folded_state_primary_path = output_dir / folded_state_primary_relpath
+    folded_state_primary_relpath = f"screenshots/{REQUIRED_ARCHIVE_SCREENSHOT_FILES[0]}".replace("\\", "/")
+    folded_state_screenshot_hashes = {
+        f"screenshots/{name}".replace("\\", "/"): file_sha256(output_dir / "screenshots" / name)
+        for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES
+    }
     required_archive_evidence = required_archive_evidence_payload(
-        folded_state_primary_sha256=file_sha256(folded_state_primary_path)
+        folded_state_primary_sha256=folded_state_screenshot_hashes[folded_state_primary_relpath],
+        folded_state_screenshot_sha256=folded_state_screenshot_hashes,
     )
     validation_sources = []
     if args.screenshot_safety_scan:

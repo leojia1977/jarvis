@@ -183,6 +183,11 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_primary_sha256": builder.file_sha256(
                     self.output_dir / "screenshots" / "s1-run-first-load-folded-desktop.png"
                 ),
+                "folded_state_screenshot_sha256": {
+                    "screenshots/s1-run-first-load-folded-desktop.png": builder.file_sha256(
+                        self.output_dir / "screenshots" / "s1-run-first-load-folded-desktop.png"
+                    )
+                },
             },
             manifest["required_archive_evidence"],
         )
@@ -207,6 +212,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             manifest["required_archive_evidence"]["folded_state_primary_sha256"],
             required_archive["folded_state_primary_sha256"],
+        )
+        self.assertEqual(
+            manifest["required_archive_evidence"]["folded_state_screenshot_sha256"],
+            required_archive["folded_state_screenshot_sha256"],
         )
         with zipfile.ZipFile(self.zip_path, "r") as archive:
             archived_paths = set(archive.namelist())
