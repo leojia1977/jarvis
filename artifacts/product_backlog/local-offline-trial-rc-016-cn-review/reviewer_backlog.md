@@ -1,13 +1,13 @@
 # SecuPilot Reviewer Feedback Product Backlog
 
-Generated at: 2026-05-08T11:23:54.275356Z
+Generated at: 2026-05-08T12:17:25.852477Z
 
 ```text
 candidate = LOCAL_OFFLINE_TRIAL_RC_016_CN
 source_candidate = LOCAL_OFFLINE_TRIAL_RC_015_CN
 reviewer_decision = PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL
 item_count = 5
-closed_item_count = 1
+closed_item_count = 2
 customer_visible_or_deploy_go = false
 ```
 
@@ -78,7 +78,7 @@ closed_at_utc = 2026-05-08T11:23:54.275356Z
 ```text
 category = REVIEWER_EXPERIENCE
 priority = P2
-status = BACKLOG_OPEN
+status = BACKLOG_CLOSED
 source_type = next_round_suggestion
 ```
 
@@ -89,6 +89,15 @@ Acceptance:
   - no live Qwen/API/connectors
   - no production write-back
   - no customer-visible publish/deploy/output
+
+Resolution:
+
+```text
+closed_by_goal = GOAL-MVP-118_BACKLOG_ITEM_RFB_RC016_004
+closed_by_commit = 02783ca
+resolution = Mobile incident-page quick navigation label shortened to AI 建议来源 ▸ and verified by unit/e2e/build in GOAL-MVP-118.
+closed_at_utc = 2026-05-08T12:17:25.852477Z
+```
 
 ## RFB-RC016-005: Keep Chinese-first copy while confirming formal customer-view capitalization in a later branding pass
 
