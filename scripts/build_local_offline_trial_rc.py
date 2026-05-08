@@ -54,6 +54,7 @@ def required_archive_evidence_payload() -> dict[str, Any]:
     return {
         "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
         "folded_state_screenshot_required": True,
+        "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
     }
 
 FORBIDDEN_TEXT_PATTERNS = tuple(

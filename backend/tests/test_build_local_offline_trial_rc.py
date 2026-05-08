@@ -176,6 +176,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             {
                 "folded_state_screenshot_files": ["screenshots/s1-run-first-load-folded-desktop.png"],
                 "folded_state_screenshot_required": True,
+                "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
             },
             manifest["required_archive_evidence"],
         )
@@ -190,6 +191,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             ["screenshots/s1-run-first-load-folded-desktop.png"],
             required_archive["folded_state_screenshot_files"],
         )
+        self.assertEqual("FIRST_LOAD_NO_INTERACTION", required_archive["folded_state_capture_policy"])
         with zipfile.ZipFile(self.zip_path, "r") as archive:
             archived_paths = set(archive.namelist())
         self.assertIn("package_manifest.json", archived_paths)
