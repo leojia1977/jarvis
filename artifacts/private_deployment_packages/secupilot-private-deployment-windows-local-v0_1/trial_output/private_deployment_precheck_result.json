@@ -1,0 +1,55 @@
+﻿{
+    "schema_version":  "secupilot.private_deployment_precheck_result.v1",
+    "generated_at_utc":  "2026-05-08T03:35:28.0261817Z",
+    "package_root":  "secupilot-private-deployment-windows-local-v0_1",
+    "status":  "PRIVATE_DEPLOYMENT_PRECHECK_PASS",
+    "checks":  [
+                   {
+                       "id":  "WIN-PREQ-01",
+                       "name":  "Windows 本地执行环境",
+                       "passed":  true,
+                       "observed":  "platform=Win32NT",
+                       "remediation":  "请在 Windows 工作站或 Windows Server 上运行本地试用包。"
+                   },
+                   {
+                       "id":  "WIN-PREQ-02",
+                       "name":  "PowerShell 执行能力",
+                       "passed":  true,
+                       "observed":  "powershell_version=5.1.26100.8115",
+                       "remediation":  "请使用 PowerShell 5.1 或更新版本运行本地 dry-run 脚本。"
+                   },
+                   {
+                       "id":  "WIN-PREQ-03",
+                       "name":  "Python 启动器",
+                       "passed":  true,
+                       "observed":  "Python 3.14.2",
+                       "remediation":  "请安装 Python launcher，并确保 py -3 --version 可以在本机执行。"
+                   },
+                   {
+                       "id":  "WIN-PREQ-04",
+                       "name":  "本地文件权限",
+                       "passed":  true,
+                       "observed":  "trial_output writable",
+                       "remediation":  "请确认当前用户可以读取包目录并写入 trial_output 目录。"
+                   }
+               ],
+    "boundaries":  {
+                       "deploy_executed":  false,
+                       "network_request":  false,
+                       "live_qwen_api":  false,
+                       "live_connectors":  false,
+                       "production_writeback":  false,
+                       "customer_visible_output":  false,
+                       "real_data":  false,
+                       "masked_real_data":  false
+                   },
+    "non_authorization":  [
+                              "No deployment executed",
+                              "No network request made",
+                              "No live Qwen/API call made",
+                              "No connector call made",
+                              "No production write-back made",
+                              "No customer-visible output produced",
+                              "No real or masked-real data used"
+                          ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": "secupilot.private_deployment_precheck_contract.v1",
+  "generated_at_utc": "2026-05-08T03:35:14.943073Z",
+  "package_id": "secupilot-private-deployment-windows-local-v0_1",
+  "package_dir": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1",
+  "source_draft": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/private_deployment_prereq_sizing_draft.json",
+  "precheck_script": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/scripts/RUN_PRIVATE_DEPLOYMENT_PRECHECK.ps1",
+  "expected_result": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/private_deployment_precheck_result.json",
+  "checks": [
+    "WIN-PREQ-01 Windows local execution environment",
+    "WIN-PREQ-02 PowerShell execution",
+    "WIN-PREQ-03 Python launcher",
+    "WIN-PREQ-04 Local file permissions"
+  ],
+  "boundaries": {
+    "deploy_executed": false,
+    "network_request": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "real_data": false,
+    "masked_real_data": false
+  },
+  "next_unlock": "GOAL-MVP-79_PRIVATE_DEPLOYMENT_SIZING_REPORT"
+}
