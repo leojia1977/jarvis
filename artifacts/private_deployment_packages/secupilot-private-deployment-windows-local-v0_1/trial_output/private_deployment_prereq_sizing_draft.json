@@ -1,0 +1,195 @@
+{
+  "schema_version": "secupilot.private_deployment_prereq_sizing_draft.v1",
+  "draft_id": "secupilot-private-deployment-windows-local-v0_1-private-deployment-prereq-sizing-draft",
+  "generated_at_utc": "2026-05-08T03:25:39.251925Z",
+  "package_id": "secupilot-private-deployment-windows-local-v0_1",
+  "package_dir": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1",
+  "status": "DRAFT_READY_FOR_INTERNAL_PRODUCT_REVIEW",
+  "summary": "已将反馈样本转成 Windows 前置依赖、资源 sizing 和模型接入路径草案，下一步可做本地 precheck 脚本。",
+  "inputs": {
+    "package_manifest": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/package_manifest.json",
+    "customer_trial_status": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_status.json",
+    "feedback_json": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_feedback.sample.json"
+  },
+  "source_feedback": {
+    "feedback_count": 3,
+    "missing_information_items": [
+      {
+        "response_id": "FB-SAMPLE-002",
+        "reviewer_role": "security_manager",
+        "missing_information": "希望下一版补充 Windows 前置依赖检查。"
+      },
+      {
+        "response_id": "FB-SAMPLE-003",
+        "reviewer_role": "cto",
+        "missing_information": "希望看到私有化部署资源需求和模型接入路径。"
+      }
+    ]
+  },
+  "windows_prerequisites": {
+    "status": "DRAFT_FROM_FEEDBACK",
+    "source_feedback_ids": [
+      "FB-SAMPLE-002"
+    ],
+    "checks_to_turn_into_precheck_script": [
+      {
+        "id": "WIN-PREQ-01",
+        "name": "Windows local execution environment",
+        "name_zh": "Windows 本地执行环境",
+        "draft_requirement": "Windows workstation or Windows Server host that can run local PowerShell scripts.",
+        "draft_requirement_zh": "可运行本地 PowerShell 脚本的 Windows 工作站或 Windows Server 主机。",
+        "verification_hint": "Check OS family and script execution ability in a future local precheck script.",
+        "verification_hint_zh": "后续本地 precheck 脚本检查操作系统类型和脚本执行能力。"
+      },
+      {
+        "id": "WIN-PREQ-02",
+        "name": "PowerShell execution",
+        "name_zh": "PowerShell 执行能力",
+        "draft_requirement": "PowerShell can run local signed or explicitly bypassed dry-run scripts for this package.",
+        "draft_requirement_zh": "PowerShell 可运行本包内的本地 dry-run 脚本。",
+        "verification_hint": "Run scripts/VERIFY_BOUNDARIES.ps1 and scripts/START_CUSTOMER_TRIAL.ps1 locally.",
+        "verification_hint_zh": "本地运行 scripts/VERIFY_BOUNDARIES.ps1 和 scripts/START_CUSTOMER_TRIAL.ps1。"
+      },
+      {
+        "id": "WIN-PREQ-03",
+        "name": "Python launcher",
+        "name_zh": "Python 启动器",
+        "draft_requirement": "Python launcher can execute local SecuPilot package/report commands.",
+        "draft_requirement_zh": "Python 启动器可执行本地 SecuPilot 包与报告生成命令。",
+        "verification_hint": "Run py -3 --version and local report generation commands.",
+        "verification_hint_zh": "运行 py -3 --version 以及本地报告生成命令。"
+      },
+      {
+        "id": "WIN-PREQ-04",
+        "name": "Local file permissions",
+        "name_zh": "本地文件权限",
+        "draft_requirement": "Current user can read package files and write trial_output artifacts.",
+        "draft_requirement_zh": "当前用户可读取包文件，并可写入 trial_output 产物目录。",
+        "verification_hint": "Create and delete a local test file under trial_output in a future precheck.",
+        "verification_hint_zh": "后续 precheck 在 trial_output 下创建并删除本地测试文件。"
+      }
+    ]
+  },
+  "resource_sizing": {
+    "status": "DRAFT_NOT_BENCHMARKED",
+    "source_feedback_ids": [
+      "FB-SAMPLE-003"
+    ],
+    "profiles": [
+      {
+        "id": "SIZE-LOCAL-TRIAL",
+        "purpose": "Local/offline reviewer trial for package, reports, and screenshots",
+        "purpose_zh": "本地离线评审试用，用于打开包、报告和截图",
+        "cpu": "2 vCPU draft",
+        "memory": "4 GB RAM draft",
+        "disk": "2 GB free local workspace draft",
+        "notes": "For dry-run package and local reports only; not a production benchmark.",
+        "notes_zh": "仅用于 dry-run 包和本地报告，不是生产 benchmark。"
+      },
+      {
+        "id": "SIZE-LAB-PILOT-DRAFT",
+        "purpose": "Private lab dry-run with larger synthetic packages",
+        "purpose_zh": "私有化实验室 dry-run，用于更大的 synthetic 包",
+        "cpu": "4 vCPU draft",
+        "memory": "8 GB RAM draft",
+        "disk": "10 GB free local workspace draft",
+        "notes": "Requires future benchmark before any customer pilot or production sizing claim.",
+        "notes_zh": "任何客户试点或生产 sizing 结论前都需要后续 benchmark。"
+      },
+      {
+        "id": "SIZE-PRODUCTION-TBD",
+        "purpose": "Future private production deployment",
+        "purpose_zh": "未来私有化生产部署",
+        "cpu": "TBD",
+        "memory": "TBD",
+        "disk": "TBD",
+        "notes": "Not authorized and not benchmarked in this Goal.",
+        "notes_zh": "本 Goal 不授权、不 benchmark、不声明生产规格。"
+      }
+    ]
+  },
+  "model_provider_path": {
+    "status": "DRY_RUN_PATH_ONLY",
+    "source_feedback_ids": [
+      "FB-SAMPLE-003"
+    ],
+    "stages": [
+      {
+        "id": "MODEL-01",
+        "name": "Current dry-run provider",
+        "name_zh": "当前 dry-run provider",
+        "description": "Use local fixture/provider dry-run outputs only.",
+        "description_zh": "仅使用本地 fixture/provider dry-run 输出。",
+        "live_call": false
+      },
+      {
+        "id": "MODEL-02",
+        "name": "Cloud Qwen contract simulation",
+        "name_zh": "云端 Qwen contract 模拟",
+        "description": "Validate request/response shape, latency states, error states, and fallback UI without API keys.",
+        "description_zh": "在无 API key 条件下验证请求/响应形态、延迟状态、错误状态和回退 UI。",
+        "live_call": false
+      },
+      {
+        "id": "MODEL-03",
+        "name": "Private deployment model connector design",
+        "name_zh": "私有化模型 connector 设计",
+        "description": "Define where model endpoint config would live, with secret handling excluded from this draft.",
+        "description_zh": "定义模型 endpoint 配置未来放在哪里；secret 处理不在本草案内。",
+        "live_call": false
+      },
+      {
+        "id": "MODEL-04",
+        "name": "Future live model authorization",
+        "name_zh": "未来 live 模型授权",
+        "description": "Requires a separate Goal with explicit API, data, secret, network, and rollback boundaries.",
+        "description_zh": "需要单独 Goal 明确 API、数据、secret、网络和回滚边界。",
+        "live_call": false
+      }
+    ]
+  },
+  "blockers": [],
+  "follow_up_actions": [
+    {
+      "id": "ACTION-01",
+      "title": "Build Windows local prerequisite precheck script",
+      "title_zh": "制作 Windows 本地前置依赖 precheck 脚本",
+      "source_feedback_ids": [
+        "FB-SAMPLE-002"
+      ],
+      "suggested_goal": "GOAL-MVP-78_PRIVATE_DEPLOYMENT_PRECHECK_SCRIPT"
+    },
+    {
+      "id": "ACTION-02",
+      "title": "Convert sizing draft into benchmark-ready sizing report",
+      "title_zh": "把 sizing 草案推进为可 benchmark 的资源报告",
+      "source_feedback_ids": [
+        "FB-SAMPLE-003"
+      ],
+      "suggested_goal": "GOAL-MVP-79_PRIVATE_DEPLOYMENT_SIZING_REPORT"
+    },
+    {
+      "id": "ACTION-03",
+      "title": "Map dry-run model provider path to customer-facing setup flow",
+      "title_zh": "把 dry-run 模型接入路径映射到客户可理解的配置流程",
+      "source_feedback_ids": [
+        "FB-SAMPLE-003"
+      ],
+      "suggested_goal": "GOAL-MVP-80_MODEL_PROVIDER_SETUP_FLOW_DRY_RUN"
+    }
+  ],
+  "non_authorization": [
+    "No deployment executed",
+    "No live Qwen/API/connectors",
+    "No network request",
+    "No production write-back",
+    "No customer-visible publish/deploy",
+    "No real or masked-real data",
+    "No secrets, tokens, auth headers, or raw customer logs"
+  ],
+  "next_unlock": "GOAL-MVP-78_PRIVATE_DEPLOYMENT_PRECHECK_SCRIPT",
+  "outputs": {
+    "json": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/private_deployment_prereq_sizing_draft.json",
+    "markdown": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/private_deployment_prereq_sizing_draft_中文.md"
+  }
+}
