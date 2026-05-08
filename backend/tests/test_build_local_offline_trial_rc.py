@@ -189,6 +189,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_expected_viewport": "1440x1100",
                 "folded_state_primary_screenshot": "screenshots/s1-run-first-load-folded-desktop.png",
                 "folded_state_review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
+                "folded_state_review_order_step": 3,
                 "folded_state_primary_sha256": builder.file_sha256(
                     self.output_dir / "screenshots" / "s1-run-first-load-folded-desktop.png"
                 ),
@@ -386,6 +387,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "expected_route": "/s1-run",
                 "expected_viewport": "1440x1100",
                 "review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
+                "review_order_step": 3,
             },
             folded_entry["archive_evidence"],
         )
