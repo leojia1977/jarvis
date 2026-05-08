@@ -5,14 +5,14 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp68");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp69");
 
-test.describe("MVP-68 incident product page", () => {
+test.describe("MVP-69 recommended action card", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
 
-  test("renders conclusion-first incident page with folded evidence", async ({ page }) => {
+  test("renders conclusion-first incident page with a safe recommended action card", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/incident/CASE-2847");
 
@@ -28,6 +28,16 @@ test.describe("MVP-68 incident product page", () => {
       "需要人工复核的高风险事件"
     );
     await expect(page.getByTestId("incident-recommended-action")).toContainText("不自动处置");
+    const recommendedActionCard = page.getByTestId("incident-recommended-action-card");
+    await expect(recommendedActionCard).toBeVisible();
+    await expect(recommendedActionCard).toHaveAttribute("data-autonomous-action", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-state-mutation", "none");
+    await expect(recommendedActionCard).toHaveAttribute("data-production-writeback", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-customer-visible-output", "false");
+    await expect(recommendedActionCard).toContainText("先交给人工确认");
+    await expect(recommendedActionCard).toContainText("为什么建议这样做");
+    await expect(recommendedActionCard).toContainText("人工确认边界");
+    await expect(recommendedActionCard).toContainText("不自动执行");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
       "open",
@@ -47,7 +57,7 @@ test.describe("MVP-68 incident product page", () => {
       path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp68.incident_product_page_text.v1",
+          schema_version: "secupilot.mvp69.recommended_action_card_text.v1",
           route: "/incident/CASE-2847",
           viewport: "1440x1000",
           visible_text: visibleText
@@ -69,6 +79,13 @@ test.describe("MVP-68 incident product page", () => {
     await expect(page.getByTestId("incident-current-outcome")).toContainText(
       "需要人工复核的高风险事件"
     );
+    const recommendedActionCard = page.getByTestId("incident-recommended-action-card");
+    await expect(recommendedActionCard).toBeVisible();
+    await expect(recommendedActionCard).toHaveAttribute("data-autonomous-action", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-state-mutation", "none");
+    await expect(recommendedActionCard).toHaveAttribute("data-production-writeback", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-customer-visible-output", "false");
+    await expect(recommendedActionCard).toContainText("先交给人工确认");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
@@ -83,7 +100,7 @@ test.describe("MVP-68 incident product page", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp68.incident_product_page_text.v1",
+          schema_version: "secupilot.mvp69.recommended_action_card_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
           visible_text: visibleText

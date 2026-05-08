@@ -2847,6 +2847,7 @@ button {
 
 .incident-product-hero,
 .incident-result-grid article,
+.incident-recommended-action-card,
 .incident-brief-grid article,
 .incident-action-panel,
 .incident-collapsible-panel {
@@ -2950,6 +2951,8 @@ button {
 .incident-result-grid p,
 .incident-brief-grid p,
 .incident-brief-grid li,
+.incident-recommended-action-header p,
+.incident-recommended-action-body li,
 .incident-action-panel span,
 .incident-evidence-list p {
   color: #5d6875;
@@ -2959,11 +2962,13 @@ button {
 
 .incident-result-grid p,
 .incident-brief-grid p,
+.incident-recommended-action-header p,
 .incident-brief-grid ul {
   margin: 8px 0 0;
 }
 
 .incident-brief-grid h2,
+.incident-recommended-action-header h2,
 .incident-action-panel h2 {
   margin: 0;
   color: #18202b;
@@ -2974,6 +2979,90 @@ button {
 
 .incident-action-panel .summary-kicker {
   text-transform: none;
+}
+
+.incident-recommended-action-card {
+  display: grid;
+  gap: 16px;
+  border-left: 4px solid #237a5f;
+  padding: 20px;
+}
+
+.incident-recommended-action-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.incident-recommended-action-header .summary-kicker {
+  text-transform: none;
+}
+
+.incident-recommended-action-header > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border: 1px solid #b9d2c7;
+  border-radius: 999px;
+  background: #edf8f3;
+  color: #1f684f;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.incident-recommended-action-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.incident-recommended-action-facts > div,
+.incident-recommended-action-body article {
+  min-width: 0;
+  border: 1px solid #e2e8df;
+  border-radius: 8px;
+  background: #fbfcf8;
+  padding: 12px;
+}
+
+.incident-recommended-action-facts dt {
+  color: #667085;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.incident-recommended-action-facts dd {
+  margin: 6px 0 0;
+  overflow-wrap: anywhere;
+  color: #18202b;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.incident-recommended-action-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.incident-recommended-action-body h3 {
+  margin: 0;
+  color: #18202b;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.incident-recommended-action-body ul {
+  display: grid;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding-left: 18px;
 }
 
 .incident-brief-grid ul {
@@ -4152,12 +4241,19 @@ button {
     padding: 22px 14px 32px;
   }
 
+  .incident-product-hero h1 {
+    font-size: 26px;
+    line-height: 1.18;
+  }
+
   .history-guard-panel,
   .history-empty-state-split,
   .history-approval-audit-boundary,
   .history-manager-handoff,
   .historical-case-list-item,
   .incident-product-hero,
+  .incident-recommended-action-header,
+  .incident-recommended-action-body,
   .incident-action-panel,
   .s1-run-header,
   .s1-trial-header,
@@ -4188,6 +4284,7 @@ button {
   .history-approval-audit-facts,
   .incident-result-grid,
   .incident-brief-grid,
+  .incident-recommended-action-facts,
   .incident-action-panel ol,
   .incident-evidence-list,
   .incident-technical-facts,

@@ -188,4 +188,26 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     );
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
+
+  test("renders incident recommended action card with human-review boundary", async ({ page }) => {
+    await page.goto("/incident/CASE-2847");
+
+    const surface = page.getByTestId("incident-product-view");
+    const recommendedActionCard = page.getByTestId("incident-recommended-action-card");
+
+    await expect(surface).toHaveAttribute("data-real-data", "false");
+    await expect(surface).toHaveAttribute("data-live-qwen-api", "false");
+    await expect(surface).toHaveAttribute("data-live-connectors", "false");
+    await expect(surface).toHaveAttribute("data-production-writeback", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-autonomous-action", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-customer-visible-output", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-production-writeback", "false");
+    await expect(recommendedActionCard).toHaveAttribute("data-state-mutation", "none");
+    await expect(recommendedActionCard).toContainText("推荐动作");
+    await expect(recommendedActionCard).toContainText("先交给人工确认，再决定是否处置");
+    await expect(recommendedActionCard).toContainText("等待人工确认");
+    await expect(recommendedActionCard).toContainText("不自动执行");
+    await expect(recommendedActionCard).toContainText("人工确认边界");
+    await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
+  });
 });

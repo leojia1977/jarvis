@@ -380,6 +380,16 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("incident-recommended-action")).toHaveTextContent(
       "不自动处置"
     );
+    const recommendedActionCard = screen.getByTestId("incident-recommended-action-card");
+    expect(recommendedActionCard).toHaveAttribute("data-autonomous-action", "false");
+    expect(recommendedActionCard).toHaveAttribute("data-customer-visible-output", "false");
+    expect(recommendedActionCard).toHaveAttribute("data-production-writeback", "false");
+    expect(recommendedActionCard).toHaveAttribute("data-state-mutation", "none");
+    expect(recommendedActionCard).toHaveTextContent("推荐动作");
+    expect(recommendedActionCard).toHaveTextContent("先交给人工确认，再决定是否处置");
+    expect(recommendedActionCard).toHaveTextContent("等待人工确认");
+    expect(recommendedActionCard).toHaveTextContent("不自动执行");
+    expect(recommendedActionCard).toHaveTextContent("人工确认边界");
     expect(screen.getByTestId("incident-trust-summary")).toHaveTextContent("证据覆盖");
     expect(screen.getByTestId("incident-evidence-details")).not.toHaveAttribute("open");
     expect(screen.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute("open");

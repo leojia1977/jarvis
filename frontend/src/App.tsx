@@ -3001,6 +3001,17 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     "账号是否已经被完全接管尚未证实，还需要结合 MFA 和身份日志复核。",
     "凭据复用是基于行为模式的研判，不等同于已经确认攻击手法。"
   ];
+  const recommendedActionFacts = [
+    ["建议状态", "等待人工确认"],
+    ["建议动作", "隔离前先复核凭据复用证据"],
+    ["影响范围", "财务工作站与相关内部服务器"],
+    ["执行方式", "只生成交接建议，不自动执行"]
+  ] as const;
+  const recommendationRationale = [
+    "异常认证尝试集中指向多台内部服务器，符合横向移动早期特征。",
+    "当前证据足以提示高风险，但仍缺少直接终端进程证据和 MFA 复核。",
+    "先进入人工确认可以降低误阻断风险，并保留后续处置选择。"
+  ];
 
   return (
     <section
@@ -3046,6 +3057,54 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
           <strong>中等证据覆盖</strong>
           <p>证据链可展开核验；不能确认的部分会单独列出，不做静默乐观判断。</p>
         </article>
+      </section>
+
+      <section
+        aria-labelledby="incident-recommended-action-card-title"
+        className="incident-recommended-action-card"
+        data-autonomous-action="false"
+        data-customer-visible-output="false"
+        data-production-writeback="false"
+        data-state-mutation="none"
+        data-testid="incident-recommended-action-card"
+      >
+        <div className="incident-recommended-action-header">
+          <div>
+            <p className="summary-kicker">推荐动作</p>
+            <h2 id="incident-recommended-action-card-title">先交给人工确认，再决定是否处置</h2>
+            <p>
+              SecuPilot 当前只给出研判建议和交接边界，不直接隔离主机、不关闭账号、
+              不写回生产系统。
+            </p>
+          </div>
+          <span>需要人工确认</span>
+        </div>
+        <dl className="incident-recommended-action-facts">
+          {recommendedActionFacts.map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className="incident-recommended-action-body">
+          <article>
+            <h3>为什么建议这样做</h3>
+            <ul>
+              {recommendationRationale.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+          <article>
+            <h3>人工确认边界</h3>
+            <ul>
+              <li>需要复核 MFA、身份日志和终端进程证据。</li>
+              <li>确认前不触发隔离、阻断、关闭或生产写回。</li>
+              <li>如证据不足，应转为继续观察或补充数据，而不是自动处置。</li>
+            </ul>
+          </article>
+        </div>
       </section>
 
       <section className="incident-brief-grid" aria-label="事件解释摘要">
