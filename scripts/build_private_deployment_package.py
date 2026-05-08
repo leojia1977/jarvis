@@ -126,11 +126,58 @@ def build_file_entry(path: Path, package_dir: Path) -> dict[str, Any]:
 
 def package_templates(package_id: str) -> dict[str, str]:
     return {
+        "CUSTOMER_TRIAL_START_HERE_中文.md": f"""# SecuPilot 本地离线试用入口
+
+Package ID: `{package_id}`
+
+本入口面向客户试用负责人、内部 reviewer 和交付同学，用于快速确认 SecuPilot 私有化交付包的本地打开方式、边界状态和下一步反馈路径。
+
+## 先做什么
+
+1. 双击 `START_SECUPILOT_LOCAL_TRIAL.cmd`。
+2. 如果 Windows 安全提示拦截，请在 PowerShell 中运行：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\\START_CUSTOMER_TRIAL.ps1
+```
+
+3. 打开生成的 `trial_output/customer_trial_status.json`。
+4. 把终端输出和 `customer_trial_status.json` 交给内部 reviewer 或项目负责人。
+
+## 这个入口会做什么
+
+- 读取本包的 `package_manifest.json`。
+- 执行 `scripts/VERIFY_BOUNDARIES.ps1`。
+- 生成 `trial_output/customer_trial_status.json`。
+- 打印本地离线试用状态。
+
+## 这个入口不会做什么
+
+- 不部署服务。
+- 不启动生产系统。
+- 不读取密钥。
+- 不访问网络。
+- 不调用 live Qwen/API。
+- 不连接 live connector。
+- 不写回生产。
+- 不使用真实数据或脱敏真实数据。
+
+## 通过标准
+
+终端出现：
+
+```text
+LOCAL_TRIAL_ENTRY_READY
+BOUNDARY_CHECK_PASS
+```
+
+并且 `trial_output/customer_trial_status.json` 中所有边界字段保持 `false`。
+""",
         "README_PRIVATE_DEPLOYMENT_中文.md": f"""# SecuPilot 私有化部署包结构
 
 Package ID: `{package_id}`
 
-本包是 Windows/local-first 私有化部署结构草案，仅用于内部安装路径和交付结构核验。
+本包是 Windows/local-first 私有化部署结构草案，并包含一个本地离线试用入口。当前仅用于安装路径、交付结构和 dry-run 启动体验核验。
 
 ## 当前状态
 
@@ -145,15 +192,29 @@ Package ID: `{package_id}`
 
 ## 推荐阅读顺序
 
-1. `docs/WINDOWS_LOCAL_FIRST_STRUCTURE_中文.md`
-2. `docs/DEPLOYMENT_BOUNDARIES_中文.md`
-3. `configs/secupilot.env.template`
-4. `configs/provider.dry-run.json`
-5. `scripts/VERIFY_BOUNDARIES.ps1`
+1. `CUSTOMER_TRIAL_START_HERE_中文.md`
+2. `START_SECUPILOT_LOCAL_TRIAL.cmd`
+3. `docs/WINDOWS_LOCAL_FIRST_STRUCTURE_中文.md`
+4. `docs/DEPLOYMENT_BOUNDARIES_中文.md`
+5. `configs/secupilot.env.template`
+6. `configs/provider.dry-run.json`
+7. `scripts/VERIFY_BOUNDARIES.ps1`
 
 ## 说明
 
-`scripts/START_LOCAL_DRY_RUN.ps1` 只打印 dry-run 状态，不启动生产服务，不读取密钥，不访问网络。
+`START_SECUPILOT_LOCAL_TRIAL.cmd` 和 `scripts/START_CUSTOMER_TRIAL.ps1` 只生成本地 dry-run 状态，不启动生产服务，不读取密钥，不访问网络。
+""",
+        "START_SECUPILOT_LOCAL_TRIAL.cmd": """@echo off
+setlocal
+echo SecuPilot local offline trial entry
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\\START_CUSTOMER_TRIAL.ps1"
+if errorlevel 1 (
+  echo LOCAL_TRIAL_ENTRY_HOLD
+  pause
+  exit /b 1
+)
+echo LOCAL_TRIAL_ENTRY_READY
+pause
 """,
         "docs/WINDOWS_LOCAL_FIRST_STRUCTURE_中文.md": """# Windows / Local First 结构
 
@@ -167,6 +228,7 @@ Package ID: `{package_id}`
 - `logs/`：本地运行日志占位，不提交真实日志。
 - `runtime/`：运行时占位，不包含生产二进制。
 - `docs/`：部署边界和操作说明。
+- `trial_output/`：本地离线试用脚本生成的状态文件目录。
 
 ## 后续解锁
 
@@ -230,6 +292,10 @@ SECUPILOT_SECRET_MATERIAL_REQUIRED=false
 
 此目录是运行时占位。当前包不包含生产二进制、不启动服务、不执行部署。
 """,
+        "trial_output/README_TRIAL_OUTPUT_中文.md": """# Trial Output Slot
+
+运行 `scripts/START_CUSTOMER_TRIAL.ps1` 后，本目录会生成 `customer_trial_status.json`。该文件只记录本地离线 dry-run 状态和边界检查结果。
+""",
         "scripts/START_LOCAL_DRY_RUN.ps1": """param()
 $ErrorActionPreference = 'Stop'
 Write-Host 'SecuPilot local private deployment dry-run'
@@ -240,6 +306,77 @@ Write-Host 'network_request=false'
 Write-Host 'production_writeback=false'
 Write-Host 'customer_visible_output=false'
 Write-Host 'This script validates package structure only; it does not start production services.'
+""",
+        "scripts/START_CUSTOMER_TRIAL.ps1": """param()
+$ErrorActionPreference = 'Stop'
+
+$PackageRoot = Split-Path -Parent $PSScriptRoot
+$ManifestPath = Join-Path $PackageRoot 'package_manifest.json'
+$BoundaryScript = Join-Path $PackageRoot 'scripts\\VERIFY_BOUNDARIES.ps1'
+$TrialOutputDir = Join-Path $PackageRoot 'trial_output'
+$StatusPath = Join-Path $TrialOutputDir 'customer_trial_status.json'
+
+if (-not (Test-Path -LiteralPath $ManifestPath)) {
+  throw 'package_manifest.json missing'
+}
+if (-not (Test-Path -LiteralPath $BoundaryScript)) {
+  throw 'VERIFY_BOUNDARIES.ps1 missing'
+}
+
+$Manifest = Get-Content -LiteralPath $ManifestPath -Raw | ConvertFrom-Json
+New-Item -ItemType Directory -Force -Path $TrialOutputDir | Out-Null
+
+$BoundaryOutput = & $BoundaryScript 6>&1
+$BoundaryLines = @($BoundaryOutput | ForEach-Object { $_.ToString() } | Where-Object { $_.Trim().Length -gt 0 })
+if (-not ($BoundaryLines -contains 'BOUNDARY_CHECK_PASS')) {
+  throw 'boundary check did not pass'
+}
+
+$Status = [ordered]@{
+  schema_version = 'secupilot.local_trial_start_result.v1'
+  generated_at_utc = (Get-Date).ToUniversalTime().ToString('o')
+  package_id = $Manifest.package_id
+  package_type = $Manifest.package_type
+  status = 'LOCAL_TRIAL_ENTRY_READY'
+  mode = 'local_offline_dry_run'
+  entry_document = 'CUSTOMER_TRIAL_START_HERE_中文.md'
+  entry_script = 'START_SECUPILOT_LOCAL_TRIAL.cmd'
+  boundaries = $Manifest.boundaries
+  boundary_check = [ordered]@{
+    status = 'PASS'
+    output = $BoundaryLines
+  }
+  generated_files = @(
+    'trial_output/customer_trial_status.json'
+  )
+  next_steps = @(
+    'Read CUSTOMER_TRIAL_START_HERE_中文.md',
+    'Share customer_trial_status.json with the internal reviewer',
+    'Continue with local/offline product trial only'
+  )
+  non_authorization = @(
+    'No deployment executed',
+    'No production service started',
+    'No network request made',
+    'No live Qwen/API call made',
+    'No connector call made',
+    'No production write-back made',
+    'No real or masked-real data used'
+  )
+}
+
+$Status | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $StatusPath -Encoding UTF8
+
+Write-Output 'SecuPilot local offline trial entry'
+Write-Output 'LOCAL_TRIAL_ENTRY_READY'
+Write-Output 'BOUNDARY_CHECK_PASS'
+Write-Output ('status_file=' + $StatusPath)
+Write-Output 'deploy_executed=false'
+Write-Output 'real_data=false'
+Write-Output 'live_qwen_api=false'
+Write-Output 'network_request=false'
+Write-Output 'production_writeback=false'
+Write-Output 'customer_visible_output=false'
 """,
         "scripts/VERIFY_BOUNDARIES.ps1": """param()
 $ErrorActionPreference = 'Stop'
@@ -285,8 +422,14 @@ def build_package(
         "package_type": "WINDOWS_LOCAL_FIRST_PRIVATE_DEPLOYMENT_STRUCTURE",
         "status": "STRUCTURE_ONLY_NOT_DEPLOYED",
         "boundaries": BOUNDARIES,
+        "entry_points": {
+            "start_here": "CUSTOMER_TRIAL_START_HERE_中文.md",
+            "one_click_cmd": "START_SECUPILOT_LOCAL_TRIAL.cmd",
+            "powershell_script": "scripts/START_CUSTOMER_TRIAL.ps1",
+            "expected_status_file": "trial_output/customer_trial_status.json",
+        },
         "files": file_entries,
-        "next_unlock": "GOAL-MVP-74_CUSTOMER_TRIAL_README_AND_ONE_CLICK_START_SCRIPT",
+        "next_unlock": "GOAL-MVP-75_INTERNAL_TRIAL_KPI_REPORT",
     }
     manifest_path = output_dir / "package_manifest.json"
     write_json(manifest_path, manifest)

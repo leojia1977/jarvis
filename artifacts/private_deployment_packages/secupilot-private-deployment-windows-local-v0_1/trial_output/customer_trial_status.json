@@ -1,0 +1,55 @@
+﻿{
+    "schema_version":  "secupilot.local_trial_start_result.v1",
+    "generated_at_utc":  "2026-05-08T02:58:48.1035606Z",
+    "package_id":  "secupilot-private-deployment-windows-local-v0_1",
+    "package_type":  "WINDOWS_LOCAL_FIRST_PRIVATE_DEPLOYMENT_STRUCTURE",
+    "status":  "LOCAL_TRIAL_ENTRY_READY",
+    "mode":  "local_offline_dry_run",
+    "entry_document":  "CUSTOMER_TRIAL_START_HERE_中文.md",
+    "entry_script":  "START_SECUPILOT_LOCAL_TRIAL.cmd",
+    "boundaries":  {
+                       "real_data":  false,
+                       "masked_real_data":  false,
+                       "live_qwen_api":  false,
+                       "live_connectors":  false,
+                       "network_request":  false,
+                       "api_key_required":  false,
+                       "production_writeback":  false,
+                       "customer_visible_output":  false,
+                       "deploy_executed":  false,
+                       "production_launch":  false,
+                       "push":  false,
+                       "autonomous_qwen_action":  false
+                   },
+    "boundary_check":  {
+                           "status":  "PASS",
+                           "output":  [
+                                          "masked_real_data=false",
+                                          "customer_visible_output=false",
+                                          "deploy_executed=false",
+                                          "live_qwen_api=false",
+                                          "network_request=false",
+                                          "production_writeback=false",
+                                          "real_data=false",
+                                          "live_connectors=false",
+                                          "BOUNDARY_CHECK_PASS"
+                                      ]
+                       },
+    "generated_files":  [
+                            "trial_output/customer_trial_status.json"
+                        ],
+    "next_steps":  [
+                       "Read CUSTOMER_TRIAL_START_HERE_中文.md",
+                       "Share customer_trial_status.json with the internal reviewer",
+                       "Continue with local/offline product trial only"
+                   ],
+    "non_authorization":  [
+                              "No deployment executed",
+                              "No production service started",
+                              "No network request made",
+                              "No live Qwen/API call made",
+                              "No connector call made",
+                              "No production write-back made",
+                              "No real or masked-real data used"
+                          ]
+}
