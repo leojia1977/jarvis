@@ -177,6 +177,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_screenshot_files": ["screenshots/s1-run-first-load-folded-desktop.png"],
                 "folded_state_screenshot_required": True,
                 "folded_state_submission_gate": "REQUIRED_PRE_SUBMISSION",
+                "folded_state_submission_gate_reason": "AI_ADVICE_SOURCE_SECTION_MUST_BE_FOLDED_ON_FIRST_LOAD",
                 "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
@@ -221,6 +222,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             required_archive["folded_state_screenshot_files"],
         )
         self.assertEqual("REQUIRED_PRE_SUBMISSION", required_archive["folded_state_submission_gate"])
+        self.assertEqual(
+            "AI_ADVICE_SOURCE_SECTION_MUST_BE_FOLDED_ON_FIRST_LOAD",
+            required_archive["folded_state_submission_gate_reason"],
+        )
         self.assertEqual("FIRST_LOAD_NO_INTERACTION", required_archive["folded_state_capture_policy"])
         self.assertEqual(
             "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
@@ -364,6 +369,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
                 "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
                 "submission_gate": "REQUIRED_PRE_SUBMISSION",
+                "submission_gate_reason": "AI_ADVICE_SOURCE_SECTION_MUST_BE_FOLDED_ON_FIRST_LOAD",
                 "capture_phase": "FIRST_LOAD",
                 "capture_policy": "FIRST_LOAD_NO_INTERACTION",
                 "sha256": builder.file_sha256(
