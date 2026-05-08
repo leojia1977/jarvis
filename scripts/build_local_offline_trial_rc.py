@@ -548,6 +548,8 @@ def build_package(args: argparse.Namespace) -> dict[str, Any]:
     validation_sources = []
     if args.screenshot_safety_scan:
         validation_sources.append((repo_root / args.screenshot_safety_scan).resolve())
+    for validation_artifact in args.validation_artifact:
+        validation_sources.append((repo_root / validation_artifact).resolve())
     validation_entries = copy_validation_artifacts(validation_sources, output_dir)
     entries.extend(validation_entries)
     validation_files = [entry["path"] for entry in validation_entries]
@@ -623,6 +625,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-commit", required=True)
     parser.add_argument("--repo-root", default=".")
     parser.add_argument("--screenshot-safety-scan")
+    parser.add_argument("--validation-artifact", action="append", default=[])
     parser.add_argument("--outer-zip-manifest")
     return parser.parse_args(argv)
 

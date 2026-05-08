@@ -3076,7 +3076,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     {
       value: "qwen_cloud_dry_run",
       label: "云端 Qwen dry-run",
-      description: "未来接入路径预览；现在不发请求、不需要 API key。"
+      description: "未来接入路径预览；现在不发请求、不需要运行时密钥值。"
     },
     {
       value: "qwen_synthetic_stub",
@@ -3132,7 +3132,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
   const qwenNoLiveCallSentinels = [
     ["Live API", "关闭"],
     ["网络请求", "不会发送"],
-    ["API key", "不读取"],
+    ["运行时密钥值", "不读取"],
     ["真实数据", "不进入"],
     ["连接器", "不调用"],
     ["生产写回", "禁止"]
@@ -3460,7 +3460,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
             <h2 id="incident-qwen-provider-title">Qwen 接入路径：先 dry-run，再谈真实调用</h2>
             <p>
               当前页面只展示未来云端模型接入的产品形态。输入是合成 metadata，
-              输出是人工复核建议；provider stub 已可本地生成预览，但不发送网络请求、不读取 API key、不接真实系统。
+              输出是人工复核建议；provider stub 已可本地生成预览，但不发送网络请求、不读取运行时密钥值、不接真实系统。
             </p>
           </div>
           <span>dry-run only</span>

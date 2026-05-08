@@ -27,9 +27,11 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.output_dir = self.root / "out" / "local-offline-trial-rc-099-cn-review"
         self.zip_path = self.root / "out" / "local-offline-trial-rc-099-cn-review-package.zip"
         self.validation_scan = self.root / "validation" / "screenshot_safety_scan.json"
+        self.validation_report = self.root / "validation" / "qwen_provider_stub_report.json"
         self.write_source_package()
         self.write_screenshots()
         self.write_validation_scan()
+        self.write_validation_report()
 
     def tearDown(self):
         self.tmpdir.cleanup()
@@ -89,6 +91,17 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             },
         )
 
+    def write_validation_report(self) -> None:
+        write_json(
+            self.validation_report,
+            {
+                "schema_version": "secupilot.qwen.synthetic_provider_stub_report.v1",
+                "status": "PASS",
+                "live_network_call": False,
+                "secret_value_read": False,
+            },
+        )
+
     def run_builder(self, extra_args: list[str] | None = None) -> int:
         argv = [
             "--candidate",
@@ -135,6 +148,8 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                     str(self.root),
                     "--screenshot-safety-scan",
                     str(self.validation_scan),
+                    "--validation-artifact",
+                    str(self.validation_report),
                 ]
             )
 
@@ -196,10 +211,17 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
 
         self.assertEqual(builder.PASS, code)
         self.assertTrue((self.output_dir / "validation" / "screenshot_safety_scan.json").exists())
+        self.assertTrue((self.output_dir / "validation" / "qwen_provider_stub_report.json").exists())
         package_index = json.loads((self.output_dir / "PACKAGE_INDEX_中文.json").read_text(encoding="utf-8"))
-        self.assertEqual(["validation/screenshot_safety_scan.json"], package_index["validation_files"])
+        self.assertEqual(
+            [
+                "validation/screenshot_safety_scan.json",
+                "validation/qwen_provider_stub_report.json",
+            ],
+            package_index["validation_files"],
+        )
         manifest = json.loads((self.output_dir / "package_manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(14, len(manifest["package_files"]))
+        self.assertEqual(15, len(manifest["package_files"]))
 
     def test_supports_explicit_outer_zip_manifest_path(self):
         explicit_outer_manifest = self.root / "out" / "manifests" / "rc099.outer.json"

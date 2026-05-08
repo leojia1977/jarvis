@@ -49,7 +49,7 @@ export const S1_QWEN_PROVIDER_CONTRACT = {
       liveCallAllowed: false,
       secretsAllowed: false,
       connectorAllowed: false,
-      description: "使用本地合成包生成 metadata-only 模型建议；不联网、不读取 API key。"
+      description: "使用本地合成包生成 metadata-only 模型建议；不联网、不读取运行时密钥值。"
     },
     {
       mode: "qwen-cloud-disabled",

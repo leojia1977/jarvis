@@ -1,0 +1,50 @@
+{
+  "schema_version": "secupilot.s1.local_offline_chinese_screenshot_index.v1",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+  "source_commit": "7d4b4d5",
+  "generated_at_utc": "2026-05-08T05:10:20.546075Z",
+  "screenshots": [
+    {
+      "file_name": "s1-run-desktop.png",
+      "path": "screenshots/s1-run-desktop.png",
+      "bytes": 398676,
+      "sha256": "086d6dbed3b06d065f7992a8a0051608e781e693cd9dc1fca25df59d4cf7c289",
+      "route": "/s1-run",
+      "viewport": "1440x1100"
+    },
+    {
+      "file_name": "s1-run-mobile.png",
+      "path": "screenshots/s1-run-mobile.png",
+      "bytes": 309876,
+      "sha256": "98b4adf9fed941c0b3374c7272493dd20d0c46b62240e1301c11f8807f67c9b6",
+      "route": "/s1-run",
+      "viewport": "390x1000"
+    },
+    {
+      "file_name": "s1-trial-desktop.png",
+      "path": "screenshots/s1-trial-desktop.png",
+      "bytes": 931804,
+      "sha256": "7e604d2cfd591aec6fa6adcd9948b6311c8cc3c84c80f9790ef8ba58cfa87553",
+      "route": "/s1-trial",
+      "viewport": "1440x1100"
+    },
+    {
+      "file_name": "s1-trial-mobile.png",
+      "path": "screenshots/s1-trial-mobile.png",
+      "bytes": 620602,
+      "sha256": "dff6653461fe492334906bd160acd14f69a119ce1b3372d870e5056e4f1bcb44",
+      "route": "/s1-trial",
+      "viewport": "390x1000"
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

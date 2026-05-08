@@ -3,7 +3,7 @@ export const S1_QWEN_PROVIDER_READINESS = {
   status: "QWEN_SYNTHETIC_PROVIDER_STUB_READY_NO_NETWORK",
   productLabel: "合成模型 provider stub 已就绪",
   productDescription:
-    "已经可以把本地合成安全案例转换为 metadata-only 模型建议，用于产品预览和后续接入演练；不联网、不读取 API key。",
+    "已经可以把本地合成安全案例转换为 metadata-only 模型建议，用于产品预览和后续接入演练；不联网、不读取运行时密钥值。",
   providerStubMode: "qwen_live_synthetic_provider_stub_no_network",
   caseCount: 20,
   runId: "QWEN-LIVE-SYNTHETIC-2026-05-08-001",
