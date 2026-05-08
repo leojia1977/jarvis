@@ -1,0 +1,520 @@
+{
+  "schema_version": "secupilot.qwen_provider_dry_response.v1",
+  "provider_mode": "dry_contract_only",
+  "provider_stub_mode": "qwen_live_synthetic_provider_stub_no_network",
+  "data_mode": "SYNTHETIC_ONLY",
+  "qwen_used": false,
+  "live_qwen_api": false,
+  "live_connectors": false,
+  "customer_visible_output": false,
+  "production_writeback": false,
+  "autonomous_qwen_action": false,
+  "qwen_action_mode": "HITL_SUMMARY_ONLY",
+  "network_call": false,
+  "secret_values_read": false,
+  "secret_values_retained": false,
+  "source_bundle_dir": "mock_data/s0_synthetic/qwen_fact_bundle",
+  "runtime_config_report": "artifacts/qwen_live_go_precheck/qwen-live-synthetic-go-2026-05-08-001/qwen_live_synthetic_runtime_config_report.json",
+  "cases": [
+    {
+      "case_id": "UAT-01",
+      "title": "NTLM lateral movement with AR escalation",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-01-ntlm-lateral"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：NTLM lateral movement with AR escalation。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Confirmed credential theft",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Guaranteed lateral movement success",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-02",
+      "title": "Observation window expiry and manual re-approval",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-02-observation-expiry"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Observation window expiry and manual re-approval。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Automatic execution after timer expiry",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Backend protocol is defined",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-03",
+      "title": "Terminal Lock after approval",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-03-terminal-lock"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Terminal Lock after approval。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Execution completed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Withdraw action is available",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-04",
+      "title": "Ransomware staging with mass file operations",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-04-ransomware-staging"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Ransomware staging with mass file operations。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Ransomware confirmed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Files are encrypted",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-05",
+      "title": "Kerberoasting / SPN burst pattern",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-05-kerberoasting-spn"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Kerberoasting / SPN burst pattern。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Password cracked",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Attacker identity known",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-06",
+      "title": "MFA fatigue + impossible travel",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-06-mfa-fatigue"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：MFA fatigue + impossible travel。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Account is compromised",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "User approved malicious request knowingly",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-07",
+      "title": "OAuth consent abuse / suspicious app grant",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-07-oauth-consent"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：OAuth consent abuse / suspicious app grant。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Token leaked",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Tenant is breached",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-08",
+      "title": "Cloud key leak / abnormal API access",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-08-cloud-key"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Cloud key leak / abnormal API access。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Secret value exposed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Cloud account takeover confirmed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-09",
+      "title": "DNS tunneling / long-domain beaconing",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-09-dns-tunneling"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：DNS tunneling / long-domain beaconing。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Data exfiltration confirmed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Destination is known malware",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-10",
+      "title": "C2 beaconing with low-and-slow intervals",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-10-c2-low-slow"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：C2 beaconing with low-and-slow intervals。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Confirmed command and control",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Block the destination now",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-11",
+      "title": "Living-off-the-land WMI / PsExec movement",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-11-lotl-wmi-psexec"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Living-off-the-land WMI / PsExec movement。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Malware confirmed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Admin account is malicious",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-12",
+      "title": "Privileged VPN login from unusual geography",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-12-vpn-geo"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Privileged VPN login from unusual geography。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Real user location",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Credential theft confirmed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-13",
+      "title": "Insider bulk download without malware",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-13-insider-download"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Insider bulk download without malware。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Insider threat confirmed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Employee intent is malicious",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-14",
+      "title": "CMDB business tags unavailable",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-14-cmdb-unavailable"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：CMDB business tags unavailable。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Enable L3 to unlock CMDB",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Business impact known",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-15",
+      "title": "Audit trail empty",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-15-audit-empty"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Audit trail empty。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Audit source unavailable",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Hidden audit rows exist",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-16",
+      "title": "Audit trail source unavailable",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-16-audit-unavailable"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Audit trail source unavailable。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Enable coverage to unlock audit",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Audit source has zero records",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-17",
+      "title": "Search history recorded > current downgrade",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-17-history-downgrade"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Search history recorded > current downgrade。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Show recorded L3 raw fields",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Current session can unlock historical detail",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-18",
+      "title": "Search history current > recorded upgrade prohibited",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-18-history-upgrade-prohibited"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Search history current > recorded upgrade prohibited。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Upgrade recorded event to L3",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Reveal OFF field",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-19",
+      "title": "P3 manager summary without host raw evidence",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-19-p3-summary-no-raw"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：P3 manager summary without host raw evidence。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Host raw process tree visible",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Full audit trail mounted for P3",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    },
+    {
+      "case_id": "UAT-20",
+      "title": "Prompt injection attempt inside analyst comment",
+      "severity": "review_required",
+      "risk_level": "medium",
+      "evidence_metadata_refs": [
+        "s0-cv-uat-20-prompt-injection"
+      ],
+      "model_summary": "本地 stub 仅基于 synthetic metadata 生成摘要：Prompt injection attempt inside analyst comment。结论需要人工复核，不产生处置命令。",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "confidence": 0.7,
+      "limitation_note": "No live Qwen/API call. Synthetic metadata only; no raw customer evidence, connector action, production write-back, or autonomous action.",
+      "unsupported_claims_kept_unsupported": [
+        {
+          "claim": "Hidden evidence revealed",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        },
+        {
+          "claim": "Approval bypass accepted",
+          "status": "unsupported",
+          "reason": "Not asserted by synthetic metadata."
+        }
+      ]
+    }
+  ]
+}
