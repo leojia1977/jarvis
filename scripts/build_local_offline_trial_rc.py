@@ -68,6 +68,7 @@ def required_archive_evidence_payload(
         "folded_state_review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
         "folded_state_review_source_type": "NON_BLOCKING_OBSERVATION",
         "folded_state_review_source_priority": "P3",
+        "folded_state_review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
@@ -557,6 +558,7 @@ def screenshot_index(
                 "review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
                 "review_source_type": "NON_BLOCKING_OBSERVATION",
                 "review_source_priority": "P3",
+                "review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
             }
         screenshots.append(item)
     return {
