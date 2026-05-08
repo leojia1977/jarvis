@@ -33,12 +33,9 @@ VALIDATION_RETENTION_CLASS = "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
 SCREENSHOT_SPECS = (
     ("s1-run-desktop.png", "/s1-run", "1440x1100"),
     ("s1-run-mobile.png", "/s1-run", "390x1000"),
+    ("s1-run-first-load-folded-desktop.png", "/s1-run", "1440x1100"),
     ("s1-trial-desktop.png", "/s1-trial", "1440x1100"),
     ("s1-trial-mobile.png", "/s1-trial", "390x1000"),
-)
-
-OPTIONAL_SCREENSHOT_SPECS = (
-    ("s1-run-first-load-folded-desktop.png", "/s1-run", "1440x1100"),
 )
 
 BOUNDARIES = {
@@ -252,14 +249,6 @@ def copy_screenshots(
         shutil.copy2(src, dst)
         entries.append(build_manifest_entry(dst, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
         included_specs.append((file_name, route, viewport))
-    for file_name, route, viewport in OPTIONAL_SCREENSHOT_SPECS:
-        src = screenshot_dir / file_name
-        if not src.exists():
-            continue
-        dst = screenshot_output / file_name
-        shutil.copy2(src, dst)
-        entries.append(build_manifest_entry(dst, output_dir, "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"))
-        included_specs.append((file_name, route, viewport))
     return entries, included_specs
 
 
@@ -345,9 +334,10 @@ push
 
 1. 查看 `screenshots/s1-trial-desktop.png` 和 `screenshots/s1-trial-mobile.png`。
 2. 查看 `screenshots/s1-run-desktop.png` 和 `screenshots/s1-run-mobile.png`，重点判断它是否像产品结果页，而不是证据台。
-3. 核验 `evidence/final_status.json`、`evidence/case_summary.json`、`evidence/artifact_manifest.json`、`evidence/safety_scan.json`。
-4. 对照 `REVIEWER_CHECKLIST_中文.md` 判断是否可进入下一轮内部本地试用。
-5. 使用 `FEEDBACK_TEMPLATE_中文.md` 输出结论。
+3. 查看 `screenshots/s1-run-first-load-folded-desktop.png`，确认 AI 建议来源在首屏未交互状态下保持折叠态证据。
+4. 核验 `evidence/final_status.json`、`evidence/case_summary.json`、`evidence/artifact_manifest.json`、`evidence/safety_scan.json`。
+5. 对照 `REVIEWER_CHECKLIST_中文.md` 判断是否可进入下一轮内部本地试用。
+6. 使用 `FEEDBACK_TEMPLATE_中文.md` 输出结论。
 """
 
 
@@ -361,6 +351,7 @@ def reviewer_checklist(candidate: str, source_candidate: str, package_slug: str)
 | --- | --- |
 | `/s1-trial` 截图为中文优先 | PASS |
 | `/s1-run` 截图为产品化结果页，不是证据台 | PASS |
+| `s1-run-first-load-folded-desktop.png` 存在且可打开 | PASS |
 | 截图中 candidate 为 `{candidate}` | PASS |
 | 截图中 source candidate 为 `{source_candidate}` | PASS |
 | 截图中 package path 指向 `{package_slug}` | PASS |

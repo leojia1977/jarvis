@@ -81,11 +81,6 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         for file_name, _, _ in builder.SCREENSHOT_SPECS:
             (self.screenshot_dir / file_name).write_bytes(png_stub)
 
-    def write_optional_folded_screenshot(self) -> None:
-        png_stub = b"\x89PNG\r\n\x1a\nsecupilot-folded"
-        for file_name, _, _ in builder.OPTIONAL_SCREENSHOT_SPECS:
-            (self.screenshot_dir / file_name).write_bytes(png_stub)
-
     def write_validation_scan(self) -> None:
         write_json(
             self.validation_scan,
@@ -179,7 +174,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(False, manifest["boundaries"]["customer_visible_output"])
         self.assertRegex(manifest["manifest_self_sha256"], r"^[0-9a-f]{64}$")
         self.assertEqual(manifest["manifest_self_sha256"], builder.manifest_self_sha256(manifest))
-        self.assertEqual(13, len(manifest["package_files"]))
+        self.assertEqual(14, len(manifest["package_files"]))
         self.assertTrue(all(item["sha256"] for item in manifest["package_files"]))
         with zipfile.ZipFile(self.zip_path, "r") as archive:
             archived_paths = set(archive.namelist())
@@ -226,7 +221,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             package_index["validation_files"],
         )
         manifest = json.loads((self.output_dir / "package_manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(15, len(manifest["package_files"]))
+        self.assertEqual(16, len(manifest["package_files"]))
 
     def test_supports_explicit_outer_zip_manifest_path(self):
         explicit_outer_manifest = self.root / "out" / "manifests" / "rc099.outer.json"
@@ -267,20 +262,27 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertFalse(self.zip_path.exists())
         self.assertFalse(self.default_outer_manifest_path().exists())
 
-    def test_includes_optional_folded_state_screenshot_when_present(self):
-        self.write_optional_folded_screenshot()
+    def test_requires_folded_state_screenshot_archive_evidence(self):
+        folded_name = "s1-run-first-load-folded-desktop.png"
+        folded_path = self.screenshot_dir / folded_name
+        folded_path.unlink()
+        code = self.run_builder()
 
+        self.assertEqual(builder.HOLD, code)
+        self.assertFalse((self.output_dir / "package_manifest.json").exists())
+
+    def test_includes_folded_state_screenshot_in_package_index(self):
         code = self.run_builder()
 
         self.assertEqual(builder.PASS, code)
-        optional_name = builder.OPTIONAL_SCREENSHOT_SPECS[0][0]
-        optional_path = self.output_dir / "screenshots" / optional_name
-        self.assertTrue(optional_path.exists())
+        folded_name = "s1-run-first-load-folded-desktop.png"
+        folded_path = self.output_dir / "screenshots" / folded_name
+        self.assertTrue(folded_path.exists())
         package_index = json.loads((self.output_dir / "PACKAGE_INDEX_中文.json").read_text(encoding="utf-8"))
-        self.assertIn(f"screenshots/{optional_name}", package_index["screenshot_files"])
+        self.assertIn(f"screenshots/{folded_name}", package_index["screenshot_files"])
         screenshot_index = json.loads((self.output_dir / "SCREENSHOT_INDEX.json").read_text(encoding="utf-8"))
         screenshot_names = {item["file_name"] for item in screenshot_index["screenshots"]}
-        self.assertIn(optional_name, screenshot_names)
+        self.assertIn(folded_name, screenshot_names)
 
 
 if __name__ == "__main__":
