@@ -362,6 +362,9 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
                 "capture_phase": "FIRST_LOAD",
                 "capture_policy": "FIRST_LOAD_NO_INTERACTION",
+                "sha256": builder.file_sha256(
+                    self.output_dir / "screenshots" / "s1-run-first-load-folded-desktop.png"
+                ),
                 "interaction_count": 0,
                 "expected_interaction_count": 0,
                 "expected_state": "FOLDED",
