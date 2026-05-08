@@ -526,10 +526,13 @@ def screenshot_index(
                 "assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
                 "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
                 "capture_phase": "FIRST_LOAD",
+                "capture_policy": "FIRST_LOAD_NO_INTERACTION",
                 "interaction_count": 0,
                 "expected_interaction_count": 0,
                 "expected_state": "FOLDED",
                 "expected_section": "AI 建议来源",
+                "expected_route": "/s1-run",
+                "expected_viewport": "1440x1100",
             }
         screenshots.append(item)
     return {
