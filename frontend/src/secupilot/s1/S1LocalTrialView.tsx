@@ -137,21 +137,21 @@ export function S1LocalTrialView() {
     {
       label: "03",
       title: "本地反馈",
-      route: "#s1-feedback-title",
+      route: "页面内反馈区",
       audience: "试用 reviewer",
       outcome: "记录准确性、可用性和缺失信息，不写后端。"
     },
     {
       label: "04",
       title: "模型接入准备",
-      route: "#s1-qwen-contract-title",
+      route: "模型接入准备区",
       audience: "CTO / 部署负责人",
       outcome: "查看 Qwen synthetic provider readiness，确认仍是 no-network dry path。"
     },
     {
       label: "05",
       title: "技术对账",
-      route: "展开技术对账信息",
+      route: "按需展开",
       audience: "内部核验",
       outcome: "只在需要时核对 candidate、run、package、manifest 和边界。"
     }
@@ -183,6 +183,32 @@ export function S1LocalTrialView() {
     "不写回生产, 不发布客户可见输出",
     "技术对账信息默认下沉, 需要时再展开"
   ];
+  const homeQueueItems = [
+    {
+      status: "当前演示",
+      title: "可疑横向移动事件",
+      detail: "先看结论、影响范围和建议动作",
+      tone: "active"
+    },
+    {
+      status: "模型路径",
+      title: "Qwen synthetic provider",
+      detail: "只预览 dry-run/stub, 不发起 live 调用",
+      tone: "model"
+    },
+    {
+      status: "交付边界",
+      title: "Windows 私有化预览",
+      detail: "本地启动、离线反馈、人工确认",
+      tone: "safe"
+    }
+  ];
+  const homeStatusFacts = [
+    ["当前包", "RC-019 中文预览"],
+    ["案例数", `${run.caseCount}`],
+    ["安全命中", `${run.safetyScan.findingCount}`],
+    ["生产写回", yesNo(run.boundaries.productionWriteback)]
+  ] as const;
   const feedbackPreview = useMemo(
     () => ({
       schema_version: "secupilot.s1.local_trial_feedback_preview.v1",
@@ -212,93 +238,127 @@ export function S1LocalTrialView() {
       data-real-data="false"
       data-testid="s1-local-trial-view"
     >
-      <header className="s1-trial-header s1-product-home-hero">
-        <div>
-          <p className="summary-kicker">客户试用入口 / 私有化预览</p>
-          <h1 id="s1-trial-title">SecuPilot 企业安全分析助理</h1>
-          <p className="s1-trial-lede">
-            面向从一线工程师到 CTO 的安全事件研判入口：先给清晰结论，再解释为什么可信，
-            最后把建议动作、模型接入准备和反馈闭环交给人确认。
-          </p>
-          <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
-            <a href="/incident/CASE-2847">查看事件研判</a>
-            <a href="#s1-feedback-title">提交本地反馈</a>
-            <a href="#s1-qwen-contract-title">查看部署准备</a>
-          </div>
-          <dl className="s1-trial-header-facts s1-product-home-summary-facts">
-            {productHomeFacts.map((fact) => (
-              <div key={fact.label}>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
-                <p>{fact.detail}</p>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <span className="s1-trial-status">
-          <ShieldCheck aria-hidden="true" size={18} />
-          本地安全预览
-        </span>
-      </header>
-
-      <section
-        aria-labelledby="s1-private-preview-shell-title"
-        className="s1-private-preview-shell"
-        data-testid="s1-private-preview-shell"
-      >
-        <div className="s1-product-home-section-heading">
-          <p className="summary-kicker">私有化预览启动壳</p>
-          <h2 id="s1-private-preview-shell-title">从一个入口完成试用、反馈和接入准备</h2>
-          <p>
-            当前预览像产品一样进入：打开首页、查看事件研判、提交本地反馈、确认模型接入准备。
-            证据包和技术字段保留在后台对账区，不作为客户第一眼的主要内容。
-          </p>
-        </div>
-        <div className="s1-private-preview-checklist" data-testid="s1-private-preview-checklist">
-          {privatePreviewChecklist.map(([label, value]) => (
-            <div key={label}>
-              <span>{label}</span>
-              <strong>{value}</strong>
+      <section className="s1-customer-product-home" data-testid="s1-customer-product-home">
+        <header className="s1-trial-header s1-product-home-hero s1-customer-hero">
+          <div className="s1-customer-hero-copy">
+            <p className="summary-kicker">客户试用入口 / 私有化预览</p>
+            <h1 id="s1-trial-title">SecuPilot 企业安全分析助理</h1>
+            <p className="s1-trial-lede">
+              给一线工程师到 CTO 的统一安全研判入口：先告诉你这起事件是否值得处理，
+              再说明为什么可信、缺什么证据、下一步应该由谁确认。
+            </p>
+            <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
+              <a href="/incident/CASE-2847">查看事件研判</a>
+              <a href="#s1-feedback-title">提交本地反馈</a>
+              <a href="#s1-qwen-contract-title">查看部署准备</a>
             </div>
-          ))}
+            <dl className="s1-trial-header-facts s1-product-home-summary-facts">
+              {productHomeFacts.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                  <p>{fact.detail}</p>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <aside className="s1-customer-command-card" aria-label="SecuPilot 当前预览状态">
+            <span className="s1-trial-status">
+              <ShieldCheck aria-hidden="true" size={18} />
+              本地安全预览
+            </span>
+            <strong>第一眼先看产品判断，不看证据目录</strong>
+            <p>
+              这是客户进入后的产品首页：它负责引导试用路径；事件详情和技术对账在后续页面展开。
+            </p>
+            <dl>
+              {homeStatusFacts.map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        </header>
+
+        <div className="s1-customer-home-layout">
+          <section
+            aria-labelledby="s1-private-preview-shell-title"
+            className="s1-private-preview-shell"
+            data-testid="s1-private-preview-shell"
+          >
+            <div className="s1-product-home-section-heading">
+              <p className="summary-kicker">私有化预览启动壳</p>
+              <h2 id="s1-private-preview-shell-title">从一个入口完成试用、反馈和接入准备</h2>
+              <p>
+                当前预览像产品一样进入：打开首页、查看事件研判、提交本地反馈、确认模型接入准备。
+                证据包和技术字段保留在后台对账区，不作为客户第一眼的主要内容。
+              </p>
+            </div>
+            <div className="s1-private-preview-checklist" data-testid="s1-private-preview-checklist">
+              {privatePreviewChecklist.map(([label, value]) => (
+                <div key={label}>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
+                </div>
+              ))}
+            </div>
+            <div className="s1-product-route-map" data-testid="s1-product-route-map">
+              {privatePreviewRoutes.map((item) => (
+                <article data-testid="s1-product-route-map-item" key={item.label}>
+                  <span>{item.label}</span>
+                  <div>
+                    <strong>{item.title}</strong>
+                    <small>{item.audience}</small>
+                    <p>{item.outcome}</p>
+                    <code>{item.route}</code>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <aside className="s1-customer-queue-panel" aria-label="SecuPilot 产品预览队列">
+            <div>
+              <p className="summary-kicker">产品预览队列</p>
+              <h2>今天先验证这三段体验</h2>
+            </div>
+            <ol>
+              {homeQueueItems.map((item) => (
+                <li data-tone={item.tone} key={item.title}>
+                  <span>{item.status}</span>
+                  <strong>{item.title}</strong>
+                  <p>{item.detail}</p>
+                </li>
+              ))}
+            </ol>
+          </aside>
         </div>
-        <div className="s1-product-route-map" data-testid="s1-product-route-map">
-          {privatePreviewRoutes.map((item) => (
-            <article data-testid="s1-product-route-map-item" key={item.label}>
-              <span>{item.label}</span>
+
+        <section
+          aria-labelledby="s1-product-role-title"
+          className="s1-product-home-section s1-customer-role-section"
+        >
+          <div className="s1-product-home-section-heading">
+            <p className="summary-kicker">客户角色入口</p>
+            <h2 id="s1-product-role-title">按你的工作目标进入</h2>
+          </div>
+          <div className="s1-product-entry-grid s1-role-entry-grid" data-testid="s1-product-role-grid">
+          {roleEntries.map((entry, index) => (
+            <article data-testid="s1-product-role-entry" key={entry.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
               <div>
-                <strong>{item.title}</strong>
-                <small>{item.audience}</small>
-                <p>{item.outcome}</p>
-                <code>{item.route}</code>
+                <strong>{entry.title}</strong>
+                <p>{entry.question}</p>
+                <small>{entry.description}</small>
+                <code>{entry.action}</code>
               </div>
+              <ArrowRight aria-hidden="true" size={18} />
             </article>
           ))}
-        </div>
-      </section>
-
-      <section
-        aria-labelledby="s1-product-role-title"
-        className="s1-product-home-section"
-      >
-        <div className="s1-product-home-section-heading">
-          <p className="summary-kicker">客户角色入口</p>
-          <h2 id="s1-product-role-title">按你的工作目标进入</h2>
-        </div>
-        <div className="s1-product-entry-grid s1-role-entry-grid" data-testid="s1-product-role-grid">
-        {roleEntries.map((entry, index) => (
-          <article data-testid="s1-product-role-entry" key={entry.title}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <div>
-              <strong>{entry.title}</strong>
-              <p>{entry.question}</p>
-              <small>{entry.description}</small>
-              <code>{entry.action}</code>
-            </div>
-            <ArrowRight aria-hidden="true" size={18} />
-          </article>
-        ))}
-        </div>
+          </div>
+        </section>
       </section>
 
       <section aria-label="本地离线试用概览" className="s1-trial-kpi-grid">

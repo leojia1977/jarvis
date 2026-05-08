@@ -291,6 +291,18 @@ describe("SecuPilot first-batch workbench slice", () => {
       .toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "按你的工作目标进入" })).toBeInTheDocument();
     expect(screen.getByText("客户试用入口 / 私有化预览")).toBeInTheDocument();
+    expect(screen.getByTestId("s1-customer-product-home")).toHaveTextContent(
+      "给一线工程师到 CTO 的统一安全研判入口"
+    );
+    expect(screen.getByTestId("s1-customer-product-home")).toHaveTextContent(
+      "第一眼先看产品判断，不看证据目录"
+    );
+    expect(screen.getByTestId("s1-customer-product-home")).toHaveTextContent(
+      "产品预览队列"
+    );
+    expect(screen.getByTestId("s1-customer-product-home")).toHaveTextContent(
+      "可疑横向移动事件"
+    );
     expect(screen.getByTestId("s1-private-preview-shell")).toHaveTextContent(
       "私有化预览启动壳"
     );

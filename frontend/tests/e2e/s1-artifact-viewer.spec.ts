@@ -129,6 +129,16 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByRole("heading", { name: "SecuPilot 企业安全分析助理" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "按你的工作目标进入" })).toBeVisible();
     await expect(page.getByText("客户试用入口 / 私有化预览")).toBeVisible();
+    await expect(page.getByTestId("s1-customer-product-home")).toContainText(
+      "给一线工程师到 CTO 的统一安全研判入口"
+    );
+    await expect(page.getByTestId("s1-customer-product-home")).toContainText(
+      "第一眼先看产品判断，不看证据目录"
+    );
+    await expect(page.getByTestId("s1-customer-product-home")).toContainText("产品预览队列");
+    await expect(page.getByTestId("s1-customer-product-home")).toContainText(
+      "可疑横向移动事件"
+    );
     await expect(page.getByTestId("s1-private-preview-shell")).toContainText("私有化预览启动壳");
     await expect(page.getByTestId("s1-product-route-map")).toContainText("/s1-trial");
     await expect(page.getByTestId("s1-product-route-map")).toContainText("/incident/CASE-2847");

@@ -2181,6 +2181,222 @@ button {
   color: #267f62;
 }
 
+.s1-customer-product-home {
+  display: grid;
+  gap: 16px;
+  border: 1px solid #22304a;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(15, 25, 40, 0.96), rgba(10, 16, 27, 0.98)),
+    #101827;
+  box-shadow: 0 24px 54px rgba(7, 13, 24, 0.28);
+  padding: 16px;
+}
+
+.s1-customer-product-home .summary-kicker {
+  color: #7aa7d9;
+}
+
+.s1-customer-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  border-color: #263752;
+  background:
+    linear-gradient(135deg, rgba(25, 43, 68, 0.94), rgba(13, 21, 35, 0.96)),
+    #121c2e;
+  box-shadow: none;
+}
+
+.s1-customer-hero h1 {
+  color: #eef6ff;
+  font-size: 34px;
+}
+
+.s1-customer-hero .s1-trial-lede {
+  max-width: 860px;
+  color: #b8c6d7;
+  font-size: 15px;
+}
+
+.s1-customer-hero .s1-product-home-actions a {
+  border-color: #2a6aa7;
+  background: #0f2742;
+  color: #9fd1ff;
+}
+
+.s1-customer-hero .s1-product-home-actions a:first-child {
+  border-color: #3a9a73;
+  background: #143628;
+  color: #bdf4d4;
+}
+
+.s1-customer-hero .s1-trial-header-facts > div,
+.s1-customer-command-card,
+.s1-customer-queue-panel,
+.s1-customer-product-home .s1-private-preview-shell,
+.s1-customer-product-home .s1-product-entry-grid article {
+  border-color: #263752;
+  background: #151f31;
+  box-shadow: none;
+}
+
+.s1-customer-hero .s1-trial-header-facts dt,
+.s1-customer-command-card dt,
+.s1-customer-product-home .s1-private-preview-checklist span {
+  color: #7788a3;
+}
+
+.s1-customer-hero .s1-trial-header-facts dd,
+.s1-customer-command-card dd,
+.s1-customer-product-home .s1-product-home-section-heading h2,
+.s1-customer-product-home .s1-product-entry-grid strong,
+.s1-customer-product-home .s1-product-route-map strong,
+.s1-customer-product-home .s1-private-preview-checklist strong {
+  color: #eef6ff;
+}
+
+.s1-customer-hero .s1-product-home-summary-facts p,
+.s1-customer-product-home .s1-product-home-section-heading p:not(.summary-kicker),
+.s1-customer-product-home .s1-product-entry-grid p,
+.s1-customer-product-home .s1-product-entry-grid small,
+.s1-customer-product-home .s1-product-route-map p,
+.s1-customer-command-card p,
+.s1-customer-queue-panel p {
+  color: #a8b6c9;
+}
+
+.s1-customer-command-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid #263752;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.s1-customer-command-card .s1-trial-status {
+  justify-self: start;
+  border-color: #39986f;
+  background: #123424;
+  color: #bdf4d4;
+}
+
+.s1-customer-command-card strong {
+  color: #eef6ff;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.s1-customer-command-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.s1-customer-command-card dl > div {
+  min-width: 0;
+  border: 1px solid #2a3b58;
+  border-radius: 7px;
+  background: #0f1827;
+  padding: 9px;
+}
+
+.s1-customer-home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.35fr);
+  gap: 16px;
+}
+
+.s1-customer-product-home .s1-private-preview-shell,
+.s1-customer-queue-panel {
+  padding: 16px;
+}
+
+.s1-customer-product-home .s1-private-preview-checklist > div,
+.s1-customer-product-home .s1-product-route-map article {
+  border-color: #2a3b58;
+  background: #0f1827;
+}
+
+.s1-customer-product-home .s1-product-route-map article > span,
+.s1-customer-product-home .s1-product-entry-grid article > span {
+  background: #12345a;
+  color: #8fc8ff;
+}
+
+.s1-customer-product-home .s1-product-route-map small {
+  color: #7dd3b0;
+}
+
+.s1-customer-product-home .s1-product-route-map code,
+.s1-customer-product-home .s1-product-entry-grid code {
+  color: #d7b455;
+}
+
+.s1-customer-product-home .s1-product-entry-grid svg {
+  color: #7dd3b0;
+}
+
+.s1-customer-queue-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  border: 1px solid #263752;
+  border-radius: 8px;
+}
+
+.s1-customer-queue-panel h2 {
+  margin: 0;
+  color: #eef6ff;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.s1-customer-queue-panel ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.s1-customer-queue-panel li {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #2a3b58;
+  border-left: 4px solid #4d9dea;
+  border-radius: 8px;
+  background: #0f1827;
+  padding: 12px;
+}
+
+.s1-customer-queue-panel li[data-tone="model"] {
+  border-left-color: #d7b455;
+}
+
+.s1-customer-queue-panel li[data-tone="safe"] {
+  border-left-color: #43b47f;
+}
+
+.s1-customer-queue-panel span {
+  color: #7f91aa;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.s1-customer-queue-panel strong {
+  color: #eef6ff;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.s1-customer-role-section {
+  border-top: 1px solid #263752;
+  padding-top: 2px;
+}
+
 .s1-kpi-grid,
 .s1-trial-kpi-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -4815,6 +5031,7 @@ button {
   .incident-action-panel,
   .s1-run-header,
   .s1-trial-header,
+  .s1-customer-home-layout,
   .s1-trial-product-grid,
   .s1-split-grid,
   .s1-trial-split-grid,
@@ -4853,6 +5070,7 @@ button {
   .incident-technical-facts,
   .s1-private-preview-checklist,
   .s1-product-route-map,
+  .s1-customer-command-card dl,
   .s1-run-header-facts,
   .s1-trial-header-facts,
   .s1-kpi-grid,

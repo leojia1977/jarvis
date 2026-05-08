@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.s1.review_screenshot_safety_scan.v1",
-  "created_at_utc": "2026-05-08T05:34:36.376261Z",
+  "created_at_utc": "2026-05-08T06:05:42.423688Z",
   "status": "PASS",
   "expected_candidate": "LOCAL_OFFLINE_TRIAL_RC_019_CN",
   "screenshot_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright",
@@ -35,9 +35,9 @@
       "route": "/s1-trial",
       "viewport": "1440x1100",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.png",
-      "screenshot_sha256": "ff78943ddaaf0b56aaebf9dc47b1046518dd365fc5e2221865ebecdb116b9c53",
+      "screenshot_sha256": "68a562848ea07b4341847410ea22bb98a159d9ab2dda68695bca784603911501",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.text.json",
-      "visible_text_sha256": "6fb2e206f584496a6e3a507a3f327366b1e2345c0731e6dfbd09695997d93538",
+      "visible_text_sha256": "2e1544dcdd2da343c0b38e45cc1dcac5bbb5b990aadf03a73a6346bd257d2c19",
       "blocking_findings": [],
       "warnings": []
     },
@@ -46,9 +46,9 @@
       "route": "/s1-trial",
       "viewport": "390x1000",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.png",
-      "screenshot_sha256": "85b7428a4908fe6721aeb7a63b3cd7081ba9fe2a17a814460dfaa492f0ad31a5",
+      "screenshot_sha256": "cd1eeec50e6894ba1f6ea0e4efbbe7a767aa0efcac5380da8f9ce842ce1ce786",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.text.json",
-      "visible_text_sha256": "6fb2e206f584496a6e3a507a3f327366b1e2345c0731e6dfbd09695997d93538",
+      "visible_text_sha256": "2e1544dcdd2da343c0b38e45cc1dcac5bbb5b990aadf03a73a6346bd257d2c19",
       "blocking_findings": [],
       "warnings": []
     }
