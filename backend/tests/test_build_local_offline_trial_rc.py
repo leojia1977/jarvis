@@ -358,6 +358,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         )
         self.assertEqual(
             {
+                "evidence_schema_version": "secupilot.s1.folded_state_archive_evidence.v1",
                 "assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
                 "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
                 "capture_phase": "FIRST_LOAD",
