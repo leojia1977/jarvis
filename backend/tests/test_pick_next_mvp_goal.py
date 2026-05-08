@@ -111,8 +111,29 @@ class PickNextMvpGoalTests(unittest.TestCase):
         self.assertEqual(picker.PASS, code)
         payload = json.loads(self.output_json.read_text(encoding="utf-8"))
         self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
-        self.assertEqual("GOAL-MVP-NEXT_GOAL_PICKER", payload["candidate_goal"]["queue_key"])
-        self.assertIn("scripts/pick_next_mvp_goal.py", payload["candidate_goal"]["exact_files"])
+        self.assertEqual("GOAL-MVP-61_RC016_SCREENSHOT_EXPECTED_CANDIDATE", payload["candidate_goal"]["queue_key"])
+        self.assertIn("frontend/tests/e2e/s1-artifact-viewer.visual.spec.ts", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("LOCAL_OFFLINE_TRIAL_RC_016_CN" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
+    def test_queue_advances_to_trial_report_after_prior_pool_items_exist(self):
+        for name in (
+            "GOAL-MVP-61_RC016_SCREENSHOT_EXPECTED_CANDIDATE.md",
+            "GOAL-MVP-62_ZIP_TAMPER_NEGATIVE_TEST.md",
+            "GOAL-MVP-63_PRODUCT_ACCELERATION_POOL_PICKER.md",
+            "GOAL-MVP-64_CLIENT_TRIAL_HOME_PRODUCTIZATION.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-MVP-65_LOCAL_OFFLINE_TRIAL_REPORT", payload["candidate_goal"]["queue_key"])
+        self.assertIn("scripts/build_client_trial_readiness_report.py", payload["candidate_goal"]["exact_files"])
 
     def test_holds_when_backlog_items_is_not_list(self):
         write_json(self.backlog_json, {"items": {"bad": "shape"}})

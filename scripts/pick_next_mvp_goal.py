@@ -19,32 +19,52 @@ PRIORITY_RANK = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 
 QUEUE_ITEMS = (
     {
-        "queue_key": "GOAL-MVP-NEXT_MANIFEST_SELF_HASH",
-        "suffix": "MANIFEST_SELF_HASH",
-        "match": "MANIFEST_SELF_HASH",
+        "queue_key": "GOAL-MVP-61_RC016_SCREENSHOT_EXPECTED_CANDIDATE",
+        "suffix": "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
+        "match": "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
         "goal_type": "package",
-        "profile": "PACKAGE",
+        "profile": "RC_SCREENSHOT_CANDIDATE",
+        "statement": "Align RC-016 screenshot visible candidate text, visual assertions, and screenshot safety expected candidate so package validation no longer relies on RC-014 text.",
     },
     {
-        "queue_key": "GOAL-MVP-NEXT_RESULT_PAGE_FIELD_DOWNSHIFT",
-        "suffix": "RESULT_PAGE_FIELD_DOWNSHIFT",
-        "match": "RESULT_PAGE_FIELD_DOWNSHIFT",
-        "goal_type": "page",
-        "profile": "UI_PAGE",
+        "queue_key": "GOAL-MVP-62_ZIP_TAMPER_NEGATIVE_TEST",
+        "suffix": "ZIP_TAMPER_NEGATIVE_TEST",
+        "match": "ZIP_TAMPER_NEGATIVE_TEST",
+        "goal_type": "validator",
+        "profile": "ZIP_TAMPER_TEST",
+        "statement": "Add negative tests proving local/offline package zip or manifest tampering is detected and cannot pass RC integrity validation.",
     },
     {
-        "queue_key": "GOAL-MVP-NEXT_CASE_TITLE_CLEANUP",
-        "suffix": "CASE_TITLE_CLEANUP",
-        "match": "CASE_TITLE_CLEANUP",
-        "goal_type": "package",
-        "profile": "PACKAGE",
-    },
-    {
-        "queue_key": "GOAL-MVP-NEXT_GOAL_PICKER",
-        "suffix": "NEXT_GOAL_PICKER",
-        "match": "NEXT_GOAL_PICKER",
+        "queue_key": "GOAL-MVP-63_PRODUCT_ACCELERATION_POOL_PICKER",
+        "suffix": "PRODUCT_ACCELERATION_POOL_PICKER",
+        "match": "PRODUCT_ACCELERATION_POOL_PICKER",
         "goal_type": "script",
         "profile": "SCRIPT_GOAL_PICKER",
+        "statement": "Extend the Goal picker so queue exhaustion falls through to an explicit product acceleration pool instead of repeated exhausted closeouts.",
+    },
+    {
+        "queue_key": "GOAL-MVP-64_CLIENT_TRIAL_HOME_PRODUCTIZATION",
+        "suffix": "CLIENT_TRIAL_HOME_PRODUCTIZATION",
+        "match": "CLIENT_TRIAL_HOME_PRODUCTIZATION",
+        "goal_type": "page",
+        "profile": "CLIENT_TRIAL_HOME",
+        "statement": "Make the local/offline trial entry feel like a product trial home: clearer headline, business-readable sections, and lower technical-path prominence while preserving local-only boundaries.",
+    },
+    {
+        "queue_key": "GOAL-MVP-65_LOCAL_OFFLINE_TRIAL_REPORT",
+        "suffix": "LOCAL_OFFLINE_TRIAL_REPORT",
+        "match": "LOCAL_OFFLINE_TRIAL_REPORT",
+        "goal_type": "test-report",
+        "profile": "LOCAL_TRIAL_REPORT",
+        "statement": "Generate a local/offline trial report from the latest RC package, validation outputs, and reviewer feedback so internal readers get a single current status artifact.",
+    },
+    {
+        "queue_key": "GOAL-MVP-66_RC_PACKAGE_SELF_REVIEW_REPORT",
+        "suffix": "RC_PACKAGE_SELF_REVIEW_REPORT",
+        "match": "RC_PACKAGE_SELF_REVIEW_REPORT",
+        "goal_type": "test-report",
+        "profile": "RC_SELF_REVIEW_REPORT",
+        "statement": "Generate an automated RC package self-review report so package readiness has a machine-generated PASS/HOLD summary before human review.",
     },
 )
 
@@ -117,7 +137,7 @@ def profile_contract(
     backlog_path: str | None,
 ) -> dict[str, Any]:
     goal_card = f"docs/goals/{goal_id}.md"
-    closeout = f"docs/S6_FAST_MVP_{goal_id}_{date_tag}.md"
+    closeout = f"docs/S6_FAST_MVP_{goal_id.replace('-', '_')}_{date_tag}.md"
     if profile == "UI_PAGE":
         return {
             "goal_type": "page",
@@ -141,6 +161,63 @@ def profile_contract(
             "hold_conditions": [
                 "target UI field remains unchanged after patch",
                 "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "RC_SCREENSHOT_CANDIDATE":
+        candidate = "LOCAL_OFFLINE_TRIAL_RC_016_CN"
+        scan_path = "artifacts/review_screenshot_safety/local-offline-trial-rc-016-cn-review/screenshot_safety_scan_mvp61.json"
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                "frontend/tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                scan_path,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                f"py -3 scripts/validate_review_screenshots.py --screenshot-dir artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright --expected-candidate {candidate} --output-json {scan_path}",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "screenshot visible text still contains LOCAL_OFFLINE_TRIAL_RC_014_CN as current candidate",
+                "screenshot safety expected_candidate_missing finding appears",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "ZIP_TAMPER_TEST":
+        return {
+            "goal_type": "validator",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_local_offline_trial_rc.py",
+                "scripts/validate_local_trial_rc_consistency.py",
+                "backend/tests/test_build_local_offline_trial_rc.py",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_local_offline_trial_rc",
+                "py -3 scripts/build_local_offline_trial_rc.py --help",
+                "py -3 scripts/validate_local_trial_rc_consistency.py --help",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "tampered zip or manifest can still pass validation",
+                "negative test mutates repo artifacts outside a temporary directory",
+                "unit test fails twice in the same way",
                 "scope expands beyond listed files",
             ],
         }
@@ -188,6 +265,86 @@ def profile_contract(
                 "latest backlog cannot be parsed as JSON",
                 "script output misses exact_files or acceptance_commands",
                 "unit test fails twice in the same way",
+            ],
+        }
+    if profile == "CLIENT_TRIAL_HOME":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/S1LocalTrialView.tsx",
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                "frontend/tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "trial home exposes P1/P2/P3, Mock Fixture, or Expert Mode text",
+                "technical artifact paths dominate first screen",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "LOCAL_TRIAL_REPORT":
+        report_path = "artifacts/product_reports/local-offline-trial-rc-016-cn-review/trial_report.md"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_client_trial_readiness_report.py",
+                "backend/tests/test_build_client_trial_readiness_report.py",
+                report_path,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_client_trial_readiness_report",
+                "py -3 scripts/build_client_trial_readiness_report.py --package-dir artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review --feedback-json artifacts/local_demo_packages/local-offline-trial-rc-014-cn-review/reviewer_feedback.json --output-report artifacts/product_reports/local-offline-trial-rc-016-cn-review/trial_report.md --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "report grants customer-visible deploy or pilot go",
+                "report omits package, safety, or validation status",
+                "unit test fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "RC_SELF_REVIEW_REPORT":
+        report_path = "artifacts/rc_self_review/local-offline-trial-rc-016-cn-review/self_review_report.md"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_rc_package_self_review.py",
+                "backend/tests/test_build_rc_package_self_review.py",
+                report_path,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_rc_package_self_review",
+                "py -3 scripts/build_rc_package_self_review.py --package-dir artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review --screenshot-safety-scan artifacts/review_screenshot_safety/local-offline-trial-rc-016-cn-review/screenshot_safety_scan.json --rc-consistency-check artifacts/local_trial_rc_consistency/local-offline-trial-rc-016-cn-review/rc_consistency_check.json --outer-zip-manifest artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review-package-20260508.zip.outer_zip_manifest.json --output-report artifacts/rc_self_review/local-offline-trial-rc-016-cn-review/self_review_report.md --output-json artifacts/rc_self_review/local-offline-trial-rc-016-cn-review/self_review_report.json --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "self-review report marks PASS when any validator has blocking findings",
+                "report includes raw payload, secret, token, auth header, or customer-visible deploy go",
+                "unit test fails twice in the same way",
+                "scope expands beyond listed files",
             ],
         }
     return {
@@ -256,7 +413,10 @@ def queue_candidate(repo_root: Path, goal_index: int, goal_cards: list[Path]) ->
                 "queue_key": item["queue_key"],
                 "goal_id": goal_id,
                 "goal_type": contract["goal_type"],
-                "statement": f"Execute {item['queue_key']} as the next bounded product-acceleration Goal.",
+                "statement": item.get(
+                    "statement",
+                    f"Execute {item['queue_key']} as the next bounded product-acceleration Goal.",
+                ),
                 "exact_files": contract["exact_files"],
                 "acceptance_commands": contract["acceptance_commands"],
                 "hold_conditions": contract["hold_conditions"],
