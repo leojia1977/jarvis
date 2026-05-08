@@ -19,6 +19,26 @@ PRIORITY_RANK = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 
 QUEUE_ITEMS = (
     {
+        "queue_key": "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE",
+        "goal_id": "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE",
+        "suffix": "LOCAL_RULE_ENGINE",
+        "match": "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE",
+        "requires_all": ("GOAL-ECIVFE-30_FIXTURE_MODEL",),
+        "goal_type": "script",
+        "profile": "ECIVFE_LOCAL_RULE_ENGINE",
+        "statement": "Implement the local/offline deterministic ECI/VFE fixture analyzer that consumes metadata-only fixtures and emits structured chain, forecast, and correlation artifacts.",
+    },
+    {
+        "queue_key": "GOAL-ECIVFE-34_OUTPUT_GUARD",
+        "goal_id": "GOAL-ECIVFE-34_OUTPUT_GUARD",
+        "suffix": "OUTPUT_GUARD",
+        "match": "GOAL-ECIVFE-34_OUTPUT_GUARD",
+        "requires_all": ("GOAL-ECIVFE-30_FIXTURE_MODEL", "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE"),
+        "goal_type": "validator",
+        "profile": "ECIVFE_OUTPUT_GUARD",
+        "statement": "Implement the ECI/VFE output guard for schema validation, forbidden content scan, topology disclosure scan, prompt-injection propagation scan, and VFE query-control validation.",
+    },
+    {
         "queue_key": "GOAL-MVP-61_RC016_SCREENSHOT_EXPECTED_CANDIDATE",
         "suffix": "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
         "match": "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
@@ -331,7 +351,7 @@ def find_latest_backlog(repo_root: Path) -> Path | None:
 
 
 def list_goal_cards(repo_root: Path) -> list[Path]:
-    return sorted(repo_root.glob("docs/goals/GOAL-MVP-*.md"))
+    return sorted(repo_root.glob("docs/goals/GOAL-*.md"))
 
 
 def next_goal_index(goal_cards: list[Path]) -> int:
@@ -1275,6 +1295,68 @@ def profile_contract(
                 "scope expands beyond listed files",
             ],
         }
+    if profile == "ECIVFE_LOCAL_RULE_ENGINE":
+        run_dir = "artifacts/eci_vfe_fixture_runs/rc001"
+        return {
+            "goal_type": "script",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/eci_vfe_fixture_analyze.py",
+                "backend/tests/test_eci_vfe_fixture_analyze.py",
+                f"{run_dir}/chain_assessment.json",
+                f"{run_dir}/forecast_candidates.json",
+                f"{run_dir}/correlation_result.json",
+                f"{run_dir}/run_record.json",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                f"py -3 scripts/eci_vfe_fixture_analyze.py --fixture-dir mock_data\\eci_vfe --output {run_dir}",
+                "py -3 -m pytest backend\\tests\\test_eci_vfe_fixture_analyze.py",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "semantic similarity alone upgrades a case",
+                "high-stage label is emitted below the required threshold without suspected-state downgrade",
+                "evidence_gaps omit urgency, window_closes_in, deadline_basis, or fallback_if_missed",
+                "output contains raw prompt-injection text",
+                "VFE query_context is missing or loses audit-required non-bulk controls",
+                "script requires live Qwen/API/connectors, network access, secret, or API key",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "ECIVFE_OUTPUT_GUARD":
+        run_dir = "artifacts/eci_vfe_fixture_runs/rc001"
+        guard_scan = f"{run_dir}/output_guard_scan.json"
+        return {
+            "goal_type": "validator",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/validate_eci_vfe_output.py",
+                "backend/tests/test_validate_eci_vfe_output.py",
+                guard_scan,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                f"py -3 scripts/validate_eci_vfe_output.py --input {run_dir}",
+                "py -3 -m pytest backend\\tests\\test_validate_eci_vfe_output.py",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "output_guard_scan.json is missing or not PASS",
+                "schema-invalid output passes",
+                "forbidden content passes",
+                "private CIDR plus reachability plus port/control semantics passes",
+                "bulk_export=true passes",
+                "prompt injection text propagates into narrative, watch_for, or remediation",
+                "scope expands beyond listed files",
+            ],
+        }
     if profile == "PRIVATE_PREVIEW_ROUTE_MAP_INDEX":
         report_path = "artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.md"
         report_json = "artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.json"
@@ -1430,11 +1512,16 @@ def queue_candidate(repo_root: Path, goal_index: int, goal_cards: list[Path]) ->
         for name in existing_names
     )
     for item in QUEUE_ITEMS:
+        required_matches = tuple(item.get("requires_all", ()))
+        if required_matches and not all(
+            any(required_match in name for name in existing_names) for required_match in required_matches
+        ):
+            continue
         if product_lane_reset_seen and item["match"] in LEGACY_QUEUE_MATCHES:
             continue
         if any(item["match"] in name for name in existing_names):
             continue
-        goal_id = f"GOAL-MVP-{goal_index:02d}_{item['suffix']}"
+        goal_id = str(item.get("goal_id") or f"GOAL-MVP-{goal_index:02d}_{item['suffix']}")
         contract = profile_contract(item["profile"], goal_id, date_tag, None)
         return {
             "selection_mode": "QUEUE_FALLBACK",

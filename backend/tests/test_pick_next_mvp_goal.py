@@ -204,6 +204,43 @@ class PickNextMvpGoalTests(unittest.TestCase):
             any("local-offline-trial-rc-019-cn-review" in command for command in payload["candidate_goal"]["acceptance_commands"])
         )
 
+    def test_eci_vfe_lane_starts_rule_engine_after_fixture_model(self):
+        (self.root / "docs" / "goals" / "GOAL-ECIVFE-30_FIXTURE_MODEL.md").write_text(
+            "# placeholder\n", encoding="utf-8"
+        )
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-33_LOCAL_RULE_ENGINE", payload["candidate_goal"]["queue_key"])
+        self.assertEqual("GOAL-ECIVFE-33_LOCAL_RULE_ENGINE", payload["candidate_goal"]["goal_id"])
+        self.assertIn("scripts/eci_vfe_fixture_analyze.py", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("mock_data\\eci_vfe" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
+    def test_eci_vfe_lane_advances_to_output_guard_after_rule_engine(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-34_OUTPUT_GUARD", payload["candidate_goal"]["queue_key"])
+        self.assertIn("scripts/validate_eci_vfe_output.py", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("output_guard_scan.json" in path for path in payload["candidate_goal"]["exact_files"])
+        )
+
     def test_private_preview_lane_continues_after_rc_package_refresh(self):
         for name in (
             "GOAL-MVP-94_PRIVATE_PREVIEW_SHELL_ROUTE_MAP.md",
