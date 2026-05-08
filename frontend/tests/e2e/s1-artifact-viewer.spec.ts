@@ -126,11 +126,21 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     const surface = page.getByTestId("s1-local-trial-view");
 
     await expect(page).toHaveURL(/\/s1-trial$/);
-    await expect(page.getByRole("heading", { name: "SecuPilot 本地离线试用中心" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "SecuPilot 企业安全分析助理" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "按你的工作目标进入" })).toBeVisible();
+    await expect(page.getByTestId("s1-product-role-entry")).toHaveCount(4);
+    await expect(page.getByTestId("s1-product-role-grid")).toContainText("一线研判");
+    await expect(page.getByTestId("s1-product-role-grid")).toContainText("深度分析");
+    await expect(page.getByTestId("s1-product-role-grid")).toContainText("管理审阅");
+    await expect(page.getByTestId("s1-product-role-grid")).toContainText("部署与集成");
+    await expect(page.getByTestId("s1-product-trust-strip")).toContainText(
+      "不连接真实系统和 live Qwen/API"
+    );
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
     await expect(page.getByTestId("vf-03-expert-mode-frame")).toHaveCount(0);
     await expect(surface).not.toContainText(/MVP-14|MVP-15|MVP-17|MVP-18|MVP-19/);
+    await expect(surface).not.toContainText(/\bP1\b|\bP2\b|\bP3\b|Mock Fixture|Expert Mode/);
     await expect(surface).toHaveAttribute("data-real-data", "false");
     await expect(surface).toHaveAttribute("data-live-qwen-api", "false");
     await expect(surface).toHaveAttribute("data-live-connectors", "false");

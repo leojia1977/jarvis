@@ -287,12 +287,22 @@ describe("SecuPilot first-batch workbench slice", () => {
     const surface = screen.getByTestId("s1-local-trial-view");
 
     expect(window.location.pathname).toBe("/s1-trial");
-    expect(screen.getByRole("heading", { name: "SecuPilot 本地离线试用中心" }))
+    expect(screen.getByRole("heading", { name: "SecuPilot 企业安全分析助理" }))
       .toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "按你的工作目标进入" })).toBeInTheDocument();
+    expect(screen.getAllByTestId("s1-product-role-entry")).toHaveLength(4);
+    expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("一线研判");
+    expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("深度分析");
+    expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("管理审阅");
+    expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("部署与集成");
+    expect(screen.getByTestId("s1-product-trust-strip")).toHaveTextContent(
+      "不连接真实系统和 live Qwen/API"
+    );
     expect(screen.queryByLabelText("Role selector")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Mock fixture phase")).not.toBeInTheDocument();
     expect(screen.queryByTestId("vf-03-expert-mode-frame")).not.toBeInTheDocument();
     expect(surface).not.toHaveTextContent(/MVP-14|MVP-15|MVP-17|MVP-18|MVP-19/);
+    expect(surface).not.toHaveTextContent(/\bP1\b|\bP2\b|\bP3\b|Mock Fixture|Expert Mode/);
     expect(surface).toHaveAttribute("data-real-data", "false");
     expect(surface).toHaveAttribute("data-live-qwen-api", "false");
     expect(surface).toHaveAttribute("data-live-connectors", "false");

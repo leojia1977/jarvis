@@ -57,21 +57,64 @@ export function S1LocalTrialView() {
     "评审者可以从 README、manifest、final_status、安全扫描和截图完成本地离线检查。"
   );
   const launchCommand = `powershell.exe -NoProfile -ExecutionPolicy Bypass -File ${trial.launcherScript}`;
-  const trialActions = [
+  const roleEntries = [
     {
-      title: "打开本地试用",
-      description: "进入本地浏览器页面，先确认候选版本和试用边界。",
-      value: trial.localUrl
+      title: "一线研判",
+      question: "我现在最应该先看哪件事?",
+      description: "先看结论、影响和下一步，快速判断是否需要继续跟进。",
+      action: "查看事件研判"
     },
     {
-      title: "核验评审材料",
-      description: "按中文入口、manifest、运行状态、安全扫描和截图完成离线检查。",
-      value: trial.deliveryPackagePath
+      title: "深度分析",
+      question: "为什么这么判断?",
+      description: "展开证据链、限制说明和推理计划，确认系统没有越过证据边界。",
+      action: "展开可信证据"
     },
     {
-      title: "记录本地反馈",
-      description: "在页面中预览反馈结论，再写入评审模板或 governed review note。",
+      title: "管理审阅",
+      question: "是否可以进入下一步?",
+      description: "用管理视角看风险、人工确认状态、审阅结论和未关闭建议。",
+      action: "查看试用结论"
+    },
+    {
+      title: "部署与集成",
+      question: "怎么启动和交付?",
+      description: "查看本地启动、评审包、干运行模型契约和后续私有化部署路径。",
+      action: "查看部署准备"
+    }
+  ];
+  const productHomeFacts = [
+    {
+      label: "当前结论",
+      value: "可继续内部本地试用",
+      detail: "带备注通过，不代表客户发布或生产部署 GO。"
+    },
+    {
+      label: "可信依据",
+      value: `${run.caseCount} 个合成案例`,
+      detail: "安全扫描零命中，证据链和限制说明可核验。"
+    },
+    {
+      label: "建议动作",
+      value: "先看结果页，再提交反馈",
+      detail: "客户可见发布、真实数据和生产写回仍未授权。"
+    }
+  ];
+  const nextActions = [
+    {
+      title: "查看试用结果",
+      description: "进入结果页，先读中文结论、可信边界和下一步。",
+      value: "/s1-run"
+    },
+    {
+      title: "提交本地反馈",
+      description: "按准确性、可用性、缺失信息记录 reviewer 反馈。",
       value: "本地反馈预览"
+    },
+    {
+      title: "查看部署准备",
+      description: "确认启动脚本、评审包和 dry provider 状态。",
+      value: trial.deliveryPackagePath
     }
   ];
   const materialStatus = [
@@ -89,6 +132,12 @@ export function S1LocalTrialView() {
     ["客户可见输出", run.boundaries.customerVisibleOutput],
     ["Push", false]
   ] as const;
+  const trustFacts = [
+    "本轮只读取本地合成包",
+    "不连接真实系统和 live Qwen/API",
+    "不写回生产, 不发布客户可见输出",
+    "技术对账信息默认下沉, 需要时再展开"
+  ];
   const feedbackPreview = useMemo(
     () => ({
       schema_version: "secupilot.s1.local_trial_feedback_preview.v1",
@@ -118,70 +167,145 @@ export function S1LocalTrialView() {
       data-real-data="false"
       data-testid="s1-local-trial-view"
     >
-      <header className="s1-trial-header">
+      <header className="s1-trial-header s1-product-home-hero">
         <div>
-          <p className="summary-kicker">本地离线试用</p>
-          <h1 id="s1-trial-title">SecuPilot 本地离线试用中心</h1>
+          <p className="summary-kicker">产品首页 / 内部本地试用</p>
+          <h1 id="s1-trial-title">SecuPilot 企业安全分析助理</h1>
           <p className="s1-trial-lede">
-            从这里启动一次内部本地试用、核验评审材料并记录反馈。当前页面只用于
-            synthetic package 的离线检查，不连接真实系统。
+            SecuPilot 把安全事件、证据链、模型建议和人工确认流程整理成一份可读结论，
+            帮一线工程师、深度分析师、管理者和部署负责人判断现在该做什么。
           </p>
-          <dl className="s1-trial-header-facts">
-            <div>
-              <dt>候选版本</dt>
-              <dd data-testid="s1-trial-candidate">{trial.candidate}</dd>
-            </div>
-            <div>
-              <dt>就绪状态</dt>
-              <dd data-testid="s1-trial-readiness">{trial.readiness}</dd>
-            </div>
-            <div>
-              <dt>Run ID</dt>
-              <dd>{run.runId}</dd>
-            </div>
+          <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
+            <a href="/s1-run">查看试用结果</a>
+            <a href="#s1-feedback-title">提交本地反馈</a>
+            <a href="#s1-qwen-contract-title">查看部署准备</a>
+          </div>
+          <dl className="s1-trial-header-facts s1-product-home-summary-facts">
+            {productHomeFacts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+                <p>{fact.detail}</p>
+              </div>
+            ))}
           </dl>
         </div>
         <span className="s1-trial-status">
           <ShieldCheck aria-hidden="true" size={18} />
-          仅限内部本地/离线
+          本地离线 / 合成包
         </span>
       </header>
 
-      <section aria-label="本地试用入口" className="s1-product-entry-grid">
-        {trialActions.map((action, index) => (
-          <article key={action.title}>
+      <section
+        aria-labelledby="s1-product-role-title"
+        className="s1-product-home-section"
+      >
+        <div className="s1-product-home-section-heading">
+          <p className="summary-kicker">角色入口</p>
+          <h2 id="s1-product-role-title">按你的工作目标进入</h2>
+        </div>
+        <div className="s1-product-entry-grid s1-role-entry-grid" data-testid="s1-product-role-grid">
+        {roleEntries.map((entry, index) => (
+          <article data-testid="s1-product-role-entry" key={entry.title}>
             <span>{String(index + 1).padStart(2, "0")}</span>
             <div>
-              <strong>{action.title}</strong>
-              <p>{action.description}</p>
-              <code>{action.value}</code>
+              <strong>{entry.title}</strong>
+              <p>{entry.question}</p>
+              <small>{entry.description}</small>
+              <code>{entry.action}</code>
             </div>
             <ArrowRight aria-hidden="true" size={18} />
           </article>
         ))}
+        </div>
       </section>
 
       <section aria-label="本地离线试用概览" className="s1-trial-kpi-grid">
         <article>
-          <span>案例数</span>
+          <span>判断对象</span>
           <strong>{run.caseCount}</strong>
-          <p>{run.inputRef}</p>
+          <p>合成安全案例, 用于内部产品体验验证。</p>
         </article>
         <article>
-          <span>安全扫描命中</span>
+          <span>安全扫描</span>
           <strong>{run.safetyScan.findingCount}</strong>
-          <p>{`${run.safetyScan.scannedStringValues} 个字符串已扫描`}</p>
+          <p>{`${run.safetyScan.scannedStringValues} 个字符串已扫描, 未发现敏感留存。`}</p>
         </article>
         <article>
-          <span>Qwen 调用</span>
+          <span>云端模型</span>
           <strong>{yesNo(run.qwenUsed)}</strong>
-          <p>仅 fixture 路径</p>
+          <p>当前只展示 dry contract, 不发起 live 调用。</p>
         </article>
         <article>
-          <span>客户上线授权</span>
+          <span>客户发布</span>
           <strong>{yesNo(run.canDeployToCustomerProduction)}</strong>
-          <p>未授权客户可见输出</p>
+          <p>当前只用于内部本地试用, 不发布客户可见输出。</p>
         </article>
+      </section>
+
+      <section className="s1-trial-product-grid" aria-label="产品首页主要路径">
+        <article className="s1-artifact-panel s1-assistant-plan-panel">
+          <div className="s1-panel-title">
+            <ShieldCheck aria-hidden="true" size={18} />
+            <h2>SecuPilot 研判计划</h2>
+          </div>
+          <p>
+            当前版本把告警理解、证据约束、人工确认和反馈闭环放在同一个产品路径里。
+            它会先给结论, 再说明依据和不能确认的部分。
+          </p>
+          <ul className="s1-assistant-plan-list">
+            <li>
+              <strong>先判断</strong>
+              <span>把事件结论、风险和下一步放在第一屏。</span>
+            </li>
+            <li>
+              <strong>再解释</strong>
+              <span>证据链、限制和技术对账默认折叠, 需要时展开。</span>
+            </li>
+            <li>
+              <strong>后交接</strong>
+              <span>反馈、报告、评审包和部署准备都保留本地离线边界。</span>
+            </li>
+          </ul>
+        </article>
+
+        <article className="s1-artifact-panel s1-trust-strip-panel">
+          <div className="s1-panel-title">
+            <CheckCircle2 aria-hidden="true" size={18} />
+            <h2>为什么可信</h2>
+          </div>
+          <ul className="s1-trust-strip" data-testid="s1-product-trust-strip">
+            {trustFacts.map((fact) => (
+              <li key={fact}>
+                <CheckCircle2 aria-hidden="true" size={16} />
+                <span>{fact}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </section>
+
+      <section
+        aria-labelledby="s1-product-next-actions-title"
+        className="s1-product-home-section"
+      >
+        <div className="s1-product-home-section-heading">
+          <p className="summary-kicker">下一步</p>
+          <h2 id="s1-product-next-actions-title">先完成一次内部试用闭环</h2>
+        </div>
+        <div className="s1-product-entry-grid">
+          {nextActions.map((action, index) => (
+            <article key={action.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <strong>{action.title}</strong>
+                <p>{action.description}</p>
+                <code>{action.value}</code>
+              </div>
+              <ArrowRight aria-hidden="true" size={18} />
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="s1-trial-product-grid">
@@ -228,6 +352,20 @@ export function S1LocalTrialView() {
       <details className="s1-artifact-panel s1-trial-technical-details">
         <summary>技术对账信息</summary>
         <div className="s1-trial-split-grid">
+          <dl className="s1-trial-header-facts s1-product-home-technical-facts">
+            <div>
+              <dt>候选版本</dt>
+              <dd data-testid="s1-trial-candidate">{trial.candidate}</dd>
+            </div>
+            <div>
+              <dt>就绪状态</dt>
+              <dd data-testid="s1-trial-readiness">{trial.readiness}</dd>
+            </div>
+            <div>
+              <dt>Run ID</dt>
+              <dd>{run.runId}</dd>
+            </div>
+          </dl>
           <dl className="s1-trial-launch-facts">
             <div>
               <dt>路由</dt>

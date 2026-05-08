@@ -90,6 +90,13 @@ async function assertS1TrialVisualBoundary(page: Page) {
   await expect(surface).toHaveAttribute("data-customer-visible-output", "false");
   await expect(surface).toHaveAttribute("data-production-writeback", "false");
   await expect(surface).toHaveAttribute("data-push", "false");
+  await expect(page.getByRole("heading", { name: "SecuPilot 企业安全分析助理" })).toBeVisible();
+  await expect(page.getByTestId("s1-product-role-entry")).toHaveCount(4);
+  await expect(page.getByTestId("s1-product-role-grid")).toContainText("一线研判");
+  await expect(page.getByTestId("s1-product-role-grid")).toContainText("部署与集成");
+  await expect(page.getByTestId("s1-product-trust-strip")).toContainText(
+    "不连接真实系统和 live Qwen/API"
+  );
   await expect(page.getByTestId("s1-trial-candidate")).toContainText(
     "LOCAL_OFFLINE_TRIAL_RC_016_CN"
   );
@@ -99,6 +106,7 @@ async function assertS1TrialVisualBoundary(page: Page) {
   await expect(page.getByLabel("Role selector")).toHaveCount(0);
   await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
   await expect(page.getByTestId("vf-03-expert-mode-frame")).toHaveCount(0);
+  await expect(surface).not.toContainText(/\bP1\b|\bP2\b|\bP3\b|Mock Fixture|Expert Mode/);
   await expect(page.locator("body")).not.toContainText(
     /raw_payload\s*[:=]|raw_evidence\s*[:=]|authorization\s*[:=]|token\s*[:=]|private_key\s*[:=]|writeback_action\s*[:=]/i
   );

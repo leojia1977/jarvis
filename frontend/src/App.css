@@ -1704,6 +1704,10 @@ button {
   padding: 18px;
 }
 
+.s1-product-home-hero {
+  padding: 22px;
+}
+
 .s1-run-header h1,
 .s1-trial-header h1,
 .s1-artifact-panel h2 {
@@ -1724,6 +1728,28 @@ button {
   color: #4f5d6b;
   font-size: 14px;
   line-height: 1.55;
+}
+
+.s1-product-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.s1-product-home-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  border: 1px solid #b9d2c7;
+  border-radius: 7px;
+  background: #f7fbf5;
+  color: #1f684f;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
 }
 
 .s1-result-lede {
@@ -1806,6 +1832,13 @@ button {
   overflow-wrap: anywhere;
   color: #243140;
   font-weight: 800;
+}
+
+.s1-product-home-summary-facts p {
+  margin: 6px 0 0;
+  color: #5d6875;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .s1-status-pill {
@@ -1910,6 +1943,22 @@ button {
   gap: 12px;
 }
 
+.s1-product-home-section {
+  display: grid;
+  gap: 12px;
+}
+
+.s1-product-home-section-heading h2 {
+  margin: 0;
+  color: #18202b;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.s1-role-entry-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .s1-result-highlight-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2005,6 +2054,14 @@ button {
   line-height: 1.45;
 }
 
+.s1-product-entry-grid small {
+  display: block;
+  margin-top: 7px;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .s1-product-entry-grid code {
   margin-top: 8px;
   color: #314255;
@@ -2050,6 +2107,54 @@ button {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 12px;
+}
+
+.s1-assistant-plan-list,
+.s1-trust-strip {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.s1-assistant-plan-list li,
+.s1-trust-strip li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border: 1px solid #e2e8df;
+  border-radius: 8px;
+  background: #fbfcf8;
+  padding: 10px;
+}
+
+.s1-assistant-plan-list strong,
+.s1-trust-strip span {
+  color: #243140;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.s1-assistant-plan-list strong {
+  font-weight: 900;
+}
+
+.s1-assistant-plan-list span {
+  color: #5d6875;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.s1-trust-strip svg {
+  margin-top: 1px;
+  color: #267f62;
+}
+
+.s1-product-home-technical-facts {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .s1-artifact-panel {
@@ -3817,6 +3922,7 @@ button {
   .historical-case-list-item,
   .s1-run-header,
   .s1-trial-header,
+  .s1-trial-product-grid,
   .s1-split-grid,
   .s1-trial-split-grid,
   .approval-shell-header,
