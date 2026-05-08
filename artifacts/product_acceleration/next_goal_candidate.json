@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "schema_version": "secupilot.next_mvp_goal_candidate.v1",
-  "generated_at_local": "2026-05-08T08:28:16",
+  "generated_at_local": "2026-05-08T08:50:58",
   "repo_root": "D:/产品设计/New folder",
   "latest_backlog_json": "D:/产品设计/New folder/artifacts/product_backlog/local-offline-trial-rc-014-cn-review/reviewer_backlog.json",
   "selection_mode": "QUEUE_FALLBACK",

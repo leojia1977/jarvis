@@ -66,6 +66,78 @@ QUEUE_ITEMS = (
         "profile": "RC_SELF_REVIEW_REPORT",
         "statement": "Generate an automated RC package self-review report so package readiness has a machine-generated PASS/HOLD summary before human review.",
     },
+    {
+        "queue_key": "GOAL-MVP-67_ROLE_BASED_TRIAL_HOME",
+        "suffix": "ROLE_BASED_TRIAL_HOME",
+        "match": "ROLE_BASED_TRIAL_HOME",
+        "goal_type": "page",
+        "profile": "ROLE_BASED_HOME",
+        "statement": "Turn the trial entry into a role-based product home with engineer, manager, and CTO paths while keeping one shared SecuPilot product experience.",
+    },
+    {
+        "queue_key": "GOAL-MVP-68_INCIDENT_DETAIL_PRODUCT_PAGE",
+        "suffix": "INCIDENT_DETAIL_PRODUCT_PAGE",
+        "match": "INCIDENT_DETAIL_PRODUCT_PAGE",
+        "goal_type": "page",
+        "profile": "INCIDENT_DETAIL_PAGE",
+        "statement": "Create a productized incident detail page where conclusion, risk, and next action lead while evidence stays collapsed behind a technical detail section.",
+    },
+    {
+        "queue_key": "GOAL-MVP-69_RECOMMENDED_ACTION_CARDS",
+        "suffix": "RECOMMENDED_ACTION_CARDS",
+        "match": "RECOMMENDED_ACTION_CARDS",
+        "goal_type": "page",
+        "profile": "ACTION_CARDS",
+        "statement": "Add SecuPilot recommended action cards that translate analysis into practical next steps without enabling autonomous action or write-back.",
+    },
+    {
+        "queue_key": "GOAL-MVP-70_USER_FEEDBACK_LOOP",
+        "suffix": "USER_FEEDBACK_LOOP",
+        "match": "USER_FEEDBACK_LOOP",
+        "goal_type": "page",
+        "profile": "FEEDBACK_LOOP",
+        "statement": "Add a local/offline feedback loop for accuracy, usefulness, missing information, and suggested action so trial feedback becomes structured product input.",
+    },
+    {
+        "queue_key": "GOAL-MVP-71_QWEN_DRY_PROVIDER_UI",
+        "suffix": "QWEN_DRY_PROVIDER_UI",
+        "match": "QWEN_DRY_PROVIDER_UI",
+        "goal_type": "page",
+        "profile": "QWEN_DRY_UI",
+        "statement": "Expose a cloud-Qwen dry provider preview in the product UI using mock contract data only, with no live API call, no key, and no real data.",
+    },
+    {
+        "queue_key": "GOAL-MVP-72_QWEN_CLOUD_CONTRACT_MOCK",
+        "suffix": "QWEN_CLOUD_CONTRACT_MOCK",
+        "match": "QWEN_CLOUD_CONTRACT_MOCK",
+        "goal_type": "interface",
+        "profile": "QWEN_CLOUD_CONTRACT",
+        "statement": "Define the cloud model invocation contract with mock latency, timeout, and error handling so Qwen integration can be tested without network calls or secrets.",
+    },
+    {
+        "queue_key": "GOAL-MVP-73_PRIVATE_DEPLOY_PACKAGE_STRUCTURE",
+        "suffix": "PRIVATE_DEPLOY_PACKAGE_STRUCTURE",
+        "match": "PRIVATE_DEPLOY_PACKAGE_STRUCTURE",
+        "goal_type": "package",
+        "profile": "PRIVATE_DEPLOY_PACKAGE",
+        "statement": "Draft a Windows/local-first private deployment package structure with startup, config, and offline trial handoff files, without deploying or touching customer systems.",
+    },
+    {
+        "queue_key": "GOAL-MVP-74_CUSTOMER_TRIAL_README_AND_LAUNCHER",
+        "suffix": "CUSTOMER_TRIAL_README_AND_LAUNCHER",
+        "match": "CUSTOMER_TRIAL_README_AND_LAUNCHER",
+        "goal_type": "script",
+        "profile": "CUSTOMER_TRIAL_LAUNCHER",
+        "statement": "Create a customer-trial README and one-command local launcher for the internal trial build while preserving local/offline and no-deploy boundaries.",
+    },
+    {
+        "queue_key": "GOAL-MVP-75_INTERNAL_TRIAL_KPI_REPORT",
+        "suffix": "INTERNAL_TRIAL_KPI_REPORT",
+        "match": "INTERNAL_TRIAL_KPI_REPORT",
+        "goal_type": "test-report",
+        "profile": "TRIAL_KPI_REPORT",
+        "statement": "Generate an internal trial KPI report covering understanding rate, task completion, feedback themes, and blockers from local/offline feedback artifacts.",
+    },
 )
 
 
@@ -343,6 +415,245 @@ def profile_contract(
             "hold_conditions": [
                 "self-review report marks PASS when any validator has blocking findings",
                 "report includes raw payload, secret, token, auth header, or customer-visible deploy go",
+                "unit test fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "ROLE_BASED_HOME":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/S1LocalTrialView.tsx",
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                "frontend/tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts tests/e2e/s1-artifact-viewer.visual.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "role cards are generic marketing copy instead of engineer/manager/CTO trial paths",
+                "P1/P2/P3, Mock Fixture, or Expert Mode appears in reviewer-facing UI",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "INCIDENT_DETAIL_PAGE":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/S1ArtifactView.tsx",
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "incident detail first screen is dominated by evidence table or artifact paths",
+                "conclusion, risk, or next action is missing from first screen",
+                "raw payload, secret, token, auth header, or write-back text appears",
+                "frontend unit/build/playwright fails twice in the same way",
+            ],
+        }
+    if profile == "ACTION_CARDS":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/S1ArtifactView.tsx",
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "action card implies autonomous approval, remediation, write-back, or production mutation",
+                "recommended action lacks human-review wording",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "FEEDBACK_LOOP":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/S1ArtifactView.tsx",
+                "frontend/src/secupilot/s1/s1ClosedShadowRunArtifacts.ts",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "feedback control writes to backend, network, external tracker, or customer-visible output",
+                "feedback categories omit accuracy, usefulness, missing information, or suggested action",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "QWEN_DRY_UI":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/s1QwenProviderDryPreview.ts",
+                "frontend/src/secupilot/s1/s1QwenProviderContract.ts",
+                "frontend/src/secupilot/s1/S1ArtifactView.tsx",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/s1-artifact-viewer.spec.ts",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/s1-artifact-viewer.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "UI requires API key, live Qwen call, network request, or connector output",
+                "UI accepts raw payload, action_command, or autonomous approval fields",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "QWEN_CLOUD_CONTRACT":
+        return {
+            "goal_type": "interface",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/secupilot/s1/s1QwenProviderContract.ts",
+                "frontend/src/secupilot/s1/s1QwenProviderDryPreview.ts",
+                "frontend/src/App.test.tsx",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "contract requires network, API key, secret, token, or live Qwen service",
+                "contract omits mock latency, timeout, or error-state handling",
+                "contract permits autonomous action or production write-back",
+                "frontend unit/build fails twice in the same way",
+            ],
+        }
+    if profile == "PRIVATE_DEPLOY_PACKAGE":
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_private_trial_package.py",
+                "backend/tests/test_build_private_trial_package.py",
+                "artifacts/private_trial_package/README_中文.md",
+                "artifacts/private_trial_package/package_manifest.json",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_private_trial_package",
+                "py -3 scripts/build_private_trial_package.py --output-dir artifacts/private_trial_package --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "package attempts deploy, service installation, external network, or customer system mutation",
+                "package includes secrets, tokens, auth headers, or real data",
+                "unit test fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "CUSTOMER_TRIAL_LAUNCHER":
+        return {
+            "goal_type": "script",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/launch_customer_trial_local.ps1",
+                "artifacts/private_trial_package/README_中文.md",
+                "backend/tests/test_customer_trial_launcher_contract.py",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_customer_trial_launcher_contract",
+                "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/launch_customer_trial_local.ps1 -DryRun",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "launcher starts deploy, opens public tunnel, calls live API, or mutates production/customer systems",
+                "dry run omits local URL, package path, or stop instructions",
+                "unit test or dry run fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "TRIAL_KPI_REPORT":
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_internal_trial_kpi_report.py",
+                "backend/tests/test_build_internal_trial_kpi_report.py",
+                "artifacts/product_reports/internal_trial_kpi_report.md",
+                "artifacts/product_reports/internal_trial_kpi_report.json",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_internal_trial_kpi_report",
+                "py -3 scripts/build_internal_trial_kpi_report.py --feedback-root artifacts/product_backlog --output-md artifacts/product_reports/internal_trial_kpi_report.md --output-json artifacts/product_reports/internal_trial_kpi_report.json --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "KPI report fabricates reviewer decisions or customer usage metrics",
+                "report grants customer-visible deploy or production launch",
                 "unit test fails twice in the same way",
                 "scope expands beyond listed files",
             ],

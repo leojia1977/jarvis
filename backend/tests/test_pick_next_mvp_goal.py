@@ -135,6 +135,57 @@ class PickNextMvpGoalTests(unittest.TestCase):
         self.assertEqual("GOAL-MVP-65_LOCAL_OFFLINE_TRIAL_REPORT", payload["candidate_goal"]["queue_key"])
         self.assertIn("scripts/build_client_trial_readiness_report.py", payload["candidate_goal"]["exact_files"])
 
+    def test_queue_advances_to_role_based_home_after_mvp61_to_66_exist(self):
+        for name in (
+            "GOAL-MVP-61_RC016_SCREENSHOT_EXPECTED_CANDIDATE.md",
+            "GOAL-MVP-62_ZIP_TAMPER_NEGATIVE_TEST.md",
+            "GOAL-MVP-63_PRODUCT_ACCELERATION_POOL_PICKER.md",
+            "GOAL-MVP-64_CLIENT_TRIAL_HOME_PRODUCTIZATION.md",
+            "GOAL-MVP-65_LOCAL_OFFLINE_TRIAL_REPORT.md",
+            "GOAL-MVP-66_RC_PACKAGE_SELF_REVIEW_REPORT.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-MVP-67_ROLE_BASED_TRIAL_HOME", payload["candidate_goal"]["queue_key"])
+        self.assertIn("frontend/src/secupilot/s1/S1LocalTrialView.tsx", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(any("engineer" in condition for condition in payload["candidate_goal"]["hold_conditions"]))
+
+    def test_queue_advances_to_internal_trial_kpi_after_product_experience_items_exist(self):
+        for index, suffix in (
+            (61, "RC016_SCREENSHOT_EXPECTED_CANDIDATE"),
+            (62, "ZIP_TAMPER_NEGATIVE_TEST"),
+            (63, "PRODUCT_ACCELERATION_POOL_PICKER"),
+            (64, "CLIENT_TRIAL_HOME_PRODUCTIZATION"),
+            (65, "LOCAL_OFFLINE_TRIAL_REPORT"),
+            (66, "RC_PACKAGE_SELF_REVIEW_REPORT"),
+            (67, "ROLE_BASED_TRIAL_HOME"),
+            (68, "INCIDENT_DETAIL_PRODUCT_PAGE"),
+            (69, "RECOMMENDED_ACTION_CARDS"),
+            (70, "USER_FEEDBACK_LOOP"),
+            (71, "QWEN_DRY_PROVIDER_UI"),
+            (72, "QWEN_CLOUD_CONTRACT_MOCK"),
+            (73, "PRIVATE_DEPLOY_PACKAGE_STRUCTURE"),
+            (74, "CUSTOMER_TRIAL_README_AND_LAUNCHER"),
+        ):
+            (self.root / "docs" / "goals" / f"GOAL-MVP-{index}_{suffix}.md").write_text(
+                "# placeholder\n", encoding="utf-8"
+            )
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-MVP-75_INTERNAL_TRIAL_KPI_REPORT", payload["candidate_goal"]["queue_key"])
+        self.assertIn("scripts/build_internal_trial_kpi_report.py", payload["candidate_goal"]["exact_files"])
+
     def test_holds_when_backlog_items_is_not_list(self):
         write_json(self.backlog_json, {"items": {"bad": "shape"}})
 
