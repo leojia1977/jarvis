@@ -1,0 +1,48 @@
+{
+  "schema_version": "secupilot.internal_trial_kpi_report.v1",
+  "report_id": "secupilot-private-deployment-windows-local-v0_1-internal-trial-kpi",
+  "generated_at_utc": "2026-05-08T03:09:24.026871Z",
+  "package_id": "secupilot-private-deployment-windows-local-v0_1",
+  "package_dir": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1",
+  "status": "READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION",
+  "summary": "本地离线试用入口已完成 dry-run 启动且边界检查通过，等待内部试用反馈样本。",
+  "inputs": {
+    "package_manifest": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/package_manifest.json",
+    "customer_trial_status": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_status.json",
+    "feedback_json": null
+  },
+  "metrics": {
+    "completion_status": "COMPLETE_LOCAL_DRY_RUN",
+    "trial_completion_rate_percent": 100,
+    "boundary_check_status": "PASS",
+    "boundary_false_count": 12,
+    "boundary_required_count": 12
+  },
+  "feedback": {
+    "feedback_source": null,
+    "feedback_count": 0,
+    "understanding_sample_count": 0,
+    "understanding_positive_count": 0,
+    "understanding_rate_percent": null,
+    "usefulness_sample_count": 0,
+    "usefulness_positive_count": 0,
+    "usefulness_rate_percent": null,
+    "missing_information_count": 0,
+    "measurement_status": "PENDING_FEEDBACK"
+  },
+  "blockers": [],
+  "non_authorization": [
+    "No real data",
+    "No masked-real data",
+    "No live Qwen/API/connectors",
+    "No production write-back",
+    "No customer-visible publish/deploy",
+    "No external pilot",
+    "No production launch"
+  ],
+  "next_unlock": "GOAL-MVP-76_CUSTOMER_TRIAL_FEEDBACK_SAMPLE_CAPTURE",
+  "outputs": {
+    "json": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/internal_trial_kpi_report.json",
+    "markdown": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/internal_trial_kpi_report_中文.md"
+  }
+}
