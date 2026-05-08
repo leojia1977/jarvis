@@ -362,7 +362,8 @@ describe("SecuPilot first-batch workbench slice", () => {
       .not.toBeInTheDocument();
   });
 
-  it("renders the product incident page as conclusion-first with folded evidence", () => {
+  it("renders the product incident page as conclusion-first with folded evidence", async () => {
+    const user = userEvent.setup();
     window.history.pushState({}, "", "/incident/CASE-2847");
 
     render(<App />);
@@ -390,6 +391,31 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(recommendedActionCard).toHaveTextContent("等待人工确认");
     expect(recommendedActionCard).toHaveTextContent("不自动执行");
     expect(recommendedActionCard).toHaveTextContent("人工确认边界");
+    const feedbackLoop = screen.getByTestId("incident-recommendation-feedback-loop");
+    expect(feedbackLoop).toHaveAttribute("data-artifact-write", "false");
+    expect(feedbackLoop).toHaveAttribute("data-backend-write", "false");
+    expect(feedbackLoop).toHaveAttribute("data-qwen-api-call", "false");
+    expect(feedbackLoop).toHaveAttribute("data-state-mutation", "none");
+    expect(feedbackLoop).toHaveTextContent("这条建议是否准确、有用、还缺什么");
+    expect(screen.getAllByTestId("incident-feedback-accuracy-option")).toHaveLength(3);
+    expect(screen.getAllByTestId("incident-feedback-usefulness-option")).toHaveLength(3);
+    expect(screen.getAllByTestId("incident-feedback-missing-info-option")).toHaveLength(4);
+    await user.click(screen.getByRole("button", { name: /不准确/ }));
+    await user.click(screen.getByRole("button", { name: /需要补充后再判断/ }));
+    await user.click(screen.getByLabelText("资产负责人和业务影响"));
+    await user.clear(screen.getByTestId("incident-feedback-note"));
+    await user.type(screen.getByTestId("incident-feedback-note"), "需要补充资产负责人确认。");
+    expect(screen.getByTestId("incident-feedback-summary")).toHaveTextContent("不准确");
+    expect(screen.getByTestId("incident-feedback-summary")).toHaveTextContent("需要补充后再判断");
+    expect(screen.getByTestId("incident-feedback-summary")).toHaveTextContent("资产负责人和业务影响");
+    const feedbackPreview = screen.getByTestId("incident-feedback-preview");
+    expect(feedbackPreview).toHaveTextContent('"accuracy": "NOT_ACCURATE"');
+    expect(feedbackPreview).toHaveTextContent('"usefulness": "NEEDS_MORE_INFO"');
+    expect(feedbackPreview).toHaveTextContent('"asset_owner_impact"');
+    expect(feedbackPreview).toHaveTextContent('"backend_write": false');
+    expect(feedbackPreview).toHaveTextContent('"qwen_api_call": false');
+    expect(feedbackPreview).toHaveTextContent('"customer_visible_output": false');
+    expect(feedbackPreview).toHaveTextContent("需要补充资产负责人确认。");
     expect(screen.getByTestId("incident-trust-summary")).toHaveTextContent("证据覆盖");
     expect(screen.getByTestId("incident-evidence-details")).not.toHaveAttribute("open");
     expect(screen.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute("open");

@@ -208,6 +208,15 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(recommendedActionCard).toContainText("等待人工确认");
     await expect(recommendedActionCard).toContainText("不自动执行");
     await expect(recommendedActionCard).toContainText("人工确认边界");
+    const feedbackLoop = page.getByTestId("incident-recommendation-feedback-loop");
+    await expect(feedbackLoop).toHaveAttribute("data-artifact-write", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-backend-write", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-qwen-api-call", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-state-mutation", "none");
+    await expect(feedbackLoop).toContainText("这条建议是否准确、有用、还缺什么");
+    await expect(page.getByTestId("incident-feedback-accuracy-option")).toHaveCount(3);
+    await expect(page.getByTestId("incident-feedback-usefulness-option")).toHaveCount(3);
+    await expect(page.getByTestId("incident-feedback-missing-info-option")).toHaveCount(4);
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });
 });

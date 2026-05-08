@@ -5,14 +5,14 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp69");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp70");
 
-test.describe("MVP-69 recommended action card", () => {
+test.describe("MVP-70 recommendation feedback closed loop", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
 
-  test("renders conclusion-first incident page with a safe recommended action card", async ({ page }) => {
+  test("renders conclusion-first incident page with local recommendation feedback", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto("/incident/CASE-2847");
 
@@ -38,6 +38,30 @@ test.describe("MVP-69 recommended action card", () => {
     await expect(recommendedActionCard).toContainText("为什么建议这样做");
     await expect(recommendedActionCard).toContainText("人工确认边界");
     await expect(recommendedActionCard).toContainText("不自动执行");
+    const feedbackLoop = page.getByTestId("incident-recommendation-feedback-loop");
+    await expect(feedbackLoop).toBeVisible();
+    await expect(feedbackLoop).toHaveAttribute("data-artifact-write", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-backend-write", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-qwen-api-call", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-state-mutation", "none");
+    await expect(feedbackLoop).toContainText("这条建议是否准确、有用、还缺什么");
+    await expect(page.getByTestId("incident-feedback-accuracy-option")).toHaveCount(3);
+    await expect(page.getByTestId("incident-feedback-usefulness-option")).toHaveCount(3);
+    await expect(page.getByTestId("incident-feedback-missing-info-option")).toHaveCount(4);
+    await page.getByRole("button", { name: /基本准确/ }).click();
+    await page.getByRole("button", { name: /可以行动/ }).click();
+    await page.getByLabel("资产负责人和业务影响").check();
+    await page.getByTestId("incident-feedback-note").fill("建议清楚，还需要资产负责人确认影响范围。");
+    await page.getByTestId("incident-feedback-summary").click();
+    await expect(page.getByTestId("incident-feedback-summary")).toContainText("基本准确");
+    await expect(page.getByTestId("incident-feedback-summary")).toContainText("可以行动");
+    await expect(page.getByTestId("incident-feedback-summary")).toContainText("资产负责人和业务影响");
+    await expect(page.getByTestId("incident-feedback-preview")).toContainText(
+      '"accuracy": "ACCURATE"'
+    );
+    await expect(page.getByTestId("incident-feedback-preview")).toContainText(
+      '"backend_write": false'
+    );
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-technical-reconciliation")).not.toHaveAttribute(
       "open",
@@ -57,7 +81,7 @@ test.describe("MVP-69 recommended action card", () => {
       path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp69.recommended_action_card_text.v1",
+          schema_version: "secupilot.mvp70.recommendation_feedback_loop_text.v1",
           route: "/incident/CASE-2847",
           viewport: "1440x1000",
           visible_text: visibleText
@@ -86,6 +110,11 @@ test.describe("MVP-69 recommended action card", () => {
     await expect(recommendedActionCard).toHaveAttribute("data-production-writeback", "false");
     await expect(recommendedActionCard).toHaveAttribute("data-customer-visible-output", "false");
     await expect(recommendedActionCard).toContainText("先交给人工确认");
+    const feedbackLoop = page.getByTestId("incident-recommendation-feedback-loop");
+    await expect(feedbackLoop).toBeVisible();
+    await expect(feedbackLoop).toHaveAttribute("data-backend-write", "false");
+    await expect(feedbackLoop).toHaveAttribute("data-qwen-api-call", "false");
+    await expect(feedbackLoop).toContainText("反馈摘要");
     await expect(page.getByTestId("incident-evidence-details")).not.toHaveAttribute("open", "");
     await expect(page.getByLabel("Role selector")).toHaveCount(0);
     await expect(page.getByLabel("Mock fixture phase")).toHaveCount(0);
@@ -100,7 +129,7 @@ test.describe("MVP-69 recommended action card", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp69.recommended_action_card_text.v1",
+          schema_version: "secupilot.mvp70.recommendation_feedback_loop_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
           visible_text: visibleText

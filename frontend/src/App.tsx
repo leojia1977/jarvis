@@ -3012,6 +3012,88 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     "当前证据足以提示高风险，但仍缺少直接终端进程证据和 MFA 复核。",
     "先进入人工确认可以降低误阻断风险，并保留后续处置选择。"
   ];
+  const feedbackAccuracyOptions = [
+    {
+      value: "ACCURATE",
+      label: "基本准确",
+      description: "结论方向和现场判断一致，可以继续复核。"
+    },
+    {
+      value: "PARTIAL",
+      label: "部分准确",
+      description: "方向有价值，但证据或影响范围还需要补齐。"
+    },
+    {
+      value: "NOT_ACCURATE",
+      label: "不准确",
+      description: "建议与现场判断不匹配，需要重新分析。"
+    }
+  ] as const;
+  const feedbackUsefulnessOptions = [
+    {
+      value: "ACTIONABLE",
+      label: "可以行动",
+      description: "足够支撑进入人工确认或处置排程。"
+    },
+    {
+      value: "NEEDS_MORE_INFO",
+      label: "需要补充后再判断",
+      description: "建议方向可用，但必须先补证据。"
+    },
+    {
+      value: "NOT_USEFUL",
+      label: "暂时不可用",
+      description: "当前建议不能帮助下一步判断。"
+    }
+  ] as const;
+  const missingInfoOptions = [
+    { value: "endpoint_process", label: "终端进程证据" },
+    { value: "mfa_identity", label: "MFA 与身份日志" },
+    { value: "asset_owner_impact", label: "资产负责人和业务影响" },
+    { value: "timeline_scope", label: "时间线和覆盖范围" }
+  ] as const;
+  const [feedbackAccuracy, setFeedbackAccuracy] = useState("PARTIAL");
+  const [feedbackUsefulness, setFeedbackUsefulness] = useState("NEEDS_MORE_INFO");
+  const [selectedMissingInfo, setSelectedMissingInfo] = useState<string[]>([
+    "endpoint_process",
+    "mfa_identity"
+  ]);
+  const [feedbackNotes, setFeedbackNotes] = useState(
+    "建议保留，但需要复核 MFA、身份日志和终端进程证据后再处置。"
+  );
+  const selectedAccuracyLabel =
+    feedbackAccuracyOptions.find((option) => option.value === feedbackAccuracy)?.label ?? "未选择";
+  const selectedUsefulnessLabel =
+    feedbackUsefulnessOptions.find((option) => option.value === feedbackUsefulness)?.label ??
+    "未选择";
+  const selectedMissingInfoLabels = missingInfoOptions
+    .filter((option) => selectedMissingInfo.includes(option.value))
+    .map((option) => option.label);
+  const feedbackPreview = useMemo(
+    () => ({
+      schema_version: "secupilot.incident.recommendation_feedback_preview.v1",
+      case_id: activeCase.id,
+      recommendation: "先交给人工确认，再决定是否处置",
+      accuracy: feedbackAccuracy,
+      usefulness: feedbackUsefulness,
+      missing_information: selectedMissingInfo,
+      note: feedbackNotes,
+      record_scope: "LOCAL_BROWSER_PREVIEW_ONLY",
+      artifact_write: false,
+      backend_write: false,
+      qwen_api_call: false,
+      connector_call: false,
+      state_mutation: "none",
+      customer_visible_output: false,
+      production_writeback: false
+    }),
+    [activeCase.id, feedbackAccuracy, feedbackNotes, feedbackUsefulness, selectedMissingInfo]
+  );
+  const toggleMissingInfo = (value: string) => {
+    setSelectedMissingInfo((current) =>
+      current.includes(value) ? current.filter((item) => item !== value) : [...current, value]
+    );
+  };
 
   return (
     <section
@@ -3107,6 +3189,127 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         </div>
       </section>
 
+      <section
+        aria-labelledby="incident-feedback-loop-title"
+        className="incident-feedback-loop-card"
+        data-artifact-write="false"
+        data-backend-write="false"
+        data-connector-call="false"
+        data-customer-visible-output="false"
+        data-production-writeback="false"
+        data-qwen-api-call="false"
+        data-state-mutation="none"
+        data-testid="incident-recommendation-feedback-loop"
+        id="incident-feedback-anchor"
+      >
+        <div className="incident-feedback-loop-header">
+          <div>
+            <p className="summary-kicker">反馈闭环</p>
+            <h2 id="incident-feedback-loop-title">这条建议是否准确、有用、还缺什么</h2>
+            <p>
+              反馈只在当前浏览器生成本地预览，用来帮助下一轮产品和研判改进；
+              不提交后端、不调用模型、不写入证据包。
+            </p>
+          </div>
+          <span>本地预览</span>
+        </div>
+        <div className="incident-feedback-loop-layout">
+          <div className="incident-feedback-controls">
+            <fieldset>
+              <legend>建议准确性</legend>
+              <div className="incident-feedback-options" role="group">
+                {feedbackAccuracyOptions.map((option) => (
+                  <button
+                    aria-pressed={feedbackAccuracy === option.value}
+                    className={feedbackAccuracy === option.value ? "is-selected" : undefined}
+                    data-testid="incident-feedback-accuracy-option"
+                    key={option.value}
+                    onClick={() => setFeedbackAccuracy(option.value)}
+                    type="button"
+                  >
+                    <span>{option.label}</span>
+                    <small>{option.description}</small>
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>建议可用性</legend>
+              <div className="incident-feedback-options" role="group">
+                {feedbackUsefulnessOptions.map((option) => (
+                  <button
+                    aria-pressed={feedbackUsefulness === option.value}
+                    className={feedbackUsefulness === option.value ? "is-selected" : undefined}
+                    data-testid="incident-feedback-usefulness-option"
+                    key={option.value}
+                    onClick={() => setFeedbackUsefulness(option.value)}
+                    type="button"
+                  >
+                    <span>{option.label}</span>
+                    <small>{option.description}</small>
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>还缺什么信息</legend>
+              <div className="incident-feedback-missing-info">
+                {missingInfoOptions.map((option) => (
+                  <label key={option.value}>
+                    <input
+                      checked={selectedMissingInfo.includes(option.value)}
+                      data-testid="incident-feedback-missing-info-option"
+                      onChange={() => toggleMissingInfo(option.value)}
+                      type="checkbox"
+                    />
+                    <span>{option.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label className="incident-feedback-note-field">
+              <span>补充说明</span>
+              <textarea
+                aria-label="建议反馈补充说明"
+                data-testid="incident-feedback-note"
+                onChange={(event) => setFeedbackNotes(event.target.value)}
+                value={feedbackNotes}
+              />
+            </label>
+          </div>
+          <aside className="incident-feedback-summary" data-testid="incident-feedback-summary">
+            <h3>反馈摘要</h3>
+            <dl>
+              <div>
+                <dt>准确性</dt>
+                <dd>{selectedAccuracyLabel}</dd>
+              </div>
+              <div>
+                <dt>可用性</dt>
+                <dd>{selectedUsefulnessLabel}</dd>
+              </div>
+              <div>
+                <dt>缺失信息</dt>
+                <dd>
+                  {selectedMissingInfoLabels.length > 0
+                    ? selectedMissingInfoLabels.join("、")
+                    : "暂未标记"}
+                </dd>
+              </div>
+            </dl>
+            <p data-testid="incident-feedback-next-action">
+              下一步：把反馈带入人工复核和下一轮产品迭代；当前页面不执行生产动作。
+            </p>
+            <details className="incident-feedback-local-record">
+              <summary>查看本地记录预览</summary>
+              <pre data-testid="incident-feedback-preview">
+                {JSON.stringify(feedbackPreview, null, 2)}
+              </pre>
+            </details>
+          </aside>
+        </div>
+      </section>
+
       <section className="incident-brief-grid" aria-label="事件解释摘要">
         <article>
           <h2>发生了什么</h2>
@@ -3131,7 +3334,6 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       <section
         aria-labelledby="incident-assistant-plan-title"
         className="incident-action-panel"
-        id="incident-feedback-anchor"
       >
         <div>
           <p className="summary-kicker">SecuPilot 研判计划</p>
