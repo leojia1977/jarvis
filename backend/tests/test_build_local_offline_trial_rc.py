@@ -182,6 +182,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
                 "folded_state_evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
                 "folded_state_backlog_item_id": "RFB-RC016-001",
+                "folded_state_review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_phase": "FIRST_LOAD",
@@ -245,6 +246,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             "RFB-RC016-001",
             required_archive["folded_state_backlog_item_id"],
+        )
+        self.assertEqual(
+            "LOCAL_OFFLINE_TRIAL_RC_016_CN",
+            required_archive["folded_state_review_source_candidate"],
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
