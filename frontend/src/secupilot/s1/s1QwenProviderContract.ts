@@ -1,6 +1,7 @@
 export type S1QwenProviderMode =
   | "fixture"
   | "external-output"
+  | "qwen-synthetic-stub-ready"
   | "qwen-cloud-disabled";
 
 export interface S1QwenProviderModeContract {
@@ -15,7 +16,7 @@ export interface S1QwenProviderModeContract {
 
 export const S1_QWEN_PROVIDER_CONTRACT = {
   schemaVersion: "secupilot.s1.qwen_provider_contract.v1",
-  activeMode: "qwen-cloud-disabled" satisfies S1QwenProviderMode,
+  activeMode: "qwen-synthetic-stub-ready" satisfies S1QwenProviderMode,
   liveCallAllowed: false,
   secretMaterialAllowed: false,
   connectorCallAllowed: false,
@@ -40,6 +41,15 @@ export const S1_QWEN_PROVIDER_CONTRACT = {
       secretsAllowed: false,
       connectorAllowed: false,
       description: "只从本地文件导入已批准的 metadata-only 模型输出。"
+    },
+    {
+      mode: "qwen-synthetic-stub-ready",
+      label: "Qwen synthetic provider stub（合成预览已就绪）",
+      status: "available",
+      liveCallAllowed: false,
+      secretsAllowed: false,
+      connectorAllowed: false,
+      description: "使用本地合成包生成 metadata-only 模型建议；不联网、不读取 API key。"
     },
     {
       mode: "qwen-cloud-disabled",

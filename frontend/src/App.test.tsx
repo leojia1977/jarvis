@@ -338,12 +338,27 @@ describe("SecuPilot first-batch workbench slice", () => {
       '"artifact_write": false'
     );
     const qwenContract = screen.getByTestId("s1-qwen-provider-contract");
-    expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-cloud-disabled");
+    expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-synthetic-stub-ready");
     expect(qwenContract).toHaveAttribute("data-live-call-allowed", "false");
-    expect(screen.getByTestId("s1-qwen-active-mode")).toHaveTextContent(
-      "qwen-cloud-disabled"
+    expect(qwenContract).toHaveAttribute("data-provider-stub-ready", "true");
+    expect(qwenContract).toHaveAttribute(
+      "data-provider-stub-status",
+      "QWEN_SYNTHETIC_PROVIDER_STUB_READY_NO_NETWORK"
     );
-    expect(screen.getAllByTestId("s1-qwen-provider-mode")).toHaveLength(3);
+    expect(screen.getByTestId("s1-qwen-active-mode")).toHaveTextContent(
+      "qwen-synthetic-stub-ready"
+    );
+    expect(screen.getByTestId("s1-qwen-readiness-status")).toHaveTextContent(
+      "合成模型 provider stub 已就绪"
+    );
+    expect(screen.getByTestId("s1-qwen-readiness-case-count")).toHaveTextContent("20");
+    expect(screen.getByTestId("s1-qwen-readiness-card")).toHaveTextContent(
+      "不联网、不读取 API key"
+    );
+    expect(screen.getByTestId("s1-qwen-provider-stub-mode")).toHaveTextContent(
+      "qwen_live_synthetic_provider_stub_no_network"
+    );
+    expect(screen.getAllByTestId("s1-qwen-provider-mode")).toHaveLength(4);
     const qwenDryPreview = screen.getByTestId("s1-qwen-dry-preview");
     expect(qwenDryPreview).toHaveAttribute("data-provider-mode", "dry_contract_only");
     expect(qwenDryPreview).toHaveAttribute("data-live-qwen-api", "false");
@@ -419,11 +434,20 @@ describe("SecuPilot first-batch workbench slice", () => {
     const qwenProviderPreview = screen.getByTestId("incident-qwen-provider-dry-run");
     expect(qwenProviderPreview).toHaveAttribute("data-live-qwen-api", "false");
     expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
+    expect(qwenProviderPreview).toHaveAttribute("data-provider-stub-ready", "true");
+    expect(qwenProviderPreview).toHaveAttribute(
+      "data-provider-stub-status",
+      "QWEN_SYNTHETIC_PROVIDER_STUB_READY_NO_NETWORK"
+    );
     expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
     expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
     expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     expect(qwenProviderPreview).toHaveTextContent("Qwen 接入路径：先 dry-run，再谈真实调用");
-    expect(screen.getAllByTestId("incident-qwen-provider-mode")).toHaveLength(3);
+    expect(screen.getByTestId("incident-qwen-readiness-status")).toHaveTextContent(
+      "合成模型 provider stub 已就绪"
+    );
+    expect(screen.getByTestId("incident-qwen-readiness-case-count")).toHaveTextContent("20");
+    expect(screen.getAllByTestId("incident-qwen-provider-mode")).toHaveLength(4);
     expect(screen.getAllByTestId("incident-qwen-runtime-scenario")).toHaveLength(4);
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("Dry-run 输出预览");
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent(
@@ -436,13 +460,17 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("关闭");
     expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("网络请求");
     expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("不会发送");
-    await user.click(screen.getAllByTestId("incident-qwen-provider-mode")[2]);
+    await user.click(screen.getAllByTestId("incident-qwen-provider-mode")[3]);
     await user.click(screen.getAllByTestId("incident-qwen-runtime-scenario")[2]);
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("人工复核");
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("HOLD 输入包");
     const qwenPreviewRecord = screen.getByTestId("incident-qwen-provider-preview");
     expect(qwenPreviewRecord).toHaveTextContent('"selected_provider_mode": "human_review"');
     expect(qwenPreviewRecord).toHaveTextContent('"selected_runtime_scenario": "contract_error"');
+    expect(qwenPreviewRecord).toHaveTextContent(
+      '"readiness_status": "QWEN_SYNTHETIC_PROVIDER_STUB_READY_NO_NETWORK"'
+    );
+    expect(qwenPreviewRecord).toHaveTextContent('"provider_stub_case_count": 20');
     expect(qwenPreviewRecord).toHaveTextContent('"fallback_action": "拒绝生成请求，先清理违规字段。"');
     expect(qwenPreviewRecord).toHaveTextContent('"retry_policy": "manual_retry_only"');
     expect(qwenPreviewRecord).toHaveTextContent('"fallback_mode": "local_rules_summary"');

@@ -17,6 +17,7 @@ import { S1ArtifactView } from "./secupilot/s1/S1ArtifactView";
 import { S1LocalTrialView } from "./secupilot/s1/S1LocalTrialView";
 import { S1_QWEN_PROVIDER_CONTRACT } from "./secupilot/s1/s1QwenProviderContract";
 import { S1_QWEN_PROVIDER_DRY_PREVIEW } from "./secupilot/s1/s1QwenProviderDryPreview";
+import { S1_QWEN_PROVIDER_READINESS } from "./secupilot/s1/s1QwenProviderReadiness";
 import {
   adaptCoreSurfaceFixturePhase,
   CORE_SURFACE_FIXTURE,
@@ -3065,6 +3066,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
   );
   const qwenProviderContract = S1_QWEN_PROVIDER_CONTRACT;
   const qwenDryPreview = S1_QWEN_PROVIDER_DRY_PREVIEW;
+  const qwenReadiness = S1_QWEN_PROVIDER_READINESS;
   const qwenProviderModes = [
     {
       value: "local_rules",
@@ -3075,6 +3077,11 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       value: "qwen_cloud_dry_run",
       label: "云端 Qwen dry-run",
       description: "未来接入路径预览；现在不发请求、不需要 API key。"
+    },
+    {
+      value: "qwen_synthetic_stub",
+      label: "合成 provider stub",
+      description: "已能用本地合成包生成 metadata-only 模型建议。"
     },
     {
       value: "human_review",
@@ -3130,7 +3137,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     ["连接器", "不调用"],
     ["生产写回", "禁止"]
   ] as const;
-  const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_cloud_dry_run");
+  const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_synthetic_stub");
   const [selectedQwenRuntimeScenario, setSelectedQwenRuntimeScenario] =
     useState("timeout_rate_limit");
   const selectedAccuracyLabel =
@@ -3174,6 +3181,10 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       latency_display: selectedQwenRuntime.latency,
       fallback_action: selectedQwenRuntime.fallback,
       active_contract_mode: qwenProviderContract.activeMode,
+      readiness_status: qwenReadiness.status,
+      provider_stub_mode: qwenReadiness.providerStubMode,
+      provider_stub_case_count: qwenReadiness.caseCount,
+      provider_stub_report_ref: qwenReadiness.providerReportRef,
       provider_mode: qwenDryPreview.providerMode,
       data_mode: qwenDryPreview.dataMode,
       input_package_ref: qwenDryPreview.inputPackageRef,
@@ -3198,6 +3209,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       activeCase.id,
       qwenDryPreview,
       qwenProviderContract.activeMode,
+      qwenReadiness,
       selectedQwenProviderMode,
       selectedQwenRuntime,
       selectedQwenRuntimeScenario
@@ -3434,6 +3446,8 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         data-customer-visible-output="false"
         data-live-qwen-api="false"
         data-network-request="false"
+        data-provider-stub-ready="true"
+        data-provider-stub-status={qwenReadiness.status}
         data-production-writeback="false"
         data-real-data="false"
         data-state-mutation="none"
@@ -3446,7 +3460,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
             <h2 id="incident-qwen-provider-title">Qwen 接入路径：先 dry-run，再谈真实调用</h2>
             <p>
               当前页面只展示未来云端模型接入的产品形态。输入是合成 metadata，
-              输出是人工复核建议，不发送网络请求、不读取 API key、不接真实系统。
+              输出是人工复核建议；provider stub 已可本地生成预览，但不发送网络请求、不读取 API key、不接真实系统。
             </p>
           </div>
           <span>dry-run only</span>
@@ -3507,6 +3521,14 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
           <aside className="incident-qwen-provider-summary" data-testid="incident-qwen-provider-summary">
             <h3>Dry-run 输出预览</h3>
             <dl>
+              <div>
+                <dt>接入状态</dt>
+                <dd data-testid="incident-qwen-readiness-status">{qwenReadiness.productLabel}</dd>
+              </div>
+              <div>
+                <dt>stub 案例数</dt>
+                <dd data-testid="incident-qwen-readiness-case-count">{qwenReadiness.caseCount}</dd>
+              </div>
               <div>
                 <dt>当前模式</dt>
                 <dd>{qwenProviderModes.find((mode) => mode.value === selectedQwenProviderMode)?.label}</dd>

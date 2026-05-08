@@ -13,6 +13,7 @@ import {
 import { S1_CLOSED_SHADOW_RUN_ARTIFACTS } from "./s1ClosedShadowRunArtifacts";
 import { S1_QWEN_PROVIDER_DRY_PREVIEW } from "./s1QwenProviderDryPreview";
 import { S1_QWEN_PROVIDER_CONTRACT } from "./s1QwenProviderContract";
+import { S1_QWEN_PROVIDER_READINESS } from "./s1QwenProviderReadiness";
 
 type FeedbackDecision =
   | "READY_FOR_NEXT_INTERNAL_TRIAL"
@@ -50,6 +51,7 @@ export function S1LocalTrialView() {
   const trial = run.localTrial;
   const qwenContract = S1_QWEN_PROVIDER_CONTRACT;
   const qwenDryPreview = S1_QWEN_PROVIDER_DRY_PREVIEW;
+  const qwenReadiness = S1_QWEN_PROVIDER_READINESS;
   const [feedbackDecision, setFeedbackDecision] = useState<FeedbackDecision>(
     "READY_FOR_NEXT_INTERNAL_TRIAL"
   );
@@ -485,6 +487,10 @@ export function S1LocalTrialView() {
         data-active-provider-mode={qwenContract.activeMode}
         data-connector-call-allowed={String(qwenContract.connectorCallAllowed)}
         data-live-call-allowed={String(qwenContract.liveCallAllowed)}
+        data-network-call={String(qwenReadiness.boundaries.networkCall)}
+        data-provider-stub-ready="true"
+        data-provider-stub-status={qwenReadiness.status}
+        data-secret-values-read={String(qwenReadiness.boundaries.secretValuesRead)}
         data-testid="s1-qwen-provider-contract"
       >
         <div className="s1-panel-title">
@@ -497,10 +503,36 @@ export function S1LocalTrialView() {
             <dd data-testid="s1-qwen-active-mode">{qwenContract.activeMode}</dd>
           </div>
           <div>
+            <dt>接入状态</dt>
+            <dd data-testid="s1-qwen-readiness-status">{qwenReadiness.productLabel}</dd>
+          </div>
+          <div>
+            <dt>合成案例</dt>
+            <dd data-testid="s1-qwen-readiness-case-count">{qwenReadiness.caseCount}</dd>
+          </div>
+          <div>
             <dt>Contract</dt>
             <dd>{qwenContract.configRef}</dd>
           </div>
         </dl>
+        <article className="s1-qwen-readiness-card" data-testid="s1-qwen-readiness-card">
+          <strong>{qwenReadiness.productLabel}</strong>
+          <p>{qwenReadiness.productDescription}</p>
+          <dl className="s1-trial-package-facts">
+            <div>
+              <dt>provider stub</dt>
+              <dd data-testid="s1-qwen-provider-stub-mode">{qwenReadiness.providerStubMode}</dd>
+            </div>
+            <div>
+              <dt>输出报告</dt>
+              <dd>{qwenReadiness.providerReportRef}</dd>
+            </div>
+            <div>
+              <dt>下一步</dt>
+              <dd>{qwenReadiness.nextStep}</dd>
+            </div>
+          </dl>
+        </article>
         <div className="s1-provider-mode-grid">
           {qwenContract.modes.map((mode) => (
             <article data-provider-mode={mode.mode} data-testid="s1-qwen-provider-mode" key={mode.mode}>

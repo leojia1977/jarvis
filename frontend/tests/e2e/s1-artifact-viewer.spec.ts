@@ -172,9 +172,14 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
       '"customer_visible_output": false'
     );
     const qwenContract = page.getByTestId("s1-qwen-provider-contract");
-    await expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-cloud-disabled");
+    await expect(qwenContract).toHaveAttribute("data-active-provider-mode", "qwen-synthetic-stub-ready");
     await expect(qwenContract).toHaveAttribute("data-live-call-allowed", "false");
-    await expect(page.getByTestId("s1-qwen-provider-mode")).toHaveCount(3);
+    await expect(qwenContract).toHaveAttribute("data-provider-stub-ready", "true");
+    await expect(page.getByTestId("s1-qwen-readiness-status")).toContainText(
+      "合成模型 provider stub 已就绪"
+    );
+    await expect(page.getByTestId("s1-qwen-readiness-case-count")).toContainText("20");
+    await expect(page.getByTestId("s1-qwen-provider-mode")).toHaveCount(4);
     const qwenDryPreview = page.getByTestId("s1-qwen-dry-preview");
     await expect(qwenDryPreview).toHaveAttribute("data-provider-mode", "dry_contract_only");
     await expect(qwenDryPreview).toHaveAttribute("data-live-qwen-api", "false");
@@ -220,11 +225,16 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     const qwenProviderPreview = page.getByTestId("incident-qwen-provider-dry-run");
     await expect(qwenProviderPreview).toHaveAttribute("data-live-qwen-api", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-network-request", "false");
+    await expect(qwenProviderPreview).toHaveAttribute("data-provider-stub-ready", "true");
     await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
-    await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(3);
+    await expect(page.getByTestId("incident-qwen-readiness-status")).toContainText(
+      "合成模型 provider stub 已就绪"
+    );
+    await expect(page.getByTestId("incident-qwen-readiness-case-count")).toContainText("20");
+    await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
       "回退本地规则摘要"
