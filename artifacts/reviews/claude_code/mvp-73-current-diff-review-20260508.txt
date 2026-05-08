@@ -1,0 +1,60 @@
+﻿---
+
+## GOAL-MVP-73 Review Result
+
+---
+
+### 1) Decision: **PASS_WITH_NOTES**
+
+---
+
+### 2) Blocking Findings
+
+None. All HOLD conditions clear:
+
+| Check | Result |
+|---|---|
+| No real/masked-real data | ✅ |
+| No live Qwen/API/connectors | ✅ |
+| No secrets/tokens/auth headers | ✅ |
+| No network_request | ✅ |
+| No production_writeback | ✅ |
+| No deploy_executed | ✅ |
+| Manifest has SHA256 + boundary fields + STRUCTURE_ONLY status | ✅ |
+| VERIFY_BOUNDARIES.ps1 only prints false values | ✅ |
+| All 4 unit tests reported passing | ✅ |
+| Scope limited to allowed files | ✅ |
+| Out-of-scope dirty files (`next_goal_candidate.*`) are **unstaged** | ✅ |
+
+---
+
+### 3) Non-blocking Notes
+
+**N1 — Manifest self-referential SHA256 is stale (integrity gap, not a safety violation)**
+
+`build_package()` at `scripts/build_private_deployment_package.py:291–309` writes the manifest three times:
+- v1: templates only → SHA256 computed on v1 → appended as `package_manifest.json` file entry
+- v2: file list now includes manifest entry → rewritten to disk
+- v3: zip section appended → rewritten to disk again
+
+The SHA256 stored in the manifest's own file entry (`af2a6de5…`) was computed on v1, but the file on disk is v3. The on-disk manifest does not hash to `af2a6de5…`. The zip also contains v2 of the manifest (before the zip section was added), so the zip's internal manifest differs from the disk manifest. This is inherent to single-pass self-referential manifest generation, but worth flagging for downstream consumers who may try to verify the manifest's own SHA256.
+
+**N2 — Test coverage for forbidden literals is a subset of builder's sentinel list**
+
+`test_generated_text_has_no_forbidden_literals` checks 7 fragments; `FORBIDDEN_LITERAL_FRAGMENTS` in the builder defines 12. The test does not cover `api_key:`, `private_key`, `raw_evidence`, `customer_visible_message`, `production_connector_output`. All five of these are absent from generated content as confirmed by manual inspection, so no safety gap—but test coverage could be tightened in a future goal.
+
+**N3 — Closeout shows result lines only, not raw command output**
+
+The evidence contract requires "exact commands" (present) and "goal card validator output / unit test output" (shown as one-line result summaries, not verbatim stdout). Adequate for this review but weaker evidence than a captured output block.
+
+---
+
+### 4) Required Action
+
+None required before merge.
+
+- N1 is an accepted limitation of single-pass manifest generation; no remediation needed in this goal.
+- N2 can be picked up in a dedicated test-hygiene goal if desired.
+- N3 is a documentation style note; future closeouts may capture raw stdout.
+
+**Merge rule satisfied:** all acceptance commands reported passing, no HOLD condition observed, out-of-scope files are not staged. May stage/commit the listed goal files per the commit posture. Do not push.

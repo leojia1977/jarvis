@@ -40,6 +40,7 @@ This is structure-only packaging. It does not deploy, start production services,
 - `scripts/build_private_deployment_package.py`
 - `backend/tests/test_build_private_deployment_package.py`
 - `docs/goals/GOAL-MVP-73_PRIVATE_DEPLOYMENT_PACKAGE_STRUCTURE.md`
+- `docs/S6_FAST_MVP_MVP_73_PRIVATE_DEPLOYMENT_PACKAGE_STRUCTURE_CLOSEOUT_2026_05_08.md`
 - `artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/`
 - `artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1.zip`
 
@@ -52,7 +53,7 @@ py -3 scripts\build_private_deployment_package.py --package-id secupilot-private
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File artifacts\private_deployment_packages\secupilot-private-deployment-windows-local-v0_1\scripts\VERIFY_BOUNDARIES.ps1
 py -3 -m unittest -q backend.tests.test_build_private_deployment_package
 py -3 scripts\validate_codex_goal_card.py docs\goals\GOAL-MVP-73_PRIVATE_DEPLOYMENT_PACKAGE_STRUCTURE.md
-git -c core.quotepath=false diff --check -- scripts/build_private_deployment_package.py backend/tests/test_build_private_deployment_package.py docs/goals/GOAL-MVP-73_PRIVATE_DEPLOYMENT_PACKAGE_STRUCTURE.md docs/S6_FAST_MVP_MVP_73_PRIVATE_DEPLOYMENT_PACKAGE_STRUCTURE_CLOSEOUT_2026_05_08.md
+git -c core.quotepath=false diff --check
 ```
 
 Results:
@@ -74,6 +75,16 @@ Results:
   - `customer_visible_output=false`
   - `deploy_executed=false`
   - `autonomous_qwen_action=false`
+
+## Automated Review
+
+- Tool: Claude Code current-diff review
+- Artifact: `artifacts/reviews/claude_code/mvp-73-current-diff-review-20260508.txt`
+- Decision: `PASS_WITH_NOTES`
+- Blocking findings: none
+- Non-blocking notes:
+  - manifest self-hash is a known self-referential limitation in single-pass generation
+  - forbidden-literal negative test can cover additional sentinel fragments in a future test-hygiene Goal
 
 ## Boundary
 
