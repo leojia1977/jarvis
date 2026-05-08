@@ -204,6 +204,84 @@ class PickNextMvpGoalTests(unittest.TestCase):
             any("local-offline-trial-rc-019-cn-review" in command for command in payload["candidate_goal"]["acceptance_commands"])
         )
 
+    def test_private_preview_lane_continues_after_rc_package_refresh(self):
+        for name in (
+            "GOAL-MVP-94_PRIVATE_PREVIEW_SHELL_ROUTE_MAP.md",
+            "GOAL-MVP-95_PRIVATE_PREVIEW_LAUNCH_SHELL.md",
+            "GOAL-MVP-96_PRIVATE_PREVIEW_ROUTE_MAP_INDEX.md",
+            "GOAL-MVP-97_PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW.md",
+            "GOAL-MVP-98_PRIVATE_PREVIEW_RC_PACKAGE_REFRESH.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-MVP-101_PRIVATE_PREVIEW_HEALTHCHECK", payload["candidate_goal"]["queue_key"])
+        self.assertIn("scripts/check_private_preview_health.py", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("local-offline-trial-rc-020-cn-review" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
+    def test_private_preview_lane_advances_to_product_path_smoke(self):
+        for name in (
+            "GOAL-MVP-94_PRIVATE_PREVIEW_SHELL_ROUTE_MAP.md",
+            "GOAL-MVP-95_PRIVATE_PREVIEW_LAUNCH_SHELL.md",
+            "GOAL-MVP-96_PRIVATE_PREVIEW_ROUTE_MAP_INDEX.md",
+            "GOAL-MVP-97_PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW.md",
+            "GOAL-MVP-98_PRIVATE_PREVIEW_RC_PACKAGE_REFRESH.md",
+            "GOAL-MVP-99_PRIVATE_PREVIEW_HEALTHCHECK.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("GOAL-MVP-102_HOME_TO_INCIDENT_E2E_SMOKE", payload["candidate_goal"]["queue_key"])
+        self.assertIn("frontend/tests/e2e/private-preview-product-path.spec.ts", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(any("playwright" in command for command in payload["candidate_goal"]["acceptance_commands"]))
+
+    def test_private_preview_lane_exhausts_only_after_extended_pool(self):
+        suffixes = (
+            "PRIVATE_PREVIEW_SHELL_ROUTE_MAP",
+            "PRIVATE_PREVIEW_LAUNCH_SHELL",
+            "PRIVATE_PREVIEW_ROUTE_MAP_INDEX",
+            "PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW",
+            "PRIVATE_PREVIEW_RC_PACKAGE_REFRESH",
+            "PRIVATE_PREVIEW_HEALTHCHECK",
+            "HOME_TO_INCIDENT_E2E_SMOKE",
+            "CUSTOMER_TASK_FLOW_REPORT",
+            "FEEDBACK_TO_BACKLOG_SYNC",
+            "PRIVATE_DEPLOY_PRECHECK_REPORT",
+            "QWEN_DRY_ERROR_STATE_UI",
+            "TRIAL_SCREENSHOT_PACKAGE_BUILDER",
+            "PRODUCT_COPY_BOUNDARY_SCANNER",
+            "RC_REVIEW_HANDOFF_AUTOBUILDER",
+            "WINDOWS_START_STOP_SCRIPT_VALIDATOR",
+            "CUSTOMER_README_PRODUCT_COPY_REFRESH",
+            "PRODUCT_BACKLOG_PRIORITIZER",
+            "CLOUD_MODEL_LATENCY_REPORT",
+            "PRIVATE_PREVIEW_ROUTE_COVERAGE_REPORT",
+            "INCIDENT_WORKBENCH_RC_PACKAGE",
+        )
+        for index, suffix in enumerate(suffixes, start=94):
+            (self.root / "docs" / "goals" / f"GOAL-MVP-{index}_{suffix}.md").write_text(
+                "# placeholder\n", encoding="utf-8"
+            )
+        write_json(self.backlog_json, {"items": []})
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("CONCRETE_BLOCKER", payload["selection_mode"])
+        self.assertEqual("QUEUE_EXHAUSTED_REQUIRE_NEW_PRODUCT_GOAL", payload["candidate_goal"]["queue_key"])
+
     def test_holds_when_backlog_items_is_not_list(self):
         write_json(self.backlog_json, {"items": {"bad": "shape"}})
 

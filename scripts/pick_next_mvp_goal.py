@@ -170,6 +170,126 @@ QUEUE_ITEMS = (
         "profile": "PRIVATE_PREVIEW_RC_PACKAGE_REFRESH",
         "statement": "Refresh the local/private preview RC package after product route-map changes, including validators, screenshots, consistency checks, and zip manifest.",
     },
+    {
+        "queue_key": "GOAL-MVP-101_PRIVATE_PREVIEW_HEALTHCHECK",
+        "suffix": "PRIVATE_PREVIEW_HEALTHCHECK",
+        "match": "PRIVATE_PREVIEW_HEALTHCHECK",
+        "goal_type": "validator",
+        "profile": "PRIVATE_PREVIEW_HEALTHCHECK",
+        "statement": "Add a private-preview healthcheck that verifies the local package, launch metadata, route map, and local-only boundaries before reviewers open the trial.",
+    },
+    {
+        "queue_key": "GOAL-MVP-102_HOME_TO_INCIDENT_E2E_SMOKE",
+        "suffix": "HOME_TO_INCIDENT_E2E_SMOKE",
+        "match": "HOME_TO_INCIDENT_E2E_SMOKE",
+        "goal_type": "page",
+        "profile": "HOME_TO_INCIDENT_E2E_SMOKE",
+        "statement": "Add a product-path smoke test proving a reviewer can move from the customer-first home to the incident workbench without seeing debug fixtures.",
+    },
+    {
+        "queue_key": "GOAL-MVP-103_CUSTOMER_TASK_FLOW_REPORT",
+        "suffix": "CUSTOMER_TASK_FLOW_REPORT",
+        "match": "CUSTOMER_TASK_FLOW_REPORT",
+        "goal_type": "test-report",
+        "profile": "CUSTOMER_TASK_FLOW_REPORT",
+        "statement": "Generate a customer task-flow report that lists engineer, manager, and CTO journeys, expected actions, and current PASS/HOLD state.",
+    },
+    {
+        "queue_key": "GOAL-MVP-104_FEEDBACK_TO_BACKLOG_SYNC",
+        "suffix": "FEEDBACK_TO_BACKLOG_SYNC",
+        "match": "FEEDBACK_TO_BACKLOG_SYNC",
+        "goal_type": "script",
+        "profile": "FEEDBACK_TO_BACKLOG_SYNC",
+        "statement": "Sync local reviewer feedback into a prioritized product backlog and action list so notes do not remain trapped in review text.",
+    },
+    {
+        "queue_key": "GOAL-MVP-105_PRIVATE_DEPLOY_PRECHECK_REPORT",
+        "suffix": "PRIVATE_DEPLOY_PRECHECK_REPORT",
+        "match": "PRIVATE_DEPLOY_PRECHECK_REPORT",
+        "goal_type": "test-report",
+        "profile": "PRIVATE_DEPLOY_PRECHECK_REPORT",
+        "statement": "Generate a Windows/local private-deployment precheck report from the dry precheck script without deploying or touching customer systems.",
+    },
+    {
+        "queue_key": "GOAL-MVP-106_QWEN_DRY_ERROR_STATE_UI",
+        "suffix": "QWEN_DRY_ERROR_STATE_UI",
+        "match": "QWEN_DRY_ERROR_STATE_UI",
+        "goal_type": "page",
+        "profile": "QWEN_DRY_ERROR_STATE_UI",
+        "statement": "Add product-readable dry model timeout, fallback, and error states in the UI without any live Qwen call or API key.",
+    },
+    {
+        "queue_key": "GOAL-MVP-107_TRIAL_SCREENSHOT_PACKAGE_BUILDER",
+        "suffix": "TRIAL_SCREENSHOT_PACKAGE_BUILDER",
+        "match": "TRIAL_SCREENSHOT_PACKAGE_BUILDER",
+        "goal_type": "package",
+        "profile": "TRIAL_SCREENSHOT_PACKAGE_BUILDER",
+        "statement": "Build a reviewer screenshot package from current product routes with screenshot safety validation and a small index.",
+    },
+    {
+        "queue_key": "GOAL-MVP-108_PRODUCT_COPY_BOUNDARY_SCANNER",
+        "suffix": "PRODUCT_COPY_BOUNDARY_SCANNER",
+        "match": "PRODUCT_COPY_BOUNDARY_SCANNER",
+        "goal_type": "validator",
+        "profile": "PRODUCT_COPY_BOUNDARY_SCANNER",
+        "statement": "Add a product-copy boundary scanner that catches debug labels, stale RC wording, secrets, and unauthorized launch language in reviewer-facing text.",
+    },
+    {
+        "queue_key": "GOAL-MVP-109_RC_REVIEW_HANDOFF_AUTOBUILDER",
+        "suffix": "RC_REVIEW_HANDOFF_AUTOBUILDER",
+        "match": "RC_REVIEW_HANDOFF_AUTOBUILDER",
+        "goal_type": "package",
+        "profile": "RC_REVIEW_HANDOFF_AUTOBUILDER",
+        "statement": "Generate an RC review handoff package that combines route screenshots, safety scans, decision template, and product checklist.",
+    },
+    {
+        "queue_key": "GOAL-MVP-110_WINDOWS_START_STOP_SCRIPT_VALIDATOR",
+        "suffix": "WINDOWS_START_STOP_SCRIPT_VALIDATOR",
+        "match": "WINDOWS_START_STOP_SCRIPT_VALIDATOR",
+        "goal_type": "validator",
+        "profile": "WINDOWS_START_STOP_SCRIPT_VALIDATOR",
+        "statement": "Validate Windows local start and stop scripts in dry-run mode so private-preview operators get clear launch and shutdown instructions.",
+    },
+    {
+        "queue_key": "GOAL-MVP-111_CUSTOMER_README_PRODUCT_COPY_REFRESH",
+        "suffix": "CUSTOMER_README_PRODUCT_COPY_REFRESH",
+        "match": "CUSTOMER_README_PRODUCT_COPY_REFRESH",
+        "goal_type": "script",
+        "profile": "CUSTOMER_README_PRODUCT_COPY_REFRESH",
+        "statement": "Refresh the customer trial README and START_HERE copy so it reads as a product preview, not an evidence package.",
+    },
+    {
+        "queue_key": "GOAL-MVP-112_PRODUCT_BACKLOG_PRIORITIZER",
+        "suffix": "PRODUCT_BACKLOG_PRIORITIZER",
+        "match": "PRODUCT_BACKLOG_PRIORITIZER",
+        "goal_type": "script",
+        "profile": "PRODUCT_BACKLOG_PRIORITIZER",
+        "statement": "Add a backlog prioritizer that ranks reviewer notes by product impact, customer-visible risk, and implementation size.",
+    },
+    {
+        "queue_key": "GOAL-MVP-113_CLOUD_MODEL_LATENCY_REPORT",
+        "suffix": "CLOUD_MODEL_LATENCY_REPORT",
+        "match": "CLOUD_MODEL_LATENCY_REPORT",
+        "goal_type": "test-report",
+        "profile": "CLOUD_MODEL_LATENCY_REPORT",
+        "statement": "Generate a dry cloud-model latency and fallback report from mock timings and configured sentinels without any network call.",
+    },
+    {
+        "queue_key": "GOAL-MVP-114_PRIVATE_PREVIEW_ROUTE_COVERAGE_REPORT",
+        "suffix": "PRIVATE_PREVIEW_ROUTE_COVERAGE_REPORT",
+        "match": "PRIVATE_PREVIEW_ROUTE_COVERAGE_REPORT",
+        "goal_type": "test-report",
+        "profile": "PRIVATE_PREVIEW_ROUTE_COVERAGE_REPORT",
+        "statement": "Generate a route coverage report showing which product paths have desktop/mobile screenshots, tests, and reviewer-ready handoff evidence.",
+    },
+    {
+        "queue_key": "GOAL-MVP-115_INCIDENT_WORKBENCH_RC_PACKAGE",
+        "suffix": "INCIDENT_WORKBENCH_RC_PACKAGE",
+        "match": "INCIDENT_WORKBENCH_RC_PACKAGE",
+        "goal_type": "package",
+        "profile": "INCIDENT_WORKBENCH_RC_PACKAGE",
+        "statement": "Package the incident workbench UX evidence for the next local RC with first-load, expanded evidence, technical reconciliation, and mobile screenshots.",
+    },
 )
 
 PRODUCT_ACCELERATION_RESET_MARKERS = ("PRIVATE_PREVIEW_SHELL_ROUTE_MAP",)
@@ -253,6 +373,423 @@ def infer_profile(item: dict[str, Any]) -> str:
     return "SCRIPT_GENERIC"
 
 
+def private_preview_pool_contract(profile: str, goal_card: str, closeout: str) -> dict[str, Any] | None:
+    if profile == "PRIVATE_PREVIEW_HEALTHCHECK":
+        report_json = "artifacts/private_preview/healthcheck/local-offline-trial-rc-020-healthcheck.json"
+        return {
+            "goal_type": "validator",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/check_private_preview_health.py",
+                "backend/tests/test_check_private_preview_health.py",
+                report_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_check_private_preview_health",
+                f"py -3 scripts/check_private_preview_health.py --package-dir artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review --route-map artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.json --output-json {report_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "healthcheck cannot find package, route map, launch metadata, or local-only boundary text",
+                "healthcheck reports live Qwen/API, connector, production write-back, customer-visible deploy, or secret exposure",
+                "unit test or healthcheck command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "HOME_TO_INCIDENT_E2E_SMOKE":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/App.tsx",
+                "frontend/src/App.css",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/private-preview-product-path.spec.ts",
+                "artifacts/product_experience/private_preview_path/home-to-incident-desktop.png",
+                "artifacts/product_experience/private_preview_path/home-to-incident-mobile.png",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/private-preview-product-path.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "home-to-incident path exposes P1/P2/P3, Mock Fixture, Expert Mode, or stale RC wording",
+                "route path does not let engineer, manager, and CTO users reach the incident workbench",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "CUSTOMER_TASK_FLOW_REPORT":
+        report_md = "artifacts/product_reports/customer_task_flow_report.md"
+        report_json = "artifacts/product_reports/customer_task_flow_report.json"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_customer_task_flow_report.py",
+                "backend/tests/test_build_customer_task_flow_report.py",
+                report_md,
+                report_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_customer_task_flow_report",
+                f"py -3 scripts/build_customer_task_flow_report.py --route-map artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.json --output-md {report_md} --output-json {report_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "report omits engineer, manager, or CTO journey",
+                "report reads like artifact inventory rather than product tasks and expected user actions",
+                "report grants live Qwen/API, deploy, connector, production write-back, or customer-visible launch authority",
+                "unit test or report command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "FEEDBACK_TO_BACKLOG_SYNC":
+        output_json = "artifacts/product_backlog/private-preview/feedback_backlog_sync.json"
+        output_md = "artifacts/product_backlog/private-preview/feedback_backlog_sync.md"
+        return {
+            "goal_type": "script",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/sync_feedback_to_product_backlog.py",
+                "backend/tests/test_sync_feedback_to_product_backlog.py",
+                output_json,
+                output_md,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_sync_feedback_to_product_backlog",
+                f"py -3 scripts/sync_feedback_to_product_backlog.py --feedback-root artifacts/product_backlog --output-json {output_json} --output-md {output_md} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "sync fabricates reviewer decisions or claims customer usage that did not happen",
+                "output omits source feedback references or priority reasoning",
+                "script command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRIVATE_DEPLOY_PRECHECK_REPORT":
+        report_md = "artifacts/private_deployment/precheck/private_deployment_precheck_report.md"
+        report_json = "artifacts/private_deployment/precheck/private_deployment_precheck_report.json"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/private_deployment_precheck.ps1",
+                "scripts/build_private_deployment_precheck_report.py",
+                "backend/tests/test_build_private_deployment_precheck_report.py",
+                report_md,
+                report_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_private_deployment_precheck_report",
+                "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/private_deployment_precheck.ps1 -DryRun -OutputJson artifacts/private_deployment/precheck/precheck_raw.json",
+                f"py -3 scripts/build_private_deployment_precheck_report.py --input-json artifacts/private_deployment/precheck/precheck_raw.json --output-md {report_md} --output-json {report_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "precheck attempts installation, deployment, network access, or customer-system mutation",
+                "report omits Windows prerequisites, resource sizing, or model-provider path",
+                "PowerShell or report command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "QWEN_DRY_ERROR_STATE_UI":
+        return {
+            "goal_type": "page",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "frontend/src/App.tsx",
+                "frontend/src/App.css",
+                "frontend/src/App.test.tsx",
+                "frontend/tests/e2e/incident-product-page.spec.ts",
+                "artifacts/product_experience/qwen_dry_error_states/incident-product-error-state.png",
+                "artifacts/product_experience/qwen_dry_error_states/incident-product-error-state.text.json",
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "Set-Location -LiteralPath frontend; npm run test -- src/App.test.tsx",
+                "Set-Location -LiteralPath frontend; npm run build",
+                "Set-Location -LiteralPath frontend; npx playwright test tests/e2e/incident-product-page.spec.ts",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "UI implies live Qwen/API call, API key entry, connector access, or autonomous action",
+                "error state is technical stack trace rather than operator-readable fallback guidance",
+                "frontend unit/build/playwright fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "TRIAL_SCREENSHOT_PACKAGE_BUILDER":
+        package_dir = "artifacts/product_screenshot_packages/local-offline-trial-rc-020"
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_product_screenshot_package.py",
+                "backend/tests/test_build_product_screenshot_package.py",
+                package_dir,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_product_screenshot_package",
+                f"py -3 scripts/build_product_screenshot_package.py --screenshot-root artifacts/product_experience --output-dir {package_dir} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "package includes screenshots with P1/P2/P3, Mock Fixture, Expert Mode, stale RC wording, or secrets",
+                "package omits index, route labels, or screenshot safety status",
+                "unit test or package command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRODUCT_COPY_BOUNDARY_SCANNER":
+        scan_json = "artifacts/product_copy_boundary/product_copy_boundary_scan.json"
+        return {
+            "goal_type": "validator",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/scan_product_copy_boundaries.py",
+                "backend/tests/test_scan_product_copy_boundaries.py",
+                scan_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_scan_product_copy_boundaries",
+                f"py -3 scripts/scan_product_copy_boundaries.py --paths frontend/src artifacts/product_experience docs/goals --output-json {scan_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "scanner misses seeded P1/P2/P3, Mock Fixture, Expert Mode, secret, token, or production launch language",
+                "scanner blocks only on historical non-reviewer evidence outside configured paths",
+                "unit test or scanner command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "RC_REVIEW_HANDOFF_AUTOBUILDER":
+        package_dir = "artifacts/reviews/local_rc_handoff/rc-021"
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_rc_review_handoff.py",
+                "backend/tests/test_build_rc_review_handoff.py",
+                package_dir,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_rc_review_handoff",
+                f"py -3 scripts/build_rc_review_handoff.py --candidate LOCAL_OFFLINE_TRIAL_RC_021_CN --source-candidate LOCAL_OFFLINE_TRIAL_RC_020_CN --screenshot-root artifacts/product_experience --output-dir {package_dir} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "handoff package omits review prompt, screenshots, safety scan, decision template, or checklist",
+                "handoff package grants live API, connector, production write-back, customer-visible deploy, or external pilot authority",
+                "unit test or handoff command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "WINDOWS_START_STOP_SCRIPT_VALIDATOR":
+        result_json = "artifacts/private_preview/windows_start_stop_validation.json"
+        return {
+            "goal_type": "validator",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/validate_windows_private_preview_scripts.py",
+                "backend/tests/test_validate_windows_private_preview_scripts.py",
+                "scripts/launch_customer_trial_local.ps1",
+                "scripts/stop_customer_trial_local.ps1",
+                result_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_validate_windows_private_preview_scripts",
+                f"py -3 scripts/validate_windows_private_preview_scripts.py --launch-script scripts/launch_customer_trial_local.ps1 --stop-script scripts/stop_customer_trial_local.ps1 --output-json {result_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "validator allows public tunnel, deploy, service install, live API, connector, or production write-back commands",
+                "launch/stop scripts omit dry-run, local-only, or stop instructions",
+                "unit test or validator command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "CUSTOMER_README_PRODUCT_COPY_REFRESH":
+        scan_json = "artifacts/product_copy_boundary/customer_readme_boundary_scan.json"
+        return {
+            "goal_type": "script",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "artifacts/private_trial_package/README_中文.md",
+                "artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review/REVIEWER_START_HERE_中文.md",
+                "scripts/scan_product_copy_boundaries.py",
+                scan_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                f"py -3 scripts/scan_product_copy_boundaries.py --paths artifacts/private_trial_package/README_中文.md artifacts/local_demo_packages/local-offline-trial-rc-020-cn-review/REVIEWER_START_HERE_中文.md --output-json {scan_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "README copy reads like evidence reconciliation instead of product preview instructions",
+                "copy grants customer-visible deploy, live API, connector, production write-back, or external pilot authority",
+                "copy scanner finds stale RC wording, debug labels, secrets, or unauthorized launch language",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRODUCT_BACKLOG_PRIORITIZER":
+        output_json = "artifacts/product_backlog/private-preview/prioritized_backlog.json"
+        output_md = "artifacts/product_backlog/private-preview/prioritized_backlog.md"
+        return {
+            "goal_type": "script",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/prioritize_product_backlog.py",
+                "backend/tests/test_prioritize_product_backlog.py",
+                output_json,
+                output_md,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_prioritize_product_backlog",
+                f"py -3 scripts/prioritize_product_backlog.py --backlog-root artifacts/product_backlog --output-json {output_json} --output-md {output_md} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "prioritizer drops source references or invents reviewer decisions",
+                "output lacks product impact, customer-visible risk, or implementation-size rationale",
+                "unit test or prioritizer command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "CLOUD_MODEL_LATENCY_REPORT":
+        report_md = "artifacts/model_contract/cloud_model_latency_report.md"
+        report_json = "artifacts/model_contract/cloud_model_latency_report.json"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_cloud_model_latency_report.py",
+                "backend/tests/test_build_cloud_model_latency_report.py",
+                report_md,
+                report_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_cloud_model_latency_report",
+                f"py -3 scripts/build_cloud_model_latency_report.py --config artifacts/qwen_live_synthetic/config_validation.json --output-md {report_md} --output-json {report_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "report requires API key, network access, live Qwen call, or connector output",
+                "report omits timeout, retry, fallback, and user-facing error state",
+                "unit test or report command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "PRIVATE_PREVIEW_ROUTE_COVERAGE_REPORT":
+        report_md = "artifacts/product_reports/private_preview_route_coverage.md"
+        report_json = "artifacts/product_reports/private_preview_route_coverage.json"
+        return {
+            "goal_type": "test-report",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_private_preview_route_coverage_report.py",
+                "backend/tests/test_build_private_preview_route_coverage_report.py",
+                report_md,
+                report_json,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_private_preview_route_coverage_report",
+                f"py -3 scripts/build_private_preview_route_coverage_report.py --screenshot-root artifacts/product_experience --goal-root docs/goals --output-md {report_md} --output-json {report_json} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "report omits product home, incident workbench, trial entry, or model-readiness route",
+                "report treats missing screenshots or tests as PASS",
+                "unit test or report command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "INCIDENT_WORKBENCH_RC_PACKAGE":
+        package_dir = "artifacts/reviews/incident_workbench_rc/rc-017"
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_incident_workbench_review_package.py",
+                "backend/tests/test_build_incident_workbench_review_package.py",
+                package_dir,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_incident_workbench_review_package",
+                f"py -3 scripts/build_incident_workbench_review_package.py --candidate RC-017 --screenshot-root artifacts/product_experience/ux03 --decision-doc docs/S6_RC016_UX02_INCIDENT_AI_ADVICE_REVIEW_DECISION_2026_05_08.md --output-dir {package_dir} --repo-root .",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "package omits first-load, expanded evidence, technical reconciliation, or mobile screenshot evidence",
+                "package includes debug controls, stale RC wording, secrets, live API, connector, production write-back, or deploy language",
+                "unit test or package command fails twice in the same way",
+                "scope expands beyond listed files",
+            ],
+        }
+    return None
+
+
 def profile_contract(
     profile: str,
     goal_id: str,
@@ -261,6 +798,9 @@ def profile_contract(
 ) -> dict[str, Any]:
     goal_card = f"docs/goals/{goal_id}.md"
     closeout = f"docs/S6_FAST_MVP_{goal_id.replace('-', '_')}_{date_tag}.md"
+    private_preview_contract = private_preview_pool_contract(profile, goal_card, closeout)
+    if private_preview_contract:
+        return private_preview_contract
     if profile == "UI_PAGE":
         return {
             "goal_type": "page",
