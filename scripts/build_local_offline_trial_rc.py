@@ -58,6 +58,7 @@ def required_archive_evidence_payload(
     payload = {
         "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
         "folded_state_screenshot_required": True,
+        "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
         "folded_state_expected_route": "/s1-run",
         "folded_state_expected_viewport": "1440x1100",
@@ -69,6 +70,7 @@ def required_archive_evidence_payload(
             "screenshot_path": "screenshots/s1-run-first-load-folded-desktop.png",
             "route": "/s1-run",
             "viewport": "1440x1100",
+            "expected_section": "AI 建议来源",
             "interaction_count": 0,
             "interaction_policy": "FIRST_LOAD_NO_INTERACTION",
             "sha256": folded_state_primary_sha256,

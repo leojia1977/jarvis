@@ -176,6 +176,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             {
                 "folded_state_screenshot_files": ["screenshots/s1-run-first-load-folded-desktop.png"],
                 "folded_state_screenshot_required": True,
+                "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
                 "folded_state_expected_route": "/s1-run",
                 "folded_state_expected_viewport": "1440x1100",
@@ -192,6 +193,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                     "screenshot_path": "screenshots/s1-run-first-load-folded-desktop.png",
                     "route": "/s1-run",
                     "viewport": "1440x1100",
+                    "expected_section": "AI 建议来源",
                     "interaction_count": 0,
                     "interaction_policy": "FIRST_LOAD_NO_INTERACTION",
                     "sha256": builder.file_sha256(
@@ -213,6 +215,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             required_archive["folded_state_screenshot_files"],
         )
         self.assertEqual("FIRST_LOAD_NO_INTERACTION", required_archive["folded_state_capture_policy"])
+        self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
         self.assertEqual("/s1-run", required_archive["folded_state_expected_route"])
         self.assertEqual("1440x1100", required_archive["folded_state_expected_viewport"])
         self.assertEqual(
