@@ -503,18 +503,25 @@ def screenshot_index(
     screenshot_specs: list[tuple[str, str, str]],
 ) -> dict[str, Any]:
     screenshots = []
+    folded_name = REQUIRED_ARCHIVE_SCREENSHOT_FILES[0]
     for file_name, route, viewport in screenshot_specs:
         path = output_dir / "screenshots" / file_name
-        screenshots.append(
-            {
-                "file_name": file_name,
-                "path": portable_path(path, output_dir),
-                "bytes": path.stat().st_size,
-                "sha256": file_sha256(path),
-                "route": route,
-                "viewport": viewport,
+        item: dict[str, Any] = {
+            "file_name": file_name,
+            "path": portable_path(path, output_dir),
+            "bytes": path.stat().st_size,
+            "sha256": file_sha256(path),
+            "route": route,
+            "viewport": viewport,
+        }
+        if file_name == folded_name:
+            item["archive_evidence"] = {
+                "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
+                "capture_phase": "FIRST_LOAD",
+                "interaction_count": 0,
+                "expected_state": "FOLDED",
             }
-        )
+        screenshots.append(item)
     return {
         "schema_version": "secupilot.s1.local_offline_chinese_screenshot_index.v1",
         "candidate": candidate,

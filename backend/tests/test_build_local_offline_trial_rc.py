@@ -338,6 +338,18 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         screenshot_index = json.loads((self.output_dir / "SCREENSHOT_INDEX.json").read_text(encoding="utf-8"))
         screenshot_names = {item["file_name"] for item in screenshot_index["screenshots"]}
         self.assertIn(folded_name, screenshot_names)
+        folded_entry = next(
+            item for item in screenshot_index["screenshots"] if item["file_name"] == folded_name
+        )
+        self.assertEqual(
+            {
+                "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
+                "capture_phase": "FIRST_LOAD",
+                "interaction_count": 0,
+                "expected_state": "FOLDED",
+            },
+            folded_entry["archive_evidence"],
+        )
 
 
 if __name__ == "__main__":
