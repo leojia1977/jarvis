@@ -184,6 +184,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_backlog_item_id": "RFB-RC016-001",
                 "folded_state_review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
                 "folded_state_review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+                "folded_state_review_source_type": "NON_BLOCKING_OBSERVATION",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_phase": "FIRST_LOAD",
@@ -255,6 +256,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
             required_archive["folded_state_review_source_decision"],
+        )
+        self.assertEqual(
+            "NON_BLOCKING_OBSERVATION",
+            required_archive["folded_state_review_source_type"],
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
@@ -412,6 +417,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "review_evidence_status": "REQUIRED_AND_PRESENT",
                 "review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
                 "review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+                "review_source_type": "NON_BLOCKING_OBSERVATION",
             },
             folded_entry["archive_evidence"],
         )
