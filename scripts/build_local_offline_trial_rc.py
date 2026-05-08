@@ -37,6 +37,7 @@ SCREENSHOT_SPECS = (
     ("s1-trial-desktop.png", "/s1-trial", "1440x1100"),
     ("s1-trial-mobile.png", "/s1-trial", "390x1000"),
 )
+REQUIRED_ARCHIVE_SCREENSHOT_FILES = ("s1-run-first-load-folded-desktop.png",)
 
 BOUNDARIES = {
     "real_data": False,
@@ -457,6 +458,10 @@ def package_index(
         "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
         "evidence_files": [f"evidence/{name}" for name in EVIDENCE_FILES],
         "screenshot_files": screenshot_files,
+        "required_archive_evidence": {
+            "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
+            "folded_state_screenshot_required": True,
+        },
         "validation_files": validation_files,
         "boundaries": BOUNDARIES,
     }

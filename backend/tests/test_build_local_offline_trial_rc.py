@@ -176,6 +176,13 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(manifest["manifest_self_sha256"], builder.manifest_self_sha256(manifest))
         self.assertEqual(14, len(manifest["package_files"]))
         self.assertTrue(all(item["sha256"] for item in manifest["package_files"]))
+        package_index = json.loads((self.output_dir / "PACKAGE_INDEX_中文.json").read_text(encoding="utf-8"))
+        required_archive = package_index["required_archive_evidence"]
+        self.assertEqual(True, required_archive["folded_state_screenshot_required"])
+        self.assertEqual(
+            ["screenshots/s1-run-first-load-folded-desktop.png"],
+            required_archive["folded_state_screenshot_files"],
+        )
         with zipfile.ZipFile(self.zip_path, "r") as archive:
             archived_paths = set(archive.namelist())
         self.assertIn("package_manifest.json", archived_paths)
