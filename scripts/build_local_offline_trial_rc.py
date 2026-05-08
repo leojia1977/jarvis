@@ -59,6 +59,7 @@ def required_archive_evidence_payload(
         "folded_state_screenshot_files": [f"screenshots/{name}" for name in REQUIRED_ARCHIVE_SCREENSHOT_FILES],
         "folded_state_screenshot_required": True,
         "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
+        "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
         "folded_state_expected_route": "/s1-run",
@@ -71,6 +72,7 @@ def required_archive_evidence_payload(
             "screenshot_path": "screenshots/s1-run-first-load-folded-desktop.png",
             "route": "/s1-run",
             "viewport": "1440x1100",
+            "expected_state": "FOLDED",
             "expected_section": "AI 建议来源",
             "interaction_count": 0,
             "interaction_policy": "FIRST_LOAD_NO_INTERACTION",
@@ -524,6 +526,7 @@ def screenshot_index(
                 "capture_phase": "FIRST_LOAD",
                 "interaction_count": 0,
                 "expected_state": "FOLDED",
+                "expected_section": "AI 建议来源",
             }
         screenshots.append(item)
     return {

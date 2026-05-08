@@ -177,6 +177,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_screenshot_files": ["screenshots/s1-run-first-load-folded-desktop.png"],
                 "folded_state_screenshot_required": True,
                 "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
+                "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
                 "folded_state_expected_route": "/s1-run",
@@ -194,6 +195,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                     "screenshot_path": "screenshots/s1-run-first-load-folded-desktop.png",
                     "route": "/s1-run",
                     "viewport": "1440x1100",
+                    "expected_state": "FOLDED",
                     "expected_section": "AI 建议来源",
                     "interaction_count": 0,
                     "interaction_policy": "FIRST_LOAD_NO_INTERACTION",
@@ -220,6 +222,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
             "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
             required_archive["folded_state_assertion_code"],
         )
+        self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
         self.assertEqual("/s1-run", required_archive["folded_state_expected_route"])
         self.assertEqual("1440x1100", required_archive["folded_state_expected_viewport"])
@@ -356,6 +359,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "capture_phase": "FIRST_LOAD",
                 "interaction_count": 0,
                 "expected_state": "FOLDED",
+                "expected_section": "AI 建议来源",
             },
             folded_entry["archive_evidence"],
         )
