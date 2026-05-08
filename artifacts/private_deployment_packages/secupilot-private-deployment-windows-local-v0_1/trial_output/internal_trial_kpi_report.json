@@ -1,15 +1,15 @@
 {
   "schema_version": "secupilot.internal_trial_kpi_report.v1",
   "report_id": "secupilot-private-deployment-windows-local-v0_1-internal-trial-kpi",
-  "generated_at_utc": "2026-05-08T03:09:24.026871Z",
+  "generated_at_utc": "2026-05-08T03:17:36.772023Z",
   "package_id": "secupilot-private-deployment-windows-local-v0_1",
   "package_dir": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1",
-  "status": "READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION",
-  "summary": "本地离线试用入口已完成 dry-run 启动且边界检查通过，等待内部试用反馈样本。",
+  "status": "INTERNAL_TRIAL_FEEDBACK_MEASURED",
+  "summary": "本地离线试用入口已完成 dry-run 启动，反馈样本已计入 KPI，缺失信息可进入下一轮产品 backlog。",
   "inputs": {
     "package_manifest": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/package_manifest.json",
     "customer_trial_status": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_status.json",
-    "feedback_json": null
+    "feedback_json": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_feedback.sample.json"
   },
   "metrics": {
     "completion_status": "COMPLETE_LOCAL_DRY_RUN",
@@ -19,16 +19,16 @@
     "boundary_required_count": 12
   },
   "feedback": {
-    "feedback_source": null,
-    "feedback_count": 0,
-    "understanding_sample_count": 0,
-    "understanding_positive_count": 0,
-    "understanding_rate_percent": null,
-    "usefulness_sample_count": 0,
-    "usefulness_positive_count": 0,
-    "usefulness_rate_percent": null,
-    "missing_information_count": 0,
-    "measurement_status": "PENDING_FEEDBACK"
+    "feedback_source": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/customer_trial_feedback.sample.json",
+    "feedback_count": 3,
+    "understanding_sample_count": 3,
+    "understanding_positive_count": 3,
+    "understanding_rate_percent": 100.0,
+    "usefulness_sample_count": 3,
+    "usefulness_positive_count": 2,
+    "usefulness_rate_percent": 66.67,
+    "missing_information_count": 2,
+    "measurement_status": "MEASURED"
   },
   "blockers": [],
   "non_authorization": [
@@ -40,7 +40,7 @@
     "No external pilot",
     "No production launch"
   ],
-  "next_unlock": "GOAL-MVP-76_CUSTOMER_TRIAL_FEEDBACK_SAMPLE_CAPTURE",
+  "next_unlock": "GOAL-MVP-77_PRIVATE_DEPLOYMENT_PREREQ_AND_SIZING_DRAFT",
   "outputs": {
     "json": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/internal_trial_kpi_report.json",
     "markdown": "artifacts/private_deployment_packages/secupilot-private-deployment-windows-local-v0_1/trial_output/internal_trial_kpi_report_中文.md"

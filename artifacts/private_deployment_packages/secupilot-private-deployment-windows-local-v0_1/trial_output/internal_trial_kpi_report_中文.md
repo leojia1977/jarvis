@@ -4,11 +4,11 @@ Report ID: `secupilot-private-deployment-windows-local-v0_1-internal-trial-kpi`
 
 Package ID: `secupilot-private-deployment-windows-local-v0_1`
 
-Status: `READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION`
+Status: `INTERNAL_TRIAL_FEEDBACK_MEASURED`
 
 ## 一句话结论
 
-本地离线试用入口已完成 dry-run 启动且边界检查通过，等待内部试用反馈样本。
+本地离线试用入口已完成 dry-run 启动，反馈样本已计入 KPI，缺失信息可进入下一轮产品 backlog。
 
 ## 核心指标
 
@@ -16,10 +16,10 @@ Status: `READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION`
 | --- | --- |
 | 本地试用启动完成率 | 100% |
 | 边界检查 | PASS |
-| 理解率 | PENDING_FEEDBACK |
-| 可用性正向率 | PENDING_FEEDBACK |
-| 反馈数 | 0 |
-| 缺失信息反馈数 | 0 |
+| 理解率 | 100.0% |
+| 可用性正向率 | 66.67% |
+| 反馈数 | 3 |
+| 缺失信息反馈数 | 2 |
 | 阻塞点数量 | 0 |
 
 ## 阻塞点
@@ -39,9 +39,9 @@ Status: `READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION`
 
 ## 下一步
 
-1. 继续收集内部试用反馈。
-2. 若反馈样本存在，重新运行本报告生成器并计算理解率/可用性正向率。
-3. 若无阻塞，可进入客户试用 README 与一键启动体验继续打磨。
+1. 将缺失信息反馈转入下一轮产品 backlog。
+2. 继续补齐私有化部署前置依赖和资源需求说明。
+3. 下一轮试用继续追加反馈样本并重新生成 KPI 报告。
 
 ## 非授权声明
 

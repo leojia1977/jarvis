@@ -199,6 +199,15 @@ def render_markdown(report: dict[str, Any]) -> str:
         else f"{feedback['usefulness_rate_percent']}%"
     )
 
+    if feedback["measurement_status"] == "MEASURED":
+        next_steps = """1. 将缺失信息反馈转入下一轮产品 backlog。
+2. 继续补齐私有化部署前置依赖和资源需求说明。
+3. 下一轮试用继续追加反馈样本并重新生成 KPI 报告。"""
+    else:
+        next_steps = """1. 继续收集内部试用反馈。
+2. 若反馈样本存在，重新运行本报告生成器并计算理解率/可用性正向率。
+3. 若无阻塞，可进入客户试用 README 与一键启动体验继续打磨。"""
+
     return f"""# SecuPilot 内部试用 KPI 报告
 
 Report ID: `{report['report_id']}`
@@ -240,9 +249,7 @@ Status: `{report['status']}`
 
 ## 下一步
 
-1. 继续收集内部试用反馈。
-2. 若反馈样本存在，重新运行本报告生成器并计算理解率/可用性正向率。
-3. 若无阻塞，可进入客户试用 README 与一键启动体验继续打磨。
+{next_steps}
 
 ## 非授权声明
 
@@ -280,10 +287,20 @@ def build_report(
     boundary_check_status = trial_status.get("boundary_check", {}).get("status", "UNKNOWN")
     package_id = str(manifest["package_id"])
     report_id = f"{package_id}-internal-trial-kpi"
-    summary = (
-        "本地离线试用入口已完成 dry-run 启动且边界检查通过，等待内部试用反馈样本。"
+    measured_feedback = feedback["measurement_status"] == "MEASURED"
+    if status == "COMPLETE_LOCAL_DRY_RUN" and measured_feedback:
+        summary = "本地离线试用入口已完成 dry-run 启动，反馈样本已计入 KPI，缺失信息可进入下一轮产品 backlog。"
+    elif status == "COMPLETE_LOCAL_DRY_RUN":
+        summary = "本地离线试用入口已完成 dry-run 启动且边界检查通过，等待内部试用反馈样本。"
+    else:
+        summary = "本地离线试用入口存在阻塞，需要先修复 HOLD 项。"
+
+    next_unlock = (
+        "GOAL-MVP-77_PRIVATE_DEPLOYMENT_PREREQ_AND_SIZING_DRAFT"
+        if status == "COMPLETE_LOCAL_DRY_RUN" and feedback["measurement_status"] == "MEASURED"
+        else "GOAL-MVP-76_CUSTOMER_TRIAL_FEEDBACK_SAMPLE_CAPTURE"
         if status == "COMPLETE_LOCAL_DRY_RUN"
-        else "本地离线试用入口存在阻塞，需要先修复 HOLD 项。"
+        else None
     )
 
     report = {
@@ -292,7 +309,13 @@ def build_report(
         "generated_at_utc": utc_now(),
         "package_id": package_id,
         "package_dir": portable_path(package_dir, repo_root),
-        "status": "READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION" if status == "COMPLETE_LOCAL_DRY_RUN" else "HOLD",
+        "status": (
+            "INTERNAL_TRIAL_FEEDBACK_MEASURED"
+            if status == "COMPLETE_LOCAL_DRY_RUN" and measured_feedback
+            else "READY_FOR_INTERNAL_TRIAL_FEEDBACK_COLLECTION"
+            if status == "COMPLETE_LOCAL_DRY_RUN"
+            else "HOLD"
+        ),
         "summary": summary,
         "inputs": {
             "package_manifest": portable_path(manifest_path, repo_root),
@@ -319,9 +342,7 @@ def build_report(
             "No external pilot",
             "No production launch",
         ],
-        "next_unlock": "GOAL-MVP-76_CUSTOMER_TRIAL_FEEDBACK_SAMPLE_CAPTURE"
-        if status == "COMPLETE_LOCAL_DRY_RUN"
-        else None,
+        "next_unlock": next_unlock,
     }
 
     json_path = output_dir / DEFAULT_JSON_NAME
