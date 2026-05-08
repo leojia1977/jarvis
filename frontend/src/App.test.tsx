@@ -414,6 +414,10 @@ describe("SecuPilot first-batch workbench slice", () => {
 
     expect(screen.getByRole("heading", { name: "SecuPilot 事件研判结果" }))
       .toBeInTheDocument();
+    const workbenchConsole = screen.getByTestId("incident-workbench-console");
+    expect(workbenchConsole).toHaveTextContent("事件工作台");
+    expect(workbenchConsole).toHaveTextContent("事件队列");
+    expect(workbenchConsole).toHaveTextContent("事件时间线");
     expect(screen.queryByLabelText("Role selector")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Mock fixture phase")).not.toBeInTheDocument();
     expect(screen.queryByTestId("vf-03-expert-mode-frame")).not.toBeInTheDocument();

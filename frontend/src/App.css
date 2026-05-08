@@ -4980,6 +4980,455 @@ button {
   font-weight: 800;
 }
 
+.incident-workbench-view.page-region {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #080d14;
+  color: #dce8f7;
+}
+
+.incident-workbench-console {
+  display: grid;
+  gap: 0;
+  min-height: 760px;
+  border-bottom: 1px solid #1d2b3b;
+  background:
+    linear-gradient(180deg, rgba(27, 39, 56, 0.96), rgba(8, 13, 20, 0.98)),
+    #080d14;
+}
+
+.incident-workbench-topbar {
+  display: grid;
+  grid-template-columns: minmax(150px, auto) minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  min-height: 52px;
+  border-bottom: 1px solid #1d2b3b;
+  padding: 0 18px;
+}
+
+.incident-workbench-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  color: #f5f8ff;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.incident-workbench-brand span {
+  font-size: 15px;
+}
+
+.incident-workbench-brand small,
+.incident-workbench-breadcrumb,
+.incident-workbench-mode-strip {
+  color: #7f90a7;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.incident-workbench-breadcrumb {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+}
+
+.incident-workbench-breadcrumb a,
+.incident-workbench-breadcrumb strong {
+  color: #75b7ff;
+  text-decoration: none;
+}
+
+.incident-workbench-mode-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.incident-workbench-mode-strip span {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  border: 1px solid #29476b;
+  border-radius: 6px;
+  background: #0d1725;
+  color: #8fc8ff;
+  padding: 0 9px;
+}
+
+.incident-workbench-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.72fr) minmax(620px, 2.4fr) minmax(280px, 0.88fr);
+  min-width: 0;
+}
+
+.incident-workbench-queue,
+.incident-workbench-right-rail {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  border-color: #1d2b3b;
+  background: rgba(11, 18, 29, 0.86);
+  padding: 18px;
+}
+
+.incident-workbench-queue {
+  border-right: 1px solid #1d2b3b;
+}
+
+.incident-workbench-right-rail {
+  border-left: 1px solid #1d2b3b;
+}
+
+.incident-queue-header,
+.incident-right-rail-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #9aaabd;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.incident-right-rail-title {
+  justify-content: flex-start;
+  margin-bottom: 12px;
+  color: #dce8f7;
+}
+
+.incident-queue-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.incident-queue-metrics div,
+.incident-queue-card,
+.incident-workbench-right-rail section,
+.incident-workbench-narrative article {
+  min-width: 0;
+  border: 1px solid #243246;
+  border-radius: 8px;
+  background: #111a28;
+}
+
+.incident-queue-metrics div {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+}
+
+.incident-queue-metrics strong {
+  color: #f7fbff;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.incident-queue-metrics span,
+.incident-queue-card dt,
+.incident-workbench-trust-list dt {
+  color: #7f90a7;
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.incident-queue-list {
+  display: grid;
+  gap: 10px;
+}
+
+.incident-queue-card {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+}
+
+.incident-queue-card.is-active {
+  border-color: #4f9cff;
+  box-shadow: inset 3px 0 0 #4f9cff;
+}
+
+.incident-queue-card > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #7f90a7;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.incident-queue-card strong {
+  color: #eef5ff;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.incident-queue-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.incident-queue-card dd,
+.incident-workbench-trust-list dd {
+  margin: 4px 0 0;
+  color: #d4e4f8;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.incident-queue-card em {
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid #6b4c13;
+  border-radius: 6px;
+  background: #2c220c;
+  color: #f3bd3f;
+  padding: 4px 7px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.incident-workbench-main {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-width: 0;
+  padding: 24px;
+}
+
+.incident-workbench-view .incident-product-hero,
+.incident-workbench-view .incident-result-grid article,
+.incident-workbench-view .incident-recommended-action-card,
+.incident-workbench-view .incident-feedback-loop-card,
+.incident-workbench-view .incident-qwen-provider-card,
+.incident-workbench-view .incident-brief-grid article,
+.incident-workbench-view .incident-action-panel,
+.incident-workbench-view .incident-collapsible-panel {
+  border-color: #243246;
+  background: #111a28;
+  box-shadow: none;
+}
+
+.incident-workbench-view .incident-product-hero {
+  padding: 22px;
+}
+
+.incident-workbench-view .incident-product-hero h1,
+.incident-workbench-view .incident-result-grid strong,
+.incident-workbench-view .incident-brief-grid h2,
+.incident-workbench-view .incident-recommended-action-header h2,
+.incident-workbench-view .incident-recommended-action-body h3,
+.incident-workbench-view .incident-feedback-loop-header h2,
+.incident-workbench-view .incident-feedback-controls legend,
+.incident-workbench-view .incident-feedback-note-field > span,
+.incident-workbench-view .incident-qwen-provider-header h2,
+.incident-workbench-view .incident-action-panel h2,
+.incident-workbench-view .incident-feedback-summary h3,
+.incident-workbench-view .incident-qwen-provider-summary h3,
+.incident-workbench-view .incident-qwen-dry-run-flow h3,
+.incident-workbench-view .incident-action-panel strong,
+.incident-workbench-view .incident-evidence-list strong {
+  color: #f5f8ff;
+}
+
+.incident-workbench-view .incident-product-hero p,
+.incident-workbench-view .incident-result-grid p,
+.incident-workbench-view .incident-brief-grid p,
+.incident-workbench-view .incident-brief-grid li,
+.incident-workbench-view .incident-recommended-action-header p,
+.incident-workbench-view .incident-recommended-action-body li,
+.incident-workbench-view .incident-feedback-loop-header p,
+.incident-workbench-view .incident-feedback-summary p,
+.incident-workbench-view .incident-qwen-provider-header p,
+.incident-workbench-view .incident-qwen-provider-summary p,
+.incident-workbench-view .incident-qwen-dry-run-flow li,
+.incident-workbench-view .incident-action-panel span,
+.incident-workbench-view .incident-evidence-list p {
+  color: #aab8ca;
+}
+
+.incident-workbench-view .summary-kicker,
+.incident-workbench-view .incident-result-grid span {
+  color: #7dafff;
+}
+
+.incident-workbench-view .incident-primary-actions a,
+.incident-workbench-view .incident-boundary-pill,
+.incident-workbench-view .incident-recommended-action-header > span,
+.incident-workbench-view .incident-feedback-loop-header > span,
+.incident-workbench-view .incident-qwen-provider-header > span {
+  border-color: #31506d;
+  background: #0d1725;
+  color: #9dd6ff;
+}
+
+.incident-workbench-view .incident-recommended-action-card {
+  border-left-color: #32d583;
+}
+
+.incident-workbench-view .incident-feedback-loop-card {
+  border-left: 4px solid #7c5cff;
+}
+
+.incident-workbench-view .incident-qwen-provider-card {
+  border-left-color: #4f9cff;
+}
+
+.incident-workbench-view .incident-recommended-action-facts > div,
+.incident-workbench-view .incident-recommended-action-body article,
+.incident-workbench-view .incident-feedback-summary,
+.incident-workbench-view .incident-feedback-options button,
+.incident-workbench-view .incident-feedback-missing-info label,
+.incident-workbench-view .incident-qwen-provider-modes button,
+.incident-workbench-view .incident-qwen-runtime-scenarios button,
+.incident-workbench-view .incident-qwen-dry-run-flow article,
+.incident-workbench-view .incident-qwen-provider-summary,
+.incident-workbench-view .incident-qwen-sentinel-grid > div,
+.incident-workbench-view .incident-action-panel li,
+.incident-workbench-view .incident-evidence-list article,
+.incident-workbench-view .incident-technical-facts > div {
+  border-color: #28384d;
+  background: #0c1420;
+  color: #dce8f7;
+}
+
+.incident-workbench-view .incident-feedback-options button.is-selected,
+.incident-workbench-view .incident-qwen-provider-modes button.is-selected,
+.incident-workbench-view .incident-qwen-runtime-scenarios button.is-selected {
+  border-color: #4f9cff;
+  background: #0f2238;
+}
+
+.incident-workbench-view .incident-recommended-action-facts dd,
+.incident-workbench-view .incident-feedback-summary dd,
+.incident-workbench-view .incident-qwen-provider-summary dd,
+.incident-workbench-view .incident-qwen-sentinel-grid dd,
+.incident-workbench-view .incident-technical-facts dd,
+.incident-workbench-view .incident-feedback-options span,
+.incident-workbench-view .incident-feedback-missing-info span {
+  color: #f5f8ff;
+}
+
+.incident-workbench-view .incident-recommended-action-facts dt,
+.incident-workbench-view .incident-feedback-summary dt,
+.incident-workbench-view .incident-qwen-provider-summary dt,
+.incident-workbench-view .incident-qwen-sentinel-grid dt,
+.incident-workbench-view .incident-technical-facts dt,
+.incident-workbench-view .incident-evidence-list span,
+.incident-workbench-view .incident-feedback-options small,
+.incident-workbench-view .incident-qwen-provider-modes small,
+.incident-workbench-view .incident-qwen-runtime-scenarios small {
+  color: #7f90a7;
+}
+
+.incident-workbench-view .incident-feedback-note-field textarea {
+  border-color: #28384d;
+  background: #0c1420;
+  color: #f5f8ff;
+}
+
+.incident-workbench-view .incident-feedback-local-record pre,
+.incident-workbench-view .incident-qwen-local-record pre {
+  background: #060a10;
+  color: #dce8f7;
+}
+
+.incident-workbench-view .incident-collapsible-panel summary,
+.incident-workbench-view .incident-feedback-local-record summary,
+.incident-workbench-view .incident-qwen-local-record summary {
+  color: #9dd6ff;
+}
+
+.incident-workbench-narrative {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.incident-workbench-narrative article {
+  padding: 14px;
+}
+
+.incident-workbench-narrative span {
+  color: #7dafff;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.incident-workbench-narrative p {
+  margin: 8px 0 0;
+  color: #d4e4f8;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.incident-workbench-right-rail section {
+  padding: 14px;
+}
+
+.incident-workbench-timeline {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.incident-workbench-timeline li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.incident-workbench-timeline time {
+  color: #4f9cff;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.incident-workbench-timeline span {
+  color: #c8d8ed;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.incident-workbench-trust-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.incident-workbench-trust-list > div {
+  border-top: 1px solid #243246;
+  padding-top: 10px;
+}
+
+.incident-right-rail-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border-color: #2e4d3d !important;
+  background: #0e2119 !important;
+}
+
+.incident-right-rail-note p {
+  margin: 0;
+  color: #a7f3d0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -5003,6 +5452,36 @@ button {
 
   .topbar {
     grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .incident-workbench-view.page-region {
+    padding: 0;
+  }
+
+  .incident-workbench-topbar,
+  .incident-workbench-layout,
+  .incident-workbench-narrative {
+    grid-template-columns: 1fr;
+  }
+
+  .incident-workbench-topbar {
+    align-items: start;
+    padding: 14px;
+  }
+
+  .incident-workbench-mode-strip {
+    justify-content: flex-start;
+  }
+
+  .incident-workbench-queue,
+  .incident-workbench-right-rail {
+    border-right: 0;
+    border-left: 0;
+    padding: 14px;
+  }
+
+  .incident-workbench-main {
     padding: 14px;
   }
 

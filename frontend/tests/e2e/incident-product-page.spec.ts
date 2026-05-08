@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const THIS_FILE = fileURLToPath(import.meta.url);
 const REPO_ROOT = path.resolve(path.dirname(THIS_FILE), "../../..");
-const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "mvp72");
+const EVIDENCE_ROOT = path.join(REPO_ROOT, "artifacts", "product_experience", "ux01");
 
-test.describe("MVP-72 cloud model latency and error handling", () => {
+test.describe("UX-01 incident workbench main path polish", () => {
   test.beforeAll(async () => {
     await mkdir(EVIDENCE_ROOT, { recursive: true });
   });
@@ -23,6 +23,11 @@ test.describe("MVP-72 cloud model latency and error handling", () => {
     await expect(surface).toHaveAttribute("data-live-connectors", "false");
     await expect(surface).toHaveAttribute("data-production-writeback", "false");
     await expect(surface).toHaveAttribute("data-customer-visible-output", "false");
+    const workbenchConsole = page.getByTestId("incident-workbench-console");
+    await expect(workbenchConsole).toBeVisible();
+    await expect(workbenchConsole.getByText("事件工作台")).toBeVisible();
+    await expect(workbenchConsole.getByText("事件队列")).toBeVisible();
+    await expect(workbenchConsole.getByText("事件时间线")).toBeVisible();
     await expect(page.getByRole("heading", { name: "SecuPilot 事件研判结果" })).toBeVisible();
     await expect(page.getByTestId("incident-current-outcome")).toContainText(
       "需要人工复核的高风险事件"
@@ -70,7 +75,7 @@ test.describe("MVP-72 cloud model latency and error handling", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
     await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
-    await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(3);
+    await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
       "回退本地规则摘要"
@@ -122,7 +127,7 @@ test.describe("MVP-72 cloud model latency and error handling", () => {
       path.join(EVIDENCE_ROOT, "incident-product-desktop.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp72.cloud_model_latency_error_handling_text.v1",
+          schema_version: "secupilot.ux01.incident_workbench_main_path_text.v1",
           route: "/incident/CASE-2847",
           viewport: "1440x1000",
           visible_text: visibleText
@@ -140,6 +145,7 @@ test.describe("MVP-72 cloud model latency and error handling", () => {
 
     const surface = page.getByTestId("incident-product-view");
     await expect(surface).toBeVisible();
+    await expect(page.getByTestId("incident-workbench-console")).toBeVisible();
     await expect(page.getByRole("heading", { name: "SecuPilot 事件研判结果" })).toBeVisible();
     await expect(page.getByTestId("incident-current-outcome")).toContainText(
       "需要人工复核的高风险事件"
@@ -179,7 +185,7 @@ test.describe("MVP-72 cloud model latency and error handling", () => {
       path.join(EVIDENCE_ROOT, "incident-product-mobile.text.json"),
       JSON.stringify(
         {
-          schema_version: "secupilot.mvp72.cloud_model_latency_error_handling_text.v1",
+          schema_version: "secupilot.ux01.incident_workbench_main_path_text.v1",
           route: "/incident/CASE-2847",
           viewport: "390x1000",
           visible_text: visibleText

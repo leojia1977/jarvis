@@ -3137,6 +3137,47 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
     ["连接器", "不调用"],
     ["生产写回", "禁止"]
   ] as const;
+  const incidentQueueItems = [
+    {
+      id: "AR-1048",
+      title: "隔离 finance-042 并锁定凭据",
+      owner: "Maya Patel",
+      age: "18 min",
+      severity: "高",
+      status: "等待人工确认",
+      active: true
+    },
+    {
+      id: "AR-1041",
+      title: "PowerShell 异常活动进入观察",
+      owner: "Ethan Wu",
+      age: "42 min",
+      severity: "中",
+      status: "观察窗口",
+      active: false
+    },
+    {
+      id: "AR-1037",
+      title: "异常外联行为继续补证",
+      owner: "SOC Queue",
+      age: "23 min",
+      severity: "中",
+      status: "等待证据",
+      active: false
+    }
+  ] as const;
+  const incidentTimelineItems = [
+    ["09:14", "ws-finance-042 发起多台内部服务器认证"],
+    ["09:17", "srv-file-03 认证成功，但缺少终端进程证据"],
+    ["09:18", "SecuPilot 标记为横向移动疑似链路"],
+    ["09:32", "生成人工确认建议，不触发处置"]
+  ] as const;
+  const workbenchTrustSignals = [
+    ["证据覆盖", "中等，仍需补端点进程与 MFA"],
+    ["不确定性", "已单独列出，不强行下结论"],
+    ["动作边界", "只读建议，不自动隔离或写回"],
+    ["模型状态", "Qwen dry-run stub，无 live 调用"]
+  ] as const;
   const [selectedQwenProviderMode, setSelectedQwenProviderMode] = useState("qwen_synthetic_stub");
   const [selectedQwenRuntimeScenario, setSelectedQwenRuntimeScenario] =
     useState("timeout_rate_limit");
@@ -3224,7 +3265,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
   return (
     <section
       aria-labelledby="incident-product-title"
-      className="page-region incident-product-view"
+      className="page-region incident-product-view incident-workbench-view"
       data-customer-visible-output="false"
       data-live-connectors="false"
       data-live-qwen-api="false"
@@ -3232,41 +3273,170 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       data-real-data="false"
       data-testid="incident-product-view"
     >
-      <header className="incident-product-hero" data-testid="incident-product-hero">
-        <div>
-          <p className="summary-kicker">事件研判 / 产品预览</p>
-          <h1 id="incident-product-title">SecuPilot 事件研判结果</h1>
-          <p>
-            SecuPilot 已把当前安全事件整理成客户可读结论。先看判断和建议动作，
-            再按需展开证据、限制和技术对账信息。
-          </p>
-          <div className="incident-primary-actions" aria-label="事件研判快捷动作">
-            <a href="#incident-evidence-details">查看证据摘要</a>
-            <a href="#incident-feedback-anchor">记录反馈</a>
-            <a href="#incident-qwen-provider-anchor">模型接入预览</a>
-            <a href="/s1-trial">返回试用首页</a>
+      <div className="incident-workbench-console" data-testid="incident-workbench-console">
+        <header className="incident-workbench-topbar" aria-label="SecuPilot 事件工作台">
+          <a className="incident-workbench-brand" href="/s1-trial" aria-label="返回 SecuPilot 试用首页">
+            <span>SecuPilot</span>
+            <small>事件工作台</small>
+          </a>
+          <nav className="incident-workbench-breadcrumb" aria-label="当前路径">
+            <a href="/s1-trial">产品首页</a>
+            <ChevronRight aria-hidden="true" size={14} />
+            <span>事件研判</span>
+            <ChevronRight aria-hidden="true" size={14} />
+            <strong>{activeCase.id}</strong>
+          </nav>
+          <div className="incident-workbench-mode-strip" aria-label="运行边界">
+            <span>本地离线</span>
+            <span>合成案例</span>
+            <span>只读建议</span>
           </div>
-        </div>
-        <span className="incident-boundary-pill">本地离线 / 合成案例</span>
-      </header>
+        </header>
 
-      <section className="incident-result-grid" aria-label="事件研判核心结论">
-        <article data-testid="incident-current-outcome">
-          <span>当前结论</span>
-          <strong>需要人工复核的高风险事件</strong>
-          <p>SecuPilot 识别到疑似凭据复用和横向移动行为，建议先进入人工复核。</p>
-        </article>
-        <article data-testid="incident-recommended-action">
-          <span>建议动作</span>
-          <strong>提交人工确认, 不自动处置</strong>
-          <p>当前页面只生成研判和交接建议，不执行隔离、阻断、关闭或生产写回。</p>
-        </article>
-        <article data-testid="incident-trust-summary">
-          <span>可信边界</span>
-          <strong>中等证据覆盖</strong>
-          <p>证据链可展开核验；不能确认的部分会单独列出，不做静默乐观判断。</p>
-        </article>
-      </section>
+        <div className="incident-workbench-layout">
+          <aside className="incident-workbench-queue" aria-label="事件队列摘要">
+            <div className="incident-queue-header">
+              <span>事件队列</span>
+              <small>更新 09:32</small>
+            </div>
+            <div className="incident-queue-metrics" aria-label="队列指标">
+              <div>
+                <strong>12</strong>
+                <span>待看</span>
+              </div>
+              <div>
+                <strong>4</strong>
+                <span>等待</span>
+              </div>
+              <div>
+                <strong>7</strong>
+                <span>今日关闭</span>
+              </div>
+            </div>
+            <div className="incident-queue-list">
+              {incidentQueueItems.map((item) => (
+                <article
+                  className={item.active ? "incident-queue-card is-active" : "incident-queue-card"}
+                  key={item.id}
+                >
+                  <div>
+                    <span>{item.id}</span>
+                    <small>{item.age}</small>
+                  </div>
+                  <strong>{item.title}</strong>
+                  <dl>
+                    <div>
+                      <dt>负责人</dt>
+                      <dd>{item.owner}</dd>
+                    </div>
+                    <div>
+                      <dt>严重度</dt>
+                      <dd>{item.severity}</dd>
+                    </div>
+                  </dl>
+                  <em>{item.status}</em>
+                </article>
+              ))}
+            </div>
+          </aside>
+
+          <main className="incident-workbench-main" aria-label="事件研判主路径">
+            <header className="incident-product-hero incident-workbench-report-card" data-testid="incident-product-hero">
+              <div>
+                <p className="summary-kicker">SecuPilot · Investigation Report</p>
+                <h1 id="incident-product-title">SecuPilot 事件研判结果</h1>
+                <p>
+                  SecuPilot 已经把当前事件压缩成一条客户可读判断：先看结论和建议动作，
+                  再展开证据、不确定性和技术对账。
+                </p>
+                <div className="incident-primary-actions" aria-label="事件研判快捷动作">
+                  <a href="#incident-evidence-details">查看证据摘要</a>
+                  <a href="#incident-feedback-anchor">记录反馈</a>
+                  <a href="#incident-qwen-provider-anchor">模型接入预览</a>
+                  <a href="/s1-trial">返回试用首页</a>
+                </div>
+              </div>
+              <span className="incident-boundary-pill">本地离线 / 合成案例</span>
+            </header>
+
+            <section className="incident-result-grid" aria-label="事件研判核心结论">
+              <article data-testid="incident-current-outcome">
+                <span>当前结论</span>
+                <strong>需要人工复核的高风险事件</strong>
+                <p>SecuPilot 识别到疑似凭据复用和横向移动行为，建议先进入人工复核。</p>
+              </article>
+              <article data-testid="incident-recommended-action">
+                <span>建议动作</span>
+                <strong>提交人工确认, 不自动处置</strong>
+                <p>当前页面只生成研判和交接建议，不执行隔离、阻断、关闭或生产写回。</p>
+              </article>
+              <article data-testid="incident-trust-summary">
+                <span>可信边界</span>
+                <strong>中等证据覆盖</strong>
+                <p>证据链可展开核验；不能确认的部分会单独列出，不做静默乐观判断。</p>
+              </article>
+            </section>
+
+            <section className="incident-workbench-narrative" aria-label="SecuPilot 研判摘要">
+              <article>
+                <span>发生了什么</span>
+                <p>
+                  今天 09:14，ws-finance-042 对多台内部服务器发起认证尝试，
+                  srv-file-03 出现成功认证，行为模式接近横向移动。
+                </p>
+              </article>
+              <article>
+                <span>为什么危险</span>
+                <p>
+                  认证路径跨越财务到内部服务区，且缺少足够终端进程证据；
+                  这意味着需要尽快人工确认，而不是直接执行处置。
+                </p>
+              </article>
+              <article>
+                <span>不确定性</span>
+                <p>
+                  还不能确认账号是否完全接管，也不能确认文件访问行为是否来自合法管理操作。
+                </p>
+              </article>
+            </section>
+          </main>
+
+          <aside className="incident-workbench-right-rail" aria-label="只读审计与时间线">
+            <section>
+              <div className="incident-right-rail-title">
+                <History aria-hidden="true" size={16} />
+                <span>事件时间线</span>
+              </div>
+              <ol className="incident-workbench-timeline">
+                {incidentTimelineItems.map(([time, text]) => (
+                  <li key={time}>
+                    <time>{time}</time>
+                    <span>{text}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+            <section>
+              <div className="incident-right-rail-title">
+                <ShieldCheck aria-hidden="true" size={16} />
+                <span>可信边界</span>
+              </div>
+              <dl className="incident-workbench-trust-list">
+                {workbenchTrustSignals.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+            <section className="incident-right-rail-note">
+              <Lock aria-hidden="true" size={16} />
+              <p>当前工作台只读展示，不触发隔离、阻断、账号关闭、连接器调用或生产写回。</p>
+            </section>
+          </aside>
+        </div>
+      </div>
 
       <section
         aria-labelledby="incident-recommended-action-card-title"
