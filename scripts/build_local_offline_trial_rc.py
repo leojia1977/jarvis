@@ -62,6 +62,7 @@ def required_archive_evidence_payload(
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
+        "folded_state_expected_interaction_count": 0,
         "folded_state_expected_route": "/s1-run",
         "folded_state_expected_viewport": "1440x1100",
         "folded_state_primary_screenshot": "screenshots/s1-run-first-load-folded-desktop.png",
@@ -525,6 +526,7 @@ def screenshot_index(
                 "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
                 "capture_phase": "FIRST_LOAD",
                 "interaction_count": 0,
+                "expected_interaction_count": 0,
                 "expected_state": "FOLDED",
                 "expected_section": "AI 建议来源",
             }
