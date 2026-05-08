@@ -67,6 +67,7 @@ def required_archive_evidence_payload(
         "folded_state_review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
         "folded_state_review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
         "folded_state_review_source_type": "NON_BLOCKING_OBSERVATION",
+        "folded_state_review_source_priority": "P3",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
@@ -555,6 +556,7 @@ def screenshot_index(
                 "review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
                 "review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
                 "review_source_type": "NON_BLOCKING_OBSERVATION",
+                "review_source_priority": "P3",
             }
         screenshots.append(item)
     return {
