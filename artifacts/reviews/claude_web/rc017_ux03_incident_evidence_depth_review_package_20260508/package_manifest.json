@@ -1,0 +1,73 @@
+﻿{
+    "schema_version":  "secupilot.rc017.ux03.review_package_manifest.v1",
+    "package_id":  "rc017_ux03_incident_evidence_depth_review_package_20260508",
+    "route":  "/incident/CASE-2847",
+    "review_scope":  "local_offline_ux_review_only",
+    "generated_at_local":  "2026-05-08T16:07:13+08:00",
+    "source_goal":  "GOAL-UX-03_INCIDENT_EVIDENCE_AND_TIMELINE_DEPTH",
+    "source_closeout":  "docs/S6_FAST_PRODUCT_GOAL_UX_03_INCIDENT_EVIDENCE_AND_TIMELINE_DEPTH_CLOSEOUT_2026_05_08.md",
+    "source_decision":  "docs/S6_RC016_UX02_INCIDENT_AI_ADVICE_REVIEW_DECISION_2026_05_08.md",
+    "manifest_excludes_self":  true,
+    "files":  [
+                  {
+                      "path":  "01_REVIEW_PROMPT.md",
+                      "bytes":  2853,
+                      "sha256":  "e984fb5fbdc78f6cb9ecaf02bafd31c6ab377762a7df4ab9687f3664dab3ed3f"
+                  },
+                  {
+                      "path":  "02_incident-product-first-load-desktop.png",
+                      "bytes":  541080,
+                      "sha256":  "a11ab675d804c6a48137a5ac66d70b4786b02c9d1c865b6220517f7aa16ba5ac"
+                  },
+                  {
+                      "path":  "03_incident-product-first-load-desktop.text.json",
+                      "bytes":  5800,
+                      "sha256":  "a5932bfd5f6c13e89ea54dbb1a64f16bcd5c4fe3c9df1e8d5a56f04d8ef84e39"
+                  },
+                  {
+                      "path":  "04_incident-product-evidence-expanded-desktop.png",
+                      "bytes":  691361,
+                      "sha256":  "d831869ee56911c981475b88aa5d272aaf5129e4fd992644617678fe7eaaf1fa"
+                  },
+                  {
+                      "path":  "05_incident-product-evidence-expanded-desktop.text.json",
+                      "bytes":  7529,
+                      "sha256":  "1e9ba5594a1e1fefe5ee68a806c3ee2b8390ba1fcab76ba47f0911f3ccfdbc97"
+                  },
+                  {
+                      "path":  "06_incident-product-technical-expanded-desktop.png",
+                      "bytes":  611061,
+                      "sha256":  "5dd78c8676ad44406a2bfee5f0f69fececf801ad20a9c68fb33742904c2acdab"
+                  },
+                  {
+                      "path":  "07_incident-product-technical-expanded-desktop.text.json",
+                      "bytes":  6571,
+                      "sha256":  "2d2f237dea2552d72c6293b1aecab59de85465de265e17bd2a384354f88218e6"
+                  },
+                  {
+                      "path":  "08_incident-product-mobile.png",
+                      "bytes":  541564,
+                      "sha256":  "ba1bc445cb29377fc98bbcc63ccdc9944391880a2218229334dccb9b53cf37fc"
+                  },
+                  {
+                      "path":  "09_incident-product-mobile.text.json",
+                      "bytes":  5770,
+                      "sha256":  "ec40de82183e38f60f8635d4d2fdcb24f73a0f59e9f5da2ffdb3ad95d93b50ab"
+                  },
+                  {
+                      "path":  "10_RC016_DECISION.md",
+                      "bytes":  4502,
+                      "sha256":  "fc585659cefd667e3994033bc8e917a6f48edc2995f3e33a4fc926a1059b7c7e"
+                  },
+                  {
+                      "path":  "11_UX03_CLOSEOUT.md",
+                      "bytes":  3830,
+                      "sha256":  "692dc1259709f54b1342d36b38edc1fea7155df8e87fe7b670ee440fff984b5d"
+                  },
+                  {
+                      "path":  "12_GOAL_UX03.md",
+                      "bytes":  5963,
+                      "sha256":  "53915554d349b709db1149355a6410f085469245c3bcd2f5078b3553403b7085"
+                  }
+              ]
+}
