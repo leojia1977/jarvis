@@ -78,6 +78,52 @@ def scan_text(text: str, label: str) -> None:
             raise ValueError(f"{label}: forbidden text pattern {pattern.pattern}")
 
 
+def parse_replacement_pairs(raw_pairs: list[str]) -> list[tuple[str, str]]:
+    pairs: list[tuple[str, str]] = []
+    for raw in raw_pairs:
+        if "=>" not in raw:
+            raise ValueError(f"replacement pair must use old=>new format: {raw}")
+        old_text, new_text = raw.split("=>", 1)
+        old_text = old_text.strip()
+        new_text = new_text.strip()
+        if not old_text or not new_text:
+            raise ValueError(f"replacement pair must include non-empty old/new text: {raw}")
+        pairs.append((old_text, new_text))
+    return pairs
+
+
+def run_conservative_wording_checks(
+    repo_root: Path,
+    text_check_files: list[str],
+    replacement_pairs: list[tuple[str, str]],
+) -> list[dict[str, Any]]:
+    checks: list[dict[str, Any]] = []
+    for file_value in text_check_files:
+        file_path = (repo_root / file_value).resolve()
+        if not file_path.exists() or not file_path.is_file():
+            raise ValueError(f"text check file is missing: {file_value}")
+        text = file_path.read_text(encoding="utf-8")
+        for legacy_text, conservative_text in replacement_pairs:
+            if legacy_text in text:
+                raise ValueError(
+                    f"text check failed in {portable_path(file_path, repo_root)}: "
+                    f"legacy wording still present: {legacy_text}"
+                )
+            if conservative_text not in text:
+                raise ValueError(
+                    f"text check failed in {portable_path(file_path, repo_root)}: "
+                    f"required conservative wording missing: {conservative_text}"
+                )
+            checks.append(
+                {
+                    "file": portable_path(file_path, repo_root),
+                    "legacy_text_absent": legacy_text,
+                    "conservative_text_present": conservative_text,
+                }
+            )
+    return checks
+
+
 def validate_backlog(payload: dict[str, Any]) -> None:
     if payload.get("external_tracker_write") is not False:
         raise ValueError("backlog external_tracker_write must be false")
@@ -162,6 +208,8 @@ def close_items(args: argparse.Namespace) -> dict[str, Any]:
     closeout_md = (repo_root / args.closeout_md).resolve()
     close_item_ids = set(args.item_id)
     evidence_refs = [value.replace("\\", "/") for value in args.evidence]
+    replacement_pairs = parse_replacement_pairs(args.require_replacement)
+    conservative_wording_checks: list[dict[str, Any]] = []
 
     payload = read_json(backlog_json)
     if not isinstance(payload, dict):
@@ -195,6 +243,13 @@ def close_items(args: argparse.Namespace) -> dict[str, Any]:
     payload["customer_visible_or_deploy_go"] = False
     validate_backlog(payload)
 
+    if replacement_pairs:
+        conservative_wording_checks = run_conservative_wording_checks(
+            repo_root=repo_root,
+            text_check_files=args.text_check_file,
+            replacement_pairs=replacement_pairs,
+        )
+
     write_json(output_json, payload)
     output_md.parent.mkdir(parents=True, exist_ok=True)
     output_md.write_text(render_backlog_markdown(payload), encoding="utf-8")
@@ -212,6 +267,7 @@ def close_items(args: argparse.Namespace) -> dict[str, Any]:
         "resolution": args.resolution,
         "closed_item_ids": sorted(close_item_ids),
         "closed_item_count": len(closed_items),
+        "conservative_wording_checks": conservative_wording_checks,
         "boundaries": {key: False for key in REQUIRED_FALSE_BOUNDARIES},
         "customer_visible_or_deploy_go": False,
         "external_tracker_write": False,
@@ -238,6 +294,12 @@ Resolution:
 
 ```text
 {args.resolution}
+```
+
+Conservative wording checks:
+
+```text
+{json.dumps(conservative_wording_checks, ensure_ascii=False, indent=2)}
 ```
 """,
         encoding="utf-8",
@@ -271,6 +333,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--closed-by-commit", required=True)
     parser.add_argument("--resolution", required=True)
     parser.add_argument("--evidence", action="append", default=[])
+    parser.add_argument("--text-check-file", action="append", default=[])
+    parser.add_argument(
+        "--require-replacement",
+        action="append",
+        default=[],
+        help="Require conservative wording replacement in each text-check file, format: old=>new",
+    )
     parser.add_argument("--repo-root", default=".")
     return parser.parse_args(argv)
 
