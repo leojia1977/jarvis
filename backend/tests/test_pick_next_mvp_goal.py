@@ -90,6 +90,101 @@ class PickNextMvpGoalTests(unittest.TestCase):
         self.assertEqual("RFB-RC999-001", payload["selected_backlog_item"]["id"])
         self.assertIn("frontend/src/secupilot/s1/S1ArtifactView.tsx", payload["candidate_goal"]["exact_files"])
 
+    def test_p3_backlog_does_not_preempt_open_eci_vfe_queue(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(
+            self.backlog_json,
+            {
+                "items": [
+                    {
+                        "id": "RFB-RC999-001",
+                        "title": "Low priority screenshot metadata cleanup",
+                        "status": "BACKLOG_OPEN",
+                        "priority": "P3",
+                        "category": "REVIEW_SCREENSHOT",
+                    }
+                ]
+            },
+        )
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-32_FORECAST_CARD_UI", payload["candidate_goal"]["queue_key"])
+
+    def test_p2_backlog_is_limited_to_two_goal_cards(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI.md",
+            "GOAL-MVP-120_BACKLOG_ITEM_RFB_RC999_001.md",
+            "GOAL-MVP-121_BACKLOG_ITEM_RFB_RC999_001.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(
+            self.backlog_json,
+            {
+                "items": [
+                    {
+                        "id": "RFB-RC999-001",
+                        "title": "P2 package polish already attempted twice",
+                        "status": "BACKLOG_OPEN",
+                        "priority": "P2",
+                        "category": "PACKAGE",
+                    }
+                ]
+            },
+        )
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-ECIVFE-32_FORECAST_CARD_UI", payload["candidate_goal"]["queue_key"])
+
+    def test_p1_backlog_can_still_preempt_even_after_prior_goal_cards(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI.md",
+            "GOAL-MVP-120_BACKLOG_ITEM_RFB_RC999_001.md",
+            "GOAL-MVP-121_BACKLOG_ITEM_RFB_RC999_001.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(
+            self.backlog_json,
+            {
+                "items": [
+                    {
+                        "id": "RFB-RC999-001",
+                        "title": "P1 result page blocker",
+                        "description": "first-screen blocker",
+                        "status": "BACKLOG_OPEN",
+                        "priority": "P1",
+                        "category": "RESULT_PAGE_UX",
+                    }
+                ]
+            },
+        )
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("BACKLOG_OPEN_ITEM", payload["selection_mode"])
+        self.assertEqual("RFB-RC999-001", payload["selected_backlog_item"]["id"])
+
     def test_falls_back_to_queue_when_no_open_items(self):
         write_json(
             self.backlog_json,

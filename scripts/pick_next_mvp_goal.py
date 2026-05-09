@@ -16,6 +16,9 @@ PASS = 0
 HOLD = 20
 OPEN_STATUSES = {"OPEN", "BACKLOG_OPEN"}
 PRIORITY_RANK = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
+BACKLOG_PRE_QUEUE_MAX_RANK = PRIORITY_RANK["P2"]
+BACKLOG_POST_QUEUE_MAX_RANK = PRIORITY_RANK["P3"]
+BACKLOG_ITEM_ATTEMPT_LIMIT = {"P2": 2, "P3": 1}
 
 QUEUE_ITEMS = (
     {
@@ -409,11 +412,37 @@ def next_goal_index(goal_cards: list[Path]) -> int:
     return max_index + 1 if max_index else 1
 
 
-def choose_open_item(items: list[dict[str, Any]]) -> dict[str, Any] | None:
+def backlog_item_token(item: dict[str, Any]) -> str:
+    item_id = str(item.get("id", "UNKNOWN")).upper()
+    return item_id.replace("-", "_")
+
+
+def backlog_attempt_count(goal_cards: list[Path], item: dict[str, Any]) -> int:
+    token = backlog_item_token(item)
+    return sum(1 for path in goal_cards if token in path.stem.upper())
+
+
+def backlog_item_can_preempt(item: dict[str, Any], goal_cards: list[Path], max_rank: int) -> bool:
+    priority = str(item.get("priority", "P3")).upper()
+    rank = PRIORITY_RANK.get(priority, 99)
+    if rank > max_rank:
+        return False
+    limit = BACKLOG_ITEM_ATTEMPT_LIMIT.get(priority)
+    if limit is None:
+        return True
+    return backlog_attempt_count(goal_cards, item) < limit
+
+
+def choose_open_item(
+    items: list[dict[str, Any]],
+    goal_cards: list[Path],
+    *,
+    max_rank: int = BACKLOG_PRE_QUEUE_MAX_RANK,
+) -> dict[str, Any] | None:
     open_items = []
     for item in items:
         status = str(item.get("status", "")).upper()
-        if status in OPEN_STATUSES:
+        if status in OPEN_STATUSES and backlog_item_can_preempt(item, goal_cards, max_rank):
             open_items.append(item)
     if not open_items:
         return None
@@ -1775,11 +1804,15 @@ def run(argv: list[str] | None = None) -> int:
             items = backlog_payload.get("items", [])
             if not isinstance(items, list):
                 raise ValueError(f"backlog items is not a list: {latest_backlog.as_posix()}")
-            selected = choose_open_item(items)
+            selected = choose_open_item(items, goal_cards)
             if selected:
                 picked = backlog_candidate(repo_root, goal_index, latest_backlog, selected)
             else:
                 picked = queue_candidate(repo_root, goal_index, goal_cards)
+                if picked["candidate_goal"]["queue_key"] == "QUEUE_EXHAUSTED_REQUIRE_NEW_PRODUCT_GOAL":
+                    selected = choose_open_item(items, goal_cards, max_rank=BACKLOG_POST_QUEUE_MAX_RANK)
+                    if selected:
+                        picked = backlog_candidate(repo_root, goal_index, latest_backlog, selected)
         else:
             picked = queue_candidate(repo_root, goal_index, goal_cards)
     except Exception as exc:
