@@ -22,11 +22,25 @@ function Resolve-RepoPath {
     return (Resolve-Path -LiteralPath (Join-Path -Path $RepoRoot -ChildPath $PathValue)).Path
 }
 
+function Get-RcTripletFromPackageDir {
+    param([string]$PathValue)
+
+    $Normalized = $PathValue -replace "\\", "/"
+    if ($Normalized -match "local-offline-trial-rc-(\d{3})") {
+        return $Matches[1]
+    }
+
+    throw "Cannot infer local offline trial RC number from PackageDir: $PathValue"
+}
+
 $RepoRoot = (Resolve-Path -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath "..")).Path
+$RcTriplet = Get-RcTripletFromPackageDir -PathValue $PackageDir
+$CandidateName = "LOCAL_OFFLINE_TRIAL_RC_${RcTriplet}_CN"
+$LaunchSlug = "local-offline-trial-rc-$RcTriplet"
 $PackageRoot = Resolve-RepoPath -PathValue $PackageDir
 $DeliveryRoot = Resolve-RepoPath -PathValue $DeliveryDir
 $FrontendRoot = Resolve-RepoPath -PathValue "frontend"
-$LaunchRoot = Join-Path -Path $RepoRoot -ChildPath "artifacts\local_trial_launches\local-offline-trial-rc-019"
+$LaunchRoot = Join-Path -Path $RepoRoot -ChildPath "artifacts\local_trial_launches\$LaunchSlug"
 $LaunchInfoPath = Join-Path -Path $LaunchRoot -ChildPath "launch_info.json"
 $LocalUrl = "http://127.0.0.1:$Port$Route"
 
@@ -146,7 +160,7 @@ if ($OpenBrowser -and (-not $CheckOnly)) {
 $LaunchInfo = [ordered]@{
     schema_version = "secupilot.s1.local_offline_trial_launcher.v1"
     generated_at_utc = (Get-Date).ToUniversalTime().ToString("o")
-    candidate = "LOCAL_OFFLINE_TRIAL_RC_019_CN"
+    candidate = $CandidateName
     route = $Route
     local_url = $LocalUrl
     package_dir = $PackageDir
@@ -157,7 +171,7 @@ $LaunchInfo = [ordered]@{
     start_here = (Join-Path -Path $DeliveryDir -ChildPath "START_HERE.md")
     reviewer_checklist = (Join-Path -Path $DeliveryDir -ChildPath "REVIEWER_CHECKLIST.md")
     feedback_template = (Join-Path -Path $DeliveryDir -ChildPath "FEEDBACK_TEMPLATE.md")
-    launcher_output_path = "artifacts\local_trial_launches\local-offline-trial-rc-019\launch_info.json"
+    launcher_output_path = "artifacts\local_trial_launches\$LaunchSlug\launch_info.json"
     server_started = $ServerStarted
     build_skipped = [bool]$SkipBuild
     check_only = [bool]$CheckOnly

@@ -1,0 +1,56 @@
+﻿{
+    "schema_version":  "secupilot.s1.local_offline_trial_launcher.v1",
+    "generated_at_utc":  "2026-05-09T05:34:28.8695768Z",
+    "candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN",
+    "route":  "/s1-trial",
+    "local_url":  "http://127.0.0.1:4174/s1-trial",
+    "package_dir":  "artifacts\\local_demo_packages\\local-offline-trial-rc-020-cn-review",
+    "delivery_package_dir":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006",
+    "reviewer_start_here":  "artifacts\\local_demo_packages\\local-offline-trial-rc-020-cn-review\\REVIEWER_START_HERE_中文.md",
+    "reviewer_checklist_cn":  "artifacts\\local_demo_packages\\local-offline-trial-rc-020-cn-review\\REVIEWER_CHECKLIST_中文.md",
+    "reviewer_feedback_cn":  "artifacts\\local_demo_packages\\local-offline-trial-rc-020-cn-review\\FEEDBACK_TEMPLATE_中文.md",
+    "start_here":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006\\START_HERE.md",
+    "reviewer_checklist":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006\\REVIEWER_CHECKLIST.md",
+    "feedback_template":  "artifacts\\local_trial_packages\\local-offline-trial-rc-006\\FEEDBACK_TEMPLATE.md",
+    "launcher_output_path":  "artifacts\\local_trial_launches\\local-offline-trial-rc-020\\launch_info.json",
+    "server_started":  false,
+    "build_skipped":  true,
+    "check_only":  false,
+    "operator_notice":  "Local/offline private-preview shell only. Do not publish, deploy, or write back.",
+    "stop_instructions":  [
+                              "STOP if any boundary flag is true.",
+                              "STOP if package evidence files are missing.",
+                              "STOP if any command attempts live API/connectors."
+                          ],
+    "boundaries":  {
+                       "real_data":  false,
+                       "masked_real_data":  false,
+                       "live_qwen_api":  false,
+                       "live_connectors":  false,
+                       "production_writeback":  false,
+                       "customer_visible_output":  false,
+                       "push":  false
+                   },
+    "required_files":  [
+                           "REVIEWER_START_HERE_中文.md",
+                           "REVIEWER_CHECKLIST_中文.md",
+                           "FEEDBACK_TEMPLATE_中文.md",
+                           "PACKAGE_INDEX_中文.json",
+                           "SCREENSHOT_INDEX.json",
+                           "package_manifest.json",
+                           "evidence\\final_status.json",
+                           "evidence\\case_summary.json",
+                           "evidence\\artifact_manifest.json",
+                           "evidence\\safety_scan.json",
+                           "screenshots\\s1-run-desktop.png",
+                           "screenshots\\s1-run-mobile.png",
+                           "screenshots\\s1-trial-desktop.png",
+                           "screenshots\\s1-trial-mobile.png"
+                       ],
+    "required_delivery_files":  [
+                                    "START_HERE.md",
+                                    "REVIEWER_CHECKLIST.md",
+                                    "FEEDBACK_TEMPLATE.md",
+                                    "PACKAGE_INDEX.json"
+                                ]
+}
