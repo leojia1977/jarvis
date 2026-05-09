@@ -126,6 +126,12 @@ test.describe("MVP-11 S1 artifact viewer visual smoke", () => {
 
     await assertS1VisualBoundary(page);
     await captureScreenshotEvidence(page, "s1-run-desktop.png", "/s1-run", "1440x1100");
+    await captureScreenshotEvidence(
+      page,
+      "s1-run-first-load-folded-desktop.png",
+      "/s1-run",
+      "1440x1100"
+    );
   });
 
   test("captures local-only mobile visual smoke", async ({ page }) => {

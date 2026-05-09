@@ -19,6 +19,7 @@ HOLD = 20
 EXPECTED_SCREENSHOTS = (
     ("s1-run-desktop.png", "/s1-run", "1440x1100"),
     ("s1-run-mobile.png", "/s1-run", "390x1000"),
+    ("s1-run-first-load-folded-desktop.png", "/s1-run", "1440x1100"),
     ("s1-trial-desktop.png", "/s1-trial", "1440x1100"),
     ("s1-trial-mobile.png", "/s1-trial", "390x1000"),
 )

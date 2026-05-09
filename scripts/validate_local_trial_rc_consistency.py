@@ -38,6 +38,7 @@ REQUIRED_EVIDENCE_FILES = (
 REQUIRED_SCREENSHOTS = (
     "screenshots/s1-run-desktop.png",
     "screenshots/s1-run-mobile.png",
+    "screenshots/s1-run-first-load-folded-desktop.png",
     "screenshots/s1-trial-desktop.png",
     "screenshots/s1-trial-mobile.png",
 )
