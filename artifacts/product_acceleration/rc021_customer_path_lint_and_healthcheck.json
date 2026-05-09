@@ -1,0 +1,30 @@
+﻿{
+    "schema_version":  "secupilot.customer_path_lint_and_healthcheck.v1",
+    "generated_at_utc":  "2026-05-09T10:58:35.3977566Z",
+    "candidate":  "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+    "package_dir":  "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
+    "checks":  {
+                   "required_sidecar_count":  7,
+                   "required_package_text_file_count":  4,
+                   "required_inputs_present":  true,
+                   "ai_source_first_load_default_folded":  true,
+                   "old_misread_copy_removed":  true,
+                   "forbidden_handoff_phrases_absent":  true,
+                   "package_manifest_candidate_and_boundaries_pass":  true,
+                   "screenshot_safety_scan_blocking_zero":  true,
+                   "security_exposure_scan_pass":  true
+               },
+    "blocking_finding_count":  0,
+    "blocking_findings":  [
+
+                          ],
+    "non_blocking_note_count":  1,
+    "non_blocking_notes":  [
+                               {
+                                   "id":  "screenshot_scan_expected_candidate_legacy",
+                                   "source":  "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn/validation/screenshot_safety_scan.json",
+                                   "detail":  "expected_candidate=LOCAL_OFFLINE_TRIAL_RC_020_CN; source-evidence scan reused from RC020 baseline"
+                               }
+                           ],
+    "status":  "PASS"
+}
