@@ -272,7 +272,7 @@ describe("SecuPilot first-batch workbench slice", () => {
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
     expect(screen.getByTestId("s1-run-next-step-code")).toHaveTextContent(
-      "RC019_PRIVATE_PREVIEW_ROUTE_MAP_REVIEW"
+      "RC019_PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW_REVIEW"
     );
     expect(within(surface).queryByRole("button", { name: /approve|deploy|publish/i }))
       .not.toBeInTheDocument();
@@ -292,7 +292,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByRole("heading", { name: "按你的工作目标进入" })).toBeInTheDocument();
     expect(screen.getByText("客户试用入口 / 私有化预览")).toBeInTheDocument();
     expect(screen.getByTestId("s1-customer-product-home")).toHaveTextContent(
-      "给一线工程师到 CTO 的统一安全研判入口"
+      "给工程师、经理到 CTO 的统一安全研判入口"
     );
     expect(screen.getByTestId("s1-customer-product-home")).toHaveTextContent(
       "第一眼先看产品判断，不看证据目录"
@@ -317,7 +317,7 @@ describe("SecuPilot first-batch workbench slice", () => {
     );
     expect(screen.getAllByTestId("s1-product-role-entry")).toHaveLength(4);
     expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("工程师视角");
-    expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("分析负责人视角");
+    expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("经理视角");
     expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("安全负责人视角");
     expect(screen.getByTestId("s1-product-role-grid")).toHaveTextContent("CTO / 部署视角");
     expect(screen.getByText("SecuPilot 是谁")).toBeInTheDocument();

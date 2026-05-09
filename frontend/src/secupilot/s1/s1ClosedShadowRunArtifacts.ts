@@ -43,9 +43,9 @@ export const S1_CLOSED_SHADOW_RUN_ARTIFACTS = {
   finalOutcome: "S1_CLOSED_SHADOW_PASS_WITH_NOTES",
   exitCode: 10,
   passHoldReason:
-    "Closed-shadow fixture metadata capture completed；RC-019 用于验证私有化预览启动壳、产品 route map、Qwen readiness 证据和本地离线边界一致。",
+    "Closed-shadow fixture metadata capture completed；RC-019 用于验证私有化预览启动壳、客户任务流、Qwen readiness 证据和本地离线边界一致。",
   reviewerAction: "LOCAL_OFFLINE_REVIEW_READY",
-  nextStep: "RC019_PRIVATE_PREVIEW_ROUTE_MAP_REVIEW",
+  nextStep: "RC019_PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW_REVIEW",
   caseCount: 20,
   qwenUsed: false,
   canShowInLocalDemo: true,

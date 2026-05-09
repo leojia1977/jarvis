@@ -85,7 +85,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
       "S1_CLOSED_SHADOW_PASS_WITH_NOTES"
     );
     await expect(page.getByTestId("s1-run-next-step-code")).toContainText(
-      "RC019_PRIVATE_PREVIEW_ROUTE_MAP_REVIEW"
+      "RC019_PRIVATE_PREVIEW_CUSTOMER_TASK_FLOW_REVIEW"
     );
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
 
@@ -130,7 +130,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByRole("heading", { name: "按你的工作目标进入" })).toBeVisible();
     await expect(page.getByText("客户试用入口 / 私有化预览")).toBeVisible();
     await expect(page.getByTestId("s1-customer-product-home")).toContainText(
-      "给一线工程师到 CTO 的统一安全研判入口"
+      "给工程师、经理到 CTO 的统一安全研判入口"
     );
     await expect(page.getByTestId("s1-customer-product-home")).toContainText(
       "第一眼先看产品判断，不看证据目录"
@@ -145,7 +145,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(page.getByTestId("s1-product-route-map-item")).toHaveCount(5);
     await expect(page.getByTestId("s1-product-role-entry")).toHaveCount(4);
     await expect(page.getByTestId("s1-product-role-grid")).toContainText("工程师视角");
-    await expect(page.getByTestId("s1-product-role-grid")).toContainText("分析负责人视角");
+    await expect(page.getByTestId("s1-product-role-grid")).toContainText("经理视角");
     await expect(page.getByTestId("s1-product-role-grid")).toContainText("安全负责人视角");
     await expect(page.getByTestId("s1-product-role-grid")).toContainText("CTO / 部署视角");
     await expect(page.getByTestId("s1-product-trust-strip")).toContainText(

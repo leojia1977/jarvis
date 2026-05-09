@@ -67,7 +67,7 @@ export function S1LocalTrialView() {
       action: "打开事件详情"
     },
     {
-      title: "分析负责人视角",
+      title: "经理视角",
       question: "为什么这么判断?",
       description: "展开证据链、限制说明和模型建议，确认判断没有越过证据边界。",
       action: "核对可信依据"
@@ -131,7 +131,7 @@ export function S1LocalTrialView() {
       label: "02",
       title: "事件研判",
       route: "/incident/CASE-2847",
-      audience: "工程师 / 分析负责人",
+      audience: "工程师 / 经理",
       outcome: "查看结论、影响、可信依据、建议动作和反馈入口。"
     },
     {
@@ -204,7 +204,7 @@ export function S1LocalTrialView() {
     }
   ];
   const homeStatusFacts = [
-    ["当前包", "RC-018 中文预览"],
+    ["当前包", "RC-019 中文预览"],
     ["案例数", `${run.caseCount}`],
     ["安全命中", `${run.safetyScan.findingCount}`],
     ["生产写回", yesNo(run.boundaries.productionWriteback)]
@@ -244,7 +244,7 @@ export function S1LocalTrialView() {
             <p className="summary-kicker">客户试用入口 / 私有化预览</p>
             <h1 id="s1-trial-title">SecuPilot 企业安全分析助理</h1>
             <p className="s1-trial-lede">
-              给一线工程师到 CTO 的统一安全研判入口：先告诉你这起事件是否值得处理，
+              给工程师、经理到 CTO 的统一安全研判入口：先告诉你这起事件是否值得处理，
               再说明为什么可信、缺什么证据、下一步应该由谁确认。
             </p>
             <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
