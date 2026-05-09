@@ -4,13 +4,19 @@ Date: 2026-05-09
 
 Mission ID: `GOAL-CONTROLLED-TRIAL-GO-REVIEW-48H`
 
+Mission status: `ACTIVE_AFTER_AUTOMATION_RESUME`
+
 Machine contract: `artifacts/product_acceleration/controlled_trial_go_review_48h_mission_charter.json`
+
+## Mission Statement
+
+This 48h mission prepares evidence for human controlled-trial GO review after return; it does not approve customer-visible release, external pilot, live connector, live API, production deployment, or production writeback.
+
+The human is expected to be offline during this 48h window. Automation may prepare and commit scoped evidence, but the final GO/HOLD/NO-GO decision is delayed until the human returns.
 
 ## Mission Objective
 
-Move SecuPilot from RC-020 private-preview healthcheck PASS to a human GO/NO-GO review package for a controlled trial.
-
-This mission does not authorize customer-visible release, external pilot launch, production deployment, live Qwen/API, live connectors, or production write-back.
+Move SecuPilot from RC-020 private-preview healthcheck PASS to a complete human GO/NO-GO review package for a controlled trial decision.
 
 Allowed final automation outcomes:
 
@@ -28,8 +34,41 @@ READY_TO_PUBLISH
 READY_TO_DEPLOY
 READY_FOR_EXTERNAL_PILOT
 APPROVED_FOR_CUSTOMER_USE
+APPROVED_FOR_EXTERNAL_PILOT
 APPROVED_FOR_PRODUCTION
+APPROVED_FOR_LIVE_CONNECTOR
+APPROVED_FOR_LIVE_QWEN_OR_API
+APPROVED_FOR_PRODUCTION_WRITEBACK
 ```
+
+## Authorization Model
+
+Type A process actions are preauthorized inside the active Codex Goal exact scope:
+
+- Select a mission-allowed Codex Goal.
+- Edit exact allowed files.
+- Run deterministic checks.
+- Generate screenshots and text sidecars.
+- Build the RC-021 local/offline package.
+- Run package, lint, and healthcheck commands.
+- Stage and commit passing scoped work.
+
+Type B judgment actions are conditionally delegated only under this charter:
+
+- Classify deterministic blockers as PASS, PASS_WITH_NOTES, HOLD, or NO_GO_SECURITY_BOUNDARY.
+- Merge Team1 and Team2 review gate results by the rules below.
+- Continue past non-blocking notes when no blocking finding exists.
+
+Type C actions are never authorized in this mission:
+
+- Customer-visible release or publish.
+- External pilot launch.
+- Production deployment.
+- Live connector enablement.
+- Live Qwen/API enablement, except OpenAI API review-only Team2 with sanitized inputs.
+- Production write-back.
+- Autonomous containment, remediation, isolation, blocking, approval, rejection, or closure.
+- Push.
 
 ## Candidate And Versioning
 
@@ -48,21 +87,98 @@ Rules:
 
 ## Role Model
 
+`Codex Goal` is the only executable task contract. It is not a person, reviewer, or decision maker. No actor may execute work that is not attached to an active, mission-allowed Codex Goal.
+
+Every Codex Goal must define exact objective, allowed files, forbidden files, behavior change, screenshots or text evidence, package or healthcheck commands, acceptance criteria, HOLD conditions, rollback, commit posture, and closeout evidence.
+
 `Codex automation` is the primary 48h execution engine. It may edit files only inside the active Codex Goal exact scope, run checks, stage, and commit passing scoped work. It must not push.
 
-`Codex Goal` is the executable task contract. Each run must create or update exactly one goal contract before implementation, with exact files, behavior, checks, HOLD conditions, rollback, evidence, and commit posture.
+`VS Codex / Local Codex` is the integration and recovery surface. It may unblock deterministic issues under exact scope and assemble the final return package. It must not convert readiness into authorization.
 
-`VS Codex` is the local integration and recovery surface. It may unblock deterministic issues under exact scope, but it is not an independent release approver.
+`SWE / mini-swe-agent` is not part of the 48h mainline. It is an implementation agent, not a reviewer, but it is excluded here to avoid a second implementation actor conflicting with Codex automation. It may not execute product changes unless a later human-authored exact Goal explicitly authorizes it.
 
-`SWE / mini-swe-agent` is not part of the 48h mainline. It may not execute product changes unless a later exact goal explicitly authorizes it with no-secret, exact-file, no-scope-expansion rules.
+`Claude Code` is optional and conditional code/diff review only. It may review scope, diff risk, test risk, script reliability, and package-builder regression risk. It is not a product language reviewer, package-governance authority, or GO/NO-GO decision maker.
 
-`Claude Code` is optional review-only evidence. It may be invoked only with non-secret prompts and no tools/write access. Timeout, auth, network, malformed verdict, or ambiguity records `CLAUDE_CODE_REVIEW_UNAVAILABLE` and does not block unless the active goal explicitly requires it.
+`Claude Web / AdsPower Team1` is the product path review gate. It reviews customer comprehension across product home, incident workbench, AI advice source, ECI/VFE summary, missing evidence, collection window, and local feedback. It does not review code, hashes, or production authorization.
 
-`Claude Web / AdsPower` is optional review-only evidence. Timeout, auth, network, page/profile, or ambiguity records `CLAUDE_WEB_REVIEW_UNAVAILABLE` and does not block this 48h mission.
+`ChatGPT Team2` is the governance, boundary, and package review gate via OpenAI API review-only. Inputs must be sanitized summaries, manifests, lint outputs, healthcheck outputs, screenshot indexes, and text sidecars only. It must not receive secrets, tokens, auth headers, raw customer logs, raw payloads, real data, masked-real data, or customer identifiers.
 
-`ChatGPT Team2` is authorized as OpenAI API review-only evidence for package and boundary review. Inputs must be sanitized summaries, manifests, lint outputs, and text sidecars only. No secrets, auth headers, raw payloads, real data, masked-real data, or customer logs may be sent.
+`Human` is the sole accountable decision maker for controlled trial GO/HOLD/NO-GO, reviewer release, customer-visible output, external pilot, live API/connector, production deployment, and write-back.
 
-`Human` is the only GO/NO-GO decision-maker for controlled trial, external pilot, customer-visible output, production deployment, live Qwen/API, connectors, or write-back.
+## RACI Summary
+
+| Role | Responsible | Accountable | Consulted | Informed |
+| --- | --- | --- | --- | --- |
+| Codex Goal | Scope contract | None | Human-authored charter | All actors |
+| Codex automation | Implementation pipeline | None | VS Codex | Human return package |
+| VS Codex | Integration and unblock | None | Team1, Team2, Claude Code | Human |
+| SWE / mini-swe-agent | Not in mainline | None | None | Human if later enabled |
+| Claude Code | Code/diff review if applicable | None | VS Codex | Human return package |
+| Claude Web Team1 | Product path review | None | VS Codex | Human return package |
+| ChatGPT Team2 | Package and boundary review | None | VS Codex | Human return package |
+| Human | Final decision | Human | Review gates | All artifacts |
+
+## Workflow State Machine
+
+```text
+MISSION_CHARTER_ACTIVE
+CODEX_GOAL_SELECTED
+IMPLEMENTATION_COMPLETE
+DETERMINISTIC_CHECKS_COMPLETE
+CODE_REVIEW_COMPLETE_OR_EXPLICITLY_UNAVAILABLE
+PRODUCT_PATH_REVIEW_COMPLETE
+PACKAGE_BOUNDARY_REVIEW_COMPLETE
+GO_REVIEW_PACKAGE_ASSEMBLED
+READY_FOR_HUMAN_GO_REVIEW
+```
+
+Automation must not advance to:
+
+```text
+HUMAN_GO
+CUSTOMER_READY
+PILOT_APPROVED
+PRODUCTION_READY
+LIVE_CONNECTOR_APPROVED
+```
+
+## Review Gates
+
+Deterministic checks are required evidence. They do not replace Claude Code, Team1, Team2, or Human decisions.
+
+Claude Code is required when code, scripts, package builder, validation logic, or healthcheck logic changes. If unavailable, record `REVIEW_TOOL_UNAVAILABLE`. If only an already generated package is being reviewed and no code/script/check logic changed, record `NOT_APPLICABLE`.
+
+Team1 product path review is required when UI copy, screenshots, customer path package, or reviewer-facing materials change.
+
+Team2 package and boundary review is required when package contents, manifest, hash, screenshot index, boundary language, or GO review readiness changes.
+
+Team1 and Team2 are independent parallel gates:
+
+- Any `HOLD` from either gate means overall `HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES`.
+- Any `NO_GO_SECURITY_BOUNDARY` means overall `NO_GO_SECURITY_BOUNDARY`.
+- `PASS_WITH_NOTES` from one or both gates may continue only when no blocking finding exists.
+- Both raw reviewer outputs and the merged result must be included in the return package.
+
+## Review Tool Availability
+
+Claude Code unavailable:
+
+- Record `REVIEW_TOOL_UNAVAILABLE`.
+- Do not claim code review PASS.
+- Continue implementation only if deterministic checks PASS and the active goal does not require Claude Code as a blocker.
+- Final readiness must record `code_review_status`.
+
+Claude Web Team1 unavailable:
+
+- Record `TEAM1_PRODUCT_PATH_REVIEW_PENDING`.
+- Do not mark final readiness as READY unless a later successful Team1 review exists.
+
+ChatGPT Team2 unavailable:
+
+- Record `TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING`.
+- Do not mark final readiness as READY unless a later successful Team2 review exists.
+
+OpenAI API is allowed only for Team2 review-only with sanitized inputs. If unavailable, no manual API setup is required during the 48h window; record the unavailable status and stop final readiness at HOLD/PENDING as applicable.
 
 ## Run Start Gate
 
@@ -86,17 +202,23 @@ artifacts/reviews/claude_code/mvp-69-current-diff-review-20260508.txt
 
 If any other dirty or untracked path is present and not owned by the active goal, the run must stop with a read-only dirty-scope report.
 
-## Mission Phases And Exit Gates
+## Mission-Allowed Goals
 
-### Phase 1: Customer Misread Risk Copy Fix
-
-Goal name:
+Picker cannot freely consume backlog or generate arbitrary P3 work. It may execute only these mission-bounded goals or a direct sub-goal derived from them that touches no broader surface:
 
 ```text
 GOAL-RC021-01_CUSTOMER_MISREAD_RISK_COPY_FIX
+GOAL-RC021-02_SCREENSHOT_TEXT_EVIDENCE_REFRESH
+GOAL-RC021-03_LOCAL_OFFLINE_GO_REVIEW_PACKAGE_BUILD
+GOAL-RC021-04_CUSTOMER_PATH_LINT_AND_HEALTHCHECK
+GOAL-RC021-05_REVIEW_GATES_AND_RETURN_PACKAGE
 ```
 
-Must reduce customer misunderstanding around deployment and remediation wording.
+Any new goal outside this list requires a future human-authored charter update.
+
+## Mission Phases And Exit Gates
+
+### Phase 1: Customer Misread Risk Copy Fix
 
 Required machine assertions from screenshot text sidecars:
 
@@ -184,27 +306,43 @@ It must not say:
 建议客户使用
 ```
 
-The handoff must define the target audience and trial success criteria.
+The handoff must define target audience and trial success criteria.
 
-### Phase 5: Final Readiness Record
+### Phase 5: Return State Package
 
-The final automation record must include:
+Human return package must include:
 
 ```text
-changed_customer_path
-screenshots_updated
-package_path
-zip_sha256
-healthcheck_status
-team1_product_path_status
-team2_package_boundary_status
-boundary_status
-known_notes
-remaining_human_decisions
-automation_final_outcome
+executed_goal_results
+hold_reasons_and_current_status
+raw_team1_product_path_review
+raw_team2_package_boundary_review
+code_review_status_if_applicable
+wake_up_conditions_triggered
+go_review_package_status
+blocking_items
+unexecuted_goals_and_reasons
+one_line_return_decision_state
 ```
 
-Automation may only produce `READY_FOR_HUMAN_GO_REVIEW_FOR_CONTROLLED_TRIAL` if deterministic checks pass and no blocking Team1/Team2 finding exists.
+Allowed return decision states:
+
+```text
+READY_FOR_HUMAN_GO_REVIEW
+BLOCKED_NEEDS_HUMAN_UNBLOCK
+PARTIAL_COMPLETE
+NO_GO_SECURITY_BOUNDARY
+```
+
+## Wake-Up Conditions
+
+If any condition occurs, stop the mission and record a wake-up note for the human:
+
+- Any artifact suggests live/API/connector/production authorization intent.
+- Any reviewer or deterministic check returns `NO_GO_SECURITY_BOUNDARY`.
+- Two consecutive mission goals HOLD for the same reason.
+- Any fixture or artifact appears to contain real or masked-real data.
+- Acceptance commands fail more than three times with no deterministic root cause.
 
 ## Picker Policy
 
@@ -272,4 +410,4 @@ live_qwen_or_api_enablement
 production_writeback
 ```
 
-The only authorized endpoint is a prepared package for human GO/NO-GO review.
+The only authorized endpoint is a prepared package for human GO/NO-GO review after return.

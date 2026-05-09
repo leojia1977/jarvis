@@ -1,17 +1,25 @@
 {
-  "schema_version": "secupilot.controlled_trial_go_review_48h_mission_charter.v1",
+  "schema_version": "secupilot.controlled_trial_go_review_48h_mission_charter.v2",
   "mission_id": "GOAL-CONTROLLED-TRIAL-GO-REVIEW-48H",
   "created_at_local": "2026-05-09T14:20:00+08:00",
+  "updated_at_local": "2026-05-09T16:30:00+08:00",
+  "charter_status": "ACTIVE_AFTER_AUTOMATION_RESUME",
   "candidate": "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
-  "mission_type": "release_readiness_go_review_package",
+  "mission_type": "controlled_trial_go_review_package_readiness",
   "duration_policy": "48h_window",
   "authorization_scope": "go_review_package_only",
-  "allowed_final_outcomes": [
+  "mission_statement": "This 48h mission prepares evidence for human controlled-trial GO review after return; it does not approve customer-visible release, external pilot, live connector, live API, production deployment, or production writeback.",
+  "human_availability": {
+    "status": "VACATION_48H",
+    "final_go_decision": "DELAYED_UNTIL_HUMAN_RETURN",
+    "automation_endpoint": "READY_FOR_HUMAN_GO_REVIEW_ONLY"
+  },
+  "allowed_final_automation_outcomes": [
     "READY_FOR_HUMAN_GO_REVIEW_FOR_CONTROLLED_TRIAL",
     "HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES",
     "NO_GO_SECURITY_BOUNDARY"
   ],
-  "forbidden_final_outcomes": [
+  "forbidden_final_automation_outcomes": [
     "READY_FOR_CUSTOMER",
     "READY_TO_PUBLISH",
     "READY_TO_DEPLOY",
@@ -19,8 +27,36 @@
     "APPROVED_FOR_CUSTOMER_USE",
     "APPROVED_FOR_EXTERNAL_PILOT",
     "APPROVED_FOR_PRODUCTION",
-    "APPROVED_FOR_LIVE_CONNECTOR"
+    "APPROVED_FOR_LIVE_CONNECTOR",
+    "APPROVED_FOR_LIVE_QWEN_OR_API",
+    "APPROVED_FOR_PRODUCTION_WRITEBACK"
   ],
+  "authorization_model": {
+    "type_a_preauthorized_process_actions": [
+      "select_mission_allowed_codex_goal",
+      "edit_exact_allowed_files",
+      "run_deterministic_checks",
+      "generate_screenshots_and_text_sidecars",
+      "build_rc021_local_offline_package",
+      "run_package_lint_and_healthcheck",
+      "stage_and_commit_passing_scoped_work"
+    ],
+    "type_b_conditionally_delegated_judgment_actions": [
+      "classify_deterministic_blockers_as_pass_pass_with_notes_hold_or_no_go_security_boundary",
+      "merge_team1_and_team2_review_gate_results_by_rules",
+      "continue_past_non_blocking_notes_when_no_blocking_finding_exists"
+    ],
+    "type_c_never_authorized_actions": [
+      "customer_visible_release_or_publish",
+      "external_pilot_launch",
+      "production_deployment",
+      "live_connector_enablement",
+      "live_qwen_api_enablement_except_openai_team2_review_only",
+      "production_writeback",
+      "autonomous_containment_or_remediation_or_isolation_or_blocking_or_approval_or_rejection_or_closure",
+      "push"
+    ]
+  },
   "primary_customer_path": [
     "product_home_local_trial_entry",
     "incident_CASE_2847_first_load",
@@ -31,8 +67,28 @@
     "local_feedback_preview"
   ],
   "roles": {
+    "codex_goal": {
+      "type": "executable_contract",
+      "owns": [
+        "exact_objective",
+        "allowed_files",
+        "forbidden_files",
+        "behavior_change",
+        "evidence_required",
+        "acceptance_commands",
+        "hold_conditions",
+        "rollback",
+        "commit_posture",
+        "closeout_evidence"
+      ],
+      "forbidden": [
+        "review",
+        "decision",
+        "authorization"
+      ]
+    },
     "codex_automation": {
-      "status": "primary_executor",
+      "type": "primary_executor",
       "allowed": [
         "edit_exact_goal_scope",
         "run_local_checks",
@@ -43,33 +99,85 @@
       ],
       "forbidden": [
         "push",
+        "free_backlog_consumption",
         "customer_visible_release",
         "external_pilot",
         "production_deploy",
         "live_connector",
         "live_qwen_api",
-        "production_writeback"
+        "production_writeback",
+        "final_go_no_go"
       ]
+    },
+    "vs_codex": {
+      "type": "local_integration_and_unblock_actor",
+      "allowed": [
+        "deterministic_unblock_inside_active_goal_scope",
+        "integration_summary",
+        "return_package_assembly",
+        "readiness_evidence_summary"
+      ],
+      "forbidden": [
+        "final_go_no_go",
+        "customer_release_authorization",
+        "external_pilot_authorization",
+        "live_or_production_authorization",
+        "charter_scope_expansion_without_human"
+      ]
+    },
+    "swe_mini_agent": {
+      "type": "implementation_agent",
+      "status": "not_in_48h_mainline",
+      "reason": "Avoid a second implementation actor conflicting with Codex automation during unattended execution.",
+      "allowed_only_if_future_human_authored_goal_explicitly_names_it": true
     },
     "claude_code": {
-      "status": "optional_review_only",
-      "non_blocking_failure_labels": [
-        "CLAUDE_CODE_REVIEW_UNAVAILABLE",
-        "CLAUDE_CODE_TIMEOUT",
-        "CLAUDE_CODE_AUTH_OR_NETWORK_UNAVAILABLE",
-        "CLAUDE_CODE_AMBIGUOUS_VERDICT"
+      "type": "optional_conditional_code_diff_review_gate",
+      "owns": [
+        "diff_scope_review",
+        "implementation_risk_review",
+        "test_regression_review",
+        "script_reliability_review",
+        "package_builder_regression_review"
+      ],
+      "forbidden": [
+        "product_path_final_review",
+        "package_boundary_final_authority",
+        "go_no_go_decision",
+        "write_access"
+      ],
+      "statuses": [
+        "PASS",
+        "PASS_WITH_NOTES",
+        "HOLD",
+        "REVIEW_TOOL_UNAVAILABLE",
+        "NOT_APPLICABLE"
       ]
     },
-    "claude_web_adspower": {
-      "status": "optional_review_only",
-      "non_blocking_failure_labels": [
-        "CLAUDE_WEB_REVIEW_UNAVAILABLE",
-        "CLAUDE_WEB_TIMEOUT",
-        "CLAUDE_WEB_AUTH_OR_NETWORK_UNAVAILABLE",
-        "CLAUDE_WEB_AMBIGUOUS_VERDICT"
+    "claude_web_team1": {
+      "type": "product_path_review_gate",
+      "owns": [
+        "customer_comprehension",
+        "product_story",
+        "incident_workbench_readability",
+        "ai_source_explanation_quality",
+        "eci_vfe_product_framing",
+        "feedback_path_readability"
+      ],
+      "forbidden": [
+        "code_diff_review",
+        "package_hash_authority",
+        "go_no_go_decision"
+      ],
+      "statuses": [
+        "PASS",
+        "PASS_WITH_NOTES",
+        "HOLD",
+        "TEAM1_PRODUCT_PATH_REVIEW_PENDING"
       ]
     },
     "chatgpt_team2_openai_api": {
+      "type": "governance_boundary_package_review_gate",
       "status": "authorized_review_only",
       "allowed_inputs": [
         "sanitized_summary",
@@ -88,15 +196,124 @@
         "raw_customer_logs",
         "raw_payloads",
         "customer_identifiers"
+      ],
+      "owns": [
+        "package_hygiene",
+        "manifest_hash_consistency",
+        "old_rc_mixing_detection",
+        "customer_visible_boundary_language",
+        "live_api_connector_writeback_boundary",
+        "no_go_security_boundary"
+      ],
+      "forbidden": [
+        "code_diff_review",
+        "implementation_risk_signoff",
+        "go_no_go_decision"
+      ],
+      "statuses": [
+        "PASS",
+        "PASS_WITH_NOTES",
+        "HOLD",
+        "NO_GO_SECURITY_BOUNDARY",
+        "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING"
       ]
     },
-    "swe_mini_agent": {
-      "status": "not_in_mainline",
-      "allowed_only_if_future_goal_explicitly_names_it": true
-    },
     "human": {
-      "status": "sole_go_no_go_decision_maker"
+      "type": "sole_decision_maker",
+      "owns": [
+        "final_go_hold_no_go",
+        "reviewer_release_decision",
+        "controlled_trial_decision",
+        "live_api_connector_authorization",
+        "production_authorization"
+      ]
     }
+  },
+  "workflow_state_machine": [
+    "MISSION_CHARTER_ACTIVE",
+    "CODEX_GOAL_SELECTED",
+    "IMPLEMENTATION_COMPLETE",
+    "DETERMINISTIC_CHECKS_COMPLETE",
+    "CODE_REVIEW_COMPLETE_OR_EXPLICITLY_UNAVAILABLE",
+    "PRODUCT_PATH_REVIEW_COMPLETE",
+    "PACKAGE_BOUNDARY_REVIEW_COMPLETE",
+    "GO_REVIEW_PACKAGE_ASSEMBLED",
+    "READY_FOR_HUMAN_GO_REVIEW"
+  ],
+  "forbidden_workflow_states": [
+    "HUMAN_GO",
+    "CUSTOMER_READY",
+    "PILOT_APPROVED",
+    "PRODUCTION_READY",
+    "LIVE_CONNECTOR_APPROVED"
+  ],
+  "review_gate_applicability": {
+    "claude_code_required_when": [
+      "code_changed",
+      "scripts_changed",
+      "package_builder_changed",
+      "validation_logic_changed",
+      "healthcheck_logic_changed"
+    ],
+    "claude_code_not_applicable_when": [
+      "only_reviewing_existing_generated_package",
+      "no_code_script_build_or_check_logic_changed"
+    ],
+    "team1_required_when": [
+      "ui_copy_changed",
+      "screenshots_changed",
+      "customer_path_package_changed",
+      "reviewer_facing_materials_changed"
+    ],
+    "team2_required_when": [
+      "package_regenerated",
+      "manifest_hash_changed",
+      "screenshot_index_changed",
+      "boundary_language_changed",
+      "go_review_readiness_changed"
+    ]
+  },
+  "parallel_review_merge_rules": {
+    "team1_and_team2_are_independent_gates": true,
+    "any_hold": "HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES",
+    "any_no_go_security_boundary": "NO_GO_SECURITY_BOUNDARY",
+    "pass_with_notes_allowed_when_no_blocking_finding": true,
+    "raw_reviewer_outputs_required_in_return_package": true
+  },
+  "review_tool_unavailability": {
+    "claude_code_unavailable": {
+      "status": "REVIEW_TOOL_UNAVAILABLE",
+      "must_not_claim": "code_review_passed",
+      "may_continue_if": [
+        "deterministic_checks_pass",
+        "active_goal_does_not_require_claude_code_as_blocker"
+      ]
+    },
+    "team1_unavailable": {
+      "status": "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
+      "final_readiness": "NOT_READY_UNTIL_SUCCESSFUL_TEAM1_REVIEW"
+    },
+    "team2_unavailable": {
+      "status": "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING",
+      "final_readiness": "NOT_READY_UNTIL_SUCCESSFUL_TEAM2_REVIEW"
+    }
+  },
+  "mission_allowed_goals": [
+    "GOAL-RC021-01_CUSTOMER_MISREAD_RISK_COPY_FIX",
+    "GOAL-RC021-02_SCREENSHOT_TEXT_EVIDENCE_REFRESH",
+    "GOAL-RC021-03_LOCAL_OFFLINE_GO_REVIEW_PACKAGE_BUILD",
+    "GOAL-RC021-04_CUSTOMER_PATH_LINT_AND_HEALTHCHECK",
+    "GOAL-RC021-05_REVIEW_GATES_AND_RETURN_PACKAGE"
+  ],
+  "picker_constraints": {
+    "free_backlog_consumption": false,
+    "may_create_direct_subgoal_only_if": [
+      "derived_from_mission_allowed_goal",
+      "touches_no_broader_surface",
+      "has_exact_files_and_acceptance",
+      "does_not_promote_p3_backlog"
+    ],
+    "new_goal_outside_allowed_list_requires_human_charter_update": true
   },
   "run_start_gate": {
     "required_commands": [
@@ -136,7 +353,18 @@
       "on_fail": "HOLD_DO_NOT_PACKAGE"
     },
     {
-      "phase": "RC021_GO_REVIEW_PACKAGE",
+      "phase": "GOAL-RC021-02_SCREENSHOT_TEXT_EVIDENCE_REFRESH",
+      "must_pass": [
+        "current_seven_path_screenshots_refreshed_or_explicitly_reused_with_hash_match",
+        "matching_text_sidecars_exist",
+        "ai_source_default_folded_assertions_pass",
+        "expanded_ai_source_assertions_pass",
+        "mobile_downscroll_evidence_added_if_available"
+      ],
+      "on_fail": "HOLD_DO_NOT_PACKAGE"
+    },
+    {
+      "phase": "GOAL-RC021-03_LOCAL_OFFLINE_GO_REVIEW_PACKAGE_BUILD",
       "must_pass": [
         "unique_rc021_package_dir",
         "unique_rc021_zip_name",
@@ -148,7 +376,7 @@
       "on_fail": "HOLD_DO_NOT_PREPARE_HANDOFF"
     },
     {
-      "phase": "CUSTOMER_PATH_LINT",
+      "phase": "GOAL-RC021-04_CUSTOMER_PATH_LINT_AND_HEALTHCHECK",
       "blocking_findings_hold": [
         "ai_advice_source_not_default_folded",
         "eci_vfe_exposes_exploit_poc_payload_attack_path_or_topology",
@@ -163,7 +391,7 @@
       ]
     },
     {
-      "phase": "GO_REVIEW_MATERIALS",
+      "phase": "GOAL-RC021-05_REVIEW_GATES_AND_RETURN_PACKAGE",
       "required_files": [
         "REVIEWER_START_HERE_中文.md",
         "GO_REVIEW_HANDOFF_中文.md",
@@ -183,6 +411,31 @@
         "建议客户使用"
       ]
     }
+  ],
+  "wake_up_conditions": [
+    "artifact_suggests_live_api_connector_or_production_authorization_intent",
+    "reviewer_or_deterministic_check_returns_no_go_security_boundary",
+    "two_consecutive_mission_goals_hold_for_same_reason",
+    "fixture_or_artifact_appears_to_contain_real_or_masked_real_data",
+    "acceptance_commands_fail_more_than_three_times_without_deterministic_root_cause"
+  ],
+  "return_state_package_required_fields": [
+    "executed_goal_results",
+    "hold_reasons_and_current_status",
+    "raw_team1_product_path_review",
+    "raw_team2_package_boundary_review",
+    "code_review_status_if_applicable",
+    "wake_up_conditions_triggered",
+    "go_review_package_status",
+    "blocking_items",
+    "unexecuted_goals_and_reasons",
+    "one_line_return_decision_state"
+  ],
+  "allowed_return_decision_states": [
+    "READY_FOR_HUMAN_GO_REVIEW",
+    "BLOCKED_NEEDS_HUMAN_UNBLOCK",
+    "PARTIAL_COMPLETE",
+    "NO_GO_SECURITY_BOUNDARY"
   ],
   "picker_policy": {
     "mission_overrides_free_backlog_consumption": true,
