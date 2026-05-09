@@ -1,0 +1,190 @@
+﻿{
+    "schema_version":  "secupilot.rc021.screenshot_text_evidence_refresh.v1",
+    "generated_at_local":  "2026-05-09T16:57:12+08:00",
+    "candidate_context":  "LOCAL_OFFLINE_TRIAL_RC_020_CN_PRE_RC021_PACKAGE_BUILD",
+    "seven_path_required":  true,
+    "file_count":  14,
+    "entries":  [
+                    {
+                        "path":  "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.png",
+                        "route":  "/s1-trial",
+                        "viewport":  "1440x1100",
+                        "sha256":  "892d7fd9086a48b6e2c74b1e1e72bf76d4915393b2f675386b0dc49016e80893",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "0dd0708192816218a05ae3f6bf20f663f972d5b8",
+                        "git_worktree_blob":  "0dd0708192816218a05ae3f6bf20f663f972d5b8",
+                        "source_candidate_match":  {
+                                                       "matched":  false,
+                                                       "expected_sha256":  "0a76ed0018474951b44e74a05fe53c5d01b11f6b50a36325129be20650fd3d2e",
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.text.json",
+                        "route":  "/s1-trial",
+                        "viewport":  "1440x1100",
+                        "sha256":  "f627a89a7cc6f97e6b0a2d6917ca49f877b74a1dc5217c43afb476462fead985",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "d47159db959407164d10532514333ccf69b8b2c9",
+                        "git_worktree_blob":  "d47159db959407164d10532514333ccf69b8b2c9",
+                        "source_candidate_match":  null
+                    },
+                    {
+                        "path":  "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.png",
+                        "route":  "/s1-trial",
+                        "viewport":  "390x1000",
+                        "sha256":  "19e7aa9b6c4e1d449dbc793a844575b6201491112019df51373f5523ca1b76ca",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "a4b3f97e2c5dbfe5b871afa7ec621c416a1d8bbf",
+                        "git_worktree_blob":  "a4b3f97e2c5dbfe5b871afa7ec621c416a1d8bbf",
+                        "source_candidate_match":  {
+                                                       "matched":  false,
+                                                       "expected_sha256":  "cf89053bebe99a4dbe9aa999b0965dadc9c8b1af38ae105b87256cf3e78108e5",
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.text.json",
+                        "route":  "/s1-trial",
+                        "viewport":  "390x1000",
+                        "sha256":  "4680920bcb07cbbde7f75198bf0242ddb4d98ce90e41f03068ebe14510631cd4",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "87841faf3ac377f4d8548c79addae0ffa2905758",
+                        "git_worktree_blob":  "87841faf3ac377f4d8548c79addae0ffa2905758",
+                        "source_candidate_match":  null
+                    },
+                    {
+                        "path":  "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-first-load-folded-desktop.png",
+                        "route":  "/s1-run",
+                        "viewport":  "1440x1100",
+                        "sha256":  "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "78757baf8a5b6a6625786eb7c6aaf44b6729002f",
+                        "git_worktree_blob":  "78757baf8a5b6a6625786eb7c6aaf44b6729002f",
+                        "source_candidate_match":  {
+                                                       "matched":  true,
+                                                       "expected_sha256":  "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-first-load-folded-desktop.text.json",
+                        "route":  "/s1-run",
+                        "viewport":  "1440x1100",
+                        "sha256":  "20f3533aa35b5d194deecdf09b6a4d2e5d38a81ab06e95054f20ea5ba26b0c85",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "a9feaad5bcfd512ef7dc5073e6bf707b332a7fb1",
+                        "git_worktree_blob":  "a9feaad5bcfd512ef7dc5073e6bf707b332a7fb1",
+                        "source_candidate_match":  null
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-first-load-desktop.png",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "1440x1000",
+                        "sha256":  "c97dd0dabbfda4fb5d83d0e26b1306ed54e9c4b675ba5e05ea797fa220175c81",
+                        "refresh_mode":  "refreshed_content_changed",
+                        "git_head_blob":  "8c94c648deada182962e6c02ab44d73923c3b39c",
+                        "git_worktree_blob":  "3afe98e343e724316ac5257f3f97d17a07a37749",
+                        "source_candidate_match":  {
+                                                       "matched":  null,
+                                                       "expected_sha256":  null,
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-first-load-desktop.text.json",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "1440x1000",
+                        "sha256":  "651cebf1ac2ac05cdc44da0d5faac93d086622777476a43656ce9a8f4bfa4507",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "7a05200ca54e01b108205bb095c05aa75cf6ef30",
+                        "git_worktree_blob":  "7a05200ca54e01b108205bb095c05aa75cf6ef30",
+                        "source_candidate_match":  null
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-evidence-expanded-desktop.png",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "1440x1000",
+                        "sha256":  "1e7a208c794de00ceb4f2f484a2159bdc8a7d31ee9c574bad792c659dcc7c7ed",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "dd2bab59c5667c6d90dc41411a2c4761bcdb6679",
+                        "git_worktree_blob":  "dd2bab59c5667c6d90dc41411a2c4761bcdb6679",
+                        "source_candidate_match":  {
+                                                       "matched":  null,
+                                                       "expected_sha256":  null,
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-evidence-expanded-desktop.text.json",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "1440x1000",
+                        "sha256":  "8d757375fbf20452e64205a3e57e5583091b2fc2374782c8f5dc0ac6c8d8fcc9",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "946a74a174a3567ec8cd3658977a2bdb6f432701",
+                        "git_worktree_blob":  "946a74a174a3567ec8cd3658977a2bdb6f432701",
+                        "source_candidate_match":  null
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-technical-expanded-desktop.png",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "1440x1000",
+                        "sha256":  "3d0732489c3d96573ebb3d925e1bfee5f2eda964742dff7078fad95a3f686b3c",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "935628aa43a638aae527ba7d31f54a2370ff2398",
+                        "git_worktree_blob":  "935628aa43a638aae527ba7d31f54a2370ff2398",
+                        "source_candidate_match":  {
+                                                       "matched":  null,
+                                                       "expected_sha256":  null,
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-technical-expanded-desktop.text.json",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "1440x1000",
+                        "sha256":  "301f181b21135af9b67be8458ce59da22a8c253686efdb24331cbecc352dbac1",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "1b3ad2c2cbbc86532fcf91a718586737f452450f",
+                        "git_worktree_blob":  "1b3ad2c2cbbc86532fcf91a718586737f452450f",
+                        "source_candidate_match":  null
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-mobile.png",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "390x1000",
+                        "sha256":  "b2c0b194d5b53f2b1b45194df28d9e3ea6d7b61456c6e31e32dfe8c79237c95f",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "e05e765ef8d7d9c82df2309847e3443c8d650511",
+                        "git_worktree_blob":  "e05e765ef8d7d9c82df2309847e3443c8d650511",
+                        "source_candidate_match":  {
+                                                       "matched":  null,
+                                                       "expected_sha256":  null,
+                                                       "source_candidate":  "LOCAL_OFFLINE_TRIAL_RC_020_CN"
+                                                   }
+                    },
+                    {
+                        "path":  "artifacts/product_experience/ux04/incident-product-mobile.text.json",
+                        "route":  "/incident/CASE-2847",
+                        "viewport":  "390x1000",
+                        "sha256":  "416919e25f920a6c77321a8224e74c0a76ef930fc12303b892795f38122db19a",
+                        "refresh_mode":  "explicit_reuse_hash_match",
+                        "git_head_blob":  "c0ca94606658339030a04a4a2f85cf38fcf7d815",
+                        "git_worktree_blob":  "c0ca94606658339030a04a4a2f85cf38fcf7d815",
+                        "source_candidate_match":  null
+                    }
+                ],
+    "folded_default_assertion":  {
+                                     "file":  "artifacts/product_experience/ux04/incident-product-first-load-desktop.text.json",
+                                     "contains_ai_source_label":  true,
+                                     "contains_expand_hint":  true,
+                                     "contains_expanded_only_phrase":  false,
+                                     "contains_live_or_writeback_claim":  true
+                                 },
+    "notes":  [
+                  "ai_source_default_folded_assertions_pass is covered by incident-product-page.spec.ts test pass and first-load sidecar phrase check.",
+                  "expanded_ai_source_assertions_pass is covered by incident-product-page.spec.ts expanded-state assertions pass.",
+                  "mobile downscroll evidence uses full-page mobile screenshot artifacts for /incident/CASE-2847 and /s1-trial."
+              ],
+    "status":  "PASS"
+}
