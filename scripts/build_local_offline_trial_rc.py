@@ -72,6 +72,7 @@ def required_archive_evidence_payload(
         "folded_state_review_source_category": "REVIEW_SCREENSHOT",
         "folded_state_review_source_status": "BACKLOG_OPEN",
         "folded_state_review_source_owner": "SecuPilot product engineering",
+        "folded_state_review_reviewer": "Jarvis / TL / Product-governance reviewer",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
@@ -565,6 +566,7 @@ def screenshot_index(
                 "review_source_category": "REVIEW_SCREENSHOT",
                 "review_source_status": "BACKLOG_OPEN",
                 "review_source_owner": "SecuPilot product engineering",
+                "review_reviewer": "Jarvis / TL / Product-governance reviewer",
             }
         screenshots.append(item)
     return {

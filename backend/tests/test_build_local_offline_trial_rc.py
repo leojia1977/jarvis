@@ -190,6 +190,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_review_source_category": "REVIEW_SCREENSHOT",
                 "folded_state_review_source_status": "BACKLOG_OPEN",
                 "folded_state_review_source_owner": "SecuPilot product engineering",
+                "folded_state_review_reviewer": "Jarvis / TL / Product-governance reviewer",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_phase": "FIRST_LOAD",
@@ -285,6 +286,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             "SecuPilot product engineering",
             required_archive["folded_state_review_source_owner"],
+        )
+        self.assertEqual(
+            "Jarvis / TL / Product-governance reviewer",
+            required_archive["folded_state_review_reviewer"],
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
@@ -448,6 +453,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "review_source_category": "REVIEW_SCREENSHOT",
                 "review_source_status": "BACKLOG_OPEN",
                 "review_source_owner": "SecuPilot product engineering",
+                "review_reviewer": "Jarvis / TL / Product-governance reviewer",
             },
             folded_entry["archive_evidence"],
         )
