@@ -73,6 +73,7 @@ def required_archive_evidence_payload(
         "folded_state_review_source_status": "BACKLOG_OPEN",
         "folded_state_review_source_owner": "SecuPilot product engineering",
         "folded_state_review_reviewer": "Jarvis / TL / Product-governance reviewer",
+        "folded_state_review_source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
@@ -567,6 +568,7 @@ def screenshot_index(
                 "review_source_status": "BACKLOG_OPEN",
                 "review_source_owner": "SecuPilot product engineering",
                 "review_reviewer": "Jarvis / TL / Product-governance reviewer",
+                "review_source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
             }
         screenshots.append(item)
     return {

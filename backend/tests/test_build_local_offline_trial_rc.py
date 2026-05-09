@@ -191,6 +191,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_review_source_status": "BACKLOG_OPEN",
                 "folded_state_review_source_owner": "SecuPilot product engineering",
                 "folded_state_review_reviewer": "Jarvis / TL / Product-governance reviewer",
+                "folded_state_review_source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_phase": "FIRST_LOAD",
@@ -290,6 +291,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             "Jarvis / TL / Product-governance reviewer",
             required_archive["folded_state_review_reviewer"],
+        )
+        self.assertEqual(
+            "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
+            required_archive["folded_state_review_source_feedback_json"],
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
@@ -454,6 +459,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "review_source_status": "BACKLOG_OPEN",
                 "review_source_owner": "SecuPilot product engineering",
                 "review_reviewer": "Jarvis / TL / Product-governance reviewer",
+                "review_source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
             },
             folded_entry["archive_evidence"],
         )
