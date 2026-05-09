@@ -1,0 +1,68 @@
+{
+  "schema_version": "secupilot.eci_vfe.local_offline_review_manifest.v1",
+  "generated_at_utc": "2026-05-09T01:37:39.481931Z",
+  "candidate": "ECI_VFE_LOCAL_OFFLINE_RC_001",
+  "source_candidate": "ECI_VFE_FIXTURE_RC001",
+  "package_dir": "D:/产品设计/New folder/artifacts/local_demo_packages/eci-vfe-local-offline-rc-001",
+  "zip_name": "eci-vfe-local-offline-rc-001-review-package.zip",
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "package_files": [
+    {
+      "file_name": "chain_assessment.json",
+      "path": "chain_assessment.json",
+      "bytes": 16926,
+      "sha256": "ad9b8027d2c781fae29cd9161593121b52659165163e29c51f53d232f407f8d1",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    },
+    {
+      "file_name": "correlation_result.json",
+      "path": "correlation_result.json",
+      "bytes": 5916,
+      "sha256": "81a4d93881180fcc288351565909c5f49b1f4a486b89cbf42cd9a5d6b2c318f9",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    },
+    {
+      "file_name": "forecast_candidates.json",
+      "path": "forecast_candidates.json",
+      "bytes": 16566,
+      "sha256": "1d1e07b5b8305159b4229322d287088ff10c98f9504166e72d9cd5abfc02623a",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    },
+    {
+      "file_name": "output_guard_scan.json",
+      "path": "output_guard_scan.json",
+      "bytes": 936,
+      "sha256": "3407bbf34a66a288bd23c8cc910654c90d785c794bec28c369e47e1f02deb2a5",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    },
+    {
+      "file_name": "package_manifest.json",
+      "path": "package_manifest.json",
+      "bytes": 663,
+      "sha256": "17178f837cb5b3b2ce1bb1ce180d7d93f81138f6626ed8946627b781c126316c",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    },
+    {
+      "file_name": "REVIEWER_START_HERE_中文.md",
+      "path": "REVIEWER_START_HERE_中文.md",
+      "bytes": 1054,
+      "sha256": "a34f1b76dbb6ad62ffe6121e13eb478428c2f4eee0e3bc69584ebf550449368b",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    },
+    {
+      "file_name": "SCREENSHOT_INDEX_中文.json",
+      "path": "SCREENSHOT_INDEX_中文.json",
+      "bytes": 2231,
+      "sha256": "883cb7c2b9fd1e64b9a350ab79ae7775bf83c56b952d4ab817f2e78c88fb5461",
+      "safety_class": "ECI_VFE_LOCAL_OFFLINE_REVIEW_ARTIFACT"
+    }
+  ]
+}

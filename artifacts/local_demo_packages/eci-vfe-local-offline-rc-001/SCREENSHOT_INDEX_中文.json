@@ -1,0 +1,53 @@
+{
+  "schema_version": "secupilot.eci_vfe.local_offline_screenshot_index_zh.v1",
+  "generated_at_utc": "2026-05-09T01:37:39.481052Z",
+  "candidate": "ECI_VFE_LOCAL_OFFLINE_RC_001",
+  "source_candidate": "ECI_VFE_FIXTURE_RC001",
+  "screenshots": [
+    {
+      "file_name": "eci-chain-indicator-desktop.png",
+      "source_path": "D:/产品设计/New folder/artifacts/eci_vfe_fixture_runs/rc001/screenshots/eci-chain-indicator-desktop.png",
+      "route": "/eci-vfe-chain",
+      "viewport": "1440x1100",
+      "bytes": 778892,
+      "sha256": "39b58ede75daf54eeca9f7ba820c403367bc25926f0595a6dcdf7bb4e1e8f65c",
+      "safety_class": "ECI_VFE_REVIEWER_SAFE_SCREENSHOT"
+    },
+    {
+      "file_name": "eci-chain-indicator-mobile.png",
+      "source_path": "D:/产品设计/New folder/artifacts/eci_vfe_fixture_runs/rc001/screenshots/eci-chain-indicator-mobile.png",
+      "route": "/eci-vfe-chain",
+      "viewport": "390x1000",
+      "bytes": 262504,
+      "sha256": "5c9e9b6947e00da076dc16a7b1a3c38616222090602a8d8e895ddec0e993ba0a",
+      "safety_class": "ECI_VFE_REVIEWER_SAFE_SCREENSHOT"
+    },
+    {
+      "file_name": "vfe-forecast-card-desktop.png",
+      "source_path": "D:/产品设计/New folder/artifacts/eci_vfe_fixture_runs/rc001/screenshots/vfe-forecast-card-desktop.png",
+      "route": "/eci-vfe-forecast",
+      "viewport": "1440x1100",
+      "bytes": 850055,
+      "sha256": "6f40c83faac8ede9c4417760407a3fae4f2e7c3090a0687f4684b58ec140e5af",
+      "safety_class": "ECI_VFE_REVIEWER_SAFE_SCREENSHOT"
+    },
+    {
+      "file_name": "vfe-forecast-card-mobile.png",
+      "source_path": "D:/产品设计/New folder/artifacts/eci_vfe_fixture_runs/rc001/screenshots/vfe-forecast-card-mobile.png",
+      "route": "/eci-vfe-forecast",
+      "viewport": "390x1000",
+      "bytes": 350798,
+      "sha256": "0440726b8a73f57a72563c4c72708c12c2c880bfc2f89d55243d93d7685965d7",
+      "safety_class": "ECI_VFE_REVIEWER_SAFE_SCREENSHOT"
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}
