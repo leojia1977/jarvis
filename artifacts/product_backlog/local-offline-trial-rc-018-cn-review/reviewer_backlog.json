@@ -1,0 +1,151 @@
+{
+  "schema_version": "secupilot.reviewer_feedback_product_backlog.v1",
+  "generated_at_utc": "2026-05-09T05:01:51Z",
+  "source_decision_doc": "docs/S6_RC018_CUSTOMER_PATH_REVIEW_DECISION_2026_05_09.md",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
+  "reviewer_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+  "reviewer": "Team 1 + Team 2 reviewer synthesis",
+  "fix_commit": "4388e0b",
+  "zip_sha256": "d623f83657a0cf54cca99a2cedec30c59734ceed8d7b234455fedf88d96a9456",
+  "items": [
+    {
+      "id": "RFB-RC018-001",
+      "source_type": "non_blocking_observation",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Move engineering annex terms into internal validation or rewrite as local/offline synthetic metadata validation",
+      "description": "Annex files still include engineering-oriented terms such as qwen_fact_bundle, source_payload, provider_decision_hint, provider = fixture, provider_output_scan, and qwen_fact_bundle_directory. Move these to internal_validation/ or rewrite them as customer-readable local/offline synthetic metadata validation.",
+      "category": "PACKAGE_ANNEX_COPY",
+      "priority": "P2",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "maps_to_goal": "GOAL-RC018-02_CUSTOMER_COPY_AND_ANNEX_POLISH",
+      "acceptance": [
+        "local/offline only",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back",
+        "no customer-visible publish/deploy/output",
+        "customer-facing package does not foreground qwen_fact_bundle, source_payload, provider_decision_hint, or provider = fixture"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false,
+        "external_pilot": false,
+        "production_launch": false
+      }
+    },
+    {
+      "id": "RFB-RC018-002",
+      "source_type": "non_blocking_observation",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Make deployment and remediation wording more conservative",
+      "description": "Change 查看部署准备 to 查看本地接入准备, and change 隔离 finance-042 并锁定凭据 to 待复核：finance-042 隔离与凭据锁定建议.",
+      "category": "UI_COPY",
+      "priority": "P1",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "maps_to_goal": "GOAL-RC018-02_CUSTOMER_COPY_AND_ANNEX_POLISH",
+      "acceptance": [
+        "查看部署准备 is changed to 查看本地接入准备",
+        "隔离 finance-042 并锁定凭据 is changed to 待复核：finance-042 隔离与凭据锁定建议",
+        "local/offline and human-review boundaries remain visible",
+        "no autonomous action, write-back, deploy, or customer-visible output is implied"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false,
+        "external_pilot": false,
+        "production_launch": false
+      }
+    },
+    {
+      "id": "RFB-RC018-003",
+      "source_type": "non_blocking_observation",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Add mobile incident scrolled-state screenshot in next package",
+      "description": "Add one mobile incident scrolled-state screenshot showing conclusion cards, trusted boundary, and recommended action.",
+      "category": "REVIEW_SCREENSHOT",
+      "priority": "P2",
+      "status": "BACKLOG_OPEN",
+      "owner": "SecuPilot product engineering",
+      "maps_to_goal": "GOAL-RC018-02_CUSTOMER_COPY_AND_ANNEX_POLISH",
+      "acceptance": [
+        "package includes one mobile incident scrolled-state screenshot showing conclusion cards, trusted boundary, and recommended action",
+        "screenshot safety scan covers the new screenshot",
+        "no real or masked-real data",
+        "no live Qwen/API/connectors",
+        "no production write-back"
+      ],
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false,
+        "external_pilot": false,
+        "production_launch": false
+      }
+    },
+    {
+      "id": "RFB-RC018-004",
+      "source_type": "accepted_behavior",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Preserve AI advice source default folded behavior",
+      "description": "AI advice source default folded behavior is accepted in RC-018 and should be preserved as a regression check in the next package.",
+      "category": "REGRESSION_GUARD",
+      "priority": "P3",
+      "status": "BACKLOG_CLOSED",
+      "owner": "SecuPilot product engineering",
+      "maps_to_goal": "GOAL-RC018-02_CUSTOMER_COPY_AND_ANNEX_POLISH",
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false,
+        "external_pilot": false,
+        "production_launch": false
+      },
+      "resolution": "Accepted behavior; preserve as regression evidence."
+    },
+    {
+      "id": "RFB-RC018-005",
+      "source_type": "accepted_behavior",
+      "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+      "source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+      "title": "Preserve defensive ECI/VFE product framing",
+      "description": "ECI/VFE framing is accepted in RC-018 and should remain defensive: no reusable attack path, payload, PoC, exploit steps, or topology reachability.",
+      "category": "REGRESSION_GUARD",
+      "priority": "P3",
+      "status": "BACKLOG_CLOSED",
+      "owner": "SecuPilot product engineering",
+      "maps_to_goal": "GOAL-RC018-02_CUSTOMER_COPY_AND_ANNEX_POLISH",
+      "non_authorization": {
+        "customer_visible_or_deploy_go": false,
+        "live_qwen_api": false,
+        "production_writeback": false,
+        "external_pilot": false,
+        "production_launch": false
+      },
+      "resolution": "Accepted behavior; preserve as regression evidence."
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "external_pilot": false,
+    "production_launch": false,
+    "push": false
+  },
+  "customer_visible_or_deploy_go": false,
+  "external_tracker_write": false,
+  "open_item_count": 3,
+  "closed_item_count": 2
+}
