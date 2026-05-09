@@ -16,6 +16,7 @@ import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "
 import { S1ArtifactView } from "./secupilot/s1/S1ArtifactView";
 import { S1LocalTrialView } from "./secupilot/s1/S1LocalTrialView";
 import { EciChainIndicator } from "./secupilot/eciVfe/EciChainIndicator";
+import { VfeForecastCard } from "./secupilot/eciVfe/VfeForecastCard";
 import { S1_QWEN_PROVIDER_CONTRACT } from "./secupilot/s1/s1QwenProviderContract";
 import { S1_QWEN_PROVIDER_DRY_PREVIEW } from "./secupilot/s1/s1QwenProviderDryPreview";
 import { S1_QWEN_PROVIDER_READINESS } from "./secupilot/s1/s1QwenProviderReadiness";
@@ -41,6 +42,7 @@ type Route =
   | "case"
   | "incident"
   | "eci_vfe_chain"
+  | "eci_vfe_forecast"
   | "search"
   | "s1_run"
   | "s1_trial"
@@ -655,6 +657,9 @@ function initialRoute(): { route: Route; caseId: string | null } {
   if (path === "/eci-vfe-chain") {
     return { route: "eci_vfe_chain", caseId: null };
   }
+  if (path === "/eci-vfe-forecast") {
+    return { route: "eci_vfe_forecast", caseId: null };
+  }
   if (path === "/approval") {
     return { route: "approval", caseId: null };
   }
@@ -879,7 +884,8 @@ function App({
     route === "s1_run" ||
     route === "s1_trial" ||
     route === "incident" ||
-    route === "eci_vfe_chain";
+    route === "eci_vfe_chain" ||
+    route === "eci_vfe_forecast";
 
   function selectRole(nextRole: Role) {
     const nextPhase = FIXTURE_PHASES.find((phase) => phase.role === nextRole);
@@ -918,6 +924,8 @@ function App({
                 ? "/s1-trial"
                 : nextRoute === "eci_vfe_chain"
                   ? "/eci-vfe-chain"
+                  : nextRoute === "eci_vfe_forecast"
+                    ? "/eci-vfe-forecast"
                   : nextRoute === "coverage_health"
                     ? "/coverage-health"
                     : "/inbox";
@@ -1120,6 +1128,8 @@ function App({
           <S1LocalTrialView />
         ) : route === "eci_vfe_chain" ? (
           <EciChainIndicator />
+        ) : route === "eci_vfe_forecast" ? (
+          <VfeForecastCard />
         ) : route === "coverage_health" ? (
           <CoverageHealthView activeCase={renderActiveCase} activeContext={activeContext} />
         ) : (
