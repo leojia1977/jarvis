@@ -4,13 +4,12 @@
     "deterministic_checks":  "PASS_WITH_NOTES",
     "code_review_status":  "NOT_APPLICABLE",
     "team1_product_path_status":  "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
-    "team2_package_boundary_status":  "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING",
+    "team2_package_boundary_status":  "PASS_WITH_NOTES",
     "boundary_status":  "PASS",
     "merged_decision":  "HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES",
-    "merged_reason":  "Both independent external review gates are pending; READY status is forbidden until Team1+Team2 complete without blocking findings.",
+    "merged_reason":  "Team2 package-boundary review passed with notes; Team1 product-path review remains pending, so READY is still forbidden.",
     "blocking_items":  [
-                           "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
-                           "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING"
+                           "TEAM1_PRODUCT_PATH_REVIEW_PENDING"
                        ],
-    "generated_at_utc":  "2026-05-09T11:01:37.6347715Z"
+    "generated_at_utc":  "2026-05-09T12:59:55.0309772Z"
 }

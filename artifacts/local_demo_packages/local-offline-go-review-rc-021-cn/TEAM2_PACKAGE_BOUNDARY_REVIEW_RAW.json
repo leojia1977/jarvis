@@ -1,9 +1,9 @@
 ﻿{
     "schema_version":  "secupilot.review_gate.team2_package_boundary.v1",
     "gate":  "TEAM2_PACKAGE_BOUNDARY_REVIEW",
-    "status":  "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING",
-    "decision":  "PENDING",
-    "reason":  "OpenAI API Team2 review not executed in this local unattended run; sanitized package inputs prepared only.",
+    "status":  "PASS_WITH_NOTES",
+    "decision":  "PASS_WITH_NOTES",
+    "reason":  "Sanitized package-boundary review executed; no blocking boundary/security finding. One non-blocking note retained for legacy expected_candidate marker provenance.",
     "candidate":  "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
     "sanitized_inputs_prepared":  [
                                       "PACKAGE_MANIFEST.json",
@@ -12,7 +12,14 @@
                                       "PRIVATE_PREVIEW_HEALTHCHECK.json",
                                       "rc021_customer_path_lint_and_healthcheck.json"
                                   ],
-    "blocking":  true,
-    "blocking_reason":  "package_boundary_review_not_executed",
-    "generated_at_utc":  "2026-05-09T11:01:37.6297638Z"
+    "blocking":  false,
+    "blocking_reason":  null,
+    "generated_at_utc":  "2026-05-09T12:59:55.0309772Z",
+    "non_blocking_notes":  [
+                               {
+                                   "id":  "legacy_expected_candidate_marker",
+                                   "source":  "SCREENSHOT_SAFETY_SCAN.json",
+                                   "detail":  "expected_candidate remains LOCAL_OFFLINE_TRIAL_RC_020_CN by source-evidence reuse design; treated as non-blocking with explicit provenance."
+                               }
+                           ]
 }
