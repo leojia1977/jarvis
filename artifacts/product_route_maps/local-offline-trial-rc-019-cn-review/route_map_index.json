@@ -1,0 +1,83 @@
+{
+  "schema_version": "secupilot.private_preview.route_map_index.v1",
+  "generated_at_utc": "2026-05-09T03:35:07.169239Z",
+  "candidate": "LOCAL_OFFLINE_TRIAL_RC_019_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
+  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-019-cn-review",
+  "zip_name": "local-offline-trial-rc-019-cn-review-package-20260508.zip",
+  "route_entries": [
+    {
+      "route": "/s1-trial",
+      "title": "试用入口页",
+      "objective": "确认试用入口、评审范围和边界说明是否清晰。",
+      "screenshot_count": 2,
+      "screenshot_paths": [
+        "screenshots/s1-trial-desktop.png",
+        "screenshots/s1-trial-mobile.png"
+      ]
+    },
+    {
+      "route": "/s1-run",
+      "title": "试用结果页",
+      "objective": "确认结果页呈现产品结论，而不是证据目录。",
+      "screenshot_count": 2,
+      "screenshot_paths": [
+        "screenshots/s1-run-desktop.png",
+        "screenshots/s1-run-mobile.png"
+      ]
+    }
+  ],
+  "persona_route_coverage": [
+    {
+      "persona_key": "ENGINEER_REVIEWER",
+      "persona_name": "工程师评审路径",
+      "focus": "核验候选口径、路径一致性与截图可对账性。",
+      "ordered_routes": [
+        "/s1-trial",
+        "/s1-run"
+      ]
+    },
+    {
+      "persona_key": "MANAGER_REVIEWER",
+      "persona_name": "经理评审路径",
+      "focus": "核验结果页表达与边界合规是否支持下一轮内部试用决策。",
+      "ordered_routes": [
+        "/s1-trial",
+        "/s1-run"
+      ]
+    },
+    {
+      "persona_key": "CTO_REVIEWER",
+      "persona_name": "CTO评审路径",
+      "focus": "核验路线完整性、离线边界和风险控制声明是否满足私有预览门槛。",
+      "ordered_routes": [
+        "/s1-trial",
+        "/s1-run"
+      ]
+    }
+  ],
+  "review_entry_files": {
+    "start_here": "REVIEWER_START_HERE_中文.md",
+    "checklist": "REVIEWER_CHECKLIST_中文.md",
+    "feedback_template": "FEEDBACK_TEMPLATE_中文.md"
+  },
+  "artifact_counts": {
+    "package_file_count": 18,
+    "evidence_file_count": 4,
+    "validation_file_count": 5
+  },
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  },
+  "non_authorization": {
+    "customer_visible_or_deploy_go": false,
+    "live_qwen_api": false,
+    "production_writeback": false
+  }
+}
