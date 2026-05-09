@@ -1,0 +1,11 @@
+{
+  "schema_version": "secupilot.rc018.vfe_forecast_summary.v1",
+  "generated_at_utc": "2026-05-09T01:43:45.895595Z",
+  "forecast_count": 5,
+  "labels": {
+    "CONFIGURATION_RISK_REVIEW": 1,
+    "PRIVILEGE_BOUNDARY_REVIEW": 1,
+    "LOW_CONFIDENCE_REVIEW_ONLY": 1,
+    "SANITIZED_INPUT_REVIEW_ONLY": 2
+  }
+}

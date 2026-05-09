@@ -1,16 +1,13 @@
 {
-  "schema_version": "secupilot.s1.local_trial_rc_consistency_check.v1",
-  "created_at_utc": "2026-05-08T05:21:05.483562Z",
+  "schema_version": "secupilot.rc018.consistency_check.v1",
+  "generated_at_utc": "2026-05-09T01:43:46.127880Z",
   "status": "PASS",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
-  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
-  "zip_name": "local-offline-trial-rc-018-cn-review-package-20260508.zip",
-  "checked_json_files": [
-    "PACKAGE_INDEX_中文.json",
-    "SCREENSHOT_INDEX.json",
-    "package_manifest.json"
-  ],
-  "blocking_finding_count": 0,
-  "blocking_findings": []
+  "checks": {
+    "candidate_in_docs": true,
+    "screenshot_count": 4,
+    "manifest_file_count": 27,
+    "zip_exists": true
+  }
 }

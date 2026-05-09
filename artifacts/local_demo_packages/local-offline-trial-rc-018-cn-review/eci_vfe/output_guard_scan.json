@@ -1,0 +1,24 @@
+{
+  "schema_version": "secupilot.eci_vfe.output_guard_scan.v1",
+  "generated_at_utc": "2026-05-08T10:19:12.309194Z",
+  "input_dir": "D:/产品设计/New folder/artifacts/eci_vfe_fixture_runs/rc001",
+  "status": "PASS",
+  "blocking_finding_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "validated_files": {
+    "chain_assessment": "ad9b8027d2c781fae29cd9161593121b52659165163e29c51f53d232f407f8d1",
+    "forecast_candidates": "1d1e07b5b8305159b4229322d287088ff10c98f9504166e72d9cd5abfc02623a",
+    "correlation_result": "81a4d93881180fcc288351565909c5f49b1f4a486b89cbf42cd9a5d6b2c318f9",
+    "run_record": "5cdb23cff4a63c4b23b4c186390c684bf7bd355cce5e527ac33ce424b6a22eb7"
+  },
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

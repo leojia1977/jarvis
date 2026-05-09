@@ -1,193 +1,10 @@
 {
-  "schema_version": "secupilot.s1.local_offline_chinese_review_package_manifest.v1",
+  "schema_version": "secupilot.rc018.customer_readable_package_manifest.v1",
+  "generated_at_utc": "2026-05-09T01:43:46.041608Z",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
-  "source_commit": "888df44",
-  "generated_at_utc": "2026-05-08T05:20:52.685616Z",
-  "package_dir": "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
-  "zip_name": "local-offline-trial-rc-018-cn-review-package-20260508.zip",
-  "package_files": [
-    {
-      "file_name": "FEEDBACK_TEMPLATE_中文.md",
-      "path": "FEEDBACK_TEMPLATE_中文.md",
-      "bytes": 1133,
-      "sha256": "0c719a37d6831be73f73b54daf250df5d97f0ead033d76cb70d1bf7592ded047",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "PACKAGE_INDEX_中文.json",
-      "path": "PACKAGE_INDEX_中文.json",
-      "bytes": 1493,
-      "sha256": "17fbb150f142382a7dcea3341cf0bc44170d2f037961f6b67d5c0b9f0ffd9d9f",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "REVIEWER_CHECKLIST_中文.md",
-      "path": "REVIEWER_CHECKLIST_中文.md",
-      "bytes": 1538,
-      "sha256": "694bc293aa84d4a14041d0cf8b67e4aaa06ec67207341b7590a64b856ea8e288",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "REVIEWER_START_HERE_中文.md",
-      "path": "REVIEWER_START_HERE_中文.md",
-      "bytes": 1515,
-      "sha256": "cba752b5bc600ef105ccaaa7f00bca279d21229d4e6eee8dec621241f8483354",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "SCREENSHOT_INDEX.json",
-      "path": "SCREENSHOT_INDEX.json",
-      "bytes": 1633,
-      "sha256": "1ffda24e2a81a0761c874bfbf04b50592075f252355871d65eeebc8b2f106840",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "artifact_manifest.json",
-      "path": "evidence/artifact_manifest.json",
-      "bytes": 2600,
-      "sha256": "9f83b0963309a319e3e8fc68fc4a1efa837ea8fc08ac899c6f0ffaaf3b9bf646",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "case_summary.json",
-      "path": "evidence/case_summary.json",
-      "bytes": 16440,
-      "sha256": "5a13885481155eedc35fcb97a35b19dcb7fa1ce56fb841c533ca8e7a53b7768d",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "final_status.json",
-      "path": "evidence/final_status.json",
-      "bytes": 1804,
-      "sha256": "45f57750a303b42596ef30eb013b96d30b65759725741c1fa5e8b18d43692690",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "safety_scan.json",
-      "path": "evidence/safety_scan.json",
-      "bytes": 1152,
-      "sha256": "1feb98bc48a6a9e681f06a2cd3e325e5d3d8d2ba0e7dbd773ea7284f1973cf15",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "s1-run-desktop.png",
-      "path": "screenshots/s1-run-desktop.png",
-      "bytes": 402639,
-      "sha256": "7734d0ba50b297874d577d3c0e12c87cfea63f24733e18d1be5a75152bf07194",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "s1-run-mobile.png",
-      "path": "screenshots/s1-run-mobile.png",
-      "bytes": 310775,
-      "sha256": "fd148a136817b614d19f06b84ee75a7e2fa8cceea606b95fb05cd7ec336aa888",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "s1-trial-desktop.png",
-      "path": "screenshots/s1-trial-desktop.png",
-      "bytes": 924838,
-      "sha256": "a1cc84d97ef1dadacff350685a7430272bcdabdf21d2e53adcde0930b0823df1",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "s1-trial-mobile.png",
-      "path": "screenshots/s1-trial-mobile.png",
-      "bytes": 635457,
-      "sha256": "cb5736c7e41af1780e735d87bcdcf6988337064f466aed3cebce3d196cdbc82f",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_CHINESE_REVIEW_PACKAGE"
-    },
-    {
-      "file_name": "qwen_live_synthetic_go_precheck_report.json",
-      "path": "validation/qwen_live_synthetic_go_precheck_report.json",
-      "bytes": 7009,
-      "sha256": "5cdabb27e837a155b3758b6c3cd0bf1e2d15617680be3adde0998d6c2b459bca",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
-    },
-    {
-      "file_name": "qwen_live_synthetic_provider_stub_report.json",
-      "path": "validation/qwen_live_synthetic_provider_stub_report.json",
-      "bytes": 1245,
-      "sha256": "d24e9019f59e4a2941b3c55bc98f030439c0bc8abc9cf84b935700c44cfa1fff",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
-    },
-    {
-      "file_name": "qwen_live_synthetic_provider_stub_report_中文.md",
-      "path": "validation/qwen_live_synthetic_provider_stub_report_中文.md",
-      "bytes": 1201,
-      "sha256": "5a5c84caff53c485dba2a8ef132005752d665a5423bcbd6f298768a271aa14e5",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
-    },
-    {
-      "file_name": "qwen_live_synthetic_runtime_config_report.json",
-      "path": "validation/qwen_live_synthetic_runtime_config_report.json",
-      "bytes": 3766,
-      "sha256": "70e708fa5b4d9613ae3803f9f875e54461d3e8f6bc78b618a16e016cfb3e901d",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
-    },
-    {
-      "file_name": "screenshot_safety_scan.json",
-      "path": "validation/screenshot_safety_scan.json",
-      "bytes": 2725,
-      "sha256": "b68cea92736cd4d8085b23c53cff21ab33acd18dad65bf1ffbb219b74c067d85",
-      "contains_raw_payload": false,
-      "contains_secret_or_token": false,
-      "contains_customer_visible_artifact": false,
-      "retention_class": "S1_LOCAL_OFFLINE_VALIDATION_ARTIFACT"
-    }
-  ],
+  "package_dir": "D:/产品设计/New folder/artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
+  "zip_name": "local-offline-trial-rc-018-cn-review-package-20260509.zip",
   "boundaries": {
     "real_data": false,
     "masked_real_data": false,
@@ -197,5 +14,168 @@
     "customer_visible_output": false,
     "push": false
   },
-  "manifest_self_sha256": "5ffd96264b07470bac70ed7f8f29c7c76241c83859e236d4d92895beb7ef4fbc"
+  "package_files": [
+    {
+      "path": "01_REVIEW_PROMPT.md",
+      "bytes": 374,
+      "sha256": "8a47c311225d71b362af49f8114af66534d59dd5ae34affdb09b456bdef34b22",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "02_PRODUCT_ROUTE_MAP_中文.md",
+      "bytes": 311,
+      "sha256": "25f451770309394513fbce75d137eb80ef610a77d871805af0afbd70f268c3fd",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "03_REVIEWER_CHECKLIST_中文.md",
+      "bytes": 399,
+      "sha256": "73a0a96f4ae460d04abf6f6186c900b694d474123545c70910ad8b09cbbfd684",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "04_FEEDBACK_TEMPLATE_中文.md",
+      "bytes": 321,
+      "sha256": "b4b4473e3e4590ab99a60037f145833008d0bb9bdffaa68f2813254677a4f863",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "eci_vfe/chain_assessment_summary.json",
+      "bytes": 176,
+      "sha256": "6f31fdc566aa86468736f67440e723415f765cc9bd285ba7d7bb616f3c6d488a",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "eci_vfe/forecast_candidate_summary.json",
+      "bytes": 318,
+      "sha256": "aa5314c7428c2448bcd1563ef013563fa15bd6f55437e12ecd98d3d46b9e2802",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "eci_vfe/output_guard_scan.json",
+      "bytes": 936,
+      "sha256": "3407bbf34a66a288bd23c8cc910654c90d785c794bec28c369e47e1f02deb2a5",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "evidence/artifact_manifest.json",
+      "bytes": 2600,
+      "sha256": "9f83b0963309a319e3e8fc68fc4a1efa837ea8fc08ac899c6f0ffaaf3b9bf646",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "evidence/case_summary.json",
+      "bytes": 16440,
+      "sha256": "5a13885481155eedc35fcb97a35b19dcb7fa1ce56fb841c533ca8e7a53b7768d",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "evidence/final_status.json",
+      "bytes": 1804,
+      "sha256": "45f57750a303b42596ef30eb013b96d30b65759725741c1fa5e8b18d43692690",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "evidence/safety_scan.json",
+      "bytes": 1152,
+      "sha256": "1feb98bc48a6a9e681f06a2cd3e325e5d3d8d2ba0e7dbd773ea7284f1973cf15",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "FEEDBACK_TEMPLATE_中文.md",
+      "bytes": 1133,
+      "sha256": "0c719a37d6831be73f73b54daf250df5d97f0ead033d76cb70d1bf7592ded047",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "PACKAGE_INDEX_中文.json",
+      "bytes": 1493,
+      "sha256": "17fbb150f142382a7dcea3341cf0bc44170d2f037961f6b67d5c0b9f0ffd9d9f",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "REVIEWER_CHECKLIST_中文.md",
+      "bytes": 1538,
+      "sha256": "694bc293aa84d4a14041d0cf8b67e4aaa06ec67207341b7590a64b856ea8e288",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "REVIEWER_START_HERE_中文.md",
+      "bytes": 480,
+      "sha256": "a70f8e06af1cffde4853e7b31e09265255fc1e4177755c629ae175a31aaac2c6",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "safety_scan.json",
+      "bytes": 316,
+      "sha256": "76d1aa9e7ff7874c392335961f9e6484e1fa0730d819b5744754032fd8904359",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "SCREENSHOT_INDEX.json",
+      "bytes": 1633,
+      "sha256": "1ffda24e2a81a0761c874bfbf04b50592075f252355871d65eeebc8b2f106840",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "SCREENSHOT_INDEX_中文.json",
+      "bytes": 2279,
+      "sha256": "2feb140c5869c1d35f4d0dba090971f1a224489f00cb96542d40a0b17d7a0283",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/s1-run-desktop.png",
+      "bytes": 402639,
+      "sha256": "7734d0ba50b297874d577d3c0e12c87cfea63f24733e18d1be5a75152bf07194",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/s1-run-mobile.png",
+      "bytes": 310775,
+      "sha256": "fd148a136817b614d19f06b84ee75a7e2fa8cceea606b95fb05cd7ec336aa888",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/s1-trial-desktop.png",
+      "bytes": 924838,
+      "sha256": "a1cc84d97ef1dadacff350685a7430272bcdabdf21d2e53adcde0930b0823df1",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/s1-trial-mobile.png",
+      "bytes": 635457,
+      "sha256": "cb5736c7e41af1780e735d87bcdcf6988337064f466aed3cebce3d196cdbc82f",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "validation/qwen_live_synthetic_go_precheck_report.json",
+      "bytes": 7009,
+      "sha256": "5cdabb27e837a155b3758b6c3cd0bf1e2d15617680be3adde0998d6c2b459bca",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "validation/qwen_live_synthetic_provider_stub_report.json",
+      "bytes": 1245,
+      "sha256": "d24e9019f59e4a2941b3c55bc98f030439c0bc8abc9cf84b935700c44cfa1fff",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "validation/qwen_live_synthetic_provider_stub_report_中文.md",
+      "bytes": 1201,
+      "sha256": "5a5c84caff53c485dba2a8ef132005752d665a5423bcbd6f298768a271aa14e5",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "validation/qwen_live_synthetic_runtime_config_report.json",
+      "bytes": 3766,
+      "sha256": "70e708fa5b4d9613ae3803f9f875e54461d3e8f6bc78b618a16e016cfb3e901d",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "validation/screenshot_safety_scan.json",
+      "bytes": 2725,
+      "sha256": "b68cea92736cd4d8085b23c53cff21ab33acd18dad65bf1ffbb219b74c067d85",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    }
+  ]
 }
