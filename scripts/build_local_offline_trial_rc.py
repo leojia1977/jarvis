@@ -64,7 +64,6 @@ def required_archive_evidence_payload(
         "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
         "folded_state_evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
         "folded_state_backlog_item_id": "RFB-RC016-001",
-        "folded_state_review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
         "folded_state_review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
         "folded_state_review_source_type": "NON_BLOCKING_OBSERVATION",
         "folded_state_review_source_priority": "P3",
@@ -73,7 +72,6 @@ def required_archive_evidence_payload(
         "folded_state_review_source_status": "BACKLOG_OPEN",
         "folded_state_review_source_owner": "SecuPilot product engineering",
         "folded_state_review_reviewer": "Jarvis / TL / Product-governance reviewer",
-        "folded_state_review_source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
@@ -559,7 +557,6 @@ def screenshot_index(
                 "review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
                 "review_order_step": 3,
                 "review_evidence_status": "REQUIRED_AND_PRESENT",
-                "review_source_candidate": "LOCAL_OFFLINE_TRIAL_RC_016_CN",
                 "review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
                 "review_source_type": "NON_BLOCKING_OBSERVATION",
                 "review_source_priority": "P3",
@@ -568,7 +565,6 @@ def screenshot_index(
                 "review_source_status": "BACKLOG_OPEN",
                 "review_source_owner": "SecuPilot product engineering",
                 "review_reviewer": "Jarvis / TL / Product-governance reviewer",
-                "review_source_feedback_json": "artifacts/local_demo_packages/local-offline-trial-rc-016-cn-review/reviewer_feedback.json",
             }
         screenshots.append(item)
     return {
