@@ -399,6 +399,42 @@ class PickNextMvpGoalTests(unittest.TestCase):
             any("ECI_VFE_LOCAL_OFFLINE_RC_001" in command for command in payload["candidate_goal"]["acceptance_commands"])
         )
 
+    def test_queue_advances_to_rc018_after_eci_vfe_review_package(self):
+        for name in (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL.md",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE.md",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD.md",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI.md",
+            "GOAL-ECIVFE-32_FORECAST_CARD_UI.md",
+            "GOAL-ECIVFE-35_LOCAL_REVIEW_PACKAGE.md",
+        ):
+            (self.root / "docs" / "goals" / name).write_text("# placeholder\n", encoding="utf-8")
+        write_json(
+            self.backlog_json,
+            {
+                "items": [
+                    {
+                        "id": "RFB-RC999-001",
+                        "title": "Low priority screenshot metadata cleanup",
+                        "status": "BACKLOG_OPEN",
+                        "priority": "P3",
+                        "category": "REVIEW_SCREENSHOT",
+                    }
+                ]
+            },
+        )
+
+        code = self.run_picker()
+
+        self.assertEqual(picker.PASS, code)
+        payload = json.loads(self.output_json.read_text(encoding="utf-8"))
+        self.assertEqual("QUEUE_FALLBACK", payload["selection_mode"])
+        self.assertEqual("GOAL-RC018_CUSTOMER_READABLE_PACKAGE", payload["candidate_goal"]["queue_key"])
+        self.assertIn("scripts/build_rc018_customer_review_package.py", payload["candidate_goal"]["exact_files"])
+        self.assertTrue(
+            any("LOCAL_OFFLINE_TRIAL_RC_018_CN" in command for command in payload["candidate_goal"]["acceptance_commands"])
+        )
+
     def test_private_preview_lane_continues_after_rc_package_refresh(self):
         for name in (
             "GOAL-MVP-94_PRIVATE_PREVIEW_SHELL_ROUTE_MAP.md",

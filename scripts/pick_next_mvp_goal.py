@@ -87,6 +87,22 @@ QUEUE_ITEMS = (
         "statement": "Build a self-contained local/offline ECI/VFE review package with guard scan, UI screenshots, manifest, and reviewer handoff, still fixture-only and metadata-only.",
     },
     {
+        "queue_key": "GOAL-RC018_CUSTOMER_READABLE_PACKAGE",
+        "suffix": "RC018_CUSTOMER_READABLE_PACKAGE",
+        "match": "RC018_CUSTOMER_READABLE_PACKAGE",
+        "requires_all": (
+            "GOAL-ECIVFE-30_FIXTURE_MODEL",
+            "GOAL-ECIVFE-33_LOCAL_RULE_ENGINE",
+            "GOAL-ECIVFE-34_OUTPUT_GUARD",
+            "GOAL-ECIVFE-31_CHAIN_INDICATOR_UI",
+            "GOAL-ECIVFE-32_FORECAST_CARD_UI",
+            "GOAL-ECIVFE-35_LOCAL_REVIEW_PACKAGE",
+        ),
+        "goal_type": "package",
+        "profile": "RC018_CUSTOMER_READABLE_PACKAGE",
+        "statement": "Build LOCAL_OFFLINE_TRIAL_RC_018_CN as a customer-readable local/offline review package that starts from the product path, not raw artifact tables.",
+    },
+    {
         "queue_key": "GOAL-MVP-61_RC016_SCREENSHOT_EXPECTED_CANDIDATE",
         "suffix": "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
         "match": "RC016_SCREENSHOT_EXPECTED_CANDIDATE",
@@ -1536,6 +1552,56 @@ def profile_contract(
                 "package implies real data, live Qwen/API/connectors, production write-back, customer-visible deploy, or autonomous remediation",
                 "package manifest omits SHA256, bytes, safety class, or screenshot index entries",
                 "candidate/source/package path wording is inconsistent",
+                "scope expands beyond listed files",
+            ],
+        }
+    if profile == "RC018_CUSTOMER_READABLE_PACKAGE":
+        package_dir = "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review"
+        zip_path = "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review-package-20260509.zip"
+        consistency = "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review-consistency-check.json"
+        screenshot_scan = "artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review-screenshot-safety-scan.json"
+        return {
+            "goal_type": "package",
+            "goal_card_path": goal_card,
+            "closeout_path": closeout,
+            "exact_files": [
+                goal_card,
+                "scripts/build_rc018_customer_review_package.py",
+                "backend/tests/test_build_rc018_customer_review_package.py",
+                f"{package_dir}/REVIEWER_START_HERE_中文.md",
+                f"{package_dir}/01_REVIEW_PROMPT.md",
+                f"{package_dir}/02_PRODUCT_ROUTE_MAP_中文.md",
+                f"{package_dir}/03_REVIEWER_CHECKLIST_中文.md",
+                f"{package_dir}/04_FEEDBACK_TEMPLATE_中文.md",
+                f"{package_dir}/package_manifest.json",
+                f"{package_dir}/SCREENSHOT_INDEX_中文.json",
+                f"{package_dir}/safety_scan.json",
+                f"{package_dir}/eci_vfe/output_guard_scan.json",
+                f"{package_dir}/eci_vfe/chain_assessment_summary.json",
+                f"{package_dir}/eci_vfe/forecast_candidate_summary.json",
+                zip_path,
+                f"{zip_path}.outer_zip_manifest.json",
+                consistency,
+                screenshot_scan,
+                closeout,
+            ],
+            "acceptance_commands": [
+                f"py -3 scripts/validate_codex_goal_card.py {goal_card}",
+                "py -3 -m unittest backend.tests.test_build_rc018_customer_review_package",
+                f"py -3 scripts/build_rc018_customer_review_package.py --candidate LOCAL_OFFLINE_TRIAL_RC_018_CN --source-candidate LOCAL_OFFLINE_TRIAL_RC_017_CN --output-dir {package_dir} --zip-path {zip_path} --repo-root .",
+                f"py -3 scripts/validate_review_screenshots.py --screenshot-dir {package_dir}/screenshots --output-json {screenshot_scan}",
+                f"py -3 scripts/validate_local_trial_rc_consistency.py --package-dir {package_dir} --candidate LOCAL_OFFLINE_TRIAL_RC_018_CN --source-candidate LOCAL_OFFLINE_TRIAL_RC_017_CN --zip-name local-offline-trial-rc-018-cn-review-package-20260509.zip --zip-path {zip_path} --output-json {consistency}",
+                "git -c core.quotepath=false diff --check",
+            ],
+            "hold_conditions": [
+                "package starts from artifact tables instead of product route map",
+                "required customer-path screenshots are missing",
+                "ECI/VFE appears as standalone technical route instead of product explanation",
+                "package or screenshots expose P1/P2/P3, Mock Fixture, Expert Mode, provider/stub/dry-run language, stale RC wording, raw payloads, secrets, auth headers, PoC, exploit steps, or attacker-readable topology",
+                "output_guard_scan.json is missing, not PASS, or has blocking findings",
+                "VFE output exposes attacker-readable attack_path instead of defensive summary",
+                "manifest, screenshot safety scan, RC consistency, or outer zip manifest reports blocking findings",
+                "package grants real data, live Qwen/API/connectors, production write-back, customer-visible deploy/publish/output, external pilot, production launch, or autonomous action authority",
                 "scope expands beyond listed files",
             ],
         }
