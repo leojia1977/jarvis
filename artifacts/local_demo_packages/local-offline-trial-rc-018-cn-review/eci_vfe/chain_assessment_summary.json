@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.rc018.eci_chain_summary.v1",
-  "generated_at_utc": "2026-05-09T02:35:49.861992Z",
+  "generated_at_utc": "2026-05-09T04:39:11.914582Z",
   "assessment_count": 6,
   "high_attention_count": 1,
   "product_title": "攻击链判断",

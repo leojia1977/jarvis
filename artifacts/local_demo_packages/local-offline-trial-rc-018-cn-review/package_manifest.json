@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.rc018.customer_readable_package_manifest.v1",
-  "generated_at_utc": "2026-05-09T02:35:49.957846Z",
+  "generated_at_utc": "2026-05-09T04:39:11.971357Z",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
   "package_dir": "D:/产品设计/New folder/artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
@@ -42,13 +42,13 @@
     {
       "path": "eci_vfe/chain_assessment_summary.json",
       "bytes": 626,
-      "sha256": "53d722686eb3fe5deaf2ddf877cb0b5e3233f5a3d672721a7cb9547bfa083ac6",
+      "sha256": "448a84faecea88321646b1c149e5631751fe9c365a7094bf75f41d706f3ebd2d",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
       "path": "eci_vfe/forecast_candidate_summary.json",
       "bytes": 694,
-      "sha256": "6d374cc67de9390ff74d3fc474a673c5e5efe2fbcec0c0d0d05330331c44d193",
+      "sha256": "126db950eafcf63d1c4b1b371ad7e85b1c6287bbf90a300238f4479314680706",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
@@ -82,24 +82,6 @@
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
-      "path": "FEEDBACK_TEMPLATE_中文.md",
-      "bytes": 1133,
-      "sha256": "0c719a37d6831be73f73b54daf250df5d97f0ead033d76cb70d1bf7592ded047",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
-      "path": "PACKAGE_INDEX_中文.json",
-      "bytes": 1493,
-      "sha256": "17fbb150f142382a7dcea3341cf0bc44170d2f037961f6b67d5c0b9f0ffd9d9f",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
-      "path": "REVIEWER_CHECKLIST_中文.md",
-      "bytes": 1538,
-      "sha256": "694bc293aa84d4a14041d0cf8b67e4aaa06ec67207341b7590a64b856ea8e288",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
       "path": "REVIEWER_START_HERE_中文.md",
       "bytes": 590,
       "sha256": "56db54e28ed5f0b04f851e8f78d0a548e787c4b6b69479d10e325a20583e6a9c",
@@ -108,19 +90,13 @@
     {
       "path": "safety_scan.json",
       "bytes": 316,
-      "sha256": "bd9af40502f6f8d82df1b697f45847a6c7ca01f1b6ab7ce9552c97ea0d20d31b",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
-      "path": "SCREENSHOT_INDEX.json",
-      "bytes": 1633,
-      "sha256": "1ffda24e2a81a0761c874bfbf04b50592075f252355871d65eeebc8b2f106840",
+      "sha256": "992cd2ef10b6cd5e189e60b67c04a079ffe20a0734c0518ed8a1e5d229c8ef10",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
       "path": "SCREENSHOT_INDEX_中文.json",
       "bytes": 4481,
-      "sha256": "8263f6f0807eed1314392fd76fe49b95fbe5b8937ddd73dc1f83a2482b0e3a4d",
+      "sha256": "69d27693fcde6d13bc3bcca5d65d6d1da0e5d4fb298e84055f4ce7231900b62b",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
@@ -166,33 +142,9 @@
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
-      "path": "validation/qwen_live_synthetic_go_precheck_report.json",
-      "bytes": 7009,
-      "sha256": "5cdabb27e837a155b3758b6c3cd0bf1e2d15617680be3adde0998d6c2b459bca",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
-      "path": "validation/qwen_live_synthetic_provider_stub_report.json",
-      "bytes": 1245,
-      "sha256": "d24e9019f59e4a2941b3c55bc98f030439c0bc8abc9cf84b935700c44cfa1fff",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
-      "path": "validation/qwen_live_synthetic_provider_stub_report_中文.md",
-      "bytes": 1201,
-      "sha256": "5a5c84caff53c485dba2a8ef132005752d665a5423bcbd6f298768a271aa14e5",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
-      "path": "validation/qwen_live_synthetic_runtime_config_report.json",
-      "bytes": 3766,
-      "sha256": "70e708fa5b4d9613ae3803f9f875e54461d3e8f6bc78b618a16e016cfb3e901d",
-      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
-    },
-    {
       "path": "validation/screenshot_safety_scan.json",
-      "bytes": 2725,
-      "sha256": "b68cea92736cd4d8085b23c53cff21ab33acd18dad65bf1ffbb219b74c067d85",
+      "bytes": 4363,
+      "sha256": "ed716f12e3a4ea499b155cbcf2f7288c4bace2ebf26d2afa837bba1bc65be62a",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     }
   ]

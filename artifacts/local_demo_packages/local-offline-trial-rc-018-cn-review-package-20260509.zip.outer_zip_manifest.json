@@ -1,13 +1,13 @@
 {
   "schema_version": "secupilot.rc018.outer_zip_manifest.v1",
-  "generated_at_utc": "2026-05-09T02:35:50.016711Z",
+  "generated_at_utc": "2026-05-09T04:39:12.029274Z",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
   "zip_name": "local-offline-trial-rc-018-cn-review-package-20260509.zip",
   "zip_path": "D:/产品设计/New folder/artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review-package-20260509.zip",
-  "zip_sha256": "30b64a031cc7014868ad692c8778c9581854cedbaea46452d7971abc6a7c5bbe",
-  "zip_bytes": 1574814,
-  "package_manifest_sha256": "e90a601382485b9b2eb3be85961820d7667f6748ac0d4a10ad6820da58f6604b",
+  "zip_sha256": "d623f83657a0cf54cca99a2cedec30c59734ceed8d7b234455fedf88d96a9456",
+  "zip_bytes": 1566671,
+  "package_manifest_sha256": "863807e814f1515d22a8e30b72b027f40f761a72d8b7ab61a8b8a05fec5647c8",
   "boundaries": {
     "real_data": false,
     "masked_real_data": false,

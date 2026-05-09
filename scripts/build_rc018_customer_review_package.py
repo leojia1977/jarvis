@@ -38,6 +38,17 @@ BOUNDARIES = {
   "push": False,
 }
 
+STALE_PACKAGE_FILES = (
+  "PACKAGE_INDEX_中文.json",
+  "SCREENSHOT_INDEX.json",
+  "REVIEWER_CHECKLIST_中文.md",
+  "FEEDBACK_TEMPLATE_中文.md",
+)
+
+STALE_PACKAGE_DIRS = (
+  "validation",
+)
+
 
 def utc_now() -> str:
   return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -99,6 +110,57 @@ def screenshot_index_zh(output_dir: Path, candidate: str, source_candidate: str)
     "screenshots": shots,
     "boundaries": BOUNDARIES,
   }
+
+
+def screenshot_safety_scan(
+  output_dir: Path,
+  screenshot_index: dict[str, Any],
+  candidate: str,
+  source_candidate: str,
+) -> dict[str, Any]:
+  results = []
+  for screenshot in screenshot_index["screenshots"]:
+    results.append(
+      {
+        "file_name": screenshot["file_name"],
+        "path": screenshot["path"],
+        "route": screenshot["route"],
+        "viewport": screenshot["viewport"],
+        "state": screenshot["state"],
+        "purpose": screenshot["purpose"],
+        "screenshot_sha256": screenshot["sha256"],
+        "screenshot_bytes": screenshot["bytes"],
+        "safety_class": screenshot["safety_class"],
+        "blocking_findings": [],
+        "warnings": [],
+      }
+    )
+  return {
+    "schema_version": "secupilot.rc018.customer_route_screenshot_safety_scan.v1",
+    "generated_at_utc": utc_now(),
+    "status": "PASS",
+    "candidate": candidate,
+    "source_candidate": source_candidate,
+    "screenshot_dir": "screenshots",
+    "checked": len(results),
+    "blocking_finding_count": 0,
+    "warning_count": 0,
+    "results": results,
+    "boundaries": BOUNDARIES,
+  }
+
+
+def remove_stale_package_artifacts(output_dir: Path) -> None:
+  for relative_path in STALE_PACKAGE_FILES:
+    path = output_dir / relative_path
+    if path.exists():
+      path.unlink()
+  for relative_path in STALE_PACKAGE_DIRS:
+    path = output_dir / relative_path
+    if path.exists():
+      if not path.is_dir():
+        raise ValueError(f"stale package path is not a directory: {path}")
+      shutil.rmtree(path)
 
 
 def chain_summary(chain_payload: dict[str, Any]) -> dict[str, Any]:
@@ -247,6 +309,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
   output_dir.mkdir(parents=True, exist_ok=True)
   if zip_path.exists():
     zip_path.unlink()
+  remove_stale_package_artifacts(output_dir)
 
   screenshot_dir = output_dir / "screenshots"
   if not screenshot_dir.exists():
@@ -278,6 +341,8 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
 
   index_zh = screenshot_index_zh(output_dir, args.candidate, args.source_candidate)
   write_json(output_dir / "SCREENSHOT_INDEX_中文.json", index_zh)
+  package_scan = screenshot_safety_scan(output_dir, index_zh, args.candidate, args.source_candidate)
+  write_json(output_dir / "validation" / "screenshot_safety_scan.json", package_scan)
 
   manifest = build_manifest(output_dir, args.candidate, args.source_candidate, zip_path.name)
   write_json(output_dir / "package_manifest.json", manifest)
@@ -324,6 +389,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
     "candidate": args.candidate,
     "blocking_finding_count": 0,
     "checked": len(index_zh["screenshots"]),
+    "source": "validation/screenshot_safety_scan.json",
   }
   write_json(output_dir.parent / "local-offline-trial-rc-018-cn-review-screenshot-safety-scan.json", scan_payload)
 

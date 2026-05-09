@@ -55,6 +55,30 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
     png_stub = b"\x89PNG\r\n\x1a\nrc018-test"
     for file_name, *_ in builder.SCREENSHOTS:
       (screenshot_dir / file_name).write_bytes(png_stub)
+    (screenshot_dir / "s1-run-desktop.png").write_bytes(png_stub)
+
+    write_json(
+      self.output_dir / "PACKAGE_INDEX_中文.json",
+      {
+        "zip_name": "local-offline-trial-rc-018-cn-review-package-20260508.zip",
+        "route": ["/s1-trial", "/s1-run"],
+        "screenshot_files": ["screenshots/s1-run-desktop.png"],
+      },
+    )
+    write_json(
+      self.output_dir / "SCREENSHOT_INDEX.json",
+      {"screenshots": [{"file_name": "s1-run-desktop.png", "route": "/s1-run"}]},
+    )
+    (self.output_dir / "REVIEWER_CHECKLIST_中文.md").write_text("old checklist\n", encoding="utf-8")
+    (self.output_dir / "FEEDBACK_TEMPLATE_中文.md").write_text("old feedback\n", encoding="utf-8")
+    write_json(
+      self.output_dir / "validation" / "qwen_live_synthetic_provider_stub_report.json",
+      {"provider_stub": True},
+    )
+    write_json(
+      self.output_dir / "validation" / "screenshot_safety_scan.json",
+      {"checked": 4, "results": [{"file_name": "s1-run-desktop.png", "route": "/s1-run"}]},
+    )
 
   def _run_builder(self) -> int:
     argv = [
@@ -82,7 +106,13 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
     self.assertTrue((self.output_dir / "03_REVIEWER_CHECKLIST_中文.md").exists())
     self.assertTrue((self.output_dir / "04_FEEDBACK_TEMPLATE_中文.md").exists())
     self.assertTrue((self.output_dir / "SCREENSHOT_INDEX_中文.json").exists())
+    self.assertFalse((self.output_dir / "PACKAGE_INDEX_中文.json").exists())
+    self.assertFalse((self.output_dir / "SCREENSHOT_INDEX.json").exists())
+    self.assertFalse((self.output_dir / "REVIEWER_CHECKLIST_中文.md").exists())
+    self.assertFalse((self.output_dir / "FEEDBACK_TEMPLATE_中文.md").exists())
     self.assertTrue((self.output_dir / "safety_scan.json").exists())
+    self.assertTrue((self.output_dir / "validation" / "screenshot_safety_scan.json").exists())
+    self.assertFalse((self.output_dir / "validation" / "qwen_live_synthetic_provider_stub_report.json").exists())
     self.assertTrue((self.output_dir / "eci_vfe" / "output_guard_scan.json").exists())
     self.assertTrue((self.output_dir / "eci_vfe" / "chain_assessment_summary.json").exists())
     self.assertTrue((self.output_dir / "eci_vfe" / "forecast_candidate_summary.json").exists())
@@ -98,6 +128,15 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
       screenshot_index["screenshots"][5]["file_name"],
     )
     self.assertEqual("eci_vfe_summary_expanded", screenshot_index["screenshots"][5]["state"])
+    package_scan = json.loads((self.output_dir / "validation" / "screenshot_safety_scan.json").read_text(encoding="utf-8"))
+    self.assertEqual("PASS", package_scan["status"])
+    self.assertEqual(7, package_scan["checked"])
+    self.assertEqual(0, package_scan["blocking_finding_count"])
+    self.assertEqual(
+      [row[0] for row in builder.SCREENSHOTS],
+      [row["file_name"] for row in package_scan["results"]],
+    )
+    self.assertNotIn("/s1-run", {row["route"] for row in package_scan["results"]})
     manifest = json.loads((self.output_dir / "package_manifest.json").read_text(encoding="utf-8"))
     self.assertGreaterEqual(len(manifest["package_files"]), 10)
 
@@ -107,6 +146,13 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
     self.assertIn("eci_vfe/output_guard_scan.json", names)
     self.assertIn("screenshots/01_product_home_desktop.png", names)
     self.assertIn("screenshots/06_eci_vfe_summary_expanded_desktop.png", names)
+    self.assertIn("validation/screenshot_safety_scan.json", names)
+    self.assertNotIn("PACKAGE_INDEX_中文.json", names)
+    self.assertNotIn("SCREENSHOT_INDEX.json", names)
+    self.assertNotIn("REVIEWER_CHECKLIST_中文.md", names)
+    self.assertNotIn("FEEDBACK_TEMPLATE_中文.md", names)
+    self.assertNotIn("validation/qwen_live_synthetic_provider_stub_report.json", names)
+    self.assertNotIn("screenshots/s1-run-desktop.png", names)
 
   def test_holds_when_output_guard_not_pass(self):
     write_json(
