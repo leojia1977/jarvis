@@ -189,6 +189,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "folded_state_review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
                 "folded_state_review_source_category": "REVIEW_SCREENSHOT",
                 "folded_state_review_source_status": "BACKLOG_OPEN",
+                "folded_state_review_source_owner": "SecuPilot product engineering",
                 "folded_state_expected_state": "FOLDED",
                 "folded_state_expected_section": "AI 建议来源",
                 "folded_state_capture_phase": "FIRST_LOAD",
@@ -280,6 +281,10 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
         self.assertEqual(
             "BACKLOG_OPEN",
             required_archive["folded_state_review_source_status"],
+        )
+        self.assertEqual(
+            "SecuPilot product engineering",
+            required_archive["folded_state_review_source_owner"],
         )
         self.assertEqual("FOLDED", required_archive["folded_state_expected_state"])
         self.assertEqual("AI 建议来源", required_archive["folded_state_expected_section"])
@@ -442,6 +447,7 @@ class BuildLocalOfflineTrialRcTests(unittest.TestCase):
                 "review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
                 "review_source_category": "REVIEW_SCREENSHOT",
                 "review_source_status": "BACKLOG_OPEN",
+                "review_source_owner": "SecuPilot product engineering",
             },
             folded_entry["archive_evidence"],
         )

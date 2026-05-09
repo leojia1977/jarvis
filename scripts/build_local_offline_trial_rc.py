@@ -71,6 +71,7 @@ def required_archive_evidence_payload(
         "folded_state_review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
         "folded_state_review_source_category": "REVIEW_SCREENSHOT",
         "folded_state_review_source_status": "BACKLOG_OPEN",
+        "folded_state_review_source_owner": "SecuPilot product engineering",
         "folded_state_expected_state": "FOLDED",
         "folded_state_expected_section": "AI 建议来源",
         "folded_state_capture_phase": "FIRST_LOAD",
@@ -563,6 +564,7 @@ def screenshot_index(
                 "review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
                 "review_source_category": "REVIEW_SCREENSHOT",
                 "review_source_status": "BACKLOG_OPEN",
+                "review_source_owner": "SecuPilot product engineering",
             }
         screenshots.append(item)
     return {
