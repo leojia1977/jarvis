@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$PackageDir = "artifacts\local_demo_packages\s1-closed-shadow-local-offline-trial-rc-004",
+    [string]$PackageDir = "artifacts\local_demo_packages\local-offline-trial-rc-019-cn-review",
     [string]$DeliveryDir = "artifacts\local_trial_packages\local-offline-trial-rc-006",
     [string]$Route = "/s1-trial",
     [int]$Port = 4174,
@@ -26,19 +26,25 @@ $RepoRoot = (Resolve-Path -LiteralPath (Join-Path -Path $PSScriptRoot -ChildPath
 $PackageRoot = Resolve-RepoPath -PathValue $PackageDir
 $DeliveryRoot = Resolve-RepoPath -PathValue $DeliveryDir
 $FrontendRoot = Resolve-RepoPath -PathValue "frontend"
-$LaunchRoot = Join-Path -Path $RepoRoot -ChildPath "artifacts\local_trial_launches\local-offline-trial-rc-006"
+$LaunchRoot = Join-Path -Path $RepoRoot -ChildPath "artifacts\local_trial_launches\local-offline-trial-rc-019"
 $LaunchInfoPath = Join-Path -Path $LaunchRoot -ChildPath "launch_info.json"
 $LocalUrl = "http://127.0.0.1:$Port$Route"
 
 $RequiredFiles = @(
-    "REVIEWER_README.md",
+    "REVIEWER_START_HERE_中文.md",
+    "REVIEWER_CHECKLIST_中文.md",
+    "FEEDBACK_TEMPLATE_中文.md",
+    "PACKAGE_INDEX_中文.json",
+    "SCREENSHOT_INDEX.json",
     "package_manifest.json",
-    "final_status.json",
-    "case_summary.json",
-    "artifact_manifest.json",
-    "safety_scan.json",
-    "playwright\s1-run-desktop.png",
-    "playwright\s1-run-mobile.png"
+    "evidence\final_status.json",
+    "evidence\case_summary.json",
+    "evidence\artifact_manifest.json",
+    "evidence\safety_scan.json",
+    "screenshots\s1-run-desktop.png",
+    "screenshots\s1-run-mobile.png",
+    "screenshots\s1-trial-desktop.png",
+    "screenshots\s1-trial-mobile.png"
 )
 
 $RequiredDeliveryFiles = @(
@@ -72,8 +78,8 @@ if ($MissingDeliveryFiles.Count -gt 0) {
     throw "S1 local offline delivery package is incomplete. Missing: $($MissingDeliveryFiles -join ', ')"
 }
 
-$FinalStatusPath = Join-Path -Path $PackageRoot -ChildPath "final_status.json"
-$SafetyScanPath = Join-Path -Path $PackageRoot -ChildPath "safety_scan.json"
+$FinalStatusPath = Join-Path -Path $PackageRoot -ChildPath "evidence\final_status.json"
+$SafetyScanPath = Join-Path -Path $PackageRoot -ChildPath "evidence\safety_scan.json"
 $FinalStatus = Get-Content -LiteralPath $FinalStatusPath -Raw | ConvertFrom-Json
 $SafetyScan = Get-Content -LiteralPath $SafetyScanPath -Raw | ConvertFrom-Json
 
@@ -140,19 +146,27 @@ if ($OpenBrowser -and (-not $CheckOnly)) {
 $LaunchInfo = [ordered]@{
     schema_version = "secupilot.s1.local_offline_trial_launcher.v1"
     generated_at_utc = (Get-Date).ToUniversalTime().ToString("o")
-    candidate = "LOCAL_OFFLINE_TRIAL_RC_006"
+    candidate = "LOCAL_OFFLINE_TRIAL_RC_019_CN"
     route = $Route
     local_url = $LocalUrl
     package_dir = $PackageDir
     delivery_package_dir = $DeliveryDir
-    reviewer_readme = (Join-Path -Path $PackageDir -ChildPath "REVIEWER_README.md")
+    reviewer_start_here = (Join-Path -Path $PackageDir -ChildPath "REVIEWER_START_HERE_中文.md")
+    reviewer_checklist_cn = (Join-Path -Path $PackageDir -ChildPath "REVIEWER_CHECKLIST_中文.md")
+    reviewer_feedback_cn = (Join-Path -Path $PackageDir -ChildPath "FEEDBACK_TEMPLATE_中文.md")
     start_here = (Join-Path -Path $DeliveryDir -ChildPath "START_HERE.md")
     reviewer_checklist = (Join-Path -Path $DeliveryDir -ChildPath "REVIEWER_CHECKLIST.md")
     feedback_template = (Join-Path -Path $DeliveryDir -ChildPath "FEEDBACK_TEMPLATE.md")
-    launcher_output_path = "artifacts\local_trial_launches\local-offline-trial-rc-006\launch_info.json"
+    launcher_output_path = "artifacts\local_trial_launches\local-offline-trial-rc-019\launch_info.json"
     server_started = $ServerStarted
     build_skipped = [bool]$SkipBuild
     check_only = [bool]$CheckOnly
+    operator_notice = "Local/offline private-preview shell only. Do not publish, deploy, or write back."
+    stop_instructions = @(
+        "STOP if any boundary flag is true.",
+        "STOP if package evidence files are missing.",
+        "STOP if any command attempts live API/connectors."
+    )
     boundaries = [ordered]@{
         real_data = $false
         masked_real_data = $false
