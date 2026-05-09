@@ -3248,6 +3248,33 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       status: "等待人工确认"
     }
   ] as const;
+  const incidentEciVfeSummaryItems = [
+    {
+      title: "攻击链判断",
+      value: "疑似横向移动早期阶段",
+      detail: "认证行为和影响范围提示需要人工复核，但当前仍按保守判断处理。"
+    },
+    {
+      title: "当前阶段判断",
+      value: "证据覆盖中等",
+      detail: "已有认证行为和时间线摘要；缺少直接终端进程证据。"
+    },
+    {
+      title: "风险预警摘要",
+      value: "优先复核凭据复用风险",
+      detail: "风险集中在财务工作站和相关内部服务器，不展示可复用攻击步骤。"
+    },
+    {
+      title: "还缺什么证据",
+      value: "终端进程、MFA、资产影响",
+      detail: "补齐后才能决定是否进入处置排程。"
+    },
+    {
+      title: "建议补证窗口",
+      value: "先在 4 小时内补齐身份和终端证据",
+      detail: "如果补不到证据，保持人工复核和观察，不自动升级处置。"
+    }
+  ] as const;
   const incidentTechnicalGroups = [
     {
       title: "运行边界",
@@ -3492,8 +3519,8 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 </div>
               ))}
             </dl>
-            <details className="incident-qwen-local-record">
-              <summary>查看技术对账预览</summary>
+              <details className="incident-qwen-local-record">
+                <summary>查看内部核验预览</summary>
               <pre data-testid="incident-qwen-provider-preview">
                 {JSON.stringify(qwenDryRunPreview, null, 2)}
               </pre>
@@ -3589,7 +3616,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
                 <h1 id="incident-product-title">SecuPilot 事件研判结果</h1>
                 <p>
                   SecuPilot 已经把当前事件压缩成一条客户可读判断：先看结论和建议动作，
-                  再展开证据、不确定性和技术对账。
+                    再展开证据、不确定性和内部核验边界。
                 </p>
                 <div className="incident-primary-actions" aria-label="事件研判快捷动作">
                   <a href="#incident-evidence-details">查看证据摘要</a>
@@ -3897,6 +3924,40 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
       {aiAdviceSourceSection}
 
       <details
+        className="incident-collapsible-panel incident-eci-vfe-summary-panel"
+        data-autonomous-action="false"
+        data-output-guard-status="PASS"
+        data-testid="incident-eci-vfe-summary"
+      >
+        <summary>
+          <span>查看攻击链判断与 VFE 预警摘要</span>
+          <small>防御性解释 · 缺失证据 · 补证窗口</small>
+        </summary>
+        <div className="incident-eci-vfe-depth" data-testid="incident-eci-vfe-depth">
+          <div className="incident-depth-section-title">
+            <h3>攻击链判断 / 风险预警摘要</h3>
+            <p>
+              这里把 ECI/VFE 结果翻译成客户可读的安全判断：说明当前阶段、风险、证据缺口和保守边界；
+              不展示攻击步骤、载荷、拓扑可达性或可复用路径。
+            </p>
+          </div>
+          <div className="incident-eci-vfe-grid">
+            {incidentEciVfeSummaryItems.map((item) => (
+              <article key={item.title}>
+                <span>{item.title}</span>
+                <strong>{item.value}</strong>
+                <p>{item.detail}</p>
+              </article>
+            ))}
+          </div>
+          <p className="incident-eci-vfe-boundary">
+            保守判断边界：VFE 只提供风险预警和补证建议，不独立升级案件、不触发隔离、
+            阻断、审批、关闭或生产写回。
+          </p>
+        </div>
+      </details>
+
+      <details
         className="incident-collapsible-panel"
         data-testid="incident-evidence-details"
         id="incident-evidence-details"
@@ -3957,7 +4018,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
         data-testid="incident-technical-reconciliation"
       >
         <summary>
-          <span>技术对账信息</span>
+          <span>内部核验信息</span>
           <small>仅用于核验边界、数据模式和交付口径</small>
         </summary>
         <div className="incident-technical-depth" data-testid="incident-technical-depth">

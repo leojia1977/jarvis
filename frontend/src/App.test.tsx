@@ -376,14 +376,14 @@ describe("SecuPilot first-batch workbench slice", () => {
       "qwen-synthetic-stub-ready"
     );
     expect(screen.getByTestId("s1-qwen-readiness-status")).toHaveTextContent(
-      "合成模型 provider stub 已就绪"
+      "本地合成建议已就绪"
     );
     expect(screen.getByTestId("s1-qwen-readiness-case-count")).toHaveTextContent("20");
     expect(screen.getByTestId("s1-qwen-readiness-card")).toHaveTextContent(
       "不联网、不读取运行时密钥值"
     );
     expect(screen.getByTestId("s1-qwen-provider-stub-mode")).toHaveTextContent(
-      "qwen_live_synthetic_provider_stub_no_network"
+      "本地合成建议已就绪"
     );
     expect(screen.getAllByTestId("s1-qwen-provider-mode")).toHaveLength(4);
     const qwenDryPreview = screen.getByTestId("s1-qwen-dry-preview");
@@ -498,6 +498,15 @@ describe("SecuPilot first-batch workbench slice", () => {
     expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("关闭");
     expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("外部网络");
     expect(screen.getByTestId("incident-qwen-no-live-sentinels")).toHaveTextContent("不会发送");
+    const eciVfeSummary = screen.getByTestId("incident-eci-vfe-summary");
+    expect(eciVfeSummary).not.toHaveAttribute("open");
+    expect(eciVfeSummary).toHaveTextContent("查看攻击链判断与 VFE 预警摘要");
+    await user.click(screen.getByText("查看攻击链判断与 VFE 预警摘要"));
+    expect(eciVfeSummary).toHaveAttribute("open");
+    expect(screen.getByTestId("incident-eci-vfe-depth")).toHaveTextContent("攻击链判断");
+    expect(screen.getByTestId("incident-eci-vfe-depth")).toHaveTextContent("风险预警摘要");
+    expect(screen.getByTestId("incident-eci-vfe-depth")).toHaveTextContent("建议补证窗口");
+    expect(screen.getByTestId("incident-eci-vfe-depth")).toHaveTextContent("不触发隔离");
     await user.click(screen.getAllByTestId("incident-qwen-provider-mode")[3]);
     await user.click(screen.getAllByTestId("incident-qwen-runtime-scenario")[2]);
     expect(screen.getByTestId("incident-qwen-provider-summary")).toHaveTextContent("人工复核");

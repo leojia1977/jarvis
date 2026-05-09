@@ -1,13 +1,13 @@
 {
   "schema_version": "secupilot.rc018.consistency_check.v1",
-  "generated_at_utc": "2026-05-09T01:43:46.127880Z",
+  "generated_at_utc": "2026-05-09T02:35:50.028576Z",
   "status": "PASS",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
   "checks": {
     "candidate_in_docs": true,
-    "screenshot_count": 4,
-    "manifest_file_count": 27,
+    "screenshot_count": 7,
+    "manifest_file_count": 30,
     "zip_exists": true
   }
 }

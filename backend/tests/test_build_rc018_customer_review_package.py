@@ -53,7 +53,7 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
     screenshot_dir = self.output_dir / "screenshots"
     screenshot_dir.mkdir(parents=True, exist_ok=True)
     png_stub = b"\x89PNG\r\n\x1a\nrc018-test"
-    for file_name, _, _ in builder.SCREENSHOTS:
+    for file_name, *_ in builder.SCREENSHOTS:
       (screenshot_dir / file_name).write_bytes(png_stub)
 
   def _run_builder(self) -> int:
@@ -92,7 +92,12 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
     self.assertTrue((self.output_dir.parent / "local-offline-trial-rc-018-cn-review-screenshot-safety-scan.json").exists())
 
     screenshot_index = json.loads((self.output_dir / "SCREENSHOT_INDEX_中文.json").read_text(encoding="utf-8"))
-    self.assertEqual(4, len(screenshot_index["screenshots"]))
+    self.assertEqual(7, len(screenshot_index["screenshots"]))
+    self.assertEqual(
+      "06_eci_vfe_summary_expanded_desktop.png",
+      screenshot_index["screenshots"][5]["file_name"],
+    )
+    self.assertEqual("eci_vfe_summary_expanded", screenshot_index["screenshots"][5]["state"])
     manifest = json.loads((self.output_dir / "package_manifest.json").read_text(encoding="utf-8"))
     self.assertGreaterEqual(len(manifest["package_files"]), 10)
 
@@ -100,7 +105,8 @@ class BuildRc018CustomerReviewPackageTests(unittest.TestCase):
       names = set(archive.namelist())
     self.assertIn("01_REVIEW_PROMPT.md", names)
     self.assertIn("eci_vfe/output_guard_scan.json", names)
-    self.assertIn("screenshots/s1-run-desktop.png", names)
+    self.assertIn("screenshots/01_product_home_desktop.png", names)
+    self.assertIn("screenshots/06_eci_vfe_summary_expanded_desktop.png", names)
 
   def test_holds_when_output_guard_not_pass(self):
     write_json(

@@ -1,6 +1,15 @@
 {
   "schema_version": "secupilot.rc018.eci_chain_summary.v1",
-  "generated_at_utc": "2026-05-09T01:43:45.895175Z",
+  "generated_at_utc": "2026-05-09T02:35:49.861992Z",
   "assessment_count": 6,
-  "high_attention_count": 1
+  "high_attention_count": 1,
+  "product_title": "攻击链判断",
+  "current_stage": "疑似横向移动早期阶段",
+  "customer_summary": "认证行为和影响范围提示需要人工复核，但当前仍按保守判断处理。",
+  "missing_evidence": [
+    "终端进程证据",
+    "MFA 与身份日志",
+    "资产负责人和业务影响"
+  ],
+  "conservative_boundary": "不独立升级案件，不触发隔离、阻断、审批、关闭或生产写回。"
 }

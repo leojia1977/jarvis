@@ -26,7 +26,7 @@ export const S1_QWEN_PROVIDER_CONTRACT = {
   modes: [
     {
       mode: "fixture",
-      label: "Fixture provider（本地 fixture）",
+      label: "本地样例建议",
       status: "available",
       liveCallAllowed: false,
       secretsAllowed: false,
@@ -35,7 +35,7 @@ export const S1_QWEN_PROVIDER_CONTRACT = {
     },
     {
       mode: "external-output",
-      label: "External output provider（外部输出导入）",
+      label: "外部输出导入",
       status: "available",
       liveCallAllowed: false,
       secretsAllowed: false,
@@ -44,7 +44,7 @@ export const S1_QWEN_PROVIDER_CONTRACT = {
     },
     {
       mode: "qwen-synthetic-stub-ready",
-      label: "Qwen synthetic provider stub（合成预览已就绪）",
+      label: "Qwen 合成建议预览",
       status: "available",
       liveCallAllowed: false,
       secretsAllowed: false,
@@ -53,7 +53,7 @@ export const S1_QWEN_PROVIDER_CONTRACT = {
     },
     {
       mode: "qwen-cloud-disabled",
-      label: "Qwen cloud provider（未启用）",
+      label: "Qwen 云端调用（未启用）",
       status: "disabled",
       liveCallAllowed: false,
       secretsAllowed: false,

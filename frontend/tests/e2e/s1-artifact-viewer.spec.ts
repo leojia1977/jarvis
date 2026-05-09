@@ -191,7 +191,7 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(qwenContract).toHaveAttribute("data-live-call-allowed", "false");
     await expect(qwenContract).toHaveAttribute("data-provider-stub-ready", "true");
     await expect(page.getByTestId("s1-qwen-readiness-status")).toContainText(
-      "合成模型 provider stub 已就绪"
+      "本地合成建议已就绪"
     );
     await expect(page.getByTestId("s1-qwen-readiness-case-count")).toContainText("20");
     await expect(page.getByTestId("s1-qwen-provider-mode")).toHaveCount(4);
@@ -244,17 +244,19 @@ test.describe("MVP-05 S1 artifact viewer smoke", () => {
     await expect(qwenProviderPreview).toHaveAttribute("data-api-key-required", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-real-data", "false");
     await expect(qwenProviderPreview).toHaveAttribute("data-autonomous-qwen-action", "false");
-    await expect(qwenProviderPreview).toContainText("Qwen 接入路径：先 dry-run，再谈真实调用");
+    await expect(qwenProviderPreview).toContainText("了解 AI 建议的工作方式");
+    await expect(qwenProviderPreview).toContainText("展开查看");
+    await qwenProviderPreview.locator("summary").click();
+    await expect(qwenProviderPreview).toHaveAttribute("open", "");
     await expect(page.getByTestId("incident-qwen-readiness-status")).toContainText(
-      "合成模型 provider stub 已就绪"
+      "建议引擎就绪（离线）"
     );
-    await expect(page.getByTestId("incident-qwen-readiness-case-count")).toContainText("20");
     await expect(page.getByTestId("incident-qwen-provider-mode")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-runtime-scenario")).toHaveCount(4);
     await expect(page.getByTestId("incident-qwen-provider-summary")).toContainText(
       "回退本地规则摘要"
     );
-    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("网络请求");
+    await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("外部网络");
     await expect(page.getByTestId("incident-qwen-no-live-sentinels")).toContainText("不会发送");
     await expect(surface.getByRole("button", { name: /approve|deploy|publish/i })).toHaveCount(0);
   });

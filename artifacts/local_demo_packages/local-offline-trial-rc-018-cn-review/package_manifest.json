@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.rc018.customer_readable_package_manifest.v1",
-  "generated_at_utc": "2026-05-09T01:43:46.041608Z",
+  "generated_at_utc": "2026-05-09T02:35:49.957846Z",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_017_CN",
   "package_dir": "D:/产品设计/New folder/artifacts/local_demo_packages/local-offline-trial-rc-018-cn-review",
@@ -17,20 +17,20 @@
   "package_files": [
     {
       "path": "01_REVIEW_PROMPT.md",
-      "bytes": 374,
-      "sha256": "8a47c311225d71b362af49f8114af66534d59dd5ae34affdb09b456bdef34b22",
+      "bytes": 510,
+      "sha256": "096f30b34499524c8fecefbdfdb7f280e370e52704fb1336c09490c477fca84c",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
       "path": "02_PRODUCT_ROUTE_MAP_中文.md",
       "bytes": 311,
-      "sha256": "25f451770309394513fbce75d137eb80ef610a77d871805af0afbd70f268c3fd",
+      "sha256": "2ad898fe81a8bf4736d73d9fa2bf3cd47615e35814857265b32b8681f2e9807e",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
       "path": "03_REVIEWER_CHECKLIST_中文.md",
-      "bytes": 399,
-      "sha256": "73a0a96f4ae460d04abf6f6186c900b694d474123545c70910ad8b09cbbfd684",
+      "bytes": 560,
+      "sha256": "da96930394768787cdc29b97f85d7cccedfe896f0c53c478b1d0bd24ddcc8dbe",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
@@ -41,14 +41,14 @@
     },
     {
       "path": "eci_vfe/chain_assessment_summary.json",
-      "bytes": 176,
-      "sha256": "6f31fdc566aa86468736f67440e723415f765cc9bd285ba7d7bb616f3c6d488a",
+      "bytes": 626,
+      "sha256": "53d722686eb3fe5deaf2ddf877cb0b5e3233f5a3d672721a7cb9547bfa083ac6",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
       "path": "eci_vfe/forecast_candidate_summary.json",
-      "bytes": 318,
-      "sha256": "aa5314c7428c2448bcd1563ef013563fa15bd6f55437e12ecd98d3d46b9e2802",
+      "bytes": 694,
+      "sha256": "6d374cc67de9390ff74d3fc474a673c5e5efe2fbcec0c0d0d05330331c44d193",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
@@ -101,14 +101,14 @@
     },
     {
       "path": "REVIEWER_START_HERE_中文.md",
-      "bytes": 480,
-      "sha256": "a70f8e06af1cffde4853e7b31e09265255fc1e4177755c629ae175a31aaac2c6",
+      "bytes": 590,
+      "sha256": "56db54e28ed5f0b04f851e8f78d0a548e787c4b6b69479d10e325a20583e6a9c",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
       "path": "safety_scan.json",
       "bytes": 316,
-      "sha256": "76d1aa9e7ff7874c392335961f9e6484e1fa0730d819b5744754032fd8904359",
+      "sha256": "bd9af40502f6f8d82df1b697f45847a6c7ca01f1b6ab7ce9552c97ea0d20d31b",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
@@ -119,32 +119,50 @@
     },
     {
       "path": "SCREENSHOT_INDEX_中文.json",
-      "bytes": 2279,
-      "sha256": "2feb140c5869c1d35f4d0dba090971f1a224489f00cb96542d40a0b17d7a0283",
+      "bytes": 4481,
+      "sha256": "8263f6f0807eed1314392fd76fe49b95fbe5b8937ddd73dc1f83a2482b0e3a4d",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
-      "path": "screenshots/s1-run-desktop.png",
-      "bytes": 402639,
-      "sha256": "7734d0ba50b297874d577d3c0e12c87cfea63f24733e18d1be5a75152bf07194",
+      "path": "screenshots/01_product_home_desktop.png",
+      "bytes": 420603,
+      "sha256": "2e74d880c5d9a84b8a8b78255b4580014cf42bc304823731b9734a1c55099269",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
-      "path": "screenshots/s1-run-mobile.png",
-      "bytes": 310775,
-      "sha256": "fd148a136817b614d19f06b84ee75a7e2fa8cceea606b95fb05cd7ec336aa888",
+      "path": "screenshots/02_product_home_mobile.png",
+      "bytes": 392597,
+      "sha256": "29e699a175c372e1ba0f6bcae49feee535e7209ade4edd590dfdbc736d571eda",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
-      "path": "screenshots/s1-trial-desktop.png",
-      "bytes": 924838,
-      "sha256": "a1cc84d97ef1dadacff350685a7430272bcdabdf21d2e53adcde0930b0823df1",
+      "path": "screenshots/03_incident_first_load_desktop.png",
+      "bytes": 306342,
+      "sha256": "d6546db6369d3a44695be31741b86f423369ccdbbca44872ae6379008ff3eb1a",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {
-      "path": "screenshots/s1-trial-mobile.png",
-      "bytes": 635457,
-      "sha256": "cb5736c7e41af1780e735d87bcdcf6988337064f466aed3cebce3d196cdbc82f",
+      "path": "screenshots/04_incident_first_load_mobile.png",
+      "bytes": 76342,
+      "sha256": "70bae572673ff1384ba8e58fe66139c638923810bc3b7d135799486bf5b49a67",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/05_ai_advice_source_expanded_desktop.png",
+      "bytes": 174180,
+      "sha256": "3907bf20a357e7013aca60e2abd9e55fb613b5cda28ac7f1877ee13bf392d3a9",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/06_eci_vfe_summary_expanded_desktop.png",
+      "bytes": 100641,
+      "sha256": "bb314236597f800093bad96326a008838c8e82e6447c06e3ca3ea9574809ea50",
+      "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
+    },
+    {
+      "path": "screenshots/07_feedback_preview_desktop.png",
+      "bytes": 117197,
+      "sha256": "01af2f1baa41b466a0a62c0cead7fd8fd5615cefc1f1af0aa62384ede7bbedbc",
       "safety_class": "RC018_CUSTOMER_READABLE_REVIEW_ARTIFACT"
     },
     {

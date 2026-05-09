@@ -1,8 +1,8 @@
 {
   "schema_version": "secupilot.rc018.screenshot_safety_scan.v1",
-  "generated_at_utc": "2026-05-09T01:43:46.128241Z",
+  "generated_at_utc": "2026-05-09T02:35:50.029015Z",
   "status": "PASS",
   "candidate": "LOCAL_OFFLINE_TRIAL_RC_018_CN",
   "blocking_finding_count": 0,
-  "checked": 4
+  "checked": 7
 }

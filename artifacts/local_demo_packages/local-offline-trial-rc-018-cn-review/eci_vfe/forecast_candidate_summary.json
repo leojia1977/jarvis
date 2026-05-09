@@ -1,11 +1,15 @@
 {
   "schema_version": "secupilot.rc018.vfe_forecast_summary.v1",
-  "generated_at_utc": "2026-05-09T01:43:45.895595Z",
+  "generated_at_utc": "2026-05-09T02:35:49.862274Z",
   "forecast_count": 5,
   "labels": {
     "CONFIGURATION_RISK_REVIEW": 1,
     "PRIVILEGE_BOUNDARY_REVIEW": 1,
     "LOW_CONFIDENCE_REVIEW_ONLY": 1,
     "SANITIZED_INPUT_REVIEW_ONLY": 2
-  }
+  },
+  "product_title": "风险预警摘要",
+  "customer_summary": "优先复核凭据复用和配置风险；仅作为防御性预警，不展示可复用攻击路径。",
+  "collection_window": "先在 4 小时内补齐身份、终端进程和资产影响证据。",
+  "fallback_if_missing": "如果补不到证据，保持人工复核和观察，不自动升级处置。"
 }

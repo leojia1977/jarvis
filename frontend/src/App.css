@@ -3633,6 +3633,70 @@ button {
   padding: 20px;
 }
 
+.incident-eci-vfe-summary-panel[open] {
+  border-left: 4px solid #7a5a23;
+}
+
+.incident-eci-vfe-depth {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid #e2e8df;
+  padding: 18px;
+}
+
+.incident-eci-vfe-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.incident-eci-vfe-grid article {
+  min-width: 0;
+  border: 1px solid #e3dccf;
+  border-radius: 8px;
+  background: #fffdf7;
+  padding: 12px;
+}
+
+.incident-eci-vfe-grid span {
+  color: #745c2f;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.incident-eci-vfe-grid strong {
+  display: block;
+  margin-top: 6px;
+  color: #18202b;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.incident-eci-vfe-grid p {
+  margin: 8px 0 0;
+  color: #5d6875;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.incident-eci-vfe-boundary {
+  margin: 0;
+  border: 1px solid #d7e4d6;
+  border-radius: 8px;
+  background: #f6fbf4;
+  color: #31513e;
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+@media (max-width: 920px) {
+  .incident-eci-vfe-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .incident-qwen-provider-card > summary {
   list-style: none;
   cursor: pointer;

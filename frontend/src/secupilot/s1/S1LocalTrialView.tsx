@@ -115,7 +115,7 @@ export function S1LocalTrialView() {
     },
     {
       title: "查看部署准备",
-      description: "确认启动脚本、评审包和 dry provider 状态。",
+      description: "确认启动方式、评审材料和本地合成建议状态。",
       value: "核对私有化前置条件"
     }
   ];
@@ -146,20 +146,20 @@ export function S1LocalTrialView() {
       title: "模型接入准备",
       route: "模型接入准备区",
       audience: "CTO / 部署负责人",
-      outcome: "查看 Qwen synthetic provider readiness，确认仍是 no-network dry path。"
+      outcome: "确认当前只使用本地合成建议预览，未来真实调用仍需单独授权。"
     },
     {
       label: "05",
-      title: "技术对账",
+      title: "内部核验",
       route: "按需展开",
-      audience: "内部核验",
-      outcome: "只在需要时核对 candidate、run、package、manifest 和边界。"
+      audience: "内部 reviewer",
+      outcome: "只在需要时核对候选版本、运行记录、材料清单和安全边界。"
     }
   ];
   const privatePreviewChecklist = [
     ["启动入口", "本机浏览器打开 /s1-trial"],
     ["核心动作", "看事件研判并提交本地反馈"],
-    ["模型路径", "只看 synthetic provider stub readiness"],
+    ["模型路径", "只看本地合成建议准备状态"],
     ["交付边界", "不部署、不连真实系统、不产生客户可见输出"]
   ] as const;
   const materialStatus = [
@@ -181,7 +181,7 @@ export function S1LocalTrialView() {
     "本轮只读取本地合成包",
     "不连接真实系统和 live Qwen/API",
     "不写回生产, 不发布客户可见输出",
-    "技术对账信息默认下沉, 需要时再展开"
+    "内部核验信息默认下沉, 需要时再展开"
   ];
   const homeQueueItems = [
     {
@@ -192,8 +192,8 @@ export function S1LocalTrialView() {
     },
     {
       status: "模型路径",
-      title: "Qwen synthetic provider",
-      detail: "只预览 dry-run/stub, 不发起 live 调用",
+      title: "本地合成建议引擎",
+      detail: "只预览离线建议结果, 不发起 live 调用",
       tone: "model"
     },
     {
@@ -204,7 +204,7 @@ export function S1LocalTrialView() {
     }
   ];
   const homeStatusFacts = [
-    ["当前包", "RC-019 中文预览"],
+    ["当前包", "RC-018 中文预览"],
     ["案例数", `${run.caseCount}`],
     ["安全命中", `${run.safetyScan.findingCount}`],
     ["生产写回", yesNo(run.boundaries.productionWriteback)]
@@ -269,7 +269,7 @@ export function S1LocalTrialView() {
             </span>
             <strong>第一眼先看产品判断，不看证据目录</strong>
             <p>
-              这是客户进入后的产品首页：它负责引导试用路径；事件详情和技术对账在后续页面展开。
+              这是客户进入后的产品首页：它负责引导试用路径；事件详情和内部核验在后续页面展开。
             </p>
             <dl>
               {homeStatusFacts.map(([label, value]) => (
@@ -375,7 +375,7 @@ export function S1LocalTrialView() {
         <article>
           <span>模型接入</span>
           <strong>已演练</strong>
-          <p>Qwen provider stub 已可本地预览, 仍不发起 live 调用。</p>
+          <p>本地合成建议已可预览, 仍不发起 live 调用。</p>
         </article>
         <article>
           <span>上线状态</span>
@@ -401,7 +401,7 @@ export function S1LocalTrialView() {
             </li>
             <li>
               <strong>再解释</strong>
-              <span>证据链、限制和技术对账默认折叠, 需要时展开。</span>
+              <span>证据链、限制和内部核验默认折叠, 需要时展开。</span>
             </li>
             <li>
               <strong>后交接</strong>
@@ -494,7 +494,7 @@ export function S1LocalTrialView() {
       </section>
 
       <details className="s1-artifact-panel s1-trial-technical-details">
-        <summary>技术对账信息</summary>
+        <summary>内部核验信息</summary>
         <div className="s1-trial-split-grid">
           <dl className="s1-trial-header-facts s1-product-home-technical-facts">
             <div>
@@ -662,8 +662,8 @@ export function S1LocalTrialView() {
           <p>{qwenReadiness.productDescription}</p>
           <dl className="s1-trial-package-facts">
             <div>
-              <dt>provider stub</dt>
-              <dd data-testid="s1-qwen-provider-stub-mode">{qwenReadiness.providerStubMode}</dd>
+              <dt>本地建议引擎</dt>
+            <dd data-testid="s1-qwen-provider-stub-mode">{qwenReadiness.productLabel}</dd>
             </div>
             <div>
               <dt>输出报告</dt>
@@ -696,7 +696,7 @@ export function S1LocalTrialView() {
           data-testid="s1-qwen-dry-preview"
         >
           <div>
-            <strong>Dry provider 输入预览</strong>
+            <strong>本地建议输入预览</strong>
             <dl className="s1-trial-package-facts">
               <div>
                 <dt>数据模式</dt>
@@ -717,7 +717,7 @@ export function S1LocalTrialView() {
             </dl>
           </div>
           <div>
-            <strong>Dry provider 输出预览</strong>
+            <strong>本地建议输出预览</strong>
             <dl className="s1-trial-package-facts">
               <div>
                 <dt>案例</dt>

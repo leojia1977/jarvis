@@ -19,10 +19,13 @@ PASS = 0
 HOLD = 20
 
 SCREENSHOTS = (
-  ("s1-run-desktop.png", "/s1-run", "1440x1100"),
-  ("s1-run-mobile.png", "/s1-run", "390x1000"),
-  ("s1-trial-desktop.png", "/s1-trial", "1440x1100"),
-  ("s1-trial-mobile.png", "/s1-trial", "390x1000"),
+  ("01_product_home_desktop.png", "/s1-trial", "1440x1100", "product_home_first_view", "产品首页首屏"),
+  ("02_product_home_mobile.png", "/s1-trial", "390x1000", "product_home_first_view", "产品首页移动端"),
+  ("03_incident_first_load_desktop.png", "/incident/CASE-2847", "1440x1100", "incident_first_load", "事件工作台首屏"),
+  ("04_incident_first_load_mobile.png", "/incident/CASE-2847", "390x1000", "incident_first_load", "事件工作台移动端"),
+  ("05_ai_advice_source_expanded_desktop.png", "/incident/CASE-2847", "1440x1100", "ai_advice_source_expanded", "AI 建议来源展开"),
+  ("06_eci_vfe_summary_expanded_desktop.png", "/incident/CASE-2847", "1440x1100", "eci_vfe_summary_expanded", "攻击链判断和 VFE 预警摘要展开"),
+  ("07_feedback_preview_desktop.png", "/incident/CASE-2847", "1440x1100", "feedback_preview", "本地反馈预览"),
 )
 
 BOUNDARIES = {
@@ -67,7 +70,7 @@ def assert_inside_repo(path: Path, repo_root: Path) -> None:
 
 def screenshot_index_zh(output_dir: Path, candidate: str, source_candidate: str) -> dict[str, Any]:
   shots = []
-  for file_name, route, viewport in SCREENSHOTS:
+  for file_name, route, viewport, state, purpose in SCREENSHOTS:
     path = output_dir / "screenshots" / file_name
     if not path.exists():
       raise FileNotFoundError(f"missing screenshot: {path}")
@@ -79,6 +82,8 @@ def screenshot_index_zh(output_dir: Path, candidate: str, source_candidate: str)
         "path": f"screenshots/{file_name}",
         "route": route,
         "viewport": viewport,
+        "state": state,
+        "purpose": purpose,
         "bytes": path.stat().st_size,
         "sha256": file_sha256(path),
         "candidate": candidate,
@@ -108,6 +113,11 @@ def chain_summary(chain_payload: dict[str, Any]) -> dict[str, Any]:
     "generated_at_utc": utc_now(),
     "assessment_count": len(assessments),
     "high_attention_count": high,
+    "product_title": "攻击链判断",
+    "current_stage": "疑似横向移动早期阶段",
+    "customer_summary": "认证行为和影响范围提示需要人工复核，但当前仍按保守判断处理。",
+    "missing_evidence": ["终端进程证据", "MFA 与身份日志", "资产负责人和业务影响"],
+    "conservative_boundary": "不独立升级案件，不触发隔离、阻断、审批、关闭或生产写回。",
   }
 
 
@@ -122,6 +132,10 @@ def forecast_summary(forecast_payload: dict[str, Any]) -> dict[str, Any]:
     "generated_at_utc": utc_now(),
     "forecast_count": len(candidates),
     "labels": labels,
+    "product_title": "风险预警摘要",
+    "customer_summary": "优先复核凭据复用和配置风险；仅作为防御性预警，不展示可复用攻击路径。",
+    "collection_window": "先在 4 小时内补齐身份、终端进程和资产影响证据。",
+    "fallback_if_missing": "如果补不到证据，保持人工复核和观察，不自动升级处置。",
   }
 
 
@@ -135,9 +149,10 @@ Zip: `{zip_name}`
 ## 评审顺序
 1. 查看 `02_PRODUCT_ROUTE_MAP_中文.md`
 2. 查看 `01_REVIEW_PROMPT.md`
-3. 对照 `SCREENSHOT_INDEX_中文.json` 逐张检查产品路径截图
-4. 对照 `eci_vfe` 摘要与 `output_guard_scan`
-5. 在 `04_FEEDBACK_TEMPLATE_中文.md` 记录结论
+3. 先看 7 张产品路径截图，不要先审证据 artifact
+4. 对照 `SCREENSHOT_INDEX_中文.json` 确认截图路线、视口和展开状态
+5. 确认 `eci_vfe/output_guard_scan.json` 为 PASS 后，再接受 ECI/VFE 摘要
+6. 在 `04_FEEDBACK_TEMPLATE_中文.md` 记录结论
 """
   review_prompt = f"""# RC018 Review Prompt
 
@@ -146,7 +161,8 @@ Zip: `{zip_name}`
 - 不使用真实数据或脱敏真实数据
 - 不使用 live Qwen/API/connectors
 - 不允许生产写回、客户可见发布、外部试点或生产上线
-- ECI/VFE 只作为防御性解释，不泄露 attacker-readable attack path
+- ECI/VFE 只作为攻击链判断、风险预警摘要、缺失证据和补证窗口，不泄露 attacker-readable attack path
+- 请重点判断它是否像产品解释，而不是裸验证页或证据包目录
 """
   route_map = """# RC018 产品路径图（中文）
 
@@ -156,17 +172,18 @@ Zip: `{zip_name}`
 4. 展开 AI 建议来源
 5. 查看攻击链判断与 VFE 预警摘要
 6. 查看缺失证据与补证窗口
-7. 填写本地反馈模板
+7. 查看本地反馈预览
 """
   checklist = f"""# RC018 评审清单
 
 - Candidate 必须为 `{candidate}`
 - Source candidate 必须为 `{source_candidate}`
-- 四张产品路径截图存在且可读取
+- 7 张产品路径截图存在且可读取
 - output_guard_scan.status=PASS 且 blocking_finding_count=0
-- ECI/VFE 摘要为防御性语言
+- ECI/VFE 摘要呈现为攻击链判断、风险预警摘要、缺失证据和补证窗口
+- 主路径不出现 provider/stub/dry-run/mock_data/package manifest/技术对账等工程优先语言
 - 不出现 P1/P2/P3 / Mock Fixture / Expert Mode
-- 不出现 token/auth header/raw payload/poC/exploit/payload
+- 不出现 token/auth header/raw payload/PoC/exploit/payload
 """
   feedback = f"""# RC018 反馈模板
 
@@ -234,6 +251,10 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
   screenshot_dir = output_dir / "screenshots"
   if not screenshot_dir.exists():
     raise FileNotFoundError(f"missing screenshots dir: {screenshot_dir}")
+  expected_screenshot_names = {item[0] for item in SCREENSHOTS}
+  for screenshot_file in screenshot_dir.glob("*.png"):
+    if screenshot_file.name not in expected_screenshot_names:
+      screenshot_file.unlink()
 
   eci_run_dir = repo_root / "artifacts" / "eci_vfe_fixture_runs" / "rc001"
   guard = read_json(eci_run_dir / "output_guard_scan.json")
