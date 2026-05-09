@@ -1,8 +1,8 @@
 {
   "schema_version": "secupilot.s1.review_screenshot_safety_scan.v1",
-  "created_at_utc": "2026-05-08T06:05:42.423688Z",
+  "created_at_utc": "2026-05-09T05:23:22.033441Z",
   "status": "PASS",
-  "expected_candidate": "LOCAL_OFFLINE_TRIAL_RC_019_CN",
+  "expected_candidate": "LOCAL_OFFLINE_TRIAL_RC_020_CN",
   "screenshot_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright",
   "checked": 4,
   "blocking_finding_count": 0,
@@ -13,9 +13,9 @@
       "route": "/s1-run",
       "viewport": "1440x1100",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-desktop.png",
-      "screenshot_sha256": "431ec25e0499c97f89ebe45978e1177abfd0ecc9908c6eca12140bc56d54fd94",
+      "screenshot_sha256": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-desktop.text.json",
-      "visible_text_sha256": "81aed442cb626e689cdbcb5016a9cd2b22527c23463b686defa10b7bee6c5865",
+      "visible_text_sha256": "9dfcea60959665bb5f77b0aa35d2909a350c675835139cadd0ff7ff72348e77b",
       "blocking_findings": [],
       "warnings": []
     },
@@ -24,9 +24,9 @@
       "route": "/s1-run",
       "viewport": "390x1000",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-mobile.png",
-      "screenshot_sha256": "133caf70fe02953f271da104b6775c0faad519b6d16bf8aa043e38573b551ff6",
+      "screenshot_sha256": "0dd09c3a710fea7c66b9fe4319465137644cc179e8b7aacb535e27a29996413b",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-run-mobile.text.json",
-      "visible_text_sha256": "81aed442cb626e689cdbcb5016a9cd2b22527c23463b686defa10b7bee6c5865",
+      "visible_text_sha256": "9dfcea60959665bb5f77b0aa35d2909a350c675835139cadd0ff7ff72348e77b",
       "blocking_findings": [],
       "warnings": []
     },
@@ -35,9 +35,9 @@
       "route": "/s1-trial",
       "viewport": "1440x1100",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.png",
-      "screenshot_sha256": "68a562848ea07b4341847410ea22bb98a159d9ab2dda68695bca784603911501",
+      "screenshot_sha256": "0a76ed0018474951b44e74a05fe53c5d01b11f6b50a36325129be20650fd3d2e",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.text.json",
-      "visible_text_sha256": "2e1544dcdd2da343c0b38e45cc1dcac5bbb5b990aadf03a73a6346bd257d2c19",
+      "visible_text_sha256": "b969b0a700bc2b858ac551d0c17f22ad738647b58beb3bf13e6a43ba058e77c1",
       "blocking_findings": [],
       "warnings": []
     },
@@ -46,9 +46,9 @@
       "route": "/s1-trial",
       "viewport": "390x1000",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.png",
-      "screenshot_sha256": "cd1eeec50e6894ba1f6ea0e4efbbe7a767aa0efcac5380da8f9ce842ce1ce786",
+      "screenshot_sha256": "cf89053bebe99a4dbe9aa999b0965dadc9c8b1af38ae105b87256cf3e78108e5",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.text.json",
-      "visible_text_sha256": "2e1544dcdd2da343c0b38e45cc1dcac5bbb5b990aadf03a73a6346bd257d2c19",
+      "visible_text_sha256": "b969b0a700bc2b858ac551d0c17f22ad738647b58beb3bf13e6a43ba058e77c1",
       "blocking_findings": [],
       "warnings": []
     }

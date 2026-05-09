@@ -204,7 +204,7 @@ export function S1LocalTrialView() {
     }
   ];
   const homeStatusFacts = [
-    ["当前包", "RC-019 中文预览"],
+    ["当前包", "RC-020 中文预览"],
     ["案例数", `${run.caseCount}`],
     ["安全命中", `${run.safetyScan.findingCount}`],
     ["生产写回", yesNo(run.boundaries.productionWriteback)]
