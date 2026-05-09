@@ -114,7 +114,7 @@ export function S1LocalTrialView() {
       value: "记录试用体验"
     },
     {
-      title: "查看部署准备",
+      title: "查看本地接入准备",
       description: "确认启动方式、评审材料和本地合成建议状态。",
       value: "核对私有化前置条件"
     }
@@ -250,7 +250,7 @@ export function S1LocalTrialView() {
             <div className="s1-product-home-actions" aria-label="产品首页快捷动作">
               <a href="/incident/CASE-2847">查看事件研判</a>
               <a href="#s1-feedback-title">提交本地反馈</a>
-              <a href="#s1-qwen-contract-title">查看部署准备</a>
+              <a href="#s1-qwen-contract-title">查看本地接入准备</a>
             </div>
             <dl className="s1-trial-header-facts s1-product-home-summary-facts">
               {productHomeFacts.map((fact) => (

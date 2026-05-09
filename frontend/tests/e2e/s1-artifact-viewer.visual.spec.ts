@@ -92,6 +92,8 @@ async function assertS1TrialVisualBoundary(page: Page) {
   await expect(surface).toHaveAttribute("data-push", "false");
   await expect(page.getByRole("heading", { name: "SecuPilot 企业安全分析助理" })).toBeVisible();
   await expect(page.getByText("客户试用入口 / 私有化预览")).toBeVisible();
+  await expect(surface).toContainText("查看本地接入准备");
+  await expect(surface).not.toContainText("查看部署准备");
   await expect(page.getByTestId("s1-private-preview-shell")).toContainText("私有化预览启动壳");
   await expect(page.getByTestId("s1-product-route-map-item")).toHaveCount(5);
   await expect(page.getByTestId("s1-product-role-entry")).toHaveCount(4);

@@ -1,6 +1,6 @@
 {
   "schema_version": "secupilot.s1.review_screenshot_safety_scan.v1",
-  "created_at_utc": "2026-05-09T05:29:02.206211Z",
+  "created_at_utc": "2026-05-09T07:56:50.184709Z",
   "status": "PASS",
   "expected_candidate": "LOCAL_OFFLINE_TRIAL_RC_020_CN",
   "screenshot_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright",
@@ -46,9 +46,9 @@
       "route": "/s1-trial",
       "viewport": "1440x1100",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.png",
-      "screenshot_sha256": "0a76ed0018474951b44e74a05fe53c5d01b11f6b50a36325129be20650fd3d2e",
+      "screenshot_sha256": "892d7fd9086a48b6e2c74b1e1e72bf76d4915393b2f675386b0dc49016e80893",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-desktop.text.json",
-      "visible_text_sha256": "b969b0a700bc2b858ac551d0c17f22ad738647b58beb3bf13e6a43ba058e77c1",
+      "visible_text_sha256": "dccce404ae8a36e855657933523019f6070716df01e6937e4de4c7e070fba7e3",
       "blocking_findings": [],
       "warnings": []
     },
@@ -57,9 +57,9 @@
       "route": "/s1-trial",
       "viewport": "390x1000",
       "screenshot_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.png",
-      "screenshot_sha256": "cf89053bebe99a4dbe9aa999b0965dadc9c8b1af38ae105b87256cf3e78108e5",
+      "screenshot_sha256": "19e7aa9b6c4e1d449dbc793a844575b6201491112019df51373f5523ca1b76ca",
       "text_sidecar_path": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright/s1-trial-mobile.text.json",
-      "visible_text_sha256": "b969b0a700bc2b858ac551d0c17f22ad738647b58beb3bf13e6a43ba058e77c1",
+      "visible_text_sha256": "dccce404ae8a36e855657933523019f6070716df01e6937e4de4c7e070fba7e3",
       "blocking_findings": [],
       "warnings": []
     }

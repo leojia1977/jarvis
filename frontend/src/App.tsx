@@ -3161,7 +3161,7 @@ function IncidentProductView({ activeCase }: { activeCase: WorkbenchCase }) {
   const incidentQueueItems = [
     {
       id: "AR-1048",
-      title: "隔离 finance-042 并锁定凭据",
+      title: "待复核：finance-042 隔离与凭据锁定建议",
       owner: "Maya Patel",
       age: "18 min",
       severity: "高",

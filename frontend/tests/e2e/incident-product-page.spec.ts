@@ -27,6 +27,8 @@ test.describe("UX-04 incident AI source collapse decision", () => {
     await expect(workbenchConsole).toBeVisible();
     await expect(workbenchConsole.getByText("事件工作台")).toBeVisible();
     await expect(workbenchConsole.getByText("事件队列")).toBeVisible();
+    await expect(workbenchConsole).toContainText("待复核：finance-042 隔离与凭据锁定建议");
+    await expect(workbenchConsole).not.toContainText("隔离 finance-042 并锁定凭据");
     await expect(workbenchConsole.getByText("事件时间线")).toBeVisible();
     await expect(page.getByRole("heading", { name: "SecuPilot 事件研判结果" })).toBeVisible();
     await expect(page.getByTestId("incident-current-outcome")).toContainText(
@@ -241,6 +243,12 @@ test.describe("UX-04 incident AI source collapse decision", () => {
     const surface = page.getByTestId("incident-product-view");
     await expect(surface).toBeVisible();
     await expect(page.getByTestId("incident-workbench-console")).toBeVisible();
+    await expect(page.getByTestId("incident-workbench-console")).toContainText(
+      "待复核：finance-042 隔离与凭据锁定建议"
+    );
+    await expect(page.getByTestId("incident-workbench-console")).not.toContainText(
+      "隔离 finance-042 并锁定凭据"
+    );
     await expect(page.getByRole("heading", { name: "SecuPilot 事件研判结果" })).toBeVisible();
     await expect(page.getByTestId("incident-current-outcome")).toContainText(
       "需要人工复核的高风险事件"
