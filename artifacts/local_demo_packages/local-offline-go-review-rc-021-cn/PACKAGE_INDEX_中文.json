@@ -1,0 +1,84 @@
+{
+  "schema_version": "secupilot.s1.local_offline_chinese_package_index.v1",
+  "candidate": "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_020_CN",
+  "route": [
+    "/s1-trial",
+    "/s1-run"
+  ],
+  "package_dir": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
+  "zip_name": "local-offline-go-review-rc-021-cn-review-package-20260509.zip",
+  "start_here": "REVIEWER_START_HERE_中文.md",
+  "checklist": "REVIEWER_CHECKLIST_中文.md",
+  "feedback_template": "FEEDBACK_TEMPLATE_中文.md",
+  "evidence_files": [
+    "evidence/artifact_manifest.json",
+    "evidence/case_summary.json",
+    "evidence/final_status.json",
+    "evidence/safety_scan.json"
+  ],
+  "screenshot_files": [
+    "screenshots/s1-run-desktop.png",
+    "screenshots/s1-run-mobile.png",
+    "screenshots/s1-run-first-load-folded-desktop.png",
+    "screenshots/s1-trial-desktop.png",
+    "screenshots/s1-trial-mobile.png"
+  ],
+  "required_archive_evidence": {
+    "folded_state_screenshot_files": [
+      "screenshots/s1-run-first-load-folded-desktop.png"
+    ],
+    "folded_state_screenshot_required": true,
+    "folded_state_submission_gate": "REQUIRED_PRE_SUBMISSION",
+    "folded_state_submission_gate_reason": "AI_ADVICE_SOURCE_SECTION_MUST_BE_FOLDED_ON_FIRST_LOAD",
+    "folded_state_submission_gate_level": "BLOCKER",
+    "folded_state_assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
+    "folded_state_evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
+    "folded_state_backlog_item_id": "RFB-RC016-001",
+    "folded_state_review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+    "folded_state_review_source_type": "NON_BLOCKING_OBSERVATION",
+    "folded_state_review_source_priority": "P3",
+    "folded_state_review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
+    "folded_state_review_source_category": "REVIEW_SCREENSHOT",
+    "folded_state_review_source_status": "BACKLOG_OPEN",
+    "folded_state_review_source_owner": "SecuPilot product engineering",
+    "folded_state_review_reviewer": "Jarvis / TL / Product-governance reviewer",
+    "folded_state_expected_state": "FOLDED",
+    "folded_state_expected_section": "AI 建议来源",
+    "folded_state_capture_phase": "FIRST_LOAD",
+    "folded_state_capture_policy": "FIRST_LOAD_NO_INTERACTION",
+    "folded_state_expected_interaction_count": 0,
+    "folded_state_expected_route": "/s1-run",
+    "folded_state_expected_viewport": "1440x1100",
+    "folded_state_primary_screenshot": "screenshots/s1-run-first-load-folded-desktop.png",
+    "folded_state_review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
+    "folded_state_review_order_step": 3,
+    "folded_state_review_evidence_status": "REQUIRED_AND_PRESENT",
+    "folded_state_primary_sha256": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
+    "folded_state_proof": {
+      "screenshot_path": "screenshots/s1-run-first-load-folded-desktop.png",
+      "route": "/s1-run",
+      "viewport": "1440x1100",
+      "expected_state": "FOLDED",
+      "expected_section": "AI 建议来源",
+      "interaction_count": 0,
+      "interaction_policy": "FIRST_LOAD_NO_INTERACTION",
+      "sha256": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d"
+    },
+    "folded_state_screenshot_sha256": {
+      "screenshots/s1-run-first-load-folded-desktop.png": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d"
+    }
+  },
+  "validation_files": [
+    "validation/screenshot_safety_scan.json"
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

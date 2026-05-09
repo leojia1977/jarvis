@@ -1,0 +1,86 @@
+{
+  "schema_version": "secupilot.s1.local_offline_chinese_screenshot_index.v1",
+  "candidate": "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_020_CN",
+  "source_commit": "3545b95",
+  "generated_at_utc": "2026-05-09T09:57:12.991223Z",
+  "screenshots": [
+    {
+      "file_name": "s1-run-desktop.png",
+      "path": "screenshots/s1-run-desktop.png",
+      "bytes": 407671,
+      "sha256": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
+      "route": "/s1-run",
+      "viewport": "1440x1100"
+    },
+    {
+      "file_name": "s1-run-mobile.png",
+      "path": "screenshots/s1-run-mobile.png",
+      "bytes": 314211,
+      "sha256": "0dd09c3a710fea7c66b9fe4319465137644cc179e8b7aacb535e27a29996413b",
+      "route": "/s1-run",
+      "viewport": "390x1000"
+    },
+    {
+      "file_name": "s1-run-first-load-folded-desktop.png",
+      "path": "screenshots/s1-run-first-load-folded-desktop.png",
+      "bytes": 407671,
+      "sha256": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
+      "route": "/s1-run",
+      "viewport": "1440x1100",
+      "archive_evidence": {
+        "evidence_schema_version": "secupilot.s1.folded_state_archive_evidence.v1",
+        "assertion_code": "AI_ADVICE_SOURCE_FIRST_LOAD_FOLDED",
+        "evidence_role": "AI_ADVICE_SOURCE_FOLDED_STATE",
+        "submission_gate": "REQUIRED_PRE_SUBMISSION",
+        "submission_gate_reason": "AI_ADVICE_SOURCE_SECTION_MUST_BE_FOLDED_ON_FIRST_LOAD",
+        "submission_gate_level": "BLOCKER",
+        "capture_phase": "FIRST_LOAD",
+        "capture_policy": "FIRST_LOAD_NO_INTERACTION",
+        "sha256": "4db941fe52b1521724d01c6662e6a4a27ec3c0d3475517b51edccb50552f2d5d",
+        "interaction_count": 0,
+        "expected_interaction_count": 0,
+        "expected_state": "FOLDED",
+        "expected_section": "AI 建议来源",
+        "expected_route": "/s1-run",
+        "expected_viewport": "1440x1100",
+        "review_checklist_ref": "REVIEWER_CHECKLIST_中文.md#必查项",
+        "review_order_step": 3,
+        "review_evidence_status": "REQUIRED_AND_PRESENT",
+        "review_source_decision": "PASS_WITH_NOTES_TO_NEXT_INTERNAL_LOCAL_TRIAL",
+        "review_source_type": "NON_BLOCKING_OBSERVATION",
+        "review_source_priority": "P3",
+        "review_source_title": "AI advice source section appears expanded in submitted screenshots; next package should include one first-load folded-state screenshot as archive evidence",
+        "review_source_category": "REVIEW_SCREENSHOT",
+        "review_source_status": "BACKLOG_OPEN",
+        "review_source_owner": "SecuPilot product engineering",
+        "review_reviewer": "Jarvis / TL / Product-governance reviewer"
+      }
+    },
+    {
+      "file_name": "s1-trial-desktop.png",
+      "path": "screenshots/s1-trial-desktop.png",
+      "bytes": 1292477,
+      "sha256": "892d7fd9086a48b6e2c74b1e1e72bf76d4915393b2f675386b0dc49016e80893",
+      "route": "/s1-trial",
+      "viewport": "1440x1100"
+    },
+    {
+      "file_name": "s1-trial-mobile.png",
+      "path": "screenshots/s1-trial-mobile.png",
+      "bytes": 901691,
+      "sha256": "19e7aa9b6c4e1d449dbc793a844575b6201491112019df51373f5523ca1b76ca",
+      "route": "/s1-trial",
+      "viewport": "390x1000"
+    }
+  ],
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "case_count": 20,
+  "cases": [
+    {
+      "case_id": "UAT-01",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-01-ntlm-lateral",
+        "source_payload:s0-cv-uat-01-ntlm-lateral"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-01-ntlm-lateral",
+      "summary": "S1 fixture summary for UAT-01: NTLM lateral movement with AR escalation. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-01",
+        "synthetic_only"
+      ],
+      "title": "NTLM lateral movement with AR escalation"
+    },
+    {
+      "case_id": "UAT-02",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-02-observation-expiry",
+        "source_payload:s0-cv-uat-02-observation-expiry"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-02-observation-expiry",
+      "summary": "S1 fixture summary for UAT-02: Observation window expiry and manual re-approval. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-02",
+        "synthetic_only"
+      ],
+      "title": "Observation window expiry and manual re-approval"
+    },
+    {
+      "case_id": "UAT-03",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-03-terminal-lock",
+        "source_payload:s0-cv-uat-03-terminal-lock"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-03-terminal-lock",
+      "summary": "S1 fixture summary for UAT-03: Terminal Lock after approval. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-03",
+        "synthetic_only"
+      ],
+      "title": "Terminal Lock after approval"
+    },
+    {
+      "case_id": "UAT-04",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-04-ransomware-staging",
+        "source_payload:s0-cv-uat-04-ransomware-staging"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-04-ransomware-staging",
+      "summary": "S1 fixture summary for UAT-04: Ransomware staging with mass file operations. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-04",
+        "synthetic_only"
+      ],
+      "title": "Ransomware staging with mass file operations"
+    },
+    {
+      "case_id": "UAT-05",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-05-kerberoasting-spn",
+        "source_payload:s0-cv-uat-05-kerberoasting-spn"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-05-kerberoasting-spn",
+      "summary": "S1 fixture summary for UAT-05: Kerberoasting / SPN burst pattern. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-05",
+        "synthetic_only"
+      ],
+      "title": "Kerberoasting / SPN burst pattern"
+    },
+    {
+      "case_id": "UAT-06",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-06-mfa-fatigue",
+        "source_payload:s0-cv-uat-06-mfa-fatigue"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-06-mfa-fatigue",
+      "summary": "S1 fixture summary for UAT-06: MFA fatigue + impossible travel. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-06",
+        "synthetic_only"
+      ],
+      "title": "MFA fatigue + impossible travel"
+    },
+    {
+      "case_id": "UAT-07",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-07-oauth-consent",
+        "source_payload:s0-cv-uat-07-oauth-consent"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-07-oauth-consent",
+      "summary": "S1 fixture summary for UAT-07: OAuth consent abuse / suspicious app grant. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-07",
+        "synthetic_only"
+      ],
+      "title": "OAuth consent abuse / suspicious app grant"
+    },
+    {
+      "case_id": "UAT-08",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-08-cloud-key",
+        "source_payload:s0-cv-uat-08-cloud-key"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-08-cloud-key",
+      "summary": "S1 fixture summary for UAT-08: Cloud key leak / abnormal API access. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-08",
+        "synthetic_only"
+      ],
+      "title": "Cloud key leak / abnormal API access"
+    },
+    {
+      "case_id": "UAT-09",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-09-dns-tunneling",
+        "source_payload:s0-cv-uat-09-dns-tunneling"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-09-dns-tunneling",
+      "summary": "S1 fixture summary for UAT-09: DNS tunneling / long-domain beaconing. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-09",
+        "synthetic_only"
+      ],
+      "title": "DNS tunneling / long-domain beaconing"
+    },
+    {
+      "case_id": "UAT-10",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-10-c2-low-slow",
+        "source_payload:s0-cv-uat-10-c2-low-slow"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-10-c2-low-slow",
+      "summary": "S1 fixture summary for UAT-10: C2 beaconing with low-and-slow intervals. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-10",
+        "synthetic_only"
+      ],
+      "title": "C2 beaconing with low-and-slow intervals"
+    },
+    {
+      "case_id": "UAT-11",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-11-lotl-wmi-psexec",
+        "source_payload:s0-cv-uat-11-lotl-wmi-psexec"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-11-lotl-wmi-psexec",
+      "summary": "S1 fixture summary for UAT-11: Living-off-the-land WMI / PsExec movement. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-11",
+        "synthetic_only"
+      ],
+      "title": "Living-off-the-land WMI / PsExec movement"
+    },
+    {
+      "case_id": "UAT-12",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-12-vpn-geo",
+        "source_payload:s0-cv-uat-12-vpn-geo"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-12-vpn-geo",
+      "summary": "S1 fixture summary for UAT-12: Privileged VPN login from unusual geography. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-12",
+        "synthetic_only"
+      ],
+      "title": "Privileged VPN login from unusual geography"
+    },
+    {
+      "case_id": "UAT-13",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-13-insider-download",
+        "source_payload:s0-cv-uat-13-insider-download"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-13-insider-download",
+      "summary": "S1 fixture summary for UAT-13: Insider bulk download without malware. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-13",
+        "synthetic_only"
+      ],
+      "title": "Insider bulk download without malware"
+    },
+    {
+      "case_id": "UAT-14",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-14-cmdb-unavailable",
+        "source_payload:s0-cv-uat-14-cmdb-unavailable"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-14-cmdb-unavailable",
+      "summary": "S1 fixture summary for UAT-14: CMDB business tags unavailable. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-14",
+        "synthetic_only"
+      ],
+      "title": "CMDB business tags unavailable"
+    },
+    {
+      "case_id": "UAT-15",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-15-audit-empty",
+        "source_payload:s0-cv-uat-15-audit-empty"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-15-audit-empty",
+      "summary": "S1 fixture summary for UAT-15: Audit trail empty. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-15",
+        "synthetic_only"
+      ],
+      "title": "Audit trail empty"
+    },
+    {
+      "case_id": "UAT-16",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-16-audit-unavailable",
+        "source_payload:s0-cv-uat-16-audit-unavailable"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-16-audit-unavailable",
+      "summary": "S1 fixture summary for UAT-16: Audit trail source unavailable. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-16",
+        "synthetic_only"
+      ],
+      "title": "Audit trail source unavailable"
+    },
+    {
+      "case_id": "UAT-17",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-17-history-downgrade",
+        "source_payload:s0-cv-uat-17-history-downgrade"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-17-history-downgrade",
+      "summary": "S1 fixture summary for UAT-17: Search history recorded > current downgrade. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-17",
+        "synthetic_only"
+      ],
+      "title": "Search history recorded > current downgrade"
+    },
+    {
+      "case_id": "UAT-18",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-18-history-upgrade-prohibited",
+        "source_payload:s0-cv-uat-18-history-upgrade-prohibited"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-18-history-upgrade-prohibited",
+      "summary": "S1 fixture summary for UAT-18: Search history current > recorded upgrade prohibited. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-18",
+        "synthetic_only"
+      ],
+      "title": "Search history current > recorded upgrade prohibited"
+    },
+    {
+      "case_id": "UAT-19",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-19-p3-summary-no-raw",
+        "source_payload:s0-cv-uat-19-p3-summary-no-raw"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-19-p3-summary-no-raw",
+      "summary": "S1 fixture summary for UAT-19: P3 manager summary (metadata-only evidence scope). Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-19",
+        "synthetic_only"
+      ],
+      "title": "P3 manager summary (metadata-only evidence scope)"
+    },
+    {
+      "case_id": "UAT-20",
+      "evidence_metadata_refs": [
+        "qwen_fact_bundle:s0-qf-uat-20-prompt-injection",
+        "source_payload:s0-cv-uat-20-prompt-injection"
+      ],
+      "expected_outcome": "Metadata-only S1 fixture summary; reviewer signoff required before any next step.",
+      "provider_decision_hint": "REVIEW_REQUIRED",
+      "reviewer_action": "REVIEW_AND_SIGNOFF_REQUIRED",
+      "severity": "SYNTHETIC",
+      "source_id": "s0-cv-uat-20-prompt-injection",
+      "summary": "S1 fixture summary for UAT-20: Prompt injection attempt inside analyst comment. Metadata-only review required.",
+      "tags": [
+        "synthetic",
+        "qwen_fact_bundle",
+        "uat:UAT-20",
+        "prompt_injection_required",
+        "synthetic_only"
+      ],
+      "title": "Prompt injection attempt inside analyst comment"
+    }
+  ],
+  "provider": "fixture",
+  "qwen_used": false,
+  "schema_version": "secupilot.s1.case_summary.v1"
+}

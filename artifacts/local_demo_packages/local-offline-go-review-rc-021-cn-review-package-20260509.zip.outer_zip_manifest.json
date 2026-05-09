@@ -1,0 +1,23 @@
+{
+  "schema_version": "secupilot.s1.local_offline_outer_zip_manifest.v1",
+  "generated_at_utc": "2026-05-09T09:57:13.095806Z",
+  "candidate": "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+  "source_candidate": "LOCAL_OFFLINE_TRIAL_RC_020_CN",
+  "package_dir": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
+  "zip_name": "local-offline-go-review-rc-021-cn-review-package-20260509.zip",
+  "zip_path": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn-review-package-20260509.zip",
+  "zip_bytes": 3195044,
+  "zip_sha256": "21bc1b611999006c4e6526ef839e55223c1ce8c615d9fbbf2cc670312cd183d3",
+  "package_manifest_path": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn/package_manifest.json",
+  "package_manifest_sha256": "523427dfdf9f1895410e885b21c979ca05679dfec841768fdf73f709f87c9027",
+  "manifest_self_sha256": "d1f33bf8521ac1382adecd4f1baff84bf005f11e02495226bc240b198babc059",
+  "boundaries": {
+    "real_data": false,
+    "masked_real_data": false,
+    "live_qwen_api": false,
+    "live_connectors": false,
+    "production_writeback": false,
+    "customer_visible_output": false,
+    "push": false
+  }
+}
