@@ -1,0 +1,16 @@
+﻿{
+    "schema_version":  "secupilot.review_gate.merged_result.v1",
+    "candidate":  "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+    "deterministic_checks":  "PASS_WITH_NOTES",
+    "code_review_status":  "NOT_APPLICABLE",
+    "team1_product_path_status":  "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
+    "team2_package_boundary_status":  "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING",
+    "boundary_status":  "PASS",
+    "merged_decision":  "HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES",
+    "merged_reason":  "Both independent external review gates are pending; READY status is forbidden until Team1+Team2 complete without blocking findings.",
+    "blocking_items":  [
+                           "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
+                           "TEAM2_PACKAGE_BOUNDARY_REVIEW_PENDING"
+                       ],
+    "generated_at_utc":  "2026-05-09T11:01:37.6347715Z"
+}

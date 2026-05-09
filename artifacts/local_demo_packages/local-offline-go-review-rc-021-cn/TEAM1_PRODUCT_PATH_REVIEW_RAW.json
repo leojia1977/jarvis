@@ -1,0 +1,17 @@
+﻿{
+    "schema_version":  "secupilot.review_gate.team1_product_path.v1",
+    "gate":  "TEAM1_PRODUCT_PATH_REVIEW",
+    "status":  "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
+    "decision":  "PENDING",
+    "reason":  "TEAM1 unavailable in local unattended run; gate intentionally left pending for human-return review cycle.",
+    "candidate":  "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+    "reviewed_material":  [
+                              "REVIEWER_START_HERE_中文.md",
+                              "GO_REVIEW_HANDOFF_中文.md",
+                              "TRIAL_SUCCESS_CRITERIA_中文.md",
+                              "SCREENSHOT_INDEX_中文.json"
+                          ],
+    "blocking":  true,
+    "blocking_reason":  "product_path_review_not_executed",
+    "generated_at_utc":  "2026-05-09T11:01:37.6297638Z"
+}

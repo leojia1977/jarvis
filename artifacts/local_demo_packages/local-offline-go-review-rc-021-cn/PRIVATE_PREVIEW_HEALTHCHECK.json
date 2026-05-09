@@ -1,0 +1,21 @@
+﻿{
+    "schema_version":  "secupilot.private_preview.healthcheck.v1",
+    "generated_at_utc":  "2026-05-09T10:58:40.501703Z",
+    "status":  "PASS",
+    "package_dir":  "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
+    "route_map":  "artifacts/product_route_maps/local-offline-trial-rc-019-cn-review/route_map_index.json",
+    "launch_info":  "artifacts/local_trial_launches/local-offline-trial-rc-020/launch_info.json",
+    "blocking_finding_count":  0,
+    "blocking_findings":  [
+
+                          ],
+    "hard_boundaries":  {
+                            "real_data":  false,
+                            "masked_real_data":  false,
+                            "live_qwen_api":  false,
+                            "live_connectors":  false,
+                            "production_writeback":  false,
+                            "customer_visible_output":  false,
+                            "push":  false
+                        }
+}
