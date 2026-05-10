@@ -1,67 +1,80 @@
-﻿{
-    "schema_version":  "secupilot.controlled_trial_return_state_package.v1",
-    "candidate":  "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
-    "executed_goal_results":  [
-                                  {
-                                      "goal":  "GOAL-RC021-01_CUSTOMER_MISREAD_RISK_COPY_FIX",
-                                      "status":  "PASS",
-                                      "commit":  "34c241e"
-                                  },
-                                  {
-                                      "goal":  "GOAL-RC021-02_SCREENSHOT_TEXT_EVIDENCE_REFRESH",
-                                      "status":  "PASS",
-                                      "commit":  "3545b95"
-                                  },
-                                  {
-                                      "goal":  "GOAL-RC021-03_LOCAL_OFFLINE_GO_REVIEW_PACKAGE_BUILD",
-                                      "status":  "PASS",
-                                      "commit":  "29cbc35"
-                                  },
-                                  {
-                                      "goal":  "GOAL-RC021-04_CUSTOMER_PATH_LINT_AND_HEALTHCHECK",
-                                      "status":  "PASS_WITH_NOTES",
-                                      "commit":  "d096304"
-                                  },
-                                  {
-                                      "goal":  "GOAL-RC021-05_REVIEW_GATES_AND_RETURN_PACKAGE",
-                                      "status":  "PASS_WITH_NOTES",
-                                      "commit":  "547cbbd"
-                                  }
-                              ],
-    "hold_reasons_and_current_status":  "HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES due to pending Team1 independent product-path review gate.",
-    "raw_team1_product_path_review":  "TEAM1_PRODUCT_PATH_REVIEW_RAW.json",
-    "raw_team2_package_boundary_review":  "TEAM2_PACKAGE_BOUNDARY_REVIEW_RAW.json",
-    "code_review_status_if_applicable":  "NOT_APPLICABLE",
-    "wake_up_conditions_triggered":  [
-
-                                     ],
-    "go_review_package_status":  "GO_REVIEW_PACKAGE_ASSEMBLED",
-    "blocking_items":  [
-                           "TEAM1_PRODUCT_PATH_REVIEW_PENDING"
-                       ],
-    "unexecuted_goals_and_reasons":  [
-
-                                     ],
-    "one_line_return_decision_state":  "BLOCKED_NEEDS_HUMAN_UNBLOCK",
-    "changed_customer_path":  "YES",
-    "screenshots_updated":  "YES",
-    "package_path":  "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
-    "zip_sha256":  "21bc1b611999006c4e6526ef839e55223c1ce8c615d9fbbf2cc670312cd183d3",
-    "healthcheck_status":  "PASS",
-    "team1_product_path_status":  "TEAM1_PRODUCT_PATH_REVIEW_PENDING",
-    "team2_package_boundary_status":  "PASS_WITH_NOTES",
-    "boundary_status":  "PASS",
-    "known_notes":  [
-                        {
-                            "id":  "screenshot_scan_expected_candidate_legacy",
-                            "source":  "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn/validation/screenshot_safety_scan.json",
-                            "detail":  "expected_candidate=LOCAL_OFFLINE_TRIAL_RC_020_CN; source-evidence scan reused from RC020 baseline"
-                        }
-                    ],
-    "remaining_human_decisions":  [
-                                      "Run/collect Team1 product path review result",
-                                      "Human final GO/HOLD/NO-GO decision after return"
-                                  ],
-    "automation_final_outcome":  "HOLD_FOR_SPECIFIC_PRODUCT_OR_PACKAGE_FIXES",
-    "generated_at_utc":  "2026-05-09T12:59:55.0309772Z"
+{
+  "schema_version": "secupilot.controlled_trial_return_state_package.v1",
+  "candidate": "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
+  "executed_goal_results": [
+    {
+      "goal": "GOAL-RC021-01_CUSTOMER_MISREAD_RISK_COPY_FIX",
+      "status": "PASS",
+      "commit": "34c241e"
+    },
+    {
+      "goal": "GOAL-RC021-02_SCREENSHOT_TEXT_EVIDENCE_REFRESH",
+      "status": "PASS",
+      "commit": "3545b95"
+    },
+    {
+      "goal": "GOAL-RC021-03_LOCAL_OFFLINE_GO_REVIEW_PACKAGE_BUILD",
+      "status": "PASS",
+      "commit": "29cbc35"
+    },
+    {
+      "goal": "GOAL-RC021-04_CUSTOMER_PATH_LINT_AND_HEALTHCHECK",
+      "status": "PASS_WITH_NOTES",
+      "commit": "d096304"
+    },
+    {
+      "goal": "GOAL-RC021-05_REVIEW_GATES_AND_RETURN_PACKAGE",
+      "status": "PASS_WITH_NOTES",
+      "commit": "547cbbd"
+    },
+    {
+      "goal": "GOAL-RC021-05_RETURN_PACKAGE_METADATA_RECONCILE",
+      "status": "PASS",
+      "commit": "87b43bc"
+    },
+    {
+      "goal": "GOAL-RC021-05_TEAM2_PACKAGE_BOUNDARY_REVIEW_EXECUTE",
+      "status": "PASS_WITH_NOTES",
+      "commit": "01dfe9f"
+    },
+    {
+      "goal": "GOAL-RC021-05_TEAM1_PRODUCT_PATH_REVIEW_EXECUTE",
+      "status": "PASS_WITH_NOTES",
+      "commit": "PENDING_CURRENT_COMMIT"
+    }
+  ],
+  "hold_reasons_and_current_status": "No blocking Team1 or Team2 review gate findings remain. Final human GO/HOLD/NO-GO is still required after return.",
+  "raw_team1_product_path_review": "TEAM1_PRODUCT_PATH_REVIEW_RAW.json",
+  "raw_team2_package_boundary_review": "TEAM2_PACKAGE_BOUNDARY_REVIEW_RAW.json",
+  "code_review_status_if_applicable": "NOT_APPLICABLE",
+  "wake_up_conditions_triggered": [],
+  "go_review_package_status": "GO_REVIEW_PACKAGE_ASSEMBLED",
+  "blocking_items": [],
+  "unexecuted_goals_and_reasons": [],
+  "one_line_return_decision_state": "READY_FOR_HUMAN_GO_REVIEW",
+  "changed_customer_path": "YES",
+  "screenshots_updated": "YES",
+  "package_path": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
+  "zip_sha256": "21bc1b611999006c4e6526ef839e55223c1ce8c615d9fbbf2cc670312cd183d3",
+  "healthcheck_status": "PASS",
+  "team1_product_path_status": "PASS_WITH_NOTES",
+  "team2_package_boundary_status": "PASS_WITH_NOTES",
+  "boundary_status": "PASS",
+  "known_notes": [
+    {
+      "id": "screenshot_scan_expected_candidate_legacy",
+      "source": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn/validation/screenshot_safety_scan.json",
+      "detail": "expected_candidate=LOCAL_OFFLINE_TRIAL_RC_020_CN; source-evidence scan reused from RC020 baseline"
+    },
+    {
+      "id": "team1_negative_boundary_wording_confirmed",
+      "source": "TEAM1_PRODUCT_PATH_REVIEW_RAW.json",
+      "detail": "Team1 confirmed live/writeback/connector/network/model language is negative boundary wording, not positive capability claim."
+    }
+  ],
+  "remaining_human_decisions": [
+    "Human final GO/HOLD/NO-GO decision after return"
+  ],
+  "automation_final_outcome": "READY_FOR_HUMAN_GO_REVIEW_FOR_CONTROLLED_TRIAL",
+  "generated_at_utc": "2026-05-10T07:09:57.7738805Z"
 }
