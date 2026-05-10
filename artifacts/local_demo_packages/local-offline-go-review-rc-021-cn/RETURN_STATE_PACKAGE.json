@@ -40,7 +40,7 @@
     {
       "goal": "GOAL-RC021-05_TEAM1_PRODUCT_PATH_REVIEW_EXECUTE",
       "status": "PASS_WITH_NOTES",
-      "commit": "PENDING_CURRENT_COMMIT"
+      "commit": "9cb9278"
     }
   ],
   "hold_reasons_and_current_status": "No blocking Team1 or Team2 review gate findings remain. Final human GO/HOLD/NO-GO is still required after return.",
