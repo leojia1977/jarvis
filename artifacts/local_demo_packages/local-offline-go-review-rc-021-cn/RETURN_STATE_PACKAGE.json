@@ -55,17 +55,12 @@
   "changed_customer_path": "YES",
   "screenshots_updated": "YES",
   "package_path": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
-  "zip_sha256": "21bc1b611999006c4e6526ef839e55223c1ce8c615d9fbbf2cc670312cd183d3",
+  "zip_sha256": "efd36ae354e8f143b96c73e38644252fe3d6a24ae84f3331bf132c9e92c804a0",
   "healthcheck_status": "PASS",
   "team1_product_path_status": "PASS_WITH_NOTES",
   "team2_package_boundary_status": "PASS_WITH_NOTES",
   "boundary_status": "PASS",
   "known_notes": [
-    {
-      "id": "screenshot_scan_expected_candidate_legacy",
-      "source": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn/validation/screenshot_safety_scan.json",
-      "detail": "expected_candidate=LOCAL_OFFLINE_TRIAL_RC_020_CN; source-evidence scan reused from RC020 baseline"
-    },
     {
       "id": "team1_negative_boundary_wording_confirmed",
       "source": "TEAM1_PRODUCT_PATH_REVIEW_RAW.json",
@@ -76,5 +71,12 @@
     "Human final GO/HOLD/NO-GO decision after return"
   ],
   "automation_final_outcome": "READY_FOR_HUMAN_GO_REVIEW_FOR_CONTROLLED_TRIAL",
-  "generated_at_utc": "2026-05-10T07:09:57.7738805Z"
+  "generated_at_utc": "2026-05-11T08:36:30.976475Z",
+  "resolved_notes": [
+    {
+      "id": "screenshot_scan_expected_candidate_legacy",
+      "resolved_at_utc": "2026-05-11T08:36:30.976475Z",
+      "resolution": "expected_candidate now matches LOCAL_OFFLINE_GO_REVIEW_RC_021_CN in package root and validation screenshot safety scan."
+    }
+  ]
 }

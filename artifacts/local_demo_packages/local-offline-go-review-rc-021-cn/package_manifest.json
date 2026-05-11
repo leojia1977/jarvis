@@ -195,8 +195,8 @@
     {
       "file_name": "screenshot_safety_scan.json",
       "path": "validation/screenshot_safety_scan.json",
-      "bytes": 3363,
-      "sha256": "6752c2a2f8e5a6528e66e80fdc4f2820a649e898ddfa70f6a2bc0f46d0b5b7ce",
+      "bytes": 3631,
+      "sha256": "58e8f01e03403f0d890fcd670c6afa73683927e4aa252717d53849dc6746cda5",
       "contains_raw_payload": false,
       "contains_secret_or_token": false,
       "contains_customer_visible_artifact": false,
@@ -212,5 +212,6 @@
     "customer_visible_output": false,
     "push": false
   },
-  "manifest_self_sha256": "d1f33bf8521ac1382adecd4f1baff84bf005f11e02495226bc240b198babc059"
+  "manifest_self_sha256": "0ee4c486c3e7f132bd3125dc75bdb2f6ea2fe2a5fa703511a7647384e1fff87c",
+  "updated_at_utc": "2026-05-11T08:36:30.976475Z"
 }

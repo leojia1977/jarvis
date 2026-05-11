@@ -33,15 +33,15 @@
       "severity": "non_blocking",
       "detail": "Initial BF-01 is closed. Excerpts containing live/writeback/connector/network/model language are explicit negations: no automatic isolation/writeback, no connector call, no model call, no backend submission, no production action.",
       "resolution": "No action required on copy."
-    },
-    {
-      "id": "N-01-CARRIED",
-      "severity": "non_blocking",
-      "field": "customer_path_lint_summary.non_blocking_notes[screenshot_scan_expected_candidate_legacy]",
-      "detail": "Screenshot safety scan sidecar still carries expected_candidate=LOCAL_OFFLINE_TRIAL_RC_020_CN. This does not block GO review but should be corrected before downstream release packaging to preserve traceability.",
-      "resolution": "Re-run screenshot safety scan against RC021 artifacts and update expected_candidate to LOCAL_OFFLINE_GO_REVIEW_RC_021_CN before any release packaging."
     }
   ],
   "final_one_line": "PASS_WITH_NOTES - live/writeback language is confirmed negative boundary wording; no Team1 blocking finding remains.",
-  "generated_at_utc": "2026-05-10T07:09:57.7738805Z"
+  "generated_at_utc": "2026-05-10T07:09:57.7738805Z",
+  "resolved_followup_notes": [
+    {
+      "id": "N-01-CARRIED",
+      "resolved_at_utc": "2026-05-11T08:36:30.976475Z",
+      "resolution": "expected_candidate legacy marker reconciled to LOCAL_OFFLINE_GO_REVIEW_RC_021_CN before human GO closeout."
+    }
+  ]
 }

@@ -2,7 +2,7 @@
   "schema_version": "secupilot.s1.review_screenshot_safety_scan.v1",
   "created_at_utc": "2026-05-09T08:57:10.712132Z",
   "status": "PASS",
-  "expected_candidate": "LOCAL_OFFLINE_TRIAL_RC_020_CN",
+  "expected_candidate": "LOCAL_OFFLINE_GO_REVIEW_RC_021_CN",
   "screenshot_dir": "artifacts/s1_closed_shadow_runs/2026-04-30-001/playwright",
   "checked": 5,
   "blocking_finding_count": 0,
@@ -63,5 +63,7 @@
       "blocking_findings": [],
       "warnings": []
     }
-  ]
+  ],
+  "candidate_reconciled_at_utc": "2026-05-11T08:36:30.976475Z",
+  "candidate_reconciliation_note": "RC021 package hygiene closeout: expected_candidate aligned to current package candidate; source screenshot paths remain local/offline evidence provenance only."
 }
