@@ -48,10 +48,10 @@
   "raw_team2_package_boundary_review": "TEAM2_PACKAGE_BOUNDARY_REVIEW_RAW.json",
   "code_review_status_if_applicable": "NOT_APPLICABLE",
   "wake_up_conditions_triggered": [],
-  "go_review_package_status": "GO_REVIEW_PACKAGE_ASSEMBLED",
+  "go_review_package_status": "HUMAN_GO_REVIEW_RECORDED",
   "blocking_items": [],
   "unexecuted_goals_and_reasons": [],
-  "one_line_return_decision_state": "READY_FOR_HUMAN_GO_REVIEW",
+  "one_line_return_decision_state": "HUMAN_GO_RECORDED_FOR_CONTROLLED_TRIAL_GO_REVIEW",
   "changed_customer_path": "YES",
   "screenshots_updated": "YES",
   "package_path": "artifacts/local_demo_packages/local-offline-go-review-rc-021-cn",
@@ -68,15 +68,32 @@
     }
   ],
   "remaining_human_decisions": [
-    "Human final GO/HOLD/NO-GO decision after return"
+    "No remaining decision inside RC021 controlled-trial GO review package scope.",
+    "Separate explicit human authorization is required for any customer-visible preview, external pilot, live API/connector, production deployment, or writeback."
   ],
   "automation_final_outcome": "READY_FOR_HUMAN_GO_REVIEW_FOR_CONTROLLED_TRIAL",
-  "generated_at_utc": "2026-05-11T08:36:30.976475Z",
+  "generated_at_utc": "2026-05-11T08:38:38.252247Z",
   "resolved_notes": [
     {
       "id": "screenshot_scan_expected_candidate_legacy",
       "resolved_at_utc": "2026-05-11T08:36:30.976475Z",
       "resolution": "expected_candidate now matches LOCAL_OFFLINE_GO_REVIEW_RC_021_CN in package root and validation screenshot safety scan."
     }
-  ]
+  ],
+  "human_decision": {
+    "decision": "HUMAN_GO_FOR_CONTROLLED_TRIAL_GO_REVIEW_RC021",
+    "decision_time_local": "2026-05-11 16:37:47 +08:00",
+    "recorded_at_utc": "2026-05-11T08:38:38.252247Z",
+    "decision_scope": "controlled_trial_go_review_package_only",
+    "closeout_artifact": "artifacts/product_acceleration/rc021_human_go_decision_closeout_2026_05_11.md",
+    "does_not_authorize": [
+      "customer_visible_release_or_deploy_or_output",
+      "external_pilot_launch",
+      "live_qwen_or_api_enablement",
+      "live_connector_enablement",
+      "production_deployment",
+      "production_writeback",
+      "autonomous_containment_or_remediation_or_approval_or_rejection"
+    ]
+  }
 }

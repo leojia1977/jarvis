@@ -1,28 +1,29 @@
-﻿# RC-021 Controlled-Trial GO 评审交接
+# RC-021 Controlled-Trial GO Review Handoff
 
-## 当前状态
+## Current Status
 
-本包用于人工回归后的 controlled-trial GO/NO-GO 评审准备，不是发布授权，不是外部试点授权，不是生产授权。
+RC-021 has passed deterministic package checks, Team1 product-path review, and Team2 package-boundary review. Human GO for the controlled-trial GO review package was recorded on 2026-05-11.
 
-建议进入人工 GO/NO-GO 评审
+Decision: `HUMAN_GO_FOR_CONTROLLED_TRIAL_GO_REVIEW_RC021`
 
-## 非授权边界
+This is not a release authorization, not an external pilot authorization, and not a production authorization.
 
-- 不授权客户可见发布或部署
-- 不授权 external pilot
-- 不授权 live connector 或 live API
-- 不授权 production writeback
-- 不授权自动隔离、阻断、审批、关闭、修复
+## Non-Authorization Boundary
 
-## 评审对象
+- Does not authorize customer-visible release or deployment
+- Does not authorize external pilot
+- Does not authorize live connector or live API
+- Does not authorize production writeback
+- Does not authorize automatic isolation, blocking, approval, closure, or remediation
 
-- 产品路径可理解性（首页 -> 事件工作台 -> AI 建议来源 -> 反馈闭环）
-- 边界口径一致性（只读建议、本地离线、非生产）
-- 包体一致性（manifest/index/safety/healthcheck）
-- Team1/Team2 gate 状态与阻塞项
+## Evidence Summary
 
-## 需要人工决策
+- Product path review: PASS_WITH_NOTES
+- Package boundary review: PASS_WITH_NOTES
+- Package consistency: PASS, blocking_finding_count=0
+- Former expected_candidate hygiene note: resolved
+- Wake-up conditions: none
 
-- 是否批准进入下一步 controlled-trial 人工流程
-- 是否要求先补 Team1 产品路径评审
-- 是否要求先补 Team2 边界/包体评审
+## Next Human Decision Boundary
+
+Any customer-visible preview, external pilot, live connector/API enablement, production deployment, or writeback requires a separate explicit human authorization and a new governed decision record.

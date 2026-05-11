@@ -10,5 +10,11 @@
   "merged_reason": "Team1 product-path review and Team2 package-boundary review both passed; the prior non-blocking expected_candidate package hygiene note is resolved. Human still owns final GO/HOLD/NO-GO.",
   "blocking_items": [],
   "generated_at_utc": "2026-05-10T07:09:57.7738805Z",
-  "package_hygiene_notes_resolved_at_utc": "2026-05-11T08:36:30.976475Z"
+  "package_hygiene_notes_resolved_at_utc": "2026-05-11T08:36:30.976475Z",
+  "human_decision_recorded": {
+    "decision": "HUMAN_GO_FOR_CONTROLLED_TRIAL_GO_REVIEW_RC021",
+    "decision_time_local": "2026-05-11 16:37:47 +08:00",
+    "recorded_at_utc": "2026-05-11T08:38:38.252247Z",
+    "decision_scope": "controlled_trial_go_review_package_only"
+  }
 }
